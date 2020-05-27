@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: FluentAPICreation
+Bundle-SymbolicName: org.palladiosimulator.fluentapi
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: KIT
+Automatic-Module-Name: org.palladiosimulator.fluentapi
+Bundle-RequiredExecutionEnvironment: JavaSE-11

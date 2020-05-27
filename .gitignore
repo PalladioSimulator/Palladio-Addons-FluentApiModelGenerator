@@ -1,4 +1,5 @@
 ## eclipse gitignore
+.classpath
 .metadata
 bin/
 tmp/
