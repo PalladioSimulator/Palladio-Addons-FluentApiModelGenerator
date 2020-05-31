@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<repository:Repository xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" id="abc123" entityName="defaultRepository" repositoryDescription="This is my PCM model.">
+  <components__Repository xsi:type="repository:BasicComponent" id="comp1" entityName="Database"/>
+  <components__Repository xsi:type="repository:BasicComponent" id="_pfTRQKNpEeqLz6E_7OZogw" entityName="Web"/>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_pfVGcKNpEeqLz6E_7OZogw" entityName="IDatabase"/>
+</repository:Repository>

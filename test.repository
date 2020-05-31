@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<repository:Repository xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" id="_4Frc4KNKEeqdkYQoLZNL_g">
+  <components__Repository xsi:type="repository:BasicComponent" id="_4HI1cKNKEeqdkYQoLZNL_g" entityName="Database">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_4HL4wKNKEeqdkYQoLZNL_g" providedInterface__OperationProvidedRole="_4HKDkKNKEeqdkYQoLZNL_g"/>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_4HJcgKNKEeqdkYQoLZNL_g" entityName="Web"/>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_4HKDkKNKEeqdkYQoLZNL_g" entityName="IDatabase"/>
+</repository:Repository>

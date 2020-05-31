@@ -11,6 +11,8 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceFactoryImpl;
 import org.palladiosimulator.pcm.repository.BasicComponent;
+import org.palladiosimulator.pcm.repository.OperationInterface;
+import org.palladiosimulator.pcm.repository.OperationProvidedRole;
 import org.palladiosimulator.pcm.repository.Repository;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
 
@@ -24,17 +26,29 @@ public class PalladioTest {
 		ResourceSet rs = new ResourceSetImpl();
 		// Here the resource is created, with fileextensions "gast" and "xml" (adapt
 		// this to use your own file extension).
-		Resource gastResource = createAndAddResource("/Users/louisalambrecht/Documents/eclipse-workspace/FluentAPICreation/test.gast", new String[] { "gast", "xml" }, rs);
+		Resource gastResource = createAndAddResource("/Users/louisalambrecht/Documents/eclipse-workspace/FluentAPICreation/test.repository", new String[] { "repository", "gast", "xml" }, rs);
 		// The root object is created by using (adapt this to create your own root
 		// object)
 		RepositoryFactory coreFactory = RepositoryFactory.eINSTANCE;
 		Repository root = coreFactory.createRepository();
+	
 		BasicComponent c = coreFactory.createBasicComponent();
 		c.setEntityName("Database");
-		// how to put c under root?
+		BasicComponent c1 = coreFactory.createBasicComponent();
+		c1.setEntityName("Web");
+		OperationInterface i = coreFactory.createOperationInterface();
+		i.setEntityName("IDatabase");
+		OperationProvidedRole provRoleDb = coreFactory.createOperationProvidedRole();
+		provRoleDb.setProvidedInterface__OperationProvidedRole(i);
+		provRoleDb.setProvidingEntity_ProvidedRole(c);
+
+		root.getComponents__Repository().add(c);
+		root.getComponents__Repository().add(c1);
+		root.getInterfaces__Repository().add(i);
+		
 		gastResource.getContents().add(root);
-		gastResource.getContents().add(c);
 		saveResource(gastResource);
+		printResource(gastResource);
 	}
 
 	public static Resource createAndAddResource(String outputFile, String[] fileextensions, ResourceSet rs) {
@@ -48,6 +62,7 @@ public class PalladioTest {
 	}
 
 	public static void saveResource(Resource resource) {
+		((XMLResource) resource).setEncoding("UTF-8");
 		Map<Object, Object> saveOptions = ((XMLResource) resource).getDefaultSaveOptions();
 		saveOptions.put(XMLResource.OPTION_CONFIGURATION_CACHE, Boolean.TRUE);
 		saveOptions.put(XMLResource.OPTION_USE_CACHED_LOOKUP_TABLE, new ArrayList<>());
@@ -57,5 +72,16 @@ public class PalladioTest {
 			throw new RuntimeException(e);
 		}
 	}
+	
+	public static void printResource(Resource resource) {
+		try {
+			((XMLResource) resource).save(System.out, ((XMLResource) resource).getDefaultSaveOptions());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
 
 }
