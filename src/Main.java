@@ -1,5 +1,4 @@
 
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,23 +17,39 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		MyRepositoryFactory fact = new MyRepositoryFactory();
+		MyRepositoryFactory creator = new MyRepositoryFactory();
 
-		Repository repo = fact.createRepository()
+		Repository repo = creator.Repository()
 			.withName("defaultRepository")
 			.withDescription("This is my PCM model.")
 			.withId("abc123")
-			.addToRepository()
-			.aComponent()
+			
+			.addToRepository(creator.newInterface()
+				.withName("IDatabase")
+			)
+			
+			.addToRepository(creator.newComponent()
 				.withName("Database")
 				.withId("comp1")
 				.ofType("")
-			.addToRepository()
-			.aComponent()
+				.provide("IDatabase")
+			)
+			
+			.addToRepository(creator.newComponent()
 				.withName("Web")
-			.addToRepository()
-			.anInterface()
-				.withName("IDatabase")
+				.req("IDatabase")
+			)
+			
+			.addToRepository(creator.newComponent()
+				.withName("Web2")
+				.provide(creator.createInterface()
+				    .withName("IDatabase2")
+				    .withId("face2")
+			    )
+			)
+			
+			.conect("Web", creator.getByUUID("comp1"))
+	
 			.build();
 		
 		saveRepository(repo);	
