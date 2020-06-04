@@ -1,0 +1,193 @@
+CHILDREN
+
+Repository
+	- Components (Basic, Composite, SubSystem, CompleteType, ProvidesType)
+	- Interfaces (EventGroup, Infrastructure, Operation)
+	- Failure Types (Hardware, Software, Network, ResourceTimeout)
+	- DataTypes (Primitive, Collection, Composite)
+_________________________________________________________________________________________________________	
+
+Basic Component
+	- Provided Roles (Sink, Operation, Infrastructure)
+	- Required Roles (Resource, Infrastructure, Operation, Source)
+	- Variable Usage [as Component Parameter Usage]
+	- SEFF
+	- Passive Resource
+
+Composite Component
+	- Provided Roles (Sink, Operation, Infrastructure)
+	- Required Roles (Resource, Infrastructure, Operation, Source)
+	- Variable Usage [as Component Parameter Usage]
+	- Connectors (EventChannelSource, EventChannelSink, ProvidedDelegation, RequiredDelegation, Assembly, AssemblyEvent, SourceDelegation, SinkDelegation, AssemblyInfrastructure, ProvidedInfrastructureDelegation, RequiredInfrastructureDelegation, RequiredResourceDelegation)
+	- EventChannel
+	- ResourceRequiredDelegationConnector
+	- Assembly Context
+
+SubSystem wie composite component, aber ohne "Variable Usage"
+
+Complete Component Type / Provides Component Type
+	- Provided Roles (Sink, Operation, Infrastructure)
+	- Required Roles (Resource, Infrastructure, Operation, Source)
+________
+
+Operation Interface
+	- RequiredCharacterisation
+	- OperationSignature
+
+Infrastructure Interface
+	- RequiredCharacterisation
+	- InfrastructureSignature
+
+Event Group
+	- RequiredCharacterisation
+	- EventType
+________
+
+Failure Types haben keine Children
+________
+
+Composite DataType
+	- Inner Declaration
+
+Primitive DataType und Collection DataType haben keine Children
+
+_________________________________________________________________________________________________
+
+Roles haben keine Children
+________
+
+Variable Usage
+	- Variable Characterisation
+		- PCM Random Variable [as Specification] -> max 1
+	- Variable Reference -> max 1 Variable vs Namespace Reference
+	- Namespace Reference
+		- Variable Reference [as Inner Reference] 
+		- Namespace Reference [as Inner Reference] -> Rekursiv
+
+SEFF
+	- Stop Action / Start Action / Release Action / Acquire Action
+		- Parametric Resource Demand
+			- PCM Random Variable [as Specification] -> max 1
+		- Infrastructure Call
+			- Variable Usage
+			- PCM Random Variable [as Number of Calls] -> max 1
+		- Resource Call
+			- Variable Usage
+			- PCM Random Variable [as Number of Calls] -> max 1
+
+	- ExternalCallAction
+		- Variable usage [as Input vs as Return]
+
+	- EmitEventAction
+		- Variable Usage [as Input]
+
+	- BranchAction
+		- Parametric Resource Demand
+		- Infrastructure Call
+		- Resource Call
+		- Probabilistic Branch Transistion
+		- Guarded Branch Transistion
+	
+	- LoopAction
+		- Parametric Resource Demand
+		- Infrastructure Call
+		- Resource Call
+		- Body Behaviour (Resource Demanding B, Resource Demanding SEFF, Resource Demanding Internal Behaviour, Forked Behaviour, Recovery Action Behaviour)
+		- PCM Random Variable [as Iteration Count]
+	
+	- ForkAction
+		- Parametric Resource Demand
+		- Infrastructure Call
+		- Resource Call
+		- Forked Behaviour
+		- Synchronisation Point
+	
+	- CollectionIteratorAction
+		- Parametric Resource Demand
+		- Infrastructure Call
+		- Resource Call
+		- Body Behaviour (Resource Demanding B, Resource Demanding SEFF, Resource Demanding Internal Behaviour, Forked Behaviour, Recovery Action Behaviour)
+	
+	- SetVariableAction
+		- Parametric Resource Demand
+		- Infrastructure Call
+		- Resource Call
+		- Variable Usage
+	
+	- InternalCallAction
+		- Parametric Resource Demand
+		- Infrastructure Call
+		- Resource Call
+		- Variable Usage [as Input]
+	
+	- InternalAction
+		- Parametric Resource Demand
+		- Infrastructure Call
+		- Resource Call
+		- Internal Failure Occurrence Description
+	
+	- RecoveryAction
+		- Parametric Resource Demand
+		- Infrastructure Call
+		- Resource Call
+		- Recovery Action Behaviour
+	
+	- Resource Demanding Internal Behaviour
+		alle Kinder vom SEFF bis auf sich selbst (keine tiefere Rekursion)
+
+Passive Resource
+	- PCM Random Variable [as Capacity] -> max 1
+________
+
+EventChannel hat keine Children
+
+ResourceRequiredDelegationConnector hat keine Children
+
+Assembly Context
+	- Variable Usage [as Config Parameter Usages]
+
+________
+
+ohne Children: EventChannelSourceConnector, ProvidedDelegation, RequiredDelegation, Assembly, SourceDelegation, SinkDelegation, AssemblyInfrastructure, ProvidedInfrastructureDelegation, RequiredInfrastructureDelegation, RequiredResourceDelegation
+
+Event Channel Sink Connector / Assembly Event Connector
+	- PCM Random Variable [as Filter Condition] -> max 1
+________
+
+Required Characterisation hat keine Children
+
+Operation Signature / Infrastructure Signature / Event Type
+	- Exception Type
+	- Parameter
+
+Inner Declaration hat keine Children
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
