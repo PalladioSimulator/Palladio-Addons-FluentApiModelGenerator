@@ -17,38 +17,38 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		MyRepositoryFactory creator = new MyRepositoryFactory();
+		MyRepositoryFactory create = new MyRepositoryFactory();
 
-		Repository repo = creator.Repository()
+		Repository repo = create.newRepository()
 			.withName("defaultRepository")
 			.withDescription("This is my PCM model.")
 			.withId("abc123")
 			
-			.addToRepository(creator.newInterface()
+			.addToRepository(create.newOperationInterface()
 				.withName("IDatabase")
 			)
 			
-			.addToRepository(creator.newComponent()
+			.addToRepository(create.newBasicComponent()
 				.withName("Database")
 				.withId("comp1")
 				.ofType("")
-				.provide("IDatabase")
+//				.provide("IDatabase")
 			)
 			
-			.addToRepository(creator.newComponent()
+			.addToRepository(create.newBasicComponent()
 				.withName("Web")
-				.req("IDatabase")
+//				.req("IDatabase")
 			)
 			
-			.addToRepository(creator.newComponent()
+			.addToRepository(create.newBasicComponent()
 				.withName("Web2")
-				.provide(creator.createInterface()
-				    .withName("IDatabase2")
-				    .withId("face2")
-			    )
+//				.provide(creator.newOperationInterface()
+//				    .withName("IDatabase2")
+//				    .withId("face2")
+//			    )
 			)
 			
-			.conect("Web", creator.getByUUID("comp1"))
+//			.conect("Web", creator.getByUUID("comp1"))
 	
 			.build();
 		

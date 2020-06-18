@@ -3,15 +3,18 @@ package repositoryStructure;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.palladiosimulator.pcm.repository.BasicComponent;
-import org.palladiosimulator.pcm.repository.OperationInterface;
+import org.palladiosimulator.pcm.repository.Interface;
 import org.palladiosimulator.pcm.repository.Repository;
+import org.palladiosimulator.pcm.repository.RepositoryComponent;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
 
 import apiControlFlowInterfaces.Comp;
 import apiControlFlowInterfaces.Inter;
 import apiControlFlowInterfaces.Repo;
 import apiControlFlowInterfaces.RepoAddition;
+import repositoryStructure.components.BasicComponentCreator;
+import repositoryStructure.components.Component;
+import repositoryStructure.interfaces.OperationInterfaceCreator;
 
 public class RepositoryCreator implements Repo, RepoAddition {
 
@@ -19,11 +22,11 @@ public class RepositoryCreator implements Repo, RepoAddition {
 	String id;
 	String description;
 
-	List<BasicComponent> components;
-	List<OperationInterface> interfaces;
+	List<RepositoryComponent> components;
+	List<Interface> interfaces;
 
 	BasicComponentCreator currentComponent;
-	InterfaceCreator currentInterface;
+	OperationInterfaceCreator currentInterface;
 
 	public RepositoryCreator() {
 		this.components = new ArrayList<>();
@@ -56,15 +59,24 @@ public class RepositoryCreator implements Repo, RepoAddition {
 
 	@Override
 	public Inter anInterface() {
-		this.currentInterface = new InterfaceCreator(this);
+		this.currentInterface = new OperationInterfaceCreator(this);
 		return this.currentInterface;
 	}
 
 	@Override
-	public RepoAddition addToRepository() {
+	public RepoAddition addToRepository(Component o) {
+		RepositoryComponent c = o.build();
+		components.add(c);
 		return this;
 	}
 
+	@Override
+	public RepoAddition addToRepository(repositoryStructure.interfaces.Interface o) {
+		Interface c = o.build();
+		interfaces.add(c);
+		return this;
+	}
+	
 	@Override
 	public Repository build() {
 		Repository repo = RepositoryFactory.eINSTANCE.createRepository();
