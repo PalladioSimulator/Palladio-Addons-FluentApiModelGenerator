@@ -1,14 +1,11 @@
 package repositoryStructure.interfaces;
 
 import org.palladiosimulator.pcm.repository.OperationInterface;
-import org.palladiosimulator.pcm.repository.Repository;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
 
-import apiControlFlowInterfaces.Inter;
-import apiControlFlowInterfaces.RepoAddition;
 import repositoryStructure.RepositoryCreator;
 
-public class OperationInterfaceCreator extends Interface implements Inter {
+public class OperationInterfaceCreator extends Interface {
 	RepositoryCreator repository;
 
 	String name;
@@ -30,22 +27,8 @@ public class OperationInterfaceCreator extends Interface implements Inter {
 		return this;
 	}
 
-//	@Override
-//	public RepoAddition addToRepository() {
-//		OperationInterface interfce = RepositoryFactory.eINSTANCE.createOperationInterface();
-//		if (name != null)
-//			interfce.setEntityName(name);
-//		if (id != null)
-//			interfce.setId(id);
-//		// set repository? what about roles etc; yeah, this programming style is
-//		// horrible, I know - TODO!
-//		this.repository.interfaces.add(interfce);
-//		this.repository.currentInterface = null;
-//		return this.repository;
-//	}
-//
 	@Override
-	public org.palladiosimulator.pcm.repository.Interface build() {
+	public org.palladiosimulator.pcm.repository.OperationInterface build() {
 		OperationInterface interfce = RepositoryFactory.eINSTANCE.createOperationInterface();
 		if (name != null)
 			interfce.setEntityName(name);

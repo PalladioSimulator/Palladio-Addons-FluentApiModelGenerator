@@ -24,15 +24,11 @@ public class Main {
 			.withDescription("This is my PCM model.")
 			.withId("abc123")
 			
-			.addToRepository(create.newOperationInterface()
-				.withName("IDatabase")
-			)
-			
 			.addToRepository(create.newBasicComponent()
 				.withName("Database")
 				.withId("comp1")
 				.ofType("")
-//				.provide("IDatabase")
+				.handles(create.newEventGroup().withName("hallo"))
 			)
 			
 			.addToRepository(create.newBasicComponent()

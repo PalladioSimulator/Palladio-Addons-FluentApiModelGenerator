@@ -9,6 +9,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.XMLResource;
+import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceFactoryImpl;
 import org.palladiosimulator.pcm.repository.BasicComponent;
 import org.palladiosimulator.pcm.repository.OperationInterface;
@@ -79,6 +80,18 @@ public class PalladioTest {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static Resource readPalladioRepository(String filePath) {
+		final Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
+		final Map<String, Object> map = reg.getExtensionToFactoryMap();
+		map.put("*", new XMIResourceFactoryImpl());
+		final ResourceSet resSet = new ResourceSetImpl();
+		resSet.setResourceFactoryRegistry(reg);
+		URI uriInstance = URI.createFileURI(filePath);
+		Resource resource = resSet.getResource(uriInstance, true);
+		
+		return resource;
 	}
 	
 	

@@ -6,6 +6,8 @@ import repositoryStructure.components.CompleteComponentTypeCreator;
 import repositoryStructure.components.CompositeComponentCreator;
 import repositoryStructure.components.ProvidesComponentTypeCreator;
 import repositoryStructure.components.SubSystemCreator;
+import repositoryStructure.interfaces.EventGroupCreator;
+import repositoryStructure.interfaces.InfrastructureInterfaceCreator;
 import repositoryStructure.interfaces.OperationInterfaceCreator;
 
 public class MyRepositoryFactory {
@@ -15,6 +17,7 @@ public class MyRepositoryFactory {
 	// Components
 	BasicComponentCreator basicComponent;
 	OperationInterfaceCreator operationInterface;
+	EventGroupCreator eventGroup;
 
 	// TODO: welchen passenderen Namen könnte diese Klasse bekommen?
 	// ---------------------- Repository ----------------------
@@ -52,12 +55,14 @@ public class MyRepositoryFactory {
 		return this.operationInterface;
 	}
 	
-	public OperationInterfaceCreator newInfrastructureInterface() {
+	public InfrastructureInterfaceCreator newInfrastructureInterface() {
 		return null;
 	}
 	
-	public OperationInterfaceCreator newEventGroup() {
-		return null;
+	public EventGroupCreator newEventGroup() {
+		//TODO: repo
+		this.eventGroup = new EventGroupCreator();
+		return this.eventGroup;
 	}
 	
 	// ---------------------- Failure Types ----------------------
