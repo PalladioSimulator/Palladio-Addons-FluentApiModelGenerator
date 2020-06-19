@@ -4,6 +4,7 @@ import org.palladiosimulator.pcm.repository.DataType;
 import org.palladiosimulator.pcm.repository.EventType;
 import org.palladiosimulator.pcm.repository.Parameter;
 import org.palladiosimulator.pcm.repository.ParameterModifier;
+import org.palladiosimulator.pcm.repository.PrimitiveTypeEnum;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
 
 import repositoryStructure.Entity;
@@ -33,7 +34,7 @@ public class ParameterCreator extends Entity {
 		this.modifier = modifier;
 		return this;
 	}
-
+	
 	@Override
 	public Parameter build() {
 		Parameter param = RepositoryFactory.eINSTANCE.createParameter();
