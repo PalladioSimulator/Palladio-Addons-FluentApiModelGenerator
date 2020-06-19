@@ -17,18 +17,16 @@ public class OperationInterfaceCreator extends Interface {
 
 	@Override
 	public OperationInterfaceCreator withName(String name) {
-		this.name = name;
-		return this;
+		return (OperationInterfaceCreator) super.withName(name);
 	}
 
 	@Override
 	public OperationInterfaceCreator withId(String id) {
-		this.id = id;
-		return this;
+		return (OperationInterfaceCreator) super.withId(id);
 	}
 
 	@Override
-	public org.palladiosimulator.pcm.repository.OperationInterface build() {
+	public OperationInterface build() {
 		OperationInterface interfce = RepositoryFactory.eINSTANCE.createOperationInterface();
 		if (name != null)
 			interfce.setEntityName(name);

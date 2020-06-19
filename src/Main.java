@@ -13,6 +13,8 @@ import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceFactoryImpl;
 import org.palladiosimulator.pcm.repository.Repository;
 
+import factory.MyRepositoryFactory;
+
 public class Main {
 
 	public static void main(String[] args) {
@@ -25,16 +27,18 @@ public class Main {
 			.withId("abc123")
 			
 			.addToRepository(create.newBasicComponent()
+					.withName("Web")
+					.requires(create.newOperationInterface()
+									.withName("IDatabase"))
+					)
+			.addToRepository(create.newBasicComponent()
 				.withName("Database")
 				.withId("comp1")
-				.ofType("")
-				.handles(create.newEventGroup().withName("hallo"))
+				.handles(create.newEventGroup()
+								.withName("hallo"))
+				.provides(create.getOperationInterfaceByName("IDatabase"))
 			)
 			
-			.addToRepository(create.newBasicComponent()
-				.withName("Web")
-//				.req("IDatabase")
-			)
 			
 			.addToRepository(create.newBasicComponent()
 				.withName("Web2")

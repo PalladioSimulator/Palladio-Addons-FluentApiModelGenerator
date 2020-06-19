@@ -1,9 +1,8 @@
 package repositoryStructure.interfaces;
 
-import apiControlFlowInterfaces.Inter;
+import repositoryStructure.Entity;
 
-public abstract class Interface implements Inter{
+public abstract class Interface extends Entity{
 
-	protected String name;
 	public abstract org.palladiosimulator.pcm.repository.Interface build();
 }

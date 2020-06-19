@@ -1,5 +1,6 @@
 package repositoryStructure.components;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.palladiosimulator.pcm.repository.EventGroup;
@@ -16,21 +17,18 @@ import org.palladiosimulator.pcm.repository.RequiredRole;
 import org.palladiosimulator.pcm.repository.SinkRole;
 import org.palladiosimulator.pcm.repository.SourceRole;
 
-import apiControlFlowInterfaces.Comp;
+import repositoryStructure.Entity;
 import repositoryStructure.RepositoryCreator;
 import repositoryStructure.interfaces.EventGroupCreator;
 import repositoryStructure.interfaces.InfrastructureInterfaceCreator;
 import repositoryStructure.interfaces.OperationInterfaceCreator;
 
-public abstract class Component implements Comp {
-
-	protected String name;
-	protected String id;
+public abstract class Component extends Entity {
 
 	protected RepositoryCreator repository;
 
-	protected List<ProvidedRole> providedRoles;
-	protected List<RequiredRole> requiredRoles;
+	protected List<ProvidedRole> providedRoles = new ArrayList<>();
+	protected List<RequiredRole> requiredRoles = new ArrayList<>();
 
 	public abstract RepositoryComponent build();
 

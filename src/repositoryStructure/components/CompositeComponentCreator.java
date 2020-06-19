@@ -1,45 +1,111 @@
 package repositoryStructure.components;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.palladiosimulator.pcm.repository.CompleteComponentType;
 import org.palladiosimulator.pcm.repository.CompositeComponent;
+import org.palladiosimulator.pcm.repository.ProvidedRole;
 import org.palladiosimulator.pcm.repository.RepositoryComponent;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
+import org.palladiosimulator.pcm.repository.RequiredRole;
 
 import repositoryStructure.RepositoryCreator;
+import repositoryStructure.interfaces.EventGroupCreator;
+import repositoryStructure.interfaces.InfrastructureInterfaceCreator;
+import repositoryStructure.interfaces.OperationInterfaceCreator;
 
 public class CompositeComponentCreator extends Component{
 	
+	private List<CompleteComponentType> conformsCompleteTypes;
+	
 	public CompositeComponentCreator(RepositoryCreator repo) {
 		this.repository = repo;
+		this.conformsCompleteTypes = new ArrayList<>();
 	}
 
 	@Override
 	public CompositeComponentCreator withName(String name) {
-		this.name = name;
-		return this;
+		return (CompositeComponentCreator) super.withName(name);
 	}
 
 	@Override
 	public CompositeComponentCreator withId(String id) {
-		this.id = id;
+		return (CompositeComponentCreator) super.withId(id);
+	}
+
+	// ------------ providing roles ------------
+	// provides operation interface
+	@Override
+	public CompositeComponentCreator provides(OperationInterfaceCreator interfce) {
+		return (CompositeComponentCreator) super.provides(interfce);
+	}
+
+	// provides infrastructure interface
+	@Override
+	public CompositeComponentCreator providesInfrastructure(InfrastructureInterfaceCreator interfce) {
+		return (CompositeComponentCreator) super.providesInfrastructure(interfce);
+	}
+
+	// sink role: handles an event group
+	@Override
+	public CompositeComponentCreator handles(EventGroupCreator eventGroup) {
+		return (CompositeComponentCreator) super.handles(eventGroup);
+	}
+
+	// ------------ requiring roles ------------
+	// require operation interface
+	@Override
+	public CompositeComponentCreator requires(OperationInterfaceCreator interfce) {
+		return (CompositeComponentCreator) super.requires(interfce);
+	}
+
+	// require infrastructure interface
+	@Override
+	public CompositeComponentCreator requiresInfrastructure(InfrastructureInterfaceCreator interfce) {
+		return (CompositeComponentCreator) super.requiresInfrastructure(interfce);
+	}
+
+	// emits event group (source role)
+	@Override
+	public CompositeComponentCreator emits(EventGroupCreator eventGroup) {
+		return (CompositeComponentCreator) super.emits(eventGroup);
+	}
+
+	// resource required role
+	// TODO: Resource requiring roles are not part of the RepositoryFactory and the
+	// constructor of the implementing class is not visible
+	@Override
+	public CompositeComponentCreator requiresResource(Object o) {
+		return (CompositeComponentCreator) super.requiresResource(o);
+	}
+
+	public CompositeComponentCreator ofType_conforms(CompleteComponentTypeCreator completeComponentType) {
+		CompleteComponentType cct = completeComponentType.build();
+		this.conformsCompleteTypes.add(cct);
 		return this;
 	}
-
-	@Override
-	public CompositeComponentCreator ofType(String todo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	
 	@Override
 	public RepositoryComponent build() {
-		CompositeComponent basicComponent = RepositoryFactory.eINSTANCE.createCompositeComponent();
+		CompositeComponent compositeComponent = RepositoryFactory.eINSTANCE.createCompositeComponent();
 		if (name != null)
-			basicComponent.setEntityName(name);
+			compositeComponent.setEntityName(name);
 		if (id != null)
-			basicComponent.setId(id);
-		// TODO: set repository? what about roles etc
+			compositeComponent.setId(id);
 		
-		return basicComponent;
+		for (ProvidedRole providedRole : providedRoles) {
+			compositeComponent.getProvidedRoles_InterfaceProvidingEntity().add(providedRole);
+		}
+		for (RequiredRole requiredRole : requiredRoles) {
+			compositeComponent.getRequiredRoles_InterfaceRequiringEntity().add(requiredRole);
+		}
+		for(CompleteComponentType cct: conformsCompleteTypes) {
+			//TODO: how to set cct as conforming type?
+		}
+		// TODO: set repository? variable usage, connectors etc
+		
+		return compositeComponent;
 	}
 
 }

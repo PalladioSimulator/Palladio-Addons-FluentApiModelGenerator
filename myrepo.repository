@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <repository:Repository xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" id="abc123" entityName="defaultRepository" repositoryDescription="This is my PCM model.">
-  <components__Repository xsi:type="repository:BasicComponent" id="comp1" entityName="Database">
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:SinkRole" id="_n8_fELIREeq8N6DV58TL3Q"/>
+  <components__Repository xsi:type="repository:BasicComponent" id="_qj-bgLIpEeq5sKnNQL41ww" entityName="Web">
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_qj5jALIpEeq5sKnNQL41ww" requiredInterface__OperationRequiredRole="_qjyOQLIpEeq5sKnNQL41ww"/>
   </components__Repository>
-  <components__Repository xsi:type="repository:BasicComponent" id="_n-1SILIREeq8N6DV58TL3Q" entityName="Web"/>
-  <components__Repository xsi:type="repository:BasicComponent" id="_n-1SIbIREeq8N6DV58TL3Q" entityName="Web2"/>
+  <components__Repository xsi:type="repository:BasicComponent" id="comp1" entityName="Database">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:SinkRole" id="_qkGXULIpEeq5sKnNQL41ww"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_qkG-YLIpEeq5sKnNQL41ww" providedInterface__OperationProvidedRole="_qkGXUbIpEeq5sKnNQL41ww"/>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_qkG-YrIpEeq5sKnNQL41ww" entityName="Web2"/>
 </repository:Repository>

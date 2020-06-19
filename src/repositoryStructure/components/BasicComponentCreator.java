@@ -1,92 +1,90 @@
 package repositoryStructure.components;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.palladiosimulator.pcm.repository.BasicComponent;
-import org.palladiosimulator.pcm.repository.EventGroup;
-import org.palladiosimulator.pcm.repository.InfrastructureInterface;
-import org.palladiosimulator.pcm.repository.InfrastructureProvidedRole;
-import org.palladiosimulator.pcm.repository.InfrastructureRequiredRole;
-import org.palladiosimulator.pcm.repository.Interface;
-import org.palladiosimulator.pcm.repository.OperationInterface;
-import org.palladiosimulator.pcm.repository.OperationProvidedRole;
-import org.palladiosimulator.pcm.repository.OperationRequiredRole;
+import org.palladiosimulator.pcm.repository.CompleteComponentType;
 import org.palladiosimulator.pcm.repository.ProvidedRole;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
 import org.palladiosimulator.pcm.repository.RequiredRole;
-import org.palladiosimulator.pcm.repository.SourceRole;
 
 import repositoryStructure.RepositoryCreator;
 import repositoryStructure.interfaces.EventGroupCreator;
 import repositoryStructure.interfaces.InfrastructureInterfaceCreator;
 import repositoryStructure.interfaces.OperationInterfaceCreator;
-import repositoryStructure.roles.ProvidesOperationInterfaceCreator;
-import repositoryStructure.roles.ProvidesOperationInterfaceCreator.RoleType;
 
 public class BasicComponentCreator extends Component {
 
+	private List<CompleteComponentType> conformsCompleteTypes;
+	
 	public BasicComponentCreator(RepositoryCreator repo) {
 		this.repository = repo;
-		this.providedRoles = new ArrayList<>();
+		this.conformsCompleteTypes = new ArrayList<>();
 	}
 
 	@Override
 	public BasicComponentCreator withName(String name) {
-		this.name = name;
-		return this;
+		return (BasicComponentCreator) super.withName(name);
 	}
 
 	@Override
 	public BasicComponentCreator withId(String id) {
-		this.id = id;
-		return this;
-	}
-
-	@Override
-	public BasicComponentCreator ofType(String todo) {
-		// TODO Auto-generated method stub
-		return this;
+		return (BasicComponentCreator) super.withId(id);
 	}
 
 	// ------------ providing roles ------------
 	// provides operation interface
+	@Override
 	public BasicComponentCreator provides(OperationInterfaceCreator interfce) {
 		return (BasicComponentCreator) super.provides(interfce);
 	}
 
 	// provides infrastructure interface
+	@Override
 	public BasicComponentCreator providesInfrastructure(InfrastructureInterfaceCreator interfce) {
 		return (BasicComponentCreator) super.providesInfrastructure(interfce);
 	}
 
 	// sink role: handles an event group
+	@Override
 	public BasicComponentCreator handles(EventGroupCreator eventGroup) {
 		return (BasicComponentCreator) super.handles(eventGroup);
 	}
 
 	// ------------ requiring roles ------------
 	// require operation interface
-	public Component requires(OperationInterfaceCreator interfce) {
+	@Override
+	public BasicComponentCreator requires(OperationInterfaceCreator interfce) {
 		return (BasicComponentCreator) super.requires(interfce);
 	}
 
 	// require infrastructure interface
-	public Component requiresInfrastructure(InfrastructureInterfaceCreator interfce) {
+	@Override
+	public BasicComponentCreator requiresInfrastructure(InfrastructureInterfaceCreator interfce) {
 		return (BasicComponentCreator) super.requiresInfrastructure(interfce);
 	}
 
 	// emits event group (source role)
-	public Component emits(EventGroupCreator eventGroup) {
+	@Override
+	public BasicComponentCreator emits(EventGroupCreator eventGroup) {
 		return (BasicComponentCreator) super.emits(eventGroup);
 	}
 
 	// resource required role
 	// TODO: Resource requiring roles are not part of the RepositoryFactory and the
 	// constructor of the implementing class is not visible
-	public Component requiresResource(Object o) {
+	@Override
+	public BasicComponentCreator requiresResource(Object o) {
 		return (BasicComponentCreator) super.requiresResource(o);
 	}
 
+	public BasicComponentCreator ofType_conforms(CompleteComponentTypeCreator completeComponentType) {
+		CompleteComponentType cct = completeComponentType.build();
+		this.conformsCompleteTypes.add(cct);
+		return this;
+	}
+	
 	@Override
 	public BasicComponent build() {
 		BasicComponent basicComponent = RepositoryFactory.eINSTANCE.createBasicComponent();
@@ -101,7 +99,10 @@ public class BasicComponentCreator extends Component {
 		for (RequiredRole requiredRole : requiredRoles) {
 			basicComponent.getRequiredRoles_InterfaceRequiringEntity().add(requiredRole);
 		}
-		// TODO: set repository? what about roles etc
+		for(CompleteComponentType cct: conformsCompleteTypes) {
+			//TODO: how to set cct as conforming type?
+		}
+		// TODO: set repository? variable usage, seff etc
 
 		return basicComponent;
 	}

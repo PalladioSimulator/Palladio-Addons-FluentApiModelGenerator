@@ -8,72 +8,52 @@ import org.palladiosimulator.pcm.repository.Repository;
 import org.palladiosimulator.pcm.repository.RepositoryComponent;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
 
-import apiControlFlowInterfaces.Comp;
-import apiControlFlowInterfaces.Inter;
 import apiControlFlowInterfaces.Repo;
 import apiControlFlowInterfaces.RepoAddition;
-import repositoryStructure.components.BasicComponentCreator;
+import factory.MyRepositoryFactory;
 import repositoryStructure.components.Component;
-import repositoryStructure.interfaces.OperationInterfaceCreator;
 
-public class RepositoryCreator implements Repo, RepoAddition {
+public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 
-	String name;
-	String id;
-	String description;
+	private String description;
 
-	List<RepositoryComponent> components;
-	List<Interface> interfaces;
+	private MyRepositoryFactory factory;
+	private List<RepositoryComponent> components;
+	private List<Interface> interfaces;
 
-	BasicComponentCreator currentComponent;
-	OperationInterfaceCreator currentInterface;
-
-	public RepositoryCreator() {
+	public RepositoryCreator(MyRepositoryFactory factory) {
+		this.factory = factory;
 		this.components = new ArrayList<>();
 		this.interfaces = new ArrayList<>();
 	}
 
 	@Override
-	public Repo withName(String name) {
-		this.name = name;
-		return this;
+	public RepositoryCreator withName(String name) {
+		return (RepositoryCreator) super.withName(name);
 	}
 
 	@Override
-	public Repo withId(String id) {
-		this.id = id;
-		return this;
+	public RepositoryCreator withId(String id) {
+		return (RepositoryCreator) super.withId(id);
 	}
 
 	@Override
-	public Repo withDescription(String description) {
+	public RepositoryCreator withDescription(String description) {
 		this.description = description;
 		return this;
 	}
 
 	@Override
-	public Comp aComponent() {
-		this.currentComponent = new BasicComponentCreator(this);
-		return this.currentComponent;
-	}
-
-	@Override
-	public Inter anInterface() {
-		this.currentInterface = new OperationInterfaceCreator(this);
-		return this.currentInterface;
-	}
-
-	@Override
-	public RepoAddition addToRepository(Component o) {
-		RepositoryComponent c = o.build();
+	public RepoAddition addToRepository(Component component) {
+		RepositoryComponent c = component.build();
 		components.add(c);
 		return this;
 	}
 
 	@Override
-	public RepoAddition addToRepository(repositoryStructure.interfaces.Interface o) {
-		Interface c = o.build();
-		interfaces.add(c);
+	public RepoAddition addToRepository(repositoryStructure.interfaces.Interface interfce) {
+		Interface i = interfce.build();
+		interfaces.add(i);
 		return this;
 	}
 	
@@ -87,6 +67,8 @@ public class RepositoryCreator implements Repo, RepoAddition {
 		if (description != null)
 			repo.setRepositoryDescription(description);
 		
+		//TODO: add components and stuff from the factory as well
+		// check that they are not added twice in different versions and stuff
 		repo.getComponents__Repository().addAll(components);
 		repo.getInterfaces__Repository().addAll(interfaces);
 		return repo;
