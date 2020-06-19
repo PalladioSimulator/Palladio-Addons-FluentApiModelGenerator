@@ -11,6 +11,8 @@ import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceFactoryImpl;
+import org.palladiosimulator.pcm.parameter.VariableCharacterisationType;
+import org.palladiosimulator.pcm.repository.DataType;
 import org.palladiosimulator.pcm.repository.Repository;
 
 import factory.MyRepositoryFactory;
@@ -26,10 +28,24 @@ public class Main {
 			.withDescription("This is my PCM model.")
 			.withId("abc123")
 			
+			.addToRepository(create.newOperationInterface()
+									.withName("IDatabase")
+									.withRequiredCharacterisation(create.newRequiredCharacterisation()
+																	.withParameter(create.getParameter(""))
+																	.withType(VariableCharacterisationType.VALUE))
+//									.withRequiredCharacterisation()
+//										.withParameter(create.getParameter(""))
+//										.withType(VariableCharacterisationType.TYPE_VALUE)
+									.withOperationSignature(create.newOperationSignature()
+															.withName("saveDatabaseEntry")
+															.withParameter(create.newParameter()
+																				.withName("name"))
+															.withParameter(create.newParameter().withName("age")
+																	.ofDataType(null))))
 			.addToRepository(create.newBasicComponent()
 					.withName("Web")
 					.requires(create.newOperationInterface()
-									.withName("IDatabase"))
+									.withName("HelloWorld"))
 					)
 			.addToRepository(create.newBasicComponent()
 				.withName("Database")

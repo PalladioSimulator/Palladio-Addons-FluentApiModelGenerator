@@ -3,6 +3,7 @@ package factory;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.palladiosimulator.pcm.repository.Parameter;
 
 import repositoryStructure.RepositoryCreator;
 import repositoryStructure.components.BasicComponentCreator;
@@ -15,6 +16,9 @@ import repositoryStructure.interfaces.EventGroupCreator;
 import repositoryStructure.interfaces.InfrastructureInterfaceCreator;
 import repositoryStructure.interfaces.Interface;
 import repositoryStructure.interfaces.OperationInterfaceCreator;
+import repositoryStructure.interfaces.stuff.OperationSignatureCreator;
+import repositoryStructure.interfaces.stuff.ParameterCreator;
+import repositoryStructure.interfaces.stuff.RequiredCharacterisationCreator;
 
 public class MyRepositoryFactory {
 	// TODO: welchen passenderen Namen könnte diese Klasse bekommen?
@@ -123,6 +127,21 @@ public class MyRepositoryFactory {
 //		return null;
 //	}
 	
+	// ---------------------- Component Related Stuff ----------------------
+
+	// ---------------------- Interface Related Stuff ----------------------
+	
+	public RequiredCharacterisationCreator newRequiredCharacterisation() {
+		RequiredCharacterisationCreator rcc = new RequiredCharacterisationCreator();
+		return rcc;
+	}
+	
+	public OperationSignatureCreator newOperationSignature() {
+		OperationSignatureCreator ops = new OperationSignatureCreator();
+		return ops;
+	}
+
+	// ---------------------- Connecting methods ----------------------
 	public Component getComponentByName(String name) {
 		for(Component c: components) {
 			if(c.getName().equals(name))
@@ -138,5 +157,16 @@ public class MyRepositoryFactory {
 		}
 		throw new RuntimeException("Interface '"+name+"' could not be found");
 	}
+
+	public Parameter getParameter(String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public ParameterCreator newParameter() {
+		ParameterCreator pc = new ParameterCreator();
+		return pc;
+	}
+
 	
 }

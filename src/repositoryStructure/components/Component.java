@@ -25,8 +25,6 @@ import repositoryStructure.interfaces.OperationInterfaceCreator;
 
 public abstract class Component extends Entity {
 
-	protected RepositoryCreator repository;
-
 	protected List<ProvidedRole> providedRoles = new ArrayList<>();
 	protected List<RequiredRole> requiredRoles = new ArrayList<>();
 

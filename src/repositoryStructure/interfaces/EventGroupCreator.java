@@ -3,6 +3,7 @@ package repositoryStructure.interfaces;
 import org.palladiosimulator.pcm.repository.EventGroup;
 
 import repositoryStructure.RepositoryCreator;
+import repositoryStructure.interfaces.stuff.RequiredCharacterisationCreator;
 
 public class EventGroupCreator extends Interface{
 	
@@ -19,6 +20,12 @@ public class EventGroupCreator extends Interface{
 	public EventGroupCreator withId(String id) {
 		return (EventGroupCreator) super.withId(id);
 	}
+	
+	@Override
+	public EventGroupCreator withRequiredCharacterisation(RequiredCharacterisationCreator requiredCharacterisation){
+		return (EventGroupCreator) super.withRequiredCharacterisation(requiredCharacterisation);
+	}
+
 
 	@Override
 	public EventGroup build() {
