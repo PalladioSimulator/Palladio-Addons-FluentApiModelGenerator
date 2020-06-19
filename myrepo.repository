@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <repository:Repository xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" id="abc123" entityName="defaultRepository" repositoryDescription="This is my PCM model.">
   <components__Repository xsi:type="repository:BasicComponent" id="comp1" entityName="Database">
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:SinkRole" id="_0T8u8LG0Eeq59fw7-mKQvw"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:SinkRole" id="_n8_fELIREeq8N6DV58TL3Q"/>
   </components__Repository>
-  <components__Repository xsi:type="repository:BasicComponent" id="_0VeY8LG0Eeq59fw7-mKQvw" entityName="Web"/>
-  <components__Repository xsi:type="repository:BasicComponent" id="_0VeY8bG0Eeq59fw7-mKQvw" entityName="Web2"/>
+  <components__Repository xsi:type="repository:BasicComponent" id="_n-1SILIREeq8N6DV58TL3Q" entityName="Web"/>
+  <components__Repository xsi:type="repository:BasicComponent" id="_n-1SIbIREeq8N6DV58TL3Q" entityName="Web2"/>
 </repository:Repository>
