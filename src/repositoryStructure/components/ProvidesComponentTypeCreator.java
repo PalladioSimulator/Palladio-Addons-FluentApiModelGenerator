@@ -2,6 +2,7 @@ package repositoryStructure.components;
 
 import org.palladiosimulator.pcm.repository.ProvidesComponentType;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
+import org.palladiosimulator.pcm.resourcetype.ResourceInterface;
 
 import repositoryStructure.RepositoryCreator;
 import repositoryStructure.interfaces.EventGroupCreator;
@@ -63,11 +64,9 @@ public class ProvidesComponentTypeCreator extends Component {
 	}
 
 	// resource required role
-	// TODO: Resource requiring roles are not part of the RepositoryFactory and the
-	// constructor of the implementing class is not visible
 	@Override
-	public ProvidesComponentTypeCreator requiresResource(Object o) {
-		return (ProvidesComponentTypeCreator) super.requiresResource(o);
+	public ProvidesComponentTypeCreator requiresResource(ResourceInterface resourceInterface) {
+		return (ProvidesComponentTypeCreator) super.requiresResource(resourceInterface);
 	}
 
 	@Override
@@ -80,10 +79,7 @@ public class ProvidesComponentTypeCreator extends Component {
 
 		pct.getProvidedRoles_InterfaceProvidingEntity().addAll(providedRoles);
 		pct.getRequiredRoles_InterfaceRequiringEntity().addAll(requiredRoles);
-
-		// TODO: set repository? 
-		// Lists -> add
-		pct.getResourceRequiredRoles__ResourceInterfaceRequiringEntity();
+		pct.getResourceRequiredRoles__ResourceInterfaceRequiringEntity().addAll(resourceRequiredRoles);
 
 		return pct;
 	}

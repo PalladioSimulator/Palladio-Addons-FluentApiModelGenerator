@@ -1,5 +1,6 @@
 package repositoryStructure.components;
 
+import org.palladiosimulator.pcm.resourcetype.ResourceInterface;
 import org.palladiosimulator.pcm.subsystem.SubSystem;
 import org.palladiosimulator.pcm.subsystem.SubsystemFactory;
 
@@ -8,7 +9,7 @@ import repositoryStructure.interfaces.EventGroupCreator;
 import repositoryStructure.interfaces.InfrastructureInterfaceCreator;
 import repositoryStructure.interfaces.OperationInterfaceCreator;
 
-public class SubSystemCreator extends Component {
+public class SubSystemCreator extends ComplexComponent {
 
 	public SubSystemCreator(RepositoryCreator repo) {
 		this.repository = repo;
@@ -63,11 +64,9 @@ public class SubSystemCreator extends Component {
 	}
 
 	// resource required role
-	// TODO: Resource requiring roles are not part of the RepositoryFactory and the
-	// constructor of the implementing class is not visible
 	@Override
-	public SubSystemCreator requiresResource(Object o) {
-		return (SubSystemCreator) super.requiresResource(o);
+	public SubSystemCreator requiresResource(ResourceInterface resourceInterface) {
+		return (SubSystemCreator) super.requiresResource(resourceInterface);
 	}
 
 	@Override
@@ -80,14 +79,13 @@ public class SubSystemCreator extends Component {
 
 		subSystem.getProvidedRoles_InterfaceProvidingEntity().addAll(providedRoles);
 		subSystem.getRequiredRoles_InterfaceRequiringEntity().addAll(requiredRoles);
+		subSystem.getResourceRequiredRoles__ResourceInterfaceRequiringEntity().addAll(resourceRequiredRoles);
 
-		// TODO: Lists -> add
-		subSystem.getAssemblyContexts__ComposedStructure();
-		subSystem.getConnectors__ComposedStructure();
-		subSystem.getEventChannel__ComposedStructure();
-		subSystem.getResourceRequiredDelegationConnectors_ComposedStructure();
-		subSystem.getResourceRequiredRoles__ResourceInterfaceRequiringEntity();
-		
+		subSystem.getAssemblyContexts__ComposedStructure().addAll(assemblyContexts);
+		subSystem.getConnectors__ComposedStructure().addAll(connectors);
+		subSystem.getEventChannel__ComposedStructure().addAll(eventChannels);
+		subSystem.getResourceRequiredDelegationConnectors_ComposedStructure().addAll(delegationConnectors);
+
 		return subSystem;
 	}
 

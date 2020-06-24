@@ -1,0 +1,64 @@
+Fragen:
+
+Resource interface erstellen?
+
+email: design: alles über die Factory erstellen -> PCM hat verschiedene Factorys; oder so erstellen
+sinnvoll über Factory: components, interfaces, data types/failure/exception types, parameter, seff
+
+Kann man auch neue Failure und primitive Data Types erstellen? 
+wenn ja wie? und wie greift man auf bestehende zu?
+-> collectionDataType, Composite data type, exception type (wozu gehören die?)
+
+Auch passiv relationen (also rückrichtung: interface is provided by component)
+
+
+
+
+
+
+
+Notizen
+
+Durch die verschiedenen Referenzen: kann es zu Inkonsistenzen kommen, wenn mehrfach der gleiche Creator gebuilded wird, aber womöglich zwischendurch Änderungen entstehen -> es soll immer das gleiche Objekt bei rauskommen
+
+
+
+Factorys:
+
+- AllocationFactory: Allocation + Allocation Context
+- AllocationAdapterFactory
+														- CompositionFactory: Connectors + Event Channel
+														- CoreFactory: PCM Random Variable
+- CoreAdapterFactory
+- CoreResourceFactory
+														- EntityFactory: Resource provided role, resource interface
+- EntityAdapterFactory
+- EntityResourceFactory
+														- ParameterFactory: VariableCharacterisation, Variable usage
+- ParameterAdapterFactory
+- ParameterResourceFactory
+- PcmFactory
+- PcmAdapterFactory
+- PcmResourceFactory
+- ProtocolFactory
+- ProtocolAdapterFactory
+- ProtocolResourceFactory
+- QosAnnotationsFactory: QoSAnnotations
+														- ReliabilityFactory: Failure Types
+- ReliabilityAdapterFactory
+														- RepositoryFactory: Components etc.
+- RepositoryAdapterFactory
+- ResourcetypeFactory
+														- SeffFactory: Seff Kram
+- SeffAdapterFactory
+- SeffResourceFactory
+	- SeffReliabilityFactory: Recovery action
+														- SubsystemFactory
+- SubsystemAdapterFactory
+- SubsystemResourceFactory
+- SystemFactory: System
+- SystemAdapterFactory
+- SystemResourceFactory
+- UsagemodelFactory
+- UsagemodelAdapterFactory: Branch, delay, loop
+

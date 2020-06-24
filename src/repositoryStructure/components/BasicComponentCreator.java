@@ -3,22 +3,39 @@ package repositoryStructure.components;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.palladiosimulator.pcm.core.CoreFactory;
+import org.palladiosimulator.pcm.core.PCMRandomVariable;
+import org.palladiosimulator.pcm.parameter.VariableUsage;
+import org.palladiosimulator.pcm.reliability.ResourceTimeoutFailureType;
 import org.palladiosimulator.pcm.repository.BasicComponent;
 import org.palladiosimulator.pcm.repository.CompleteComponentType;
+import org.palladiosimulator.pcm.repository.ComponentType;
+import org.palladiosimulator.pcm.repository.PassiveResource;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
+import org.palladiosimulator.pcm.resourcetype.ResourceInterface;
+import org.palladiosimulator.pcm.seff.ServiceEffectSpecification;
 
 import repositoryStructure.RepositoryCreator;
+import repositoryStructure.SeffCreator;
 import repositoryStructure.interfaces.EventGroupCreator;
 import repositoryStructure.interfaces.InfrastructureInterfaceCreator;
 import repositoryStructure.interfaces.OperationInterfaceCreator;
 
 public class BasicComponentCreator extends Component {
 
+	private ComponentType type;
 	private List<CompleteComponentType> conformsCompleteTypes;
+	private List<PassiveResource> passiveResources;
+	private List<ServiceEffectSpecification> seffs;
+	private List<VariableUsage> componentParameterUsages;
 
 	public BasicComponentCreator(RepositoryCreator repo) {
 		this.repository = repo;
 		this.conformsCompleteTypes = new ArrayList<>();
+		this.passiveResources = new ArrayList<>();
+		this.seffs = new ArrayList<>();
+		this.componentParameterUsages = new ArrayList<>();
+
 	}
 
 	@Override
@@ -29,6 +46,12 @@ public class BasicComponentCreator extends Component {
 	@Override
 	public BasicComponentCreator withId(String id) {
 		return (BasicComponentCreator) super.withId(id);
+	}
+
+	// business vs infrstructure component
+	public BasicComponentCreator ofType(ComponentType type) {
+		this.type = type;
+		return this;
 	}
 
 	// ------------ providing roles ------------
@@ -70,16 +93,44 @@ public class BasicComponentCreator extends Component {
 	}
 
 	// resource required role
-	// TODO: Resource requiring roles are not part of the RepositoryFactory and the
-	// constructor of the implementing class is not visible
 	@Override
-	public BasicComponentCreator requiresResource(Object o) {
-		return (BasicComponentCreator) super.requiresResource(o);
+	public BasicComponentCreator requiresResource(ResourceInterface resourceInterface) {
+		return (BasicComponentCreator) super.requiresResource(resourceInterface);
 	}
 
-	public BasicComponentCreator ofType_conforms(CompleteComponentTypeCreator completeComponentType) {
+	// ------------ other listing characteristics ------------
+	// parent complete component types
+	public BasicComponentCreator conforms(CompleteComponentTypeCreator completeComponentType) {
 		CompleteComponentType cct = completeComponentType.build();
 		this.conformsCompleteTypes.add(cct);
+		return this;
+	}
+
+	// Passive resources
+	public BasicComponentCreator withPassiveResource(String capacity_stochasticExpression,
+			ResourceTimeoutFailureType failureType) {
+		PCMRandomVariable randVar = CoreFactory.eINSTANCE.createPCMRandomVariable();
+		randVar.setSpecification(capacity_stochasticExpression);
+
+		PassiveResource pass = RepositoryFactory.eINSTANCE.createPassiveResource();
+		pass.setCapacity_PassiveResource(randVar);
+		pass.setResourceTimeoutFailureType__PassiveResource(failureType);
+
+		this.passiveResources.add(pass);
+		return this;
+	}
+
+	// SEFFs
+	public BasicComponentCreator withServiceEffectSpecification(SeffCreator seff) {
+		ServiceEffectSpecification sEfF = seff.build();
+		this.seffs.add(sEfF);
+		return this;
+
+	}
+
+	// TODO: Variable Usages
+	public BasicComponentCreator todo(Object toDo) {
+		this.componentParameterUsages.add(null);
 		return this;
 	}
 
@@ -90,21 +141,18 @@ public class BasicComponentCreator extends Component {
 			basicComponent.setEntityName(name);
 		if (id != null)
 			basicComponent.setId(id);
+		if (type != null)
+			basicComponent.setComponentType(type);
 
 		basicComponent.getProvidedRoles_InterfaceProvidingEntity().addAll(providedRoles);
 		basicComponent.getRequiredRoles_InterfaceRequiringEntity().addAll(requiredRoles);
+		basicComponent.getResourceRequiredRoles__ResourceInterfaceRequiringEntity().addAll(resourceRequiredRoles);
+
 		basicComponent.getParentCompleteComponentTypes().addAll(conformsCompleteTypes);
-		
-		
-		// TODO: set repository? variable usage, seff etc
-		//Lists -> add
-		basicComponent.getComponentParameterUsage_ImplementationComponentType();
-		basicComponent.getPassiveResource_BasicComponent();
-		basicComponent.getResourceRequiredRoles__ResourceInterfaceRequiringEntity();
-		basicComponent.getServiceEffectSpecifications__BasicComponent();
-		
-		// single Parameter -> set
-		basicComponent.setComponentType(null);
+		basicComponent.getComponentParameterUsage_ImplementationComponentType().addAll(componentParameterUsages);
+
+		basicComponent.getPassiveResource_BasicComponent().addAll(passiveResources);
+		basicComponent.getServiceEffectSpecifications__BasicComponent().addAll(seffs);
 
 		return basicComponent;
 	}

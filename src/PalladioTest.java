@@ -11,13 +11,12 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceFactoryImpl;
+import org.palladiosimulator.pcm.core.PCMRandomVariable;
 import org.palladiosimulator.pcm.repository.BasicComponent;
-import org.palladiosimulator.pcm.repository.CompleteComponentType;
-import org.palladiosimulator.pcm.repository.ComponentType;
 import org.palladiosimulator.pcm.repository.OperationInterface;
 import org.palladiosimulator.pcm.repository.OperationProvidedRole;
+import org.palladiosimulator.pcm.repository.PassiveResource;
 import org.palladiosimulator.pcm.repository.Repository;
-import org.palladiosimulator.pcm.repository.RepositoryComponent;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
 
 public class PalladioTest {
@@ -30,13 +29,23 @@ public class PalladioTest {
 
 		Resource repoResource = new PalladioTest().readPalladioRepository(fileName);
 
+		// Warum funktioniert das nur, wenn vorher setup and save EMF instance resource
+		// nicht-statisch aufgerufen wurde? Das eine hat doch mit dem anderen nix zu
+		// tun...
 		if (repoResource.getContents().get(0) instanceof Repository) {
 			Repository repo = (Repository) repoResource.getContents().get(0);
-			BasicComponent dbComp = (BasicComponent) repo.getComponents__Repository().stream().filter(a -> a.getEntityName().equals("Database")).findFirst().get();
-			dbComp.getParentCompleteComponentTypes().forEach(a -> System.out.println(a.getEntityName()));
+			BasicComponent dbComp = (BasicComponent) repo.getComponents__Repository().stream()
+					.filter(a -> a.getEntityName().equals("Database")).findFirst().get();
+			PassiveResource passiveResource = dbComp.getPassiveResource_BasicComponent().stream().findFirst().get();
+			PCMRandomVariable capacity = passiveResource.getCapacity_PassiveResource();
+			System.out.println(capacity.getExpression());
+			System.out.println(capacity.getSpecification());
+			System.out.println(passiveResource.getResourceTimeoutFailureType__PassiveResource());
 			System.out.println("Failure Types:");
 			repo.getFailureTypes__Repository().stream().forEach(System.out::println);
 		}
+		
+		
 
 	}
 
@@ -101,7 +110,7 @@ public class PalladioTest {
 		}
 	}
 
-	public  Resource readPalladioRepository(String filePath) {
+	public Resource readPalladioRepository(String filePath) {
 		final Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
 		final Map<String, Object> map = reg.getExtensionToFactoryMap();
 		map.put("*", new XMIResourceFactoryImpl());

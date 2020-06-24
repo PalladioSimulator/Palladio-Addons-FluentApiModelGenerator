@@ -3,6 +3,8 @@ package repositoryStructure.components;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.palladiosimulator.pcm.core.entity.EntityFactory;
+import org.palladiosimulator.pcm.core.entity.ResourceRequiredRole;
 import org.palladiosimulator.pcm.repository.EventGroup;
 import org.palladiosimulator.pcm.repository.InfrastructureInterface;
 import org.palladiosimulator.pcm.repository.InfrastructureProvidedRole;
@@ -16,9 +18,9 @@ import org.palladiosimulator.pcm.repository.RepositoryFactory;
 import org.palladiosimulator.pcm.repository.RequiredRole;
 import org.palladiosimulator.pcm.repository.SinkRole;
 import org.palladiosimulator.pcm.repository.SourceRole;
+import org.palladiosimulator.pcm.resourcetype.ResourceInterface;
 
 import repositoryStructure.Entity;
-import repositoryStructure.RepositoryCreator;
 import repositoryStructure.interfaces.EventGroupCreator;
 import repositoryStructure.interfaces.InfrastructureInterfaceCreator;
 import repositoryStructure.interfaces.OperationInterfaceCreator;
@@ -27,12 +29,11 @@ public abstract class Component extends Entity {
 
 	protected List<ProvidedRole> providedRoles = new ArrayList<>();
 	protected List<RequiredRole> requiredRoles = new ArrayList<>();
+	protected List<ResourceRequiredRole> resourceRequiredRoles = new ArrayList<>();
 
 	public abstract RepositoryComponent build();
 
-	// TODO: vielleicht überladen mit String, um der Role einen Namen zu geben; ID
-	// sollte nicht nötig sein
-
+	// todo: vielleicht überladen mit String, um der Rolle einen Namen/ID zu geben?
 	// ------------ providing roles ------------
 	// provides operation interface
 	public Component provides(OperationInterfaceCreator interfce) {
@@ -90,9 +91,13 @@ public abstract class Component extends Entity {
 	}
 
 	// resource required role
-	// TODO: Resource requiring roles are not part of the RepositoryFactory and the
-	// constructor of the implementing class is not visible
-	public Component requiresResource(Object o) {
+	// TODO: how to get the resourceInterface
+	public Component requiresResource(ResourceInterface resourceInterface) {
+
+		ResourceRequiredRole rrr = EntityFactory.eINSTANCE.createResourceRequiredRole();
+		rrr.setRequiredResourceInterface__ResourceRequiredRole(resourceInterface);
+		this.resourceRequiredRoles.add(rrr);
 		return this;
 	}
+
 }

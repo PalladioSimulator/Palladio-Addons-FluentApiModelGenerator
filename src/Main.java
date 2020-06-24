@@ -42,7 +42,7 @@ public class Main {
 																				.withName("name"))
 															.withParameter(create.newParameter().withName("age")
 																	.ofDataType(null))))
-			.addToRepository(create.newBasicComponent()
+			.addToRepository(create.newCompositeComponent()
 					.withName("Web")
 					.requires(create.newOperationInterface()
 									.withName("HelloWorld"))

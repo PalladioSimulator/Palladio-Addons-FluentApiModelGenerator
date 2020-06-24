@@ -6,6 +6,7 @@ import java.util.List;
 import org.palladiosimulator.pcm.repository.CompleteComponentType;
 import org.palladiosimulator.pcm.repository.ProvidesComponentType;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
+import org.palladiosimulator.pcm.resourcetype.ResourceInterface;
 
 import repositoryStructure.RepositoryCreator;
 import repositoryStructure.interfaces.EventGroupCreator;
@@ -14,7 +15,7 @@ import repositoryStructure.interfaces.OperationInterfaceCreator;
 
 public class CompleteComponentTypeCreator extends Component {
 
-	List<ProvidesComponentType> conformsProvidedTypes;
+	private List<ProvidesComponentType> conformsProvidedTypes;
 
 	public CompleteComponentTypeCreator(RepositoryCreator repo) {
 		this.repository = repo;
@@ -70,11 +71,9 @@ public class CompleteComponentTypeCreator extends Component {
 	}
 
 	// resource required role
-	// TODO: Resource requiring roles are not part of the RepositoryFactory and the
-	// constructor of the implementing class is not visible
 	@Override
-	public CompleteComponentTypeCreator requiresResource(Object o) {
-		return (CompleteComponentTypeCreator) super.requiresResource(o);
+	public CompleteComponentTypeCreator requiresResource(ResourceInterface resourceInterface) {
+		return (CompleteComponentTypeCreator) super.requiresResource(resourceInterface);
 	}
 
 	// ------------ type roles ------------
@@ -94,11 +93,8 @@ public class CompleteComponentTypeCreator extends Component {
 
 		cct.getProvidedRoles_InterfaceProvidingEntity().addAll(providedRoles);
 		cct.getRequiredRoles_InterfaceRequiringEntity().addAll(requiredRoles);
+		cct.getResourceRequiredRoles__ResourceInterfaceRequiringEntity().addAll(resourceRequiredRoles);
 		cct.getParentProvidesComponentTypes().addAll(conformsProvidedTypes);
-		
-		// TODO: set repository?
-		// Lists -> add
-		cct.getResourceRequiredRoles__ResourceInterfaceRequiringEntity();
 
 		return cct;
 	}

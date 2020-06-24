@@ -3,23 +3,29 @@ package repositoryStructure.components;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.palladiosimulator.pcm.parameter.VariableUsage;
 import org.palladiosimulator.pcm.repository.CompleteComponentType;
+import org.palladiosimulator.pcm.repository.ComponentType;
 import org.palladiosimulator.pcm.repository.CompositeComponent;
 import org.palladiosimulator.pcm.repository.RepositoryComponent;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
+import org.palladiosimulator.pcm.resourcetype.ResourceInterface;
 
 import repositoryStructure.RepositoryCreator;
 import repositoryStructure.interfaces.EventGroupCreator;
 import repositoryStructure.interfaces.InfrastructureInterfaceCreator;
 import repositoryStructure.interfaces.OperationInterfaceCreator;
 
-public class CompositeComponentCreator extends Component {
+public class CompositeComponentCreator extends ComplexComponent {
 
+	private ComponentType type;
 	private List<CompleteComponentType> conformsCompleteTypes;
+	private List<VariableUsage> componentParameterUsages;
 
 	public CompositeComponentCreator(RepositoryCreator repo) {
 		this.repository = repo;
 		this.conformsCompleteTypes = new ArrayList<>();
+		this.componentParameterUsages = new ArrayList<>();
 	}
 
 	@Override
@@ -30,6 +36,12 @@ public class CompositeComponentCreator extends Component {
 	@Override
 	public CompositeComponentCreator withId(String id) {
 		return (CompositeComponentCreator) super.withId(id);
+	}
+
+	// business vs infrstructure component
+	public CompositeComponentCreator ofType(ComponentType type) {
+		this.type = type;
+		return this;
 	}
 
 	// ------------ providing roles ------------
@@ -71,16 +83,22 @@ public class CompositeComponentCreator extends Component {
 	}
 
 	// resource required role
-	// TODO: Resource requiring roles are not part of the RepositoryFactory and the
-	// constructor of the implementing class is not visible
 	@Override
-	public CompositeComponentCreator requiresResource(Object o) {
-		return (CompositeComponentCreator) super.requiresResource(o);
+	public CompositeComponentCreator requiresResource(ResourceInterface resourceInterface) {
+		return (CompositeComponentCreator) super.requiresResource(resourceInterface);
 	}
 
-	public CompositeComponentCreator ofType_conforms(CompleteComponentTypeCreator completeComponentType) {
+	// ------------ other listing characteristics ------------
+	// parent complete component types
+	public CompositeComponentCreator conforms(CompleteComponentTypeCreator completeComponentType) {
 		CompleteComponentType cct = completeComponentType.build();
 		this.conformsCompleteTypes.add(cct);
+		return this;
+	}
+
+	// TODO: Variable Usages
+	public CompositeComponentCreator todo(Object toDo) {
+		this.componentParameterUsages.add(null);
 		return this;
 	}
 
@@ -91,22 +109,21 @@ public class CompositeComponentCreator extends Component {
 			compositeComponent.setEntityName(name);
 		if (id != null)
 			compositeComponent.setId(id);
+		if (type != null)
+			compositeComponent.setComponentType(type);
 
 		compositeComponent.getProvidedRoles_InterfaceProvidingEntity().addAll(providedRoles);
 		compositeComponent.getRequiredRoles_InterfaceRequiringEntity().addAll(requiredRoles);
+		compositeComponent.getResourceRequiredRoles__ResourceInterfaceRequiringEntity().addAll(resourceRequiredRoles);
+
 		compositeComponent.getParentCompleteComponentTypes().addAll(conformsCompleteTypes);
-		
-		// TODO: set repository? variable usage, connectors etc
-		// Lists -> add
-		compositeComponent.getComponentParameterUsage_ImplementationComponentType();
-		compositeComponent.getConnectors__ComposedStructure();
-		compositeComponent.getEventChannel__ComposedStructure();
-		compositeComponent.getResourceRequiredDelegationConnectors_ComposedStructure();
-		compositeComponent.getResourceRequiredRoles__ResourceInterfaceRequiringEntity();
-		
-		// Parameter -> set
-		compositeComponent.setComponentType(null);
-		
+		compositeComponent.getComponentParameterUsage_ImplementationComponentType().addAll(componentParameterUsages);
+
+		compositeComponent.getAssemblyContexts__ComposedStructure().addAll(assemblyContexts);
+		compositeComponent.getConnectors__ComposedStructure().addAll(connectors);
+		compositeComponent.getEventChannel__ComposedStructure().addAll(eventChannels);
+		compositeComponent.getResourceRequiredDelegationConnectors_ComposedStructure().addAll(delegationConnectors);
+
 		return compositeComponent;
 	}
 
