@@ -122,7 +122,7 @@ public class CompositeComponentCreator extends ComplexComponent {
 		compositeComponent.getAssemblyContexts__ComposedStructure().addAll(assemblyContexts);
 		compositeComponent.getConnectors__ComposedStructure().addAll(connectors);
 		compositeComponent.getEventChannel__ComposedStructure().addAll(eventChannels);
-		compositeComponent.getResourceRequiredDelegationConnectors_ComposedStructure().addAll(delegationConnectors);
+		compositeComponent.getResourceRequiredDelegationConnectors_ComposedStructure().addAll(resourceRequiredDelegationConnectors);
 
 		return compositeComponent;
 	}

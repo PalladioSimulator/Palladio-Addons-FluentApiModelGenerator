@@ -84,7 +84,7 @@ public class SubSystemCreator extends ComplexComponent {
 		subSystem.getAssemblyContexts__ComposedStructure().addAll(assemblyContexts);
 		subSystem.getConnectors__ComposedStructure().addAll(connectors);
 		subSystem.getEventChannel__ComposedStructure().addAll(eventChannels);
-		subSystem.getResourceRequiredDelegationConnectors_ComposedStructure().addAll(delegationConnectors);
+		subSystem.getResourceRequiredDelegationConnectors_ComposedStructure().addAll(resourceRequiredDelegationConnectors);
 
 		return subSystem;
 	}

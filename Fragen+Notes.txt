@@ -2,6 +2,8 @@ Fragen:
 
 Resource interface erstellen?
 
+Rollen Erstellung überladen mit String, um rolle zu benennen für connectors?
+
 email: design: alles über die Factory erstellen -> PCM hat verschiedene Factorys; oder so erstellen
 sinnvoll über Factory: components, interfaces, data types/failure/exception types, parameter, seff
 
@@ -34,7 +36,7 @@ Factorys:
 														- EntityFactory: Resource provided role, resource interface
 - EntityAdapterFactory
 - EntityResourceFactory
-														- ParameterFactory: VariableCharacterisation, Variable usage
+														- ParameterFactory: VariableCharacterisation, Variable usage, characterised variable
 - ParameterAdapterFactory
 - ParameterResourceFactory
 - PcmFactory
@@ -48,7 +50,7 @@ Factorys:
 - ReliabilityAdapterFactory
 														- RepositoryFactory: Components etc.
 - RepositoryAdapterFactory
-- ResourcetypeFactory
+- ResourcetypeFactory: resource interface, repo, signature, communication link, scheduling policy
 														- SeffFactory: Seff Kram
 - SeffAdapterFactory
 - SeffResourceFactory
