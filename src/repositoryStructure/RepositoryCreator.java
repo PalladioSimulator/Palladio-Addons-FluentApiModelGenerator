@@ -71,6 +71,7 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 		// check that they are not added twice in different versions and stuff
 		repo.getComponents__Repository().addAll(components);
 		repo.getInterfaces__Repository().addAll(interfaces);
+//		repo.getFailureTypes__Repository().addAll(failureTypes);
 		
 		//TODO: reset all Lists in the factory?
 		return repo;

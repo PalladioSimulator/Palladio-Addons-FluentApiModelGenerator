@@ -1,21 +1,19 @@
 package repositoryStructure.components;
 
-import org.palladiosimulator.pcm.repository.ProvidedRole;
 import org.palladiosimulator.pcm.repository.ProvidesComponentType;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
-import org.palladiosimulator.pcm.repository.RequiredRole;
 
 import repositoryStructure.RepositoryCreator;
 import repositoryStructure.interfaces.EventGroupCreator;
 import repositoryStructure.interfaces.InfrastructureInterfaceCreator;
 import repositoryStructure.interfaces.OperationInterfaceCreator;
 
-public class ProvidesComponentTypeCreator extends Component{
-	
+public class ProvidesComponentTypeCreator extends Component {
+
 	public ProvidesComponentTypeCreator(RepositoryCreator repo) {
 		this.repository = repo;
 	}
-	
+
 	@Override
 	public ProvidesComponentTypeCreator withName(String name) {
 		return (ProvidesComponentTypeCreator) super.withName(name);
@@ -71,7 +69,6 @@ public class ProvidesComponentTypeCreator extends Component{
 	public ProvidesComponentTypeCreator requiresResource(Object o) {
 		return (ProvidesComponentTypeCreator) super.requiresResource(o);
 	}
-	
 
 	@Override
 	public ProvidesComponentType build() {
@@ -81,16 +78,14 @@ public class ProvidesComponentTypeCreator extends Component{
 		if (id != null)
 			pct.setId(id);
 
-		for (ProvidedRole providedRole : providedRoles) {
-			pct.getProvidedRoles_InterfaceProvidingEntity().add(providedRole);
-		}
-		for (RequiredRole requiredRole : requiredRoles) {
-			pct.getRequiredRoles_InterfaceRequiringEntity().add(requiredRole);
-		}
-		// TODO: set repository? variable usage, seff etc
+		pct.getProvidedRoles_InterfaceProvidingEntity().addAll(providedRoles);
+		pct.getRequiredRoles_InterfaceRequiringEntity().addAll(requiredRoles);
+
+		// TODO: set repository? 
+		// Lists -> add
+		pct.getResourceRequiredRoles__ResourceInterfaceRequiringEntity();
 
 		return pct;
 	}
-
 
 }

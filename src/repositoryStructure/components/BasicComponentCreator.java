@@ -5,9 +5,7 @@ import java.util.List;
 
 import org.palladiosimulator.pcm.repository.BasicComponent;
 import org.palladiosimulator.pcm.repository.CompleteComponentType;
-import org.palladiosimulator.pcm.repository.ProvidedRole;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
-import org.palladiosimulator.pcm.repository.RequiredRole;
 
 import repositoryStructure.RepositoryCreator;
 import repositoryStructure.interfaces.EventGroupCreator;
@@ -17,7 +15,7 @@ import repositoryStructure.interfaces.OperationInterfaceCreator;
 public class BasicComponentCreator extends Component {
 
 	private List<CompleteComponentType> conformsCompleteTypes;
-	
+
 	public BasicComponentCreator(RepositoryCreator repo) {
 		this.repository = repo;
 		this.conformsCompleteTypes = new ArrayList<>();
@@ -84,7 +82,7 @@ public class BasicComponentCreator extends Component {
 		this.conformsCompleteTypes.add(cct);
 		return this;
 	}
-	
+
 	@Override
 	public BasicComponent build() {
 		BasicComponent basicComponent = RepositoryFactory.eINSTANCE.createBasicComponent();
@@ -93,16 +91,20 @@ public class BasicComponentCreator extends Component {
 		if (id != null)
 			basicComponent.setId(id);
 
-		for (ProvidedRole providedRole : providedRoles) {
-			basicComponent.getProvidedRoles_InterfaceProvidingEntity().add(providedRole);
-		}
-		for (RequiredRole requiredRole : requiredRoles) {
-			basicComponent.getRequiredRoles_InterfaceRequiringEntity().add(requiredRole);
-		}
-		for(CompleteComponentType cct: conformsCompleteTypes) {
-			//TODO: how to set cct as conforming type?
-		}
+		basicComponent.getProvidedRoles_InterfaceProvidingEntity().addAll(providedRoles);
+		basicComponent.getRequiredRoles_InterfaceRequiringEntity().addAll(requiredRoles);
+		basicComponent.getParentCompleteComponentTypes().addAll(conformsCompleteTypes);
+		
+		
 		// TODO: set repository? variable usage, seff etc
+		//Lists -> add
+		basicComponent.getComponentParameterUsage_ImplementationComponentType();
+		basicComponent.getPassiveResource_BasicComponent();
+		basicComponent.getResourceRequiredRoles__ResourceInterfaceRequiringEntity();
+		basicComponent.getServiceEffectSpecifications__BasicComponent();
+		
+		// single Parameter -> set
+		basicComponent.setComponentType(null);
 
 		return basicComponent;
 	}

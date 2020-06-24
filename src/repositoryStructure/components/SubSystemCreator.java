@@ -1,6 +1,7 @@
 package repositoryStructure.components;
 
 import org.palladiosimulator.pcm.subsystem.SubSystem;
+import org.palladiosimulator.pcm.subsystem.SubsystemFactory;
 
 import repositoryStructure.RepositoryCreator;
 import repositoryStructure.interfaces.EventGroupCreator;
@@ -71,8 +72,22 @@ public class SubSystemCreator extends Component {
 
 	@Override
 	public SubSystem build() {
-		SubSystem subSystem = null;
-		// TODO: not part of the RepositoryFactory
+		SubSystem subSystem = SubsystemFactory.eINSTANCE.createSubSystem();
+		if (this.name != null)
+			subSystem.setEntityName(this.name);
+		if (this.id != null)
+			subSystem.setId(this.id);
+
+		subSystem.getProvidedRoles_InterfaceProvidingEntity().addAll(providedRoles);
+		subSystem.getRequiredRoles_InterfaceRequiringEntity().addAll(requiredRoles);
+
+		// TODO: Lists -> add
+		subSystem.getAssemblyContexts__ComposedStructure();
+		subSystem.getConnectors__ComposedStructure();
+		subSystem.getEventChannel__ComposedStructure();
+		subSystem.getResourceRequiredDelegationConnectors_ComposedStructure();
+		subSystem.getResourceRequiredRoles__ResourceInterfaceRequiringEntity();
+		
 		return subSystem;
 	}
 

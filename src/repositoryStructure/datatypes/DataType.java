@@ -3,6 +3,7 @@ package repositoryStructure.datatypes;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.palladiosimulator.pcm.reliability.FailureType;
 import org.palladiosimulator.pcm.repository.ExceptionType;
 import org.palladiosimulator.pcm.repository.PrimitiveDataType;
 import org.palladiosimulator.pcm.repository.PrimitiveTypeEnum;
@@ -67,6 +68,10 @@ public class DataType {
 	
 	public enum Primitives {
 		BOOLEAN, INTEGER, STRING, DOUBLE, LONG, CHAR, BYTE
+	}
+	
+	public enum Failures {
+		HARDWARE_CPU, HARDWARE_HDD, HARDWARE_DELAY, NETWORK_LAN, SOFTWARE
 	}
 
 }

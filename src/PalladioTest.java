@@ -12,27 +12,46 @@ import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceFactoryImpl;
 import org.palladiosimulator.pcm.repository.BasicComponent;
+import org.palladiosimulator.pcm.repository.CompleteComponentType;
+import org.palladiosimulator.pcm.repository.ComponentType;
 import org.palladiosimulator.pcm.repository.OperationInterface;
 import org.palladiosimulator.pcm.repository.OperationProvidedRole;
 import org.palladiosimulator.pcm.repository.Repository;
+import org.palladiosimulator.pcm.repository.RepositoryComponent;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
 
 public class PalladioTest {
 
 	public static void main(String[] args) {
 		new PalladioTest().setupAndSaveEMFInstanceResource();
+
+//		String fileName = "resources/FailureTypes.repository";
+		String fileName = "/Users/louisalambrecht/Documents/eclipse-workspace/PalladioTest/default.repository";
+
+		Resource repoResource = new PalladioTest().readPalladioRepository(fileName);
+
+		if (repoResource.getContents().get(0) instanceof Repository) {
+			Repository repo = (Repository) repoResource.getContents().get(0);
+			BasicComponent dbComp = (BasicComponent) repo.getComponents__Repository().stream().filter(a -> a.getEntityName().equals("Database")).findFirst().get();
+			dbComp.getParentCompleteComponentTypes().forEach(a -> System.out.println(a.getEntityName()));
+			System.out.println("Failure Types:");
+			repo.getFailureTypes__Repository().stream().forEach(System.out::println);
+		}
+
 	}
-	
+
 	public void setupAndSaveEMFInstanceResource() {
 		ResourceSet rs = new ResourceSetImpl();
 		// Here the resource is created, with fileextensions "gast" and "xml" (adapt
 		// this to use your own file extension).
-		Resource gastResource = createAndAddResource("/Users/louisalambrecht/Documents/eclipse-workspace/FluentAPICreation/test.repository", new String[] { "repository", "gast", "xml" }, rs);
+		Resource gastResource = createAndAddResource(
+				"/Users/louisalambrecht/Documents/eclipse-workspace/FluentAPICreation/test.repository",
+				new String[] { "repository", "gast", "xml" }, rs);
 		// The root object is created by using (adapt this to create your own root
 		// object)
 		RepositoryFactory coreFactory = RepositoryFactory.eINSTANCE;
 		Repository root = coreFactory.createRepository();
-	
+
 		BasicComponent c = coreFactory.createBasicComponent();
 		c.setEntityName("Database");
 		BasicComponent c1 = coreFactory.createBasicComponent();
@@ -46,7 +65,7 @@ public class PalladioTest {
 		root.getComponents__Repository().add(c);
 		root.getComponents__Repository().add(c1);
 		root.getInterfaces__Repository().add(i);
-		
+
 		gastResource.getContents().add(root);
 		saveResource(gastResource);
 		printResource(gastResource);
@@ -73,7 +92,7 @@ public class PalladioTest {
 			throw new RuntimeException(e);
 		}
 	}
-	
+
 	public static void printResource(Resource resource) {
 		try {
 			((XMLResource) resource).save(System.out, ((XMLResource) resource).getDefaultSaveOptions());
@@ -81,8 +100,8 @@ public class PalladioTest {
 			e.printStackTrace();
 		}
 	}
-	
-	public static Resource readPalladioRepository(String filePath) {
+
+	public  Resource readPalladioRepository(String filePath) {
 		final Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
 		final Map<String, Object> map = reg.getExtensionToFactoryMap();
 		map.put("*", new XMIResourceFactoryImpl());
@@ -90,11 +109,8 @@ public class PalladioTest {
 		resSet.setResourceFactoryRegistry(reg);
 		URI uriInstance = URI.createFileURI(filePath);
 		Resource resource = resSet.getResource(uriInstance, true);
-		
+
 		return resource;
 	}
-	
-	
-	
 
 }

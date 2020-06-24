@@ -5,20 +5,18 @@ import java.util.List;
 
 import org.palladiosimulator.pcm.repository.CompleteComponentType;
 import org.palladiosimulator.pcm.repository.CompositeComponent;
-import org.palladiosimulator.pcm.repository.ProvidedRole;
 import org.palladiosimulator.pcm.repository.RepositoryComponent;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
-import org.palladiosimulator.pcm.repository.RequiredRole;
 
 import repositoryStructure.RepositoryCreator;
 import repositoryStructure.interfaces.EventGroupCreator;
 import repositoryStructure.interfaces.InfrastructureInterfaceCreator;
 import repositoryStructure.interfaces.OperationInterfaceCreator;
 
-public class CompositeComponentCreator extends Component{
-	
+public class CompositeComponentCreator extends Component {
+
 	private List<CompleteComponentType> conformsCompleteTypes;
-	
+
 	public CompositeComponentCreator(RepositoryCreator repo) {
 		this.repository = repo;
 		this.conformsCompleteTypes = new ArrayList<>();
@@ -85,7 +83,7 @@ public class CompositeComponentCreator extends Component{
 		this.conformsCompleteTypes.add(cct);
 		return this;
 	}
-	
+
 	@Override
 	public RepositoryComponent build() {
 		CompositeComponent compositeComponent = RepositoryFactory.eINSTANCE.createCompositeComponent();
@@ -93,17 +91,21 @@ public class CompositeComponentCreator extends Component{
 			compositeComponent.setEntityName(name);
 		if (id != null)
 			compositeComponent.setId(id);
+
+		compositeComponent.getProvidedRoles_InterfaceProvidingEntity().addAll(providedRoles);
+		compositeComponent.getRequiredRoles_InterfaceRequiringEntity().addAll(requiredRoles);
+		compositeComponent.getParentCompleteComponentTypes().addAll(conformsCompleteTypes);
 		
-		for (ProvidedRole providedRole : providedRoles) {
-			compositeComponent.getProvidedRoles_InterfaceProvidingEntity().add(providedRole);
-		}
-		for (RequiredRole requiredRole : requiredRoles) {
-			compositeComponent.getRequiredRoles_InterfaceRequiringEntity().add(requiredRole);
-		}
-		for(CompleteComponentType cct: conformsCompleteTypes) {
-			//TODO: how to set cct as conforming type?
-		}
 		// TODO: set repository? variable usage, connectors etc
+		// Lists -> add
+		compositeComponent.getComponentParameterUsage_ImplementationComponentType();
+		compositeComponent.getConnectors__ComposedStructure();
+		compositeComponent.getEventChannel__ComposedStructure();
+		compositeComponent.getResourceRequiredDelegationConnectors_ComposedStructure();
+		compositeComponent.getResourceRequiredRoles__ResourceInterfaceRequiringEntity();
+		
+		// Parameter -> set
+		compositeComponent.setComponentType(null);
 		
 		return compositeComponent;
 	}
