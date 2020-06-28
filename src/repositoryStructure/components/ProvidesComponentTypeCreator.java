@@ -31,17 +31,32 @@ public class ProvidesComponentTypeCreator extends Component {
 	public ProvidesComponentTypeCreator provides(OperationInterfaceCreator interfce) {
 		return (ProvidesComponentTypeCreator) super.provides(interfce);
 	}
+	
+	@Override
+	public ProvidesComponentTypeCreator provides(OperationInterfaceCreator interfce, String name) {
+		return (ProvidesComponentTypeCreator) super.provides(interfce, name);
+	}
 
 	// provides infrastructure interface
 	@Override
 	public ProvidesComponentTypeCreator providesInfrastructure(InfrastructureInterfaceCreator interfce) {
 		return (ProvidesComponentTypeCreator) super.providesInfrastructure(interfce);
 	}
+	
+	@Override
+	public ProvidesComponentTypeCreator providesInfrastructure(InfrastructureInterfaceCreator interfce, String name) {
+		return (ProvidesComponentTypeCreator) super.providesInfrastructure(interfce, name);
+	}
 
 	// sink role: handles an event group
 	@Override
 	public ProvidesComponentTypeCreator handles(EventGroupCreator eventGroup) {
 		return (ProvidesComponentTypeCreator) super.handles(eventGroup);
+	}
+	
+	@Override
+	public ProvidesComponentTypeCreator handles(EventGroupCreator eventGroup, String name) {
+		return (ProvidesComponentTypeCreator) super.handles(eventGroup, name);
 	}
 
 	// ------------ requiring roles ------------
@@ -50,17 +65,32 @@ public class ProvidesComponentTypeCreator extends Component {
 	public ProvidesComponentTypeCreator requires(OperationInterfaceCreator interfce) {
 		return (ProvidesComponentTypeCreator) super.requires(interfce);
 	}
+	
+	@Override
+	public ProvidesComponentTypeCreator requires(OperationInterfaceCreator interfce, String name) {
+		return (ProvidesComponentTypeCreator) super.requires(interfce, name);
+	}
 
 	// require infrastructure interface
 	@Override
 	public ProvidesComponentTypeCreator requiresInfrastructure(InfrastructureInterfaceCreator interfce) {
 		return (ProvidesComponentTypeCreator) super.requiresInfrastructure(interfce);
 	}
+	
+	@Override
+	public ProvidesComponentTypeCreator requiresInfrastructure(InfrastructureInterfaceCreator interfce, String name) {
+		return (ProvidesComponentTypeCreator) super.requiresInfrastructure(interfce, name);
+	}
 
 	// emits event group (source role)
 	@Override
 	public ProvidesComponentTypeCreator emits(EventGroupCreator eventGroup) {
 		return (ProvidesComponentTypeCreator) super.emits(eventGroup);
+	}
+	
+	@Override
+	public ProvidesComponentTypeCreator emits(EventGroupCreator eventGroup, String name) {
+		return (ProvidesComponentTypeCreator) super.emits(eventGroup, name);
 	}
 
 	// resource required role

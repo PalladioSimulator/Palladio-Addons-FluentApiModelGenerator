@@ -50,6 +50,11 @@ public class CompositeComponentCreator extends ComplexComponent {
 	public CompositeComponentCreator provides(OperationInterfaceCreator interfce) {
 		return (CompositeComponentCreator) super.provides(interfce);
 	}
+	
+	@Override
+	public CompositeComponentCreator provides(OperationInterfaceCreator interfce, String name) {
+		return (CompositeComponentCreator) super.provides(interfce, name);
+	}
 
 	// provides infrastructure interface
 	@Override
@@ -57,10 +62,20 @@ public class CompositeComponentCreator extends ComplexComponent {
 		return (CompositeComponentCreator) super.providesInfrastructure(interfce);
 	}
 
+	@Override
+	public CompositeComponentCreator providesInfrastructure(InfrastructureInterfaceCreator interfce, String name) {
+		return (CompositeComponentCreator) super.providesInfrastructure(interfce, name);
+	}
+	
 	// sink role: handles an event group
 	@Override
 	public CompositeComponentCreator handles(EventGroupCreator eventGroup) {
 		return (CompositeComponentCreator) super.handles(eventGroup);
+	}
+	
+	@Override
+	public CompositeComponentCreator handles(EventGroupCreator eventGroup, String name) {
+		return (CompositeComponentCreator) super.handles(eventGroup, name);
 	}
 
 	// ------------ requiring roles ------------
@@ -70,16 +85,31 @@ public class CompositeComponentCreator extends ComplexComponent {
 		return (CompositeComponentCreator) super.requires(interfce);
 	}
 
+	@Override
+	public CompositeComponentCreator requires(OperationInterfaceCreator interfce, String name) {
+		return (CompositeComponentCreator) super.requires(interfce, name);
+	}
+	
 	// require infrastructure interface
 	@Override
 	public CompositeComponentCreator requiresInfrastructure(InfrastructureInterfaceCreator interfce) {
 		return (CompositeComponentCreator) super.requiresInfrastructure(interfce);
 	}
 
+	@Override
+	public CompositeComponentCreator requiresInfrastructure(InfrastructureInterfaceCreator interfce, String name) {
+		return (CompositeComponentCreator) super.requiresInfrastructure(interfce, name);
+	}
+	
 	// emits event group (source role)
 	@Override
 	public CompositeComponentCreator emits(EventGroupCreator eventGroup) {
 		return (CompositeComponentCreator) super.emits(eventGroup);
+	}
+	
+	@Override
+	public CompositeComponentCreator emits(EventGroupCreator eventGroup, String name) {
+		return (CompositeComponentCreator) super.emits(eventGroup, name);
 	}
 
 	// resource required role

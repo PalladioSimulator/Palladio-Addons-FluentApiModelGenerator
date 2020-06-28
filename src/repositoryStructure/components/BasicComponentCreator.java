@@ -60,17 +60,32 @@ public class BasicComponentCreator extends Component {
 	public BasicComponentCreator provides(OperationInterfaceCreator interfce) {
 		return (BasicComponentCreator) super.provides(interfce);
 	}
+	
+	@Override
+	public BasicComponentCreator provides(OperationInterfaceCreator interfce, String name) {
+		return (BasicComponentCreator) super.provides(interfce, name);
+	}
 
 	// provides infrastructure interface
 	@Override
 	public BasicComponentCreator providesInfrastructure(InfrastructureInterfaceCreator interfce) {
 		return (BasicComponentCreator) super.providesInfrastructure(interfce);
 	}
+	
+	@Override
+	public BasicComponentCreator providesInfrastructure(InfrastructureInterfaceCreator interfce, String name) {
+		return (BasicComponentCreator) super.providesInfrastructure(interfce, name);
+	}
 
 	// sink role: handles an event group
 	@Override
 	public BasicComponentCreator handles(EventGroupCreator eventGroup) {
 		return (BasicComponentCreator) super.handles(eventGroup);
+	}
+	
+	@Override
+	public BasicComponentCreator handles(EventGroupCreator eventGroup, String name) {
+		return (BasicComponentCreator) super.handles(eventGroup, name);
 	}
 
 	// ------------ requiring roles ------------
@@ -79,11 +94,21 @@ public class BasicComponentCreator extends Component {
 	public BasicComponentCreator requires(OperationInterfaceCreator interfce) {
 		return (BasicComponentCreator) super.requires(interfce);
 	}
+	
+	@Override
+	public BasicComponentCreator requires(OperationInterfaceCreator interfce, String name) {
+		return (BasicComponentCreator) super.requires(interfce, name);
+	}
 
 	// require infrastructure interface
 	@Override
 	public BasicComponentCreator requiresInfrastructure(InfrastructureInterfaceCreator interfce) {
 		return (BasicComponentCreator) super.requiresInfrastructure(interfce);
+	}
+	
+	@Override
+	public BasicComponentCreator requiresInfrastructure(InfrastructureInterfaceCreator interfce, String name) {
+		return (BasicComponentCreator) super.requiresInfrastructure(interfce, name);
 	}
 
 	// emits event group (source role)
@@ -92,6 +117,11 @@ public class BasicComponentCreator extends Component {
 		return (BasicComponentCreator) super.emits(eventGroup);
 	}
 
+	@Override
+	public BasicComponentCreator emits(EventGroupCreator eventGroup, String name) {
+		return (BasicComponentCreator) super.emits(eventGroup, name);
+	}
+	
 	// resource required role
 	@Override
 	public BasicComponentCreator requiresResource(ResourceInterface resourceInterface) {
@@ -125,7 +155,6 @@ public class BasicComponentCreator extends Component {
 		ServiceEffectSpecification sEfF = seff.build();
 		this.seffs.add(sEfF);
 		return this;
-
 	}
 
 	// TODO: Variable Usages

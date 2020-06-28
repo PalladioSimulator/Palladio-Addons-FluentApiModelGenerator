@@ -31,6 +31,11 @@ public class SubSystemCreator extends ComplexComponent {
 	public SubSystemCreator provides(OperationInterfaceCreator interfce) {
 		return (SubSystemCreator) super.provides(interfce);
 	}
+	
+	@Override
+	public SubSystemCreator provides(OperationInterfaceCreator interfce, String name) {
+		return (SubSystemCreator) super.provides(interfce, name);
+	}
 
 	// provides infrastructure interface
 	@Override
@@ -38,10 +43,20 @@ public class SubSystemCreator extends ComplexComponent {
 		return (SubSystemCreator) super.providesInfrastructure(interfce);
 	}
 
+	@Override
+	public SubSystemCreator providesInfrastructure(InfrastructureInterfaceCreator interfce, String name) {
+		return (SubSystemCreator) super.providesInfrastructure(interfce, name);
+	}
+
 	// sink role: handles an event group
 	@Override
 	public SubSystemCreator handles(EventGroupCreator eventGroup) {
 		return (SubSystemCreator) super.handles(eventGroup);
+	}
+	
+	@Override
+	public SubSystemCreator handles(EventGroupCreator eventGroup, String name) {
+		return (SubSystemCreator) super.handles(eventGroup, name);
 	}
 
 	// ------------ requiring roles ------------
@@ -50,17 +65,32 @@ public class SubSystemCreator extends ComplexComponent {
 	public SubSystemCreator requires(OperationInterfaceCreator interfce) {
 		return (SubSystemCreator) super.requires(interfce);
 	}
+	
+	@Override
+	public SubSystemCreator requires(OperationInterfaceCreator interfce, String name) {
+		return (SubSystemCreator) super.requires(interfce, name);
+	}
 
 	// require infrastructure interface
 	@Override
 	public SubSystemCreator requiresInfrastructure(InfrastructureInterfaceCreator interfce) {
 		return (SubSystemCreator) super.requiresInfrastructure(interfce);
 	}
+	
+	@Override
+	public SubSystemCreator requiresInfrastructure(InfrastructureInterfaceCreator interfce, String name) {
+		return (SubSystemCreator) super.requiresInfrastructure(interfce, name);
+	}
 
 	// emits event group (source role)
 	@Override
 	public SubSystemCreator emits(EventGroupCreator eventGroup) {
 		return (SubSystemCreator) super.emits(eventGroup);
+	}
+	
+	@Override
+	public SubSystemCreator emits(EventGroupCreator eventGroup, String name) {
+		return (SubSystemCreator) super.emits(eventGroup, name);
 	}
 
 	// resource required role
