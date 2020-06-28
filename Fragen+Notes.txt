@@ -2,6 +2,8 @@ Fragen:
 
 - Protocols bei Interfaces
 
+- Hat ein Seff immer genau ein Anfang + Ende? Wie erstellt man ein seff - welche Factory?
+
 email: design: alles über die Factory erstellen -> PCM hat verschiedene Factorys; oder so erstellen
 sinnvoll über Factory: components, interfaces, data types/failure/exception types, parameter, seff
 

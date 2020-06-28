@@ -47,6 +47,7 @@ public class Main {
 				.withId("comp1")
 				.handles(create.newEventGroup()
 								.withName("hallo"))
+				.withServiceEffectSpecification(create.newSeff().withStartAction().followedBy().externalCallAction().followedBy().stopAction())
 //				.provides(create.fetchOfOperationInterface("IDatabase"))
 			)
 			

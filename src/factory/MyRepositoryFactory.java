@@ -9,6 +9,7 @@ import org.palladiosimulator.pcm.repository.Parameter;
 import org.palladiosimulator.pcm.repository.RepositoryComponent;
 
 import repositoryStructure.RepositoryCreator;
+import repositoryStructure.SeffCreator;
 import repositoryStructure.components.BasicComponentCreator;
 import repositoryStructure.components.CompleteComponentTypeCreator;
 import repositoryStructure.components.CompositeComponentCreator;
@@ -129,6 +130,10 @@ public class MyRepositoryFactory {
 	
 	// ---------------------- Component Related Stuff ----------------------
 
+	public SeffCreator newSeff() {
+		SeffCreator seff = new SeffCreator();
+		return seff;
+	}
 	// ---------------------- Interface Related Stuff ----------------------
 	
 	public OperationSignatureCreator newOperationSignature() {
@@ -162,6 +167,7 @@ public class MyRepositoryFactory {
 		ParameterCreator pc = new ParameterCreator();
 		return pc;
 	}
+
 
 	
 }

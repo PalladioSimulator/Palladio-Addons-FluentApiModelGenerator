@@ -15,6 +15,7 @@ import org.palladiosimulator.pcm.repository.RepositoryFactory;
 import org.palladiosimulator.pcm.resourcetype.ResourceInterface;
 import org.palladiosimulator.pcm.seff.ServiceEffectSpecification;
 
+import apiControlFlowInterfaces.Follow;
 import repositoryStructure.RepositoryCreator;
 import repositoryStructure.SeffCreator;
 import repositoryStructure.interfaces.EventGroupCreator;
