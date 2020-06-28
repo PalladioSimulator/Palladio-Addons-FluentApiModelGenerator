@@ -30,12 +30,7 @@ public class Main {
 			
 			.addToRepository(create.newOperationInterface()
 									.withName("IDatabase")
-									.withRequiredCharacterisation(create.newRequiredCharacterisation()
-																	.withParameter(create.getParameter(""))
-																	.withType(VariableCharacterisationType.VALUE))
-//									.withRequiredCharacterisation()
-//										.withParameter(create.getParameter(""))
-//										.withType(VariableCharacterisationType.TYPE_VALUE)
+									.withRequiredCharacterisation(create.getParameter(""), VariableCharacterisationType.VALUE)
 									.withOperationSignature(create.newOperationSignature()
 															.withName("saveDatabaseEntry")
 															.withParameter(create.newParameter()

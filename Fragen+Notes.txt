@@ -1,5 +1,7 @@
 Fragen:
 
+- Protocols bei Interfaces
+
 email: design: alles über die Factory erstellen -> PCM hat verschiedene Factorys; oder so erstellen
 sinnvoll über Factory: components, interfaces, data types/failure/exception types, parameter, seff
 
@@ -10,7 +12,16 @@ wenn ja wie? und wie greift man auf bestehende zu?
 
 
 ToDo:
-- 
+- seffs
+- operation signatures
+- variable usages
+- Failure + Primitive Types initialisieren
+
+
+iwann:
+- Protocols der Interfaces
+- Infrastructure Interfaces (+ Connectors etc)
+- Exception Types
 
 
 
@@ -24,6 +35,7 @@ Notizen
 
 
 Durch die verschiedenen Referenzen: kann es zu Inkonsistenzen kommen, wenn mehrfach der gleiche Creator gebuilded wird, aber womöglich zwischendurch Änderungen entstehen -> es soll immer das gleiche Objekt bei rauskommen
+=> vielleicht, wenn Build methode aufgerufen wird ein palladio objekt im creator objekt erstellen, dass dann referenziert/aktualisiert wird? Herausfinden, welche Dinge sich überhaupt ändern können nachdem sie referenziert wurden. Gibt es co-abhängigkeiten?
 
 
 Das muss über die Factory abrufbar sein:

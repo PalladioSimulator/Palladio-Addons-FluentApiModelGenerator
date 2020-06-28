@@ -3,16 +3,17 @@ package repositoryStructure.interfaces;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.palladiosimulator.pcm.parameter.VariableCharacterisationType;
 import org.palladiosimulator.pcm.repository.OperationInterface;
 import org.palladiosimulator.pcm.repository.OperationSignature;
+import org.palladiosimulator.pcm.repository.Parameter;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
 
 import repositoryStructure.RepositoryCreator;
 import repositoryStructure.interfaces.stuff.OperationSignatureCreator;
-import repositoryStructure.interfaces.stuff.RequiredCharacterisationCreator;
 
 public class OperationInterfaceCreator extends Interface {
-	
+
 	private List<OperationSignature> operationSignatures;
 
 	public OperationInterfaceCreator(RepositoryCreator repo) {
@@ -29,10 +30,22 @@ public class OperationInterfaceCreator extends Interface {
 	public OperationInterfaceCreator withId(String id) {
 		return (OperationInterfaceCreator) super.withId(id);
 	}
-	
+
+	// parent Interfaces
 	@Override
-	public OperationInterfaceCreator withRequiredCharacterisation(RequiredCharacterisationCreator requiredCharacterisation){
-		return (OperationInterfaceCreator) super.withRequiredCharacterisation(requiredCharacterisation);
+	public OperationInterfaceCreator conforms(org.palladiosimulator.pcm.repository.Interface interfce) {
+		return (OperationInterfaceCreator) super.conforms(interfce);
+	}
+
+	@Override
+	public OperationInterfaceCreator withRequiredCharacterisation(Parameter parameter,
+			VariableCharacterisationType type) {
+		return (OperationInterfaceCreator) super.withRequiredCharacterisation(parameter, type);
+	}
+
+	@Override
+	public OperationInterfaceCreator withProtocol() {
+		return (OperationInterfaceCreator) super.withProtocol();
 	}
 
 	public OperationInterfaceCreator withOperationSignature(OperationSignatureCreator operationSignature) {
@@ -40,6 +53,7 @@ public class OperationInterfaceCreator extends Interface {
 		operationSignatures.add(ops);
 		return this;
 	}
+
 	@Override
 	public OperationInterface build() {
 		OperationInterface interfce = RepositoryFactory.eINSTANCE.createOperationInterface();
@@ -47,14 +61,14 @@ public class OperationInterfaceCreator extends Interface {
 			interfce.setEntityName(name);
 		if (id != null)
 			interfce.setId(id);
-		
+
 		// TODO: add to Lists
 		interfce.getParentInterfaces__Interface().addAll(parentInterfaces);
 		interfce.getProtocols__Interface().addAll(protocols);
 		interfce.getRequiredCharacterisations().addAll(requiredCharacterisations);
-		
+
 		interfce.getSignatures__OperationInterface().addAll(operationSignatures);
-		
+
 		return interfce;
 	}
 }

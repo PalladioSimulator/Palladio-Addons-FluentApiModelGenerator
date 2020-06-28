@@ -19,7 +19,6 @@ import repositoryStructure.interfaces.InfrastructureInterfaceCreator;
 import repositoryStructure.interfaces.OperationInterfaceCreator;
 import repositoryStructure.interfaces.stuff.OperationSignatureCreator;
 import repositoryStructure.interfaces.stuff.ParameterCreator;
-import repositoryStructure.interfaces.stuff.RequiredCharacterisationCreator;
 
 public class MyRepositoryFactory {
 	// TODO: welchen passenderen Namen könnte diese Klasse bekommen?
@@ -131,11 +130,6 @@ public class MyRepositoryFactory {
 	// ---------------------- Component Related Stuff ----------------------
 
 	// ---------------------- Interface Related Stuff ----------------------
-	
-	public RequiredCharacterisationCreator newRequiredCharacterisation() {
-		RequiredCharacterisationCreator rcc = new RequiredCharacterisationCreator();
-		return rcc;
-	}
 	
 	public OperationSignatureCreator newOperationSignature() {
 		OperationSignatureCreator ops = new OperationSignatureCreator();
