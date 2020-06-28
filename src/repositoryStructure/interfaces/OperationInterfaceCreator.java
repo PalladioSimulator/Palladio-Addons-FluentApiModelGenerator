@@ -47,7 +47,13 @@ public class OperationInterfaceCreator extends Interface {
 			interfce.setEntityName(name);
 		if (id != null)
 			interfce.setId(id);
-		// TODO: set repository? etc
+		
+		// TODO: add to Lists
+		interfce.getParentInterfaces__Interface().addAll(parentInterfaces);
+		interfce.getProtocols__Interface().addAll(protocols);
+		interfce.getRequiredCharacterisations().addAll(requiredCharacterisations);
+		
+		interfce.getSignatures__OperationInterface().addAll(operationSignatures);
 		
 		return interfce;
 	}

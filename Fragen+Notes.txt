@@ -8,16 +8,16 @@ wenn ja wie? und wie greift man auf bestehende zu?
 -> collectionDataType, Composite data type, exception type (wozu gehören die? - erst mal ignorieren)
 
 
+
 ToDo:
-- Rollen Erstellung überladen mit String, um rolle zu benennen
-
-
-
+- 
 
 
 
 Notizen
 
+- TextBasedModelGenerator nicht alles umgesetzt -> die hier verwendet sind, sind wichtig
+- erst die Seffs anschauen
 - Infrastructure and Resource Sachen zuletzt anschauen (Resource Interface)
 - exception types erst mal ignorieren
 - keine Passiv-Relationen erstellen
@@ -26,7 +26,11 @@ Notizen
 Durch die verschiedenen Referenzen: kann es zu Inkonsistenzen kommen, wenn mehrfach der gleiche Creator gebuilded wird, aber womöglich zwischendurch Änderungen entstehen -> es soll immer das gleiche Objekt bei rauskommen
 
 
-erst die Seffs anschauen; TextBasedModelGenerator nicht alles umgesetzt -> die hier verwendet sind, sind wichtig
+Das muss über die Factory abrufbar sein:
+- Components, Interfaces, DataTypes
+- Assembly Contexts, Roles
+- Parameters
+
 
 
 Factorys:

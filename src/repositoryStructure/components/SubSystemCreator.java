@@ -1,5 +1,14 @@
 package repositoryStructure.components;
 
+import org.palladiosimulator.pcm.core.composition.AssemblyContext;
+import org.palladiosimulator.pcm.core.composition.EventChannel;
+import org.palladiosimulator.pcm.parameter.VariableUsage;
+import org.palladiosimulator.pcm.repository.EventGroup;
+import org.palladiosimulator.pcm.repository.OperationProvidedRole;
+import org.palladiosimulator.pcm.repository.OperationRequiredRole;
+import org.palladiosimulator.pcm.repository.RepositoryComponent;
+import org.palladiosimulator.pcm.repository.SinkRole;
+import org.palladiosimulator.pcm.repository.SourceRole;
 import org.palladiosimulator.pcm.resourcetype.ResourceInterface;
 import org.palladiosimulator.pcm.subsystem.SubSystem;
 import org.palladiosimulator.pcm.subsystem.SubsystemFactory;
@@ -31,7 +40,7 @@ public class SubSystemCreator extends ComplexComponent {
 	public SubSystemCreator provides(OperationInterfaceCreator interfce) {
 		return (SubSystemCreator) super.provides(interfce);
 	}
-	
+
 	@Override
 	public SubSystemCreator provides(OperationInterfaceCreator interfce, String name) {
 		return (SubSystemCreator) super.provides(interfce, name);
@@ -53,7 +62,7 @@ public class SubSystemCreator extends ComplexComponent {
 	public SubSystemCreator handles(EventGroupCreator eventGroup) {
 		return (SubSystemCreator) super.handles(eventGroup);
 	}
-	
+
 	@Override
 	public SubSystemCreator handles(EventGroupCreator eventGroup, String name) {
 		return (SubSystemCreator) super.handles(eventGroup, name);
@@ -65,7 +74,7 @@ public class SubSystemCreator extends ComplexComponent {
 	public SubSystemCreator requires(OperationInterfaceCreator interfce) {
 		return (SubSystemCreator) super.requires(interfce);
 	}
-	
+
 	@Override
 	public SubSystemCreator requires(OperationInterfaceCreator interfce, String name) {
 		return (SubSystemCreator) super.requires(interfce, name);
@@ -76,7 +85,7 @@ public class SubSystemCreator extends ComplexComponent {
 	public SubSystemCreator requiresInfrastructure(InfrastructureInterfaceCreator interfce) {
 		return (SubSystemCreator) super.requiresInfrastructure(interfce);
 	}
-	
+
 	@Override
 	public SubSystemCreator requiresInfrastructure(InfrastructureInterfaceCreator interfce, String name) {
 		return (SubSystemCreator) super.requiresInfrastructure(interfce, name);
@@ -87,7 +96,7 @@ public class SubSystemCreator extends ComplexComponent {
 	public SubSystemCreator emits(EventGroupCreator eventGroup) {
 		return (SubSystemCreator) super.emits(eventGroup);
 	}
-	
+
 	@Override
 	public SubSystemCreator emits(EventGroupCreator eventGroup, String name) {
 		return (SubSystemCreator) super.emits(eventGroup, name);
@@ -97,6 +106,99 @@ public class SubSystemCreator extends ComplexComponent {
 	@Override
 	public SubSystemCreator requiresResource(ResourceInterface resourceInterface) {
 		return (SubSystemCreator) super.requiresResource(resourceInterface);
+	}
+
+	// ------------ other listing characteristics ------------
+	@Override
+	public SubSystemCreator withAssemblyContext(RepositoryComponent component, String name,
+			VariableUsage... configParameterUsage) {
+		return (SubSystemCreator) super.withAssemblyContext(component, name, configParameterUsage);
+	}
+
+	@Override
+	public SubSystemCreator withEventChannel(EventGroup eventGroup) {
+		return (SubSystemCreator) super.withEventChannel(eventGroup);
+	}
+
+	// ------------ connectors ------------
+	@Override
+	public SubSystemCreator withAssemblyConnection(OperationProvidedRole providedRole,
+			AssemblyContext providingAssemblyContext, OperationRequiredRole requiredRole,
+			AssemblyContext requiringAssemblyContext) {
+		return (SubSystemCreator) super.withAssemblyConnection(providedRole, providingAssemblyContext, requiredRole,
+				requiringAssemblyContext);
+	}
+
+	@Override
+	public SubSystemCreator withProvidedDelegationConnection(AssemblyContext assemblyContext,
+			OperationProvidedRole innerProvidedRole, OperationProvidedRole outerProvidedRole) {
+		return (SubSystemCreator) super.withProvidedDelegationConnection(assemblyContext, innerProvidedRole,
+				outerProvidedRole);
+	}
+
+	@Override
+	public SubSystemCreator withRequiredDelegationConnection(AssemblyContext assemblyContext,
+			OperationRequiredRole innerRequiredRole, OperationRequiredRole outerRequiredRole) {
+		return (SubSystemCreator) super.withRequiredDelegationConnection(assemblyContext, innerRequiredRole,
+				outerRequiredRole);
+	}
+
+	@Override
+	public SubSystemCreator withAssemblyEventConnection(SinkRole sinkRole, AssemblyContext sinkAssemblyContext,
+			SourceRole sourceRole, AssemblyContext sourceAssemblyContext, String filterCondition_stochasticExpression) {
+		return (SubSystemCreator) super.withAssemblyEventConnection(sinkRole, sinkAssemblyContext, sourceRole,
+				sourceAssemblyContext, filterCondition_stochasticExpression);
+	}
+
+	@Override
+	public SubSystemCreator withEventChannelSinkConnection(AssemblyContext assemblyContext, EventChannel eventChannel,
+			SinkRole sinkRole, String filterCondition_stochasticExpression) {
+		return (SubSystemCreator) super.withEventChannelSinkConnection(assemblyContext, eventChannel, sinkRole,
+				filterCondition_stochasticExpression);
+	}
+
+	@Override
+	public SubSystemCreator withEventChannelSourceConnection(AssemblyContext assemblyContext, EventChannel eventChannel,
+			SourceRole sourceRole) {
+		return (SubSystemCreator) super.withEventChannelSourceConnection(assemblyContext, eventChannel, sourceRole);
+	}
+
+	@Override
+	public SubSystemCreator withSinkDelegationConnection(AssemblyContext assemblyContext, SinkRole innerSinkRole,
+			SinkRole outerSinkRole) {
+		return (SubSystemCreator) super.withSinkDelegationConnection(assemblyContext, innerSinkRole, outerSinkRole);
+	}
+
+	@Override
+	public SubSystemCreator withSourceDelegationConnection(AssemblyContext assemblyContext, SourceRole innerSourceRole,
+			SourceRole outerSourceRole) {
+		return (SubSystemCreator) super.withSourceDelegationConnection(assemblyContext, innerSourceRole,
+				outerSourceRole);
+	}
+
+	@Override
+	public SubSystemCreator withAssemblyInfrastructureConnection() {
+		return (SubSystemCreator) super.withAssemblyInfrastructureConnection();
+	}
+
+	@Override
+	public SubSystemCreator withProvidedInfrastructureDelegationConnection() {
+		return (SubSystemCreator) super.withProvidedInfrastructureDelegationConnection();
+	}
+
+	@Override
+	public SubSystemCreator withRequiredInfrastructureDelegationConnection() {
+		return (SubSystemCreator) super.withRequiredInfrastructureDelegationConnection();
+	}
+
+	@Override
+	public SubSystemCreator withRequiredResourceDelegationConnection() {
+		return (SubSystemCreator) super.withRequiredResourceDelegationConnection();
+	}
+
+	@Override
+	public SubSystemCreator resourceRequiredDegelationConnection() {
+		return (SubSystemCreator) super.resourceRequiredDegelationConnection();
 	}
 
 	@Override
@@ -114,7 +216,8 @@ public class SubSystemCreator extends ComplexComponent {
 		subSystem.getAssemblyContexts__ComposedStructure().addAll(assemblyContexts);
 		subSystem.getConnectors__ComposedStructure().addAll(connectors);
 		subSystem.getEventChannel__ComposedStructure().addAll(eventChannels);
-		subSystem.getResourceRequiredDelegationConnectors_ComposedStructure().addAll(resourceRequiredDelegationConnectors);
+		subSystem.getResourceRequiredDelegationConnectors_ComposedStructure()
+				.addAll(resourceRequiredDelegationConnectors);
 
 		return subSystem;
 	}

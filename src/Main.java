@@ -52,7 +52,7 @@ public class Main {
 				.withId("comp1")
 				.handles(create.newEventGroup()
 								.withName("hallo"))
-				.provides(create.getOperationInterfaceByName("IDatabase"))
+//				.provides(create.fetchOfOperationInterface("IDatabase"))
 			)
 			
 			

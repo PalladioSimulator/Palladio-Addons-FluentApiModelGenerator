@@ -54,12 +54,12 @@ public abstract class ComplexComponent extends Component {
 			AssemblyContext providingAssemblyContext, OperationRequiredRole requiredRole,
 			AssemblyContext requiringAssemblyContext) {
 		AssemblyConnector assemblyConnector = CompositionFactory.eINSTANCE.createAssemblyConnector();
-		
+
 		assemblyConnector.setProvidedRole_AssemblyConnector(providedRole);
 		assemblyConnector.setProvidingAssemblyContext_AssemblyConnector(providingAssemblyContext);
 		assemblyConnector.setRequiredRole_AssemblyConnector(requiredRole);
 		assemblyConnector.setRequiringAssemblyContext_AssemblyConnector(requiringAssemblyContext);
-		
+
 		this.connectors.add(assemblyConnector);
 		return this;
 	}
@@ -83,7 +83,7 @@ public abstract class ComplexComponent extends Component {
 		connector.setAssemblyContext_RequiredDelegationConnector(assemblyContext);
 		connector.setInnerRequiredRole_RequiredDelegationConnector(innerRequiredRole);
 		connector.setOuterRequiredRole_RequiredDelegationConnector(outerRequiredRole);
-		
+
 		this.connectors.add(connector);
 		return this;
 	}
@@ -92,7 +92,7 @@ public abstract class ComplexComponent extends Component {
 	public ComplexComponent withAssemblyEventConnection(SinkRole sinkRole, AssemblyContext sinkAssemblyContext,
 			SourceRole sourceRole, AssemblyContext sourceAssemblyContext, String filterCondition_stochasticExpression) {
 		AssemblyEventConnector connector = CompositionFactory.eINSTANCE.createAssemblyEventConnector();
-		
+
 		connector.setSinkRole__AssemblyEventConnector(sinkRole);
 		connector.setSinkAssemblyContext__AssemblyEventConnector(sinkAssemblyContext);
 		connector.setSourceRole__AssemblyEventConnector(sourceRole);
@@ -108,8 +108,8 @@ public abstract class ComplexComponent extends Component {
 		return this;
 	}
 
-	public ComplexComponent withEventChannelSinkConnection(AssemblyContext assemblyContext, EventChannel eventChannel, SinkRole sinkRole,
-			String filterCondition_stochasticExpression) {
+	public ComplexComponent withEventChannelSinkConnection(AssemblyContext assemblyContext, EventChannel eventChannel,
+			SinkRole sinkRole, String filterCondition_stochasticExpression) {
 		EventChannelSinkConnector connector = CompositionFactory.eINSTANCE.createEventChannelSinkConnector();
 
 		connector.setAssemblyContext__EventChannelSinkConnector(assemblyContext);
@@ -126,35 +126,38 @@ public abstract class ComplexComponent extends Component {
 		return this;
 	}
 
-	public ComplexComponent withEventChannelSourceConnection(AssemblyContext assemblyContext, EventChannel eventChannel, SourceRole sourceRole) {
+	public ComplexComponent withEventChannelSourceConnection(AssemblyContext assemblyContext, EventChannel eventChannel,
+			SourceRole sourceRole) {
 		EventChannelSourceConnector connector = CompositionFactory.eINSTANCE.createEventChannelSourceConnector();
 
 		connector.setAssemblyContext__EventChannelSourceConnector(assemblyContext);
 		connector.setEventChannel__EventChannelSourceConnector(eventChannel);
 		connector.setSourceRole__EventChannelSourceRole(sourceRole);
-		
+
 		this.connectors.add(connector);
 		return this;
 	}
 
-	public ComplexComponent withSinkDelegationConnection(AssemblyContext assemblyContext, SinkRole innerSinkRole, SinkRole outerSinkRole) {
+	public ComplexComponent withSinkDelegationConnection(AssemblyContext assemblyContext, SinkRole innerSinkRole,
+			SinkRole outerSinkRole) {
 		SinkDelegationConnector connector = CompositionFactory.eINSTANCE.createSinkDelegationConnector();
 
 		connector.setAssemblyContext__SinkDelegationConnector(assemblyContext);
 		connector.setInnerSinkRole__SinkRole(innerSinkRole);
 		connector.setOuterSinkRole__SinkRole(outerSinkRole);
-		
+
 		this.connectors.add(connector);
 		return this;
 	}
 
-	public ComplexComponent withSourceDelegationConnection(AssemblyContext assemblyContext, SourceRole innerSourceRole, SourceRole outerSourceRole) {
+	public ComplexComponent withSourceDelegationConnection(AssemblyContext assemblyContext, SourceRole innerSourceRole,
+			SourceRole outerSourceRole) {
 		SourceDelegationConnector connector = CompositionFactory.eINSTANCE.createSourceDelegationConnector();
 
 		connector.setAssemblyContext__SourceDelegationConnector(assemblyContext);
 		connector.setInnerSourceRole__SourceRole(innerSourceRole);
 		connector.setOuterSourceRole__SourceRole(outerSourceRole);
-		
+
 		this.connectors.add(connector);
 		return this;
 	}
@@ -201,7 +204,7 @@ public abstract class ComplexComponent extends Component {
 	public ComplexComponent withEventChannel(EventGroup eventGroup) {
 		EventChannel eventChannel = CompositionFactory.eINSTANCE.createEventChannel();
 		eventChannel.setEventGroup__EventChannel(eventGroup);
-		
+
 		// TODO: Lists -> add
 		eventChannel.getEventChannelSinkConnector__EventChannel();
 		eventChannel.getEventChannelSourceConnector__EventChannel();
@@ -210,14 +213,14 @@ public abstract class ComplexComponent extends Component {
 		return this;
 	}
 
-	public ComplexComponent resourceRequiredDegelationConnection(Object o) {
+	public ComplexComponent resourceRequiredDegelationConnection() {
 		ResourceRequiredDelegationConnector connector = CompositionFactory.eINSTANCE
 				.createResourceRequiredDelegationConnector();
-		// TODO: later; nicht so wichtig 
+		// TODO: later; nicht so wichtig
 
 		this.resourceRequiredDelegationConnectors.add(connector);
 		return this;
-		
+
 	}
 
 }

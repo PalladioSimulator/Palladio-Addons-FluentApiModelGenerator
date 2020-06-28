@@ -1,6 +1,7 @@
 package repositoryStructure.interfaces;
 
 import org.palladiosimulator.pcm.repository.InfrastructureInterface;
+import org.palladiosimulator.pcm.repository.RepositoryFactory;
 
 import repositoryStructure.RepositoryCreator;
 import repositoryStructure.interfaces.stuff.RequiredCharacterisationCreator;
@@ -28,8 +29,21 @@ public class InfrastructureInterfaceCreator extends Interface{
 
 	@Override
 	public InfrastructureInterface build() {
-		// TODO Auto-generated method stub
-		return null;
+		InfrastructureInterface interfce = RepositoryFactory.eINSTANCE.createInfrastructureInterface();
+		
+		if (name != null)
+			interfce.setEntityName(name);
+		if (id != null)
+			interfce.setId(id);
+		
+		// TODO: add to Lists
+		interfce.getParentInterfaces__Interface();
+		interfce.getProtocols__Interface();
+		interfce.getRequiredCharacterisations();
+		
+		interfce.getInfrastructureSignatures__InfrastructureInterface();
+		
+		return interfce;
 	}
 
 	

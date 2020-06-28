@@ -3,18 +3,19 @@ package factory;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.palladiosimulator.pcm.repository.Interface;
+import org.palladiosimulator.pcm.repository.OperationInterface;
 import org.palladiosimulator.pcm.repository.Parameter;
+import org.palladiosimulator.pcm.repository.RepositoryComponent;
 
 import repositoryStructure.RepositoryCreator;
 import repositoryStructure.components.BasicComponentCreator;
 import repositoryStructure.components.CompleteComponentTypeCreator;
-import repositoryStructure.components.Component;
 import repositoryStructure.components.CompositeComponentCreator;
 import repositoryStructure.components.ProvidesComponentTypeCreator;
 import repositoryStructure.components.SubSystemCreator;
 import repositoryStructure.interfaces.EventGroupCreator;
 import repositoryStructure.interfaces.InfrastructureInterfaceCreator;
-import repositoryStructure.interfaces.Interface;
 import repositoryStructure.interfaces.OperationInterfaceCreator;
 import repositoryStructure.interfaces.stuff.OperationSignatureCreator;
 import repositoryStructure.interfaces.stuff.ParameterCreator;
@@ -25,7 +26,7 @@ public class MyRepositoryFactory {
 
 	private RepositoryCreator repo;
 	
-	private List<Component> components;
+	private List<RepositoryComponent> components;
 	private List<Interface> interfaces;
 	//TODO:
 	private List<Object> failureTypes;
@@ -48,50 +49,50 @@ public class MyRepositoryFactory {
 	// ---------------------- Components ----------------------
 	public BasicComponentCreator newBasicComponent() {
 		BasicComponentCreator basicComponent = new BasicComponentCreator(this.repo);
-		components.add(basicComponent);
+//		components.add(basicComponent);
 		return basicComponent;
 	}
 
 	public CompositeComponentCreator newCompositeComponent() {
 		CompositeComponentCreator compositeComponent = new CompositeComponentCreator(this.repo);
-		components.add(compositeComponent);
+//		components.add(compositeComponent);
 		return compositeComponent;
 	}
 	
 	public SubSystemCreator newSubSystem() {
 		SubSystemCreator subSystem = new SubSystemCreator(this.repo);
-		components.add(subSystem);
+//		components.add(subSystem);
 		return subSystem;
 	}
 	
 	public CompleteComponentTypeCreator newCompleteComponentType() {
 		CompleteComponentTypeCreator cct = new CompleteComponentTypeCreator(this.repo);
-		components.add(cct);
+//		components.add(cct);
 		return cct;
 	}
 	
 	public ProvidesComponentTypeCreator newProvidesComponentType() {
 		ProvidesComponentTypeCreator pct = new ProvidesComponentTypeCreator(this.repo);
-		components.add(pct);
+//		components.add(pct);
 		return pct;
 	}
 	
 	// ---------------------- Interfaces ----------------------
 	public OperationInterfaceCreator newOperationInterface() {
 		OperationInterfaceCreator operationInterface = new OperationInterfaceCreator(this.repo);
-		interfaces.add(operationInterface);
+//		interfaces.add(operationInterface);
 		return operationInterface;
 	}
 	
 	public InfrastructureInterfaceCreator newInfrastructureInterface() {
 		InfrastructureInterfaceCreator infrastructureInterface = new InfrastructureInterfaceCreator(this.repo);
-		interfaces.add(infrastructureInterface);
+//		interfaces.add(infrastructureInterface);
 		return infrastructureInterface;
 	}
 	
 	public EventGroupCreator newEventGroup() {
 		EventGroupCreator eventGroup = new EventGroupCreator(this.repo);
-		interfaces.add(eventGroup);
+//		interfaces.add(eventGroup);
 		return eventGroup;
 	}
 	
@@ -141,19 +142,19 @@ public class MyRepositoryFactory {
 		return ops;
 	}
 
-	// ---------------------- Connecting methods ----------------------
-	public Component getComponentByName(String name) {
-		for(Component c: components) {
-			if(c.getName().equals(name))
+	// ---------------------- Fetching methods ----------------------
+	public RepositoryComponent fetchOfComponent(String name) {
+		for(RepositoryComponent c: components) {
+			if(c.getEntityName().equals(name))
 				return c;
 		}
 		throw new RuntimeException("Component '"+name+"' could not be found");
 	}
 	
-	public OperationInterfaceCreator getOperationInterfaceByName(String name) {
+	public Interface fetchOfOperationInterface(String name) {
 		for(Interface i: interfaces) {
-			if(i instanceof OperationInterfaceCreator && i.getName().equals(name))
-				return (OperationInterfaceCreator) i;
+			if(i instanceof OperationInterface && i.getEntityName().equals(name))
+				return (OperationInterface) i;
 		}
 		throw new RuntimeException("Interface '"+name+"' could not be found");
 	}

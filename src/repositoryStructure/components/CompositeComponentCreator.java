@@ -3,12 +3,19 @@ package repositoryStructure.components;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.palladiosimulator.pcm.core.composition.AssemblyContext;
+import org.palladiosimulator.pcm.core.composition.EventChannel;
 import org.palladiosimulator.pcm.parameter.VariableUsage;
 import org.palladiosimulator.pcm.repository.CompleteComponentType;
 import org.palladiosimulator.pcm.repository.ComponentType;
 import org.palladiosimulator.pcm.repository.CompositeComponent;
+import org.palladiosimulator.pcm.repository.EventGroup;
+import org.palladiosimulator.pcm.repository.OperationProvidedRole;
+import org.palladiosimulator.pcm.repository.OperationRequiredRole;
 import org.palladiosimulator.pcm.repository.RepositoryComponent;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
+import org.palladiosimulator.pcm.repository.SinkRole;
+import org.palladiosimulator.pcm.repository.SourceRole;
 import org.palladiosimulator.pcm.resourcetype.ResourceInterface;
 
 import repositoryStructure.RepositoryCreator;
@@ -50,7 +57,7 @@ public class CompositeComponentCreator extends ComplexComponent {
 	public CompositeComponentCreator provides(OperationInterfaceCreator interfce) {
 		return (CompositeComponentCreator) super.provides(interfce);
 	}
-	
+
 	@Override
 	public CompositeComponentCreator provides(OperationInterfaceCreator interfce, String name) {
 		return (CompositeComponentCreator) super.provides(interfce, name);
@@ -66,13 +73,13 @@ public class CompositeComponentCreator extends ComplexComponent {
 	public CompositeComponentCreator providesInfrastructure(InfrastructureInterfaceCreator interfce, String name) {
 		return (CompositeComponentCreator) super.providesInfrastructure(interfce, name);
 	}
-	
+
 	// sink role: handles an event group
 	@Override
 	public CompositeComponentCreator handles(EventGroupCreator eventGroup) {
 		return (CompositeComponentCreator) super.handles(eventGroup);
 	}
-	
+
 	@Override
 	public CompositeComponentCreator handles(EventGroupCreator eventGroup, String name) {
 		return (CompositeComponentCreator) super.handles(eventGroup, name);
@@ -89,7 +96,7 @@ public class CompositeComponentCreator extends ComplexComponent {
 	public CompositeComponentCreator requires(OperationInterfaceCreator interfce, String name) {
 		return (CompositeComponentCreator) super.requires(interfce, name);
 	}
-	
+
 	// require infrastructure interface
 	@Override
 	public CompositeComponentCreator requiresInfrastructure(InfrastructureInterfaceCreator interfce) {
@@ -100,13 +107,13 @@ public class CompositeComponentCreator extends ComplexComponent {
 	public CompositeComponentCreator requiresInfrastructure(InfrastructureInterfaceCreator interfce, String name) {
 		return (CompositeComponentCreator) super.requiresInfrastructure(interfce, name);
 	}
-	
+
 	// emits event group (source role)
 	@Override
 	public CompositeComponentCreator emits(EventGroupCreator eventGroup) {
 		return (CompositeComponentCreator) super.emits(eventGroup);
 	}
-	
+
 	@Override
 	public CompositeComponentCreator emits(EventGroupCreator eventGroup, String name) {
 		return (CompositeComponentCreator) super.emits(eventGroup, name);
@@ -133,6 +140,100 @@ public class CompositeComponentCreator extends ComplexComponent {
 	}
 
 	@Override
+	public CompositeComponentCreator withAssemblyContext(RepositoryComponent component, String name,
+			VariableUsage... configParameterUsage) {
+		return (CompositeComponentCreator) super.withAssemblyContext(component, name, configParameterUsage);
+	}
+
+	@Override
+	public ComplexComponent withEventChannel(EventGroup eventGroup) {
+		return (CompositeComponentCreator) super.withEventChannel(eventGroup);
+	}
+
+	// ------------ connectors ------------
+	@Override
+	public CompositeComponentCreator withAssemblyConnection(OperationProvidedRole providedRole,
+			AssemblyContext providingAssemblyContext, OperationRequiredRole requiredRole,
+			AssemblyContext requiringAssemblyContext) {
+		return (CompositeComponentCreator) super.withAssemblyConnection(providedRole, providingAssemblyContext,
+				requiredRole, requiringAssemblyContext);
+	}
+
+	@Override
+	public CompositeComponentCreator withProvidedDelegationConnection(AssemblyContext assemblyContext,
+			OperationProvidedRole innerProvidedRole, OperationProvidedRole outerProvidedRole) {
+		return (CompositeComponentCreator) super.withProvidedDelegationConnection(assemblyContext, innerProvidedRole,
+				outerProvidedRole);
+	}
+
+	@Override
+	public CompositeComponentCreator withRequiredDelegationConnection(AssemblyContext assemblyContext,
+			OperationRequiredRole innerRequiredRole, OperationRequiredRole outerRequiredRole) {
+		return (CompositeComponentCreator) super.withRequiredDelegationConnection(assemblyContext, innerRequiredRole,
+				outerRequiredRole);
+	}
+
+	@Override
+	public CompositeComponentCreator withAssemblyEventConnection(SinkRole sinkRole, AssemblyContext sinkAssemblyContext,
+			SourceRole sourceRole, AssemblyContext sourceAssemblyContext, String filterCondition_stochasticExpression) {
+		return (CompositeComponentCreator) super.withAssemblyEventConnection(sinkRole, sinkAssemblyContext, sourceRole,
+				sourceAssemblyContext, filterCondition_stochasticExpression);
+	}
+
+	@Override
+	public CompositeComponentCreator withEventChannelSinkConnection(AssemblyContext assemblyContext,
+			EventChannel eventChannel, SinkRole sinkRole, String filterCondition_stochasticExpression) {
+		return (CompositeComponentCreator) super.withEventChannelSinkConnection(assemblyContext, eventChannel, sinkRole,
+				filterCondition_stochasticExpression);
+	}
+
+	@Override
+	public CompositeComponentCreator withEventChannelSourceConnection(AssemblyContext assemblyContext,
+			EventChannel eventChannel, SourceRole sourceRole) {
+		return (CompositeComponentCreator) super.withEventChannelSourceConnection(assemblyContext, eventChannel,
+				sourceRole);
+	}
+
+	@Override
+	public CompositeComponentCreator withSinkDelegationConnection(AssemblyContext assemblyContext,
+			SinkRole innerSinkRole, SinkRole outerSinkRole) {
+		return (CompositeComponentCreator) super.withSinkDelegationConnection(assemblyContext, innerSinkRole,
+				outerSinkRole);
+	}
+
+	@Override
+	public CompositeComponentCreator withSourceDelegationConnection(AssemblyContext assemblyContext,
+			SourceRole innerSourceRole, SourceRole outerSourceRole) {
+		return (CompositeComponentCreator) super.withSourceDelegationConnection(assemblyContext, innerSourceRole,
+				outerSourceRole);
+	}
+
+	@Override
+	public CompositeComponentCreator withAssemblyInfrastructureConnection() {
+		return (CompositeComponentCreator) super.withAssemblyInfrastructureConnection();
+	}
+
+	@Override
+	public CompositeComponentCreator withProvidedInfrastructureDelegationConnection() {
+		return (CompositeComponentCreator) super.withProvidedInfrastructureDelegationConnection();
+	}
+
+	@Override
+	public CompositeComponentCreator withRequiredInfrastructureDelegationConnection() {
+		return (CompositeComponentCreator) super.withRequiredInfrastructureDelegationConnection();
+	}
+
+	@Override
+	public CompositeComponentCreator withRequiredResourceDelegationConnection() {
+		return (CompositeComponentCreator) super.withRequiredResourceDelegationConnection();
+	}
+
+	@Override
+	public CompositeComponentCreator resourceRequiredDegelationConnection() {
+		return (CompositeComponentCreator) super.resourceRequiredDegelationConnection();
+	}
+
+	@Override
 	public RepositoryComponent build() {
 		CompositeComponent compositeComponent = RepositoryFactory.eINSTANCE.createCompositeComponent();
 		if (name != null)
@@ -152,7 +253,8 @@ public class CompositeComponentCreator extends ComplexComponent {
 		compositeComponent.getAssemblyContexts__ComposedStructure().addAll(assemblyContexts);
 		compositeComponent.getConnectors__ComposedStructure().addAll(connectors);
 		compositeComponent.getEventChannel__ComposedStructure().addAll(eventChannels);
-		compositeComponent.getResourceRequiredDelegationConnectors_ComposedStructure().addAll(resourceRequiredDelegationConnectors);
+		compositeComponent.getResourceRequiredDelegationConnectors_ComposedStructure()
+				.addAll(resourceRequiredDelegationConnectors);
 
 		return compositeComponent;
 	}
