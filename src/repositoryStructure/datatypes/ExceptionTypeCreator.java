@@ -5,12 +5,10 @@ import org.palladiosimulator.pcm.repository.RepositoryFactory;
 
 import repositoryStructure.RepositoryCreator;
 
-public class ExceptionTypeCreator extends DataType{
+public class ExceptionTypeCreator {
 
-	
-	private ExceptionTypeCreator() {}
 	public ExceptionTypeCreator(RepositoryCreator repo) {
-		this.repository = repo;
+		// TODO: later
 	}
 
 	private String name;
@@ -20,7 +18,7 @@ public class ExceptionTypeCreator extends DataType{
 		this.name = name;
 		return this;
 	}
-	
+
 	public ExceptionTypeCreator withExceptionMessage(String message) {
 		this.exceptionMessage = message;
 		return this;

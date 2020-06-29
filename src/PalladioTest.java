@@ -1,6 +1,8 @@
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.emf.common.util.URI;
@@ -22,6 +24,7 @@ import org.palladiosimulator.pcm.repository.RepositoryFactory;
 public class PalladioTest {
 
 	public static void main(String[] args) {
+		
 		new PalladioTest().setupAndSaveEMFInstanceResource();
 
 //		String fileName = "resources/FailureTypes.repository";

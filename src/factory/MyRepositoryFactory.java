@@ -3,10 +3,14 @@ package factory;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.palladiosimulator.pcm.repository.CollectionDataType;
+import org.palladiosimulator.pcm.repository.CompositeDataType;
 import org.palladiosimulator.pcm.repository.Interface;
 import org.palladiosimulator.pcm.repository.OperationInterface;
 import org.palladiosimulator.pcm.repository.Parameter;
+import org.palladiosimulator.pcm.repository.PrimitiveDataType;
 import org.palladiosimulator.pcm.repository.RepositoryComponent;
+import org.palladiosimulator.pcm.repository.RepositoryFactory;
 
 import repositoryStructure.RepositoryCreator;
 import repositoryStructure.SeffCreator;
@@ -15,6 +19,9 @@ import repositoryStructure.components.CompleteComponentTypeCreator;
 import repositoryStructure.components.CompositeComponentCreator;
 import repositoryStructure.components.ProvidesComponentTypeCreator;
 import repositoryStructure.components.SubSystemCreator;
+import repositoryStructure.datatypes.CompositeDataTypeCreator;
+import repositoryStructure.datatypes.Primitive;
+import repositoryStructure.datatypes.PrimitiveType;
 import repositoryStructure.interfaces.EventGroupCreator;
 import repositoryStructure.interfaces.InfrastructureInterfaceCreator;
 import repositoryStructure.interfaces.OperationInterfaceCreator;
@@ -97,36 +104,35 @@ public class MyRepositoryFactory {
 	}
 	
 	// ---------------------- Failure Types ----------------------
-	
-//	public FailureTypeCreator newHardwareInducedFailureType() {
-//		return null;
-//	}
-//	
-//	public FailureTypeCreator newSoftwareInducedFailureType() {
-//		return null;
-//	}
-//	
-//	public FailureTypeCreator newNetworkInducedFailureType() {
-//		return null;
-//	}
-//	
-//	public FailureTypeCreator newResourceTimeoutFailureType() {
-//		return null;
-//	}
+	// access Failure Types using enums
 	
 	// ---------------------- DataTypes ----------------------
+	// access Primitive Data Types using enums
 	
-//	public DataTypeCreator newPrimitiveDataType() {
-//		return null;
-//	}
-//	
-//	public DataTypeCreator newCompositeDataType() {
-//		return null;
-//	}
-//	
-//	public DataTypeCreator newCollectionDataType() {
-//		return null;
-//	}
+	public CollectionDataType newCollectionDataType(String name, Primitive primitive) {
+		PrimitiveDataType p = PrimitiveType.getPrimitiveDataType(primitive);
+		
+		CollectionDataType coll = RepositoryFactory.eINSTANCE.createCollectionDataType();
+		coll.setEntityName(name);
+		coll.setInnerType_CollectionDataType(p);
+		
+		return coll;
+	}
+	
+	public CollectionDataType newCollectionDataType(String name, org.palladiosimulator.pcm.repository.DataType collection) {
+		CollectionDataType coll = RepositoryFactory.eINSTANCE.createCollectionDataType();
+		coll.setEntityName(name);
+		coll.setInnerType_CollectionDataType(collection);
+		return coll;
+	}
+
+	public CompositeDataTypeCreator newCompositeDataType(String name, CompositeDataType ... parent) {
+		if(parent == null)
+			parent = new CompositeDataType[0];
+		CompositeDataTypeCreator c = new CompositeDataTypeCreator(name, parent);
+		return c;
+	}
+
 	
 	// ---------------------- Component Related Stuff ----------------------
 
@@ -141,7 +147,18 @@ public class MyRepositoryFactory {
 		return ops;
 	}
 
+	public ParameterCreator newParameter() {
+		ParameterCreator pc = new ParameterCreator();
+		return pc;
+	}
+	
 	// ---------------------- Fetching methods ----------------------
+	
+	// TODO: access of dataTypes
+	// TODO: different component Types
+	// TODO: different interface types
+	// TODO: parameters
+	
 	public RepositoryComponent fetchOfComponent(String name) {
 		for(RepositoryComponent c: components) {
 			if(c.getEntityName().equals(name))
@@ -163,11 +180,4 @@ public class MyRepositoryFactory {
 		return null;
 	}
 
-	public ParameterCreator newParameter() {
-		ParameterCreator pc = new ParameterCreator();
-		return pc;
-	}
-
-
-	
 }

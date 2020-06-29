@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<repository:Repository xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" id="_hOut0LYjEeqZ5P3UGK3Qhg">
-  <components__Repository xsi:type="repository:BasicComponent" id="_hQscsLYjEeqZ5P3UGK3Qhg" entityName="Database">
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_hQuR4LYjEeqZ5P3UGK3Qhg" providedInterface__OperationProvidedRole="_hQtq0LYjEeqZ5P3UGK3Qhg"/>
+<repository:Repository xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" id="_Y3FlwLn6EeqMW4lJhaCx5g">
+  <components__Repository xsi:type="repository:BasicComponent" id="_Y5pKgLn6EeqMW4lJhaCx5g" entityName="Database">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_Y5rmwLn6EeqMW4lJhaCx5g" providedInterface__OperationProvidedRole="_Y5qYoLn6EeqMW4lJhaCx5g"/>
   </components__Repository>
-  <components__Repository xsi:type="repository:BasicComponent" id="_hQscsbYjEeqZ5P3UGK3Qhg" entityName="Web"/>
-  <interfaces__Repository xsi:type="repository:OperationInterface" id="_hQtq0LYjEeqZ5P3UGK3Qhg" entityName="IDatabase"/>
+  <components__Repository xsi:type="repository:BasicComponent" id="_Y5pKgbn6EeqMW4lJhaCx5g" entityName="Web"/>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_Y5qYoLn6EeqMW4lJhaCx5g" entityName="IDatabase"/>
 </repository:Repository>

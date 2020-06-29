@@ -3,6 +3,7 @@ package repositoryStructure;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.ocl.ecore.CollectionType;
 import org.palladiosimulator.pcm.repository.Interface;
 import org.palladiosimulator.pcm.repository.Repository;
 import org.palladiosimulator.pcm.repository.RepositoryComponent;
@@ -56,6 +57,9 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 		interfaces.add(i);
 		return this;
 	}
+	
+//	public RepoAddition addToRepository(CollectionType)
+	//TODO:
 	
 	@Override
 	public Repository build() {
