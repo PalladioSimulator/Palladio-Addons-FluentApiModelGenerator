@@ -12,10 +12,10 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceFactoryImpl;
 import org.palladiosimulator.pcm.parameter.VariableCharacterisationType;
-import org.palladiosimulator.pcm.repository.DataType;
 import org.palladiosimulator.pcm.repository.Repository;
 
 import factory.MyRepositoryFactory;
+import repositoryStructure.datatypes.Primitive;
 
 public class Main {
 
@@ -28,37 +28,52 @@ public class Main {
 			.withDescription("This is my PCM model.")
 			.withId("abc123")
 			
+			//DATATYPES
+			.addToRepository(create.newCollectionDataType("StringList", Primitive.STRING))
+			
+			.addToRepository(create.newCompositeDataType("Person")
+					.withInnerDeclaration("first names", create.fetchOfDataType("StringList"))
+					.withInnerDeclaration("age", Primitive.INTEGER))
+			
+			// INTERFACES
 			.addToRepository(create.newOperationInterface()
-									.withName("IDatabase")
-									.withRequiredCharacterisation(create.getParameter(""), VariableCharacterisationType.VALUE)
-									.withOperationSignature(create.newOperationSignature()
-															.withName("saveDatabaseEntry")
-															.withParameter(create.newParameter()
-																				.withName("name"))
-															.withParameter(create.newParameter().withName("age")
-																	.ofDataType(null))))
-			.addToRepository(create.newCompositeComponent()
-					.withName("Web")
-					.requires(create.newOperationInterface()
-									.withName("HelloWorld"))
-					)
+							.withName("IDatabase")
+							.withOperationSignature(create.newOperationSignature()
+													.withName("saveDatabaseEntry")
+													.withParameter(create.newParameter()
+																	.withName("name"))
+													.withParameter(create.newParameter().withName("age")
+																	.ofDataType(null)))
+							.withRequiredCharacterisation(create.getParameter(""), VariableCharacterisationType.VALUE))
+			
+			// BASIC COMPONENTS
 			.addToRepository(create.newBasicComponent()
 				.withName("Database")
 				.withId("comp1")
 				.handles(create.newEventGroup()
 								.withName("hallo"))
 				.withServiceEffectSpecification(create.newSeff().withStartAction().followedBy().externalCallAction().followedBy().stopAction())
-//				.provides(create.fetchOfOperationInterface("IDatabase"))
+				.provides(create.fetchOfOperationInterface("IDatabase"), "provDB")
+				.requires(create.newOperationInterface().withName("someInterface"), "reqSomeI")
 			)
-			
-			
+						
 			.addToRepository(create.newBasicComponent()
 				.withName("Web2")
-//				.provide(creator.newOperationInterface()
-//				    .withName("IDatabase2")
-//				    .withId("face2")
-//			    )
+				.provides(create.newOperationInterface()
+				    .withName("IDatabase2")
+				    .withId("face2")
+			    )
 			)
+			
+			// COMPOSITE COMPONENTS
+			.addToRepository(create.newCompositeComponent()
+					.withName("Web")
+					.requires(create.newOperationInterface()
+							.withName("HelloWorld"))
+					.withAssemblyContext(create.fetchOfComponent("Database"), "DBContext")
+					.withAssemblyConnection(create.fetchOfProvidedRole("provDB"), create.fetchOfAssemblyContext("DBContext"), 
+							create.fetchOfRequiredRole("reqSomeI"), create.fetchOfAssemblyContext("DBContext"))
+					)
 			
 //			.conect("Web", creator.getByUUID("comp1"))
 	

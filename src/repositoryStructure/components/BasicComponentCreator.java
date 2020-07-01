@@ -10,12 +10,14 @@ import org.palladiosimulator.pcm.reliability.ResourceTimeoutFailureType;
 import org.palladiosimulator.pcm.repository.BasicComponent;
 import org.palladiosimulator.pcm.repository.CompleteComponentType;
 import org.palladiosimulator.pcm.repository.ComponentType;
+import org.palladiosimulator.pcm.repository.EventGroup;
+import org.palladiosimulator.pcm.repository.InfrastructureInterface;
+import org.palladiosimulator.pcm.repository.OperationInterface;
 import org.palladiosimulator.pcm.repository.PassiveResource;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
 import org.palladiosimulator.pcm.resourcetype.ResourceInterface;
 import org.palladiosimulator.pcm.seff.ServiceEffectSpecification;
 
-import apiControlFlowInterfaces.Follow;
 import repositoryStructure.RepositoryCreator;
 import repositoryStructure.SeffCreator;
 import repositoryStructure.interfaces.EventGroupCreator;
@@ -67,6 +69,16 @@ public class BasicComponentCreator extends Component {
 		return (BasicComponentCreator) super.provides(interfce, name);
 	}
 
+	@Override
+	public BasicComponentCreator provides(OperationInterface interfce) {
+		return (BasicComponentCreator) super.provides(interfce);
+	}
+
+	@Override
+	public BasicComponentCreator provides(OperationInterface interfce, String name) {
+		return (BasicComponentCreator) super.provides(interfce, name);
+	}
+
 	// provides infrastructure interface
 	@Override
 	public BasicComponentCreator providesInfrastructure(InfrastructureInterfaceCreator interfce) {
@@ -75,6 +87,16 @@ public class BasicComponentCreator extends Component {
 	
 	@Override
 	public BasicComponentCreator providesInfrastructure(InfrastructureInterfaceCreator interfce, String name) {
+		return (BasicComponentCreator) super.providesInfrastructure(interfce, name);
+	}
+	
+	@Override
+	public BasicComponentCreator providesInfrastructure(InfrastructureInterface interfce) {
+		return (BasicComponentCreator) super.providesInfrastructure(interfce);
+	}
+	
+	@Override
+	public BasicComponentCreator providesInfrastructure(InfrastructureInterface interfce, String name) {
 		return (BasicComponentCreator) super.providesInfrastructure(interfce, name);
 	}
 
@@ -86,6 +108,16 @@ public class BasicComponentCreator extends Component {
 	
 	@Override
 	public BasicComponentCreator handles(EventGroupCreator eventGroup, String name) {
+		return (BasicComponentCreator) super.handles(eventGroup, name);
+	}
+	
+	@Override
+	public BasicComponentCreator handles(EventGroup eventGroup) {
+		return (BasicComponentCreator) super.handles(eventGroup);
+	}
+	
+	@Override
+	public BasicComponentCreator handles(EventGroup eventGroup, String name) {
 		return (BasicComponentCreator) super.handles(eventGroup, name);
 	}
 
@@ -100,6 +132,16 @@ public class BasicComponentCreator extends Component {
 	public BasicComponentCreator requires(OperationInterfaceCreator interfce, String name) {
 		return (BasicComponentCreator) super.requires(interfce, name);
 	}
+	
+	@Override
+	public BasicComponentCreator requires(OperationInterface interfce) {
+		return (BasicComponentCreator) super.requires(interfce);
+	}
+	
+	@Override
+	public BasicComponentCreator requires(OperationInterface interfce, String name) {
+		return (BasicComponentCreator) super.requires(interfce, name);
+	}
 
 	// require infrastructure interface
 	@Override
@@ -111,6 +153,16 @@ public class BasicComponentCreator extends Component {
 	public BasicComponentCreator requiresInfrastructure(InfrastructureInterfaceCreator interfce, String name) {
 		return (BasicComponentCreator) super.requiresInfrastructure(interfce, name);
 	}
+	
+	@Override
+	public BasicComponentCreator requiresInfrastructure(InfrastructureInterface interfce) {
+		return (BasicComponentCreator) super.requiresInfrastructure(interfce);
+	}
+	
+	@Override
+	public BasicComponentCreator requiresInfrastructure(InfrastructureInterface interfce, String name) {
+		return (BasicComponentCreator) super.requiresInfrastructure(interfce, name);
+	}
 
 	// emits event group (source role)
 	@Override
@@ -120,6 +172,16 @@ public class BasicComponentCreator extends Component {
 
 	@Override
 	public BasicComponentCreator emits(EventGroupCreator eventGroup, String name) {
+		return (BasicComponentCreator) super.emits(eventGroup, name);
+	}
+	
+	@Override
+	public BasicComponentCreator emits(EventGroup eventGroup) {
+		return (BasicComponentCreator) super.emits(eventGroup);
+	}
+	
+	@Override
+	public BasicComponentCreator emits(EventGroup eventGroup, String name) {
 		return (BasicComponentCreator) super.emits(eventGroup, name);
 	}
 	
@@ -154,13 +216,14 @@ public class BasicComponentCreator extends Component {
 	// SEFFs
 	public BasicComponentCreator withServiceEffectSpecification(SeffCreator seff) {
 		ServiceEffectSpecification sEfF = seff.build();
-		this.seffs.add(sEfF);
+		//TODO:
+//		this.seffs.add(sEfF);
 		return this;
 	}
 
 	// TODO: Variable Usages
 	public BasicComponentCreator todo(Object toDo) {
-		this.componentParameterUsages.add(null);
+//		this.componentParameterUsages.add(null);
 		return this;
 	}
 

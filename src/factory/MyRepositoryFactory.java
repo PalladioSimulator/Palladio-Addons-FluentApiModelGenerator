@@ -3,12 +3,17 @@ package factory;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.repository.CollectionDataType;
 import org.palladiosimulator.pcm.repository.CompositeDataType;
+import org.palladiosimulator.pcm.repository.DataType;
 import org.palladiosimulator.pcm.repository.Interface;
 import org.palladiosimulator.pcm.repository.OperationInterface;
+import org.palladiosimulator.pcm.repository.OperationProvidedRole;
+import org.palladiosimulator.pcm.repository.OperationRequiredRole;
 import org.palladiosimulator.pcm.repository.Parameter;
 import org.palladiosimulator.pcm.repository.PrimitiveDataType;
+import org.palladiosimulator.pcm.repository.ProvidedRole;
 import org.palladiosimulator.pcm.repository.RepositoryComponent;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
 
@@ -33,18 +38,18 @@ public class MyRepositoryFactory {
 
 	private RepositoryCreator repo;
 	
-	private List<RepositoryComponent> components;
-	private List<Interface> interfaces;
+//	private List<RepositoryComponent> components;
+//	private List<Interface> interfaces;
 	//TODO:
-	private List<Object> failureTypes;
-	private List<Object> dataTypes;
+//	private List<Object> failureTypes;
+//	private List<Object> dataTypes;
 
 	
 	public MyRepositoryFactory() {
-		components = new ArrayList<>();
-		interfaces = new ArrayList<>();
-		failureTypes = new ArrayList<>();
-		dataTypes = new ArrayList<>();
+//		components = new ArrayList<>();
+//		interfaces = new ArrayList<>();
+//		failureTypes = new ArrayList<>();
+//		dataTypes = new ArrayList<>();
 	}
 	
 	// ---------------------- Repository ----------------------
@@ -160,24 +165,56 @@ public class MyRepositoryFactory {
 	// TODO: parameters
 	
 	public RepositoryComponent fetchOfComponent(String name) {
-		for(RepositoryComponent c: components) {
-			if(c.getEntityName().equals(name))
-				return c;
-		}
-		throw new RuntimeException("Component '"+name+"' could not be found");
+		RepositoryComponent component = repo.getComponent(name);
+		if(component == null)
+			throw new RuntimeException("Component '"+name+"' could not be found");
+		else
+			return component;
 	}
 	
-	public Interface fetchOfOperationInterface(String name) {
-		for(Interface i: interfaces) {
-			if(i instanceof OperationInterface && i.getEntityName().equals(name))
-				return (OperationInterface) i;
-		}
-		throw new RuntimeException("Interface '"+name+"' could not be found");
+	public OperationInterface fetchOfOperationInterface(String name) {
+		OperationInterface interfce = repo.getOperationInterface(name);
+		if(interfce == null)
+			throw new RuntimeException("Interface '"+name+"' could not be found");
+		else
+			return interfce;
 	}
 
 	public Parameter getParameter(String name) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public DataType fetchOfDataType(String name) {
+		DataType dataType = repo.getDataType(name);
+//		if(dataType == null)
+//			throw new RuntimeException("Datatype '"+name+"' could not be found");
+//		else
+			return dataType;
+	}
+
+	public OperationProvidedRole fetchOfProvidedRole(String name) {
+		OperationProvidedRole provRole = repo.getOperationProvidedRole(name);
+		if(provRole == null)
+			throw new RuntimeException("ProvidedRole '"+name+"' could not be found");
+		else
+			return provRole;
+	}
+
+	public AssemblyContext fetchOfAssemblyContext(String name) {
+		AssemblyContext assContext = repo.getAssemblyContext(name);
+//		if(assContext == null)
+//			throw new RuntimeException("Assembly context '"+name+"' could not be found");
+//		else
+			return assContext;
+	}
+
+	public OperationRequiredRole fetchOfRequiredRole(String name) {
+		OperationRequiredRole reqRole = repo.getOperationRequiredRole(name);
+		if(reqRole == null)
+			throw new RuntimeException("RequiredRole '"+name+"' could not be found");
+		else
+			return reqRole;
 	}
 
 }

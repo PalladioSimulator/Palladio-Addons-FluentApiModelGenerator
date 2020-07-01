@@ -1,5 +1,8 @@
 package repositoryStructure.components;
 
+import org.palladiosimulator.pcm.repository.EventGroup;
+import org.palladiosimulator.pcm.repository.InfrastructureInterface;
+import org.palladiosimulator.pcm.repository.OperationInterface;
 import org.palladiosimulator.pcm.repository.ProvidesComponentType;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
 import org.palladiosimulator.pcm.resourcetype.ResourceInterface;
@@ -36,6 +39,16 @@ public class ProvidesComponentTypeCreator extends Component {
 	public ProvidesComponentTypeCreator provides(OperationInterfaceCreator interfce, String name) {
 		return (ProvidesComponentTypeCreator) super.provides(interfce, name);
 	}
+	
+	@Override
+	public ProvidesComponentTypeCreator provides(OperationInterface interfce) {
+		return (ProvidesComponentTypeCreator) super.provides(interfce);
+	}
+	
+	@Override
+	public ProvidesComponentTypeCreator provides(OperationInterface interfce, String name) {
+		return (ProvidesComponentTypeCreator) super.provides(interfce, name);
+	}
 
 	// provides infrastructure interface
 	@Override
@@ -47,6 +60,16 @@ public class ProvidesComponentTypeCreator extends Component {
 	public ProvidesComponentTypeCreator providesInfrastructure(InfrastructureInterfaceCreator interfce, String name) {
 		return (ProvidesComponentTypeCreator) super.providesInfrastructure(interfce, name);
 	}
+	
+	@Override
+	public ProvidesComponentTypeCreator providesInfrastructure(InfrastructureInterface interfce) {
+		return (ProvidesComponentTypeCreator) super.providesInfrastructure(interfce);
+	}
+	
+	@Override
+	public ProvidesComponentTypeCreator providesInfrastructure(InfrastructureInterface interfce, String name) {
+		return (ProvidesComponentTypeCreator) super.providesInfrastructure(interfce, name);
+	}
 
 	// sink role: handles an event group
 	@Override
@@ -56,6 +79,16 @@ public class ProvidesComponentTypeCreator extends Component {
 	
 	@Override
 	public ProvidesComponentTypeCreator handles(EventGroupCreator eventGroup, String name) {
+		return (ProvidesComponentTypeCreator) super.handles(eventGroup, name);
+	}
+	
+	@Override
+	public ProvidesComponentTypeCreator handles(EventGroup eventGroup) {
+		return (ProvidesComponentTypeCreator) super.handles(eventGroup);
+	}
+	
+	@Override
+	public ProvidesComponentTypeCreator handles(EventGroup eventGroup, String name) {
 		return (ProvidesComponentTypeCreator) super.handles(eventGroup, name);
 	}
 
@@ -70,6 +103,16 @@ public class ProvidesComponentTypeCreator extends Component {
 	public ProvidesComponentTypeCreator requires(OperationInterfaceCreator interfce, String name) {
 		return (ProvidesComponentTypeCreator) super.requires(interfce, name);
 	}
+	
+	@Override
+	public ProvidesComponentTypeCreator requires(OperationInterface interfce) {
+		return (ProvidesComponentTypeCreator) super.requires(interfce);
+	}
+	
+	@Override
+	public ProvidesComponentTypeCreator requires(OperationInterface interfce, String name) {
+		return (ProvidesComponentTypeCreator) super.requires(interfce, name);
+	}
 
 	// require infrastructure interface
 	@Override
@@ -81,6 +124,16 @@ public class ProvidesComponentTypeCreator extends Component {
 	public ProvidesComponentTypeCreator requiresInfrastructure(InfrastructureInterfaceCreator interfce, String name) {
 		return (ProvidesComponentTypeCreator) super.requiresInfrastructure(interfce, name);
 	}
+	
+	@Override
+	public ProvidesComponentTypeCreator requiresInfrastructure(InfrastructureInterface interfce) {
+		return (ProvidesComponentTypeCreator) super.requiresInfrastructure(interfce);
+	}
+	
+	@Override
+	public ProvidesComponentTypeCreator requiresInfrastructure(InfrastructureInterface interfce, String name) {
+		return (ProvidesComponentTypeCreator) super.requiresInfrastructure(interfce, name);
+	}
 
 	// emits event group (source role)
 	@Override
@@ -90,6 +143,16 @@ public class ProvidesComponentTypeCreator extends Component {
 	
 	@Override
 	public ProvidesComponentTypeCreator emits(EventGroupCreator eventGroup, String name) {
+		return (ProvidesComponentTypeCreator) super.emits(eventGroup, name);
+	}
+	
+	@Override
+	public ProvidesComponentTypeCreator emits(EventGroup eventGroup) {
+		return (ProvidesComponentTypeCreator) super.emits(eventGroup);
+	}
+	
+	@Override
+	public ProvidesComponentTypeCreator emits(EventGroup eventGroup, String name) {
 		return (ProvidesComponentTypeCreator) super.emits(eventGroup, name);
 	}
 

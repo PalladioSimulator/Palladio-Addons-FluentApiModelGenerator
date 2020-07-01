@@ -4,6 +4,8 @@ import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.composition.EventChannel;
 import org.palladiosimulator.pcm.parameter.VariableUsage;
 import org.palladiosimulator.pcm.repository.EventGroup;
+import org.palladiosimulator.pcm.repository.InfrastructureInterface;
+import org.palladiosimulator.pcm.repository.OperationInterface;
 import org.palladiosimulator.pcm.repository.OperationProvidedRole;
 import org.palladiosimulator.pcm.repository.OperationRequiredRole;
 import org.palladiosimulator.pcm.repository.RepositoryComponent;
@@ -45,6 +47,16 @@ public class SubSystemCreator extends ComplexComponent {
 	public SubSystemCreator provides(OperationInterfaceCreator interfce, String name) {
 		return (SubSystemCreator) super.provides(interfce, name);
 	}
+	
+	@Override
+	public SubSystemCreator provides(OperationInterface interfce) {
+		return (SubSystemCreator) super.provides(interfce);
+	}
+	
+	@Override
+	public SubSystemCreator provides(OperationInterface interfce, String name) {
+		return (SubSystemCreator) super.provides(interfce, name);
+	}
 
 	// provides infrastructure interface
 	@Override
@@ -56,6 +68,16 @@ public class SubSystemCreator extends ComplexComponent {
 	public SubSystemCreator providesInfrastructure(InfrastructureInterfaceCreator interfce, String name) {
 		return (SubSystemCreator) super.providesInfrastructure(interfce, name);
 	}
+	
+	@Override
+	public SubSystemCreator providesInfrastructure(InfrastructureInterface interfce) {
+		return (SubSystemCreator) super.providesInfrastructure(interfce);
+	}
+	
+	@Override
+	public SubSystemCreator providesInfrastructure(InfrastructureInterface interfce, String name) {
+		return (SubSystemCreator) super.providesInfrastructure(interfce, name);
+	}
 
 	// sink role: handles an event group
 	@Override
@@ -65,6 +87,16 @@ public class SubSystemCreator extends ComplexComponent {
 
 	@Override
 	public SubSystemCreator handles(EventGroupCreator eventGroup, String name) {
+		return (SubSystemCreator) super.handles(eventGroup, name);
+	}
+	
+	@Override
+	public SubSystemCreator handles(EventGroup eventGroup) {
+		return (SubSystemCreator) super.handles(eventGroup);
+	}
+	
+	@Override
+	public SubSystemCreator handles(EventGroup eventGroup, String name) {
 		return (SubSystemCreator) super.handles(eventGroup, name);
 	}
 
@@ -79,6 +111,16 @@ public class SubSystemCreator extends ComplexComponent {
 	public SubSystemCreator requires(OperationInterfaceCreator interfce, String name) {
 		return (SubSystemCreator) super.requires(interfce, name);
 	}
+	
+	@Override
+	public SubSystemCreator requires(OperationInterface interfce) {
+		return (SubSystemCreator) super.requires(interfce);
+	}
+	
+	@Override
+	public SubSystemCreator requires(OperationInterface interfce, String name) {
+		return (SubSystemCreator) super.requires(interfce, name);
+	}
 
 	// require infrastructure interface
 	@Override
@@ -90,6 +132,16 @@ public class SubSystemCreator extends ComplexComponent {
 	public SubSystemCreator requiresInfrastructure(InfrastructureInterfaceCreator interfce, String name) {
 		return (SubSystemCreator) super.requiresInfrastructure(interfce, name);
 	}
+	
+	@Override
+	public SubSystemCreator requiresInfrastructure(InfrastructureInterface interfce) {
+		return (SubSystemCreator) super.requiresInfrastructure(interfce);
+	}
+	
+	@Override
+	public SubSystemCreator requiresInfrastructure(InfrastructureInterface interfce, String name) {
+		return (SubSystemCreator) super.requiresInfrastructure(interfce, name);
+	}
 
 	// emits event group (source role)
 	@Override
@@ -99,6 +151,16 @@ public class SubSystemCreator extends ComplexComponent {
 
 	@Override
 	public SubSystemCreator emits(EventGroupCreator eventGroup, String name) {
+		return (SubSystemCreator) super.emits(eventGroup, name);
+	}
+	
+	@Override
+	public SubSystemCreator emits(EventGroup eventGroup) {
+		return (SubSystemCreator) super.emits(eventGroup);
+	}
+	
+	@Override
+	public SubSystemCreator emits(EventGroup eventGroup, String name) {
 		return (SubSystemCreator) super.emits(eventGroup, name);
 	}
 

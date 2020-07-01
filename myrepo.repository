@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <repository:Repository xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" id="abc123" entityName="defaultRepository" repositoryDescription="This is my PCM model.">
-  <components__Repository xsi:type="repository:BasicComponent" id="__mAvwLXrEeqvequJ370fow" entityName="Web">
-    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="__l-6kLXrEeqvequJ370fow" requiredInterface__OperationRequiredRole="__l9FYLXrEeqvequJ370fow"/>
+  <components__Repository xsi:type="repository:CompositeComponent" id="_kfTYgLoaEeqlDbE5icM6Iw" entityName="Web">
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_kfQVMLoaEeqlDbE5icM6Iw" requiredInterface__OperationRequiredRole="_kfOgALoaEeqlDbE5icM6Iw"/>
   </components__Repository>
   <components__Repository xsi:type="repository:BasicComponent" id="comp1" entityName="Database">
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:SinkRole" id="__mB94LXrEeqvequJ370fow"/>
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="__mCk8LXrEeqvequJ370fow" providedInterface__OperationProvidedRole="__mB94bXrEeqvequJ370fow"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:SinkRole" id="_kfWb0LoaEeqlDbE5icM6Iw" eventGroup__SinkRole="_kfV0wLoaEeqlDbE5icM6Iw"/>
   </components__Repository>
-  <components__Repository xsi:type="repository:BasicComponent" id="__mCk8rXrEeqvequJ370fow" entityName="Web2"/>
-  <interfaces__Repository xsi:type="repository:OperationInterface" id="__l8eULXrEeqvequJ370fow" entityName="IDatabase"/>
+  <components__Repository xsi:type="repository:BasicComponent" id="_kfeXo7oaEeqlDbE5icM6Iw" entityName="Web2"/>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_kfNR4LoaEeqlDbE5icM6Iw" entityName="IDatabase">
+    <requiredCharacterisations type="VALUE"/>
+    <signatures__OperationInterface id="_kfMDwLoaEeqlDbE5icM6Iw">
+      <parameters__OperationSignature parameterName="name"/>
+      <parameters__OperationSignature parameterName="age"/>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
 </repository:Repository>

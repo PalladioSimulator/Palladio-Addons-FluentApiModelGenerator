@@ -10,6 +10,8 @@ import org.palladiosimulator.pcm.repository.CompleteComponentType;
 import org.palladiosimulator.pcm.repository.ComponentType;
 import org.palladiosimulator.pcm.repository.CompositeComponent;
 import org.palladiosimulator.pcm.repository.EventGroup;
+import org.palladiosimulator.pcm.repository.InfrastructureInterface;
+import org.palladiosimulator.pcm.repository.OperationInterface;
 import org.palladiosimulator.pcm.repository.OperationProvidedRole;
 import org.palladiosimulator.pcm.repository.OperationRequiredRole;
 import org.palladiosimulator.pcm.repository.RepositoryComponent;
@@ -62,6 +64,16 @@ public class CompositeComponentCreator extends ComplexComponent {
 	public CompositeComponentCreator provides(OperationInterfaceCreator interfce, String name) {
 		return (CompositeComponentCreator) super.provides(interfce, name);
 	}
+	
+	@Override
+	public CompositeComponentCreator provides(OperationInterface interfce) {
+		return (CompositeComponentCreator) super.provides(interfce);
+		
+	}
+	@Override
+	public CompositeComponentCreator provides(OperationInterface interfce, String name) {
+		return (CompositeComponentCreator) super.provides(interfce, name);
+	}
 
 	// provides infrastructure interface
 	@Override
@@ -73,6 +85,16 @@ public class CompositeComponentCreator extends ComplexComponent {
 	public CompositeComponentCreator providesInfrastructure(InfrastructureInterfaceCreator interfce, String name) {
 		return (CompositeComponentCreator) super.providesInfrastructure(interfce, name);
 	}
+	
+	@Override
+	public CompositeComponentCreator providesInfrastructure(InfrastructureInterface interfce) {
+		return (CompositeComponentCreator) super.providesInfrastructure(interfce);
+	}
+	
+	@Override
+	public CompositeComponentCreator providesInfrastructure(InfrastructureInterface interfce, String name) {
+		return (CompositeComponentCreator) super.providesInfrastructure(interfce, name);
+	}
 
 	// sink role: handles an event group
 	@Override
@@ -82,6 +104,16 @@ public class CompositeComponentCreator extends ComplexComponent {
 
 	@Override
 	public CompositeComponentCreator handles(EventGroupCreator eventGroup, String name) {
+		return (CompositeComponentCreator) super.handles(eventGroup, name);
+	}
+	
+	@Override
+	public CompositeComponentCreator handles(EventGroup eventGroup) {
+		return (CompositeComponentCreator) super.handles(eventGroup);
+	}
+	
+	@Override
+	public CompositeComponentCreator handles(EventGroup eventGroup, String name) {
 		return (CompositeComponentCreator) super.handles(eventGroup, name);
 	}
 
@@ -96,6 +128,16 @@ public class CompositeComponentCreator extends ComplexComponent {
 	public CompositeComponentCreator requires(OperationInterfaceCreator interfce, String name) {
 		return (CompositeComponentCreator) super.requires(interfce, name);
 	}
+	
+	@Override
+	public CompositeComponentCreator requires(OperationInterface interfce) {
+		return (CompositeComponentCreator) super.requires(interfce);
+	}
+	
+	@Override
+	public CompositeComponentCreator requires(OperationInterface interfce, String name) {
+		return (CompositeComponentCreator) super.requires(interfce, name);
+	}
 
 	// require infrastructure interface
 	@Override
@@ -107,6 +149,16 @@ public class CompositeComponentCreator extends ComplexComponent {
 	public CompositeComponentCreator requiresInfrastructure(InfrastructureInterfaceCreator interfce, String name) {
 		return (CompositeComponentCreator) super.requiresInfrastructure(interfce, name);
 	}
+	
+	@Override
+	public CompositeComponentCreator requiresInfrastructure(InfrastructureInterface interfce) {
+		return (CompositeComponentCreator) super.requiresInfrastructure(interfce);
+	}
+	
+	@Override
+	public CompositeComponentCreator requiresInfrastructure(InfrastructureInterface interfce, String name) {
+		return (CompositeComponentCreator) super.requiresInfrastructure(interfce, name);
+	}
 
 	// emits event group (source role)
 	@Override
@@ -116,6 +168,16 @@ public class CompositeComponentCreator extends ComplexComponent {
 
 	@Override
 	public CompositeComponentCreator emits(EventGroupCreator eventGroup, String name) {
+		return (CompositeComponentCreator) super.emits(eventGroup, name);
+	}
+	
+	@Override
+	public CompositeComponentCreator emits(EventGroup eventGroup) {
+		return (CompositeComponentCreator) super.emits(eventGroup);
+	}
+	
+	@Override
+	public CompositeComponentCreator emits(EventGroup eventGroup, String name) {
 		return (CompositeComponentCreator) super.emits(eventGroup, name);
 	}
 

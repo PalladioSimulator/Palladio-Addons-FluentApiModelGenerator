@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.palladiosimulator.pcm.repository.CompleteComponentType;
+import org.palladiosimulator.pcm.repository.EventGroup;
+import org.palladiosimulator.pcm.repository.InfrastructureInterface;
+import org.palladiosimulator.pcm.repository.OperationInterface;
 import org.palladiosimulator.pcm.repository.ProvidesComponentType;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
 import org.palladiosimulator.pcm.resourcetype.ResourceInterface;
@@ -41,9 +44,19 @@ public class CompleteComponentTypeCreator extends Component {
 	
 	@Override
 	public CompleteComponentTypeCreator provides(OperationInterfaceCreator interfce, String name) {
+		return (CompleteComponentTypeCreator) super.provides(interfce, name);
+	}
+
+	@Override
+	public CompleteComponentTypeCreator provides(OperationInterface interfce) {
 		return (CompleteComponentTypeCreator) super.provides(interfce);
 	}
 
+	@Override
+	public CompleteComponentTypeCreator provides(OperationInterface interfce, String name) {
+		return (CompleteComponentTypeCreator) super.provides(interfce, name);
+	}
+	
 	// provides infrastructure interface
 	@Override
 	public CompleteComponentTypeCreator providesInfrastructure(InfrastructureInterfaceCreator interfce) {
@@ -52,6 +65,16 @@ public class CompleteComponentTypeCreator extends Component {
 	
 	@Override
 	public CompleteComponentTypeCreator providesInfrastructure(InfrastructureInterfaceCreator interfce, String name) {
+		return (CompleteComponentTypeCreator) super.providesInfrastructure(interfce, name);
+	}
+	
+	@Override
+	public CompleteComponentTypeCreator providesInfrastructure(InfrastructureInterface interfce) {
+		return (CompleteComponentTypeCreator) super.providesInfrastructure(interfce);
+	}
+	
+	@Override
+	public CompleteComponentTypeCreator providesInfrastructure(InfrastructureInterface interfce, String name) {
 		return (CompleteComponentTypeCreator) super.providesInfrastructure(interfce, name);
 	}
 
@@ -63,6 +86,16 @@ public class CompleteComponentTypeCreator extends Component {
 	
 	@Override
 	public CompleteComponentTypeCreator handles(EventGroupCreator eventGroup, String name) {
+		return (CompleteComponentTypeCreator) super.handles(eventGroup, name);
+	}
+	
+	@Override
+	public CompleteComponentTypeCreator handles(EventGroup eventGroup) {
+		return (CompleteComponentTypeCreator) super.handles(eventGroup);
+	}
+	
+	@Override
+	public CompleteComponentTypeCreator handles(EventGroup eventGroup, String name) {
 		return (CompleteComponentTypeCreator) super.handles(eventGroup, name);
 	}
 
@@ -77,6 +110,16 @@ public class CompleteComponentTypeCreator extends Component {
 	public CompleteComponentTypeCreator requires(OperationInterfaceCreator interfce, String name) {
 		return (CompleteComponentTypeCreator) super.requires(interfce, name);
 	}
+	
+	@Override
+	public CompleteComponentTypeCreator requires(OperationInterface interfce) {
+		return (CompleteComponentTypeCreator) super.requires(interfce);
+	}
+	
+	@Override
+	public CompleteComponentTypeCreator requires(OperationInterface interfce, String name) {
+		return (CompleteComponentTypeCreator) super.requires(interfce, name);
+	}
 
 	// require infrastructure interface
 	@Override
@@ -88,6 +131,16 @@ public class CompleteComponentTypeCreator extends Component {
 	public CompleteComponentTypeCreator requiresInfrastructure(InfrastructureInterfaceCreator interfce, String name) {
 		return (CompleteComponentTypeCreator) super.requiresInfrastructure(interfce, name);
 	}
+	
+	@Override
+	public CompleteComponentTypeCreator requiresInfrastructure(InfrastructureInterface interfce) {
+		return (CompleteComponentTypeCreator) super.requiresInfrastructure(interfce);
+	}
+	
+	@Override
+	public CompleteComponentTypeCreator requiresInfrastructure(InfrastructureInterface interfce, String name) {
+		return (CompleteComponentTypeCreator) super.requiresInfrastructure(interfce, name);
+	}
 
 	// emits event group (source role)
 	@Override
@@ -97,6 +150,17 @@ public class CompleteComponentTypeCreator extends Component {
 	
 	@Override
 	public CompleteComponentTypeCreator emits(EventGroupCreator eventGroup, String name) {
+		return (CompleteComponentTypeCreator) super.emits(eventGroup, name);
+	}
+
+	@Override
+	public CompleteComponentTypeCreator emits(EventGroup eventGroup) {
+		return (CompleteComponentTypeCreator) super.emits(eventGroup);
+	}
+
+	
+	@Override
+	public CompleteComponentTypeCreator emits(EventGroup eventGroup, String name) {
 		return (CompleteComponentTypeCreator) super.emits(eventGroup, name);
 	}
 

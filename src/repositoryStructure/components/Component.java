@@ -41,10 +41,18 @@ public abstract class Component extends Entity {
 
 	public Component provides(OperationInterfaceCreator interfce, String name) {
 		OperationInterface i = interfce.build();
+		return provides(i, name);
+	}
+
+	public Component provides(OperationInterface interfce) {
+		return provides(interfce, null);
+	}
+
+	public Component provides(OperationInterface interfce, String name) {
 		OperationProvidedRole providedRole = RepositoryFactory.eINSTANCE.createOperationProvidedRole();
 		if (name != null)
 			providedRole.setEntityName(name);
-		providedRole.setProvidedInterface__OperationProvidedRole(i);
+		providedRole.setProvidedInterface__OperationProvidedRole(interfce);
 		this.providedRoles.add(providedRole);
 		return this;
 	}
@@ -56,10 +64,18 @@ public abstract class Component extends Entity {
 
 	public Component providesInfrastructure(InfrastructureInterfaceCreator interfce, String name) {
 		InfrastructureInterface i = interfce.build();
+		return providesInfrastructure(i, name);
+	}
+
+	public Component providesInfrastructure(InfrastructureInterface interfce) {
+		return providesInfrastructure(interfce, null);
+	}
+
+	public Component providesInfrastructure(InfrastructureInterface interfce, String name) {
 		InfrastructureProvidedRole providedRole = RepositoryFactory.eINSTANCE.createInfrastructureProvidedRole();
 		if (name != null)
 			providedRole.setEntityName(name);
-		providedRole.setProvidedInterface__InfrastructureProvidedRole(i);
+		providedRole.setProvidedInterface__InfrastructureProvidedRole(interfce);
 		this.providedRoles.add(providedRole);
 		return this;
 	}
@@ -70,11 +86,19 @@ public abstract class Component extends Entity {
 	}
 
 	public Component handles(EventGroupCreator eventGroup, String name) {
-		EventGroup i = eventGroup.build();
+		EventGroup eg = eventGroup.build();
+		return handles(eg, name);
+	}
+
+	public Component handles(EventGroup eventGroup) {
+		return handles(eventGroup, null);
+	}
+
+	public Component handles(EventGroup eventGroup, String name) {
 		SinkRole providedRole = RepositoryFactory.eINSTANCE.createSinkRole();
 		if (name != null)
 			providedRole.setEntityName(name);
-		providedRole.setEventGroup__SinkRole(i);
+		providedRole.setEventGroup__SinkRole(eventGroup);
 		this.providedRoles.add(providedRole);
 		return this;
 	}
@@ -87,10 +111,18 @@ public abstract class Component extends Entity {
 
 	public Component requires(OperationInterfaceCreator interfce, String name) {
 		OperationInterface i = interfce.build();
+		return requires(i, name);
+	}
+
+	public Component requires(OperationInterface interfce) {
+		return requires(interfce, null);
+	}
+
+	public Component requires(OperationInterface interfce, String name) {
 		OperationRequiredRole requiredRole = RepositoryFactory.eINSTANCE.createOperationRequiredRole();
 		if (name != null)
 			requiredRole.setEntityName(name);
-		requiredRole.setRequiredInterface__OperationRequiredRole(i);
+		requiredRole.setRequiredInterface__OperationRequiredRole(interfce);
 		this.requiredRoles.add(requiredRole);
 		return this;
 	}
@@ -102,10 +134,18 @@ public abstract class Component extends Entity {
 
 	public Component requiresInfrastructure(InfrastructureInterfaceCreator interfce, String name) {
 		InfrastructureInterface i = interfce.build();
+		return requiresInfrastructure(i, name);
+	}
+
+	public Component requiresInfrastructure(InfrastructureInterface interfce) {
+		return requiresInfrastructure(interfce, null);
+	}
+
+	public Component requiresInfrastructure(InfrastructureInterface interfce, String name) {
 		InfrastructureRequiredRole requiredRole = RepositoryFactory.eINSTANCE.createInfrastructureRequiredRole();
 		if (name != null)
 			requiredRole.setEntityName(name);
-		requiredRole.setRequiredInterface__InfrastructureRequiredRole(i);
+		requiredRole.setRequiredInterface__InfrastructureRequiredRole(interfce);
 		this.requiredRoles.add(requiredRole);
 		return this;
 	}
@@ -117,10 +157,18 @@ public abstract class Component extends Entity {
 
 	public Component emits(EventGroupCreator eventGroup, String name) {
 		EventGroup eg = eventGroup.build();
+		return emits(eg, name);
+	}
+
+	public Component emits(EventGroup eventGroup) {
+		return emits(eventGroup, null);
+	}
+
+	public Component emits(EventGroup eventGroup, String name) {
 		SourceRole requiredRole = RepositoryFactory.eINSTANCE.createSourceRole();
 		if (name != null)
 			requiredRole.setEntityName(name);
-		requiredRole.setEventGroup__SourceRole(eg);
+		requiredRole.setEventGroup__SourceRole(eventGroup);
 		this.requiredRoles.add(requiredRole);
 		return this;
 	}
