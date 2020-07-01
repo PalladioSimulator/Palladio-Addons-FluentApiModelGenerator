@@ -48,6 +48,7 @@ public class PrimitiveType {
 		p8.setType(PrimitiveTypeEnum.BYTE);
 		primitives.put(Primitive.BYTE, p8);
 		
+		//TODO: resource sachen
 		ResourcetypeFactory resFact = ResourcetypeFactory.eINSTANCE;
 		CommunicationLinkResourceType clr = resFact.createCommunicationLinkResourceType();
 		resFact.createProcessingResourceType();

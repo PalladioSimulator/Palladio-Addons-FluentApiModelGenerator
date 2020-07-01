@@ -177,11 +177,6 @@ public class SubSystemCreator extends ComplexComponent {
 		return (SubSystemCreator) super.withAssemblyContext(component, name, configParameterUsage);
 	}
 
-	@Override
-	public SubSystemCreator withEventChannel(EventGroup eventGroup) {
-		return (SubSystemCreator) super.withEventChannel(eventGroup);
-	}
-
 	// ------------ connectors ------------
 	@Override
 	public SubSystemCreator withAssemblyConnection(OperationProvidedRole providedRole,

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.palladiosimulator.pcm.parameter.VariableCharacterisationType;
-import org.palladiosimulator.pcm.repository.DataType;
 import org.palladiosimulator.pcm.repository.OperationInterface;
 import org.palladiosimulator.pcm.repository.OperationSignature;
 import org.palladiosimulator.pcm.repository.Parameter;
@@ -57,8 +56,6 @@ public class OperationInterfaceCreator extends Interface {
 	 */
 	public OperationSignatureCreator withOperationSignature() {
 		OperationSignatureCreator operationSignature = new OperationSignatureCreator(this);
-//		OperationSignature ops = operationSignature.build();
-//		operationSignatures.add(ops);
 		return operationSignature;
 	}
 
@@ -70,7 +67,6 @@ public class OperationInterfaceCreator extends Interface {
 		if (id != null)
 			interfce.setId(id);
 
-		// TODO: add to Lists
 		interfce.getParentInterfaces__Interface().addAll(parentInterfaces);
 		interfce.getProtocols__Interface().addAll(protocols);
 		interfce.getRequiredCharacterisations().addAll(requiredCharacterisations);
@@ -78,5 +74,9 @@ public class OperationInterfaceCreator extends Interface {
 		interfce.getSignatures__OperationInterface().addAll(operationSignatures);
 
 		return interfce;
+	}
+
+	public void addOperationSignatures(OperationSignature signature) {
+		this.operationSignatures.add(signature);
 	}
 }

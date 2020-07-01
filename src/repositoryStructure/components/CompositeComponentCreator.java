@@ -207,11 +207,6 @@ public class CompositeComponentCreator extends ComplexComponent {
 		return (CompositeComponentCreator) super.withAssemblyContext(component, name, configParameterUsage);
 	}
 
-	@Override
-	public ComplexComponent withEventChannel(EventGroup eventGroup) {
-		return (CompositeComponentCreator) super.withEventChannel(eventGroup);
-	}
-
 	// ------------ connectors ------------
 	@Override
 	public CompositeComponentCreator withAssemblyConnection(OperationProvidedRole providedRole,

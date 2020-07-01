@@ -24,12 +24,13 @@ import org.palladiosimulator.pcm.core.composition.ResourceRequiredDelegationConn
 import org.palladiosimulator.pcm.core.composition.SinkDelegationConnector;
 import org.palladiosimulator.pcm.core.composition.SourceDelegationConnector;
 import org.palladiosimulator.pcm.parameter.VariableUsage;
-import org.palladiosimulator.pcm.repository.EventGroup;
 import org.palladiosimulator.pcm.repository.OperationProvidedRole;
 import org.palladiosimulator.pcm.repository.OperationRequiredRole;
 import org.palladiosimulator.pcm.repository.RepositoryComponent;
 import org.palladiosimulator.pcm.repository.SinkRole;
 import org.palladiosimulator.pcm.repository.SourceRole;
+
+import repositoryStructure.interfaces.stuff.EventChannelCreator;
 
 public abstract class ComplexComponent extends Component {
 
@@ -201,16 +202,13 @@ public abstract class ComplexComponent extends Component {
 		return this;
 	}
 
-	public ComplexComponent withEventChannel(EventGroup eventGroup) {
-		EventChannel eventChannel = CompositionFactory.eINSTANCE.createEventChannel();
-		eventChannel.setEventGroup__EventChannel(eventGroup);
-
-		// TODO: Lists -> add
-		eventChannel.getEventChannelSinkConnector__EventChannel();
-		eventChannel.getEventChannelSourceConnector__EventChannel();
-
-		eventChannels.add(eventChannel);
-		return this;
+	public EventChannelCreator withEventChannel() {
+		EventChannelCreator ecc = new EventChannelCreator(this);
+		return ecc;
+	}
+	
+	public void addEventChannel(EventChannel eventChannel) {
+		this.eventChannels.add(eventChannel);
 	}
 
 	public ComplexComponent resourceRequiredDegelationConnection() {

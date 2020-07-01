@@ -17,18 +17,24 @@ FailureTypes, PrimitiveDataTypes, Resources -> repo files importieren?
 
 - macht es Sinn, immer einen Namen zu verlangen? also direkt newComponent(String name)
 
+- EventType hat Parameter und Parameter hat EventType
+
 
 email: design: alles über die Factory erstellen -> PCM hat verschiedene Factorys; oder so erstellen
 sinnvoll über Factory: components, interfaces, data types/failure/exception types, parameter, seff
 
 
 ToDo:
-- seffs
-- operation signatures + Parameter
-- variable usages
-- Failure + Primitive Types initialisieren
-- imports
-- event type
+- dataTypes einlesen 			-> Frage
+- Seffs 						-> Frage
+- imports 						-> Frage
+- Resource required zeug 		-> später
+- infrastructure zeug			-> später
+
+- Sichtbarkeit
+- Reihenfolge mit Interfaces regeln (varUsage von CompositeComponent)
+
+
 
 
 iwann:

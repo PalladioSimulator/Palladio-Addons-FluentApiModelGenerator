@@ -14,13 +14,13 @@ import org.palladiosimulator.pcm.repository.EventGroup;
 import org.palladiosimulator.pcm.repository.InfrastructureInterface;
 import org.palladiosimulator.pcm.repository.OperationInterface;
 import org.palladiosimulator.pcm.repository.PassiveResource;
-import org.palladiosimulator.pcm.repository.ProvidedRole;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
 import org.palladiosimulator.pcm.resourcetype.ResourceInterface;
 import org.palladiosimulator.pcm.seff.ServiceEffectSpecification;
 
 import repositoryStructure.RepositoryCreator;
 import repositoryStructure.SeffCreator;
+import repositoryStructure.VariableUsageCreator;
 import repositoryStructure.interfaces.EventGroupCreator;
 import repositoryStructure.interfaces.InfrastructureInterfaceCreator;
 import repositoryStructure.interfaces.OperationInterfaceCreator;
@@ -216,16 +216,15 @@ public class BasicComponentCreator extends Component {
 
 	// SEFFs
 	public BasicComponentCreator withServiceEffectSpecification(SeffCreator seff) {
-		ServiceEffectSpecification sEfF = seff.build();
+//		ServiceEffectSpecification sEfF = seff.build();
 		//TODO:
 //		this.seffs.add(sEfF);
 		return this;
 	}
 
-	// TODO: Variable Usages
-	public BasicComponentCreator todo(Object toDo) {
-//		this.componentParameterUsages.add(null);
-		return this;
+	public VariableUsageCreator withVariableUsage() {
+		VariableUsageCreator vuc = new VariableUsageCreator(this, repository);
+		return vuc;
 	}
 
 	@Override
@@ -249,6 +248,10 @@ public class BasicComponentCreator extends Component {
 		basicComponent.getServiceEffectSpecifications__BasicComponent().addAll(seffs);
 
 		return basicComponent;
+	}
+
+	public void addVariableUsage(VariableUsage varUsage) {
+		this.componentParameterUsages.add(varUsage);
 	}
 
 }

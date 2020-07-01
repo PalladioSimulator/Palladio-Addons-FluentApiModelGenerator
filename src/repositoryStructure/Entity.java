@@ -1,7 +1,6 @@
 package repositoryStructure;
 
 import org.eclipse.emf.cdo.CDOObject;
-import org.palladiosimulator.pcm.core.entity.NamedElement;
 
 public abstract class Entity {
 
@@ -21,15 +20,6 @@ public abstract class Entity {
 	}
 	
 	public abstract CDOObject build();
-
-	public String getName() {
-		return name;
-	}
-
-	public String getId() {
-		return id;
-	}
 	
 	
-
 }

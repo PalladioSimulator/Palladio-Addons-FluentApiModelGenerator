@@ -1,41 +1,56 @@
 package repositoryStructure;
 
-import org.palladiosimulator.pcm.PcmFactory;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.palladiosimulator.pcm.core.CoreFactory;
 import org.palladiosimulator.pcm.core.PCMRandomVariable;
 import org.palladiosimulator.pcm.parameter.ParameterFactory;
 import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
+import org.palladiosimulator.pcm.parameter.VariableCharacterisationType;
 import org.palladiosimulator.pcm.parameter.VariableUsage;
 
-public class VariableUsageCreator{
+import de.uka.ipd.sdq.stoex.AbstractNamedReference;
+import repositoryStructure.components.BasicComponentCreator;
+
+public class VariableUsageCreator extends Entity{
 	
+	private String reference;
+	private List<VariableCharacterisation> variableCharacterisations;
+	private BasicComponentCreator correspondingBasicComponent;
 	
-	void build() {
+	public VariableUsageCreator(BasicComponentCreator component, RepositoryCreator repo) {
+		this.repository = repo;
+		this.variableCharacterisations = new ArrayList<>();
+		this.correspondingBasicComponent = component;
+	}
+	
+	public VariableUsageCreator withVariableCharacterisation(String specification_stochasticExpression, VariableCharacterisationType type) {
+		VariableCharacterisation varchar = ParameterFactory.eINSTANCE.createVariableCharacterisation();
+		PCMRandomVariable rand = CoreFactory.eINSTANCE.createPCMRandomVariable();
+		rand.setSpecification(specification_stochasticExpression);
+		varchar.setSpecification_VariableCharacterisation(rand);
+		varchar.setType(type);
+		this.variableCharacterisations.add(varchar);
+		
+		return this;
+	}
+	
+	public BasicComponentCreator withNamedReference(String reference) {
+		//TODO: über Interfaces regeln, dass auch für CompositeComponent tut
+		this.reference = reference;
+		VariableUsage varUsage = this.build();
+		correspondingBasicComponent.addVariableUsage(varUsage);
+		return this.correspondingBasicComponent;
+		
+	}
+	
+	@Override
+	public VariableUsage build() {
 		VariableUsage varUsage = ParameterFactory.eINSTANCE.createVariableUsage();
-		
-		// Parameter -> set
-		varUsage.getAssemblyContext__VariableUsage();
-		varUsage.getCallAction__VariableUsage();
-		varUsage.getCallReturnAction__VariableUsage();
-		varUsage.getEntryLevelSystemCall_InputParameterUsage();
-		varUsage.getEntryLevelSystemCall_OutputParameterUsage();
-		varUsage.getSetVariableAction_VariableUsage();
-		varUsage.getSpecifiedOutputParameterAbstraction_expectedExternalOutputs_VariableUsage();
-		varUsage.getSynchronisationPoint_VariableUsage();
-		varUsage.getUserData_VariableUsage();
-		
-		
-		varUsage.getNamedReference__VariableUsage();
-		//Lists -> add
-		varUsage.getVariableCharacterisation_VariableUsage();
-		
-		VariableCharacterisation varChar = ParameterFactory.eINSTANCE.createVariableCharacterisation();
-		varChar.getSpecification_VariableCharacterisation();
-		varChar.getType();
-		PCMRandomVariable r = CoreFactory.eINSTANCE.createPCMRandomVariable();
-		r.getExpression();
-		r.getSpecification();
-		
-//		withVariableCharacterisation(expression, specification);
+		AbstractNamedReference ref = varUsage.getNamedReference__VariableUsage();
+		ref.setReferenceName(reference);
+		varUsage.getVariableCharacterisation_VariableUsage().addAll(variableCharacterisations);
+		return varUsage;
 	}
 }

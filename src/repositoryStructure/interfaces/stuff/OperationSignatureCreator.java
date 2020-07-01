@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.palladiosimulator.pcm.reliability.FailureType;
 import org.palladiosimulator.pcm.repository.DataType;
-import org.palladiosimulator.pcm.repository.EventType;
 import org.palladiosimulator.pcm.repository.ExceptionType;
 import org.palladiosimulator.pcm.repository.OperationSignature;
 import org.palladiosimulator.pcm.repository.Parameter;
@@ -14,7 +13,6 @@ import org.palladiosimulator.pcm.repository.PrimitiveDataType;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
 
 import repositoryStructure.Entity;
-import repositoryStructure.RepositoryCreator;
 import repositoryStructure.datatypes.Primitive;
 import repositoryStructure.datatypes.PrimitiveType;
 import repositoryStructure.interfaces.OperationInterfaceCreator;
@@ -38,25 +36,23 @@ public class OperationSignatureCreator extends Entity{
 	
 	public OperationInterfaceCreator withReturnType(DataType returnType) {
 		this.returnType = returnType;
-		//TODO: build
+		OperationSignature signature = this.build();
+		correspondingInterface.addOperationSignatures(signature);
 		return correspondingInterface;
 	}
 
-	public OperationSignatureCreator withParameter(String name, Primitive dataType, ParameterModifier modifier,
-			EventType eventType) {
+	public OperationSignatureCreator withParameter(String name, Primitive dataType, ParameterModifier modifier) {
 		PrimitiveDataType dt = PrimitiveType.getPrimitiveDataType(dataType);
 		
-		return withParameter(name, dt, modifier, eventType);
+		return withParameter(name, dt, modifier);
 	}
 	
-	public OperationSignatureCreator withParameter(String name, DataType dataType, ParameterModifier modifier, EventType eventType) {
+	public OperationSignatureCreator withParameter(String name, DataType dataType, ParameterModifier modifier) {
 		Parameter param = RepositoryFactory.eINSTANCE.createParameter();
 		if (name != null)
 			param.setParameterName(name);
 		if (dataType != null)
 			param.setDataType__Parameter(dataType);
-		if (eventType != null)
-			param.setEventType__Parameter(eventType);
 		if (modifier != null)
 			param.setModifier__Parameter(modifier);
 		

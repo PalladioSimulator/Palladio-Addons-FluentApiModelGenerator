@@ -16,6 +16,7 @@ import org.palladiosimulator.pcm.repository.ParameterModifier;
 import org.palladiosimulator.pcm.repository.Repository;
 
 import factory.MyRepositoryFactory;
+import repositoryStructure.datatypes.Failure;
 import repositoryStructure.datatypes.Primitive;
 
 public class Main {
@@ -41,8 +42,8 @@ public class Main {
 							.withName("IDatabase")
 							.withOperationSignature()
 								.withName("saveDatabaseEntry")
-								.withParameter("first names", create.fetchOfDataType("StringList"), null, null)
-								.withParameter("age", Primitive.INTEGER, ParameterModifier.INOUT, null)
+								.withParameter("first names", create.fetchOfDataType("StringList"), null)
+								.withParameter("age", Primitive.INTEGER, ParameterModifier.INOUT)
 								.withReturnType(create.fetchOfDataType("Person"))
 							.withRequiredCharacterisation(create.getParameter("age"), VariableCharacterisationType.VALUE))
 			
@@ -51,10 +52,15 @@ public class Main {
 				.withName("Database")
 				.withId("comp1")
 				.handles(create.newEventGroup()
-								.withName("hallo"))
+								.withName("hallo")
+								.withEventType()
+									.withName("type")
+									.withParameter("foo", Primitive.BOOLEAN, null)
+								.withRequiredCharacterisation(create.getParameter(""), VariableCharacterisationType.STRUCTURE))
 				.withServiceEffectSpecification(create.newSeff().withStartAction().followedBy().externalCallAction().followedBy().stopAction())
 				.provides(create.fetchOfOperationInterface("IDatabase"), "provDB")
 				.requires(create.newOperationInterface().withName("someInterface"), "reqSomeI")
+				.withPassiveResource("2*3", create.fetchOfFailureType(Failure.SOFTWARE))
 			)
 						
 			.addToRepository(create.newBasicComponent()
@@ -73,6 +79,7 @@ public class Main {
 					.withAssemblyContext(create.fetchOfComponent("Database"), "DBContext")
 					.withAssemblyConnection(create.fetchOfProvidedRole("provDB"), create.fetchOfAssemblyContext("DBContext"), 
 							create.fetchOfRequiredRole("reqSomeI"), create.fetchOfAssemblyContext("DBContext"))
+					.withEventChannel().withEventGroup(create.fetchOfEventGroup("hallo"))
 					)
 			
 //			.conect("Web", creator.getByUUID("comp1"))

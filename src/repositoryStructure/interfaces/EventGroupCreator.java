@@ -1,16 +1,24 @@
 package repositoryStructure.interfaces;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.palladiosimulator.pcm.parameter.VariableCharacterisationType;
 import org.palladiosimulator.pcm.repository.EventGroup;
+import org.palladiosimulator.pcm.repository.EventType;
 import org.palladiosimulator.pcm.repository.Parameter;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
 
 import repositoryStructure.RepositoryCreator;
+import repositoryStructure.interfaces.stuff.EventTypeCreator;
 
 public class EventGroupCreator extends Interface {
 
+	private List<EventType> eventTypes;
+
 	public EventGroupCreator(RepositoryCreator repo) {
-		// TODO Auto-generated constructor stub
+		this.repository = repo;
+		eventTypes = new ArrayList<>();
 	}
 
 	@Override
@@ -39,6 +47,11 @@ public class EventGroupCreator extends Interface {
 		return (EventGroupCreator) super.withProtocol();
 	}
 
+	public EventTypeCreator withEventType() {
+		EventTypeCreator etc = new EventTypeCreator(this);
+		return etc;
+	}
+
 	@Override
 	public EventGroup build() {
 		EventGroup eventGroup = RepositoryFactory.eINSTANCE.createEventGroup();
@@ -48,14 +61,17 @@ public class EventGroupCreator extends Interface {
 		if (id != null)
 			eventGroup.setId(id);
 
-		// TODO: add to Lists
-		eventGroup.getParentInterfaces__Interface();
-		eventGroup.getProtocols__Interface();
-		eventGroup.getRequiredCharacterisations();
+		eventGroup.getParentInterfaces__Interface().addAll(parentInterfaces);
+		eventGroup.getProtocols__Interface().addAll(protocols);
+		eventGroup.getRequiredCharacterisations().addAll(requiredCharacterisations);
 
-		eventGroup.getEventTypes__EventGroup();
+		eventGroup.getEventTypes__EventGroup().addAll(eventTypes);
 
 		return eventGroup;
+	}
+
+	public void addEventType(EventType eventType) {
+		this.eventTypes.add(eventType);
 	}
 
 }
