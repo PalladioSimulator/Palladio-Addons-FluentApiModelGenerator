@@ -41,6 +41,7 @@ public abstract class Component extends Entity {
 
 	public Component provides(OperationInterfaceCreator interfce, String name) {
 		OperationInterface i = interfce.build();
+		this.repository.addInterface(i);
 		return provides(i, name);
 	}
 
@@ -54,6 +55,7 @@ public abstract class Component extends Entity {
 			providedRole.setEntityName(name);
 		providedRole.setProvidedInterface__OperationProvidedRole(interfce);
 		this.providedRoles.add(providedRole);
+		this.repository.addProvidedRole(providedRole);
 		return this;
 	}
 
@@ -64,6 +66,7 @@ public abstract class Component extends Entity {
 
 	public Component providesInfrastructure(InfrastructureInterfaceCreator interfce, String name) {
 		InfrastructureInterface i = interfce.build();
+		this.repository.addInterface(i);
 		return providesInfrastructure(i, name);
 	}
 
@@ -77,6 +80,7 @@ public abstract class Component extends Entity {
 			providedRole.setEntityName(name);
 		providedRole.setProvidedInterface__InfrastructureProvidedRole(interfce);
 		this.providedRoles.add(providedRole);
+		this.repository.addProvidedRole(providedRole);
 		return this;
 	}
 
@@ -87,6 +91,7 @@ public abstract class Component extends Entity {
 
 	public Component handles(EventGroupCreator eventGroup, String name) {
 		EventGroup eg = eventGroup.build();
+		this.repository.addInterface(eg);
 		return handles(eg, name);
 	}
 
@@ -100,6 +105,7 @@ public abstract class Component extends Entity {
 			providedRole.setEntityName(name);
 		providedRole.setEventGroup__SinkRole(eventGroup);
 		this.providedRoles.add(providedRole);
+		this.repository.addProvidedRole(providedRole);
 		return this;
 	}
 
@@ -111,6 +117,7 @@ public abstract class Component extends Entity {
 
 	public Component requires(OperationInterfaceCreator interfce, String name) {
 		OperationInterface i = interfce.build();
+		this.repository.addInterface(i);
 		return requires(i, name);
 	}
 
@@ -124,6 +131,7 @@ public abstract class Component extends Entity {
 			requiredRole.setEntityName(name);
 		requiredRole.setRequiredInterface__OperationRequiredRole(interfce);
 		this.requiredRoles.add(requiredRole);
+		this.repository.addRequiredRole(requiredRole);
 		return this;
 	}
 
@@ -134,6 +142,7 @@ public abstract class Component extends Entity {
 
 	public Component requiresInfrastructure(InfrastructureInterfaceCreator interfce, String name) {
 		InfrastructureInterface i = interfce.build();
+		this.repository.addInterface(i);
 		return requiresInfrastructure(i, name);
 	}
 
@@ -147,6 +156,7 @@ public abstract class Component extends Entity {
 			requiredRole.setEntityName(name);
 		requiredRole.setRequiredInterface__InfrastructureRequiredRole(interfce);
 		this.requiredRoles.add(requiredRole);
+		this.repository.addRequiredRole(requiredRole);
 		return this;
 	}
 
@@ -157,6 +167,7 @@ public abstract class Component extends Entity {
 
 	public Component emits(EventGroupCreator eventGroup, String name) {
 		EventGroup eg = eventGroup.build();
+		this.repository.addInterface(eg);
 		return emits(eg, name);
 	}
 
@@ -170,6 +181,7 @@ public abstract class Component extends Entity {
 			requiredRole.setEntityName(name);
 		requiredRole.setEventGroup__SourceRole(eventGroup);
 		this.requiredRoles.add(requiredRole);
+		this.repository.addRequiredRole(requiredRole);
 		return this;
 	}
 

@@ -6,6 +6,8 @@ import java.util.Map;
 import org.palladiosimulator.pcm.repository.PrimitiveDataType;
 import org.palladiosimulator.pcm.repository.PrimitiveTypeEnum;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
+import org.palladiosimulator.pcm.resourcetype.CommunicationLinkResourceType;
+import org.palladiosimulator.pcm.resourcetype.ResourcetypeFactory;
 
 public class PrimitiveType {
 
@@ -45,6 +47,16 @@ public class PrimitiveType {
 		PrimitiveDataType p8 = fact.createPrimitiveDataType();
 		p8.setType(PrimitiveTypeEnum.BYTE);
 		primitives.put(Primitive.BYTE, p8);
+		
+		ResourcetypeFactory resFact = ResourcetypeFactory.eINSTANCE;
+		CommunicationLinkResourceType clr = resFact.createCommunicationLinkResourceType();
+		resFact.createProcessingResourceType();
+		resFact.createResourceInterface();
+		resFact.createResourceRepository();
+		resFact.createResourceSignature();
+		resFact.createSchedulingPolicy();
+		
+		
 		
 	}
 

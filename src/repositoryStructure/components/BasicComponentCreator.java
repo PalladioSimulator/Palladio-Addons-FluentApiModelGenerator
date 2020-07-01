@@ -14,6 +14,7 @@ import org.palladiosimulator.pcm.repository.EventGroup;
 import org.palladiosimulator.pcm.repository.InfrastructureInterface;
 import org.palladiosimulator.pcm.repository.OperationInterface;
 import org.palladiosimulator.pcm.repository.PassiveResource;
+import org.palladiosimulator.pcm.repository.ProvidedRole;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
 import org.palladiosimulator.pcm.resourcetype.ResourceInterface;
 import org.palladiosimulator.pcm.seff.ServiceEffectSpecification;
@@ -236,7 +237,7 @@ public class BasicComponentCreator extends Component {
 			basicComponent.setId(id);
 		if (type != null)
 			basicComponent.setComponentType(type);
-
+		
 		basicComponent.getProvidedRoles_InterfaceProvidingEntity().addAll(providedRoles);
 		basicComponent.getRequiredRoles_InterfaceRequiringEntity().addAll(requiredRoles);
 		basicComponent.getResourceRequiredRoles__ResourceInterfaceRequiringEntity().addAll(resourceRequiredRoles);

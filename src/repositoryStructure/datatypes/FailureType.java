@@ -11,7 +11,7 @@ import org.palladiosimulator.pcm.resourcetype.CommunicationLinkResourceType;
 import org.palladiosimulator.pcm.resourcetype.ProcessingResourceType;
 import org.palladiosimulator.pcm.resourcetype.ResourcetypeFactory;
 
-class FailureType {
+public class FailureType {
 	
 	private static Map<Failure, org.palladiosimulator.pcm.reliability.FailureType> failures = new HashMap<>();
 	
@@ -68,7 +68,7 @@ class FailureType {
 		fact.createResourceTimeoutFailureType();
 	}
 	
-	protected static org.palladiosimulator.pcm.reliability.FailureType getFailureType(Failure failure){
+	public static org.palladiosimulator.pcm.reliability.FailureType getFailureType(Failure failure){
 		if(failures.isEmpty())
 			init();
 		return failures.get(failure);

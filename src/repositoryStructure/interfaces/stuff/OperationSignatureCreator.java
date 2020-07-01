@@ -5,12 +5,19 @@ import java.util.List;
 
 import org.palladiosimulator.pcm.reliability.FailureType;
 import org.palladiosimulator.pcm.repository.DataType;
+import org.palladiosimulator.pcm.repository.EventType;
 import org.palladiosimulator.pcm.repository.ExceptionType;
 import org.palladiosimulator.pcm.repository.OperationSignature;
 import org.palladiosimulator.pcm.repository.Parameter;
+import org.palladiosimulator.pcm.repository.ParameterModifier;
+import org.palladiosimulator.pcm.repository.PrimitiveDataType;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
 
 import repositoryStructure.Entity;
+import repositoryStructure.RepositoryCreator;
+import repositoryStructure.datatypes.Primitive;
+import repositoryStructure.datatypes.PrimitiveType;
+import repositoryStructure.interfaces.OperationInterfaceCreator;
 
 
 public class OperationSignatureCreator extends Entity{
@@ -19,24 +26,42 @@ public class OperationSignatureCreator extends Entity{
 	private List<Parameter> ownedParameters = new ArrayList<>();
 	private List<FailureType> failureTypes = new ArrayList<>();
 	private List<ExceptionType> exceptionTypes = new ArrayList<>();
+	private OperationInterfaceCreator correspondingInterface;
+
+	public OperationSignatureCreator(OperationInterfaceCreator interfce) {
+		this.correspondingInterface = interfce;
+	}
 
 	public OperationSignatureCreator withName(String name) {
 		return (OperationSignatureCreator) super.withName(name);
 	}
 	
-	public OperationSignatureCreator withReturnType(DataType returnType) {
+	public OperationInterfaceCreator withReturnType(DataType returnType) {
 		this.returnType = returnType;
-		return this;
+		//TODO: build
+		return correspondingInterface;
+	}
+
+	public OperationSignatureCreator withParameter(String name, Primitive dataType, ParameterModifier modifier,
+			EventType eventType) {
+		PrimitiveDataType dt = PrimitiveType.getPrimitiveDataType(dataType);
+		
+		return withParameter(name, dt, modifier, eventType);
 	}
 	
-	public OperationSignatureCreator withParameter(Parameter parameter) {
-		this.ownedParameters.add(parameter);
+	public OperationSignatureCreator withParameter(String name, DataType dataType, ParameterModifier modifier, EventType eventType) {
+		Parameter param = RepositoryFactory.eINSTANCE.createParameter();
+		if (name != null)
+			param.setParameterName(name);
+		if (dataType != null)
+			param.setDataType__Parameter(dataType);
+		if (eventType != null)
+			param.setEventType__Parameter(eventType);
+		if (modifier != null)
+			param.setModifier__Parameter(modifier);
+		
+		ownedParameters.add(param);
 		return this;
-	}
-	
-	public OperationSignatureCreator withParameter(ParameterCreator parameter) {
-		Parameter p = parameter.build();
-		return this.withParameter(p);
 	}
 	
 	public OperationSignatureCreator withFailureType(FailureType failureType) {
@@ -59,4 +84,5 @@ public class OperationSignatureCreator extends Entity{
 
 		return ops;
 	}
+
 }

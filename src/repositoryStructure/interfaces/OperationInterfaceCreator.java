@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.palladiosimulator.pcm.parameter.VariableCharacterisationType;
+import org.palladiosimulator.pcm.repository.DataType;
 import org.palladiosimulator.pcm.repository.OperationInterface;
 import org.palladiosimulator.pcm.repository.OperationSignature;
 import org.palladiosimulator.pcm.repository.Parameter;
@@ -48,10 +49,17 @@ public class OperationInterfaceCreator extends Interface {
 		return (OperationInterfaceCreator) super.withProtocol();
 	}
 
-	public OperationInterfaceCreator withOperationSignature(OperationSignatureCreator operationSignature) {
-		OperationSignature ops = operationSignature.build();
-		operationSignatures.add(ops);
-		return this;
+	/**
+	 * requires the specification of a return type
+	 * 
+	 * @param name
+	 * @return the possibility to specify the signature
+	 */
+	public OperationSignatureCreator withOperationSignature() {
+		OperationSignatureCreator operationSignature = new OperationSignatureCreator(this);
+//		OperationSignature ops = operationSignature.build();
+//		operationSignatures.add(ops);
+		return operationSignature;
 	}
 
 	@Override

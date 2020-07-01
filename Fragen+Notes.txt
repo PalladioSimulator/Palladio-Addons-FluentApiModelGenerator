@@ -1,25 +1,34 @@
 Fragen:
 
+- imports, gibt es die, wenn ja wie?
+
+FailureTypes, PrimitiveDataTypes, Resources -> repo files importieren? 
+<signatures__OperationInterface id="_evrBYJ8tEeqfZrwL1lVb2A" entityName="method1">
+      <parameters__OperationSignature parameterName="myStringParam">
+        <dataType__Parameter xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.1"/>
+      </parameters__OperationSignature>
+</signatures__OperationInterface>
+
 - Protocols bei Interfaces
 
 - Hat ein Seff immer genau ein Anfang + Ende? Wie erstellt man ein seff - welche Factory?
 
 - Access nur über String statt jedes Mal der fetch Aufruf im creator?
 
+- macht es Sinn, immer einen Namen zu verlangen? also direkt newComponent(String name)
+
+
 email: design: alles über die Factory erstellen -> PCM hat verschiedene Factorys; oder so erstellen
 sinnvoll über Factory: components, interfaces, data types/failure/exception types, parameter, seff
-
-Kann man auch neue Failure und primitive Data Types erstellen? 
-wenn ja wie? und wie greift man auf bestehende zu?
--> collectionDataType, Composite data type, exception type (wozu gehören die? - erst mal ignorieren)
-
 
 
 ToDo:
 - seffs
-- operation signatures
+- operation signatures + Parameter
 - variable usages
 - Failure + Primitive Types initialisieren
+- imports
+- event type
 
 
 iwann:
@@ -87,4 +96,13 @@ Factorys:
 - SystemResourceFactory
 - UsagemodelFactory
 - UsagemodelAdapterFactory: Branch, delay, loop
+
+
+
+
+
+
+Done:
+- Composite + collection data types
+- roles
 

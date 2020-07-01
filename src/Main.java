@@ -12,6 +12,7 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceFactoryImpl;
 import org.palladiosimulator.pcm.parameter.VariableCharacterisationType;
+import org.palladiosimulator.pcm.repository.ParameterModifier;
 import org.palladiosimulator.pcm.repository.Repository;
 
 import factory.MyRepositoryFactory;
@@ -38,13 +39,12 @@ public class Main {
 			// INTERFACES
 			.addToRepository(create.newOperationInterface()
 							.withName("IDatabase")
-							.withOperationSignature(create.newOperationSignature()
-													.withName("saveDatabaseEntry")
-													.withParameter(create.newParameter()
-																	.withName("name"))
-													.withParameter(create.newParameter().withName("age")
-																	.ofDataType(null)))
-							.withRequiredCharacterisation(create.getParameter(""), VariableCharacterisationType.VALUE))
+							.withOperationSignature()
+								.withName("saveDatabaseEntry")
+								.withParameter("first names", create.fetchOfDataType("StringList"), null, null)
+								.withParameter("age", Primitive.INTEGER, ParameterModifier.INOUT, null)
+								.withReturnType(create.fetchOfDataType("Person"))
+							.withRequiredCharacterisation(create.getParameter("age"), VariableCharacterisationType.VALUE))
 			
 			// BASIC COMPONENTS
 			.addToRepository(create.newBasicComponent()

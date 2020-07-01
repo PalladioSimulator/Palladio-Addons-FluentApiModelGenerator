@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
+import org.palladiosimulator.pcm.reliability.FailureType;
 import org.palladiosimulator.pcm.repository.BasicComponent;
 import org.palladiosimulator.pcm.repository.CollectionDataType;
 import org.palladiosimulator.pcm.repository.CompleteComponentType;
@@ -35,6 +36,9 @@ import apiControlFlowInterfaces.RepoAddition;
 import factory.MyRepositoryFactory;
 import repositoryStructure.components.Component;
 import repositoryStructure.datatypes.CompositeDataTypeCreator;
+import repositoryStructure.datatypes.Failure;
+import repositoryStructure.datatypes.Primitive;
+import repositoryStructure.datatypes.PrimitiveType;
 
 public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 
@@ -43,17 +47,36 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 	private MyRepositoryFactory factory;
 
 	private List<DataType> dataTypes;
-	private List<RepositoryComponent> components;
+	private List<FailureType> failureTypes;
 	private List<Interface> interfaces;
+	private List<RepositoryComponent> components;
 	private List<ProvidedRole> providedRoles;
 	private List<RequiredRole> requiredRoles;
 	private List<Parameter> parameters;
 
 	public RepositoryCreator(MyRepositoryFactory factory) {
 		this.factory = factory;
-		this.components = new ArrayList<>();
-		this.interfaces = new ArrayList<>();
 		this.dataTypes = new ArrayList<>();
+		this.failureTypes = new ArrayList<>();
+		this.interfaces = new ArrayList<>();
+		this.components = new ArrayList<>();
+		this.providedRoles = new ArrayList<>();
+		this.requiredRoles = new ArrayList<>();
+		this.parameters = new ArrayList<>();
+		
+		this.dataTypes.add(PrimitiveType.getPrimitiveDataType(Primitive.BOOLEAN));
+		this.dataTypes.add(PrimitiveType.getPrimitiveDataType(Primitive.BYTE));
+		this.dataTypes.add(PrimitiveType.getPrimitiveDataType(Primitive.CHAR));
+		this.dataTypes.add(PrimitiveType.getPrimitiveDataType(Primitive.DOUBLE));
+		this.dataTypes.add(PrimitiveType.getPrimitiveDataType(Primitive.INTEGER));
+		this.dataTypes.add(PrimitiveType.getPrimitiveDataType(Primitive.LONG));
+		this.dataTypes.add(PrimitiveType.getPrimitiveDataType(Primitive.STRING));
+		
+		this.failureTypes.add(repositoryStructure.datatypes.FailureType.getFailureType(Failure.HARDWARE_CPU));
+		this.failureTypes.add(repositoryStructure.datatypes.FailureType.getFailureType(Failure.HARDWARE_HDD));
+		this.failureTypes.add(repositoryStructure.datatypes.FailureType.getFailureType(Failure.HARDWARE_DELAY));
+		this.failureTypes.add(repositoryStructure.datatypes.FailureType.getFailureType(Failure.NETWORK_LAN));
+		this.failureTypes.add(repositoryStructure.datatypes.FailureType.getFailureType(Failure.SOFTWARE));
 	}
 
 	@Override
@@ -114,7 +137,7 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 		repo.getDataTypes__Repository().addAll(dataTypes);
 		repo.getInterfaces__Repository().addAll(interfaces);
 		repo.getComponents__Repository().addAll(components);
-//		repo.getFailureTypes__Repository();
+		repo.getFailureTypes__Repository().addAll(failureTypes);
 
 		// TODO: reset all Lists in the factory?
 		return repo;
@@ -184,10 +207,14 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 	}
 
 	public OperationProvidedRole getOperationProvidedRole(String name) {
-		
-		return (OperationProvidedRole) providedRoles.stream()
-				.filter(r -> r instanceof OperationProvidedRole && r.getEntityName().contentEquals(name))
-				.findFirst().get();
+
+		Optional<ProvidedRole> findFirst = providedRoles.stream()
+				.filter(r -> r instanceof OperationProvidedRole && r.getEntityName().contentEquals(name)).findFirst();
+
+		if (findFirst.isPresent())
+			return (OperationProvidedRole) findFirst.get();
+		else
+			return null;
 	}
 
 	public InfrastructureProvidedRole getInfrastructureProvidedRole(String name) {
