@@ -25,23 +25,19 @@ sinnvoll über Factory: components, interfaces, data types/failure/exception typ
 
 
 ToDo:
-- dataTypes einlesen 			-> Frage
-- Seffs 						-> Frage
-- imports 						-> Frage
-- Resource required zeug 		-> später
-- infrastructure zeug			-> später
+- dataTypes einlesen 					-> Frage
+- Seffs 								-> Frage
+- imports 								-> Frage => als email
+- interface Protocols 					-> Frage -> ignorieren
+
+- Resource required zeug 				-> später
+- infrastructure zeug (+Connectors)		-> später
+- ExceptionTypes 						-> später
 
 - Sichtbarkeit
-- Reihenfolge mit Interfaces regeln (varUsage von CompositeComponent)
+- Reihenfolge mit Interfaces regeln (varUsage von CompositeComponent -> evtl so auch das eventZeug (oder so - iwo gabs das gleiche Problem))
 
-
-
-
-iwann:
-- Protocols der Interfaces
-- Infrastructure Interfaces (+ Connectors etc)
-- Exception Types
-
+anonymous anonymous; media store ms; screencast media store
 
 
 Notizen

@@ -1,3 +1,4 @@
+package main;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,25 +9,74 @@ import java.util.Map;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceFactoryImpl;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceFactoryImpl;
+import org.palladiosimulator.pcm.core.CoreFactory;
 import org.palladiosimulator.pcm.core.PCMRandomVariable;
+import org.palladiosimulator.pcm.parameter.ParameterFactory;
+import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
+import org.palladiosimulator.pcm.parameter.VariableUsage;
 import org.palladiosimulator.pcm.repository.BasicComponent;
 import org.palladiosimulator.pcm.repository.OperationInterface;
 import org.palladiosimulator.pcm.repository.OperationProvidedRole;
 import org.palladiosimulator.pcm.repository.PassiveResource;
+import org.palladiosimulator.pcm.repository.PrimitiveDataType;
+import org.palladiosimulator.pcm.repository.PrimitiveTypeEnum;
 import org.palladiosimulator.pcm.repository.Repository;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
+
+import de.uka.ipd.sdq.stoex.AbstractNamedReference;
 
 public class PalladioTest {
 
 	public static void main(String[] args) {
 		
+		/*
+		RepositoryFactory fact = RepositoryFactory.eINSTANCE;
+		PrimitiveDataType prim1 = fact.createPrimitiveDataType();
+		Repository repos = fact.createRepository();
+		repos.setEntityName("PrimitveTypes");
+		
+		prim1.setType(PrimitiveTypeEnum.BOOL);
+		repos.getDataTypes__Repository().add(prim1);
+		
+		fact.createRepository();
+		Repository repo2 = RepositoryFactory.eINSTANCE.createRepository();
+		BasicComponent comp = RepositoryFactory.eINSTANCE.createBasicComponent();
+		
+		VariableUsage varUsage = ParameterFactory.eINSTANCE.createVariableUsage();
+		AbstractNamedReference ref = varUsage.getNamedReference__VariableUsage();
+		
+		VariableCharacterisation varchar = ParameterFactory.eINSTANCE.createVariableCharacterisation();
+		PCMRandomVariable rand = CoreFactory.eINSTANCE.createPCMRandomVariable();
+		rand.setSpecification(specification_stochasticExpression);
+		varchar.setSpecification_VariableCharacterisation(rand);
+		varchar.setType(type);
+		
+		
+		varUsage.getVariableCharacterisation_VariableUsage().
+		
+		
+		repo2.getComponents__Repository().add(comp);
+		
+		*/
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		new PalladioTest().setupAndSaveEMFInstanceResource();
 
+		
 //		String fileName = "resources/FailureTypes.repository";
 		String fileName = "/Users/louisalambrecht/Documents/eclipse-workspace/PalladioTest/default.repository";
 
