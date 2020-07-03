@@ -10,10 +10,10 @@ import org.palladiosimulator.pcm.resourcetype.ResourceSignature;
 import org.palladiosimulator.pcm.seff.ReleaseAction;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 
-import apiControlFlowInterfaces.Action;
+import apiControlFlowInterfaces.LoopAction.ReleaseLoop;
 import repositoryStructure.SeffCreator;
 
-public class ReleaseActionCreator extends AbstractAction {
+public class ReleaseActionCreator extends AbstractAction implements ReleaseLoop {
 
 	private SeffCreator seff;
 	private PassiveResource passiveResource;
@@ -22,7 +22,7 @@ public class ReleaseActionCreator extends AbstractAction {
 		this.seff = seff;
 	}
 
-	public Action followedBy() {
+	public SeffCreator followedBy() {
 		ReleaseAction action = SeffFactory.eINSTANCE.createReleaseAction();
 		action.setPassiveResource_ReleaseAction(passiveResource);
 

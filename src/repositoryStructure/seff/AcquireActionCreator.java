@@ -10,10 +10,10 @@ import org.palladiosimulator.pcm.resourcetype.ResourceSignature;
 import org.palladiosimulator.pcm.seff.AcquireAction;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 
-import apiControlFlowInterfaces.Action;
+import apiControlFlowInterfaces.LoopAction.AcquireLoop;
 import repositoryStructure.SeffCreator;
 
-public class AcquireActionCreator extends AbstractAction {
+public class AcquireActionCreator extends AbstractAction implements AcquireLoop {
 
 	private SeffCreator seff;
 	private PassiveResource passiveResource;
@@ -24,7 +24,7 @@ public class AcquireActionCreator extends AbstractAction {
 		this.seff = seff;
 	}
 
-	public Action followedBy() {
+	public SeffCreator followedBy() {
 		AcquireAction action = SeffFactory.eINSTANCE.createAcquireAction();
 		action.setPassiveresource_AcquireAction(passiveResource);
 		action.setTimeoutValue(timeoutValue);

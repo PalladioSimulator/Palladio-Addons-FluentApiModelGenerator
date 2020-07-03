@@ -11,6 +11,8 @@ import org.palladiosimulator.pcm.seff.ServiceEffectSpecification;
 
 import apiControlFlowInterfaces.Action;
 import apiControlFlowInterfaces.Follow.Start;
+import apiControlFlowInterfaces.LoopAction;
+import apiControlFlowInterfaces.LoopFollow.LoopExitFollow.LoopStart;
 import repositoryStructure.seff.AcquireActionCreator;
 import repositoryStructure.seff.BranchActionCreator;
 import repositoryStructure.seff.CollectionIteratorActionCreator;
@@ -25,9 +27,9 @@ import repositoryStructure.seff.SetVariableActionCreator;
 import repositoryStructure.seff.StartActionCreator;
 import repositoryStructure.seff.StopActionCreator;
 
-public class SeffCreator extends Entity implements Start, Action {
+public class SeffCreator extends Entity implements Start, Action, LoopStart, LoopAction {
 
-	private LoopActionCreator loopParent;
+	public LoopActionCreator loopParent; //TODO: private
 
 	private AbstractAction current;
 	private Signature signature;
@@ -45,6 +47,11 @@ public class SeffCreator extends Entity implements Start, Action {
 
 	@Override
 	public StartActionCreator withStartAction() {
+		return new StartActionCreator(this);
+	}
+	
+	@Override
+	public StartActionCreator startAction() {
 		return new StartActionCreator(this);
 	}
 

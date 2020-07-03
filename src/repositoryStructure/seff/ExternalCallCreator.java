@@ -10,10 +10,10 @@ import org.palladiosimulator.pcm.repository.OperationSignature;
 import org.palladiosimulator.pcm.seff.ExternalCallAction;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 
-import apiControlFlowInterfaces.Action;
+import apiControlFlowInterfaces.LoopAction.ExternalLoop;
 import repositoryStructure.SeffCreator;
 
-public class ExternalCallCreator {
+public class ExternalCallCreator implements ExternalLoop {
 
 	private SeffCreator seff;
 
@@ -31,7 +31,7 @@ public class ExternalCallCreator {
 		this.failures = new ArrayList<>();
 	}
 
-	public Action followedBy() {
+	public SeffCreator followedBy() {
 		ExternalCallAction action = SeffFactory.eINSTANCE.createExternalCallAction();
 		action.setRetryCount(retryCount);
 		action.setCalledService_ExternalService(signature);

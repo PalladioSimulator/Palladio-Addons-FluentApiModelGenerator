@@ -10,9 +10,11 @@ import org.palladiosimulator.pcm.seff.SeffFactory;
 import org.palladiosimulator.pcm.seff.ServiceEffectSpecification;
 import org.palladiosimulator.pcm.seff.StopAction;
 
+import apiControlFlowInterfaces.Action;
+import apiControlFlowInterfaces.LoopAction.StopLoop;
 import repositoryStructure.SeffCreator;
 
-public class StopActionCreator extends AbstractAction {
+public class StopActionCreator extends AbstractAction implements StopLoop{
 
 	private SeffCreator seff;
 
@@ -27,6 +29,12 @@ public class StopActionCreator extends AbstractAction {
 		action.getResourceDemand_Action().addAll(demands);
 		seff.setNext(action);
 		return seff;
+	}
+	
+	public Action followedOutsideLoopBy() {
+		//TODO: loop fertig machen
+		
+		return seff.loopParent.seff;
 	}
 
 	@Override

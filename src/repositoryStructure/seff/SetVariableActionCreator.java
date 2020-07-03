@@ -13,9 +13,10 @@ import org.palladiosimulator.pcm.seff.SeffFactory;
 import org.palladiosimulator.pcm.seff.SetVariableAction;
 
 import apiControlFlowInterfaces.Action;
+import apiControlFlowInterfaces.LoopAction.SetVariableLoop;
 import repositoryStructure.SeffCreator;
 
-public class SetVariableActionCreator extends AbstractAction {
+public class SetVariableActionCreator extends AbstractAction implements SetVariableLoop{
 
 	private SeffCreator seff;
 
@@ -26,7 +27,7 @@ public class SetVariableActionCreator extends AbstractAction {
 		this.localVariableUsages = new ArrayList<>();
 	}
 
-	public Action followedBy() {
+	public SeffCreator followedBy() {
 		// TODO: iwelche Voraussetzungen? + localVariableUsages
 		SetVariableAction action = SeffFactory.eINSTANCE.createSetVariableAction();
 		action.getInfrastructureCall__Action().addAll(infrastructureCalls);

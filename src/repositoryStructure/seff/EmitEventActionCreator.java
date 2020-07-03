@@ -9,23 +9,23 @@ import org.palladiosimulator.pcm.repository.SourceRole;
 import org.palladiosimulator.pcm.seff.EmitEventAction;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 
-import apiControlFlowInterfaces.Action;
+import apiControlFlowInterfaces.LoopAction.EmitEventLoop;
 import repositoryStructure.SeffCreator;
 
-public class EmitEventActionCreator {
-	
+public class EmitEventActionCreator implements EmitEventLoop {
+
 	private SeffCreator seff;
 
 	private EventType eventType;
 	private SourceRole requiredRole;
 	private List<VariableUsage> inputVariableUsages;
-	
+
 	public EmitEventActionCreator(SeffCreator seff) {
 		this.seff = seff;
 		this.inputVariableUsages = new ArrayList<>();
 	}
 
-	public Action followedBy() {
+	public SeffCreator followedBy() {
 		EmitEventAction action = SeffFactory.eINSTANCE.createEmitEventAction();
 		action.setEventType__EmitEventAction(eventType);
 		action.setSourceRole__EmitEventAction(requiredRole);
@@ -33,17 +33,17 @@ public class EmitEventActionCreator {
 		seff.setNext(action);
 		return seff;
 	}
-	
+
 	public EmitEventActionCreator withEventType(EventType eventType) {
 		this.eventType = eventType;
 		return this;
 	}
-	
+
 	public EmitEventActionCreator withSourceRole(SourceRole sourceRole) {
 		this.requiredRole = sourceRole;
 		return this;
 	}
-	
+
 	public EmitEventActionCreator withInputVariableUsage() {
 		// TODO: Vererbung?
 		return this;

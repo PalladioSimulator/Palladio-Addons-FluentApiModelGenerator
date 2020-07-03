@@ -18,7 +18,7 @@ import repositoryStructure.SeffCreator;
 
 public class LoopActionCreator extends AbstractAction {
 
-	private SeffCreator seff;
+	public SeffCreator seff; //TODO: private
 	private PCMRandomVariable iterationCount;
 	private SeffCreator loopBody;
 
@@ -53,10 +53,10 @@ public class LoopActionCreator extends AbstractAction {
 		return this;
 	}
 
-//	public LoopStart withLoopBody() {
-//		loopBody = new SeffCreator(this);
-//		return loopBody;
-//	}
+	public LoopStart withLoopBody() {
+		loopBody = new SeffCreator(this);
+		return loopBody;
+	}
 
 	@Override
 	public LoopActionCreator withResourceDemand(String specification_stochasticExpression,

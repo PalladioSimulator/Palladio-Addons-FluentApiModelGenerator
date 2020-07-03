@@ -1,8 +1,11 @@
 package apiControlFlowInterfaces;
 
+import apiControlFlowInterfaces.LoopAction.StartLoop;
+import repositoryStructure.seff.StartActionCreator;
+
 public interface LoopFollow {
 
-	public LoopAction followedInsideLoopBy();
+	public LoopAction followedBy();
 
 	
 	public interface LoopExitFollow {
@@ -10,7 +13,7 @@ public interface LoopFollow {
 		public Action followedOutsideLoopBy();
 		
 		public interface LoopStart {
-			public LoopFollow startAction();
+			public StartLoop startAction();
 		}
 	}
 }

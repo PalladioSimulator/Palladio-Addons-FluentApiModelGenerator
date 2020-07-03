@@ -9,10 +9,10 @@ import org.palladiosimulator.pcm.resourcetype.ResourceSignature;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 import org.palladiosimulator.pcm.seff.StartAction;
 
-import apiControlFlowInterfaces.Action;
+import apiControlFlowInterfaces.LoopAction.StartLoop;
 import repositoryStructure.SeffCreator;
 
-public class StartActionCreator extends AbstractAction {
+public class StartActionCreator extends AbstractAction implements StartLoop{
 
 	private SeffCreator seff;
 
@@ -20,7 +20,7 @@ public class StartActionCreator extends AbstractAction {
 		this.seff = seff;
 	}
 
-	public Action followedBy() {
+	public SeffCreator followedBy() {
 		StartAction action = SeffFactory.eINSTANCE.createStartAction();
 		action.getInfrastructureCall__Action().addAll(infrastructureCalls);
 		action.getResourceCall__Action().addAll(resourceCalls);
@@ -49,4 +49,5 @@ public class StartActionCreator extends AbstractAction {
 		return (StartActionCreator) super.withResourceCall(numberOfCalls_stochasticExpression, signature, requiredRole,
 				variableUsages);
 	}
+
 }

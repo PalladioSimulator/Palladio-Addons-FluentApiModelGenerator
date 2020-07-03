@@ -112,10 +112,12 @@ public class Main {
 											.isTimeout(null)
 						.followedBy().releaseAction()
 											.withPassiveResource(null)
-//						.followedBy().loopAction()
-//											.withIterationCount(null)
-//											.withLoopBody().startAction().followedInsideLoopBy().
-						.followedBy().stopAction().createSeffNow();
+						.followedBy().loopAction()
+											.withIterationCount(null)
+											.withLoopBody().startAction().withInfrastructureCall(null, null, null)
+												.followedBy().internalAction().withInfrastructureCall(null, null, null)
+												.followedBy().stopAction() //TODO: hier darf create seff now nicht gehen
+					    .followedOutsideLoopBy().stopAction().createSeffNow();
 		
 		
 		saveRepository(repo);	

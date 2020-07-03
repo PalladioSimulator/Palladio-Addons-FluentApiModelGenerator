@@ -15,10 +15,10 @@ import org.palladiosimulator.pcm.resourcetype.ResourceSignature;
 import org.palladiosimulator.pcm.seff.InternalAction;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 
-import apiControlFlowInterfaces.Action;
+import apiControlFlowInterfaces.LoopAction.InternalLoop;
 import repositoryStructure.SeffCreator;
 
-public class InternalCallCreator extends AbstractAction {
+public class InternalCallCreator extends AbstractAction implements InternalLoop{
 
 	private SeffCreator seff;
 
@@ -32,8 +32,7 @@ public class InternalCallCreator extends AbstractAction {
 		this.resourceCalls = new ArrayList<>();
 	}
 
-	public Action followedBy() {
-		// TODO: resource Demanding behaviour?
+	public SeffCreator followedBy() {
 		InternalAction action = SeffFactory.eINSTANCE.createInternalAction();
 		action.getResourceDemand_Action().addAll(demands);
 		action.getInternalFailureOccurrenceDescriptions__InternalAction().addAll(failures);
