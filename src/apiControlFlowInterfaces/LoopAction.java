@@ -4,8 +4,6 @@ import apiControlFlowInterfaces.LoopFollow.LoopExitFollow;
 
 public interface LoopAction {
 
-	public LoopFollow withStartAction();
-
 	public LoopFollow internalAction();
 
 	public LoopFollow externalCallAction();

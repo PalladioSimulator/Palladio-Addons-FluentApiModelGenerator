@@ -15,6 +15,7 @@ import org.palladiosimulator.pcm.repository.PrimitiveDataType;
 import org.palladiosimulator.pcm.repository.RepositoryComponent;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
 
+import apiControlFlowInterfaces.Follow.Start;
 import repositoryStructure.RepositoryCreator;
 import repositoryStructure.SeffCreator;
 import repositoryStructure.components.BasicComponentCreator;
@@ -116,7 +117,7 @@ public class MyRepositoryFactory {
 
 	// ---------------------- Component Related Stuff ----------------------
 
-	public SeffCreator newSeff() {
+	public Start newSeff() {
 		SeffCreator seff = new SeffCreator();
 		return seff;
 	}

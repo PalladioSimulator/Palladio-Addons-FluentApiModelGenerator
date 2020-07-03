@@ -8,5 +8,9 @@ public interface LoopFollow {
 	public interface LoopExitFollow {
 		
 		public Action followedOutsideLoopBy();
+		
+		public interface LoopStart {
+			public LoopFollow startAction();
+		}
 	}
 }

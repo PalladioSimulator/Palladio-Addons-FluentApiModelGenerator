@@ -1,24 +1,31 @@
 package apiControlFlowInterfaces;
 
 import repositoryStructure.SeffCreator;
+import repositoryStructure.seff.AcquireActionCreator;
+import repositoryStructure.seff.EmitEventActionCreator;
+import repositoryStructure.seff.ExternalCallCreator;
+import repositoryStructure.seff.InternalCallCreator;
+import repositoryStructure.seff.LoopActionCreator;
+import repositoryStructure.seff.ReleaseActionCreator;
+import repositoryStructure.seff.SetVariableActionCreator;
 
 public interface Action {
 
-	public Follow withStartAction();
+//	public Follow withStartAction();
 
-	public Follow internalAction();
+	public InternalCallCreator internalAction();
 
-	public Follow externalCallAction();
+	public ExternalCallCreator externalCallAction();
 
-	public Follow emitEventAction();
+	public EmitEventActionCreator emitEventAction();
 
-	public Follow setVariableAction();
+	public SetVariableActionCreator setVariableAction();
 
-	public Follow acquireAction();
+	public AcquireActionCreator acquireAction();
 
-	public Follow releaseAction();
+	public ReleaseActionCreator releaseAction();
 
-	public Follow loopAction();
+	public LoopActionCreator loopAction();
 
 	public Follow collectionIteratorAction();
 

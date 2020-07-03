@@ -87,6 +87,37 @@ public class Main {
 	
 			.build();
 		
+		
+		
+		create.newSeff().withStartAction()
+						.followedBy().internalAction()
+											.withResourceDemand(null, null)
+											.withInternalFailureOccurrenceDescription(null, null)
+											.withInfrastructureCall(null, null, null)
+						.followedBy().externalCallAction()
+											.withCalledService(null)
+											.withFailureType(null)
+											.withInputVariableUsage()
+											.withRequiredRole(null)
+											.withRetryCount(null)
+											.withReturnVariableUsage()
+						.followedBy().emitEventAction()
+											.withEventType(null)
+											.withSourceRole(null)
+											.withInputVariableUsage()
+						.followedBy().setVariableAction()
+						.followedBy().acquireAction()
+											.withPassiveResource(null)
+											.withTimeoutValue(null)
+											.isTimeout(null)
+						.followedBy().releaseAction()
+											.withPassiveResource(null)
+//						.followedBy().loopAction()
+//											.withIterationCount(null)
+//											.withLoopBody().startAction().followedInsideLoopBy().
+						.followedBy();
+		
+		
 		saveRepository(repo);	
 	}
 	
