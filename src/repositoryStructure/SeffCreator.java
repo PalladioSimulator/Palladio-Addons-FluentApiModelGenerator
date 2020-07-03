@@ -5,29 +5,27 @@ import java.util.List;
 
 import org.palladiosimulator.pcm.repository.Signature;
 import org.palladiosimulator.pcm.seff.AbstractAction;
-import org.palladiosimulator.pcm.seff.BranchAction;
-import org.palladiosimulator.pcm.seff.CollectionIteratorAction;
-import org.palladiosimulator.pcm.seff.ForkAction;
 import org.palladiosimulator.pcm.seff.ResourceDemandingSEFF;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 import org.palladiosimulator.pcm.seff.ServiceEffectSpecification;
-import org.palladiosimulator.pcm.seff.StartAction;
-import org.palladiosimulator.pcm.seff.StopAction;
-import org.palladiosimulator.pcm.seff.seff_reliability.RecoveryAction;
-import org.palladiosimulator.pcm.seff.seff_reliability.SeffReliabilityFactory;
 
 import apiControlFlowInterfaces.Action;
-import apiControlFlowInterfaces.Follow;
 import apiControlFlowInterfaces.Follow.Start;
 import repositoryStructure.seff.AcquireActionCreator;
+import repositoryStructure.seff.BranchActionCreator;
+import repositoryStructure.seff.CollectionIteratorActionCreator;
 import repositoryStructure.seff.EmitEventActionCreator;
 import repositoryStructure.seff.ExternalCallCreator;
+import repositoryStructure.seff.ForkActionCreator;
 import repositoryStructure.seff.InternalCallCreator;
 import repositoryStructure.seff.LoopActionCreator;
+import repositoryStructure.seff.RecoveryActionCreator;
 import repositoryStructure.seff.ReleaseActionCreator;
 import repositoryStructure.seff.SetVariableActionCreator;
+import repositoryStructure.seff.StartActionCreator;
+import repositoryStructure.seff.StopActionCreator;
 
-public class SeffCreator extends Entity implements Start, Follow, Action {
+public class SeffCreator extends Entity implements Start, Action {
 
 	private LoopActionCreator loopParent;
 
@@ -46,12 +44,8 @@ public class SeffCreator extends Entity implements Start, Follow, Action {
 	}
 
 	@Override
-	public Follow withStartAction() {
-		StartAction start = SeffFactory.eINSTANCE.createStartAction();
-//		TODO: überall mit name, id?!
-		this.current = start;
-		steps.add(start);
-		return this;
+	public StartActionCreator withStartAction() {
+		return new StartActionCreator(this);
 	}
 
 	@Override
@@ -87,88 +81,40 @@ public class SeffCreator extends Entity implements Start, Follow, Action {
 		return new ReleaseActionCreator(this);
 	}
 
-	public void setNext(AbstractAction action) {
-		current.setSuccessor_AbstractAction(action);
-		action.setPredecessor_AbstractAction(current);
-		current = action;
-		steps.add(action);
-	}
-
 	@Override
 	public LoopActionCreator loopAction() {
 		return new LoopActionCreator(this);
 	}
 
 	@Override
-	public Follow collectionIteratorAction() {
-		CollectionIteratorAction action = SeffFactory.eINSTANCE.createCollectionIteratorAction();
-		// TODO Auto-generated method stub
-		action.getBodyBehaviour_Loop();
-		action.getParameter_CollectionIteratorAction();
-
-		current.setSuccessor_AbstractAction(action);
-		action.setPredecessor_AbstractAction(current);
-		current = action;
-
-		return this;
+	public CollectionIteratorActionCreator collectionIteratorAction() {
+		return new CollectionIteratorActionCreator(this);
 	}
 
 	@Override
-	public Follow branchAction() {
-		BranchAction action = SeffFactory.eINSTANCE.createBranchAction();
-		// TODO Auto-generated method stub
-		action.getBranches_Branch();
-
-		current.setSuccessor_AbstractAction(action);
-		action.setPredecessor_AbstractAction(current);
-		current = action;
-
-		return this;
+	public BranchActionCreator branchAction() {
+		return new BranchActionCreator(this);
 	}
 
 	@Override
-	public Follow forkAction() {
-		ForkAction action = SeffFactory.eINSTANCE.createForkAction();
-		// TODO Auto-generated method stub
-		action.getAsynchronousForkedBehaviours_ForkAction();
-		action.getSynchronisingBehaviours_ForkAction();
-
-		current.setSuccessor_AbstractAction(action);
-		action.setPredecessor_AbstractAction(current);
-		current = action;
-
-		return this;
+	public ForkActionCreator forkAction() {
+		return new ForkActionCreator(this);
 	}
 
 	@Override
-	public Follow recoveryAction() {
-		RecoveryAction action = SeffReliabilityFactory.eINSTANCE.createRecoveryAction();
-		// TODO Auto-generated method stub
-		action.getPrimaryBehaviour__RecoveryAction();
-		action.getRecoveryActionBehaviours__RecoveryAction();
+	public RecoveryActionCreator recoveryAction() {
+		return new RecoveryActionCreator(this);
+	}
 
+	public StopActionCreator stopAction() {
+		return new StopActionCreator(this);
+	}
+
+	public void setNext(AbstractAction action) {
 		current.setSuccessor_AbstractAction(action);
 		action.setPredecessor_AbstractAction(current);
 		current = action;
-
-		return this;
-	}
-
-	public SeffCreator stopAction() {
-		StopAction action = SeffFactory.eINSTANCE.createStopAction();
-		// TODO Auto-generated method stub
-
-		current.setSuccessor_AbstractAction(action);
-		action.setPredecessor_AbstractAction(current);
-		current = action;
-
-		return this;
-	}
-
-	@Override
-	public Action followedBy() {
-		// TODO Auto-generated method stub
-		return this;
+		steps.add(action);
 	}
 
 	@Override
@@ -180,12 +126,8 @@ public class SeffCreator extends Entity implements Start, Follow, Action {
 			seff.setDescribedService__SEFF(this.signature);
 		if (this.seffTypeID != null)
 			seff.setSeffTypeID(this.seffTypeID);
-		seff.getSteps_Behaviour().addAll(steps);
 
-		// TODO:
-		seff.setAbstractBranchTransition_ResourceDemandingBehaviour(null);
-		seff.setAbstractLoopAction_ResourceDemandingBehaviour(null);
-		seff.getResourceDemandingInternalBehaviours();
+		seff.getSteps_Behaviour().addAll(steps);
 
 		return seff;
 

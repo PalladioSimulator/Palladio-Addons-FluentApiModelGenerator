@@ -3,45 +3,60 @@ package repositoryStructure.seff;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.palladiosimulator.pcm.core.entity.ResourceRequiredRole;
 import org.palladiosimulator.pcm.parameter.VariableUsage;
+import org.palladiosimulator.pcm.repository.InfrastructureRequiredRole;
+import org.palladiosimulator.pcm.repository.InfrastructureSignature;
+import org.palladiosimulator.pcm.resourcetype.ProcessingResourceType;
+import org.palladiosimulator.pcm.resourcetype.ResourceSignature;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 import org.palladiosimulator.pcm.seff.SetVariableAction;
-import org.palladiosimulator.pcm.seff.seff_performance.InfrastructureCall;
-import org.palladiosimulator.pcm.seff.seff_performance.ParametricResourceDemand;
-import org.palladiosimulator.pcm.seff.seff_performance.ResourceCall;
 
 import apiControlFlowInterfaces.Action;
 import repositoryStructure.SeffCreator;
 
-public class SetVariableActionCreator {
+public class SetVariableActionCreator extends AbstractAction {
 
 	private SeffCreator seff;
-	
-	private List<InfrastructureCall> infrastructureCalls;
-	private List<ResourceCall> resourceCalls;
-	private List<ParametricResourceDemand> parametricResourceDemands;
+
 	private List<VariableUsage> localVariableUsages;
-	
 
 	public SetVariableActionCreator(SeffCreator seff) {
 		this.seff = seff;
-		this.infrastructureCalls = new ArrayList<>();
-		this.resourceCalls = new ArrayList<>();
-		this.parametricResourceDemands = new ArrayList<>();
 		this.localVariableUsages = new ArrayList<>();
 	}
-	
+
 	public Action followedBy() {
-		// TODO: resource demanding behaviour?
-		// TODO: iwelche Voraussetzungen + alles iwie über Vererbung, schon mal gemacht.
+		// TODO: iwelche Voraussetzungen? + localVariableUsages
 		SetVariableAction action = SeffFactory.eINSTANCE.createSetVariableAction();
 		action.getInfrastructureCall__Action().addAll(infrastructureCalls);
 		action.getResourceCall__Action().addAll(resourceCalls);
-		action.getResourceDemand_Action().addAll(parametricResourceDemands);
+		action.getResourceDemand_Action().addAll(demands);
 		action.getLocalVariableUsages_SetVariableAction().addAll(localVariableUsages);
-		
+
 		seff.setNext(action);
 		return seff;
 	}
-}
 
+	@Override
+	public SetVariableActionCreator withResourceDemand(String specification_stochasticExpression,
+			ProcessingResourceType processingResource) {
+		return (SetVariableActionCreator) super.withResourceDemand(specification_stochasticExpression,
+				processingResource);
+	}
+
+	@Override
+	public SetVariableActionCreator withInfrastructureCall(String numberOfCalls_stochasticExpression,
+			InfrastructureSignature signature, InfrastructureRequiredRole requiredRole,
+			VariableUsage... variableUsages) {
+		return (SetVariableActionCreator) super.withInfrastructureCall(numberOfCalls_stochasticExpression, signature,
+				requiredRole, variableUsages);
+	}
+
+	@Override
+	public SetVariableActionCreator withResourceCall(String numberOfCalls_stochasticExpression,
+			ResourceSignature signature, ResourceRequiredRole requiredRole, VariableUsage... variableUsages) {
+		return (SetVariableActionCreator) super.withResourceCall(numberOfCalls_stochasticExpression, signature,
+				requiredRole, variableUsages);
+	}
+}

@@ -1,17 +1,19 @@
 package apiControlFlowInterfaces;
 
-import repositoryStructure.SeffCreator;
 import repositoryStructure.seff.AcquireActionCreator;
+import repositoryStructure.seff.BranchActionCreator;
+import repositoryStructure.seff.CollectionIteratorActionCreator;
 import repositoryStructure.seff.EmitEventActionCreator;
 import repositoryStructure.seff.ExternalCallCreator;
+import repositoryStructure.seff.ForkActionCreator;
 import repositoryStructure.seff.InternalCallCreator;
 import repositoryStructure.seff.LoopActionCreator;
+import repositoryStructure.seff.RecoveryActionCreator;
 import repositoryStructure.seff.ReleaseActionCreator;
 import repositoryStructure.seff.SetVariableActionCreator;
+import repositoryStructure.seff.StopActionCreator;
 
 public interface Action {
-
-//	public Follow withStartAction();
 
 	public InternalCallCreator internalAction();
 
@@ -27,13 +29,13 @@ public interface Action {
 
 	public LoopActionCreator loopAction();
 
-	public Follow collectionIteratorAction();
+	public CollectionIteratorActionCreator collectionIteratorAction();
 
-	public Follow branchAction();
+	public BranchActionCreator branchAction();
 
-	public Follow forkAction();
+	public ForkActionCreator forkAction();
 
-	public Follow recoveryAction();
+	public RecoveryActionCreator recoveryAction();
 
-	public SeffCreator stopAction();
+	public StopActionCreator stopAction();
 }

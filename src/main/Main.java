@@ -58,7 +58,7 @@ public class Main {
 									.withName("type")
 									.withParameter("foo", Primitive.BOOLEAN, null)
 								.withRequiredCharacterisation(create.getParameter(""), VariableCharacterisationType.STRUCTURE))
-				.withServiceEffectSpecification(create.newSeff().withStartAction().followedBy().externalCallAction().followedBy().stopAction())
+				.withServiceEffectSpecification(create.newSeff().withStartAction().followedBy().externalCallAction().followedBy().stopAction().createSeffNow())
 				.provides(create.fetchOfOperationInterface("IDatabase"), "provDB")
 				.requires(create.newOperationInterface().withName("someInterface"), "reqSomeI")
 				.withPassiveResource("2*3", create.fetchOfFailureType(Failure.SOFTWARE))
@@ -115,7 +115,7 @@ public class Main {
 //						.followedBy().loopAction()
 //											.withIterationCount(null)
 //											.withLoopBody().startAction().followedInsideLoopBy().
-						.followedBy();
+						.followedBy().stopAction().createSeffNow();
 		
 		
 		saveRepository(repo);	

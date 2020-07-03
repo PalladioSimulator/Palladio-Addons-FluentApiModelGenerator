@@ -26,7 +26,6 @@ public class EmitEventActionCreator {
 	}
 
 	public Action followedBy() {
-		// TODO: resource demanding behaviour? -> Vererbung?
 		EmitEventAction action = SeffFactory.eINSTANCE.createEmitEventAction();
 		action.setEventType__EmitEventAction(eventType);
 		action.setSourceRole__EmitEventAction(requiredRole);

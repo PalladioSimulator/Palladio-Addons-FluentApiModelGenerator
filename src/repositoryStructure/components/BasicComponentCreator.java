@@ -64,7 +64,7 @@ public class BasicComponentCreator extends Component {
 	public BasicComponentCreator provides(OperationInterfaceCreator interfce) {
 		return (BasicComponentCreator) super.provides(interfce);
 	}
-	
+
 	@Override
 	public BasicComponentCreator provides(OperationInterfaceCreator interfce, String name) {
 		return (BasicComponentCreator) super.provides(interfce, name);
@@ -85,17 +85,17 @@ public class BasicComponentCreator extends Component {
 	public BasicComponentCreator providesInfrastructure(InfrastructureInterfaceCreator interfce) {
 		return (BasicComponentCreator) super.providesInfrastructure(interfce);
 	}
-	
+
 	@Override
 	public BasicComponentCreator providesInfrastructure(InfrastructureInterfaceCreator interfce, String name) {
 		return (BasicComponentCreator) super.providesInfrastructure(interfce, name);
 	}
-	
+
 	@Override
 	public BasicComponentCreator providesInfrastructure(InfrastructureInterface interfce) {
 		return (BasicComponentCreator) super.providesInfrastructure(interfce);
 	}
-	
+
 	@Override
 	public BasicComponentCreator providesInfrastructure(InfrastructureInterface interfce, String name) {
 		return (BasicComponentCreator) super.providesInfrastructure(interfce, name);
@@ -106,17 +106,17 @@ public class BasicComponentCreator extends Component {
 	public BasicComponentCreator handles(EventGroupCreator eventGroup) {
 		return (BasicComponentCreator) super.handles(eventGroup);
 	}
-	
+
 	@Override
 	public BasicComponentCreator handles(EventGroupCreator eventGroup, String name) {
 		return (BasicComponentCreator) super.handles(eventGroup, name);
 	}
-	
+
 	@Override
 	public BasicComponentCreator handles(EventGroup eventGroup) {
 		return (BasicComponentCreator) super.handles(eventGroup);
 	}
-	
+
 	@Override
 	public BasicComponentCreator handles(EventGroup eventGroup, String name) {
 		return (BasicComponentCreator) super.handles(eventGroup, name);
@@ -128,17 +128,17 @@ public class BasicComponentCreator extends Component {
 	public BasicComponentCreator requires(OperationInterfaceCreator interfce) {
 		return (BasicComponentCreator) super.requires(interfce);
 	}
-	
+
 	@Override
 	public BasicComponentCreator requires(OperationInterfaceCreator interfce, String name) {
 		return (BasicComponentCreator) super.requires(interfce, name);
 	}
-	
+
 	@Override
 	public BasicComponentCreator requires(OperationInterface interfce) {
 		return (BasicComponentCreator) super.requires(interfce);
 	}
-	
+
 	@Override
 	public BasicComponentCreator requires(OperationInterface interfce, String name) {
 		return (BasicComponentCreator) super.requires(interfce, name);
@@ -149,17 +149,17 @@ public class BasicComponentCreator extends Component {
 	public BasicComponentCreator requiresInfrastructure(InfrastructureInterfaceCreator interfce) {
 		return (BasicComponentCreator) super.requiresInfrastructure(interfce);
 	}
-	
+
 	@Override
 	public BasicComponentCreator requiresInfrastructure(InfrastructureInterfaceCreator interfce, String name) {
 		return (BasicComponentCreator) super.requiresInfrastructure(interfce, name);
 	}
-	
+
 	@Override
 	public BasicComponentCreator requiresInfrastructure(InfrastructureInterface interfce) {
 		return (BasicComponentCreator) super.requiresInfrastructure(interfce);
 	}
-	
+
 	@Override
 	public BasicComponentCreator requiresInfrastructure(InfrastructureInterface interfce, String name) {
 		return (BasicComponentCreator) super.requiresInfrastructure(interfce, name);
@@ -175,17 +175,17 @@ public class BasicComponentCreator extends Component {
 	public BasicComponentCreator emits(EventGroupCreator eventGroup, String name) {
 		return (BasicComponentCreator) super.emits(eventGroup, name);
 	}
-	
+
 	@Override
 	public BasicComponentCreator emits(EventGroup eventGroup) {
 		return (BasicComponentCreator) super.emits(eventGroup);
 	}
-	
+
 	@Override
 	public BasicComponentCreator emits(EventGroup eventGroup, String name) {
 		return (BasicComponentCreator) super.emits(eventGroup, name);
 	}
-	
+
 	// resource required role
 	@Override
 	public BasicComponentCreator requiresResource(ResourceInterface resourceInterface) {
@@ -216,9 +216,8 @@ public class BasicComponentCreator extends Component {
 
 	// SEFFs
 	public BasicComponentCreator withServiceEffectSpecification(SeffCreator seff) {
-//		ServiceEffectSpecification sEfF = seff.build();
-		//TODO:
-//		this.seffs.add(sEfF);
+		ServiceEffectSpecification sEfF = seff.build();
+		this.seffs.add(sEfF);
 		return this;
 	}
 
@@ -236,7 +235,7 @@ public class BasicComponentCreator extends Component {
 			basicComponent.setId(id);
 		if (type != null)
 			basicComponent.setComponentType(type);
-		
+
 		basicComponent.getProvidedRoles_InterfaceProvidingEntity().addAll(providedRoles);
 		basicComponent.getRequiredRoles_InterfaceRequiringEntity().addAll(requiredRoles);
 		basicComponent.getResourceRequiredRoles__ResourceInterfaceRequiringEntity().addAll(resourceRequiredRoles);

@@ -32,7 +32,6 @@ public class ExternalCallCreator {
 	}
 
 	public Action followedBy() {
-		// TODO: resource demanding behaviour?
 		ExternalCallAction action = SeffFactory.eINSTANCE.createExternalCallAction();
 		action.setRetryCount(retryCount);
 		action.setCalledService_ExternalService(signature);

@@ -1,12 +1,13 @@
 package apiControlFlowInterfaces;
 
+import repositoryStructure.seff.StartActionCreator;
+
 public interface Follow {
 
-	public Action followedBy();
 
 	public interface Start {
 
-		public Follow withStartAction();
+		public StartActionCreator withStartAction();
 
 	}
 
