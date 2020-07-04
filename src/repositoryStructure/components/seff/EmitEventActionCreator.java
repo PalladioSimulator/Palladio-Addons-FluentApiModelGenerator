@@ -1,4 +1,4 @@
-package repositoryStructure.seff;
+package repositoryStructure.components.seff;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,10 +9,9 @@ import org.palladiosimulator.pcm.repository.SourceRole;
 import org.palladiosimulator.pcm.seff.EmitEventAction;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 
-import apiControlFlowInterfaces.LoopAction.EmitEventLoop;
-import repositoryStructure.SeffCreator;
+import apiControlFlowInterfaces.Follow;
 
-public class EmitEventActionCreator implements EmitEventLoop {
+public class EmitEventActionCreator implements Follow {
 
 	private SeffCreator seff;
 
@@ -27,8 +26,10 @@ public class EmitEventActionCreator implements EmitEventLoop {
 
 	public SeffCreator followedBy() {
 		EmitEventAction action = SeffFactory.eINSTANCE.createEmitEventAction();
-		action.setEventType__EmitEventAction(eventType);
-		action.setSourceRole__EmitEventAction(requiredRole);
+		if (eventType != null)
+			action.setEventType__EmitEventAction(eventType);
+		if (requiredRole != null)
+			action.setSourceRole__EmitEventAction(requiredRole);
 		action.getInputVariableUsages__CallAction().addAll(inputVariableUsages);
 		seff.setNext(action);
 		return seff;
@@ -45,6 +46,7 @@ public class EmitEventActionCreator implements EmitEventLoop {
 	}
 
 	public EmitEventActionCreator withInputVariableUsage() {
+//		if ( != null)
 		// TODO: Vererbung?
 		return this;
 	}

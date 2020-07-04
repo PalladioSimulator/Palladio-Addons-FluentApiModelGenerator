@@ -1,7 +1,9 @@
-package repositoryStructure.seff;
+package repositoryStructure.components.seff;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.palladiosimulator.pcm.core.CoreFactory;
 import org.palladiosimulator.pcm.core.PCMRandomVariable;
 import org.palladiosimulator.pcm.core.entity.ResourceRequiredRole;
 import org.palladiosimulator.pcm.parameter.VariableUsage;
@@ -17,29 +19,21 @@ import org.palladiosimulator.pcm.seff.ResourceDemandingBehaviour;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 
 import apiControlFlowInterfaces.Action;
-import repositoryStructure.SeffCreator;
+import apiControlFlowInterfaces.Follow;
 
-public class BranchActionCreator extends AbstractAction {
+public class BranchActionCreator extends GeneralAction implements Follow {
 
 	private SeffCreator seff;
 	private List<AbstractBranchTransition> branches;
 
 	public BranchActionCreator(SeffCreator seff) {
 		this.seff = seff;
+		this.branches = new ArrayList<>();
 	}
 
 	public Action followedBy() {
 		BranchAction action = SeffFactory.eINSTANCE.createBranchAction();
-		ProbabilisticBranchTransition prob = SeffFactory.eINSTANCE.createProbabilisticBranchTransition();
-		GuardedBranchTransition guard = SeffFactory.eINSTANCE.createGuardedBranchTransition();
-
-		ResourceDemandingBehaviour body = prob.getBranchBehaviour_BranchTransition();
-		double probab = prob.getBranchProbability();
-
-		guard.getBranchBehaviour_BranchTransition();
-		PCMRandomVariable cond = guard.getBranchCondition_GuardedBranchTransition();
-
-		action.getBranches_Branch();
+		action.getBranches_Branch().addAll(branches);
 
 		action.getInfrastructureCall__Action().addAll(infrastructureCalls);
 		action.getResourceCall__Action().addAll(resourceCalls);
@@ -47,6 +41,46 @@ public class BranchActionCreator extends AbstractAction {
 
 		seff.setNext(action);
 		return seff;
+	}
+
+	public BranchActionCreator withGuardedBranch(String branchCondition_stochasticExpression,
+			SeffCreator branchActions) {
+
+		GuardedBranchTransition branch = SeffFactory.eINSTANCE.createGuardedBranchTransition();
+
+		if (branchActions != null) {
+			ResourceDemandingBehaviour branchBody = SeffFactory.eINSTANCE.createResourceDemandingBehaviour();
+			branchBody.getSteps_Behaviour().addAll(branchActions.getSteps());
+			branch.setBranchBehaviour_BranchTransition(branchBody);
+		}
+
+		if (branchCondition_stochasticExpression != null) {
+			PCMRandomVariable rand = CoreFactory.eINSTANCE.createPCMRandomVariable();
+			rand.setSpecification(branchCondition_stochasticExpression);
+			branch.setBranchCondition_GuardedBranchTransition(rand);
+		}
+
+		this.branches.add(branch);
+		// TODO: name + id ?
+		return this;
+	}
+
+	public BranchActionCreator withProbabilisticBranch(Double branchProbability, SeffCreator branchActions) {
+
+		ProbabilisticBranchTransition branch = SeffFactory.eINSTANCE.createProbabilisticBranchTransition();
+
+		if (branchActions != null) {
+			ResourceDemandingBehaviour branchBody = SeffFactory.eINSTANCE.createResourceDemandingBehaviour();
+			branchBody.getSteps_Behaviour().addAll(branchActions.getSteps());
+			branch.setBranchBehaviour_BranchTransition(branchBody);
+		}
+
+		if (branchProbability != null)
+			branch.setBranchProbability(branchProbability);
+
+		this.branches.add(branch);
+		// TODO: name + id ?
+		return this;
 	}
 
 	@Override

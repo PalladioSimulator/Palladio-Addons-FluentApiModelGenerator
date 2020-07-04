@@ -9,13 +9,9 @@ FailureTypes, PrimitiveDataTypes, Resources -> repo files importieren?
       </parameters__OperationSignature>
 </signatures__OperationInterface>
 
-- Protocols bei Interfaces
+- Access nur über String statt jedes Mal der fetch Aufruf im creator? -> über fetch ist sicherer, weniger Magie
 
-- Hat ein Seff immer genau ein Anfang + Ende? Wie erstellt man ein seff - welche Factory?
-
-- Access nur über String statt jedes Mal der fetch Aufruf im creator?
-
-- macht es Sinn, immer einen Namen zu verlangen? also direkt newComponent(String name)
+- macht es Sinn, immer einen Namen zu verlangen? also direkt newComponent(String name) -> nein
 
 - EventType hat Parameter und Parameter hat EventType
 
@@ -25,10 +21,10 @@ sinnvoll über Factory: components, interfaces, data types/failure/exception typ
 
 
 ToDo:
-- dataTypes einlesen 					-> Frage
-- Seffs 								-> Frage
-- imports 								-> Frage => als email
-- interface Protocols 					-> Frage -> ignorieren
+- dataTypes einlesen 					-> email warten
+- imports 								-> email warten
+- Seffs
+- varUsage über Methoden oder Factory? -> an vielen Stellen (Seffs etc)
 
 - Resource required zeug 				-> später
 - infrastructure zeug (+Connectors)		-> später
@@ -47,6 +43,7 @@ Notizen
 - Infrastructure and Resource Sachen zuletzt anschauen (Resource Interface)
 - exception types erst mal ignorieren
 - keine Passiv-Relationen erstellen
+- interface Protocols ignorieren
 
 
 Durch die verschiedenen Referenzen: kann es zu Inkonsistenzen kommen, wenn mehrfach der gleiche Creator gebuilded wird, aber womöglich zwischendurch Änderungen entstehen -> es soll immer das gleiche Objekt bei rauskommen

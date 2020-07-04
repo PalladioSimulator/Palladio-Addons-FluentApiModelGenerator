@@ -1,17 +1,20 @@
 package apiControlFlowInterfaces;
 
-import repositoryStructure.seff.AcquireActionCreator;
-import repositoryStructure.seff.BranchActionCreator;
-import repositoryStructure.seff.CollectionIteratorActionCreator;
-import repositoryStructure.seff.EmitEventActionCreator;
-import repositoryStructure.seff.ExternalCallCreator;
-import repositoryStructure.seff.ForkActionCreator;
-import repositoryStructure.seff.InternalCallCreator;
-import repositoryStructure.seff.LoopActionCreator;
-import repositoryStructure.seff.RecoveryActionCreator;
-import repositoryStructure.seff.ReleaseActionCreator;
-import repositoryStructure.seff.SetVariableActionCreator;
-import repositoryStructure.seff.StopActionCreator;
+import org.palladiosimulator.pcm.repository.Signature;
+
+import repositoryStructure.components.seff.AcquireActionCreator;
+import repositoryStructure.components.seff.BranchActionCreator;
+import repositoryStructure.components.seff.CollectionIteratorActionCreator;
+import repositoryStructure.components.seff.EmitEventActionCreator;
+import repositoryStructure.components.seff.ExternalCallCreator;
+import repositoryStructure.components.seff.ForkActionCreator;
+import repositoryStructure.components.seff.InternalCallCreator;
+import repositoryStructure.components.seff.LoopActionCreator;
+import repositoryStructure.components.seff.RecoveryActionCreator;
+import repositoryStructure.components.seff.ReleaseActionCreator;
+import repositoryStructure.components.seff.SetVariableActionCreator;
+import repositoryStructure.components.seff.StartActionCreator;
+import repositoryStructure.components.seff.StopActionCreator;
 
 public interface Action {
 
@@ -38,4 +41,16 @@ public interface Action {
 	public RecoveryActionCreator recoveryAction();
 
 	public StopActionCreator stopAction();
+
+	public interface Start {
+
+		public StartActionCreator withStartAction();
+
+	}
+	
+	public interface Seff {
+		public Seff onSignature(Signature signature);
+		public Seff withSeffTypeID(String seffTypeID);
+		public Start withSeffBehaviour();
+	}
 }

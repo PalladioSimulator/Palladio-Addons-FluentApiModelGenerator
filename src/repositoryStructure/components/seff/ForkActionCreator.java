@@ -1,6 +1,8 @@
-package repositoryStructure.seff;
+package repositoryStructure.components.seff;
 
-import org.eclipse.emf.common.util.EList;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.palladiosimulator.pcm.core.entity.ResourceRequiredRole;
 import org.palladiosimulator.pcm.parameter.VariableUsage;
 import org.palladiosimulator.pcm.repository.InfrastructureRequiredRole;
@@ -13,26 +15,30 @@ import org.palladiosimulator.pcm.seff.SeffFactory;
 import org.palladiosimulator.pcm.seff.SynchronisationPoint;
 
 import apiControlFlowInterfaces.Action;
-import repositoryStructure.SeffCreator;
+import apiControlFlowInterfaces.Follow;
 
-public class ForkActionCreator extends AbstractAction {
+public class ForkActionCreator extends GeneralAction implements Follow {
 
 	private SeffCreator seff;
+	private List<ForkedBehaviour> asynchronousForkedBehaviours;
+	private List<ForkedBehaviour> synchronousForkedBehaviours;
+	private List<VariableUsage> variableUsages;
 
 	public ForkActionCreator(SeffCreator seff) {
 		this.seff = seff;
+		this.asynchronousForkedBehaviours = new ArrayList<>();
+		this.synchronousForkedBehaviours = new ArrayList<>();
+		this.variableUsages = new ArrayList<>();
 	}
 
 	public Action followedBy() {
 		ForkAction action = SeffFactory.eINSTANCE.createForkAction();
+		action.getAsynchronousForkedBehaviours_ForkAction().addAll(asynchronousForkedBehaviours);
 
-		// TODO:
-		EList<ForkedBehaviour> asynch = action.getAsynchronousForkedBehaviours_ForkAction();
-		SynchronisationPoint synch = action.getSynchronisingBehaviours_ForkAction();
-		SeffFactory.eINSTANCE.createSynchronisationPoint();
-		synch.getOutputParameterUsage_SynchronisationPoint();
-		EList<ForkedBehaviour> fb = synch.getSynchronousForkedBehaviours_SynchronisationPoint();
-		ForkedBehaviour forkBeh = SeffFactory.eINSTANCE.createForkedBehaviour();
+		SynchronisationPoint synch = SeffFactory.eINSTANCE.createSynchronisationPoint();
+		synch.getOutputParameterUsage_SynchronisationPoint().addAll(variableUsages);
+		synch.getSynchronousForkedBehaviours_SynchronisationPoint().addAll(synchronousForkedBehaviours);
+		action.setSynchronisingBehaviours_ForkAction(synch);
 
 		action.getInfrastructureCall__Action().addAll(infrastructureCalls);
 		action.getResourceCall__Action().addAll(resourceCalls);
@@ -40,6 +46,30 @@ public class ForkActionCreator extends AbstractAction {
 
 		seff.setNext(action);
 		return seff;
+	}
+
+	public ForkActionCreator withOutputParameterUsageAtSynchronisationPoint(VariableUsage variableUsage) {
+		if (variableUsage != null)
+			this.variableUsages.add(variableUsage);
+		return this;
+	}
+
+	public ForkActionCreator withSynchronousForkedBehaviourAtSynchronisationPoint(SeffCreator forkedBehaviours) {
+		if (forkedBehaviours != null) {
+			ForkedBehaviour forkedBehaviour = SeffFactory.eINSTANCE.createForkedBehaviour();
+			forkedBehaviour.getSteps_Behaviour().addAll(forkedBehaviours.getSteps());
+			this.synchronousForkedBehaviours.add(forkedBehaviour);
+		}
+		return this;
+	}
+
+	public ForkActionCreator withAsynchronousForkedBehaviour(SeffCreator forkedBehaviours) {
+		if (forkedBehaviours != null) {
+			ForkedBehaviour forkedBehaviour = SeffFactory.eINSTANCE.createForkedBehaviour();
+			forkedBehaviour.getSteps_Behaviour().addAll(forkedBehaviours.getSteps());
+			this.asynchronousForkedBehaviours.add(forkedBehaviour);
+		}
+		return this;
 	}
 
 	@Override

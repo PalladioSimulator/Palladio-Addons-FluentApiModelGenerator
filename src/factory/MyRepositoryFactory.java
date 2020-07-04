@@ -15,14 +15,15 @@ import org.palladiosimulator.pcm.repository.PrimitiveDataType;
 import org.palladiosimulator.pcm.repository.RepositoryComponent;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
 
-import apiControlFlowInterfaces.Follow.Start;
+import apiControlFlowInterfaces.Action.Seff;
+import apiControlFlowInterfaces.Action.Start;
 import repositoryStructure.RepositoryCreator;
-import repositoryStructure.SeffCreator;
 import repositoryStructure.components.BasicComponentCreator;
 import repositoryStructure.components.CompleteComponentTypeCreator;
 import repositoryStructure.components.CompositeComponentCreator;
 import repositoryStructure.components.ProvidesComponentTypeCreator;
 import repositoryStructure.components.SubSystemCreator;
+import repositoryStructure.components.seff.SeffCreator;
 import repositoryStructure.datatypes.CompositeDataTypeCreator;
 import repositoryStructure.datatypes.Failure;
 import repositoryStructure.datatypes.Primitive;
@@ -117,11 +118,14 @@ public class MyRepositoryFactory {
 
 	// ---------------------- Component Related Stuff ----------------------
 
-	public Start newSeff() {
-		SeffCreator seff = new SeffCreator();
-		return seff;
+	public Seff newSeff() {
+		return new SeffCreator();
 	}
 
+	public Start newBehaviour() {
+		return new SeffCreator();
+	}
+	
 	// ---------------------- Fetching methods ----------------------
 
 	// TODO: access of dataTypes

@@ -1,4 +1,4 @@
-package repositoryStructure.seff;
+package repositoryStructure.components.seff;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,14 +10,13 @@ import org.palladiosimulator.pcm.repository.OperationSignature;
 import org.palladiosimulator.pcm.seff.ExternalCallAction;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 
-import apiControlFlowInterfaces.LoopAction.ExternalLoop;
-import repositoryStructure.SeffCreator;
+import apiControlFlowInterfaces.Follow;
 
-public class ExternalCallCreator implements ExternalLoop {
+public class ExternalCallCreator implements Follow {
 
 	private SeffCreator seff;
 
-	private int retryCount;
+	private Integer retryCount;
 	private OperationSignature signature;
 	private OperationRequiredRole requiredRole;
 	private List<VariableUsage> inputVariableUsages;
@@ -33,9 +32,12 @@ public class ExternalCallCreator implements ExternalLoop {
 
 	public SeffCreator followedBy() {
 		ExternalCallAction action = SeffFactory.eINSTANCE.createExternalCallAction();
-		action.setRetryCount(retryCount);
-		action.setCalledService_ExternalService(signature);
-		action.setRole_ExternalService(requiredRole);
+		if (retryCount != null)
+			action.setRetryCount(retryCount);
+		if (signature != null)
+			action.setCalledService_ExternalService(signature);
+		if (requiredRole != null)
+			action.setRole_ExternalService(requiredRole);
 		action.getInputVariableUsages__CallAction().addAll(inputVariableUsages);
 		action.getReturnVariableUsage__CallReturnAction().addAll(returnVariableUsages);
 		action.getFailureTypes_FailureHandlingEntity().addAll(failures);
@@ -44,7 +46,8 @@ public class ExternalCallCreator implements ExternalLoop {
 	}
 
 	public ExternalCallCreator withRetryCount(Integer retryCount) {
-		this.retryCount = retryCount;
+		if (retryCount != null)
+			this.retryCount = retryCount;
 		return this;
 	}
 
@@ -60,16 +63,19 @@ public class ExternalCallCreator implements ExternalLoop {
 
 	public ExternalCallCreator withInputVariableUsage() {
 		// TODO:
+//		if ( != null)
 		return this;
 	}
 
 	public ExternalCallCreator withReturnVariableUsage() {
 		// TODO:
-		return this;
+//		if ( != null)
+			return this;
 	}
 
 	public ExternalCallCreator withFailureType(FailureType failure) {
-		this.failures.add(failure);
+		if (failure != null)
+			this.failures.add(failure);
 		return this;
 	}
 }

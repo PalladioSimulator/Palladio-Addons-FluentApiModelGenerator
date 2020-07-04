@@ -58,7 +58,7 @@ public class Main {
 									.withName("type")
 									.withParameter("foo", Primitive.BOOLEAN, null)
 								.withRequiredCharacterisation(create.getParameter(""), VariableCharacterisationType.STRUCTURE))
-				.withServiceEffectSpecification(create.newSeff().withStartAction().followedBy().externalCallAction().followedBy().stopAction().createSeffNow())
+				.withServiceEffectSpecification(create.newSeff().withSeffBehaviour().withStartAction().followedBy().externalCallAction().followedBy().stopAction().createBehaviourNow())
 				.provides(create.fetchOfOperationInterface("IDatabase"), "provDB")
 				.requires(create.newOperationInterface().withName("someInterface"), "reqSomeI")
 				.withPassiveResource("2*3", create.fetchOfFailureType(Failure.SOFTWARE))
@@ -88,8 +88,9 @@ public class Main {
 			.build();
 		
 		
-		
-		create.newSeff().withStartAction()
+		//SEFF example
+		create.newSeff().onSignature(null).withSeffTypeID(null)
+				.withSeffBehaviour().withStartAction()
 						.followedBy().internalAction()
 											.withResourceDemand(null, null)
 											.withInternalFailureOccurrenceDescription(null, null)
@@ -114,10 +115,23 @@ public class Main {
 											.withPassiveResource(null)
 						.followedBy().loopAction()
 											.withIterationCount(null)
-											.withLoopBody().startAction().withInfrastructureCall(null, null, null)
-												.followedBy().internalAction().withInfrastructureCall(null, null, null)
-												.followedBy().stopAction() //TODO: hier darf create seff now nicht gehen
-					    .followedOutsideLoopBy().stopAction().createSeffNow();
+											.withLoopBody(
+													create.newBehaviour().withStartAction()
+																				.withInfrastructureCall(null, null, null)
+																	.followedBy().internalAction().withInfrastructureCall(null, null, null)
+																	.followedBy().stopAction().createBehaviourNow())
+					    .followedBy().collectionIteratorAction()
+					    					.withParameter(create.getParameter(""))
+					    					.withLoopBody(null)
+					    .followedBy().branchAction()
+					    					.withGuardedBranch(null, null)
+					    					.withProbabilisticBranch(null, null)
+					    .followedBy().forkAction()
+					    					.withAsynchronousForkedBehaviour(null)
+					    					.withOutputParameterUsageAtSynchronisationPoint(null)
+					    					.withSynchronousForkedBehaviourAtSynchronisationPoint(null)
+					    .followedBy().recoveryAction()
+						.followedBy().stopAction().createBehaviourNow();
 		
 		
 		saveRepository(repo);	

@@ -1,4 +1,7 @@
-package repositoryStructure.seff;
+package repositoryStructure.components.seff;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.palladiosimulator.pcm.core.CoreFactory;
 import org.palladiosimulator.pcm.core.PCMRandomVariable;
@@ -8,39 +11,36 @@ import org.palladiosimulator.pcm.repository.InfrastructureRequiredRole;
 import org.palladiosimulator.pcm.repository.InfrastructureSignature;
 import org.palladiosimulator.pcm.resourcetype.ProcessingResourceType;
 import org.palladiosimulator.pcm.resourcetype.ResourceSignature;
+import org.palladiosimulator.pcm.seff.AbstractAction;
 import org.palladiosimulator.pcm.seff.LoopAction;
 import org.palladiosimulator.pcm.seff.ResourceDemandingBehaviour;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 
 import apiControlFlowInterfaces.Action;
-import apiControlFlowInterfaces.LoopFollow.LoopExitFollow.LoopStart;
-import repositoryStructure.SeffCreator;
+import apiControlFlowInterfaces.Follow;
 
-public class LoopActionCreator extends AbstractAction {
+public class LoopActionCreator extends GeneralAction implements Follow {
 
-	public SeffCreator seff; //TODO: private
+	private SeffCreator seff;
 	private PCMRandomVariable iterationCount;
-	private SeffCreator loopBody;
+	private List<AbstractAction> steps;
 
 	public LoopActionCreator(SeffCreator seff) {
-
 		this.seff = seff;
-
+		this.steps = new ArrayList<>();
 	}
 
 	public Action followedBy() {
 		LoopAction action = SeffFactory.eINSTANCE.createLoopAction();
 		action.setIterationCount_LoopAction(iterationCount);
-		ResourceDemandingBehaviour bodyBehaviour_Loop = action.getBodyBehaviour_Loop();
 
 		ResourceDemandingBehaviour loop = SeffFactory.eINSTANCE.createResourceDemandingBehaviour();
-		loop.getSteps_Behaviour();
-		//TODO: what shall we do with the internal body?
+		loop.getSteps_Behaviour().addAll(this.steps);
+		action.setBodyBehaviour_Loop(loop);
 
-		action.getInfrastructureCall__Action();
-		action.getResourceCall__Action();
-		action.getResourceDemand_Action();
-		action.getResourceDemandingBehaviour_AbstractAction();
+		action.getInfrastructureCall__Action().addAll(infrastructureCalls);
+		action.getResourceCall__Action().addAll(resourceCalls);
+		action.getResourceDemand_Action().addAll(demands);
 
 		seff.setNext(action);
 		return seff;
@@ -53,9 +53,10 @@ public class LoopActionCreator extends AbstractAction {
 		return this;
 	}
 
-	public LoopStart withLoopBody() {
-		loopBody = new SeffCreator(this);
-		return loopBody;
+	public LoopActionCreator withLoopBody(SeffCreator loopBody) {
+		if (loopBody != null)
+			this.steps = loopBody.getSteps();
+		return this;
 	}
 
 	@Override

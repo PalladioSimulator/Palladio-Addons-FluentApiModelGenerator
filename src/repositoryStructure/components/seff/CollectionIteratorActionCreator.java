@@ -1,4 +1,7 @@
-package repositoryStructure.seff;
+package repositoryStructure.components.seff;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.palladiosimulator.pcm.core.entity.ResourceRequiredRole;
 import org.palladiosimulator.pcm.parameter.VariableUsage;
@@ -7,29 +10,33 @@ import org.palladiosimulator.pcm.repository.InfrastructureSignature;
 import org.palladiosimulator.pcm.repository.Parameter;
 import org.palladiosimulator.pcm.resourcetype.ProcessingResourceType;
 import org.palladiosimulator.pcm.resourcetype.ResourceSignature;
+import org.palladiosimulator.pcm.seff.AbstractAction;
 import org.palladiosimulator.pcm.seff.CollectionIteratorAction;
 import org.palladiosimulator.pcm.seff.ResourceDemandingBehaviour;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 
 import apiControlFlowInterfaces.Action;
-import repositoryStructure.SeffCreator;
+import apiControlFlowInterfaces.Follow;
 
-public class CollectionIteratorActionCreator extends AbstractAction {
+public class CollectionIteratorActionCreator extends GeneralAction implements Follow {
 
 	private SeffCreator seff;
-
 	private Parameter parameter;
+	private List<AbstractAction> steps;
 
 	public CollectionIteratorActionCreator(SeffCreator seff) {
 		this.seff = seff;
+		this.steps = new ArrayList<>();
 	}
 
 	public Action followedBy() {
 		CollectionIteratorAction action = SeffFactory.eINSTANCE.createCollectionIteratorAction();
 
-		action.setParameter_CollectionIteratorAction(parameter);
-		// TODO: what shall we do with the internal body?
+		if (parameter != null)
+			action.setParameter_CollectionIteratorAction(parameter);
+
 		ResourceDemandingBehaviour body = SeffFactory.eINSTANCE.createResourceDemandingBehaviour();
+		body.getSteps_Behaviour().addAll(this.steps);
 		action.setBodyBehaviour_Loop(body);
 
 		action.getInfrastructureCall__Action().addAll(infrastructureCalls);
@@ -42,6 +49,12 @@ public class CollectionIteratorActionCreator extends AbstractAction {
 
 	public CollectionIteratorActionCreator withParameter(Parameter parameter) {
 		this.parameter = parameter;
+		return this;
+	}
+
+	public CollectionIteratorActionCreator withLoopBody(SeffCreator loopBody) {
+		if (loopBody != null)
+			this.steps.addAll(loopBody.getSteps());
 		return this;
 	}
 

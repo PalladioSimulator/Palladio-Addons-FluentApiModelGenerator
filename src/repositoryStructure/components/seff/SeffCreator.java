@@ -1,4 +1,4 @@
-package repositoryStructure;
+package repositoryStructure.components.seff;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,26 +10,11 @@ import org.palladiosimulator.pcm.seff.SeffFactory;
 import org.palladiosimulator.pcm.seff.ServiceEffectSpecification;
 
 import apiControlFlowInterfaces.Action;
-import apiControlFlowInterfaces.Follow.Start;
-import apiControlFlowInterfaces.LoopAction;
-import apiControlFlowInterfaces.LoopFollow.LoopExitFollow.LoopStart;
-import repositoryStructure.seff.AcquireActionCreator;
-import repositoryStructure.seff.BranchActionCreator;
-import repositoryStructure.seff.CollectionIteratorActionCreator;
-import repositoryStructure.seff.EmitEventActionCreator;
-import repositoryStructure.seff.ExternalCallCreator;
-import repositoryStructure.seff.ForkActionCreator;
-import repositoryStructure.seff.InternalCallCreator;
-import repositoryStructure.seff.LoopActionCreator;
-import repositoryStructure.seff.RecoveryActionCreator;
-import repositoryStructure.seff.ReleaseActionCreator;
-import repositoryStructure.seff.SetVariableActionCreator;
-import repositoryStructure.seff.StartActionCreator;
-import repositoryStructure.seff.StopActionCreator;
+import apiControlFlowInterfaces.Action.Start;
+import repositoryStructure.Entity;
+import apiControlFlowInterfaces.Action.Seff;
 
-public class SeffCreator extends Entity implements Start, Action, LoopStart, LoopAction {
-
-	public LoopActionCreator loopParent; //TODO: private
+public class SeffCreator extends Entity implements Start, Action, Seff {
 
 	private AbstractAction current;
 	private Signature signature;
@@ -40,18 +25,8 @@ public class SeffCreator extends Entity implements Start, Action, LoopStart, Loo
 		this.steps = new ArrayList<>();
 	}
 
-	public SeffCreator(LoopActionCreator loopAction) {
-		this.loopParent = loopAction;
-		this.steps = new ArrayList<>();
-	}
-
 	@Override
 	public StartActionCreator withStartAction() {
-		return new StartActionCreator(this);
-	}
-	
-	@Override
-	public StartActionCreator startAction() {
 		return new StartActionCreator(this);
 	}
 
@@ -113,15 +88,26 @@ public class SeffCreator extends Entity implements Start, Action, LoopStart, Loo
 		return new RecoveryActionCreator(this);
 	}
 
+	@Override
 	public StopActionCreator stopAction() {
 		return new StopActionCreator(this);
 	}
 
-	public void setNext(AbstractAction action) {
-		current.setSuccessor_AbstractAction(action);
-		action.setPredecessor_AbstractAction(current);
-		current = action;
-		steps.add(action);
+	@Override
+	public SeffCreator onSignature(Signature signature) {
+		this.signature = signature;
+		return this;
+	}
+
+	@Override
+	public SeffCreator withSeffTypeID(String seffTypeID) {
+		this.seffTypeID = seffTypeID;
+		return this;
+	}
+
+	@Override
+	public Start withSeffBehaviour() {
+		return this;
 	}
 
 	@Override
@@ -129,6 +115,7 @@ public class SeffCreator extends Entity implements Start, Action, LoopStart, Loo
 		// -> ResourceDemandingSEFF (rdsf) = seff
 		ResourceDemandingSEFF seff = SeffFactory.eINSTANCE.createResourceDemandingSEFF();
 
+		// TODO: methoden für signature erstellen
 		if (this.signature != null)
 			seff.setDescribedService__SEFF(this.signature);
 		if (this.seffTypeID != null)
@@ -138,6 +125,20 @@ public class SeffCreator extends Entity implements Start, Action, LoopStart, Loo
 
 		return seff;
 
+	}
+
+	protected void setNext(AbstractAction action) {
+
+		if (current != null) {
+			current.setSuccessor_AbstractAction(action);
+			action.setPredecessor_AbstractAction(current);
+		}
+		current = action;
+		steps.add(action);
+	}
+
+	protected List<AbstractAction> getSteps() {
+		return this.steps;
 	}
 
 }

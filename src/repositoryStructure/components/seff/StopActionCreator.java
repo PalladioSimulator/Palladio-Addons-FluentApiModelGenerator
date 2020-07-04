@@ -1,4 +1,4 @@
-package repositoryStructure.seff;
+package repositoryStructure.components.seff;
 
 import org.palladiosimulator.pcm.core.entity.ResourceRequiredRole;
 import org.palladiosimulator.pcm.parameter.VariableUsage;
@@ -7,14 +7,9 @@ import org.palladiosimulator.pcm.repository.InfrastructureSignature;
 import org.palladiosimulator.pcm.resourcetype.ProcessingResourceType;
 import org.palladiosimulator.pcm.resourcetype.ResourceSignature;
 import org.palladiosimulator.pcm.seff.SeffFactory;
-import org.palladiosimulator.pcm.seff.ServiceEffectSpecification;
 import org.palladiosimulator.pcm.seff.StopAction;
 
-import apiControlFlowInterfaces.Action;
-import apiControlFlowInterfaces.LoopAction.StopLoop;
-import repositoryStructure.SeffCreator;
-
-public class StopActionCreator extends AbstractAction implements StopLoop{
+public class StopActionCreator extends GeneralAction {
 
 	private SeffCreator seff;
 
@@ -22,19 +17,13 @@ public class StopActionCreator extends AbstractAction implements StopLoop{
 		this.seff = seff;
 	}
 
-	public SeffCreator createSeffNow() {
+	public SeffCreator createBehaviourNow() {
 		StopAction action = SeffFactory.eINSTANCE.createStopAction();
 		action.getInfrastructureCall__Action().addAll(infrastructureCalls);
 		action.getResourceCall__Action().addAll(resourceCalls);
 		action.getResourceDemand_Action().addAll(demands);
 		seff.setNext(action);
 		return seff;
-	}
-	
-	public Action followedOutsideLoopBy() {
-		//TODO: loop fertig machen
-		
-		return seff.loopParent.seff;
 	}
 
 	@Override

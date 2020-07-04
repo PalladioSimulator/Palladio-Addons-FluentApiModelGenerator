@@ -1,4 +1,4 @@
-package repositoryStructure.seff;
+package repositoryStructure.components.seff;
 
 import org.palladiosimulator.pcm.core.entity.ResourceRequiredRole;
 import org.palladiosimulator.pcm.parameter.VariableUsage;
@@ -10,10 +10,9 @@ import org.palladiosimulator.pcm.resourcetype.ResourceSignature;
 import org.palladiosimulator.pcm.seff.ReleaseAction;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 
-import apiControlFlowInterfaces.LoopAction.ReleaseLoop;
-import repositoryStructure.SeffCreator;
+import apiControlFlowInterfaces.Follow;
 
-public class ReleaseActionCreator extends AbstractAction implements ReleaseLoop {
+public class ReleaseActionCreator extends GeneralAction implements Follow {
 
 	private SeffCreator seff;
 	private PassiveResource passiveResource;
@@ -24,7 +23,8 @@ public class ReleaseActionCreator extends AbstractAction implements ReleaseLoop 
 
 	public SeffCreator followedBy() {
 		ReleaseAction action = SeffFactory.eINSTANCE.createReleaseAction();
-		action.setPassiveResource_ReleaseAction(passiveResource);
+		if (passiveResource != null)
+			action.setPassiveResource_ReleaseAction(passiveResource);
 
 		action.getInfrastructureCall__Action().addAll(infrastructureCalls);
 		action.getResourceCall__Action().addAll(resourceCalls);

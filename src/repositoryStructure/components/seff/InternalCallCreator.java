@@ -1,4 +1,4 @@
-package repositoryStructure.seff;
+package repositoryStructure.components.seff;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,10 +15,9 @@ import org.palladiosimulator.pcm.resourcetype.ResourceSignature;
 import org.palladiosimulator.pcm.seff.InternalAction;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 
-import apiControlFlowInterfaces.LoopAction.InternalLoop;
-import repositoryStructure.SeffCreator;
+import apiControlFlowInterfaces.Follow;
 
-public class InternalCallCreator extends AbstractAction implements InternalLoop{
+public class InternalCallCreator extends GeneralAction implements Follow {
 
 	private SeffCreator seff;
 
@@ -34,8 +33,9 @@ public class InternalCallCreator extends AbstractAction implements InternalLoop{
 
 	public SeffCreator followedBy() {
 		InternalAction action = SeffFactory.eINSTANCE.createInternalAction();
-		action.getResourceDemand_Action().addAll(demands);
 		action.getInternalFailureOccurrenceDescriptions__InternalAction().addAll(failures);
+		
+		action.getResourceDemand_Action().addAll(demands);
 		action.getInfrastructureCall__Action().addAll(infrastructureCalls);
 		action.getResourceCall__Action().addAll(resourceCalls);
 		seff.setNext(action);
@@ -46,8 +46,10 @@ public class InternalCallCreator extends AbstractAction implements InternalLoop{
 			SoftwareInducedFailureType failureType) {
 		InternalFailureOccurrenceDescription failure = ReliabilityFactory.eINSTANCE
 				.createInternalFailureOccurrenceDescription();
-		failure.setFailureProbability(failureProbability);
-		failure.setSoftwareInducedFailureType__InternalFailureOccurrenceDescription(failureType);
+		if (failureProbability != null)
+			failure.setFailureProbability(failureProbability);
+		if (failureType != null)
+			failure.setSoftwareInducedFailureType__InternalFailureOccurrenceDescription(failureType);
 		this.failures.add(failure);
 		return this;
 	}

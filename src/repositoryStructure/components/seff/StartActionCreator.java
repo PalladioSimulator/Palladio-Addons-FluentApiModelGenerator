@@ -1,4 +1,4 @@
-package repositoryStructure.seff;
+package repositoryStructure.components.seff;
 
 import org.palladiosimulator.pcm.core.entity.ResourceRequiredRole;
 import org.palladiosimulator.pcm.parameter.VariableUsage;
@@ -9,10 +9,9 @@ import org.palladiosimulator.pcm.resourcetype.ResourceSignature;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 import org.palladiosimulator.pcm.seff.StartAction;
 
-import apiControlFlowInterfaces.LoopAction.StartLoop;
-import repositoryStructure.SeffCreator;
+import apiControlFlowInterfaces.Follow;
 
-public class StartActionCreator extends AbstractAction implements StartLoop{
+public class StartActionCreator extends GeneralAction implements Follow {
 
 	private SeffCreator seff;
 
@@ -28,7 +27,7 @@ public class StartActionCreator extends AbstractAction implements StartLoop{
 		seff.setNext(action);
 		return seff;
 	}
-	
+
 	@Override
 	public StartActionCreator withResourceDemand(String specification_stochasticExpression,
 			ProcessingResourceType processingResource) {

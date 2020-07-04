@@ -1,4 +1,4 @@
-package repositoryStructure.seff;
+package repositoryStructure.components.seff;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,14 +12,11 @@ import org.palladiosimulator.pcm.resourcetype.ResourceSignature;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 import org.palladiosimulator.pcm.seff.SetVariableAction;
 
-import apiControlFlowInterfaces.Action;
-import apiControlFlowInterfaces.LoopAction.SetVariableLoop;
-import repositoryStructure.SeffCreator;
+import apiControlFlowInterfaces.Follow;
 
-public class SetVariableActionCreator extends AbstractAction implements SetVariableLoop{
+public class SetVariableActionCreator extends GeneralAction implements Follow {
 
 	private SeffCreator seff;
-
 	private List<VariableUsage> localVariableUsages;
 
 	public SetVariableActionCreator(SeffCreator seff) {
@@ -30,10 +27,11 @@ public class SetVariableActionCreator extends AbstractAction implements SetVaria
 	public SeffCreator followedBy() {
 		// TODO: iwelche Voraussetzungen? + localVariableUsages
 		SetVariableAction action = SeffFactory.eINSTANCE.createSetVariableAction();
+		action.getLocalVariableUsages_SetVariableAction().addAll(localVariableUsages);
+
 		action.getInfrastructureCall__Action().addAll(infrastructureCalls);
 		action.getResourceCall__Action().addAll(resourceCalls);
 		action.getResourceDemand_Action().addAll(demands);
-		action.getLocalVariableUsages_SetVariableAction().addAll(localVariableUsages);
 
 		seff.setNext(action);
 		return seff;

@@ -1,4 +1,4 @@
-package repositoryStructure.seff;
+package repositoryStructure.components.seff;
 
 import org.palladiosimulator.pcm.core.entity.ResourceRequiredRole;
 import org.palladiosimulator.pcm.parameter.VariableUsage;
@@ -10,10 +10,9 @@ import org.palladiosimulator.pcm.resourcetype.ResourceSignature;
 import org.palladiosimulator.pcm.seff.AcquireAction;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 
-import apiControlFlowInterfaces.LoopAction.AcquireLoop;
-import repositoryStructure.SeffCreator;
+import apiControlFlowInterfaces.Follow;
 
-public class AcquireActionCreator extends AbstractAction implements AcquireLoop {
+public class AcquireActionCreator extends GeneralAction implements Follow {
 
 	private SeffCreator seff;
 	private PassiveResource passiveResource;
@@ -26,9 +25,12 @@ public class AcquireActionCreator extends AbstractAction implements AcquireLoop 
 
 	public SeffCreator followedBy() {
 		AcquireAction action = SeffFactory.eINSTANCE.createAcquireAction();
-		action.setPassiveresource_AcquireAction(passiveResource);
-		action.setTimeoutValue(timeoutValue);
-		action.setTimeout(isTimeout);
+		if (passiveResource != null)
+			action.setPassiveresource_AcquireAction(passiveResource);
+		if (timeoutValue != null)
+			action.setTimeoutValue(timeoutValue);
+		if (isTimeout != null)
+			action.setTimeout(isTimeout);
 
 		action.getInfrastructureCall__Action().addAll(infrastructureCalls);
 		action.getResourceCall__Action().addAll(resourceCalls);
