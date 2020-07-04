@@ -1,49 +1,46 @@
 Fragen:
 
-- imports, gibt es die, wenn ja wie?
+- abstractNamedReference (in VarUsage)
+- einige Funktionen/Eigenschaften stehen mehrfach, andere einfach zur Verfügung; aber einmal aufgerufen kann man sie trotzdem neu aufrufen und damit neu setzen. sollte das verhindert werden?
 
-FailureTypes, PrimitiveDataTypes, Resources -> repo files importieren? 
-<signatures__OperationInterface id="_evrBYJ8tEeqfZrwL1lVb2A" entityName="method1">
-      <parameters__OperationSignature parameterName="myStringParam">
-        <dataType__Parameter xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.1"/>
-      </parameters__OperationSignature>
-</signatures__OperationInterface>
-
-- Access nur über String statt jedes Mal der fetch Aufruf im creator? -> über fetch ist sicherer, weniger Magie
-
-- macht es Sinn, immer einen Namen zu verlangen? also direkt newComponent(String name) -> nein
-
-- EventType hat Parameter und Parameter hat EventType
-
-
-email: design: alles über die Factory erstellen -> PCM hat verschiedene Factorys; oder so erstellen
-sinnvoll über Factory: components, interfaces, data types/failure/exception types, parameter, seff
+- einiges in TODOs im Code
 
 
 ToDo:
-- dataTypes einlesen 					-> email warten
-- imports 								-> email warten
 - varUsage über Methoden oder Factory? -> an vielen Stellen (Seffs etc)
+- andere actions in seff, die nur im code existieren?
+- TODOs im Code
+
+- dataTypes einlesen 					-> email warten		wie bekommt man dieses href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.1"/>
+- imports 								-> email warten
 
 - Resource required zeug 				-> später
-- infrastructure zeug (+Connectors)		-> später
+- infrastructure zeug 					-> später
 - ExceptionTypes 						-> später
 
 - Sichtbarkeit
 - Reihenfolge mit Interfaces regeln (varUsage von CompositeComponent -> evtl so auch das eventZeug (oder so - iwo gabs das gleiche Problem))
 - JavaDoc
 
-anonymous anonymous; media store ms; screencast media store
+Nutzer: anonymous; PW: anonymous;
 
 
 Notizen
 
+wo werden Parameter erstellt?
+- signaturen: OperationSignature, infrastructureSignature, EventType, resourceSignature -> Parameter erstellen
+- collection iteration action -> fetch
+- required characterisation -> fetch
+
+- sinnvoll über Factory zu erstellen: components, interfaces, data types/failure/exception types, seffs
 - TextBasedModelGenerator nicht alles umgesetzt -> die hier verwendet sind, sind wichtig
 - erst die Seffs anschauen
 - Infrastructure and Resource Sachen zuletzt anschauen (Resource Interface)
 - exception types erst mal ignorieren
 - keine Passiv-Relationen erstellen
 - interface Protocols ignorieren
+- access über fetch methoden; nicht nur String, damit weniger Magie
+- nicht immer direkt einen Namen verlangen -> TODO: wird das eingehalten
 
 
 Durch die verschiedenen Referenzen: kann es zu Inkonsistenzen kommen, wenn mehrfach der gleiche Creator gebuilded wird, aber womöglich zwischendurch Änderungen entstehen -> es soll immer das gleiche Objekt bei rauskommen
