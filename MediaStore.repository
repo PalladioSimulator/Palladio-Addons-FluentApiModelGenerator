@@ -408,6 +408,7 @@
     </serviceEffectSpecifications__BasicComponent>
   </components__Repository>
   <interfaces__Repository xsi:type="repository:OperationInterface" id="_jf7hMLg7EeSNPorBlo7x9g" entityName="IFileStorage">
+    <requiredCharacterisations type="NUMBER_OF_ELEMENTS" parameter="//@interfaces__Repository.1/@signatures__OperationInterface.0/@parameters__OperationSignature.0"/>
     <signatures__OperationInterface id="_lLuUoLg7EeSNPorBlo7x9g" entityName="getFiles" returnType__OperationSignature="_6KA7oHDuEeSqnN80MQ2uGw">
       <parameters__OperationSignature dataType__Parameter="_MRvPTbxMEeSAHuL4ItXOLQ" parameterName="audioRequest"/>
     </signatures__OperationInterface>

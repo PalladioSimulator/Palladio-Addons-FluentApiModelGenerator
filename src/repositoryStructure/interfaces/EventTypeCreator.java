@@ -13,6 +13,7 @@ import org.palladiosimulator.pcm.repository.PrimitiveDataType;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
 
 import repositoryStructure.Entity;
+import repositoryStructure.RepositoryCreator;
 import repositoryStructure.datatypes.Primitive;
 import repositoryStructure.datatypes.PrimitiveType;
 
@@ -23,8 +24,9 @@ public class EventTypeCreator extends Entity{
 	private List<ExceptionType> exceptionTypes = new ArrayList<>();
 	private EventGroupCreator correspondingEventGroup;
 	
-	public EventTypeCreator(EventGroupCreator eventGroup) {
+	public EventTypeCreator(EventGroupCreator eventGroup, RepositoryCreator repo) {
 		this.correspondingEventGroup = eventGroup;
+		this.repository = repo;
 	}
 	
 	@Override
@@ -32,13 +34,13 @@ public class EventTypeCreator extends Entity{
 		return (EventTypeCreator) super.withName(name);
 	}
 	
-	public EventGroupCreator withParameter(String name, Primitive dataType, ParameterModifier modifier) {
+	public EventTypeCreator withParameter(String name, Primitive dataType, ParameterModifier modifier) {
 		PrimitiveDataType dt = PrimitiveType.getPrimitiveDataType(dataType);
 		
 		return withParameter(name, dt, modifier);
 	}
 	
-	public EventGroupCreator withParameter(String name, DataType dataType, ParameterModifier modifier) {
+	public EventTypeCreator withParameter(String name, DataType dataType, ParameterModifier modifier) {
 		Parameter param = RepositoryFactory.eINSTANCE.createParameter();
 		if (name != null)
 			param.setParameterName(name);
@@ -47,15 +49,16 @@ public class EventTypeCreator extends Entity{
 		if (modifier != null)
 			param.setModifier__Parameter(modifier);
 		
-		return withParameter(param);
+		this.parameter = param;
+		this.repository.addParameter(param);
+		return this;
+		
 	}
 	
-	public EventGroupCreator withParameter(Parameter parameter) {
-		this.parameter = parameter;
-		EventType eventType = this.build();
-		correspondingEventGroup.addEventType(eventType);
-		return correspondingEventGroup;
-	}
+//	public EventTypeCreator withParameter(Parameter parameter) {
+//		this.parameter = parameter;
+//		return this;
+//	}
 	
 	public EventTypeCreator withFailureType(FailureType failureType) {
 		this.failureTypes.add(failureType);
@@ -65,6 +68,12 @@ public class EventTypeCreator extends Entity{
 	public EventTypeCreator withExceptionType(ExceptionType exceptionType) {
 		this.exceptionTypes.add(exceptionType);
 		return this;
+	}
+	
+	public EventGroupCreator todo() {
+		EventType eventType = this.build();
+		correspondingEventGroup.addEventType(eventType);
+		return correspondingEventGroup;
 	}
 	
 	@Override

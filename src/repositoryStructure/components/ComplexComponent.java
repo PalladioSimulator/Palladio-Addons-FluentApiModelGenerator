@@ -23,12 +23,17 @@ import org.palladiosimulator.pcm.core.composition.RequiredResourceDelegationConn
 import org.palladiosimulator.pcm.core.composition.ResourceRequiredDelegationConnector;
 import org.palladiosimulator.pcm.core.composition.SinkDelegationConnector;
 import org.palladiosimulator.pcm.core.composition.SourceDelegationConnector;
+import org.palladiosimulator.pcm.core.entity.ResourceRequiredRole;
 import org.palladiosimulator.pcm.parameter.VariableUsage;
+import org.palladiosimulator.pcm.repository.InfrastructureProvidedRole;
+import org.palladiosimulator.pcm.repository.InfrastructureRequiredRole;
 import org.palladiosimulator.pcm.repository.OperationProvidedRole;
 import org.palladiosimulator.pcm.repository.OperationRequiredRole;
 import org.palladiosimulator.pcm.repository.RepositoryComponent;
 import org.palladiosimulator.pcm.repository.SinkRole;
 import org.palladiosimulator.pcm.repository.SourceRole;
+
+import apiControlFlowInterfaces.EventChannelCreation;
 
 public abstract class ComplexComponent extends Component {
 
@@ -45,8 +50,11 @@ public abstract class ComplexComponent extends Component {
 		ac.setEncapsulatedComponent__AssemblyContext(component);
 		ac.getConfigParameterUsages__AssemblyContext().addAll(Arrays.asList(configParameterUsage));
 		this.assemblyContexts.add(ac);
+		this.repository.addAssemblyContext(ac);
 		return this;
 	}
+	
+	public abstract EventChannelCreation withEventChannel();
 
 	// ------------ operation role connectors ------------
 	public ComplexComponent withAssemblyConnection(OperationProvidedRole providedRole,
@@ -162,61 +170,70 @@ public abstract class ComplexComponent extends Component {
 	}
 
 	// ------------ infrastructure role connectors ------------
-	public ComplexComponent withAssemblyInfrastructureConnection() {
+	public ComplexComponent withAssemblyInfrastructureConnection(InfrastructureProvidedRole providedRole,
+			AssemblyContext providingAssemblyContext, InfrastructureRequiredRole requiredRole,
+			AssemblyContext requiringAssemblyContext) {
 		AssemblyInfrastructureConnector connector = CompositionFactory.eINSTANCE
 				.createAssemblyInfrastructureConnector();
 
-		// TODO: later; erst mal nicht so wichtig
+		connector.setProvidedRole__AssemblyInfrastructureConnector(providedRole);
+		connector.setProvidingAssemblyContext__AssemblyInfrastructureConnector(providingAssemblyContext);
+		connector.setRequiredRole__AssemblyInfrastructureConnector(requiredRole);
+		connector.setRequiringAssemblyContext__AssemblyInfrastructureConnector(requiringAssemblyContext);
 
 		this.connectors.add(connector);
 		return this;
 	}
 
-	public ComplexComponent withProvidedInfrastructureDelegationConnection() {
+	public ComplexComponent withProvidedInfrastructureDelegationConnection(AssemblyContext assemblyContext,
+			InfrastructureProvidedRole innerProvidedRole, InfrastructureProvidedRole outerProvidedRole) {
 		ProvidedInfrastructureDelegationConnector connector = CompositionFactory.eINSTANCE
 				.createProvidedInfrastructureDelegationConnector();
-
-		// TODO: later; nicht so wichtig
+		connector.setAssemblyContext__ProvidedInfrastructureDelegationConnector(assemblyContext);
+		connector.setInnerProvidedRole__ProvidedInfrastructureDelegationConnector(innerProvidedRole);
+		connector.setOuterProvidedRole__ProvidedInfrastructureDelegationConnector(outerProvidedRole);
 
 		this.connectors.add(connector);
 		return this;
 	}
 
-	public ComplexComponent withRequiredInfrastructureDelegationConnection() {
+	public ComplexComponent withRequiredInfrastructureDelegationConnection(AssemblyContext assemblyContext,
+			InfrastructureRequiredRole innerRequiredRole, InfrastructureRequiredRole outerRequiredRole) {
 		RequiredInfrastructureDelegationConnector connector = CompositionFactory.eINSTANCE
 				.createRequiredInfrastructureDelegationConnector();
+		connector.setAssemblyContext__RequiredInfrastructureDelegationConnector(assemblyContext);
+		connector.setInnerRequiredRole__RequiredInfrastructureDelegationConnector(innerRequiredRole);
+		connector.setOuterRequiredRole__RequiredInfrastructureDelegationConnector(outerRequiredRole);
 
-		// TODO: later; nicht so wichtig
 		this.connectors.add(connector);
 		return this;
 	}
 
-	public ComplexComponent withRequiredResourceDelegationConnection() {
+	public ComplexComponent withRequiredResourceDelegationConnection(AssemblyContext assemblyContext,
+			ResourceRequiredRole innerRequiredRole, ResourceRequiredRole outerRequiredRole) {
 		RequiredResourceDelegationConnector connector = CompositionFactory.eINSTANCE
 				.createRequiredResourceDelegationConnector();
-
-		// TODO: later; nicht so wichtig
+		connector.setAssemblyContext__RequiredResourceDelegationConnector(assemblyContext);
+		connector.setInnerRequiredRole__RequiredResourceDelegationConnector(innerRequiredRole);
+		connector.setOuterRequiredRole__RequiredResourceDelegationConnector(outerRequiredRole);
 		this.connectors.add(connector);
 		return this;
 	}
 
-	public EventChannelCreator withEventChannel() {
-		EventChannelCreator ecc = new EventChannelCreator(this);
-		return ecc;
-	}
-	
-	public void addEventChannel(EventChannel eventChannel) {
-		this.eventChannels.add(eventChannel);
-	}
-
-	public ComplexComponent resourceRequiredDegelationConnection() {
+	public ComplexComponent resourceRequiredDegelationConnection(ResourceRequiredRole innerRequiredRole,
+			ResourceRequiredRole outerRequiredRole) {
 		ResourceRequiredDelegationConnector connector = CompositionFactory.eINSTANCE
 				.createResourceRequiredDelegationConnector();
-		// TODO: later; nicht so wichtig
+		connector.setInnerResourceRequiredRole_ResourceRequiredDelegationConnector(innerRequiredRole);
+		connector.setOuterResourceRequiredRole_ResourceRequiredDelegationConnector(outerRequiredRole);
 
 		this.resourceRequiredDelegationConnectors.add(connector);
 		return this;
 
 	}
 
+	public void addEventChannel(EventChannel eventChannel) {
+		this.eventChannels.add(eventChannel);
+	}
+	
 }

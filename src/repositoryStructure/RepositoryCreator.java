@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
+import org.palladiosimulator.pcm.core.entity.ResourceRequiredRole;
 import org.palladiosimulator.pcm.reliability.FailureType;
 import org.palladiosimulator.pcm.repository.BasicComponent;
 import org.palladiosimulator.pcm.repository.CollectionDataType;
@@ -27,6 +28,7 @@ import org.palladiosimulator.pcm.repository.Repository;
 import org.palladiosimulator.pcm.repository.RepositoryComponent;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
 import org.palladiosimulator.pcm.repository.RequiredRole;
+import org.palladiosimulator.pcm.repository.Signature;
 import org.palladiosimulator.pcm.repository.SinkRole;
 import org.palladiosimulator.pcm.repository.SourceRole;
 import org.palladiosimulator.pcm.subsystem.SubSystem;
@@ -52,7 +54,9 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 	private List<RepositoryComponent> components;
 	private List<ProvidedRole> providedRoles;
 	private List<RequiredRole> requiredRoles;
+	private List<ResourceRequiredRole> resourceRequiredRoles;
 	private List<Parameter> parameters;
+	private List<AssemblyContext> assemblyContexts;
 
 	public RepositoryCreator(MyRepositoryFactory factory) {
 		this.factory = factory;
@@ -62,7 +66,9 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 		this.components = new ArrayList<>();
 		this.providedRoles = new ArrayList<>();
 		this.requiredRoles = new ArrayList<>();
+		this.resourceRequiredRoles = new ArrayList<>();
 		this.parameters = new ArrayList<>();
+		this.assemblyContexts = new ArrayList<>();
 
 		this.dataTypes.add(PrimitiveType.getPrimitiveDataType(Primitive.BOOLEAN));
 		this.dataTypes.add(PrimitiveType.getPrimitiveDataType(Primitive.BYTE));
@@ -132,14 +138,11 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 		if (description != null)
 			repo.setRepositoryDescription(description);
 
-		// TODO: add components and stuff from the factory as well
-		// check that they are not added twice in different versions and stuff
 		repo.getDataTypes__Repository().addAll(dataTypes);
 		repo.getInterfaces__Repository().addAll(interfaces);
 		repo.getComponents__Repository().addAll(components);
 		repo.getFailureTypes__Repository().addAll(failureTypes);
 
-		// TODO: reset all Lists in the factory?
 		return repo;
 	}
 
@@ -260,6 +263,19 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 		return parameters.stream().filter(p -> p.getParameterName().contentEquals(name)).findFirst().orElse(null);
 	}
 
+	public Parameter getParameter(String name, Signature context) {
+		return parameters.stream().filter(
+				p -> p.getParameterName().contentEquals(name) && (p.getOperationSignature__Parameter().equals(context)
+						|| p.getInfrastructureSignature__Parameter().equals(context)
+						|| p.getEventType__Parameter().equals(context)))
+				.findFirst().orElse(null);
+	}
+
+	public AssemblyContext getAssemblyContext(String name) {
+		return assemblyContexts.stream().filter(a -> a.getEntityName().contentEquals(name)).findFirst().orElse(null);
+	}
+
+	// ------------- adding -------------
 	public void addDataType(DataType dt) {
 		dataTypes.add(dt);
 	}
@@ -279,13 +295,16 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 	public void addRequiredRole(RequiredRole rr) {
 		requiredRoles.add(rr);
 	}
+	
+	public void addResourceRequiredRole(ResourceRequiredRole rr) {
+		resourceRequiredRoles.add(rr);
+	}
 
 	public void addParameter(Parameter p) {
 		parameters.add(p);
 	}
 
-	public AssemblyContext getAssemblyContext(String name) {
-		// TODO Auto-generated method stub
-		return null;
+	public void addAssemblyContext(AssemblyContext ac) {
+		assemblyContexts.add(ac);
 	}
 }

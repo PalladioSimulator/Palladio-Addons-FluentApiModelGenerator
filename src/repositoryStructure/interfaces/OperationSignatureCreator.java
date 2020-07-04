@@ -13,6 +13,7 @@ import org.palladiosimulator.pcm.repository.PrimitiveDataType;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
 
 import repositoryStructure.Entity;
+import repositoryStructure.RepositoryCreator;
 import repositoryStructure.datatypes.Primitive;
 import repositoryStructure.datatypes.PrimitiveType;
 
@@ -25,19 +26,18 @@ public class OperationSignatureCreator extends Entity{
 	private List<ExceptionType> exceptionTypes = new ArrayList<>();
 	private OperationInterfaceCreator correspondingInterface;
 
-	public OperationSignatureCreator(OperationInterfaceCreator interfce) {
+	public OperationSignatureCreator(OperationInterfaceCreator interfce, RepositoryCreator repo) {
 		this.correspondingInterface = interfce;
+		this.repository = repo;
 	}
 
 	public OperationSignatureCreator withName(String name) {
 		return (OperationSignatureCreator) super.withName(name);
 	}
 	
-	public OperationInterfaceCreator withReturnType(DataType returnType) {
+	public OperationSignatureCreator withReturnType(DataType returnType) {
 		this.returnType = returnType;
-		OperationSignature signature = this.build();
-		correspondingInterface.addOperationSignatures(signature);
-		return correspondingInterface;
+		return this;
 	}
 
 	public OperationSignatureCreator withParameter(String name, Primitive dataType, ParameterModifier modifier) {
@@ -56,14 +56,16 @@ public class OperationSignatureCreator extends Entity{
 			param.setModifier__Parameter(modifier);
 		
 		ownedParameters.add(param);
+		this.repository.addParameter(param);
 		return this;
 	}
 	
-	public OperationSignatureCreator withParameter(Parameter parameter) {
-		if(parameter != null)
-			this.ownedParameters.add(parameter);
-		return this;
-	}
+	//todo: should this be allowed?
+//	public OperationSignatureCreator withParameter(Parameter parameter) {
+//		if(parameter != null)
+//			this.ownedParameters.add(parameter);
+//		return this;
+//	}
 	
 	public OperationSignatureCreator withFailureType(FailureType failureType) {
 		this.failureTypes.add(failureType);
@@ -73,6 +75,12 @@ public class OperationSignatureCreator extends Entity{
 	public OperationSignatureCreator withExceptionType(ExceptionType exceptionType) {
 		this.exceptionTypes.add(exceptionType);
 		return this;
+	}
+	
+	public OperationInterfaceCreator todo() {
+		OperationSignature sign = this.build();
+		correspondingInterface.addOperationSignatures(sign);
+		return correspondingInterface;
 	}
 
 	@Override

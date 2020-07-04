@@ -33,9 +33,4 @@ public abstract class Interface extends Entity {
 		return this;
 	}
 
-	public Interface withProtocol() {
-		// TODO: finde ich nicht
-		return this;
-	}
-
 }

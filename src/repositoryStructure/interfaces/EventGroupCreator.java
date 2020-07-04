@@ -41,13 +41,8 @@ public class EventGroupCreator extends Interface {
 		return (EventGroupCreator) super.withRequiredCharacterisation(parameter, type);
 	}
 
-	@Override
-	public EventGroupCreator withProtocol() {
-		return (EventGroupCreator) super.withProtocol();
-	}
-
 	public EventTypeCreator withEventType() {
-		EventTypeCreator etc = new EventTypeCreator(this);
+		EventTypeCreator etc = new EventTypeCreator(this, this.repository);
 		return etc;
 	}
 

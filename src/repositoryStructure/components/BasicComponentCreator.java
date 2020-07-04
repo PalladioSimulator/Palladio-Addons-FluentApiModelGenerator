@@ -19,8 +19,8 @@ import org.palladiosimulator.pcm.resourcetype.ResourceInterface;
 import org.palladiosimulator.pcm.seff.ServiceEffectSpecification;
 
 import apiControlFlowInterfaces.Action.Seff;
+import apiControlFlowInterfaces.VariableUsageCreation.Basic;
 import repositoryStructure.RepositoryCreator;
-import repositoryStructure.components.seff.SeffCreator;
 import repositoryStructure.interfaces.EventGroupCreator;
 import repositoryStructure.interfaces.InfrastructureInterfaceCreator;
 import repositoryStructure.interfaces.OperationInterfaceCreator;
@@ -197,6 +197,7 @@ public class BasicComponentCreator extends Component {
 	public BasicComponentCreator conforms(CompleteComponentTypeCreator completeComponentType) {
 		CompleteComponentType cct = completeComponentType.build();
 		this.conformsCompleteTypes.add(cct);
+		this.repository.addComponent(cct);
 		return this;
 	}
 
@@ -221,7 +222,7 @@ public class BasicComponentCreator extends Component {
 		return this;
 	}
 
-	public VariableUsageCreator withVariableUsage() {
+	public Basic withVariableUsage() {
 		VariableUsageCreator vuc = new VariableUsageCreator(this, repository);
 		return vuc;
 	}

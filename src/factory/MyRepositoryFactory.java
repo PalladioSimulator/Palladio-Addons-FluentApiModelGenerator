@@ -1,7 +1,5 @@
 package factory;
 
-import java.util.Set;
-
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.reliability.FailureType;
 import org.palladiosimulator.pcm.reliability.ResourceTimeoutFailureType;
@@ -22,6 +20,8 @@ import org.palladiosimulator.pcm.repository.PrimitiveDataType;
 import org.palladiosimulator.pcm.repository.ProvidesComponentType;
 import org.palladiosimulator.pcm.repository.RepositoryComponent;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
+import org.palladiosimulator.pcm.repository.Signature;
+import org.palladiosimulator.pcm.resourcetype.ResourceInterface;
 import org.palladiosimulator.pcm.subsystem.SubSystem;
 
 import apiControlFlowInterfaces.Action.Seff;
@@ -138,7 +138,6 @@ public class MyRepositoryFactory {
 	// ---------------------- Fetching methods ----------------------
 
 	// TODO: exceptionTypes, resourcetypes, resource interfaces etc
-	// TODO: parameters
 
 	public DataType fetchOfDataType(String name) {
 
@@ -163,8 +162,10 @@ public class MyRepositoryFactory {
 		FailureType failureType = repositoryStructure.datatypes.FailureType.getFailureType(failure);
 		if (failureType instanceof ResourceTimeoutFailureType)
 			return (ResourceTimeoutFailureType) failureType;
-		else
-			return null; // todo: throw exception?
+		//TODO: einkommentieren
+//		else
+//			throw new RuntimeException("ResourceTimeoutFailureType could not be found; must be of type SoftwareInducedFailure");
+		return null;
 	}
 
 	public RepositoryComponent fetchOfComponent(String name) {
@@ -215,7 +216,7 @@ public class MyRepositoryFactory {
 			throw new RuntimeException("Interface '" + name + "' could not be found");
 		return interfce;
 	}
-	
+
 	public OperationInterface fetchOfOperationInterface(String name) {
 		OperationInterface interfce = repo.getOperationInterface(name);
 		if (interfce == null)
@@ -248,20 +249,34 @@ public class MyRepositoryFactory {
 		OperationRequiredRole reqRole = repo.getOperationRequiredRole(name);
 		if (reqRole == null)
 			throw new RuntimeException("RequiredRole '" + name + "' could not be found");
-		else
-			return reqRole;
+		return reqRole;
 	}
 
+	//TODO: other roles
+	
+	public ResourceInterface fetchOfResourceInterface(String name) {
+		//TODO: 
+		return null;
+	}
 	public AssemblyContext fetchOfAssemblyContext(String name) {
 		AssemblyContext assContext = repo.getAssemblyContext(name);
-//		if(assContext == null)
-//			throw new RuntimeException("Assembly context '"+name+"' could not be found");
+		if (assContext == null)
+			throw new RuntimeException("Assembly context '" + name + "' could not be found");
 		return assContext;
 	}
 
 	public Parameter fetchOfParameter(String name) {
-		// TODO Auto-generated method stub
-		return null;
+		Parameter p = repo.getParameter(name);
+		if (p == null)
+			throw new RuntimeException("Parameter '" + name + "' could not be found");
+		return p;
+	}
+	
+	public Parameter fetchOfParameter(String name, Signature context) {
+		Parameter p = repo.getParameter(name, context);
+		if (p == null)
+			throw new RuntimeException("Parameter '" + name + "' could not be found");
+		return p;
 	}
 
 }

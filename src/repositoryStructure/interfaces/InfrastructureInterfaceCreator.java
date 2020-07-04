@@ -36,11 +36,6 @@ public class InfrastructureInterfaceCreator extends Interface {
 	}
 
 	@Override
-	public InfrastructureInterfaceCreator withProtocol() {
-		return (InfrastructureInterfaceCreator) super.withProtocol();
-	}
-
-	@Override
 	public InfrastructureInterface build() {
 		InfrastructureInterface interfce = RepositoryFactory.eINSTANCE.createInfrastructureInterface();
 

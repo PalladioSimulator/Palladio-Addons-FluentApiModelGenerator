@@ -5,12 +5,15 @@ import java.util.List;
 
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.composition.EventChannel;
+import org.palladiosimulator.pcm.core.entity.ResourceRequiredRole;
 import org.palladiosimulator.pcm.parameter.VariableUsage;
 import org.palladiosimulator.pcm.repository.CompleteComponentType;
 import org.palladiosimulator.pcm.repository.ComponentType;
 import org.palladiosimulator.pcm.repository.CompositeComponent;
 import org.palladiosimulator.pcm.repository.EventGroup;
 import org.palladiosimulator.pcm.repository.InfrastructureInterface;
+import org.palladiosimulator.pcm.repository.InfrastructureProvidedRole;
+import org.palladiosimulator.pcm.repository.InfrastructureRequiredRole;
 import org.palladiosimulator.pcm.repository.OperationInterface;
 import org.palladiosimulator.pcm.repository.OperationProvidedRole;
 import org.palladiosimulator.pcm.repository.OperationRequiredRole;
@@ -20,6 +23,8 @@ import org.palladiosimulator.pcm.repository.SinkRole;
 import org.palladiosimulator.pcm.repository.SourceRole;
 import org.palladiosimulator.pcm.resourcetype.ResourceInterface;
 
+import apiControlFlowInterfaces.VariableUsageCreation.Composite;
+import apiControlFlowInterfaces.EventChannelCreation.Comp;
 import repositoryStructure.RepositoryCreator;
 import repositoryStructure.interfaces.EventGroupCreator;
 import repositoryStructure.interfaces.InfrastructureInterfaceCreator;
@@ -64,12 +69,13 @@ public class CompositeComponentCreator extends ComplexComponent {
 	public CompositeComponentCreator provides(OperationInterfaceCreator interfce, String name) {
 		return (CompositeComponentCreator) super.provides(interfce, name);
 	}
-	
+
 	@Override
 	public CompositeComponentCreator provides(OperationInterface interfce) {
 		return (CompositeComponentCreator) super.provides(interfce);
-		
+
 	}
+
 	@Override
 	public CompositeComponentCreator provides(OperationInterface interfce, String name) {
 		return (CompositeComponentCreator) super.provides(interfce, name);
@@ -85,12 +91,12 @@ public class CompositeComponentCreator extends ComplexComponent {
 	public CompositeComponentCreator providesInfrastructure(InfrastructureInterfaceCreator interfce, String name) {
 		return (CompositeComponentCreator) super.providesInfrastructure(interfce, name);
 	}
-	
+
 	@Override
 	public CompositeComponentCreator providesInfrastructure(InfrastructureInterface interfce) {
 		return (CompositeComponentCreator) super.providesInfrastructure(interfce);
 	}
-	
+
 	@Override
 	public CompositeComponentCreator providesInfrastructure(InfrastructureInterface interfce, String name) {
 		return (CompositeComponentCreator) super.providesInfrastructure(interfce, name);
@@ -106,12 +112,12 @@ public class CompositeComponentCreator extends ComplexComponent {
 	public CompositeComponentCreator handles(EventGroupCreator eventGroup, String name) {
 		return (CompositeComponentCreator) super.handles(eventGroup, name);
 	}
-	
+
 	@Override
 	public CompositeComponentCreator handles(EventGroup eventGroup) {
 		return (CompositeComponentCreator) super.handles(eventGroup);
 	}
-	
+
 	@Override
 	public CompositeComponentCreator handles(EventGroup eventGroup, String name) {
 		return (CompositeComponentCreator) super.handles(eventGroup, name);
@@ -128,12 +134,12 @@ public class CompositeComponentCreator extends ComplexComponent {
 	public CompositeComponentCreator requires(OperationInterfaceCreator interfce, String name) {
 		return (CompositeComponentCreator) super.requires(interfce, name);
 	}
-	
+
 	@Override
 	public CompositeComponentCreator requires(OperationInterface interfce) {
 		return (CompositeComponentCreator) super.requires(interfce);
 	}
-	
+
 	@Override
 	public CompositeComponentCreator requires(OperationInterface interfce, String name) {
 		return (CompositeComponentCreator) super.requires(interfce, name);
@@ -149,12 +155,12 @@ public class CompositeComponentCreator extends ComplexComponent {
 	public CompositeComponentCreator requiresInfrastructure(InfrastructureInterfaceCreator interfce, String name) {
 		return (CompositeComponentCreator) super.requiresInfrastructure(interfce, name);
 	}
-	
+
 	@Override
 	public CompositeComponentCreator requiresInfrastructure(InfrastructureInterface interfce) {
 		return (CompositeComponentCreator) super.requiresInfrastructure(interfce);
 	}
-	
+
 	@Override
 	public CompositeComponentCreator requiresInfrastructure(InfrastructureInterface interfce, String name) {
 		return (CompositeComponentCreator) super.requiresInfrastructure(interfce, name);
@@ -170,12 +176,12 @@ public class CompositeComponentCreator extends ComplexComponent {
 	public CompositeComponentCreator emits(EventGroupCreator eventGroup, String name) {
 		return (CompositeComponentCreator) super.emits(eventGroup, name);
 	}
-	
+
 	@Override
 	public CompositeComponentCreator emits(EventGroup eventGroup) {
 		return (CompositeComponentCreator) super.emits(eventGroup);
 	}
-	
+
 	@Override
 	public CompositeComponentCreator emits(EventGroup eventGroup, String name) {
 		return (CompositeComponentCreator) super.emits(eventGroup, name);
@@ -192,19 +198,24 @@ public class CompositeComponentCreator extends ComplexComponent {
 	public CompositeComponentCreator conforms(CompleteComponentTypeCreator completeComponentType) {
 		CompleteComponentType cct = completeComponentType.build();
 		this.conformsCompleteTypes.add(cct);
+		this.repository.addComponent(cct);
 		return this;
 	}
 
-	// TODO: Variable Usages
-	public CompositeComponentCreator todo(Object toDo) {
-		this.componentParameterUsages.add(null);
-		return this;
+	public Composite withVariableUsage() {
+		VariableUsageCreator vuc = new VariableUsageCreator(this, repository);
+		return vuc;
 	}
 
 	@Override
 	public CompositeComponentCreator withAssemblyContext(RepositoryComponent component, String name,
 			VariableUsage... configParameterUsage) {
 		return (CompositeComponentCreator) super.withAssemblyContext(component, name, configParameterUsage);
+	}
+
+	@Override
+	public Comp withEventChannel() {
+		return new EventChannelCreator(this);
 	}
 
 	// ------------ connectors ------------
@@ -265,29 +276,41 @@ public class CompositeComponentCreator extends ComplexComponent {
 				outerSourceRole);
 	}
 
+	// ------------ infrastructure role connectors ------------
 	@Override
-	public CompositeComponentCreator withAssemblyInfrastructureConnection() {
-		return (CompositeComponentCreator) super.withAssemblyInfrastructureConnection();
+	public CompositeComponentCreator withAssemblyInfrastructureConnection(InfrastructureProvidedRole providedRole,
+			AssemblyContext providingAssemblyContext, InfrastructureRequiredRole requiredRole,
+			AssemblyContext requiringAssemblyContext) {
+		return (CompositeComponentCreator) super.withAssemblyInfrastructureConnection(providedRole,
+				providingAssemblyContext, requiredRole, requiringAssemblyContext);
 	}
 
 	@Override
-	public CompositeComponentCreator withProvidedInfrastructureDelegationConnection() {
-		return (CompositeComponentCreator) super.withProvidedInfrastructureDelegationConnection();
+	public CompositeComponentCreator withProvidedInfrastructureDelegationConnection(AssemblyContext assemblyContext,
+			InfrastructureProvidedRole innerProvidedRole, InfrastructureProvidedRole outerProvidedRole) {
+		return (CompositeComponentCreator) super.withProvidedInfrastructureDelegationConnection(assemblyContext,
+				innerProvidedRole, outerProvidedRole);
 	}
 
 	@Override
-	public CompositeComponentCreator withRequiredInfrastructureDelegationConnection() {
-		return (CompositeComponentCreator) super.withRequiredInfrastructureDelegationConnection();
+	public CompositeComponentCreator withRequiredInfrastructureDelegationConnection(AssemblyContext assemblyContext,
+			InfrastructureRequiredRole innerRequiredRole, InfrastructureRequiredRole outerRequiredRole) {
+		return (CompositeComponentCreator) super.withRequiredInfrastructureDelegationConnection(assemblyContext,
+				innerRequiredRole, outerRequiredRole);
 	}
 
 	@Override
-	public CompositeComponentCreator withRequiredResourceDelegationConnection() {
-		return (CompositeComponentCreator) super.withRequiredResourceDelegationConnection();
+	public CompositeComponentCreator withRequiredResourceDelegationConnection(AssemblyContext assemblyContext,
+			ResourceRequiredRole innerRequiredRole, ResourceRequiredRole outerRequiredRole) {
+		return (CompositeComponentCreator) super.withRequiredResourceDelegationConnection(assemblyContext,
+				innerRequiredRole, outerRequiredRole);
 	}
 
 	@Override
-	public CompositeComponentCreator resourceRequiredDegelationConnection() {
-		return (CompositeComponentCreator) super.resourceRequiredDegelationConnection();
+	public CompositeComponentCreator resourceRequiredDegelationConnection(ResourceRequiredRole innerRequiredRole,
+			ResourceRequiredRole outerRequiredRole) {
+		return (CompositeComponentCreator) super.resourceRequiredDegelationConnection(innerRequiredRole,
+				outerRequiredRole);
 	}
 
 	@Override
@@ -316,4 +339,7 @@ public class CompositeComponentCreator extends ComplexComponent {
 		return compositeComponent;
 	}
 
+	public void addVariableUsage(VariableUsage varUsage) {
+		this.componentParameterUsages.add(varUsage);
+	}
 }

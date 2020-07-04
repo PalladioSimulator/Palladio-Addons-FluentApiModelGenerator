@@ -42,19 +42,8 @@ public class OperationInterfaceCreator extends Interface {
 		return (OperationInterfaceCreator) super.withRequiredCharacterisation(parameter, type);
 	}
 
-	@Override
-	public OperationInterfaceCreator withProtocol() {
-		return (OperationInterfaceCreator) super.withProtocol();
-	}
-
-	/**
-	 * requires the specification of a return type
-	 * 
-	 * @param name
-	 * @return the possibility to specify the signature
-	 */
 	public OperationSignatureCreator withOperationSignature() {
-		OperationSignatureCreator operationSignature = new OperationSignatureCreator(this);
+		OperationSignatureCreator operationSignature = new OperationSignatureCreator(this, this.repository);
 		return operationSignature;
 	}
 
