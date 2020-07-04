@@ -1,4 +1,4 @@
-package repositoryStructure.interfaces.stuff;
+package repositoryStructure.components;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +10,6 @@ import org.palladiosimulator.pcm.core.composition.EventChannelSourceConnector;
 import org.palladiosimulator.pcm.repository.EventGroup;
 
 import repositoryStructure.Entity;
-import repositoryStructure.components.ComplexComponent;
 
 public class EventChannelCreator extends Entity {
 

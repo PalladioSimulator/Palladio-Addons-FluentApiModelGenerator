@@ -44,11 +44,7 @@ public class PrimitiveType {
 		p7.setType(PrimitiveTypeEnum.BYTE);
 		primitives.put(Primitive.BYTE, p7);
 
-		PrimitiveDataType p8 = fact.createPrimitiveDataType();
-		p8.setType(PrimitiveTypeEnum.BYTE);
-		primitives.put(Primitive.BYTE, p8);
-		
-		//TODO: resource sachen
+		// TODO: resource sachen
 		ResourcetypeFactory resFact = ResourcetypeFactory.eINSTANCE;
 		CommunicationLinkResourceType clr = resFact.createCommunicationLinkResourceType();
 		resFact.createProcessingResourceType();
@@ -56,14 +52,47 @@ public class PrimitiveType {
 		resFact.createResourceRepository();
 		resFact.createResourceSignature();
 		resFact.createSchedulingPolicy();
-		
-		
-		
+
 	}
 
 	public static PrimitiveDataType getPrimitiveDataType(Primitive primitive) {
-		if(primitives.isEmpty())
+		if (primitives.isEmpty())
 			init();
 		return primitives.get(primitive);
+	}
+
+	public static PrimitiveDataType getPrimitiveDataType(String primitive) {
+		if (primitives.isEmpty())
+			init();
+
+		Primitive p = null;
+
+		switch (primitive.toLowerCase()) {
+		case "boolean":
+		case "bool":
+			p = Primitive.BOOLEAN;
+			break;
+		case "integer":
+		case "int":
+			p = Primitive.INTEGER;
+			break;
+		case "double":
+			p = Primitive.DOUBLE;
+			break;
+		case "long":
+			p = Primitive.LONG;
+			break;
+		case "string":
+			p = Primitive.STRING;
+			break;
+		case "char":
+			p = Primitive.CHAR;
+			break;
+		case "byte":
+			p = Primitive.BYTE;
+			break;
+		}
+		
+		return p == null ? null : primitives.get(p);
 	}
 }

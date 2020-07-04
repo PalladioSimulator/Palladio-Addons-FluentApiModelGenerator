@@ -30,8 +30,6 @@ import org.palladiosimulator.pcm.repository.RepositoryComponent;
 import org.palladiosimulator.pcm.repository.SinkRole;
 import org.palladiosimulator.pcm.repository.SourceRole;
 
-import repositoryStructure.interfaces.stuff.EventChannelCreator;
-
 public abstract class ComplexComponent extends Component {
 
 	protected List<AssemblyContext> assemblyContexts = new ArrayList<>();

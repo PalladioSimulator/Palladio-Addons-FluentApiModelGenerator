@@ -18,8 +18,8 @@ import org.palladiosimulator.pcm.repository.RepositoryFactory;
 import org.palladiosimulator.pcm.resourcetype.ResourceInterface;
 import org.palladiosimulator.pcm.seff.ServiceEffectSpecification;
 
+import apiControlFlowInterfaces.Action.Seff;
 import repositoryStructure.RepositoryCreator;
-import repositoryStructure.VariableUsageCreator;
 import repositoryStructure.components.seff.SeffCreator;
 import repositoryStructure.interfaces.EventGroupCreator;
 import repositoryStructure.interfaces.InfrastructureInterfaceCreator;
@@ -215,7 +215,7 @@ public class BasicComponentCreator extends Component {
 	}
 
 	// SEFFs
-	public BasicComponentCreator withServiceEffectSpecification(SeffCreator seff) {
+	public BasicComponentCreator withServiceEffectSpecification(Seff seff) {
 		ServiceEffectSpecification sEfF = seff.build();
 		this.seffs.add(sEfF);
 		return this;

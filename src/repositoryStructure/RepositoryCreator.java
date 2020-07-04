@@ -63,7 +63,7 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 		this.providedRoles = new ArrayList<>();
 		this.requiredRoles = new ArrayList<>();
 		this.parameters = new ArrayList<>();
-		
+
 		this.dataTypes.add(PrimitiveType.getPrimitiveDataType(Primitive.BOOLEAN));
 		this.dataTypes.add(PrimitiveType.getPrimitiveDataType(Primitive.BYTE));
 		this.dataTypes.add(PrimitiveType.getPrimitiveDataType(Primitive.CHAR));
@@ -71,7 +71,7 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 		this.dataTypes.add(PrimitiveType.getPrimitiveDataType(Primitive.INTEGER));
 		this.dataTypes.add(PrimitiveType.getPrimitiveDataType(Primitive.LONG));
 		this.dataTypes.add(PrimitiveType.getPrimitiveDataType(Primitive.STRING));
-		
+
 		this.failureTypes.add(repositoryStructure.datatypes.FailureType.getFailureType(Failure.HARDWARE_CPU));
 		this.failureTypes.add(repositoryStructure.datatypes.FailureType.getFailureType(Failure.HARDWARE_HDD));
 		this.failureTypes.add(repositoryStructure.datatypes.FailureType.getFailureType(Failure.HARDWARE_DELAY));
@@ -144,113 +144,120 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 	}
 
 	public DataType getDataType(String name) {
+		for (DataType d : this.dataTypes) {
+			if (d instanceof CompositeDataType) {
+				CompositeDataType comp = (CompositeDataType) d;
+				if (comp.getEntityName().contentEquals(name))
+					return comp;
+			} else if (d instanceof CollectionDataType) {
+				CollectionDataType coll = (CollectionDataType) d;
+				if (coll.getEntityName().contentEquals(name))
+					return coll;
+			} else {
+			}
+		}
 
-//		private List<Parameter> parameters;
-		return null; // TODO:
+		return null;
 	}
 
 	public Interface getInterface(String name) {
-		return interfaces.stream().filter(i -> i.getEntityName().contentEquals(name)).findFirst().get();
+		return interfaces.stream().filter(i -> i.getEntityName().contentEquals(name)).findFirst().orElse(null);
 	}
 
 	public OperationInterface getOperationInterface(String name) {
 		return (OperationInterface) interfaces.stream()
 				.filter(i -> i instanceof OperationInterface && i.getEntityName().contentEquals(name)).findFirst()
-				.get();
+				.orElse(null);
 	}
 
 	public InfrastructureInterface getInfrastructureInterface(String name) {
 		return (InfrastructureInterface) interfaces.stream()
 				.filter(i -> i instanceof InfrastructureInterface && i.getEntityName().contentEquals(name)).findFirst()
-				.get();
+				.orElse(null);
 	}
 
 	public EventGroup getEventGroup(String name) {
 		return (EventGroup) interfaces.stream()
-				.filter(i -> i instanceof EventGroup && i.getEntityName().contentEquals(name)).findFirst().get();
+				.filter(i -> i instanceof EventGroup && i.getEntityName().contentEquals(name)).findFirst().orElse(null);
 	}
 
 	public RepositoryComponent getComponent(String name) {
-		return components.stream().filter(c -> c.getEntityName().contentEquals(name)).findFirst().get();
+		return components.stream().filter(c -> c.getEntityName().contentEquals(name)).findFirst().orElse(null);
 	}
 
 	public BasicComponent getBasicComponent(String name) {
 		return (BasicComponent) components.stream()
-				.filter(c -> c instanceof BasicComponent && c.getEntityName().contentEquals(name)).findFirst().get();
+				.filter(c -> c instanceof BasicComponent && c.getEntityName().contentEquals(name)).findFirst()
+				.orElse(null);
 	}
 
 	public CompositeComponent getCompositeComponent(String name) {
 		return (CompositeComponent) components.stream()
 				.filter(c -> c instanceof CompositeComponent && c.getEntityName().contentEquals(name)).findFirst()
-				.get();
+				.orElse(null);
 	}
 
 	public SubSystem getSubsystem(String name) {
 		return (SubSystem) components.stream()
-				.filter(c -> c instanceof SubSystem && c.getEntityName().contentEquals(name)).findFirst().get();
+				.filter(c -> c instanceof SubSystem && c.getEntityName().contentEquals(name)).findFirst().orElse(null);
 	}
 
 	public CompleteComponentType getCompleteComponentType(String name) {
 		return (CompleteComponentType) components.stream()
 				.filter(c -> c instanceof CompleteComponentType && c.getEntityName().contentEquals(name)).findFirst()
-				.get();
+				.orElse(null);
 	}
 
 	public ProvidesComponentType getProvidesComponentType(String name) {
 		return (ProvidesComponentType) components.stream()
 				.filter(c -> c instanceof ProvidesComponentType && c.getEntityName().contentEquals(name)).findFirst()
-				.get();
+				.orElse(null);
 	}
 
 	public ProvidedRole getProvidedRole(String name) {
-		return providedRoles.stream().filter(r -> r.getEntityName().contentEquals(name)).findFirst().get();
+		return providedRoles.stream().filter(r -> r.getEntityName().contentEquals(name)).findFirst().orElse(null);
 	}
 
 	public OperationProvidedRole getOperationProvidedRole(String name) {
-
-		Optional<ProvidedRole> findFirst = providedRoles.stream()
-				.filter(r -> r instanceof OperationProvidedRole && r.getEntityName().contentEquals(name)).findFirst();
-
-		if (findFirst.isPresent())
-			return (OperationProvidedRole) findFirst.get();
-		else
-			return null;
+		return (OperationProvidedRole) providedRoles.stream()
+				.filter(r -> r instanceof OperationProvidedRole && r.getEntityName().contentEquals(name)).findFirst()
+				.orElse(null);
 	}
 
 	public InfrastructureProvidedRole getInfrastructureProvidedRole(String name) {
 		return (InfrastructureProvidedRole) providedRoles.stream()
 				.filter(r -> r instanceof InfrastructureProvidedRole && r.getEntityName().contentEquals(name))
-				.findFirst().get();
+				.findFirst().orElse(null);
 	}
 
 	public SinkRole getSinkRole(String name) {
 		return (SinkRole) providedRoles.stream()
-				.filter(r -> r instanceof SinkRole && r.getEntityName().contentEquals(name)).findFirst().get();
+				.filter(r -> r instanceof SinkRole && r.getEntityName().contentEquals(name)).findFirst().orElse(null);
 	}
 
 	public RequiredRole getRequiredRole(String name) {
-		return requiredRoles.stream().filter(r -> r.getEntityName().contentEquals(name)).findFirst().get();
+		return requiredRoles.stream().filter(r -> r.getEntityName().contentEquals(name)).findFirst().orElse(null);
 	}
 
 	public OperationRequiredRole getOperationRequiredRole(String name) {
 		return (OperationRequiredRole) requiredRoles.stream()
 				.filter(r -> r instanceof OperationRequiredRole && r.getEntityName().contentEquals(name)).findFirst()
-				.get();
+				.orElse(null);
 	}
 
 	public InfrastructureRequiredRole getInfrastructureRequiredRole(String name) {
 		return (InfrastructureRequiredRole) requiredRoles.stream()
 				.filter(r -> r instanceof InfrastructureRequiredRole && r.getEntityName().contentEquals(name))
-				.findFirst().get();
+				.findFirst().orElse(null);
 	}
 
 	public SourceRole getSourceRole(String name) {
 		return (SourceRole) requiredRoles.stream()
-				.filter(r -> r instanceof SourceRole && r.getEntityName().contentEquals(name)).findFirst().get();
+				.filter(r -> r instanceof SourceRole && r.getEntityName().contentEquals(name)).findFirst().orElse(null);
 	}
 
 	public Parameter getParameter(String name) {
-		return parameters.stream().filter(p -> p.getParameterName().contentEquals(name)).findFirst().get();
+		return parameters.stream().filter(p -> p.getParameterName().contentEquals(name)).findFirst().orElse(null);
 	}
 
 	public void addDataType(DataType dt) {

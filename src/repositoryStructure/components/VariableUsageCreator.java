@@ -1,4 +1,4 @@
-package repositoryStructure;
+package repositoryStructure.components;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +11,8 @@ import org.palladiosimulator.pcm.parameter.VariableCharacterisationType;
 import org.palladiosimulator.pcm.parameter.VariableUsage;
 
 import de.uka.ipd.sdq.stoex.AbstractNamedReference;
-import repositoryStructure.components.BasicComponentCreator;
+import repositoryStructure.Entity;
+import repositoryStructure.RepositoryCreator;
 
 public class VariableUsageCreator extends Entity{
 	

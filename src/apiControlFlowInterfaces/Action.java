@@ -1,6 +1,7 @@
 package apiControlFlowInterfaces;
 
 import org.palladiosimulator.pcm.repository.Signature;
+import org.palladiosimulator.pcm.seff.ServiceEffectSpecification;
 
 import repositoryStructure.components.seff.AcquireActionCreator;
 import repositoryStructure.components.seff.BranchActionCreator;
@@ -52,5 +53,6 @@ public interface Action {
 		public Seff onSignature(Signature signature);
 		public Seff withSeffTypeID(String seffTypeID);
 		public Start withSeffBehaviour();
+		public ServiceEffectSpecification build();
 	}
 }

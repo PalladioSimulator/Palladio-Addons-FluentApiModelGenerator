@@ -10,7 +10,6 @@ import org.palladiosimulator.pcm.repository.Parameter;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
 
 import repositoryStructure.RepositoryCreator;
-import repositoryStructure.interfaces.stuff.EventTypeCreator;
 
 public class EventGroupCreator extends Interface {
 

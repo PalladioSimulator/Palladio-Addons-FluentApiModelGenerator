@@ -23,7 +23,6 @@ sinnvoll über Factory: components, interfaces, data types/failure/exception typ
 ToDo:
 - dataTypes einlesen 					-> email warten
 - imports 								-> email warten
-- Seffs
 - varUsage über Methoden oder Factory? -> an vielen Stellen (Seffs etc)
 
 - Resource required zeug 				-> später
@@ -32,6 +31,7 @@ ToDo:
 
 - Sichtbarkeit
 - Reihenfolge mit Interfaces regeln (varUsage von CompositeComponent -> evtl so auch das eventZeug (oder so - iwo gabs das gleiche Problem))
+- JavaDoc
 
 anonymous anonymous; media store ms; screencast media store
 

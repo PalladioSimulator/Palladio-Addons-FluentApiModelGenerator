@@ -10,7 +10,6 @@ import org.palladiosimulator.pcm.repository.Parameter;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
 
 import repositoryStructure.RepositoryCreator;
-import repositoryStructure.interfaces.stuff.OperationSignatureCreator;
 
 public class OperationInterfaceCreator extends Interface {
 

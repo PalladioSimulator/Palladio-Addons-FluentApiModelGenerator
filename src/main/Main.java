@@ -24,6 +24,7 @@ public class Main {
 
 	public static void main(String[] args) {
 
+		mediaStoreExample();
 		MyRepositoryFactory create = new MyRepositoryFactory();
 
 		Repository repo = create.newRepository()
@@ -46,7 +47,7 @@ public class Main {
 								.withParameter("first names", create.fetchOfDataType("StringList"), null)
 								.withParameter("age", Primitive.INTEGER, ParameterModifier.INOUT)
 								.withReturnType(create.fetchOfDataType("Person"))
-							.withRequiredCharacterisation(create.getParameter("age"), VariableCharacterisationType.VALUE))
+							.withRequiredCharacterisation(create.fetchOfParameter("age"), VariableCharacterisationType.VALUE))
 			
 			// BASIC COMPONENTS
 			.addToRepository(create.newBasicComponent()
@@ -57,11 +58,11 @@ public class Main {
 								.withEventType()
 									.withName("type")
 									.withParameter("foo", Primitive.BOOLEAN, null)
-								.withRequiredCharacterisation(create.getParameter(""), VariableCharacterisationType.STRUCTURE))
+								.withRequiredCharacterisation(create.fetchOfParameter(""), VariableCharacterisationType.STRUCTURE))
 				.withServiceEffectSpecification(create.newSeff().withSeffBehaviour().withStartAction().followedBy().externalCallAction().followedBy().stopAction().createBehaviourNow())
 				.provides(create.fetchOfOperationInterface("IDatabase"), "provDB")
 				.requires(create.newOperationInterface().withName("someInterface"), "reqSomeI")
-				.withPassiveResource("2*3", create.fetchOfFailureType(Failure.SOFTWARE))
+				.withPassiveResource("2*3", create.fetchOfResourceTimeoutFailureType(Failure.SOFTWARE))
 			)
 						
 			.addToRepository(create.newBasicComponent()
@@ -116,12 +117,12 @@ public class Main {
 						.followedBy().loopAction()
 											.withIterationCount(null)
 											.withLoopBody(
-													create.newBehaviour().withStartAction()
+													create.newSeffBehaviour().withStartAction()
 																				.withInfrastructureCall(null, null, null)
 																	.followedBy().internalAction().withInfrastructureCall(null, null, null)
 																	.followedBy().stopAction().createBehaviourNow())
 					    .followedBy().collectionIteratorAction()
-					    					.withParameter(create.getParameter(""))
+					    					.withParameter(create.fetchOfParameter(""))
 					    					.withLoopBody(null)
 					    .followedBy().branchAction()
 					    					.withGuardedBranch(null, null)
@@ -134,11 +135,11 @@ public class Main {
 						.followedBy().stopAction().createBehaviourNow();
 		
 		
-		saveRepository(repo);	
+		saveRepository(repo, "myrepo.repository", true);	
 	}
 	
-	public static void saveRepository(Repository repo) {
-		String outputFile = "/Users/louisalambrecht/Documents/eclipse-workspace/FluentAPICreation/myrepo.repository";
+	public static void saveRepository(Repository repo, String name, boolean print) {
+		String outputFile = "/Users/louisalambrecht/Documents/eclipse-workspace/FluentAPICreation/" + name;
 		String[] fileExtensions = new String[] { "repository", "xml" };
 
 		// Create File
@@ -162,11 +163,112 @@ public class Main {
 		try {
 			resource.save(saveOptions);
 			// print
-			((XMLResource) resource).save(System.out, ((XMLResource) resource).getDefaultSaveOptions());
+			if(print)
+				((XMLResource) resource).save(System.out, ((XMLResource) resource).getDefaultSaveOptions());
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
 
+	}
+	
+	public static void mediaStoreExample() {
+		MyRepositoryFactory create = new MyRepositoryFactory();
+
+		//TODO: seffs + failureType + Namen der Provided Roles
+		Repository mediaStore = create.newRepository()
+			.withName("defaultRepository")
+			.withDescription("This is my PCM model.")
+			.withId("abc123")
+			.addToRepository(create.newCompositeDataType("FileContent"))
+			.addToRepository(create.newCompositeDataType("AudioCollectionRequest")
+										.withInnerDeclaration("Count", Primitive.INTEGER)
+										.withInnerDeclaration("Size", Primitive.INTEGER))
+			.addToRepository(create.newOperationInterface()
+								.withName("IFileStorage")
+								.withOperationSignature()
+									.withName("getFiles")
+									.withParameter("audioRequest", create.fetchOfDataType("AudioCollectionRequest"), ParameterModifier.NONE)
+									.withReturnType(create.fetchOfDataType("FileContent"))
+								.withOperationSignature()
+									.withName("storeFile")
+									.withParameter("file", create.fetchOfDataType("FileContent"), null)
+									.withReturnType(null))
+			.addToRepository(create.newOperationInterface()
+								.withName("IDownload")
+								.withOperationSignature()
+									.withName("download")
+									.withParameter(create.fetchOfParameter("audioRequest"))
+									.withReturnType(create.fetchOfDataType("AudioCollectionRequest")))
+			.addToRepository(create.newOperationInterface()
+								.withName("IMediaAccess")
+								.withOperationSignature()
+									.withName("upload")
+									.withParameter(create.fetchOfParameter("file"))
+									.withReturnType(null)
+								.withOperationSignature()
+									.withName("getFileList")
+									.withReturnType(null))
+			.addToRepository(create.newOperationInterface()
+								.withName("IPackaging")
+								.withOperationSignature()
+									.withName("zip")
+									.withParameter("audios", create.fetchOfDataType("AudioCollectionRequest"), null)
+									.withReturnType(create.fetchOfDataType("FileContent")))
+			.addToRepository(create.newOperationInterface()
+								.withName("IMediaManagement")
+								.withOperationSignature()
+									.withName("upload")
+									.withParameter(create.fetchOfParameter("file"))
+									.withReturnType(null)
+								.withOperationSignature()
+									.withName("download")
+									.withParameter(create.fetchOfParameter("audioRequest"))
+									.withReturnType(create.fetchOfDataType("FileContent"))	
+								.withOperationSignature()
+									.withName("getFileList")
+									.withReturnType(null))
+			.addToRepository(create.newBasicComponent()
+								.withName("EnqueueDownloadCache")
+								.provides(create.fetchOfOperationInterface("IDownload"))
+								.requires(create.fetchOfOperationInterface("IDownload"))
+								.withServiceEffectSpecification(create.newSeff()))
+			.addToRepository(create.newBasicComponent()
+								.withName("InstantDownloadCache")
+								.provides(create.fetchOfOperationInterface("IDownload"))
+								.requires(create.fetchOfOperationInterface("IDownload"))
+								.withServiceEffectSpecification(create.newSeff()))
+			.addToRepository(create.newBasicComponent()
+								.withName("FileStorage")
+								.provides(create.fetchOfOperationInterface("IFileStorage"), "IDataStorage")
+								.withServiceEffectSpecification(create.newSeff())
+								.withServiceEffectSpecification(create.newSeff()))
+			.addToRepository(create.newBasicComponent()
+								.withName("MediaManagement")
+								.provides(create.fetchOfOperationInterface("IMediaManagement"))
+								.requires(create.fetchOfOperationInterface("IDownload"))
+								.requires(create.fetchOfOperationInterface("IPackaging"))
+								.requires(create.fetchOfOperationInterface("IMediaAccess"))
+								.withServiceEffectSpecification(create.newSeff())
+								.withServiceEffectSpecification(create.newSeff())
+								.withServiceEffectSpecification(create.newSeff()))
+			.addToRepository(create.newBasicComponent()
+								.withName("Packaging")
+								.provides(create.fetchOfOperationInterface("IPackaging"))
+								.withServiceEffectSpecification(create.newSeff()))
+			.addToRepository(create.newBasicComponent()
+								.withName("MediaAccess")
+								.provides(create.fetchOfOperationInterface("IMediaAccess"))
+								.provides(create.fetchOfOperationInterface("IDownload"))
+								.requires(create.fetchOfOperationInterface("IFileStorage"), "IDataStorage")
+								.withServiceEffectSpecification(create.newSeff())
+								.withServiceEffectSpecification(create.newSeff())
+								.withServiceEffectSpecification(create.newSeff()))
+			.build();
+			
+			
+		
+		saveRepository(mediaStore, "myMediaStore.repository", false);
+			
 	}
 
 }

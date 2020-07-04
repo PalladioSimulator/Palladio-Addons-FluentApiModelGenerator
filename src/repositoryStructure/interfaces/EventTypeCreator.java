@@ -1,4 +1,4 @@
-package repositoryStructure.interfaces.stuff;
+package repositoryStructure.interfaces;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +15,6 @@ import org.palladiosimulator.pcm.repository.RepositoryFactory;
 import repositoryStructure.Entity;
 import repositoryStructure.datatypes.Primitive;
 import repositoryStructure.datatypes.PrimitiveType;
-import repositoryStructure.interfaces.EventGroupCreator;
 
 public class EventTypeCreator extends Entity{
 

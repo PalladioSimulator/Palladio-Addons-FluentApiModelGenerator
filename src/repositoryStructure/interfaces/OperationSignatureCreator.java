@@ -1,4 +1,4 @@
-package repositoryStructure.interfaces.stuff;
+package repositoryStructure.interfaces;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +15,6 @@ import org.palladiosimulator.pcm.repository.RepositoryFactory;
 import repositoryStructure.Entity;
 import repositoryStructure.datatypes.Primitive;
 import repositoryStructure.datatypes.PrimitiveType;
-import repositoryStructure.interfaces.OperationInterfaceCreator;
 
 
 public class OperationSignatureCreator extends Entity{
@@ -57,6 +56,12 @@ public class OperationSignatureCreator extends Entity{
 			param.setModifier__Parameter(modifier);
 		
 		ownedParameters.add(param);
+		return this;
+	}
+	
+	public OperationSignatureCreator withParameter(Parameter parameter) {
+		if(parameter != null)
+			this.ownedParameters.add(parameter);
 		return this;
 	}
 	
