@@ -90,11 +90,12 @@ public class Main {
 	
 			.build();
 		
-		
+//		create.newResourceDemandingInternalBehaviour().withSeffBehaviour().withStartAction().
 		//SEFF example
 		create.newSeff().onSignature(null).withSeffTypeID(null)
+				.withInternalBehaviour(create.newResourceDemandingInternalBehaviour().withSeffBehaviour().withStartAction().withName("Start").followedBy().stopAction().createBehaviourNow())
 				.withSeffBehaviour().withStartAction()
-						.followedBy().internalCallAction()
+						.followedBy().internalAction()
 											.withResourceDemand(null, null)
 											.withInternalFailureOccurrenceDescription(null, null)
 											.withInfrastructureCall(null, null, null)
@@ -118,17 +119,17 @@ public class Main {
 											.withPassiveResource(null)
 						.followedBy().loopAction()
 											.withIterationCount(null)
-											.withLoopBody(
-													create.newSeffBehaviour().withStartAction()
-																				.withInfrastructureCall(null, null, null)
-																	.followedBy().internalCallAction().withInfrastructureCall(null, null, null)
-																	.followedBy().stopAction().createBehaviourNow())
+											.withLoopBody(null)
+//													create.newSeffBehaviour().withStartAction()
+//																				.withInfrastructureCall(null, null, null)
+//																	.followedBy().internalAction().withInfrastructureCall(null, null, null)
+//																	.followedBy().stopAction().createBehaviourNow())
 					    .followedBy().collectionIteratorAction()
 					    					.withParameter(create.fetchOfParameter("foo"))
 					    					.withLoopBody(null)
 					    .followedBy().branchAction()
-					    					.withGuardedBranch(null, null)
-					    					.withProbabilisticBranch(null, null)
+//					    					.withGuardedBranchTransition(null, null)
+//					    					.withProbabilisticBranchTransition(null, null)
 					    .followedBy().forkAction()
 					    					.withAsynchronousForkedBehaviour(null)
 					    					.withOutputParameterUsageAtSynchronisationPoint(null)

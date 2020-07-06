@@ -63,7 +63,7 @@ public class EventGroupCreator extends Interface {
 		return eventGroup;
 	}
 
-	public void addEventType(EventType eventType) {
+	protected void addEventType(EventType eventType) {
 		this.eventTypes.add(eventType);
 	}
 

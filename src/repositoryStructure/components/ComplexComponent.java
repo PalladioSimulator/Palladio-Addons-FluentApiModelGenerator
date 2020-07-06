@@ -232,7 +232,7 @@ public abstract class ComplexComponent extends Component {
 
 	}
 
-	public void addEventChannel(EventChannel eventChannel) {
+	protected void addEventChannel(EventChannel eventChannel) {
 		this.eventChannels.add(eventChannel);
 	}
 	

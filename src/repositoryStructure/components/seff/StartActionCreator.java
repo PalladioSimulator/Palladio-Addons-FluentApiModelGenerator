@@ -9,7 +9,11 @@ import org.palladiosimulator.pcm.resourcetype.ResourceSignature;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 import org.palladiosimulator.pcm.seff.StartAction;
 
-public class StartActionCreator extends GeneralAction {
+import apiControlFlowInterfaces.Internal.StartActionInternal;
+import apiControlFlowInterfaces.Seff.FollowSeff;
+import apiControlFlowInterfaces.Seff.StartActionSeff;
+
+public class StartActionCreator extends GeneralAction implements StartActionSeff, StartActionInternal, FollowSeff {
 
 	public StartActionCreator(SeffCreator seff) {
 		this.seff = seff;
@@ -42,7 +46,7 @@ public class StartActionCreator extends GeneralAction {
 	}
 
 	@Override
-	protected StartAction build() {
+	public StartAction build() {
 		StartAction action = SeffFactory.eINSTANCE.createStartAction();
 		action.getInfrastructureCall__Action().addAll(infrastructureCalls);
 		action.getResourceCall__Action().addAll(resourceCalls);

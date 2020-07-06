@@ -2,7 +2,7 @@ Fragen:
 
 - abstractNamedReference (in VarUsage)
 - SetVariableAction: hat diese Seff-Action Voraussetzungen?
-- CallReturnAction, InternalAction sind im Code (SeffFactory) vorhanden, aber nicht in der GUI -> weglassen oder nicht?
+- CallReturnAction ist im Code (SeffFactory) vorhanden, aber nicht in der GUI -> weglassen oder nicht?
 
 
 - einige Funktionen/Eigenschaften stehen mehrfach, andere einfach zur Verfügung; aber einmal aufgerufen kann man sie trotzdem neu aufrufen und damit neu setzen. sollte das verhindert werden?
@@ -12,9 +12,13 @@ Fragen:
 
 ToDo:
 - varUsage über Methoden oder Factory? -> Seffs
-- CallReturnAction, InternalCallAction
-
+- CallReturnAction
+- Resource demanding behaviour vs seff
+- name von seff
 - TODOs im Code
+
+
+SEFF, RESOURCE_DEMANDING_BEHAVIOUR, INTERNAL_BEHAVIOUR, FORKED_BEHAVIOUR, RECOVERY_ACTION_BEHAVIOUR
 
 - dataTypes einlesen 					-> email warten		wie bekommt man dieses href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.1"/>
 - imports 								-> email warten
@@ -23,7 +27,7 @@ ToDo:
 - ExceptionTypes 						-> später
 
 - Sichtbarkeit
-- Reihenfolge mit Interfaces regeln (varUsage von CompositeComponent -> evtl so auch das eventZeug (oder so - iwo gabs das gleiche Problem))
+- Reihenfolge mit Interfaces regeln: required characterisation geht nicht vor signature
 - JavaDoc
 
 Nutzer: anonymous; PW: anonymous;

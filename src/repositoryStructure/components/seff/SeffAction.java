@@ -5,7 +5,7 @@ import org.palladiosimulator.pcm.seff.AbstractAction;
 import apiControlFlowInterfaces.Follow;
 import repositoryStructure.Entity;
 
-public abstract class SeffAction extends Entity implements Follow{
+public abstract class SeffAction extends Entity {
 	
 	protected SeffCreator seff;
 	

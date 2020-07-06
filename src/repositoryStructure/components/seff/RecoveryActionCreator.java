@@ -13,7 +13,10 @@ import org.palladiosimulator.pcm.seff.seff_reliability.RecoveryAction;
 import org.palladiosimulator.pcm.seff.seff_reliability.RecoveryActionBehaviour;
 import org.palladiosimulator.pcm.seff.seff_reliability.SeffReliabilityFactory;
 
-public class RecoveryActionCreator extends GeneralAction {
+import apiControlFlowInterfaces.Seff.FollowSeff;
+import apiControlFlowInterfaces.Seff.RecoverySeff;
+
+public class RecoveryActionCreator extends GeneralAction implements RecoverySeff, FollowSeff {
 
 	private RecoveryActionBehaviour primary;
 	private List<RecoveryActionBehaviour> otherBehaviours;
@@ -61,7 +64,7 @@ public class RecoveryActionCreator extends GeneralAction {
 	}
 
 	@Override
-	protected RecoveryAction build() {
+	public RecoveryAction build() {
 		RecoveryAction action = SeffReliabilityFactory.eINSTANCE.createRecoveryAction();
 		if (primary != null)
 			action.setPrimaryBehaviour__RecoveryAction(primary);

@@ -339,7 +339,7 @@ public class CompositeComponentCreator extends ComplexComponent {
 		return compositeComponent;
 	}
 
-	public void addVariableUsage(VariableUsage varUsage) {
+	protected void addVariableUsage(VariableUsage varUsage) {
 		this.componentParameterUsages.add(varUsage);
 	}
 }

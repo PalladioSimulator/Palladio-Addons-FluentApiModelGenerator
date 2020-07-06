@@ -19,7 +19,7 @@ import repositoryStructure.components.seff.StopActionCreator;
 
 public interface Action {
 
-	public InternalActionCreator internalCallAction();
+	public InternalActionCreator internalAction();
 
 	public ExternalCallActionCreator externalCallAction();
 

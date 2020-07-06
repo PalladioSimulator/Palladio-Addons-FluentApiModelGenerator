@@ -5,16 +5,22 @@ import java.util.List;
 
 import org.palladiosimulator.pcm.repository.Signature;
 import org.palladiosimulator.pcm.seff.AbstractAction;
+import org.palladiosimulator.pcm.seff.CallReturnAction;
+import org.palladiosimulator.pcm.seff.ForkedBehaviour;
+import org.palladiosimulator.pcm.seff.ResourceDemandingBehaviour;
+import org.palladiosimulator.pcm.seff.ResourceDemandingInternalBehaviour;
 import org.palladiosimulator.pcm.seff.ResourceDemandingSEFF;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 import org.palladiosimulator.pcm.seff.ServiceEffectSpecification;
 
-import apiControlFlowInterfaces.Action;
-import apiControlFlowInterfaces.Action.Start;
+import apiControlFlowInterfaces.Internal.StartInternal;
+import apiControlFlowInterfaces.Seff;
+import apiControlFlowInterfaces.Seff.ActionSeff;
+import apiControlFlowInterfaces.Seff.StartSeff;
+import apiControlFlowInterfaces.Internal;
 import repositoryStructure.Entity;
-import apiControlFlowInterfaces.Action.Seff;
 
-public class SeffCreator extends Entity implements Start, Action, Seff {
+public class SeffCreator extends Entity implements Seff, ActionSeff, StartSeff, Internal, StartInternal {
 
 	private AbstractAction current;
 	private Signature signature;
@@ -24,14 +30,14 @@ public class SeffCreator extends Entity implements Start, Action, Seff {
 	public SeffCreator() {
 		this.steps = new ArrayList<>();
 	}
-
+	
 	@Override
 	public StartActionCreator withStartAction() {
 		return new StartActionCreator(this);
 	}
 
 	@Override
-	public InternalActionCreator internalCallAction() {
+	public InternalActionCreator internalAction() {
 		InternalActionCreator icc = new InternalActionCreator(this);
 		return icc;
 	}
@@ -93,14 +99,22 @@ public class SeffCreator extends Entity implements Start, Action, Seff {
 		return new StopActionCreator(this);
 	}
 	
-	public StopActionCreator callReturnAction() {
-		//TODO: frage
-		return null;
+//	public CallReturnActionCreator callReturnAction() {
+//		return new CallReturnActionCreator(this);
+//	}
+	
+	public InternalCallActionCreator internalCallAction() {
+		return new InternalCallActionCreator(this);
 	}
 	
-	public StopActionCreator internalAction() {
-		//TODO: frage
-		return null;
+	public SeffCreator withInternalBehaviour(Internal internalBehaviour) {
+		return this;
+	}
+	
+	@Override
+	public SeffCreator withName(String name) {
+		this.name = name;
+		return this;
 	}
 	
 	@Override
@@ -116,7 +130,7 @@ public class SeffCreator extends Entity implements Start, Action, Seff {
 	}
 
 	@Override
-	public Start withSeffBehaviour() {
+	public SeffCreator withSeffBehaviour() {
 		return this;
 	}
 
@@ -137,9 +151,26 @@ public class SeffCreator extends Entity implements Start, Action, Seff {
 		return seff;
 
 	}
+	
+	protected ResourceDemandingBehaviour buildBehaviour() {
+		ResourceDemandingBehaviour behaviour = SeffFactory.eINSTANCE.createResourceDemandingBehaviour();
+		behaviour.getSteps_Behaviour().addAll(steps);
+		return behaviour;
+	}
 
+	public ResourceDemandingInternalBehaviour buildInternalBehaviour() {
+		ResourceDemandingInternalBehaviour internal = SeffFactory.eINSTANCE.createResourceDemandingInternalBehaviour();
+		internal.getSteps_Behaviour().addAll(steps);
+		return internal;
+	}
+
+	protected ForkedBehaviour buildForkedBehaviour() {
+		ForkedBehaviour fork = SeffFactory.eINSTANCE.createForkedBehaviour();
+		fork.getSteps_Behaviour().addAll(steps);
+		return fork;
+	}
+	
 	protected void setNext(AbstractAction action) {
-
 		if (current != null) {
 			current.setSuccessor_AbstractAction(action);
 			action.setPredecessor_AbstractAction(current);
@@ -152,4 +183,7 @@ public class SeffCreator extends Entity implements Start, Action, Seff {
 		return this.steps;
 	}
 
+	public enum BodyBehaviour {
+		SEFF, RESOURCE_DEMANDING_BEHAVIOUR, INTERNAL_BEHAVIOUR, FORKED_BEHAVIOUR, RECOVERY_ACTION_BEHAVIOUR 
+	}
 }

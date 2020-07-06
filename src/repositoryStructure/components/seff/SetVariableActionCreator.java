@@ -12,7 +12,10 @@ import org.palladiosimulator.pcm.resourcetype.ResourceSignature;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 import org.palladiosimulator.pcm.seff.SetVariableAction;
 
-public class SetVariableActionCreator extends GeneralAction {
+import apiControlFlowInterfaces.Seff.FollowSeff;
+import apiControlFlowInterfaces.Seff.SetVariableSeff;
+
+public class SetVariableActionCreator extends GeneralAction implements SetVariableSeff, FollowSeff {
 
 	private List<VariableUsage> localVariableUsages;
 
@@ -49,7 +52,7 @@ public class SetVariableActionCreator extends GeneralAction {
 	}
 
 	@Override
-	protected SetVariableAction build() {
+	public SetVariableAction build() {
 		// TODO: iwelche Voraussetzungen? + localVariableUsages
 		SetVariableAction action = SeffFactory.eINSTANCE.createSetVariableAction();
 		action.getLocalVariableUsages_SetVariableAction().addAll(localVariableUsages);

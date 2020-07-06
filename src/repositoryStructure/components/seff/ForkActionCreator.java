@@ -14,7 +14,10 @@ import org.palladiosimulator.pcm.seff.ForkedBehaviour;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 import org.palladiosimulator.pcm.seff.SynchronisationPoint;
 
-public class ForkActionCreator extends GeneralAction {
+import apiControlFlowInterfaces.Seff.FollowSeff;
+import apiControlFlowInterfaces.Seff.ForkSeff;
+
+public class ForkActionCreator extends GeneralAction implements ForkSeff, FollowSeff {
 
 	private List<ForkedBehaviour> asynchronousForkedBehaviours;
 	private List<ForkedBehaviour> synchronousForkedBehaviours;
@@ -40,8 +43,7 @@ public class ForkActionCreator extends GeneralAction {
 
 	public ForkActionCreator withSynchronousForkedBehaviourAtSynchronisationPoint(SeffCreator forkedBehaviours) {
 		if (forkedBehaviours != null) {
-			ForkedBehaviour forkedBehaviour = SeffFactory.eINSTANCE.createForkedBehaviour();
-			forkedBehaviour.getSteps_Behaviour().addAll(forkedBehaviours.getSteps());
+			ForkedBehaviour forkedBehaviour = forkedBehaviours.buildForkedBehaviour();
 			this.synchronousForkedBehaviours.add(forkedBehaviour);
 		}
 		return this;
@@ -49,8 +51,7 @@ public class ForkActionCreator extends GeneralAction {
 
 	public ForkActionCreator withAsynchronousForkedBehaviour(SeffCreator forkedBehaviours) {
 		if (forkedBehaviours != null) {
-			ForkedBehaviour forkedBehaviour = SeffFactory.eINSTANCE.createForkedBehaviour();
-			forkedBehaviour.getSteps_Behaviour().addAll(forkedBehaviours.getSteps());
+			ForkedBehaviour forkedBehaviour = forkedBehaviours.buildForkedBehaviour();
 			this.asynchronousForkedBehaviours.add(forkedBehaviour);
 		}
 		return this;
@@ -78,7 +79,7 @@ public class ForkActionCreator extends GeneralAction {
 	}
 
 	@Override
-	protected ForkAction build() {
+	public ForkAction build() {
 		ForkAction action = SeffFactory.eINSTANCE.createForkAction();
 		action.getAsynchronousForkedBehaviours_ForkAction().addAll(asynchronousForkedBehaviours);
 

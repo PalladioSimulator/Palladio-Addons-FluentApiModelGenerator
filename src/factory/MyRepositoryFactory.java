@@ -31,8 +31,9 @@ import org.palladiosimulator.pcm.repository.SourceRole;
 import org.palladiosimulator.pcm.resourcetype.ResourceInterface;
 import org.palladiosimulator.pcm.subsystem.SubSystem;
 
-import apiControlFlowInterfaces.Action.Seff;
 import apiControlFlowInterfaces.Action.Start;
+import apiControlFlowInterfaces.Internal;
+import apiControlFlowInterfaces.Seff;
 import repositoryStructure.RepositoryCreator;
 import repositoryStructure.components.BasicComponentCreator;
 import repositoryStructure.components.CompleteComponentTypeCreator;
@@ -138,10 +139,26 @@ public class MyRepositoryFactory {
 		return new SeffCreator();
 	}
 
-	public Start newSeffBehaviour() {
+//	public Start newResourceDemandingSEFF() {
+//		return new SeffCreator();
+//	}
+//	
+//	public Start newResourceDemandingBehaviour() {
+//		return new SeffCreator();
+//	}
+	
+	public Internal newResourceDemandingInternalBehaviour() {
 		return new SeffCreator();
 	}
-
+	
+//	public Start newForkedBehaviour() {
+//		return new SeffCreator();
+//	}
+//	
+//	public Start newRecoveryActionBehaviour() {
+//		return new SeffCreator();
+//	}
+	
 	// ---------------------- Fetching methods ----------------------
 
 	// TODO: exceptionTypes, resourcetypes, resource interfaces etc

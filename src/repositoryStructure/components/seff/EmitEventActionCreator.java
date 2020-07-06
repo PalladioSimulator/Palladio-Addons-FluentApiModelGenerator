@@ -9,7 +9,10 @@ import org.palladiosimulator.pcm.repository.SourceRole;
 import org.palladiosimulator.pcm.seff.EmitEventAction;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 
-public class EmitEventActionCreator extends SeffAction {
+import apiControlFlowInterfaces.Seff.EmitEventSeff;
+import apiControlFlowInterfaces.Seff.FollowSeff;
+
+public class EmitEventActionCreator extends SeffAction implements EmitEventSeff, FollowSeff {
 
 	private EventType eventType;
 	private SourceRole requiredRole;
@@ -43,7 +46,7 @@ public class EmitEventActionCreator extends SeffAction {
 	}
 
 	@Override
-	protected EmitEventAction build() {
+	public EmitEventAction build() {
 		EmitEventAction action = SeffFactory.eINSTANCE.createEmitEventAction();
 		if (eventType != null)
 			action.setEventType__EmitEventAction(eventType);
