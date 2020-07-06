@@ -6,6 +6,7 @@ import org.palladiosimulator.pcm.repository.InfrastructureRequiredRole;
 import org.palladiosimulator.pcm.repository.InfrastructureSignature;
 import org.palladiosimulator.pcm.resourcetype.ProcessingResourceType;
 import org.palladiosimulator.pcm.resourcetype.ResourceSignature;
+import org.palladiosimulator.pcm.seff.AbstractAction;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 import org.palladiosimulator.pcm.seff.StartAction;
 
@@ -13,7 +14,7 @@ import apiControlFlowInterfaces.Internal.StartActionInternal;
 import apiControlFlowInterfaces.Seff.FollowSeff;
 import apiControlFlowInterfaces.Seff.StartActionSeff;
 
-public class StartActionCreator extends GeneralAction implements StartActionSeff, StartActionInternal, FollowSeff {
+public class StartActionCreator extends GeneralAction implements StartActionSeff, StartActionInternal {
 
 	public StartActionCreator(SeffCreator seff) {
 		this.seff = seff;
@@ -45,6 +46,13 @@ public class StartActionCreator extends GeneralAction implements StartActionSeff
 				variableUsages);
 	}
 
+	public SeffCreator followedBy() {
+		AbstractAction action = this.build();
+		
+		seff.setNext(action);
+		return seff;
+	}
+	
 	@Override
 	public StartAction build() {
 		StartAction action = SeffFactory.eINSTANCE.createStartAction();

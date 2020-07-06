@@ -29,7 +29,7 @@ public interface Seff {
 	public Seff withInternalBehaviour(Internal internalBehaviour);
 
 	public StartSeff withSeffBehaviour();
-
+	
 	ServiceEffectSpecification build();
 
 	public interface ActionSeff {
@@ -343,5 +343,4 @@ public interface Seff {
 				ResourceRequiredRole requiredRole, VariableUsage... variableUsages);
 
 	}
-
 }

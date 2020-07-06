@@ -31,7 +31,6 @@ import org.palladiosimulator.pcm.repository.SourceRole;
 import org.palladiosimulator.pcm.resourcetype.ResourceInterface;
 import org.palladiosimulator.pcm.subsystem.SubSystem;
 
-import apiControlFlowInterfaces.Action.Start;
 import apiControlFlowInterfaces.Internal;
 import apiControlFlowInterfaces.Seff;
 import repositoryStructure.RepositoryCreator;
