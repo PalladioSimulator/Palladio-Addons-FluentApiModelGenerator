@@ -14,7 +14,7 @@ public interface VariableUsageCreation {
 
 		public Basic withNamedReference(String reference);
 
-		public BasicComponentCreator todo1();
+		public BasicComponentCreator now1();
 	}
 
 	public interface Composite extends VariableUsageCreation {
@@ -24,7 +24,7 @@ public interface VariableUsageCreation {
 
 		public Composite withNamedReference(String reference);
 
-		public CompositeComponentCreator todo2();
+		public CompositeComponentCreator now2();
 
 	}
 

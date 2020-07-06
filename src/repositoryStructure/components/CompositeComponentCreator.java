@@ -47,10 +47,10 @@ public class CompositeComponentCreator extends ComplexComponent {
 		return (CompositeComponentCreator) super.withName(name);
 	}
 
-	@Override
-	public CompositeComponentCreator withId(String id) {
-		return (CompositeComponentCreator) super.withId(id);
-	}
+//	@Override
+//	public CompositeComponentCreator withId(String id) {
+//		return (CompositeComponentCreator) super.withId(id);
+//	}
 
 	// business vs infrstructure component
 	public CompositeComponentCreator ofType(ComponentType type) {
@@ -318,8 +318,8 @@ public class CompositeComponentCreator extends ComplexComponent {
 		CompositeComponent compositeComponent = RepositoryFactory.eINSTANCE.createCompositeComponent();
 		if (name != null)
 			compositeComponent.setEntityName(name);
-		if (id != null)
-			compositeComponent.setId(id);
+//		if (id != null)
+//			compositeComponent.setId(id);
 		if (type != null)
 			compositeComponent.setComponentType(type);
 

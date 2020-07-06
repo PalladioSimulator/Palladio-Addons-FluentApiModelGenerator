@@ -16,12 +16,8 @@ import org.palladiosimulator.pcm.seff.LoopAction;
 import org.palladiosimulator.pcm.seff.ResourceDemandingBehaviour;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 
-import apiControlFlowInterfaces.Action;
-import apiControlFlowInterfaces.Follow;
+public class LoopActionCreator extends GeneralAction {
 
-public class LoopActionCreator extends GeneralAction implements Follow {
-
-	private SeffCreator seff;
 	private PCMRandomVariable iterationCount;
 	private List<AbstractAction> steps;
 
@@ -30,22 +26,11 @@ public class LoopActionCreator extends GeneralAction implements Follow {
 		this.steps = new ArrayList<>();
 	}
 
-	public Action followedBy() {
-		LoopAction action = SeffFactory.eINSTANCE.createLoopAction();
-		action.setIterationCount_LoopAction(iterationCount);
-
-		ResourceDemandingBehaviour loop = SeffFactory.eINSTANCE.createResourceDemandingBehaviour();
-		loop.getSteps_Behaviour().addAll(this.steps);
-		action.setBodyBehaviour_Loop(loop);
-
-		action.getInfrastructureCall__Action().addAll(infrastructureCalls);
-		action.getResourceCall__Action().addAll(resourceCalls);
-		action.getResourceDemand_Action().addAll(demands);
-
-		seff.setNext(action);
-		return seff;
+	@Override
+	public LoopActionCreator withName(String name) {
+		return (LoopActionCreator) super.withName(name);
 	}
-
+	
 	public LoopActionCreator withIterationCount(String iterationCount_stochasticExpression) {
 		PCMRandomVariable rand = CoreFactory.eINSTANCE.createPCMRandomVariable();
 		rand.setSpecification(iterationCount_stochasticExpression);
@@ -78,5 +63,21 @@ public class LoopActionCreator extends GeneralAction implements Follow {
 			ResourceRequiredRole requiredRole, VariableUsage... variableUsages) {
 		return (LoopActionCreator) super.withResourceCall(numberOfCalls_stochasticExpression, signature, requiredRole,
 				variableUsages);
+	}
+
+	@Override
+	protected LoopAction build() {
+		LoopAction action = SeffFactory.eINSTANCE.createLoopAction();
+		action.setIterationCount_LoopAction(iterationCount);
+
+		ResourceDemandingBehaviour loop = SeffFactory.eINSTANCE.createResourceDemandingBehaviour();
+		loop.getSteps_Behaviour().addAll(this.steps);
+		action.setBodyBehaviour_Loop(loop);
+
+		action.getInfrastructureCall__Action().addAll(infrastructureCalls);
+		action.getResourceCall__Action().addAll(resourceCalls);
+		action.getResourceDemand_Action().addAll(demands);
+
+		return action;
 	}
 }

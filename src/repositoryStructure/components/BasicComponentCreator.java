@@ -47,10 +47,10 @@ public class BasicComponentCreator extends Component {
 		return (BasicComponentCreator) super.withName(name);
 	}
 
-	@Override
-	public BasicComponentCreator withId(String id) {
-		return (BasicComponentCreator) super.withId(id);
-	}
+//	@Override
+//	public BasicComponentCreator withId(String id) {
+//		return (BasicComponentCreator) super.withId(id);
+//	}
 
 	// business vs infrstructure component
 	public BasicComponentCreator ofType(ComponentType type) {
@@ -232,8 +232,8 @@ public class BasicComponentCreator extends Component {
 		BasicComponent basicComponent = RepositoryFactory.eINSTANCE.createBasicComponent();
 		if (name != null)
 			basicComponent.setEntityName(name);
-		if (id != null)
-			basicComponent.setId(id);
+//		if (id != null)
+//			basicComponent.setId(id);
 		if (type != null)
 			basicComponent.setComponentType(type);
 
@@ -250,7 +250,7 @@ public class BasicComponentCreator extends Component {
 		return basicComponent;
 	}
 
-	public void addVariableUsage(VariableUsage varUsage) {
+	protected void addVariableUsage(VariableUsage varUsage) {
 		this.componentParameterUsages.add(varUsage);
 	}
 

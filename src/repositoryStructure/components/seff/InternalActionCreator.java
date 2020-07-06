@@ -15,34 +15,24 @@ import org.palladiosimulator.pcm.resourcetype.ResourceSignature;
 import org.palladiosimulator.pcm.seff.InternalAction;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 
-import apiControlFlowInterfaces.Follow;
-
-public class InternalCallCreator extends GeneralAction implements Follow {
-
-	private SeffCreator seff;
+public class InternalActionCreator extends GeneralAction {
 
 	private List<InternalFailureOccurrenceDescription> failures;
 
-	public InternalCallCreator(SeffCreator seff) {
+	public InternalActionCreator(SeffCreator seff) {
 		this.seff = seff;
 		this.demands = new ArrayList<>();
 		this.failures = new ArrayList<>();
 		this.infrastructureCalls = new ArrayList<>();
 		this.resourceCalls = new ArrayList<>();
 	}
-
-	public SeffCreator followedBy() {
-		InternalAction action = SeffFactory.eINSTANCE.createInternalAction();
-		action.getInternalFailureOccurrenceDescriptions__InternalAction().addAll(failures);
-		
-		action.getResourceDemand_Action().addAll(demands);
-		action.getInfrastructureCall__Action().addAll(infrastructureCalls);
-		action.getResourceCall__Action().addAll(resourceCalls);
-		seff.setNext(action);
-		return seff;
+	
+	@Override
+	public InternalActionCreator withName(String name) {
+		return (InternalActionCreator) super.withName(name);
 	}
 
-	public InternalCallCreator withInternalFailureOccurrenceDescription(Double failureProbability,
+	public InternalActionCreator withInternalFailureOccurrenceDescription(Double failureProbability,
 			SoftwareInducedFailureType failureType) {
 		InternalFailureOccurrenceDescription failure = ReliabilityFactory.eINSTANCE
 				.createInternalFailureOccurrenceDescription();
@@ -55,24 +45,36 @@ public class InternalCallCreator extends GeneralAction implements Follow {
 	}
 
 	@Override
-	public InternalCallCreator withResourceDemand(String specification_stochasticExpression,
+	public InternalActionCreator withResourceDemand(String specification_stochasticExpression,
 			ProcessingResourceType processingResource) {
-		return (InternalCallCreator) super.withResourceDemand(specification_stochasticExpression, processingResource);
+		return (InternalActionCreator) super.withResourceDemand(specification_stochasticExpression, processingResource);
 	}
 
 	@Override
-	public InternalCallCreator withInfrastructureCall(String numberOfCalls_stochasticExpression,
+	public InternalActionCreator withInfrastructureCall(String numberOfCalls_stochasticExpression,
 			InfrastructureSignature signature, InfrastructureRequiredRole requiredRole,
 			VariableUsage... variableUsages) {
-		return (InternalCallCreator) super.withInfrastructureCall(numberOfCalls_stochasticExpression, signature,
+		return (InternalActionCreator) super.withInfrastructureCall(numberOfCalls_stochasticExpression, signature,
 				requiredRole, variableUsages);
 	}
 
 	@Override
-	public InternalCallCreator withResourceCall(String numberOfCalls_stochasticExpression, ResourceSignature signature,
+	public InternalActionCreator withResourceCall(String numberOfCalls_stochasticExpression, ResourceSignature signature,
 			ResourceRequiredRole requiredRole, VariableUsage... variableUsages) {
-		return (InternalCallCreator) super.withResourceCall(numberOfCalls_stochasticExpression, signature, requiredRole,
+		return (InternalActionCreator) super.withResourceCall(numberOfCalls_stochasticExpression, signature, requiredRole,
 				variableUsages);
+	}
+
+	@Override
+	protected InternalAction build() {
+		InternalAction action = SeffFactory.eINSTANCE.createInternalAction();
+		action.getInternalFailureOccurrenceDescriptions__InternalAction().addAll(failures);
+
+		action.getResourceDemand_Action().addAll(demands);
+		action.getInfrastructureCall__Action().addAll(infrastructureCalls);
+		action.getResourceCall__Action().addAll(resourceCalls);
+
+		return action;
 	}
 
 }

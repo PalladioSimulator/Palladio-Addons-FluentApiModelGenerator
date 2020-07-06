@@ -10,11 +10,8 @@ import org.palladiosimulator.pcm.resourcetype.ResourceSignature;
 import org.palladiosimulator.pcm.seff.AcquireAction;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 
-import apiControlFlowInterfaces.Follow;
+public class AcquireActionCreator extends GeneralAction {
 
-public class AcquireActionCreator extends GeneralAction implements Follow {
-
-	private SeffCreator seff;
 	private PassiveResource passiveResource;
 	private Double timeoutValue;
 	private Boolean isTimeout;
@@ -23,21 +20,9 @@ public class AcquireActionCreator extends GeneralAction implements Follow {
 		this.seff = seff;
 	}
 
-	public SeffCreator followedBy() {
-		AcquireAction action = SeffFactory.eINSTANCE.createAcquireAction();
-		if (passiveResource != null)
-			action.setPassiveresource_AcquireAction(passiveResource);
-		if (timeoutValue != null)
-			action.setTimeoutValue(timeoutValue);
-		if (isTimeout != null)
-			action.setTimeout(isTimeout);
-
-		action.getInfrastructureCall__Action().addAll(infrastructureCalls);
-		action.getResourceCall__Action().addAll(resourceCalls);
-		action.getResourceDemand_Action().addAll(demands);
-
-		seff.setNext(action);
-		return seff;
+	@Override
+	public AcquireActionCreator withName(String name) {
+		return (AcquireActionCreator) super.withName(name);
 	}
 
 	public AcquireActionCreator withPassiveResource(PassiveResource passiveResource) {
@@ -75,4 +60,22 @@ public class AcquireActionCreator extends GeneralAction implements Follow {
 		return (AcquireActionCreator) super.withResourceCall(numberOfCalls_stochasticExpression, signature,
 				requiredRole, variableUsages);
 	}
+
+	@Override
+	protected AcquireAction build() {
+		AcquireAction action = SeffFactory.eINSTANCE.createAcquireAction();
+		if (passiveResource != null)
+			action.setPassiveresource_AcquireAction(passiveResource);
+		if (timeoutValue != null)
+			action.setTimeoutValue(timeoutValue);
+		if (isTimeout != null)
+			action.setTimeout(isTimeout);
+
+		action.getInfrastructureCall__Action().addAll(infrastructureCalls);
+		action.getResourceCall__Action().addAll(resourceCalls);
+		action.getResourceDemand_Action().addAll(demands);
+
+		return action;
+	}
+
 }

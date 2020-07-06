@@ -25,10 +25,10 @@ public class EventGroupCreator extends Interface {
 		return (EventGroupCreator) super.withName(name);
 	}
 
-	@Override
-	public EventGroupCreator withId(String id) {
-		return (EventGroupCreator) super.withId(id);
-	}
+//	@Override
+//	public EventGroupCreator withId(String id) {
+//		return (EventGroupCreator) super.withId(id);
+//	}
 
 	// parent Interfaces
 	@Override
@@ -52,11 +52,10 @@ public class EventGroupCreator extends Interface {
 
 		if (name != null)
 			eventGroup.setEntityName(name);
-		if (id != null)
-			eventGroup.setId(id);
+//		if (id != null)
+//			eventGroup.setId(id);
 
 		eventGroup.getParentInterfaces__Interface().addAll(parentInterfaces);
-		eventGroup.getProtocols__Interface().addAll(protocols);
 		eventGroup.getRequiredCharacterisations().addAll(requiredCharacterisations);
 
 		eventGroup.getEventTypes__EventGroup().addAll(eventTypes);

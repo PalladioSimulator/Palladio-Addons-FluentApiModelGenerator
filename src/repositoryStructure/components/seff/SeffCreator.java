@@ -31,14 +31,14 @@ public class SeffCreator extends Entity implements Start, Action, Seff {
 	}
 
 	@Override
-	public InternalCallCreator internalAction() {
-		InternalCallCreator icc = new InternalCallCreator(this);
+	public InternalActionCreator internalCallAction() {
+		InternalActionCreator icc = new InternalActionCreator(this);
 		return icc;
 	}
 
 	@Override
-	public ExternalCallCreator externalCallAction() {
-		ExternalCallCreator ecc = new ExternalCallCreator(this);
+	public ExternalCallActionCreator externalCallAction() {
+		ExternalCallActionCreator ecc = new ExternalCallActionCreator(this);
 		return ecc;
 	}
 
@@ -92,7 +92,17 @@ public class SeffCreator extends Entity implements Start, Action, Seff {
 	public StopActionCreator stopAction() {
 		return new StopActionCreator(this);
 	}
-
+	
+	public StopActionCreator callReturnAction() {
+		//TODO: frage
+		return null;
+	}
+	
+	public StopActionCreator internalAction() {
+		//TODO: frage
+		return null;
+	}
+	
 	@Override
 	public SeffCreator onSignature(Signature signature) {
 		this.signature = signature;
@@ -113,7 +123,8 @@ public class SeffCreator extends Entity implements Start, Action, Seff {
 	@Override
 	public ServiceEffectSpecification build() {
 		// -> ResourceDemandingSEFF (rdsf) = seff
-		ResourceDemandingSEFF seff = SeffFactory.eINSTANCE.createResourceDemandingSEFF();
+		SeffFactory fact = SeffFactory.eINSTANCE;
+		ResourceDemandingSEFF seff = fact.createResourceDemandingSEFF();
 
 		// TODO: methoden für signature erstellen
 		if (this.signature != null)

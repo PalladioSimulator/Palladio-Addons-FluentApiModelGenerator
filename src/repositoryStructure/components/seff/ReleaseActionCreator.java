@@ -10,30 +10,19 @@ import org.palladiosimulator.pcm.resourcetype.ResourceSignature;
 import org.palladiosimulator.pcm.seff.ReleaseAction;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 
-import apiControlFlowInterfaces.Follow;
+public class ReleaseActionCreator extends GeneralAction {
 
-public class ReleaseActionCreator extends GeneralAction implements Follow {
-
-	private SeffCreator seff;
 	private PassiveResource passiveResource;
 
 	public ReleaseActionCreator(SeffCreator seff) {
 		this.seff = seff;
 	}
 
-	public SeffCreator followedBy() {
-		ReleaseAction action = SeffFactory.eINSTANCE.createReleaseAction();
-		if (passiveResource != null)
-			action.setPassiveResource_ReleaseAction(passiveResource);
-
-		action.getInfrastructureCall__Action().addAll(infrastructureCalls);
-		action.getResourceCall__Action().addAll(resourceCalls);
-		action.getResourceDemand_Action().addAll(demands);
-
-		seff.setNext(action);
-		return seff;
+	@Override
+	public ReleaseActionCreator withName(String name) {
+		return (ReleaseActionCreator) super.withName(name);
 	}
-
+	
 	public ReleaseActionCreator withPassiveResource(PassiveResource passiveResource) {
 		this.passiveResource = passiveResource;
 		return this;
@@ -58,6 +47,19 @@ public class ReleaseActionCreator extends GeneralAction implements Follow {
 			ResourceRequiredRole requiredRole, VariableUsage... variableUsages) {
 		return (ReleaseActionCreator) super.withResourceCall(numberOfCalls_stochasticExpression, signature,
 				requiredRole, variableUsages);
+	}
+
+	@Override
+	protected ReleaseAction build() {
+		ReleaseAction action = SeffFactory.eINSTANCE.createReleaseAction();
+		if (passiveResource != null)
+			action.setPassiveResource_ReleaseAction(passiveResource);
+
+		action.getInfrastructureCall__Action().addAll(infrastructureCalls);
+		action.getResourceCall__Action().addAll(resourceCalls);
+		action.getResourceDemand_Action().addAll(demands);
+
+		return action;
 	}
 
 }

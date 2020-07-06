@@ -17,7 +17,7 @@ import org.palladiosimulator.pcm.seff.seff_performance.ParametricResourceDemand;
 import org.palladiosimulator.pcm.seff.seff_performance.ResourceCall;
 import org.palladiosimulator.pcm.seff.seff_performance.SeffPerformanceFactory;
 
-public abstract class GeneralAction {
+public abstract class GeneralAction extends SeffAction{
 
 	protected List<ParametricResourceDemand> demands = new ArrayList<>();
 	protected List<InfrastructureCall> infrastructureCalls = new ArrayList<>();
@@ -85,4 +85,5 @@ public abstract class GeneralAction {
 		this.resourceCalls.add(call);
 		return this;
 	}
+
 }

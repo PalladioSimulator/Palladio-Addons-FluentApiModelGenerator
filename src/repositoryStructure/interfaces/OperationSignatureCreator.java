@@ -17,24 +17,26 @@ import repositoryStructure.RepositoryCreator;
 import repositoryStructure.datatypes.Primitive;
 import repositoryStructure.datatypes.PrimitiveType;
 
+public class OperationSignatureCreator extends Entity {
 
-public class OperationSignatureCreator extends Entity{
-	
 	private DataType returnType;
-	private List<Parameter> ownedParameters = new ArrayList<>();
-	private List<FailureType> failureTypes = new ArrayList<>();
-	private List<ExceptionType> exceptionTypes = new ArrayList<>();
+	private List<Parameter> ownedParameters;
+	private List<FailureType> failureTypes;
+	private List<ExceptionType> exceptionTypes;
 	private OperationInterfaceCreator correspondingInterface;
 
 	public OperationSignatureCreator(OperationInterfaceCreator interfce, RepositoryCreator repo) {
 		this.correspondingInterface = interfce;
 		this.repository = repo;
+		this.ownedParameters = new ArrayList<>();
+		this.failureTypes = new ArrayList<>();
+		this.exceptionTypes = new ArrayList<>();
 	}
 
 	public OperationSignatureCreator withName(String name) {
 		return (OperationSignatureCreator) super.withName(name);
 	}
-	
+
 	public OperationSignatureCreator withReturnType(DataType returnType) {
 		this.returnType = returnType;
 		return this;
@@ -42,10 +44,10 @@ public class OperationSignatureCreator extends Entity{
 
 	public OperationSignatureCreator withParameter(String name, Primitive dataType, ParameterModifier modifier) {
 		PrimitiveDataType dt = PrimitiveType.getPrimitiveDataType(dataType);
-		
+
 		return withParameter(name, dt, modifier);
 	}
-	
+
 	public OperationSignatureCreator withParameter(String name, DataType dataType, ParameterModifier modifier) {
 		Parameter param = RepositoryFactory.eINSTANCE.createParameter();
 		if (name != null)
@@ -54,38 +56,33 @@ public class OperationSignatureCreator extends Entity{
 			param.setDataType__Parameter(dataType);
 		if (modifier != null)
 			param.setModifier__Parameter(modifier);
-		
+
 		ownedParameters.add(param);
 		this.repository.addParameter(param);
 		return this;
 	}
-	
-	//todo: should this be allowed?
-//	public OperationSignatureCreator withParameter(Parameter parameter) {
-//		if(parameter != null)
-//			this.ownedParameters.add(parameter);
-//		return this;
-//	}
-	
+
 	public OperationSignatureCreator withFailureType(FailureType failureType) {
 		this.failureTypes.add(failureType);
 		return this;
 	}
-	
+
 	public OperationSignatureCreator withExceptionType(ExceptionType exceptionType) {
 		this.exceptionTypes.add(exceptionType);
 		return this;
 	}
-	
-	public OperationInterfaceCreator todo() {
+
+	public OperationInterfaceCreator now() {
 		OperationSignature sign = this.build();
 		correspondingInterface.addOperationSignatures(sign);
 		return correspondingInterface;
 	}
 
 	@Override
-	public OperationSignature build() {
+	protected OperationSignature build() {
 		OperationSignature ops = RepositoryFactory.eINSTANCE.createOperationSignature();
+		if (name != null)
+			ops.setEntityName(name);
 		ops.setReturnType__OperationSignature(returnType);
 		ops.getParameters__OperationSignature().addAll(ownedParameters);
 		ops.getFailureType().addAll(failureTypes);

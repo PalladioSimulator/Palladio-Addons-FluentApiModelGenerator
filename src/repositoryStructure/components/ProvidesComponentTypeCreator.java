@@ -23,10 +23,10 @@ public class ProvidesComponentTypeCreator extends Component {
 		return (ProvidesComponentTypeCreator) super.withName(name);
 	}
 
-	@Override
-	public ProvidesComponentTypeCreator withId(String id) {
-		return (ProvidesComponentTypeCreator) super.withId(id);
-	}
+//	@Override
+//	public ProvidesComponentTypeCreator withId(String id) {
+//		return (ProvidesComponentTypeCreator) super.withId(id);
+//	}
 
 	// ------------ providing roles ------------
 	// provides operation interface
@@ -167,8 +167,8 @@ public class ProvidesComponentTypeCreator extends Component {
 		ProvidesComponentType pct = RepositoryFactory.eINSTANCE.createProvidesComponentType();
 		if (name != null)
 			pct.setEntityName(name);
-		if (id != null)
-			pct.setId(id);
+//		if (id != null)
+//			pct.setId(id);
 
 		pct.getProvidedRoles_InterfaceProvidingEntity().addAll(providedRoles);
 		pct.getRequiredRoles_InterfaceRequiringEntity().addAll(requiredRoles);

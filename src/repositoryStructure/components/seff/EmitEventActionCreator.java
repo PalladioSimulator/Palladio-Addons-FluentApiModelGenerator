@@ -9,11 +9,7 @@ import org.palladiosimulator.pcm.repository.SourceRole;
 import org.palladiosimulator.pcm.seff.EmitEventAction;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 
-import apiControlFlowInterfaces.Follow;
-
-public class EmitEventActionCreator implements Follow {
-
-	private SeffCreator seff;
+public class EmitEventActionCreator extends SeffAction {
 
 	private EventType eventType;
 	private SourceRole requiredRole;
@@ -23,17 +19,12 @@ public class EmitEventActionCreator implements Follow {
 		this.seff = seff;
 		this.inputVariableUsages = new ArrayList<>();
 	}
-
-	public SeffCreator followedBy() {
-		EmitEventAction action = SeffFactory.eINSTANCE.createEmitEventAction();
-		if (eventType != null)
-			action.setEventType__EmitEventAction(eventType);
-		if (requiredRole != null)
-			action.setSourceRole__EmitEventAction(requiredRole);
-		action.getInputVariableUsages__CallAction().addAll(inputVariableUsages);
-		seff.setNext(action);
-		return seff;
+	
+	@Override
+	public EmitEventActionCreator withName(String name) {
+		return (EmitEventActionCreator) super.withName(name);
 	}
+
 
 	public EmitEventActionCreator withEventType(EventType eventType) {
 		this.eventType = eventType;
@@ -49,6 +40,17 @@ public class EmitEventActionCreator implements Follow {
 //		if ( != null)
 		// TODO: Vererbung?
 		return this;
+	}
+
+	@Override
+	protected EmitEventAction build() {
+		EmitEventAction action = SeffFactory.eINSTANCE.createEmitEventAction();
+		if (eventType != null)
+			action.setEventType__EmitEventAction(eventType);
+		if (requiredRole != null)
+			action.setSourceRole__EmitEventAction(requiredRole);
+		action.getInputVariableUsages__CallAction().addAll(inputVariableUsages);
+		return action;
 	}
 
 }

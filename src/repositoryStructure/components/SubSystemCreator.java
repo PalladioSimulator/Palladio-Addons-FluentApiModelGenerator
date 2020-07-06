@@ -35,10 +35,10 @@ public class SubSystemCreator extends ComplexComponent {
 		return (SubSystemCreator) super.withName(name);
 	}
 
-	@Override
-	public SubSystemCreator withId(String id) {
-		return (SubSystemCreator) super.withId(id);
-	}
+//	@Override
+//	public SubSystemCreator withId(String id) {
+//		return (SubSystemCreator) super.withId(id);
+//	}
 
 	// ------------ providing roles ------------
 	// provides operation interface
@@ -282,8 +282,8 @@ public class SubSystemCreator extends ComplexComponent {
 		SubSystem subSystem = SubsystemFactory.eINSTANCE.createSubSystem();
 		if (this.name != null)
 			subSystem.setEntityName(this.name);
-		if (this.id != null)
-			subSystem.setId(this.id);
+//		if (this.id != null)
+//			subSystem.setId(this.id);
 
 		subSystem.getProvidedRoles_InterfaceProvidingEntity().addAll(providedRoles);
 		subSystem.getRequiredRoles_InterfaceRequiringEntity().addAll(requiredRoles);

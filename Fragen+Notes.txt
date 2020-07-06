@@ -1,21 +1,25 @@
 Fragen:
 
 - abstractNamedReference (in VarUsage)
+- SetVariableAction: hat diese Seff-Action Voraussetzungen?
+- CallReturnAction, InternalAction sind im Code (SeffFactory) vorhanden, aber nicht in der GUI -> weglassen oder nicht?
+
+
 - einige Funktionen/Eigenschaften stehen mehrfach, andere einfach zur Verfügung; aber einmal aufgerufen kann man sie trotzdem neu aufrufen und damit neu setzen. sollte das verhindert werden?
 
 - einiges in TODOs im Code
 
 
 ToDo:
-- varUsage über Methoden oder Factory? -> an vielen Stellen (Seffs etc)
-- andere actions in seff, die nur im code existieren?
+- varUsage über Methoden oder Factory? -> Seffs
+- CallReturnAction, InternalCallAction
+
 - TODOs im Code
 
 - dataTypes einlesen 					-> email warten		wie bekommt man dieses href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.1"/>
 - imports 								-> email warten
 
 - Resource required zeug 				-> später
-- infrastructure zeug 					-> später
 - ExceptionTypes 						-> später
 
 - Sichtbarkeit
@@ -27,10 +31,15 @@ Nutzer: anonymous; PW: anonymous;
 
 Notizen
 
-wo werden Parameter erstellt?
+Wo werden Parameter erstellt?
 - signaturen: OperationSignature, infrastructureSignature, EventType, resourceSignature -> Parameter erstellen
 - collection iteration action -> fetch
 - required characterisation -> fetch
+
+Wo werden Variable Usages erstellt?
+- GeneralAction: resource call + infrastructure call
+- andere Actions: SetVariableAction, ForkAction, ExternalCallAction
+- components
 
 - sinnvoll über Factory zu erstellen: components, interfaces, data types/failure/exception types, seffs
 - TextBasedModelGenerator nicht alles umgesetzt -> die hier verwendet sind, sind wichtig

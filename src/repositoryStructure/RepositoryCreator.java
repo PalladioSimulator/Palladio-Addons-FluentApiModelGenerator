@@ -2,7 +2,6 @@ package repositoryStructure;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.entity.ResourceRequiredRole;
@@ -35,7 +34,6 @@ import org.palladiosimulator.pcm.subsystem.SubSystem;
 
 import apiControlFlowInterfaces.Repo;
 import apiControlFlowInterfaces.RepoAddition;
-import factory.MyRepositoryFactory;
 import repositoryStructure.components.Component;
 import repositoryStructure.datatypes.CompositeDataTypeCreator;
 import repositoryStructure.datatypes.Failure;
@@ -45,8 +43,6 @@ import repositoryStructure.datatypes.PrimitiveType;
 public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 
 	private String description;
-
-	private MyRepositoryFactory factory;
 
 	private List<DataType> dataTypes;
 	private List<FailureType> failureTypes;
@@ -58,8 +54,7 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 	private List<Parameter> parameters;
 	private List<AssemblyContext> assemblyContexts;
 
-	public RepositoryCreator(MyRepositoryFactory factory) {
-		this.factory = factory;
+	public RepositoryCreator() {
 		this.dataTypes = new ArrayList<>();
 		this.failureTypes = new ArrayList<>();
 		this.interfaces = new ArrayList<>();
@@ -90,10 +85,10 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 		return (RepositoryCreator) super.withName(name);
 	}
 
-	@Override
-	public RepositoryCreator withId(String id) {
-		return (RepositoryCreator) super.withId(id);
-	}
+//	@Override
+//	public RepositoryCreator withId(String id) {
+//		return (RepositoryCreator) super.withId(id);
+//	}
 
 	@Override
 	public RepositoryCreator withDescription(String description) {
@@ -133,8 +128,8 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 		Repository repo = RepositoryFactory.eINSTANCE.createRepository();
 		if (name != null)
 			repo.setEntityName(name);
-		if (id != null)
-			repo.setId(id);
+//		if (id != null)
+//			repo.setId(id);
 		if (description != null)
 			repo.setRepositoryDescription(description);
 
@@ -146,6 +141,8 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 		return repo;
 	}
 
+	// ------------- getter -------------
+	//TODO: getter and add Methoden should be protected
 	public DataType getDataType(String name) {
 		for (DataType d : this.dataTypes) {
 			if (d instanceof CompositeDataType) {

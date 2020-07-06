@@ -15,12 +15,8 @@ import org.palladiosimulator.pcm.seff.CollectionIteratorAction;
 import org.palladiosimulator.pcm.seff.ResourceDemandingBehaviour;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 
-import apiControlFlowInterfaces.Action;
-import apiControlFlowInterfaces.Follow;
+public class CollectionIteratorActionCreator extends GeneralAction {
 
-public class CollectionIteratorActionCreator extends GeneralAction implements Follow {
-
-	private SeffCreator seff;
 	private Parameter parameter;
 	private List<AbstractAction> steps;
 
@@ -29,22 +25,9 @@ public class CollectionIteratorActionCreator extends GeneralAction implements Fo
 		this.steps = new ArrayList<>();
 	}
 
-	public Action followedBy() {
-		CollectionIteratorAction action = SeffFactory.eINSTANCE.createCollectionIteratorAction();
-
-		if (parameter != null)
-			action.setParameter_CollectionIteratorAction(parameter);
-
-		ResourceDemandingBehaviour body = SeffFactory.eINSTANCE.createResourceDemandingBehaviour();
-		body.getSteps_Behaviour().addAll(this.steps);
-		action.setBodyBehaviour_Loop(body);
-
-		action.getInfrastructureCall__Action().addAll(infrastructureCalls);
-		action.getResourceCall__Action().addAll(resourceCalls);
-		action.getResourceDemand_Action().addAll(demands);
-
-		seff.setNext(action);
-		return seff;
+	@Override
+	public CollectionIteratorActionCreator withName(String name) {
+		return (CollectionIteratorActionCreator) super.withName(name);
 	}
 
 	public CollectionIteratorActionCreator withParameter(Parameter parameter) {
@@ -78,6 +61,25 @@ public class CollectionIteratorActionCreator extends GeneralAction implements Fo
 			ResourceSignature signature, ResourceRequiredRole requiredRole, VariableUsage... variableUsages) {
 		return (CollectionIteratorActionCreator) super.withResourceCall(numberOfCalls_stochasticExpression, signature,
 				requiredRole, variableUsages);
+	}
+
+	@Override
+	protected CollectionIteratorAction build() {
+		CollectionIteratorAction action = SeffFactory.eINSTANCE.createCollectionIteratorAction();
+
+		if (parameter != null)
+			action.setParameter_CollectionIteratorAction(parameter);
+
+		ResourceDemandingBehaviour body = SeffFactory.eINSTANCE.createResourceDemandingBehaviour();
+		body.getSteps_Behaviour().addAll(this.steps);
+		action.setBodyBehaviour_Loop(body);
+
+		action.getInfrastructureCall__Action().addAll(infrastructureCalls);
+		action.getResourceCall__Action().addAll(resourceCalls);
+		action.getResourceDemand_Action().addAll(demands);
+
+		return action;
+
 	}
 
 }

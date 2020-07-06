@@ -13,12 +13,7 @@ import org.palladiosimulator.pcm.seff.seff_reliability.RecoveryAction;
 import org.palladiosimulator.pcm.seff.seff_reliability.RecoveryActionBehaviour;
 import org.palladiosimulator.pcm.seff.seff_reliability.SeffReliabilityFactory;
 
-import apiControlFlowInterfaces.Action;
-import apiControlFlowInterfaces.Follow;
-
-public class RecoveryActionCreator extends GeneralAction implements Follow {
-
-	private SeffCreator seff;
+public class RecoveryActionCreator extends GeneralAction {
 
 	private RecoveryActionBehaviour primary;
 	private List<RecoveryActionBehaviour> otherBehaviours;
@@ -27,19 +22,10 @@ public class RecoveryActionCreator extends GeneralAction implements Follow {
 		this.seff = seff;
 		this.otherBehaviours = new ArrayList<>();
 	}
-
-	public Action followedBy() {
-		RecoveryAction action = SeffReliabilityFactory.eINSTANCE.createRecoveryAction();
-		if (primary != null)
-			action.setPrimaryBehaviour__RecoveryAction(primary);
-		action.getRecoveryActionBehaviours__RecoveryAction().addAll(otherBehaviours);
-
-		action.getInfrastructureCall__Action().addAll(infrastructureCalls);
-		action.getResourceCall__Action().addAll(resourceCalls);
-		action.getResourceDemand_Action().addAll(demands);
-
-		seff.setNext(action);
-		return seff;
+	
+	@Override
+	public RecoveryActionCreator withName(String name) {
+		return (RecoveryActionCreator) super.withName(name);
 	}
 
 	public RecoveryActionCreator withPrimaryBehaviour() {
@@ -72,6 +58,20 @@ public class RecoveryActionCreator extends GeneralAction implements Follow {
 			ResourceSignature signature, ResourceRequiredRole requiredRole, VariableUsage... variableUsages) {
 		return (RecoveryActionCreator) super.withResourceCall(numberOfCalls_stochasticExpression, signature,
 				requiredRole, variableUsages);
+	}
+
+	@Override
+	protected RecoveryAction build() {
+		RecoveryAction action = SeffReliabilityFactory.eINSTANCE.createRecoveryAction();
+		if (primary != null)
+			action.setPrimaryBehaviour__RecoveryAction(primary);
+		action.getRecoveryActionBehaviours__RecoveryAction().addAll(otherBehaviours);
+
+		action.getInfrastructureCall__Action().addAll(infrastructureCalls);
+		action.getResourceCall__Action().addAll(resourceCalls);
+		action.getResourceDemand_Action().addAll(demands);
+
+		return action;
 	}
 
 }

@@ -1,6 +1,7 @@
 package factory;
 
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
+import org.palladiosimulator.pcm.core.entity.ResourceRequiredRole;
 import org.palladiosimulator.pcm.reliability.FailureType;
 import org.palladiosimulator.pcm.reliability.ResourceTimeoutFailureType;
 import org.palladiosimulator.pcm.repository.BasicComponent;
@@ -11,16 +12,22 @@ import org.palladiosimulator.pcm.repository.CompositeDataType;
 import org.palladiosimulator.pcm.repository.DataType;
 import org.palladiosimulator.pcm.repository.EventGroup;
 import org.palladiosimulator.pcm.repository.InfrastructureInterface;
+import org.palladiosimulator.pcm.repository.InfrastructureProvidedRole;
+import org.palladiosimulator.pcm.repository.InfrastructureRequiredRole;
 import org.palladiosimulator.pcm.repository.Interface;
 import org.palladiosimulator.pcm.repository.OperationInterface;
 import org.palladiosimulator.pcm.repository.OperationProvidedRole;
 import org.palladiosimulator.pcm.repository.OperationRequiredRole;
 import org.palladiosimulator.pcm.repository.Parameter;
 import org.palladiosimulator.pcm.repository.PrimitiveDataType;
+import org.palladiosimulator.pcm.repository.ProvidedRole;
 import org.palladiosimulator.pcm.repository.ProvidesComponentType;
 import org.palladiosimulator.pcm.repository.RepositoryComponent;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
+import org.palladiosimulator.pcm.repository.RequiredRole;
 import org.palladiosimulator.pcm.repository.Signature;
+import org.palladiosimulator.pcm.repository.SinkRole;
+import org.palladiosimulator.pcm.repository.SourceRole;
 import org.palladiosimulator.pcm.resourcetype.ResourceInterface;
 import org.palladiosimulator.pcm.subsystem.SubSystem;
 
@@ -48,7 +55,7 @@ public class MyRepositoryFactory {
 
 	// ---------------------- Repository ----------------------
 	public RepositoryCreator newRepository() {
-		this.repo = new RepositoryCreator(this);
+		this.repo = new RepositoryCreator();
 		return this.repo;
 	}
 
@@ -162,7 +169,7 @@ public class MyRepositoryFactory {
 		FailureType failureType = repositoryStructure.datatypes.FailureType.getFailureType(failure);
 		if (failureType instanceof ResourceTimeoutFailureType)
 			return (ResourceTimeoutFailureType) failureType;
-		//TODO: einkommentieren
+		// TODO: einkommentieren
 //		else
 //			throw new RuntimeException("ResourceTimeoutFailureType could not be found; must be of type SoftwareInducedFailure");
 		return null;
@@ -238,26 +245,71 @@ public class MyRepositoryFactory {
 		return interfce;
 	}
 
-	public OperationProvidedRole fetchOfProvidedRole(String name) {
+	public ProvidedRole fetchOfProvidedRole(String name) {
+		ProvidedRole provRole = repo.getProvidedRole(name);
+		if (provRole == null)
+			throw new RuntimeException("ProvidedRole '" + name + "' could not be found");
+		return provRole;
+	}
+
+	public RequiredRole fetchOfRequiredRole(String name) {
+		RequiredRole reqRole = repo.getRequiredRole(name);
+		if (reqRole == null)
+			throw new RuntimeException("RequiredRole '" + name + "' could not be found");
+		return reqRole;
+	}
+
+	public OperationProvidedRole fetchOfOperationProvidedRole(String name) {
 		OperationProvidedRole provRole = repo.getOperationProvidedRole(name);
 		if (provRole == null)
 			throw new RuntimeException("ProvidedRole '" + name + "' could not be found");
 		return provRole;
 	}
 
-	public OperationRequiredRole fetchOfRequiredRole(String name) {
+	public OperationRequiredRole fetchOfOperationRequiredRole(String name) {
 		OperationRequiredRole reqRole = repo.getOperationRequiredRole(name);
 		if (reqRole == null)
 			throw new RuntimeException("RequiredRole '" + name + "' could not be found");
 		return reqRole;
 	}
 
-	//TODO: other roles
-	
-	public ResourceInterface fetchOfResourceInterface(String name) {
-		//TODO: 
+	public InfrastructureProvidedRole fetchOfInfrastructureProvidedRole(String name) {
+		InfrastructureProvidedRole provRole = repo.getInfrastructureProvidedRole(name);
+		if (provRole == null)
+			throw new RuntimeException("ProvidedRole '" + name + "' could not be found");
+		return provRole;
+	}
+
+	public InfrastructureRequiredRole fetchOfInfrastructureRequiredRole(String name) {
+		InfrastructureRequiredRole reqRole = repo.getInfrastructureRequiredRole(name);
+		if (reqRole == null)
+			throw new RuntimeException("RequiredRole '" + name + "' could not be found");
+		return reqRole;
+	}
+
+	public SinkRole fetchOfSinkRole(String name) {
+		SinkRole provRole = repo.getSinkRole(name);
+		if (provRole == null)
+			throw new RuntimeException("SinkRole '" + name + "' could not be found");
+		return provRole;
+	}
+
+	public SourceRole fetchOfSourceRole(String name) {
+		SourceRole reqRole = repo.getSourceRole(name);
+		if (reqRole == null)
+			throw new RuntimeException("SourceRole '" + name + "' could not be found");
+		return reqRole;
+	}
+
+	public ResourceRequiredRole fetchOfResourceRequiredRole(String name) {
+		// TODO: resource stuff
 		return null;
 	}
+	public ResourceInterface fetchOfResourceInterface(String name) {
+		// TODO: resource stuff 
+		return null;
+	}
+
 	public AssemblyContext fetchOfAssemblyContext(String name) {
 		AssemblyContext assContext = repo.getAssemblyContext(name);
 		if (assContext == null)
@@ -271,7 +323,7 @@ public class MyRepositoryFactory {
 			throw new RuntimeException("Parameter '" + name + "' could not be found");
 		return p;
 	}
-	
+
 	public Parameter fetchOfParameter(String name, Signature context) {
 		Parameter p = repo.getParameter(name, context);
 		if (p == null)

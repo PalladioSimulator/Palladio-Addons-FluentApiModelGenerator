@@ -34,36 +34,48 @@ public class EventChannelCreator extends Entity implements Comp, Sub {
 		this.sourceConnections = new ArrayList<>();
 	}
 
+	@Override
+	public EventChannelCreator withName(String name) {
+		return (EventChannelCreator) super.withName(name);
+	}
+
+	@Override
 	public EventChannelCreator withEventChannelSinkConnector(EventChannelSinkConnector sinkConnection) {
 		sinkConnections.add(sinkConnection);
 		return this;
 	}
 
+	@Override
 	public EventChannelCreator withEventChannelSourceConnector(EventChannelSourceConnector sourceConnection) {
 		sourceConnections.add(sourceConnection);
 		return this;
 	}
 
+	@Override
 	public EventChannelCreator withEventGroup(EventGroup eventGroup) {
 		this.eventGroup = eventGroup;
 		return this;
 	}
 
-	public CompositeComponentCreator todo1() {
+	@Override
+	public CompositeComponentCreator now1() {
 		EventChannel eg = this.build();
 		correspondingComponent.addEventChannel(eg);
 		return correspondingComponent;
 	}
 
-	public SubSystemCreator todo2() {
+	@Override
+	public SubSystemCreator now2() {
 		EventChannel eg = this.build();
 		correspondingSubsystem.addEventChannel(eg);
 		return correspondingSubsystem;
 	}
 
 	@Override
-	public EventChannel build() {
+	protected EventChannel build() {
 		EventChannel eventChannel = CompositionFactory.eINSTANCE.createEventChannel();
+		if(name != null)
+			eventChannel.setEntityName(name);
 		if (eventGroup != null)
 			eventChannel.setEventGroup__EventChannel(eventGroup);
 

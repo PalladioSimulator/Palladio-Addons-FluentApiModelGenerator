@@ -18,29 +18,19 @@ import org.palladiosimulator.pcm.seff.ProbabilisticBranchTransition;
 import org.palladiosimulator.pcm.seff.ResourceDemandingBehaviour;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 
-import apiControlFlowInterfaces.Action;
-import apiControlFlowInterfaces.Follow;
 
-public class BranchActionCreator extends GeneralAction implements Follow {
+public class BranchActionCreator extends GeneralAction {
 
-	private SeffCreator seff;
 	private List<AbstractBranchTransition> branches;
 
 	public BranchActionCreator(SeffCreator seff) {
 		this.seff = seff;
 		this.branches = new ArrayList<>();
 	}
-
-	public Action followedBy() {
-		BranchAction action = SeffFactory.eINSTANCE.createBranchAction();
-		action.getBranches_Branch().addAll(branches);
-
-		action.getInfrastructureCall__Action().addAll(infrastructureCalls);
-		action.getResourceCall__Action().addAll(resourceCalls);
-		action.getResourceDemand_Action().addAll(demands);
-
-		seff.setNext(action);
-		return seff;
+	
+	@Override
+	public BranchActionCreator withName(String name) {
+		return (BranchActionCreator) super.withName(name);
 	}
 
 	public BranchActionCreator withGuardedBranch(String branchCondition_stochasticExpression,
@@ -102,5 +92,17 @@ public class BranchActionCreator extends GeneralAction implements Follow {
 			ResourceRequiredRole requiredRole, VariableUsage... variableUsages) {
 		return (BranchActionCreator) super.withResourceCall(numberOfCalls_stochasticExpression, signature, requiredRole,
 				variableUsages);
+	}
+
+	@Override
+	protected BranchAction build() {
+		BranchAction action = SeffFactory.eINSTANCE.createBranchAction();
+		action.getBranches_Branch().addAll(branches);
+
+		action.getInfrastructureCall__Action().addAll(infrastructureCalls);
+		action.getResourceCall__Action().addAll(resourceCalls);
+		action.getResourceDemand_Action().addAll(demands);
+
+		return action;
 	}
 }

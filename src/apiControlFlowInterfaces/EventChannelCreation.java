@@ -17,7 +17,7 @@ public interface EventChannelCreation {
 
 		public Comp withEventGroup(EventGroup eventGroup);
 
-		public CompositeComponentCreator todo1();
+		public CompositeComponentCreator now1();
 	}
 
 	public interface Sub extends EventChannelCreation {
@@ -28,7 +28,7 @@ public interface EventChannelCreation {
 
 		public Sub withEventGroup(EventGroup eventGroup);
 
-		public SubSystemCreator todo2();
+		public SubSystemCreator now2();
 
 	}
 

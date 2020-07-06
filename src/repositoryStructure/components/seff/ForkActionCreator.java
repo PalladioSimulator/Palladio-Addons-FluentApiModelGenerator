@@ -14,12 +14,8 @@ import org.palladiosimulator.pcm.seff.ForkedBehaviour;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 import org.palladiosimulator.pcm.seff.SynchronisationPoint;
 
-import apiControlFlowInterfaces.Action;
-import apiControlFlowInterfaces.Follow;
+public class ForkActionCreator extends GeneralAction {
 
-public class ForkActionCreator extends GeneralAction implements Follow {
-
-	private SeffCreator seff;
 	private List<ForkedBehaviour> asynchronousForkedBehaviours;
 	private List<ForkedBehaviour> synchronousForkedBehaviours;
 	private List<VariableUsage> variableUsages;
@@ -31,23 +27,11 @@ public class ForkActionCreator extends GeneralAction implements Follow {
 		this.variableUsages = new ArrayList<>();
 	}
 
-	public Action followedBy() {
-		ForkAction action = SeffFactory.eINSTANCE.createForkAction();
-		action.getAsynchronousForkedBehaviours_ForkAction().addAll(asynchronousForkedBehaviours);
-
-		SynchronisationPoint synch = SeffFactory.eINSTANCE.createSynchronisationPoint();
-		synch.getOutputParameterUsage_SynchronisationPoint().addAll(variableUsages);
-		synch.getSynchronousForkedBehaviours_SynchronisationPoint().addAll(synchronousForkedBehaviours);
-		action.setSynchronisingBehaviours_ForkAction(synch);
-
-		action.getInfrastructureCall__Action().addAll(infrastructureCalls);
-		action.getResourceCall__Action().addAll(resourceCalls);
-		action.getResourceDemand_Action().addAll(demands);
-
-		seff.setNext(action);
-		return seff;
+	@Override
+	public ForkActionCreator withName(String name) {
+		return (ForkActionCreator) super.withName(name);
 	}
-
+	
 	public ForkActionCreator withOutputParameterUsageAtSynchronisationPoint(VariableUsage variableUsage) {
 		if (variableUsage != null)
 			this.variableUsages.add(variableUsage);
@@ -91,5 +75,22 @@ public class ForkActionCreator extends GeneralAction implements Follow {
 			ResourceRequiredRole requiredRole, VariableUsage... variableUsages) {
 		return (ForkActionCreator) super.withResourceCall(numberOfCalls_stochasticExpression, signature, requiredRole,
 				variableUsages);
+	}
+
+	@Override
+	protected ForkAction build() {
+		ForkAction action = SeffFactory.eINSTANCE.createForkAction();
+		action.getAsynchronousForkedBehaviours_ForkAction().addAll(asynchronousForkedBehaviours);
+
+		SynchronisationPoint synch = SeffFactory.eINSTANCE.createSynchronisationPoint();
+		synch.getOutputParameterUsage_SynchronisationPoint().addAll(variableUsages);
+		synch.getSynchronousForkedBehaviours_SynchronisationPoint().addAll(synchronousForkedBehaviours);
+		action.setSynchronisingBehaviours_ForkAction(synch);
+
+		action.getInfrastructureCall__Action().addAll(infrastructureCalls);
+		action.getResourceCall__Action().addAll(resourceCalls);
+		action.getResourceDemand_Action().addAll(demands);
+
+		return action;
 	}
 }

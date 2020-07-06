@@ -185,7 +185,6 @@ public abstract class Component extends Entity {
 		return this;
 	}
 
-	// resource required role
 	public Component requiresResource(ResourceInterface resourceInterface) {
 		ResourceRequiredRole rrr = EntityFactory.eINSTANCE.createResourceRequiredRole();
 		rrr.setRequiredResourceInterface__ResourceRequiredRole(resourceInterface);

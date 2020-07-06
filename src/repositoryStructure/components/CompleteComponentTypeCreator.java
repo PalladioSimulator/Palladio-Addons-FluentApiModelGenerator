@@ -30,10 +30,10 @@ public class CompleteComponentTypeCreator extends Component {
 		return (CompleteComponentTypeCreator) super.withName(name);
 	}
 
-	@Override
-	public CompleteComponentTypeCreator withId(String id) {
-		return (CompleteComponentTypeCreator) super.withId(id);
-	}
+//	@Override
+//	public CompleteComponentTypeCreator withId(String id) {
+//		return (CompleteComponentTypeCreator) super.withId(id);
+//	}
 
 	// ------------ providing roles ------------
 	// provides operation interface
@@ -182,8 +182,8 @@ public class CompleteComponentTypeCreator extends Component {
 		CompleteComponentType cct = RepositoryFactory.eINSTANCE.createCompleteComponentType();
 		if (name != null)
 			cct.setEntityName(name);
-		if (id != null)
-			cct.setId(id);
+//		if (id != null)
+//			cct.setId(id);
 
 		cct.getProvidedRoles_InterfaceProvidingEntity().addAll(providedRoles);
 		cct.getRequiredRoles_InterfaceRequiringEntity().addAll(requiredRoles);

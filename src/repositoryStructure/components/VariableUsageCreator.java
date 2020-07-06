@@ -36,6 +36,11 @@ public class VariableUsageCreator extends Entity implements Basic, Composite {
 	}
 
 	@Override
+	public VariableUsageCreator withName(String name) {
+		return (VariableUsageCreator) super.withName(name);
+	}
+
+	@Override
 	public VariableUsageCreator withVariableCharacterisation(String specification_stochasticExpression,
 			VariableCharacterisationType type) {
 		VariableCharacterisation varchar = ParameterFactory.eINSTANCE.createVariableCharacterisation();
@@ -58,21 +63,21 @@ public class VariableUsageCreator extends Entity implements Basic, Composite {
 	}
 
 	@Override
-	public BasicComponentCreator todo1() {
+	public BasicComponentCreator now1() {
 		VariableUsage varUsage = this.build();
 		correspondingBasicComponent.addVariableUsage(varUsage);
 		return this.correspondingBasicComponent;
 	}
 
 	@Override
-	public CompositeComponentCreator todo2() {
+	public CompositeComponentCreator now2() {
 		VariableUsage varUsage = this.build();
 		correspondingCompositeComponent.addVariableUsage(varUsage);
 		return this.correspondingCompositeComponent;
 	}
 
 	@Override
-	public VariableUsage build() {
+	protected VariableUsage build() {
 		VariableUsage varUsage = ParameterFactory.eINSTANCE.createVariableUsage();
 		// TODO: this throws an exception coz ref is null
 //		if(this.reference != null) {

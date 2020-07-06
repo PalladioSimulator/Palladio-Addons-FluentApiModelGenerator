@@ -25,10 +25,10 @@ public class OperationInterfaceCreator extends Interface {
 		return (OperationInterfaceCreator) super.withName(name);
 	}
 
-	@Override
-	public OperationInterfaceCreator withId(String id) {
-		return (OperationInterfaceCreator) super.withId(id);
-	}
+//	@Override
+//	public OperationInterfaceCreator withId(String id) {
+//		return (OperationInterfaceCreator) super.withId(id);
+//	}
 
 	// parent Interfaces
 	@Override
@@ -52,11 +52,10 @@ public class OperationInterfaceCreator extends Interface {
 		OperationInterface interfce = RepositoryFactory.eINSTANCE.createOperationInterface();
 		if (name != null)
 			interfce.setEntityName(name);
-		if (id != null)
-			interfce.setId(id);
+//		if (id != null)
+//			interfce.setId(id);
 
 		interfce.getParentInterfaces__Interface().addAll(parentInterfaces);
-		interfce.getProtocols__Interface().addAll(protocols);
 		interfce.getRequiredCharacterisations().addAll(requiredCharacterisations);
 
 		interfce.getSignatures__OperationInterface().addAll(operationSignatures);
@@ -64,7 +63,7 @@ public class OperationInterfaceCreator extends Interface {
 		return interfce;
 	}
 
-	public void addOperationSignatures(OperationSignature signature) {
+	protected void addOperationSignatures(OperationSignature signature) {
 		this.operationSignatures.add(signature);
 	}
 }

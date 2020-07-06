@@ -7,9 +7,9 @@ import repositoryStructure.components.seff.AcquireActionCreator;
 import repositoryStructure.components.seff.BranchActionCreator;
 import repositoryStructure.components.seff.CollectionIteratorActionCreator;
 import repositoryStructure.components.seff.EmitEventActionCreator;
-import repositoryStructure.components.seff.ExternalCallCreator;
+import repositoryStructure.components.seff.ExternalCallActionCreator;
 import repositoryStructure.components.seff.ForkActionCreator;
-import repositoryStructure.components.seff.InternalCallCreator;
+import repositoryStructure.components.seff.InternalActionCreator;
 import repositoryStructure.components.seff.LoopActionCreator;
 import repositoryStructure.components.seff.RecoveryActionCreator;
 import repositoryStructure.components.seff.ReleaseActionCreator;
@@ -19,9 +19,9 @@ import repositoryStructure.components.seff.StopActionCreator;
 
 public interface Action {
 
-	public InternalCallCreator internalAction();
+	public InternalActionCreator internalCallAction();
 
-	public ExternalCallCreator externalCallAction();
+	public ExternalCallActionCreator externalCallAction();
 
 	public EmitEventActionCreator emitEventAction();
 
@@ -53,6 +53,6 @@ public interface Action {
 		public Seff onSignature(Signature signature);
 		public Seff withSeffTypeID(String seffTypeID);
 		public Start withSeffBehaviour();
-		public ServiceEffectSpecification build();
+		ServiceEffectSpecification build();
 	}
 }
