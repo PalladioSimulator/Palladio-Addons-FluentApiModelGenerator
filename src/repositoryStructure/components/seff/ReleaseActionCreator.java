@@ -11,9 +11,8 @@ import org.palladiosimulator.pcm.seff.ReleaseAction;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 
 import apiControlFlowInterfaces.seff.FollowSeff;
-import apiControlFlowInterfaces.seff.ReleaseSeff;
 
-public class ReleaseActionCreator extends GeneralAction implements ReleaseSeff, FollowSeff {
+public class ReleaseActionCreator extends GeneralAction implements FollowSeff {
 
 	private PassiveResource passiveResource;
 
@@ -25,7 +24,7 @@ public class ReleaseActionCreator extends GeneralAction implements ReleaseSeff, 
 	public ReleaseActionCreator withName(String name) {
 		return (ReleaseActionCreator) super.withName(name);
 	}
-	
+
 	public ReleaseActionCreator withPassiveResource(PassiveResource passiveResource) {
 		this.passiveResource = passiveResource;
 		return this;
@@ -53,7 +52,7 @@ public class ReleaseActionCreator extends GeneralAction implements ReleaseSeff, 
 	}
 
 	@Override
-	public ReleaseAction build() {
+	protected ReleaseAction build() {
 		ReleaseAction action = SeffFactory.eINSTANCE.createReleaseAction();
 		if (passiveResource != null)
 			action.setPassiveResource_ReleaseAction(passiveResource);

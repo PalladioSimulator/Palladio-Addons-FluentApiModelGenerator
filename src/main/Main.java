@@ -63,7 +63,7 @@ public class Main {
 				.provides(create.fetchOfOperationInterface("IDatabase"), "provDB")
 				.requires(create.newOperationInterface().withName("someInterface"), "reqSomeI")
 				.withPassiveResource("2*3", create.fetchOfResourceTimeoutFailureType(Failure.SOFTWARE))
-				.withVariableUsage().withVariableCharacterisation(null, null).withNamedReference(null).now1()
+				.withVariableUsage(create.newVariableUsage().withVariableCharacterisation(null, null))
 			)
 						
 			.addToRepository(create.newBasicComponent()
@@ -77,7 +77,7 @@ public class Main {
 			// COMPOSITE COMPONENTS
 			.addToRepository(create.newCompositeComponent()
 					.withName("Web")
-					.withVariableUsage().withVariableCharacterisation(null, null).withNamedReference(null).now2()
+					.withVariableUsage(create.newVariableUsage().withName(null).withVariableCharacterisation(null, null).withNamespaceReference(null))
 					.requires(create.newOperationInterface()
 							.withName("HelloWorld"))
 					.withAssemblyContext(create.fetchOfComponent("Database"), "DBContext")
@@ -93,12 +93,14 @@ public class Main {
 //		create.newResourceDemandingInternalBehaviour().withSeffBehaviour().withStartAction().
 		//SEFF example
 		create.newSeff().onSignature(null).withSeffTypeID(null)
+				.withInternalBehaviour(create.newInternalBehaviour().withStartAction().followedBy().stopAction().createBehaviourNow())
 //				.withInternalBehaviour(create.newResourceDemandingInternalBehaviour().withSeffBehaviour().withStartAction().withName("Start").followedBy().stopAction().createBehaviourNow())
 				.withSeffBehaviour().withStartAction()
 						.followedBy().internalAction()
 											.withResourceDemand(null, null)
 											.withInternalFailureOccurrenceDescription(null, null)
 											.withInfrastructureCall(null, null, null)
+						.followedBy().internalCallAction().withInternalBehaviour(null).withName(null)
 						.followedBy().externalCallAction()
 											.withCalledService(null)
 											.withFailureType(null)

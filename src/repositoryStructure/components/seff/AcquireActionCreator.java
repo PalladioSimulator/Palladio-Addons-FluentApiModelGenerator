@@ -10,10 +10,7 @@ import org.palladiosimulator.pcm.resourcetype.ResourceSignature;
 import org.palladiosimulator.pcm.seff.AcquireAction;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 
-import apiControlFlowInterfaces.seff.AcquireSeff;
-import apiControlFlowInterfaces.seff.Internal.AcquireInternal;
-
-public class AcquireActionCreator extends GeneralAction implements AcquireSeff{
+public class AcquireActionCreator extends GeneralAction {
 
 	private PassiveResource passiveResource;
 	private Double timeoutValue;
@@ -65,7 +62,7 @@ public class AcquireActionCreator extends GeneralAction implements AcquireSeff{
 	}
 
 	@Override
-	public AcquireAction build() {
+	protected AcquireAction build() {
 		AcquireAction action = SeffFactory.eINSTANCE.createAcquireAction();
 		if (passiveResource != null)
 			action.setPassiveresource_AcquireAction(passiveResource);

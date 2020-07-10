@@ -10,10 +10,9 @@ import org.palladiosimulator.pcm.repository.OperationSignature;
 import org.palladiosimulator.pcm.seff.ExternalCallAction;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 
-import apiControlFlowInterfaces.seff.ExternalCallSeff;
 import apiControlFlowInterfaces.seff.FollowSeff;
 
-public class ExternalCallActionCreator extends SeffAction implements ExternalCallSeff, FollowSeff {
+public class ExternalCallActionCreator extends SeffAction implements FollowSeff {
 
 	private Integer retryCount;
 	private OperationSignature signature;
@@ -33,7 +32,7 @@ public class ExternalCallActionCreator extends SeffAction implements ExternalCal
 	public ExternalCallActionCreator withName(String name) {
 		return (ExternalCallActionCreator) super.withName(name);
 	}
-	
+
 	public ExternalCallActionCreator withRetryCount(Integer retryCount) {
 		if (retryCount != null)
 			this.retryCount = retryCount;
@@ -69,7 +68,7 @@ public class ExternalCallActionCreator extends SeffAction implements ExternalCal
 	}
 
 	@Override
-	public ExternalCallAction build() {
+	protected ExternalCallAction build() {
 		ExternalCallAction action = SeffFactory.eINSTANCE.createExternalCallAction();
 		if (retryCount != null)
 			action.setRetryCount(retryCount);

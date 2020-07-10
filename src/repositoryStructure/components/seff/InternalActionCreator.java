@@ -16,9 +16,8 @@ import org.palladiosimulator.pcm.seff.InternalAction;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 
 import apiControlFlowInterfaces.seff.FollowSeff;
-import apiControlFlowInterfaces.seff.InternalSeff;
 
-public class InternalActionCreator extends GeneralAction implements InternalSeff, FollowSeff {
+public class InternalActionCreator extends GeneralAction implements FollowSeff {
 
 	private List<InternalFailureOccurrenceDescription> failures;
 
@@ -69,7 +68,7 @@ public class InternalActionCreator extends GeneralAction implements InternalSeff
 	}
 
 	@Override
-	public InternalAction build() {
+	protected InternalAction build() {
 		InternalAction action = SeffFactory.eINSTANCE.createInternalAction();
 		action.getInternalFailureOccurrenceDescriptions__InternalAction().addAll(failures);
 

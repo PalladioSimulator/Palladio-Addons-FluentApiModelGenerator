@@ -15,9 +15,9 @@ import org.palladiosimulator.pcm.seff.SeffFactory;
 import org.palladiosimulator.pcm.seff.SynchronisationPoint;
 
 import apiControlFlowInterfaces.seff.FollowSeff;
-import apiControlFlowInterfaces.seff.ForkSeff;
+import apiControlFlowInterfaces.seff.InternalSeff;
 
-public class ForkActionCreator extends GeneralAction implements ForkSeff, FollowSeff {
+public class ForkActionCreator extends GeneralAction implements FollowSeff {
 
 	private List<ForkedBehaviour> asynchronousForkedBehaviours;
 	private List<ForkedBehaviour> synchronousForkedBehaviours;
@@ -34,14 +34,14 @@ public class ForkActionCreator extends GeneralAction implements ForkSeff, Follow
 	public ForkActionCreator withName(String name) {
 		return (ForkActionCreator) super.withName(name);
 	}
-	
+
 	public ForkActionCreator withOutputParameterUsageAtSynchronisationPoint(VariableUsage variableUsage) {
 		if (variableUsage != null)
 			this.variableUsages.add(variableUsage);
 		return this;
 	}
 
-	public ForkActionCreator withSynchronousForkedBehaviourAtSynchronisationPoint(SeffCreator forkedBehaviours) {
+	public ForkActionCreator withSynchronousForkedBehaviourAtSynchronisationPoint(InternalSeff forkedBehaviours) {
 		if (forkedBehaviours != null) {
 			ForkedBehaviour forkedBehaviour = forkedBehaviours.buildForkedBehaviour();
 			this.synchronousForkedBehaviours.add(forkedBehaviour);
@@ -49,7 +49,7 @@ public class ForkActionCreator extends GeneralAction implements ForkSeff, Follow
 		return this;
 	}
 
-	public ForkActionCreator withAsynchronousForkedBehaviour(SeffCreator forkedBehaviours) {
+	public ForkActionCreator withAsynchronousForkedBehaviour(InternalSeff forkedBehaviours) {
 		if (forkedBehaviours != null) {
 			ForkedBehaviour forkedBehaviour = forkedBehaviours.buildForkedBehaviour();
 			this.asynchronousForkedBehaviours.add(forkedBehaviour);
@@ -79,7 +79,7 @@ public class ForkActionCreator extends GeneralAction implements ForkSeff, Follow
 	}
 
 	@Override
-	public ForkAction build() {
+	protected ForkAction build() {
 		ForkAction action = SeffFactory.eINSTANCE.createForkAction();
 		action.getAsynchronousForkedBehaviours_ForkAction().addAll(asynchronousForkedBehaviours);
 

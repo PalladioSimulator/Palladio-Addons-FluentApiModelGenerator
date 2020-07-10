@@ -13,9 +13,8 @@ import org.palladiosimulator.pcm.seff.SeffFactory;
 import org.palladiosimulator.pcm.seff.SetVariableAction;
 
 import apiControlFlowInterfaces.seff.FollowSeff;
-import apiControlFlowInterfaces.seff.SetVariableSeff;
 
-public class SetVariableActionCreator extends GeneralAction implements SetVariableSeff, FollowSeff {
+public class SetVariableActionCreator extends GeneralAction implements FollowSeff {
 
 	private List<VariableUsage> localVariableUsages;
 
@@ -28,7 +27,7 @@ public class SetVariableActionCreator extends GeneralAction implements SetVariab
 	public SetVariableActionCreator withName(String name) {
 		return (SetVariableActionCreator) super.withName(name);
 	}
-	
+
 	@Override
 	public SetVariableActionCreator withResourceDemand(String specification_stochasticExpression,
 			ProcessingResourceType processingResource) {
@@ -52,7 +51,7 @@ public class SetVariableActionCreator extends GeneralAction implements SetVariab
 	}
 
 	@Override
-	public SetVariableAction build() {
+	protected SetVariableAction build() {
 		// TODO: iwelche Voraussetzungen? + localVariableUsages
 		SetVariableAction action = SeffFactory.eINSTANCE.createSetVariableAction();
 		action.getLocalVariableUsages_SetVariableAction().addAll(localVariableUsages);

@@ -23,7 +23,6 @@ import org.palladiosimulator.pcm.repository.SinkRole;
 import org.palladiosimulator.pcm.repository.SourceRole;
 import org.palladiosimulator.pcm.resourcetype.ResourceInterface;
 
-import apiControlFlowInterfaces.VariableUsageCreation.Composite;
 import apiControlFlowInterfaces.EventChannelCreation.Comp;
 import repositoryStructure.RepositoryCreator;
 import repositoryStructure.interfaces.EventGroupCreator;
@@ -202,9 +201,9 @@ public class CompositeComponentCreator extends ComplexComponent {
 		return this;
 	}
 
-	public Composite withVariableUsage() {
-		VariableUsageCreator vuc = new VariableUsageCreator(this, repository);
-		return vuc;
+	public CompositeComponentCreator withVariableUsage(VariableUsageCreator variableUsage) {
+		this.componentParameterUsages.add(variableUsage.build());
+		return this;
 	}
 
 	@Override

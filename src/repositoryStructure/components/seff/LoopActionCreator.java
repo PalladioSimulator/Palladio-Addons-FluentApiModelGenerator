@@ -17,9 +17,8 @@ import org.palladiosimulator.pcm.seff.ResourceDemandingBehaviour;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 
 import apiControlFlowInterfaces.seff.FollowSeff;
-import apiControlFlowInterfaces.seff.LoopSeff;
 
-public class LoopActionCreator extends GeneralAction implements LoopSeff, FollowSeff {
+public class LoopActionCreator extends GeneralAction implements FollowSeff {
 
 	private PCMRandomVariable iterationCount;
 	private List<AbstractAction> steps;
@@ -33,7 +32,7 @@ public class LoopActionCreator extends GeneralAction implements LoopSeff, Follow
 	public LoopActionCreator withName(String name) {
 		return (LoopActionCreator) super.withName(name);
 	}
-	
+
 	public LoopActionCreator withIterationCount(String iterationCount_stochasticExpression) {
 		PCMRandomVariable rand = CoreFactory.eINSTANCE.createPCMRandomVariable();
 		rand.setSpecification(iterationCount_stochasticExpression);
@@ -69,7 +68,7 @@ public class LoopActionCreator extends GeneralAction implements LoopSeff, Follow
 	}
 
 	@Override
-	public LoopAction build() {
+	protected LoopAction build() {
 		LoopAction action = SeffFactory.eINSTANCE.createLoopAction();
 		action.setIterationCount_LoopAction(iterationCount);
 

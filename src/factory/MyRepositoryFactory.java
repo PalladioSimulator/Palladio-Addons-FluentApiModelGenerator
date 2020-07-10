@@ -44,6 +44,7 @@ import org.palladiosimulator.pcm.resourcetype.ResourceType;
 import org.palladiosimulator.pcm.resourcetype.ResourcetypePackage;
 import org.palladiosimulator.pcm.subsystem.SubSystem;
 
+import apiControlFlowInterfaces.seff.InternalSeff;
 import apiControlFlowInterfaces.seff.Seff;
 import repositoryStructure.RepositoryCreator;
 import repositoryStructure.components.BasicComponentCreator;
@@ -51,6 +52,7 @@ import repositoryStructure.components.CompleteComponentTypeCreator;
 import repositoryStructure.components.CompositeComponentCreator;
 import repositoryStructure.components.ProvidesComponentTypeCreator;
 import repositoryStructure.components.SubSystemCreator;
+import repositoryStructure.components.VariableUsageCreator;
 import repositoryStructure.components.seff.SeffCreator;
 import repositoryStructure.datatypes.CompositeDataTypeCreator;
 import repositoryStructure.datatypes.Failure;
@@ -69,9 +71,9 @@ public class MyRepositoryFactory {
 	private Repository failures;
 	
 	public MyRepositoryFactory() {
-		this.primitives = loadPrimitiveTypesRepository();
-		this.resourceTypes = loadResourceTypeRepository();
-		this.failures = loadFailureTypesRepository();
+//		this.primitives = loadPrimitiveTypesRepository();
+//		this.resourceTypes = loadResourceTypeRepository();
+//		this.failures = loadFailureTypesRepository();
 	}
 	private Repository loadPrimitiveTypesRepository() {
 		RepositoryPackage.eINSTANCE.eClass();
@@ -219,25 +221,13 @@ public class MyRepositoryFactory {
 		return new SeffCreator();
 	}
 
-//	public Start newResourceDemandingSEFF() {
-//		return new SeffCreator();
-//	}
-//	
-//	public Start newResourceDemandingBehaviour() {
-//		return new SeffCreator();
-//	}
+	public InternalSeff newInternalBehaviour() {
+		return new SeffCreator();
+	}
 	
-//	public Internal newResourceDemandingInternalBehaviour() {
-//		return new SeffCreator();
-//	}
-	
-//	public Start newForkedBehaviour() {
-//		return new SeffCreator();
-//	}
-//	
-//	public Start newRecoveryActionBehaviour() {
-//		return new SeffCreator();
-//	}
+	public VariableUsageCreator newVariableUsage() {
+		return new VariableUsageCreator(this.repo);
+	}
 	
 	// ---------------------- Fetching methods ----------------------
 

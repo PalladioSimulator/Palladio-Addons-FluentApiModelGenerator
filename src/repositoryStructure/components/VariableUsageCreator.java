@@ -1,6 +1,7 @@
 package repositoryStructure.components;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.palladiosimulator.pcm.core.CoreFactory;
@@ -10,33 +11,24 @@ import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
 import org.palladiosimulator.pcm.parameter.VariableCharacterisationType;
 import org.palladiosimulator.pcm.parameter.VariableUsage;
 import org.palladiosimulator.pcm.qosannotations.SpecifiedOutputParameterAbstraction;
-import org.palladiosimulator.pcm.seff.SeffFactory;
 import org.palladiosimulator.pcm.usagemodel.EntryLevelSystemCall;
 import org.palladiosimulator.pcm.usagemodel.UserData;
 
-import apiControlFlowInterfaces.VariableUsageCreation.Basic;
-import apiControlFlowInterfaces.VariableUsageCreation.Composite;
 import de.uka.ipd.sdq.stoex.AbstractNamedReference;
+import de.uka.ipd.sdq.stoex.NamespaceReference;
+import de.uka.ipd.sdq.stoex.StoexFactory;
+import de.uka.ipd.sdq.stoex.VariableReference;
 import repositoryStructure.Entity;
 import repositoryStructure.RepositoryCreator;
 
-public class VariableUsageCreator extends Entity implements Basic, Composite {
+public class VariableUsageCreator extends Entity {
 
-	private String reference;
+	private AbstractNamedReference reference;
 	private List<VariableCharacterisation> variableCharacterisations;
-	private BasicComponentCreator correspondingBasicComponent;
-	private CompositeComponentCreator correspondingCompositeComponent;
 
-	public VariableUsageCreator(BasicComponentCreator component, RepositoryCreator repo) {
+	public VariableUsageCreator(RepositoryCreator repo) {
 		this.repository = repo;
 		this.variableCharacterisations = new ArrayList<>();
-		this.correspondingBasicComponent = component;
-	}
-
-	public VariableUsageCreator(CompositeComponentCreator component, RepositoryCreator repo) {
-		this.repository = repo;
-		this.variableCharacterisations = new ArrayList<>();
-		this.correspondingCompositeComponent = component;
 	}
 
 	@Override
@@ -44,7 +36,6 @@ public class VariableUsageCreator extends Entity implements Basic, Composite {
 		return (VariableUsageCreator) super.withName(name);
 	}
 
-	@Override
 	public VariableUsageCreator withVariableCharacterisation(String specification_stochasticExpression,
 			VariableCharacterisationType type) {
 		VariableCharacterisation varchar = ParameterFactory.eINSTANCE.createVariableCharacterisation();
@@ -60,41 +51,58 @@ public class VariableUsageCreator extends Entity implements Basic, Composite {
 		return this;
 	}
 
-	@Override
-	public VariableUsageCreator withNamedReference(String reference) {
-		this.reference = reference;
+	public VariableUsageCreator withVariableReference(String reference) {
+		VariableReference variableReference = StoexFactory.eINSTANCE.createVariableReference();
+		variableReference.setReferenceName(reference);
+		this.reference = variableReference;
 		return this;
 	}
 
-	@Override
-	public BasicComponentCreator now1() {
-		VariableUsage varUsage = this.build();
-		correspondingBasicComponent.addVariableUsage(varUsage);
-		return this.correspondingBasicComponent;
+	public VariableUsageCreator withNamespaceReference(String reference, String... innerReferences) {
+		if (innerReferences != null && innerReferences.length > 0) {
+			String string = innerReferences[innerReferences.length];
+			VariableReference variableReference = StoexFactory.eINSTANCE.createVariableReference();
+			variableReference.setReferenceName(string);
+			List<String> asList = Arrays.asList(innerReferences);
+			asList.remove(asList.size() - 1);
+			asList.add(0, reference);
+			this.reference = rec(variableReference, asList);
+		} else {
+			NamespaceReference namespaceReference = StoexFactory.eINSTANCE.createNamespaceReference();
+			namespaceReference.setReferenceName(reference);
+			this.reference = namespaceReference;
+		}
+
+		return this;
 	}
 
-	@Override
-	public CompositeComponentCreator now2() {
-		VariableUsage varUsage = this.build();
-		correspondingCompositeComponent.addVariableUsage(varUsage);
-		return this.correspondingCompositeComponent;
+	private AbstractNamedReference rec(AbstractNamedReference ref, List<String> refs) {
+		if (refs.isEmpty())
+			return ref;
+		String string = refs.get(refs.size() - 1);
+		NamespaceReference namespaceReference = StoexFactory.eINSTANCE.createNamespaceReference();
+		namespaceReference.setReferenceName(string);
+		namespaceReference.setInnerReference_NamespaceReference(ref);
+		refs.remove(refs.size() - 1);
+		return rec(namespaceReference, refs);
+
 	}
 
 	@Override
 	protected VariableUsage build() {
 		VariableUsage varUsage = ParameterFactory.eINSTANCE.createVariableUsage();
-		// TODO: this throws an exception coz ref is null
-//		if(this.reference != null) {
-//		AbstractNamedReference ref = varUsage.getNamedReference__VariableUsage();
-//		ref.setReferenceName(reference);
-//		}
-		
+
+		if (this.reference != null) {
+			varUsage.setNamedReference__VariableUsage(reference);
+		}
+
 		varUsage.getVariableCharacterisation_VariableUsage().addAll(variableCharacterisations);
-		varUsage.getNamedReference__VariableUsage();
-		
+
+		// TODO: sind über die GUI nicht setzbar, aber muss evtl gemacht werden
 		EntryLevelSystemCall a = varUsage.getEntryLevelSystemCall_InputParameterUsage();
 		EntryLevelSystemCall b = varUsage.getEntryLevelSystemCall_OutputParameterUsage();
-		SpecifiedOutputParameterAbstraction c = varUsage.getSpecifiedOutputParameterAbstraction_expectedExternalOutputs_VariableUsage();
+		SpecifiedOutputParameterAbstraction c = varUsage
+				.getSpecifiedOutputParameterAbstraction_expectedExternalOutputs_VariableUsage();
 		UserData d = varUsage.getUserData_VariableUsage();
 		return varUsage;
 	}

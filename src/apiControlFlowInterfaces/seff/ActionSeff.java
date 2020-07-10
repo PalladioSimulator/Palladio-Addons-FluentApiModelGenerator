@@ -1,29 +1,43 @@
 package apiControlFlowInterfaces.seff;
 
-public interface ActionSeff extends SeffInterfaces{
-	public AcquireSeff acquireAction();
+import repositoryStructure.components.seff.AcquireActionCreator;
+import repositoryStructure.components.seff.BranchActionCreator;
+import repositoryStructure.components.seff.CollectionIteratorActionCreator;
+import repositoryStructure.components.seff.EmitEventActionCreator;
+import repositoryStructure.components.seff.ExternalCallActionCreator;
+import repositoryStructure.components.seff.ForkActionCreator;
+import repositoryStructure.components.seff.InternalActionCreator;
+import repositoryStructure.components.seff.InternalCallActionCreator;
+import repositoryStructure.components.seff.LoopActionCreator;
+import repositoryStructure.components.seff.RecoveryActionCreator;
+import repositoryStructure.components.seff.ReleaseActionCreator;
+import repositoryStructure.components.seff.SetVariableActionCreator;
+import repositoryStructure.components.seff.StopActionCreator;
 
-	public BranchSeff branchAction();
+public interface ActionSeff {
+	public AcquireActionCreator acquireAction();
 
-	public CollectionSeff collectionIteratorAction();
+	public BranchActionCreator branchAction();
 
-	public EmitEventSeff emitEventAction();
+	public CollectionIteratorActionCreator collectionIteratorAction();
 
-	public ExternalCallSeff externalCallAction();
+	public EmitEventActionCreator emitEventAction();
 
-	public ForkSeff forkAction();
+	public ExternalCallActionCreator externalCallAction();
 
-	public InternalSeff internalAction();
+	public ForkActionCreator forkAction();
 
-	public InternalCallSeff internalCallAction();
+	public InternalActionCreator internalAction();
 
-	public LoopSeff loopAction();
+	public InternalCallActionCreator internalCallAction();
 
-	public RecoverySeff recoveryAction();
+	public LoopActionCreator loopAction();
 
-	public ReleaseSeff releaseAction();
+	public RecoveryActionCreator recoveryAction();
 
-	public SetVariableSeff setVariableAction();
+	public ReleaseActionCreator releaseAction();
 
-	public StopSeff stopAction();
+	public SetVariableActionCreator setVariableAction();
+
+	public StopActionCreator stopAction();
 }

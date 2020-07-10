@@ -15,10 +15,9 @@ import org.palladiosimulator.pcm.seff.CollectionIteratorAction;
 import org.palladiosimulator.pcm.seff.ResourceDemandingBehaviour;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 
-import apiControlFlowInterfaces.seff.CollectionSeff;
 import apiControlFlowInterfaces.seff.FollowSeff;
 
-public class CollectionIteratorActionCreator extends GeneralAction implements CollectionSeff, FollowSeff {
+public class CollectionIteratorActionCreator extends GeneralAction implements FollowSeff {
 
 	private Parameter parameter;
 	private List<AbstractAction> steps;
@@ -67,7 +66,7 @@ public class CollectionIteratorActionCreator extends GeneralAction implements Co
 	}
 
 	@Override
-	public CollectionIteratorAction build() {
+	protected CollectionIteratorAction build() {
 		CollectionIteratorAction action = SeffFactory.eINSTANCE.createCollectionIteratorAction();
 
 		if (parameter != null)

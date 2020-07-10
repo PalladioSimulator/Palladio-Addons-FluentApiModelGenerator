@@ -20,9 +20,7 @@ import org.palladiosimulator.pcm.seff.seff_performance.ParametricResourceDemand;
 import org.palladiosimulator.pcm.seff.seff_performance.ResourceCall;
 import org.palladiosimulator.pcm.seff.seff_performance.SeffPerformanceFactory;
 
-import apiControlFlowInterfaces.seff.StopSeff;
-
-public class StopActionCreator extends SeffAction implements StopSeff{
+public class StopActionCreator extends SeffAction {
 
 	private List<ParametricResourceDemand> demands = new ArrayList<>();
 	private List<InfrastructureCall> infrastructureCalls = new ArrayList<>();
@@ -31,7 +29,7 @@ public class StopActionCreator extends SeffAction implements StopSeff{
 	public StopActionCreator(SeffCreator seff) {
 		this.seff = seff;
 	}
-	
+
 	@Override
 	public StopActionCreator withName(String name) {
 		return (StopActionCreator) super.withName(name);
@@ -107,7 +105,7 @@ public class StopActionCreator extends SeffAction implements StopSeff{
 	}
 
 	@Override
-	public StopAction build() {
+	protected StopAction build() {
 		StopAction action = SeffFactory.eINSTANCE.createStopAction();
 		action.getInfrastructureCall__Action().addAll(infrastructureCalls);
 		action.getResourceCall__Action().addAll(resourceCalls);

@@ -14,12 +14,12 @@ import org.palladiosimulator.pcm.seff.ResourceDemandingInternalBehaviour;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 
 import apiControlFlowInterfaces.seff.FollowSeff;
-import apiControlFlowInterfaces.seff.InternalCallSeff;
+import apiControlFlowInterfaces.seff.InternalSeff;
 
-public class InternalCallActionCreator extends GeneralAction implements InternalCallSeff, FollowSeff {
+public class InternalCallActionCreator extends GeneralAction implements FollowSeff {
 
 	private List<VariableUsage> inputVariableUsages;
-	private SeffCreator internalSeff;
+	private InternalSeff internalSeff;
 
 	public InternalCallActionCreator(SeffCreator seff) {
 		this.seff = seff;
@@ -39,7 +39,7 @@ public class InternalCallActionCreator extends GeneralAction implements Internal
 		return this;
 	}
 
-	public InternalCallActionCreator withInternalBehaviour(SeffCreator seff) {
+	public InternalCallActionCreator withInternalBehaviour(InternalSeff seff) {
 		this.internalSeff = seff;
 		return this;
 	}
@@ -67,7 +67,7 @@ public class InternalCallActionCreator extends GeneralAction implements Internal
 	}
 
 	@Override
-	public InternalCallAction build() {
+	protected InternalCallAction build() {
 		InternalCallAction action = SeffFactory.eINSTANCE.createInternalCallAction();
 
 		if (internalSeff != null) {

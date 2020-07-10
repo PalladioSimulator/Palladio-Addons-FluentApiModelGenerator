@@ -1,15 +1,7 @@
 package main;
 
-import java.io.BufferedInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInput;
-import java.io.ObjectInputStream;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -38,9 +30,6 @@ public class Create {
 		new Create().run();
 	}
 
-	//private static String inputModelPath = "C:/Code_workspace/runtime-Measurements/Ginpex Workload Experiments";
-//	List<IFile> selectedFiles = new ArrayList<IFile>();
-	
 	/**
 	 * Helper method. Loads the primitive types repository model from the predefined primitive types repositoryy model loaded as a pathmap model.
 	 * @return the primitive types repository.
@@ -131,58 +120,7 @@ public class Create {
 		allocation.setEntityName("WorkloadAllocation");
 		UsageModel usageModel = UsagemodelFactory.eINSTANCE.createUsageModel();
 		
-		
-//		for (IFile selectedFile : selectedFiles) {
-//			MeasurementsMachineConfigurationMachine.class.getName();
-//			Object resultModelObject = null;
-//			try {
-//				InputStream file = selectedFile.getContents();
-//				InputStream buffer = new BufferedInputStream(file);
-//				ObjectInput input = new ObjectInputStream(buffer);
-//				try {
-//					resultModelObject = input.readObject();
-//				} finally {
-//					input.close();
-//				}
-//			} catch (IOException e) {
-//			} catch (ClassNotFoundException e) {
-//			} catch (CoreException e) {
-//			}
-//			if ((resultModelObject == null) || (!(resultModelObject instanceof WorkloadDistribution))) {
-//				return;
-//			}
-//			WorkloadDistribution result = (WorkloadDistribution) resultModelObject;
-//			for (MeasurementsMachineConfigurationMachine machine : result.getAllResults().keySet()) {
-//				checkResourceEnvironment(resourceEnvironment, machine, cpuResourceType, diskResourceType, procSharingSchedPolicy);
-//			}
-//			PcmWorkloadModelBuilder pcmWorkloadModelBuilder = new PcmWorkloadModelBuilder(result, null);
-//			if (!pcmWorkloadModelBuilder.build(repository, primitiveTypesRepository, resourceRepository, system, allocation, resourceEnvironment, usageModel)) {
-//				return;
-//			}
-//		}
-//		if (selectedFiles.size() > 0) {
-//			IFile file = selectedFiles.get(0);
-//			IContainer c = file.getParent();
-//			HashMap<String, EObject> fileNamesAndModels = new HashMap<String, EObject>();
-//			fileNamesAndModels.put("workload_repository.repository", repository);
-//			fileNamesAndModels.put("workload_system.system", system);
-//			fileNamesAndModels.put("workload_resourceEnvironment.resourceenvironment", resourceEnvironment);
-//			fileNamesAndModels.put("workload_allocation.allocation", allocation);
-//			fileNamesAndModels.put("workload_usageModel.usagemodel", usageModel);
-//			List<Resource> resources = putModelsIntoResources(fileNamesAndModels, c.getFullPath().toOSString());
-//			saveModelsToDisk(resources);
-//		}
 	}
 	
-	public static void saveModelsToDisk(final List<Resource> resources) {
-		for (Resource resource : resources) {
-			try {
-				resource.save(null);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-	}
 
 }

@@ -1,5 +1,9 @@
 package apiControlFlowInterfaces.seff;
 
+import repositoryStructure.components.seff.StartActionCreator;
+
 public interface StartSeff {
-	public StartActionSeff withStartAction();
+
+	public StartActionCreator withStartAction();
+
 }

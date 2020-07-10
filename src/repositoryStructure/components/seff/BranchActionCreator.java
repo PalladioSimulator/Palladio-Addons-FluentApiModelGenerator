@@ -16,15 +16,12 @@ import org.palladiosimulator.pcm.seff.BranchAction;
 import org.palladiosimulator.pcm.seff.GuardedBranchTransition;
 import org.palladiosimulator.pcm.seff.ProbabilisticBranchTransition;
 import org.palladiosimulator.pcm.seff.ResourceDemandingBehaviour;
-import org.palladiosimulator.pcm.seff.ResourceDemandingSEFF;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 
-import apiControlFlowInterfaces.seff.BranchSeff;
 import apiControlFlowInterfaces.seff.FollowSeff;
 import repositoryStructure.components.seff.SeffCreator.BodyBehaviour;
 
-
-public class BranchActionCreator extends GeneralAction implements BranchSeff, FollowSeff {
+public class BranchActionCreator extends GeneralAction implements FollowSeff {
 
 	private List<AbstractBranchTransition> branches;
 
@@ -32,7 +29,7 @@ public class BranchActionCreator extends GeneralAction implements BranchSeff, Fo
 		this.seff = seff;
 		this.branches = new ArrayList<>();
 	}
-	
+
 	@Override
 	public BranchActionCreator withName(String name) {
 		return (BranchActionCreator) super.withName(name);
@@ -44,11 +41,11 @@ public class BranchActionCreator extends GeneralAction implements BranchSeff, Fo
 		GuardedBranchTransition branch = SeffFactory.eINSTANCE.createGuardedBranchTransition();
 
 		if (branchActions != null) {
-			switch(bodyBehaviourType) {
+			switch (bodyBehaviourType) {
 			case SEFF:
 //TODO
-				}
-			ResourceDemandingBehaviour branchBody = branchActions.buildBehaviour(); //TODO
+			}
+			ResourceDemandingBehaviour branchBody = branchActions.buildBehaviour(); // TODO
 			branch.setBranchBehaviour_BranchTransition(branchBody);
 		}
 
@@ -63,12 +60,13 @@ public class BranchActionCreator extends GeneralAction implements BranchSeff, Fo
 		return this;
 	}
 
-	public BranchActionCreator withProbabilisticBranchTransition(Double branchProbability, SeffCreator branchActions, BodyBehaviour bodyBehaviourType) {
+	public BranchActionCreator withProbabilisticBranchTransition(Double branchProbability, SeffCreator branchActions,
+			BodyBehaviour bodyBehaviourType) {
 
 		ProbabilisticBranchTransition branch = SeffFactory.eINSTANCE.createProbabilisticBranchTransition();
 
 		if (branchActions != null) {
-			ResourceDemandingBehaviour branchBody = branchActions.buildBehaviour(); //TODO
+			ResourceDemandingBehaviour branchBody = branchActions.buildBehaviour(); // TODO
 			branch.setBranchBehaviour_BranchTransition(branchBody);
 		}
 
@@ -102,7 +100,7 @@ public class BranchActionCreator extends GeneralAction implements BranchSeff, Fo
 	}
 
 	@Override
-	public BranchAction build() {
+	protected BranchAction build() {
 		BranchAction action = SeffFactory.eINSTANCE.createBranchAction();
 		action.getBranches_Branch().addAll(branches);
 
