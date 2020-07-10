@@ -10,8 +10,8 @@ import org.palladiosimulator.pcm.resourcetype.ResourceSignature;
 import org.palladiosimulator.pcm.seff.ReleaseAction;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 
-import apiControlFlowInterfaces.Seff.FollowSeff;
-import apiControlFlowInterfaces.Seff.ReleaseSeff;
+import apiControlFlowInterfaces.seff.FollowSeff;
+import apiControlFlowInterfaces.seff.ReleaseSeff;
 
 public class ReleaseActionCreator extends GeneralAction implements ReleaseSeff, FollowSeff {
 

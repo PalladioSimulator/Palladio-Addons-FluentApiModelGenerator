@@ -3,16 +3,23 @@ package repositoryStructure.datatypes;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.palladiosimulator.pcm.repository.PrimitiveDataType;
 import org.palladiosimulator.pcm.repository.PrimitiveTypeEnum;
+import org.palladiosimulator.pcm.repository.Repository;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
+import org.palladiosimulator.pcm.repository.RepositoryPackage;
 import org.palladiosimulator.pcm.resourcetype.CommunicationLinkResourceType;
 import org.palladiosimulator.pcm.resourcetype.ResourcetypeFactory;
 
 public class PrimitiveType {
 
 	private static Map<Primitive, PrimitiveDataType> primitives = new HashMap<>();
-
+	
 	private static void init() {
 		RepositoryFactory fact = RepositoryFactory.eINSTANCE;
 
@@ -61,6 +68,26 @@ public class PrimitiveType {
 		return primitives.get(primitive);
 	}
 
+	private Repository loadPrimitiveTypesRepository() {
+		RepositoryPackage.eINSTANCE.eClass();
+
+		// Register the XMI resource factory for the .repository extension
+
+		Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
+		Map<String, Object> m = reg.getExtensionToFactoryMap();
+		m.put("repository", new XMIResourceFactoryImpl());
+
+		// Obtain a new resource set
+		ResourceSet resSet = new ResourceSetImpl();
+
+		// Get the resource
+		Resource resource = resSet.getResource(URI.createURI("pathmap://PCM_MODELS/PrimitiveTypes.repository"), true);
+		// Get the first model element and cast it to the right type, in my
+		// example everything is hierarchical included in this first node
+		Repository repository = (Repository) resource.getContents().get(0);
+		return repository;
+	}
+	
 	public static PrimitiveDataType getPrimitiveDataType(String primitive) {
 		if (primitives.isEmpty())
 			init();

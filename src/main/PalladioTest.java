@@ -28,6 +28,9 @@ import org.palladiosimulator.pcm.repository.PrimitiveDataType;
 import org.palladiosimulator.pcm.repository.PrimitiveTypeEnum;
 import org.palladiosimulator.pcm.repository.Repository;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
+import org.palladiosimulator.pcm.repository.RepositoryPackage;
+import org.palladiosimulator.pcm.resourcetype.ResourceRepository;
+import org.palladiosimulator.pcm.resourcetype.ResourcetypePackage;
 
 import de.uka.ipd.sdq.stoex.AbstractNamedReference;
 
@@ -35,52 +38,27 @@ public class PalladioTest {
 
 	public static void main(String[] args) {
 		
+		ResourceSet resSet = new ResourceSetImpl();
+		
+		Resource resource = 
+				resSet.getResource(URI.createURI("pathmap://PCM_MODELS/Palladio.resourcetype"), 
+				true);
+				ResourceRepository repository = (ResourceRepository) 
+				resource.getContents().get(0);
+		
+//		PalladioTest t = new PalladioTest();
+//		ResourceRepository resources = t.loadResourceTypeRepository();
+//		Repository p = t.loadPrimitiveTypesRepository();
+//		Repository f = t.loadFailureTypesRepository();
+//		
 		/*
-		RepositoryFactory fact = RepositoryFactory.eINSTANCE;
-		PrimitiveDataType prim1 = fact.createPrimitiveDataType();
-		Repository repos = fact.createRepository();
-		repos.setEntityName("PrimitveTypes");
-		
-		prim1.setType(PrimitiveTypeEnum.BOOL);
-		repos.getDataTypes__Repository().add(prim1);
-		
-		fact.createRepository();
-		Repository repo2 = RepositoryFactory.eINSTANCE.createRepository();
-		BasicComponent comp = RepositoryFactory.eINSTANCE.createBasicComponent();
-		
-		VariableUsage varUsage = ParameterFactory.eINSTANCE.createVariableUsage();
-		AbstractNamedReference ref = varUsage.getNamedReference__VariableUsage();
-		
-		VariableCharacterisation varchar = ParameterFactory.eINSTANCE.createVariableCharacterisation();
-		PCMRandomVariable rand = CoreFactory.eINSTANCE.createPCMRandomVariable();
-		rand.setSpecification(specification_stochasticExpression);
-		varchar.setSpecification_VariableCharacterisation(rand);
-		varchar.setType(type);
-		
-		
-		varUsage.getVariableCharacterisation_VariableUsage().
-		
-		
-		repo2.getComponents__Repository().add(comp);
-		
-		*/
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		new PalladioTest().setupAndSaveEMFInstanceResource();
+		t.setupAndSaveEMFInstanceResource();
 
 		
 //		String fileName = "resources/FailureTypes.repository";
 		String fileName = "/Users/louisalambrecht/Documents/eclipse-workspace/PalladioTest/default.repository";
 
-		Resource repoResource = new PalladioTest().readPalladioRepository(fileName);
+		Resource repoResource = t.readPalladioRepository(fileName);
 
 		// Warum funktioniert das nur, wenn vorher setup and save EMF instance resource
 		// nicht-statisch aufgerufen wurde? Das eine hat doch mit dem anderen nix zu
@@ -98,7 +76,7 @@ public class PalladioTest {
 			repo.getFailureTypes__Repository().stream().forEach(System.out::println);
 		}
 		
-		
+		*/
 
 	}
 
@@ -173,6 +151,66 @@ public class PalladioTest {
 		Resource resource = resSet.getResource(uriInstance, true);
 
 		return resource;
+	}
+	
+	public ResourceRepository loadResourceTypeRepository() {
+		ResourcetypePackage.eINSTANCE.eClass();
+
+		// Register the XMI resource factory for the .repository extension
+
+		Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
+		Map<String, Object> m = reg.getExtensionToFactoryMap();
+		m.put("repository", new XMIResourceFactoryImpl());
+
+		// Obtain a new resource set
+		ResourceSet resSet = new ResourceSetImpl();
+
+		// Get the resource
+		Resource resource = resSet.getResource(URI.createURI("pathmap://PCM_MODELS/Palladio.resourcetype"), true);
+		// Get the first model element and cast it to the right type, in my
+		// example everything is hierarchical included in this first node
+		ResourceRepository repository = (ResourceRepository) resource.getContents().get(0);
+		return repository;
+	}
+	
+	public Repository loadPrimitiveTypesRepository() {
+		RepositoryPackage.eINSTANCE.eClass();
+
+		// Register the XMI resource factory for the .repository extension
+
+		Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
+		Map<String, Object> m = reg.getExtensionToFactoryMap();
+		m.put("repository", new XMIResourceFactoryImpl());
+
+		// Obtain a new resource set
+		ResourceSet resSet = new ResourceSetImpl();
+
+		// Get the resource
+		Resource resource = resSet.getResource(URI.createURI("pathmap://PCM_MODELS/PrimitiveTypes.repository"), true);
+		// Get the first model element and cast it to the right type, in my
+		// example everything is hierarchical included in this first node
+		Repository repository = (Repository) resource.getContents().get(0);
+		return repository;
+	}
+	
+	public Repository loadFailureTypesRepository() {
+		RepositoryPackage.eINSTANCE.eClass();
+
+		// Register the XMI resource factory for the .repository extension
+
+		Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
+		Map<String, Object> m = reg.getExtensionToFactoryMap();
+		m.put("repository", new XMIResourceFactoryImpl());
+
+		// Obtain a new resource set
+		ResourceSet resSet = new ResourceSetImpl();
+
+		// Get the resource
+		Resource resource = resSet.getResource(URI.createURI("pathmap://PCM_MODELS/FailureTypes.repository"), true);
+		// Get the first model element and cast it to the right type, in my
+		// example everything is hierarchical included in this first node
+		Repository repository = (Repository) resource.getContents().get(0);
+		return repository;
 	}
 
 }

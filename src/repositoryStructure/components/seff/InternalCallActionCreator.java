@@ -13,8 +13,8 @@ import org.palladiosimulator.pcm.seff.InternalCallAction;
 import org.palladiosimulator.pcm.seff.ResourceDemandingInternalBehaviour;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 
-import apiControlFlowInterfaces.Seff.FollowSeff;
-import apiControlFlowInterfaces.Seff.InternalCallSeff;
+import apiControlFlowInterfaces.seff.FollowSeff;
+import apiControlFlowInterfaces.seff.InternalCallSeff;
 
 public class InternalCallActionCreator extends GeneralAction implements InternalCallSeff, FollowSeff {
 

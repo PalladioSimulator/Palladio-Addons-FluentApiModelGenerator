@@ -10,11 +10,10 @@ import org.palladiosimulator.pcm.seff.AbstractAction;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 import org.palladiosimulator.pcm.seff.StartAction;
 
-import apiControlFlowInterfaces.Internal.StartActionInternal;
-import apiControlFlowInterfaces.Seff.FollowSeff;
-import apiControlFlowInterfaces.Seff.StartActionSeff;
+import apiControlFlowInterfaces.seff.Internal.StartActionInternal;
+import apiControlFlowInterfaces.seff.StartActionSeff;
 
-public class StartActionCreator extends GeneralAction implements StartActionSeff, StartActionInternal {
+public class StartActionCreator extends GeneralAction implements StartActionSeff{
 
 	public StartActionCreator(SeffCreator seff) {
 		this.seff = seff;

@@ -16,8 +16,8 @@ import org.palladiosimulator.pcm.seff.LoopAction;
 import org.palladiosimulator.pcm.seff.ResourceDemandingBehaviour;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 
-import apiControlFlowInterfaces.Seff.FollowSeff;
-import apiControlFlowInterfaces.Seff.LoopSeff;
+import apiControlFlowInterfaces.seff.FollowSeff;
+import apiControlFlowInterfaces.seff.LoopSeff;
 
 public class LoopActionCreator extends GeneralAction implements LoopSeff, FollowSeff {
 

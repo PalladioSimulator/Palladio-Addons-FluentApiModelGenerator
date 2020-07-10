@@ -15,8 +15,8 @@ import org.palladiosimulator.pcm.seff.CollectionIteratorAction;
 import org.palladiosimulator.pcm.seff.ResourceDemandingBehaviour;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 
-import apiControlFlowInterfaces.Seff.CollectionSeff;
-import apiControlFlowInterfaces.Seff.FollowSeff;
+import apiControlFlowInterfaces.seff.CollectionSeff;
+import apiControlFlowInterfaces.seff.FollowSeff;
 
 public class CollectionIteratorActionCreator extends GeneralAction implements CollectionSeff, FollowSeff {
 

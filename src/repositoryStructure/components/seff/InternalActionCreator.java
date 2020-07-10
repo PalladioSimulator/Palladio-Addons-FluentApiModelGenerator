@@ -15,8 +15,8 @@ import org.palladiosimulator.pcm.resourcetype.ResourceSignature;
 import org.palladiosimulator.pcm.seff.InternalAction;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 
-import apiControlFlowInterfaces.Seff.FollowSeff;
-import apiControlFlowInterfaces.Seff.InternalSeff;
+import apiControlFlowInterfaces.seff.FollowSeff;
+import apiControlFlowInterfaces.seff.InternalSeff;
 
 public class InternalActionCreator extends GeneralAction implements InternalSeff, FollowSeff {
 

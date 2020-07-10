@@ -1,5 +1,13 @@
 package factory;
 
+import java.util.Map;
+
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.entity.ResourceRequiredRole;
 import org.palladiosimulator.pcm.reliability.FailureType;
@@ -22,17 +30,21 @@ import org.palladiosimulator.pcm.repository.Parameter;
 import org.palladiosimulator.pcm.repository.PrimitiveDataType;
 import org.palladiosimulator.pcm.repository.ProvidedRole;
 import org.palladiosimulator.pcm.repository.ProvidesComponentType;
+import org.palladiosimulator.pcm.repository.Repository;
 import org.palladiosimulator.pcm.repository.RepositoryComponent;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
+import org.palladiosimulator.pcm.repository.RepositoryPackage;
 import org.palladiosimulator.pcm.repository.RequiredRole;
 import org.palladiosimulator.pcm.repository.Signature;
 import org.palladiosimulator.pcm.repository.SinkRole;
 import org.palladiosimulator.pcm.repository.SourceRole;
 import org.palladiosimulator.pcm.resourcetype.ResourceInterface;
+import org.palladiosimulator.pcm.resourcetype.ResourceRepository;
+import org.palladiosimulator.pcm.resourcetype.ResourceType;
+import org.palladiosimulator.pcm.resourcetype.ResourcetypePackage;
 import org.palladiosimulator.pcm.subsystem.SubSystem;
 
-import apiControlFlowInterfaces.Internal;
-import apiControlFlowInterfaces.Seff;
+import apiControlFlowInterfaces.seff.Seff;
 import repositoryStructure.RepositoryCreator;
 import repositoryStructure.components.BasicComponentCreator;
 import repositoryStructure.components.CompleteComponentTypeCreator;
@@ -52,7 +64,76 @@ public class MyRepositoryFactory {
 	// TODO: welchen passenderen Namen könnte diese Klasse bekommen?
 
 	private RepositoryCreator repo;
+	private Repository primitives;
+	private ResourceRepository resourceTypes;
+	private Repository failures;
+	
+	public MyRepositoryFactory() {
+		this.primitives = loadPrimitiveTypesRepository();
+		this.resourceTypes = loadResourceTypeRepository();
+		this.failures = loadFailureTypesRepository();
+	}
+	private Repository loadPrimitiveTypesRepository() {
+		RepositoryPackage.eINSTANCE.eClass();
 
+		// Register the XMI resource factory for the .repository extension
+
+		Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
+		Map<String, Object> m = reg.getExtensionToFactoryMap();
+		m.put("repository", new XMIResourceFactoryImpl());
+
+		// Obtain a new resource set
+		ResourceSet resSet = new ResourceSetImpl();
+
+		// Get the resource
+		Resource resource = resSet.getResource(URI.createURI("pathmap://PCM_MODELS/PrimitiveTypes.repository"), true);
+		// Get the first model element and cast it to the right type, in my
+		// example everything is hierarchical included in this first node
+		Repository repository = (Repository) resource.getContents().get(0);
+		return repository;
+	}
+	
+	private ResourceRepository loadResourceTypeRepository() {
+		ResourcetypePackage.eINSTANCE.eClass();
+
+		// Register the XMI resource factory for the .repository extension
+
+		Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
+		Map<String, Object> m = reg.getExtensionToFactoryMap();
+		m.put("repository", new XMIResourceFactoryImpl());
+
+		// Obtain a new resource set
+		ResourceSet resSet = new ResourceSetImpl();
+
+		// Get the resource
+		Resource resource = resSet.getResource(URI.createURI("pathmap://PCM_MODELS/Palladio.resourcetype"), true);
+		// Get the first model element and cast it to the right type, in my
+		// example everything is hierarchical included in this first node
+		ResourceRepository repository = (ResourceRepository) resource.getContents().get(0);
+		return repository;
+	}
+	
+	private Repository loadFailureTypesRepository() {
+		RepositoryPackage.eINSTANCE.eClass();
+
+		// Register the XMI resource factory for the .repository extension
+
+		Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
+		Map<String, Object> m = reg.getExtensionToFactoryMap();
+		m.put("repository", new XMIResourceFactoryImpl());
+
+		// Obtain a new resource set
+		ResourceSet resSet = new ResourceSetImpl();
+
+		// Get the resource
+		Resource resource = resSet.getResource(URI.createURI("pathmap://PCM_MODELS/FailureTypes.repository"), true);
+		// Get the first model element and cast it to the right type, in my
+		// example everything is hierarchical included in this first node
+		Repository repository = (Repository) resource.getContents().get(0);
+		return repository;
+	}
+	
+	
 	// ---------------------- Repository ----------------------
 	public RepositoryCreator newRepository() {
 		this.repo = new RepositoryCreator();
@@ -146,9 +227,9 @@ public class MyRepositoryFactory {
 //		return new SeffCreator();
 //	}
 	
-	public Internal newResourceDemandingInternalBehaviour() {
-		return new SeffCreator();
-	}
+//	public Internal newResourceDemandingInternalBehaviour() {
+//		return new SeffCreator();
+//	}
 	
 //	public Start newForkedBehaviour() {
 //		return new SeffCreator();
@@ -174,11 +255,30 @@ public class MyRepositoryFactory {
 	}
 
 	public DataType fetchOfDataType(Primitive primitive) {
+		//TODO:
+		EList<DataType> dataTypes = this.primitives.getDataTypes__Repository();
+		for (DataType d: dataTypes) {
+			System.out.println(d);
+		}
 		return PrimitiveType.getPrimitiveDataType(primitive);
 	}
 
 	public FailureType fetchOfFailureType(Failure failure) {
+		//TODO:
+		EList<FailureType> failureTypes = this.failures.getFailureTypes__Repository();
+		for (FailureType f: failureTypes) {
+			System.out.println(f);
+		}
+		
 		return repositoryStructure.datatypes.FailureType.getFailureType(failure);
+	}
+	
+	public ResourceType fetchOfResourcetype(String name) {
+		//TODO:
+		this.resourceTypes.getAvailableResourceTypes_ResourceRepository();
+		this.resourceTypes.getResourceInterfaces__ResourceRepository();
+		this.resourceTypes.getSchedulingPolicies__ResourceRepository();
+		return null;
 	}
 
 	public ResourceTimeoutFailureType fetchOfResourceTimeoutFailureType(Failure failure) {

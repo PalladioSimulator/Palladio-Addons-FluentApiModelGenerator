@@ -93,7 +93,7 @@ public class Main {
 //		create.newResourceDemandingInternalBehaviour().withSeffBehaviour().withStartAction().
 		//SEFF example
 		create.newSeff().onSignature(null).withSeffTypeID(null)
-				.withInternalBehaviour(create.newResourceDemandingInternalBehaviour().withSeffBehaviour().withStartAction().withName("Start").followedBy().stopAction().createBehaviourNow())
+//				.withInternalBehaviour(create.newResourceDemandingInternalBehaviour().withSeffBehaviour().withStartAction().withName("Start").followedBy().stopAction().createBehaviourNow())
 				.withSeffBehaviour().withStartAction()
 						.followedBy().internalAction()
 											.withResourceDemand(null, null)

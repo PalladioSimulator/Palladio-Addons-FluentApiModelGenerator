@@ -12,8 +12,8 @@ import org.palladiosimulator.pcm.resourcetype.ResourceSignature;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 import org.palladiosimulator.pcm.seff.SetVariableAction;
 
-import apiControlFlowInterfaces.Seff.FollowSeff;
-import apiControlFlowInterfaces.Seff.SetVariableSeff;
+import apiControlFlowInterfaces.seff.FollowSeff;
+import apiControlFlowInterfaces.seff.SetVariableSeff;
 
 public class SetVariableActionCreator extends GeneralAction implements SetVariableSeff, FollowSeff {
 

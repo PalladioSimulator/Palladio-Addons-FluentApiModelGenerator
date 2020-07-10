@@ -20,7 +20,7 @@ import org.palladiosimulator.pcm.seff.seff_performance.ParametricResourceDemand;
 import org.palladiosimulator.pcm.seff.seff_performance.ResourceCall;
 import org.palladiosimulator.pcm.seff.seff_performance.SeffPerformanceFactory;
 
-import apiControlFlowInterfaces.Seff.StopSeff;
+import apiControlFlowInterfaces.seff.StopSeff;
 
 public class StopActionCreator extends SeffAction implements StopSeff{
 

@@ -13,14 +13,15 @@ import org.palladiosimulator.pcm.seff.ResourceDemandingSEFF;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 import org.palladiosimulator.pcm.seff.ServiceEffectSpecification;
 
-import apiControlFlowInterfaces.Internal.StartInternal;
-import apiControlFlowInterfaces.Seff;
-import apiControlFlowInterfaces.Seff.ActionSeff;
-import apiControlFlowInterfaces.Seff.StartSeff;
-import apiControlFlowInterfaces.Internal;
+import apiControlFlowInterfaces.seff.ActionSeff;
+import apiControlFlowInterfaces.seff.Internal;
+import apiControlFlowInterfaces.seff.Seff;
+import apiControlFlowInterfaces.seff.SeffInterfaces;
+import apiControlFlowInterfaces.seff.StartSeff;
+import apiControlFlowInterfaces.seff.Internal.StartInternal;
 import repositoryStructure.Entity;
 
-public class SeffCreator extends Entity implements Seff, ActionSeff, StartSeff, Internal, StartInternal {
+public class SeffCreator extends Entity implements Seff, ActionSeff, StartSeff {
 
 	private AbstractAction current;
 	private Signature signature;
@@ -186,4 +187,5 @@ public class SeffCreator extends Entity implements Seff, ActionSeff, StartSeff, 
 	public enum BodyBehaviour {
 		SEFF, RESOURCE_DEMANDING_BEHAVIOUR, INTERNAL_BEHAVIOUR, FORKED_BEHAVIOUR, RECOVERY_ACTION_BEHAVIOUR 
 	}
+
 }

@@ -19,8 +19,8 @@ import org.palladiosimulator.pcm.seff.ResourceDemandingBehaviour;
 import org.palladiosimulator.pcm.seff.ResourceDemandingSEFF;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 
-import apiControlFlowInterfaces.Seff.BranchSeff;
-import apiControlFlowInterfaces.Seff.FollowSeff;
+import apiControlFlowInterfaces.seff.BranchSeff;
+import apiControlFlowInterfaces.seff.FollowSeff;
 import repositoryStructure.components.seff.SeffCreator.BodyBehaviour;
 
 

@@ -9,6 +9,10 @@ import org.palladiosimulator.pcm.parameter.ParameterFactory;
 import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
 import org.palladiosimulator.pcm.parameter.VariableCharacterisationType;
 import org.palladiosimulator.pcm.parameter.VariableUsage;
+import org.palladiosimulator.pcm.qosannotations.SpecifiedOutputParameterAbstraction;
+import org.palladiosimulator.pcm.seff.SeffFactory;
+import org.palladiosimulator.pcm.usagemodel.EntryLevelSystemCall;
+import org.palladiosimulator.pcm.usagemodel.UserData;
 
 import apiControlFlowInterfaces.VariableUsageCreation.Basic;
 import apiControlFlowInterfaces.VariableUsageCreation.Composite;
@@ -84,7 +88,14 @@ public class VariableUsageCreator extends Entity implements Basic, Composite {
 //		AbstractNamedReference ref = varUsage.getNamedReference__VariableUsage();
 //		ref.setReferenceName(reference);
 //		}
+		
 		varUsage.getVariableCharacterisation_VariableUsage().addAll(variableCharacterisations);
+		varUsage.getNamedReference__VariableUsage();
+		
+		EntryLevelSystemCall a = varUsage.getEntryLevelSystemCall_InputParameterUsage();
+		EntryLevelSystemCall b = varUsage.getEntryLevelSystemCall_OutputParameterUsage();
+		SpecifiedOutputParameterAbstraction c = varUsage.getSpecifiedOutputParameterAbstraction_expectedExternalOutputs_VariableUsage();
+		UserData d = varUsage.getUserData_VariableUsage();
 		return varUsage;
 	}
 }

@@ -10,8 +10,8 @@ import org.palladiosimulator.pcm.repository.OperationSignature;
 import org.palladiosimulator.pcm.seff.ExternalCallAction;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 
-import apiControlFlowInterfaces.Seff.ExternalCallSeff;
-import apiControlFlowInterfaces.Seff.FollowSeff;
+import apiControlFlowInterfaces.seff.ExternalCallSeff;
+import apiControlFlowInterfaces.seff.FollowSeff;
 
 public class ExternalCallActionCreator extends SeffAction implements ExternalCallSeff, FollowSeff {
 

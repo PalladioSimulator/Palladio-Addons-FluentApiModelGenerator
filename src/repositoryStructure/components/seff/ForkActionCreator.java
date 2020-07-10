@@ -14,8 +14,8 @@ import org.palladiosimulator.pcm.seff.ForkedBehaviour;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 import org.palladiosimulator.pcm.seff.SynchronisationPoint;
 
-import apiControlFlowInterfaces.Seff.FollowSeff;
-import apiControlFlowInterfaces.Seff.ForkSeff;
+import apiControlFlowInterfaces.seff.FollowSeff;
+import apiControlFlowInterfaces.seff.ForkSeff;
 
 public class ForkActionCreator extends GeneralAction implements ForkSeff, FollowSeff {
 

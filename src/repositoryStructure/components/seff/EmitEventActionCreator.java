@@ -9,8 +9,8 @@ import org.palladiosimulator.pcm.repository.SourceRole;
 import org.palladiosimulator.pcm.seff.EmitEventAction;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 
-import apiControlFlowInterfaces.Seff.EmitEventSeff;
-import apiControlFlowInterfaces.Seff.FollowSeff;
+import apiControlFlowInterfaces.seff.EmitEventSeff;
+import apiControlFlowInterfaces.seff.FollowSeff;
 
 public class EmitEventActionCreator extends SeffAction implements EmitEventSeff, FollowSeff {
 

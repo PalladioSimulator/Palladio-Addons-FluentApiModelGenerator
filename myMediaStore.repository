@@ -1,78 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<repository:Repository xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:reliability="http://palladiosimulator.org/PalladioComponentModel/Reliability/5.2" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:seff="http://palladiosimulator.org/PalladioComponentModel/SEFF/5.2" id="abc123" entityName="defaultRepository" repositoryDescription="This is my PCM model.">
-  <components__Repository xsi:type="repository:BasicComponent" id="_gMLZsL48EeqqgPhzITo8WA" entityName="EnqueueDownloadCache">
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_gMHIQL48EeqqgPhzITo8WA" providedInterface__OperationProvidedRole="_gL_zgr48EeqqgPhzITo8WA"/>
-    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_gMHvUL48EeqqgPhzITo8WA" requiredInterface__OperationRequiredRole="_gL_zgr48EeqqgPhzITo8WA"/>
-    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_gMI9cL48EeqqgPhzITo8WA"/>
+<repository:Repository xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:reliability="http://palladiosimulator.org/PalladioComponentModel/Reliability/5.2" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:seff="http://palladiosimulator.org/PalladioComponentModel/SEFF/5.2" id="_p3H0QMKKEeq0kb6ZvBz8Tw" entityName="defaultRepository" repositoryDescription="This is my PCM model.">
+  <components__Repository xsi:type="repository:BasicComponent" id="_p3FYAMKKEeq0kb6ZvBz8Tw" entityName="EnqueueDownloadCache">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_p24jsMKKEeq0kb6ZvBz8Tw" providedInterface__OperationProvidedRole="_p20SQcKKEeq0kb6ZvBz8Tw"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_p25x0MKKEeq0kb6ZvBz8Tw" requiredInterface__OperationRequiredRole="_p20SQcKKEeq0kb6ZvBz8Tw"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_p3BGkMKKEeq0kb6ZvBz8Tw"/>
   </components__Repository>
-  <components__Repository xsi:type="repository:BasicComponent" id="_gMLZtL48EeqqgPhzITo8WA" entityName="InstantDownloadCache">
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_gMLZsb48EeqqgPhzITo8WA" providedInterface__OperationProvidedRole="_gL_zgr48EeqqgPhzITo8WA"/>
-    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_gMLZsr48EeqqgPhzITo8WA" requiredInterface__OperationRequiredRole="_gL_zgr48EeqqgPhzITo8WA"/>
-    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_gMLZs748EeqqgPhzITo8WA"/>
+  <components__Repository xsi:type="repository:BasicComponent" id="_p3F_E8KKEeq0kb6ZvBz8Tw" entityName="InstantDownloadCache">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_p3F_EMKKEeq0kb6ZvBz8Tw" providedInterface__OperationProvidedRole="_p20SQcKKEeq0kb6ZvBz8Tw"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_p3F_EcKKEeq0kb6ZvBz8Tw" requiredInterface__OperationRequiredRole="_p20SQcKKEeq0kb6ZvBz8Tw"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_p3F_EsKKEeq0kb6ZvBz8Tw"/>
   </components__Repository>
-  <components__Repository xsi:type="repository:BasicComponent" id="_gMMAw748EeqqgPhzITo8WA" entityName="FileStorage">
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_gMMAwL48EeqqgPhzITo8WA" entityName="IDataStorage" providedInterface__OperationProvidedRole="_gL_zgL48EeqqgPhzITo8WA"/>
-    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_gMMAwb48EeqqgPhzITo8WA"/>
-    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_gMMAwr48EeqqgPhzITo8WA"/>
+  <components__Repository xsi:type="repository:BasicComponent" id="_p3F_F8KKEeq0kb6ZvBz8Tw" entityName="FileStorage">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_p3F_FMKKEeq0kb6ZvBz8Tw" entityName="IDataStorage" providedInterface__OperationProvidedRole="_p2zrMMKKEeq0kb6ZvBz8Tw"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_p3F_FcKKEeq0kb6ZvBz8Tw"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_p3F_FsKKEeq0kb6ZvBz8Tw"/>
   </components__Repository>
-  <components__Repository xsi:type="repository:BasicComponent" id="_gMMn0b48EeqqgPhzITo8WA" entityName="MediaManagement">
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_gMMAxL48EeqqgPhzITo8WA" providedInterface__OperationProvidedRole="_gMAalr48EeqqgPhzITo8WA"/>
-    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_gMMAxb48EeqqgPhzITo8WA" requiredInterface__OperationRequiredRole="_gL_zgr48EeqqgPhzITo8WA"/>
-    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_gMMAxr48EeqqgPhzITo8WA" requiredInterface__OperationRequiredRole="_gMAakr48EeqqgPhzITo8WA"/>
-    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_gMMAx748EeqqgPhzITo8WA" requiredInterface__OperationRequiredRole="_gMAakL48EeqqgPhzITo8WA"/>
-    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_gMMAyL48EeqqgPhzITo8WA"/>
-    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_gMMAyb48EeqqgPhzITo8WA"/>
-    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_gMMn0L48EeqqgPhzITo8WA"/>
+  <components__Repository xsi:type="repository:BasicComponent" id="_p3GmIMKKEeq0kb6ZvBz8Tw" entityName="MediaManagement">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_p3F_GMKKEeq0kb6ZvBz8Tw" providedInterface__OperationProvidedRole="_p205VsKKEeq0kb6ZvBz8Tw"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_p3F_GcKKEeq0kb6ZvBz8Tw" requiredInterface__OperationRequiredRole="_p20SQcKKEeq0kb6ZvBz8Tw"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_p3F_GsKKEeq0kb6ZvBz8Tw" requiredInterface__OperationRequiredRole="_p205UsKKEeq0kb6ZvBz8Tw"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_p3F_G8KKEeq0kb6ZvBz8Tw" requiredInterface__OperationRequiredRole="_p205UMKKEeq0kb6ZvBz8Tw"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_p3F_HMKKEeq0kb6ZvBz8Tw"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_p3F_HcKKEeq0kb6ZvBz8Tw"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_p3F_HsKKEeq0kb6ZvBz8Tw"/>
   </components__Repository>
-  <components__Repository xsi:type="repository:BasicComponent" id="_gMMn1L48EeqqgPhzITo8WA" entityName="Packaging">
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_gMMn0r48EeqqgPhzITo8WA" providedInterface__OperationProvidedRole="_gMAakr48EeqqgPhzITo8WA"/>
-    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_gMMn0748EeqqgPhzITo8WA"/>
+  <components__Repository xsi:type="repository:BasicComponent" id="_p3GmI8KKEeq0kb6ZvBz8Tw" entityName="Packaging">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_p3GmIcKKEeq0kb6ZvBz8Tw" providedInterface__OperationProvidedRole="_p205UsKKEeq0kb6ZvBz8Tw"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_p3GmIsKKEeq0kb6ZvBz8Tw"/>
   </components__Repository>
-  <components__Repository xsi:type="repository:BasicComponent" id="_gMNO5L48EeqqgPhzITo8WA" entityName="MediaAccess">
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_gMMn1b48EeqqgPhzITo8WA" providedInterface__OperationProvidedRole="_gMAakL48EeqqgPhzITo8WA"/>
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_gMMn1r48EeqqgPhzITo8WA" providedInterface__OperationProvidedRole="_gL_zgr48EeqqgPhzITo8WA"/>
-    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_gMNO4L48EeqqgPhzITo8WA" entityName="IDataStorage" requiredInterface__OperationRequiredRole="_gL_zgL48EeqqgPhzITo8WA"/>
-    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_gMNO4b48EeqqgPhzITo8WA"/>
-    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_gMNO4r48EeqqgPhzITo8WA"/>
-    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_gMNO4748EeqqgPhzITo8WA"/>
+  <components__Repository xsi:type="repository:BasicComponent" id="_p3GmKsKKEeq0kb6ZvBz8Tw" entityName="MediaAccess">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_p3GmJMKKEeq0kb6ZvBz8Tw" providedInterface__OperationProvidedRole="_p205UMKKEeq0kb6ZvBz8Tw"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_p3GmJcKKEeq0kb6ZvBz8Tw" providedInterface__OperationProvidedRole="_p20SQcKKEeq0kb6ZvBz8Tw"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_p3GmJsKKEeq0kb6ZvBz8Tw" entityName="IDataStorage" requiredInterface__OperationRequiredRole="_p2zrMMKKEeq0kb6ZvBz8Tw"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_p3GmJ8KKEeq0kb6ZvBz8Tw"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_p3GmKMKKEeq0kb6ZvBz8Tw"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_p3GmKcKKEeq0kb6ZvBz8Tw"/>
   </components__Repository>
-  <interfaces__Repository xsi:type="repository:OperationInterface" id="_gL_zgL48EeqqgPhzITo8WA" entityName="IFileStorage">
-    <signatures__OperationInterface id="_gL-lYL48EeqqgPhzITo8WA" returnType__OperationSignature="_gL2CgL48EeqqgPhzITo8WA">
-      <parameters__OperationSignature dataType__Parameter="_gL6T8L48EeqqgPhzITo8WA" parameterName="audioRequest"/>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_p2zrMMKKEeq0kb6ZvBz8Tw" entityName="IFileStorage">
+    <signatures__OperationInterface id="_p2x2AMKKEeq0kb6ZvBz8Tw" entityName="getFiles" returnType__OperationSignature="_p2h-YMKKEeq0kb6ZvBz8Tw">
+      <parameters__OperationSignature dataType__Parameter="_p2qhQMKKEeq0kb6ZvBz8Tw" parameterName="audioRequest"/>
     </signatures__OperationInterface>
-    <signatures__OperationInterface id="_gL-lYb48EeqqgPhzITo8WA">
-      <parameters__OperationSignature dataType__Parameter="_gL2CgL48EeqqgPhzITo8WA" parameterName="file"/>
+    <signatures__OperationInterface id="_p2x2AcKKEeq0kb6ZvBz8Tw" entityName="storeFile">
+      <parameters__OperationSignature dataType__Parameter="_p2h-YMKKEeq0kb6ZvBz8Tw" parameterName="file"/>
     </signatures__OperationInterface>
   </interfaces__Repository>
-  <interfaces__Repository xsi:type="repository:OperationInterface" id="_gL_zgr48EeqqgPhzITo8WA" entityName="IDownload">
-    <signatures__OperationInterface id="_gL_zgb48EeqqgPhzITo8WA" returnType__OperationSignature="_gL6T8L48EeqqgPhzITo8WA">
-      <parameters__OperationSignature dataType__Parameter="_gL6T8L48EeqqgPhzITo8WA" parameterName="audioRequest"/>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_p20SQcKKEeq0kb6ZvBz8Tw" entityName="IDownload">
+    <signatures__OperationInterface id="_p20SQMKKEeq0kb6ZvBz8Tw" entityName="download" returnType__OperationSignature="_p2qhQMKKEeq0kb6ZvBz8Tw">
+      <parameters__OperationSignature dataType__Parameter="_p2qhQMKKEeq0kb6ZvBz8Tw" parameterName="audioRequest"/>
     </signatures__OperationInterface>
   </interfaces__Repository>
-  <interfaces__Repository xsi:type="repository:OperationInterface" id="_gMAakL48EeqqgPhzITo8WA" entityName="IMediaAccess">
-    <signatures__OperationInterface id="_gL_zg748EeqqgPhzITo8WA">
-      <parameters__OperationSignature dataType__Parameter="_gL2CgL48EeqqgPhzITo8WA" parameterName="file"/>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_p205UMKKEeq0kb6ZvBz8Tw" entityName="IMediaAccess">
+    <signatures__OperationInterface id="_p20SQsKKEeq0kb6ZvBz8Tw" entityName="upload">
+      <parameters__OperationSignature dataType__Parameter="_p2h-YMKKEeq0kb6ZvBz8Tw" parameterName="file"/>
     </signatures__OperationInterface>
-    <signatures__OperationInterface id="_gL_zhL48EeqqgPhzITo8WA"/>
+    <signatures__OperationInterface id="_p20SQ8KKEeq0kb6ZvBz8Tw" entityName="getFileList"/>
   </interfaces__Repository>
-  <interfaces__Repository xsi:type="repository:OperationInterface" id="_gMAakr48EeqqgPhzITo8WA" entityName="IPackaging">
-    <signatures__OperationInterface id="_gMAakb48EeqqgPhzITo8WA" returnType__OperationSignature="_gL2CgL48EeqqgPhzITo8WA">
-      <parameters__OperationSignature dataType__Parameter="_gL6T8L48EeqqgPhzITo8WA" parameterName="audios"/>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_p205UsKKEeq0kb6ZvBz8Tw" entityName="IPackaging">
+    <signatures__OperationInterface id="_p205UcKKEeq0kb6ZvBz8Tw" entityName="zip" returnType__OperationSignature="_p2h-YMKKEeq0kb6ZvBz8Tw">
+      <parameters__OperationSignature dataType__Parameter="_p2qhQMKKEeq0kb6ZvBz8Tw" parameterName="audios"/>
     </signatures__OperationInterface>
   </interfaces__Repository>
-  <interfaces__Repository xsi:type="repository:OperationInterface" id="_gMAalr48EeqqgPhzITo8WA" entityName="IMediaManagement">
-    <signatures__OperationInterface id="_gMAak748EeqqgPhzITo8WA">
-      <parameters__OperationSignature dataType__Parameter="_gL2CgL48EeqqgPhzITo8WA" parameterName="file"/>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_p205VsKKEeq0kb6ZvBz8Tw" entityName="IMediaManagement">
+    <signatures__OperationInterface id="_p205U8KKEeq0kb6ZvBz8Tw" entityName="upload">
+      <parameters__OperationSignature dataType__Parameter="_p2h-YMKKEeq0kb6ZvBz8Tw" parameterName="file"/>
     </signatures__OperationInterface>
-    <signatures__OperationInterface id="_gMAalL48EeqqgPhzITo8WA" returnType__OperationSignature="_gL2CgL48EeqqgPhzITo8WA">
-      <parameters__OperationSignature dataType__Parameter="_gL6T8L48EeqqgPhzITo8WA" parameterName="audioRequest"/>
+    <signatures__OperationInterface id="_p205VMKKEeq0kb6ZvBz8Tw" entityName="download" returnType__OperationSignature="_p2h-YMKKEeq0kb6ZvBz8Tw">
+      <parameters__OperationSignature dataType__Parameter="_p2qhQMKKEeq0kb6ZvBz8Tw" parameterName="audioRequest"/>
     </signatures__OperationInterface>
-    <signatures__OperationInterface id="_gMAalb48EeqqgPhzITo8WA"/>
+    <signatures__OperationInterface id="_p205VcKKEeq0kb6ZvBz8Tw" entityName="getFileList"/>
   </interfaces__Repository>
-  <failureTypes__Repository xsi:type="reliability:HardwareInducedFailureType" id="_HlRi4UNsEd-z_dlODpG6uw" entityName="HardwareInducedFailure (CPU)" processingResourceType__HardwareInducedFailureType="_gLwi8L48EeqqgPhzITo8WA"/>
-  <failureTypes__Repository xsi:type="reliability:HardwareInducedFailureType" id="_L-N5F0NsEd-z_dlODpG6uw" entityName="HardwareInducedFailure (HDD)" processingResourceType__HardwareInducedFailureType="_gLyYIb48EeqqgPhzITo8WA"/>
-  <failureTypes__Repository xsi:type="reliability:HardwareInducedFailureType" id="_41yAR0PGEd-ZmrACNr1Mew" entityName="HardwareInducedFailure (DELAY)" processingResourceType__HardwareInducedFailureType="_gLyYI748EeqqgPhzITo8WA"/>
-  <failureTypes__Repository xsi:type="reliability:NetworkInducedFailureType" id="_P0TZ10NsEd-z_dlODpG6uw" entityName="NetworkInducedFailure (LAN)" communicationLinkResourceType__NetworkInducedFailureType="_gLxxEb48EeqqgPhzITo8WA"/>
+  <failureTypes__Repository xsi:type="reliability:HardwareInducedFailureType" id="_HlRi4UNsEd-z_dlODpG6uw" entityName="HardwareInducedFailure (CPU)" processingResourceType__HardwareInducedFailureType="_p2ZbgMKKEeq0kb6ZvBz8Tw"/>
+  <failureTypes__Repository xsi:type="reliability:HardwareInducedFailureType" id="_L-N5F0NsEd-z_dlODpG6uw" entityName="HardwareInducedFailure (HDD)" processingResourceType__HardwareInducedFailureType="_p2ce0sKKEeq0kb6ZvBz8Tw"/>
+  <failureTypes__Repository xsi:type="reliability:HardwareInducedFailureType" id="_41yAR0PGEd-ZmrACNr1Mew" entityName="HardwareInducedFailure (DELAY)" processingResourceType__HardwareInducedFailureType="_p2ce1MKKEeq0kb6ZvBz8Tw"/>
+  <failureTypes__Repository xsi:type="reliability:NetworkInducedFailureType" id="_P0TZ10NsEd-z_dlODpG6uw" entityName="NetworkInducedFailure (LAN)" communicationLinkResourceType__NetworkInducedFailureType="_p2ce0MKKEeq0kb6ZvBz8Tw"/>
   <failureTypes__Repository xsi:type="reliability:SoftwareInducedFailureType" id="_sLBREFf0EeW5Q6z-Ts8kIg" entityName="SoftwareInducedFailure"/>
   <dataTypes__Repository xsi:type="repository:PrimitiveDataType" type="BOOL"/>
   <dataTypes__Repository xsi:type="repository:PrimitiveDataType" type="BYTE"/>
@@ -81,8 +81,8 @@
   <dataTypes__Repository xsi:type="repository:PrimitiveDataType"/>
   <dataTypes__Repository xsi:type="repository:PrimitiveDataType" type="LONG"/>
   <dataTypes__Repository xsi:type="repository:PrimitiveDataType" type="STRING"/>
-  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_gL2CgL48EeqqgPhzITo8WA" entityName="FileContent"/>
-  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_gL6T8L48EeqqgPhzITo8WA" entityName="AudioCollectionRequest">
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_p2h-YMKKEeq0kb6ZvBz8Tw" entityName="FileContent"/>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_p2qhQMKKEeq0kb6ZvBz8Tw" entityName="AudioCollectionRequest">
     <innerDeclaration_CompositeDataType entityName="Count" datatype_InnerDeclaration="//@dataTypes__Repository.4"/>
     <innerDeclaration_CompositeDataType entityName="Size" datatype_InnerDeclaration="//@dataTypes__Repository.4"/>
   </dataTypes__Repository>

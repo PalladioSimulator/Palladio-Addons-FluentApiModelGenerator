@@ -13,8 +13,8 @@ import org.palladiosimulator.pcm.seff.seff_reliability.RecoveryAction;
 import org.palladiosimulator.pcm.seff.seff_reliability.RecoveryActionBehaviour;
 import org.palladiosimulator.pcm.seff.seff_reliability.SeffReliabilityFactory;
 
-import apiControlFlowInterfaces.Seff.FollowSeff;
-import apiControlFlowInterfaces.Seff.RecoverySeff;
+import apiControlFlowInterfaces.seff.FollowSeff;
+import apiControlFlowInterfaces.seff.RecoverySeff;
 
 public class RecoveryActionCreator extends GeneralAction implements RecoverySeff, FollowSeff {
 

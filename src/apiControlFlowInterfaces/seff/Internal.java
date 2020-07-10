@@ -1,4 +1,4 @@
-package apiControlFlowInterfaces;
+package apiControlFlowInterfaces.seff;
 
 import org.palladiosimulator.pcm.core.entity.ResourceRequiredRole;
 import org.palladiosimulator.pcm.parameter.VariableUsage;
@@ -19,13 +19,13 @@ import org.palladiosimulator.pcm.seff.ResourceDemandingInternalBehaviour;
 import repositoryStructure.components.seff.SeffCreator;
 import repositoryStructure.components.seff.SeffCreator.BodyBehaviour;
 
-public interface Internal {
+public interface Internal extends SeffInterfaces{
 
 	public StartInternal withSeffBehaviour();
 
 	ResourceDemandingInternalBehaviour buildInternalBehaviour();
 
-	public interface ActionInternal {
+	public interface ActionInternal extends SeffInterfaces{
 		public AcquireInternal acquireAction();
 
 		public BranchInternal branchAction();
@@ -53,7 +53,7 @@ public interface Internal {
 		public StopInternal stopAction();
 	}
 
-	public interface FollowInternal {
+	public interface FollowInternal extends SeffInterfaces1{
 		public ActionInternal followedBy();
 	}
 
@@ -61,7 +61,7 @@ public interface Internal {
 		public StartActionInternal withStartAction();
 	}
 
-	public interface StartActionInternal {
+	public interface StartActionInternal extends SeffInterfaces1{
 		public StartActionInternal withName(String name);
 
 		public StartActionInternal withResourceDemand(String specification_stochasticExpression,
@@ -77,7 +77,7 @@ public interface Internal {
 		public ActionInternal followedBy();
 	}
 
-	public interface AcquireInternal {
+	public interface AcquireInternal extends SeffInterfaces1 {
 		public AcquireInternal withName(String name);
 
 		public AcquireInternal withPassiveResource(PassiveResource passiveResource);
