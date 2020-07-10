@@ -10,9 +10,9 @@ import org.palladiosimulator.pcm.repository.OperationSignature;
 import org.palladiosimulator.pcm.seff.ExternalCallAction;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 
-import apiControlFlowInterfaces.seff.FollowSeff;
+import repositoryStructure.components.VariableUsageCreator;
 
-public class ExternalCallActionCreator extends SeffAction implements FollowSeff {
+public class ExternalCallActionCreator extends SeffAction {
 
 	private Integer retryCount;
 	private OperationSignature signature;
@@ -49,15 +49,15 @@ public class ExternalCallActionCreator extends SeffAction implements FollowSeff 
 		return this;
 	}
 
-	public ExternalCallActionCreator withInputVariableUsage() {
-		// TODO:
-//		if ( != null)
+	public ExternalCallActionCreator withInputVariableUsage(VariableUsageCreator variableUsage) {
+		if (variableUsage != null)
+			this.inputVariableUsages.add(variableUsage.build());
 		return this;
 	}
 
-	public ExternalCallActionCreator withReturnVariableUsage() {
-		// TODO:
-//		if ( != null)
+	public ExternalCallActionCreator withReturnVariableUsage(VariableUsageCreator variableUsage) {
+		if (variableUsage != null)
+			this.returnVariableUsages.add(variableUsage.build());
 		return this;
 	}
 

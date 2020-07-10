@@ -12,9 +12,9 @@ import org.palladiosimulator.pcm.resourcetype.ResourceSignature;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 import org.palladiosimulator.pcm.seff.SetVariableAction;
 
-import apiControlFlowInterfaces.seff.FollowSeff;
+import repositoryStructure.components.VariableUsageCreator;
 
-public class SetVariableActionCreator extends GeneralAction implements FollowSeff {
+public class SetVariableActionCreator extends GeneralAction {
 
 	private List<VariableUsage> localVariableUsages;
 
@@ -28,6 +28,12 @@ public class SetVariableActionCreator extends GeneralAction implements FollowSef
 		return (SetVariableActionCreator) super.withName(name);
 	}
 
+	public SetVariableActionCreator withLocalVariableUsage(VariableUsageCreator variableUsage) {
+		if (variableUsage != null)
+			this.localVariableUsages.add(variableUsage.build());
+		return this;
+	}
+
 	@Override
 	public SetVariableActionCreator withResourceDemand(String specification_stochasticExpression,
 			ProcessingResourceType processingResource) {
@@ -38,22 +44,26 @@ public class SetVariableActionCreator extends GeneralAction implements FollowSef
 	@Override
 	public SetVariableActionCreator withInfrastructureCall(String numberOfCalls_stochasticExpression,
 			InfrastructureSignature signature, InfrastructureRequiredRole requiredRole,
-			VariableUsage... variableUsages) {
+			VariableUsageCreator... variableUsages) {
 		return (SetVariableActionCreator) super.withInfrastructureCall(numberOfCalls_stochasticExpression, signature,
 				requiredRole, variableUsages);
 	}
 
 	@Override
 	public SetVariableActionCreator withResourceCall(String numberOfCalls_stochasticExpression,
-			ResourceSignature signature, ResourceRequiredRole requiredRole, VariableUsage... variableUsages) {
+			ResourceSignature signature, ResourceRequiredRole requiredRole, VariableUsageCreator... variableUsages) {
 		return (SetVariableActionCreator) super.withResourceCall(numberOfCalls_stochasticExpression, signature,
 				requiredRole, variableUsages);
 	}
 
 	@Override
 	protected SetVariableAction build() {
-		// TODO: iwelche Voraussetzungen? + localVariableUsages
+		// TODO: iwelche Voraussetzungen?
 		SetVariableAction action = SeffFactory.eINSTANCE.createSetVariableAction();
+		
+		if(name != null) 
+			action.getEntityName();
+			
 		action.getLocalVariableUsages_SetVariableAction().addAll(localVariableUsages);
 
 		action.getInfrastructureCall__Action().addAll(infrastructureCalls);

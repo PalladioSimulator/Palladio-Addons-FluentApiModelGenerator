@@ -1,30 +1,23 @@
 package repositoryStructure.components.seff;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.palladiosimulator.pcm.core.entity.ResourceRequiredRole;
-import org.palladiosimulator.pcm.parameter.VariableUsage;
 import org.palladiosimulator.pcm.repository.InfrastructureRequiredRole;
 import org.palladiosimulator.pcm.repository.InfrastructureSignature;
 import org.palladiosimulator.pcm.repository.Parameter;
 import org.palladiosimulator.pcm.resourcetype.ProcessingResourceType;
 import org.palladiosimulator.pcm.resourcetype.ResourceSignature;
-import org.palladiosimulator.pcm.seff.AbstractAction;
 import org.palladiosimulator.pcm.seff.CollectionIteratorAction;
-import org.palladiosimulator.pcm.seff.ResourceDemandingBehaviour;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 
-import apiControlFlowInterfaces.seff.FollowSeff;
+import repositoryStructure.components.VariableUsageCreator;
 
-public class CollectionIteratorActionCreator extends GeneralAction implements FollowSeff {
+public class CollectionIteratorActionCreator extends GeneralAction {
 
 	private Parameter parameter;
-	private List<AbstractAction> steps;
+	private SeffCreator loopBody;
 
 	public CollectionIteratorActionCreator(SeffCreator seff) {
 		this.seff = seff;
-		this.steps = new ArrayList<>();
 	}
 
 	@Override
@@ -39,7 +32,7 @@ public class CollectionIteratorActionCreator extends GeneralAction implements Fo
 
 	public CollectionIteratorActionCreator withLoopBody(SeffCreator loopBody) {
 		if (loopBody != null)
-			this.steps.addAll(loopBody.getSteps());
+			this.loopBody = loopBody;
 		return this;
 	}
 
@@ -53,14 +46,14 @@ public class CollectionIteratorActionCreator extends GeneralAction implements Fo
 	@Override
 	public CollectionIteratorActionCreator withInfrastructureCall(String numberOfCalls_stochasticExpression,
 			InfrastructureSignature signature, InfrastructureRequiredRole requiredRole,
-			VariableUsage... variableUsages) {
+			VariableUsageCreator... variableUsages) {
 		return (CollectionIteratorActionCreator) super.withInfrastructureCall(numberOfCalls_stochasticExpression,
 				signature, requiredRole, variableUsages);
 	}
 
 	@Override
 	public CollectionIteratorActionCreator withResourceCall(String numberOfCalls_stochasticExpression,
-			ResourceSignature signature, ResourceRequiredRole requiredRole, VariableUsage... variableUsages) {
+			ResourceSignature signature, ResourceRequiredRole requiredRole, VariableUsageCreator... variableUsages) {
 		return (CollectionIteratorActionCreator) super.withResourceCall(numberOfCalls_stochasticExpression, signature,
 				requiredRole, variableUsages);
 	}
@@ -72,9 +65,13 @@ public class CollectionIteratorActionCreator extends GeneralAction implements Fo
 		if (parameter != null)
 			action.setParameter_CollectionIteratorAction(parameter);
 
-		ResourceDemandingBehaviour body = SeffFactory.eINSTANCE.createResourceDemandingBehaviour();
-		body.getSteps_Behaviour().addAll(this.steps);
-		action.setBodyBehaviour_Loop(body);
+		if (loopBody != null) {
+			if (loopBody.getSignature() == null && loopBody.getSeffTypeID() == null
+					&& loopBody.getInternalBehaviours().isEmpty())
+				action.setBodyBehaviour_Loop(loopBody.buildBehaviour());
+			else
+				action.setBodyBehaviour_Loop(loopBody.buildSeff());
+		}
 
 		action.getInfrastructureCall__Action().addAll(infrastructureCalls);
 		action.getResourceCall__Action().addAll(resourceCalls);

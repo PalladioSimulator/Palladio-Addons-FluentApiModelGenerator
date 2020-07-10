@@ -1,7 +1,6 @@
 package repositoryStructure.components.seff;
 
 import org.palladiosimulator.pcm.core.entity.ResourceRequiredRole;
-import org.palladiosimulator.pcm.parameter.VariableUsage;
 import org.palladiosimulator.pcm.repository.InfrastructureRequiredRole;
 import org.palladiosimulator.pcm.repository.InfrastructureSignature;
 import org.palladiosimulator.pcm.repository.PassiveResource;
@@ -9,6 +8,8 @@ import org.palladiosimulator.pcm.resourcetype.ProcessingResourceType;
 import org.palladiosimulator.pcm.resourcetype.ResourceSignature;
 import org.palladiosimulator.pcm.seff.AcquireAction;
 import org.palladiosimulator.pcm.seff.SeffFactory;
+
+import repositoryStructure.components.VariableUsageCreator;
 
 public class AcquireActionCreator extends GeneralAction {
 
@@ -49,14 +50,14 @@ public class AcquireActionCreator extends GeneralAction {
 	@Override
 	public AcquireActionCreator withInfrastructureCall(String numberOfCalls_stochasticExpression,
 			InfrastructureSignature signature, InfrastructureRequiredRole requiredRole,
-			VariableUsage... variableUsages) {
+			VariableUsageCreator... variableUsages) {
 		return (AcquireActionCreator) super.withInfrastructureCall(numberOfCalls_stochasticExpression, signature,
 				requiredRole, variableUsages);
 	}
 
 	@Override
 	public AcquireActionCreator withResourceCall(String numberOfCalls_stochasticExpression, ResourceSignature signature,
-			ResourceRequiredRole requiredRole, VariableUsage... variableUsages) {
+			ResourceRequiredRole requiredRole, VariableUsageCreator... variableUsages) {
 		return (AcquireActionCreator) super.withResourceCall(numberOfCalls_stochasticExpression, signature,
 				requiredRole, variableUsages);
 	}

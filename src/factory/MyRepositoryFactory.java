@@ -42,9 +42,12 @@ import org.palladiosimulator.pcm.resourcetype.ResourceInterface;
 import org.palladiosimulator.pcm.resourcetype.ResourceRepository;
 import org.palladiosimulator.pcm.resourcetype.ResourceType;
 import org.palladiosimulator.pcm.resourcetype.ResourcetypePackage;
+import org.palladiosimulator.pcm.seff.seff_reliability.RecoveryActionBehaviour;
 import org.palladiosimulator.pcm.subsystem.SubSystem;
 
+import apiControlFlowInterfaces.Repo;
 import apiControlFlowInterfaces.seff.InternalSeff;
+import apiControlFlowInterfaces.seff.RecoverySeff;
 import apiControlFlowInterfaces.seff.Seff;
 import repositoryStructure.RepositoryCreator;
 import repositoryStructure.components.BasicComponentCreator;
@@ -69,12 +72,13 @@ public class MyRepositoryFactory {
 	private Repository primitives;
 	private ResourceRepository resourceTypes;
 	private Repository failures;
-	
+
 	public MyRepositoryFactory() {
 //		this.primitives = loadPrimitiveTypesRepository();
 //		this.resourceTypes = loadResourceTypeRepository();
 //		this.failures = loadFailureTypesRepository();
 	}
+
 	private Repository loadPrimitiveTypesRepository() {
 		RepositoryPackage.eINSTANCE.eClass();
 
@@ -94,7 +98,7 @@ public class MyRepositoryFactory {
 		Repository repository = (Repository) resource.getContents().get(0);
 		return repository;
 	}
-	
+
 	private ResourceRepository loadResourceTypeRepository() {
 		ResourcetypePackage.eINSTANCE.eClass();
 
@@ -114,7 +118,7 @@ public class MyRepositoryFactory {
 		ResourceRepository repository = (ResourceRepository) resource.getContents().get(0);
 		return repository;
 	}
-	
+
 	private Repository loadFailureTypesRepository() {
 		RepositoryPackage.eINSTANCE.eClass();
 
@@ -134,10 +138,9 @@ public class MyRepositoryFactory {
 		Repository repository = (Repository) resource.getContents().get(0);
 		return repository;
 	}
-	
-	
+
 	// ---------------------- Repository ----------------------
-	public RepositoryCreator newRepository() {
+	public Repo newRepository() {
 		this.repo = new RepositoryCreator();
 		return this.repo;
 	}
@@ -224,11 +227,15 @@ public class MyRepositoryFactory {
 	public InternalSeff newInternalBehaviour() {
 		return new SeffCreator();
 	}
-	
+
+	public RecoverySeff newRecoveryBehaviour() {
+		return new SeffCreator();
+	}
+
 	public VariableUsageCreator newVariableUsage() {
 		return new VariableUsageCreator(this.repo);
 	}
-	
+
 	// ---------------------- Fetching methods ----------------------
 
 	// TODO: exceptionTypes, resourcetypes, resource interfaces etc
@@ -245,26 +252,26 @@ public class MyRepositoryFactory {
 	}
 
 	public DataType fetchOfDataType(Primitive primitive) {
-		//TODO:
+		// TODO:
 		EList<DataType> dataTypes = this.primitives.getDataTypes__Repository();
-		for (DataType d: dataTypes) {
+		for (DataType d : dataTypes) {
 			System.out.println(d);
 		}
 		return PrimitiveType.getPrimitiveDataType(primitive);
 	}
 
 	public FailureType fetchOfFailureType(Failure failure) {
-		//TODO:
+		// TODO:
 		EList<FailureType> failureTypes = this.failures.getFailureTypes__Repository();
-		for (FailureType f: failureTypes) {
+		for (FailureType f : failureTypes) {
 			System.out.println(f);
 		}
-		
+
 		return repositoryStructure.datatypes.FailureType.getFailureType(failure);
 	}
-	
+
 	public ResourceType fetchOfResourcetype(String name) {
-		//TODO:
+		// TODO:
 		this.resourceTypes.getAvailableResourceTypes_ResourceRepository();
 		this.resourceTypes.getResourceInterfaces__ResourceRepository();
 		this.resourceTypes.getSchedulingPolicies__ResourceRepository();
@@ -411,8 +418,9 @@ public class MyRepositoryFactory {
 		// TODO: resource stuff
 		return null;
 	}
+
 	public ResourceInterface fetchOfResourceInterface(String name) {
-		// TODO: resource stuff 
+		// TODO: resource stuff
 		return null;
 	}
 

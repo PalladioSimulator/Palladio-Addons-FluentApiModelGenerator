@@ -13,10 +13,10 @@ import org.palladiosimulator.pcm.seff.InternalCallAction;
 import org.palladiosimulator.pcm.seff.ResourceDemandingInternalBehaviour;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 
-import apiControlFlowInterfaces.seff.FollowSeff;
 import apiControlFlowInterfaces.seff.InternalSeff;
+import repositoryStructure.components.VariableUsageCreator;
 
-public class InternalCallActionCreator extends GeneralAction implements FollowSeff {
+public class InternalCallActionCreator extends GeneralAction {
 
 	private List<VariableUsage> inputVariableUsages;
 	private InternalSeff internalSeff;
@@ -34,8 +34,8 @@ public class InternalCallActionCreator extends GeneralAction implements FollowSe
 		return (InternalCallActionCreator) super.withName(name);
 	}
 
-	public InternalCallActionCreator withVaribleUsage(VariableUsage inputVariableUsage) {
-		this.inputVariableUsages.add(inputVariableUsage);
+	public InternalCallActionCreator withVaribleUsage(VariableUsageCreator inputVariableUsage) {
+		this.inputVariableUsages.add(inputVariableUsage.build());
 		return this;
 	}
 
@@ -54,14 +54,14 @@ public class InternalCallActionCreator extends GeneralAction implements FollowSe
 	@Override
 	public InternalCallActionCreator withInfrastructureCall(String numberOfCalls_stochasticExpression,
 			InfrastructureSignature signature, InfrastructureRequiredRole requiredRole,
-			VariableUsage... variableUsages) {
+			VariableUsageCreator... variableUsages) {
 		return (InternalCallActionCreator) super.withInfrastructureCall(numberOfCalls_stochasticExpression, signature,
 				requiredRole, variableUsages);
 	}
 
 	@Override
 	public InternalCallActionCreator withResourceCall(String numberOfCalls_stochasticExpression,
-			ResourceSignature signature, ResourceRequiredRole requiredRole, VariableUsage... variableUsages) {
+			ResourceSignature signature, ResourceRequiredRole requiredRole, VariableUsageCreator... variableUsages) {
 		return (InternalCallActionCreator) super.withResourceCall(numberOfCalls_stochasticExpression, signature,
 				requiredRole, variableUsages);
 	}

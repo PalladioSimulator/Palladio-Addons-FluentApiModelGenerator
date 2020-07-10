@@ -9,9 +9,9 @@ import org.palladiosimulator.pcm.repository.SourceRole;
 import org.palladiosimulator.pcm.seff.EmitEventAction;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 
-import apiControlFlowInterfaces.seff.FollowSeff;
+import repositoryStructure.components.VariableUsageCreator;
 
-public class EmitEventActionCreator extends SeffAction implements FollowSeff {
+public class EmitEventActionCreator extends SeffAction {
 
 	private EventType eventType;
 	private SourceRole requiredRole;
@@ -37,9 +37,9 @@ public class EmitEventActionCreator extends SeffAction implements FollowSeff {
 		return this;
 	}
 
-	public EmitEventActionCreator withInputVariableUsage() {
-//		if ( != null)
-		// TODO: Vererbung?
+	public EmitEventActionCreator withInputVariableUsage(VariableUsageCreator variableUsage) {
+		if (variableUsage != null)
+			this.inputVariableUsages.add(variableUsage.build());
 		return this;
 	}
 
@@ -53,5 +53,4 @@ public class EmitEventActionCreator extends SeffAction implements FollowSeff {
 		action.getInputVariableUsages__CallAction().addAll(inputVariableUsages);
 		return action;
 	}
-
 }

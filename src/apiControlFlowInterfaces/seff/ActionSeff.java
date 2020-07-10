@@ -12,7 +12,6 @@ import repositoryStructure.components.seff.LoopActionCreator;
 import repositoryStructure.components.seff.RecoveryActionCreator;
 import repositoryStructure.components.seff.ReleaseActionCreator;
 import repositoryStructure.components.seff.SetVariableActionCreator;
-import repositoryStructure.components.seff.StopActionCreator;
 
 public interface ActionSeff {
 	public AcquireActionCreator acquireAction();
@@ -39,5 +38,5 @@ public interface ActionSeff {
 
 	public SetVariableActionCreator setVariableAction();
 
-	public StopActionCreator stopAction();
+	public StopSeff stopAction();
 }

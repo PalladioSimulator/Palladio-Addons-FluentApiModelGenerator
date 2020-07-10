@@ -14,10 +14,10 @@ import org.palladiosimulator.pcm.seff.ForkedBehaviour;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 import org.palladiosimulator.pcm.seff.SynchronisationPoint;
 
-import apiControlFlowInterfaces.seff.FollowSeff;
 import apiControlFlowInterfaces.seff.InternalSeff;
+import repositoryStructure.components.VariableUsageCreator;
 
-public class ForkActionCreator extends GeneralAction implements FollowSeff {
+public class ForkActionCreator extends GeneralAction {
 
 	private List<ForkedBehaviour> asynchronousForkedBehaviours;
 	private List<ForkedBehaviour> synchronousForkedBehaviours;
@@ -35,9 +35,9 @@ public class ForkActionCreator extends GeneralAction implements FollowSeff {
 		return (ForkActionCreator) super.withName(name);
 	}
 
-	public ForkActionCreator withOutputParameterUsageAtSynchronisationPoint(VariableUsage variableUsage) {
+	public ForkActionCreator withOutputParameterUsageAtSynchronisationPoint(VariableUsageCreator variableUsage) {
 		if (variableUsage != null)
-			this.variableUsages.add(variableUsage);
+			this.variableUsages.add(variableUsage.build());
 		return this;
 	}
 
@@ -66,14 +66,14 @@ public class ForkActionCreator extends GeneralAction implements FollowSeff {
 	@Override
 	public ForkActionCreator withInfrastructureCall(String numberOfCalls_stochasticExpression,
 			InfrastructureSignature signature, InfrastructureRequiredRole requiredRole,
-			VariableUsage... variableUsages) {
+			VariableUsageCreator... variableUsages) {
 		return (ForkActionCreator) super.withInfrastructureCall(numberOfCalls_stochasticExpression, signature,
 				requiredRole, variableUsages);
 	}
 
 	@Override
 	public ForkActionCreator withResourceCall(String numberOfCalls_stochasticExpression, ResourceSignature signature,
-			ResourceRequiredRole requiredRole, VariableUsage... variableUsages) {
+			ResourceRequiredRole requiredRole, VariableUsageCreator... variableUsages) {
 		return (ForkActionCreator) super.withResourceCall(numberOfCalls_stochasticExpression, signature, requiredRole,
 				variableUsages);
 	}

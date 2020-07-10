@@ -9,6 +9,12 @@ public abstract class Entity {
 	protected String name;
 //	protected String id;
 
+	/**
+	 * Defines the name of the current entity.
+	 * 
+	 * @param name
+	 * @return current entity
+	 */
 	public Entity withName(String name) {
 		this.name = name;
 		return this;
@@ -18,8 +24,7 @@ public abstract class Entity {
 //		this.id = id;
 //		return this;
 //	}
-	
+
 	protected abstract CDOObject build();
-	
-	
+
 }

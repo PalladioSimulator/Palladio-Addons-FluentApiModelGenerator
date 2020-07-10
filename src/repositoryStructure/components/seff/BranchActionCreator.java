@@ -6,7 +6,6 @@ import java.util.List;
 import org.palladiosimulator.pcm.core.CoreFactory;
 import org.palladiosimulator.pcm.core.PCMRandomVariable;
 import org.palladiosimulator.pcm.core.entity.ResourceRequiredRole;
-import org.palladiosimulator.pcm.parameter.VariableUsage;
 import org.palladiosimulator.pcm.repository.InfrastructureRequiredRole;
 import org.palladiosimulator.pcm.repository.InfrastructureSignature;
 import org.palladiosimulator.pcm.resourcetype.ProcessingResourceType;
@@ -16,12 +15,12 @@ import org.palladiosimulator.pcm.seff.BranchAction;
 import org.palladiosimulator.pcm.seff.GuardedBranchTransition;
 import org.palladiosimulator.pcm.seff.ProbabilisticBranchTransition;
 import org.palladiosimulator.pcm.seff.ResourceDemandingBehaviour;
+import org.palladiosimulator.pcm.seff.ResourceDemandingSEFF;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 
-import apiControlFlowInterfaces.seff.FollowSeff;
-import repositoryStructure.components.seff.SeffCreator.BodyBehaviour;
+import repositoryStructure.components.VariableUsageCreator;
 
-public class BranchActionCreator extends GeneralAction implements FollowSeff {
+public class BranchActionCreator extends GeneralAction {
 
 	private List<AbstractBranchTransition> branches;
 
@@ -36,17 +35,22 @@ public class BranchActionCreator extends GeneralAction implements FollowSeff {
 	}
 
 	public BranchActionCreator withGuardedBranchTransition(String branchCondition_stochasticExpression,
-			SeffCreator branchActions, BodyBehaviour bodyBehaviourType) {
+			SeffCreator branchActions, String name) {
 
 		GuardedBranchTransition branch = SeffFactory.eINSTANCE.createGuardedBranchTransition();
 
+		if (name != null)
+			branch.setEntityName(name);
+
 		if (branchActions != null) {
-			switch (bodyBehaviourType) {
-			case SEFF:
-//TODO
+			if (branchActions.getSignature() == null && branchActions.getSeffTypeID() == null
+					&& branchActions.getInternalBehaviours().isEmpty()) {
+				ResourceDemandingBehaviour branchBody = branchActions.buildBehaviour();
+				branch.setBranchBehaviour_BranchTransition(branchBody);
+			} else {
+				ResourceDemandingSEFF branchBody = branchActions.buildSeff();
+				branch.setBranchBehaviour_BranchTransition(branchBody);
 			}
-			ResourceDemandingBehaviour branchBody = branchActions.buildBehaviour(); // TODO
-			branch.setBranchBehaviour_BranchTransition(branchBody);
 		}
 
 		if (branchCondition_stochasticExpression != null) {
@@ -56,26 +60,42 @@ public class BranchActionCreator extends GeneralAction implements FollowSeff {
 		}
 
 		this.branches.add(branch);
-		// TODO: name + id ?
 		return this;
 	}
 
+	public BranchActionCreator withGuardedBranchTransition(String branchCondition_stochasticExpression,
+			SeffCreator branchActions) {
+		return withGuardedBranchTransition(branchCondition_stochasticExpression, branchActions, null);
+	}
+
 	public BranchActionCreator withProbabilisticBranchTransition(Double branchProbability, SeffCreator branchActions,
-			BodyBehaviour bodyBehaviourType) {
+			String name) {
 
 		ProbabilisticBranchTransition branch = SeffFactory.eINSTANCE.createProbabilisticBranchTransition();
 
+		if (name != null)
+			branch.setEntityName(name);
+
 		if (branchActions != null) {
-			ResourceDemandingBehaviour branchBody = branchActions.buildBehaviour(); // TODO
-			branch.setBranchBehaviour_BranchTransition(branchBody);
+			if (branchActions.getSignature() == null && branchActions.getSeffTypeID() == null
+					&& branchActions.getInternalBehaviours().isEmpty()) {
+				ResourceDemandingBehaviour branchBody = branchActions.buildBehaviour();
+				branch.setBranchBehaviour_BranchTransition(branchBody);
+			} else {
+				ResourceDemandingSEFF branchBody = branchActions.buildSeff();
+				branch.setBranchBehaviour_BranchTransition(branchBody);
+			}
 		}
 
 		if (branchProbability != null)
 			branch.setBranchProbability(branchProbability);
 
 		this.branches.add(branch);
-		// TODO: name + id ?
 		return this;
+	}
+
+	public BranchActionCreator withProbabilisticBranchTransition(Double branchProbability, SeffCreator branchActions) {
+		return withProbabilisticBranchTransition(branchProbability, branchActions, null);
 	}
 
 	@Override
@@ -87,14 +107,14 @@ public class BranchActionCreator extends GeneralAction implements FollowSeff {
 	@Override
 	public BranchActionCreator withInfrastructureCall(String numberOfCalls_stochasticExpression,
 			InfrastructureSignature signature, InfrastructureRequiredRole requiredRole,
-			VariableUsage... variableUsages) {
+			VariableUsageCreator... variableUsages) {
 		return (BranchActionCreator) super.withInfrastructureCall(numberOfCalls_stochasticExpression, signature,
 				requiredRole, variableUsages);
 	}
 
 	@Override
 	public BranchActionCreator withResourceCall(String numberOfCalls_stochasticExpression, ResourceSignature signature,
-			ResourceRequiredRole requiredRole, VariableUsage... variableUsages) {
+			ResourceRequiredRole requiredRole, VariableUsageCreator... variableUsages) {
 		return (BranchActionCreator) super.withResourceCall(numberOfCalls_stochasticExpression, signature, requiredRole,
 				variableUsages);
 	}

@@ -17,5 +17,4 @@ public abstract class SeffAction extends Entity {
 		seff.setNext(action);
 		return seff;
 	}
-
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.palladiosimulator.pcm.reliability.FailureType;
 import org.palladiosimulator.pcm.repository.Signature;
 import org.palladiosimulator.pcm.seff.AbstractAction;
 import org.palladiosimulator.pcm.seff.ForkedBehaviour;
@@ -12,26 +13,35 @@ import org.palladiosimulator.pcm.seff.ResourceDemandingInternalBehaviour;
 import org.palladiosimulator.pcm.seff.ResourceDemandingSEFF;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 import org.palladiosimulator.pcm.seff.ServiceEffectSpecification;
+import org.palladiosimulator.pcm.seff.seff_reliability.RecoveryActionBehaviour;
+import org.palladiosimulator.pcm.seff.seff_reliability.SeffReliabilityFactory;
 
 import apiControlFlowInterfaces.seff.ActionSeff;
 import apiControlFlowInterfaces.seff.InternalSeff;
+import apiControlFlowInterfaces.seff.RecoverySeff;
 import apiControlFlowInterfaces.seff.Seff;
 import apiControlFlowInterfaces.seff.StartSeff;
 import repositoryStructure.Entity;
+import repositoryStructure.datatypes.Failure;
 
-public class SeffCreator extends Entity implements Seff, ActionSeff, StartSeff, InternalSeff {
+public class SeffCreator extends Entity implements Seff, ActionSeff, StartSeff, InternalSeff, RecoverySeff {
 
 	private AbstractAction current;
 	private Signature signature;
 	private String seffTypeID;
 	private List<AbstractAction> steps;
 	private List<InternalSeff> internalBehaviours;
+	private List<FailureType> failures;
+	private List<RecoveryActionBehaviour> alternatives;
 
 	public SeffCreator() {
 		this.steps = new ArrayList<>();
 		this.internalBehaviours = new ArrayList<>();
+		this.failures = new ArrayList<>();
+		this.alternatives = new ArrayList<>();
 	}
 
+	// ------------ action methods ------------
 	@Override
 	public StartActionCreator withStartAction() {
 		return new StartActionCreator(this);
@@ -41,7 +51,7 @@ public class SeffCreator extends Entity implements Seff, ActionSeff, StartSeff, 
 	public StopActionCreator stopAction() {
 		return new StopActionCreator(this);
 	}
-	
+
 	@Override
 	public InternalActionCreator internalAction() {
 		InternalActionCreator icc = new InternalActionCreator(this);
@@ -79,7 +89,7 @@ public class SeffCreator extends Entity implements Seff, ActionSeff, StartSeff, 
 	public SetVariableActionCreator setVariableAction() {
 		return new SetVariableActionCreator(this);
 	}
-	
+
 	@Override
 	public LoopActionCreator loopAction() {
 		return new LoopActionCreator(this);
@@ -104,7 +114,8 @@ public class SeffCreator extends Entity implements Seff, ActionSeff, StartSeff, 
 	public RecoveryActionCreator recoveryAction() {
 		return new RecoveryActionCreator(this);
 	}
-
+	
+	// ------------ seff methods ------------
 	@Override
 	public SeffCreator withInternalBehaviour(InternalSeff internalBehaviour) {
 		this.internalBehaviours.add(internalBehaviour);
@@ -135,10 +146,28 @@ public class SeffCreator extends Entity implements Seff, ActionSeff, StartSeff, 
 	}
 
 	@Override
+	public SeffCreator withFailureType(Failure failure) {
+		FailureType f = repositoryStructure.datatypes.FailureType.getFailureType(failure);
+		this.failures.add(f);
+		return this;
+	}
+	
+	@Override
+	public SeffCreator withAlternativeRecoveryBehaviour(RecoverySeff recoveryBehaviour) {
+		//TODO: gehört das vielleicht doch zu den nicht primary behaviours von einer recoveryAction?
+		this.alternatives.add(recoveryBehaviour.buildRecoveryBehaviour());
+		return this;
+	}
+	
+	// ------------ build methods ------------
+	@Override
 	public ServiceEffectSpecification build() {
 		// -> ResourceDemandingSEFF (rdsf) = seff
-		SeffFactory fact = SeffFactory.eINSTANCE;
-		ResourceDemandingSEFF seff = fact.createResourceDemandingSEFF();
+		return this.buildSeff();
+	}
+
+	protected ResourceDemandingSEFF buildSeff() {
+		ResourceDemandingSEFF seff = SeffFactory.eINSTANCE.createResourceDemandingSEFF();
 
 		if (this.signature != null)
 			seff.setDescribedService__SEFF(this.signature);
@@ -171,6 +200,20 @@ public class SeffCreator extends Entity implements Seff, ActionSeff, StartSeff, 
 		return fork;
 	}
 
+	public RecoveryActionBehaviour buildRecoveryBehaviour() {
+		RecoveryActionBehaviour recovActionBehaviour = SeffReliabilityFactory.eINSTANCE.createRecoveryActionBehaviour();
+
+		if (this.name != null)
+			recovActionBehaviour.setEntityName(this.name);
+
+		recovActionBehaviour.getSteps_Behaviour().addAll(steps);
+		recovActionBehaviour.getFailureHandlingAlternatives__RecoveryActionBehaviour().addAll(alternatives);
+		recovActionBehaviour.getFailureTypes_FailureHandlingEntity().addAll(failures);
+
+		return recovActionBehaviour;
+	}
+
+	// ------------ getter + setter ------------
 	protected void setNext(AbstractAction action) {
 		if (current != null) {
 			current.setSuccessor_AbstractAction(action);
@@ -180,12 +223,16 @@ public class SeffCreator extends Entity implements Seff, ActionSeff, StartSeff, 
 		steps.add(action);
 	}
 
-	protected List<AbstractAction> getSteps() {
-		return this.steps;
+	protected List<InternalSeff> getInternalBehaviours() {
+		return this.internalBehaviours;
 	}
 
-	public enum BodyBehaviour {
-		SEFF, RESOURCE_DEMANDING_BEHAVIOUR, INTERNAL_BEHAVIOUR, FORKED_BEHAVIOUR, RECOVERY_ACTION_BEHAVIOUR
+	protected Signature getSignature() {
+		return this.signature;
+	}
+
+	protected String getSeffTypeID() {
+		return this.seffTypeID;
 	}
 
 }

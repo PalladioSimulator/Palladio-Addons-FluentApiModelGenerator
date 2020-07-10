@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.palladiosimulator.pcm.core.entity.ResourceRequiredRole;
-import org.palladiosimulator.pcm.parameter.VariableUsage;
 import org.palladiosimulator.pcm.reliability.InternalFailureOccurrenceDescription;
 import org.palladiosimulator.pcm.reliability.ReliabilityFactory;
 import org.palladiosimulator.pcm.reliability.SoftwareInducedFailureType;
@@ -15,9 +14,9 @@ import org.palladiosimulator.pcm.resourcetype.ResourceSignature;
 import org.palladiosimulator.pcm.seff.InternalAction;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 
-import apiControlFlowInterfaces.seff.FollowSeff;
+import repositoryStructure.components.VariableUsageCreator;
 
-public class InternalActionCreator extends GeneralAction implements FollowSeff {
+public class InternalActionCreator extends GeneralAction {
 
 	private List<InternalFailureOccurrenceDescription> failures;
 
@@ -28,7 +27,7 @@ public class InternalActionCreator extends GeneralAction implements FollowSeff {
 		this.infrastructureCalls = new ArrayList<>();
 		this.resourceCalls = new ArrayList<>();
 	}
-	
+
 	@Override
 	public InternalActionCreator withName(String name) {
 		return (InternalActionCreator) super.withName(name);
@@ -55,16 +54,16 @@ public class InternalActionCreator extends GeneralAction implements FollowSeff {
 	@Override
 	public InternalActionCreator withInfrastructureCall(String numberOfCalls_stochasticExpression,
 			InfrastructureSignature signature, InfrastructureRequiredRole requiredRole,
-			VariableUsage... variableUsages) {
+			VariableUsageCreator... variableUsages) {
 		return (InternalActionCreator) super.withInfrastructureCall(numberOfCalls_stochasticExpression, signature,
 				requiredRole, variableUsages);
 	}
 
 	@Override
-	public InternalActionCreator withResourceCall(String numberOfCalls_stochasticExpression, ResourceSignature signature,
-			ResourceRequiredRole requiredRole, VariableUsage... variableUsages) {
-		return (InternalActionCreator) super.withResourceCall(numberOfCalls_stochasticExpression, signature, requiredRole,
-				variableUsages);
+	public InternalActionCreator withResourceCall(String numberOfCalls_stochasticExpression,
+			ResourceSignature signature, ResourceRequiredRole requiredRole, VariableUsageCreator... variableUsages) {
+		return (InternalActionCreator) super.withResourceCall(numberOfCalls_stochasticExpression, signature,
+				requiredRole, variableUsages);
 	}
 
 	@Override

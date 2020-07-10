@@ -1,31 +1,24 @@
 package repositoryStructure.components.seff;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.palladiosimulator.pcm.core.CoreFactory;
 import org.palladiosimulator.pcm.core.PCMRandomVariable;
 import org.palladiosimulator.pcm.core.entity.ResourceRequiredRole;
-import org.palladiosimulator.pcm.parameter.VariableUsage;
 import org.palladiosimulator.pcm.repository.InfrastructureRequiredRole;
 import org.palladiosimulator.pcm.repository.InfrastructureSignature;
 import org.palladiosimulator.pcm.resourcetype.ProcessingResourceType;
 import org.palladiosimulator.pcm.resourcetype.ResourceSignature;
-import org.palladiosimulator.pcm.seff.AbstractAction;
 import org.palladiosimulator.pcm.seff.LoopAction;
-import org.palladiosimulator.pcm.seff.ResourceDemandingBehaviour;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 
-import apiControlFlowInterfaces.seff.FollowSeff;
+import repositoryStructure.components.VariableUsageCreator;
 
-public class LoopActionCreator extends GeneralAction implements FollowSeff {
+public class LoopActionCreator extends GeneralAction {
 
 	private PCMRandomVariable iterationCount;
-	private List<AbstractAction> steps;
+	private SeffCreator loopBody;
 
 	public LoopActionCreator(SeffCreator seff) {
 		this.seff = seff;
-		this.steps = new ArrayList<>();
 	}
 
 	@Override
@@ -42,7 +35,7 @@ public class LoopActionCreator extends GeneralAction implements FollowSeff {
 
 	public LoopActionCreator withLoopBody(SeffCreator loopBody) {
 		if (loopBody != null)
-			this.steps = loopBody.getSteps();
+			this.loopBody = loopBody;
 		return this;
 	}
 
@@ -55,14 +48,14 @@ public class LoopActionCreator extends GeneralAction implements FollowSeff {
 	@Override
 	public LoopActionCreator withInfrastructureCall(String numberOfCalls_stochasticExpression,
 			InfrastructureSignature signature, InfrastructureRequiredRole requiredRole,
-			VariableUsage... variableUsages) {
+			VariableUsageCreator... variableUsages) {
 		return (LoopActionCreator) super.withInfrastructureCall(numberOfCalls_stochasticExpression, signature,
 				requiredRole, variableUsages);
 	}
 
 	@Override
 	public LoopActionCreator withResourceCall(String numberOfCalls_stochasticExpression, ResourceSignature signature,
-			ResourceRequiredRole requiredRole, VariableUsage... variableUsages) {
+			ResourceRequiredRole requiredRole, VariableUsageCreator... variableUsages) {
 		return (LoopActionCreator) super.withResourceCall(numberOfCalls_stochasticExpression, signature, requiredRole,
 				variableUsages);
 	}
@@ -72,9 +65,13 @@ public class LoopActionCreator extends GeneralAction implements FollowSeff {
 		LoopAction action = SeffFactory.eINSTANCE.createLoopAction();
 		action.setIterationCount_LoopAction(iterationCount);
 
-		ResourceDemandingBehaviour loop = SeffFactory.eINSTANCE.createResourceDemandingBehaviour();
-		loop.getSteps_Behaviour().addAll(this.steps);
-		action.setBodyBehaviour_Loop(loop);
+		if (loopBody != null) {
+			if (loopBody.getSignature() == null && loopBody.getSeffTypeID() == null
+					&& loopBody.getInternalBehaviours().isEmpty())
+				action.setBodyBehaviour_Loop(loopBody.buildBehaviour());
+			else
+				action.setBodyBehaviour_Loop(loopBody.buildSeff());
+		}
 
 		action.getInfrastructureCall__Action().addAll(infrastructureCalls);
 		action.getResourceCall__Action().addAll(resourceCalls);

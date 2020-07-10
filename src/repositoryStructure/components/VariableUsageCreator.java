@@ -89,7 +89,7 @@ public class VariableUsageCreator extends Entity {
 	}
 
 	@Override
-	protected VariableUsage build() {
+	public VariableUsage build() {
 		VariableUsage varUsage = ParameterFactory.eINSTANCE.createVariableUsage();
 
 		if (this.reference != null) {
