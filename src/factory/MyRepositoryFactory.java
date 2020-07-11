@@ -140,6 +140,15 @@ public class MyRepositoryFactory {
 	}
 
 	// ---------------------- Repository ----------------------
+	/**
+	 * Creates a representation of the model object '<em><b>Repository</b></em>'.
+	 * 
+	 * <p>The repository entity allows storing components, data types, and interfaces
+	 * to be fetched and reused for construction of component instances as well as
+	 * new component types.</p>
+	 * 
+	 * @return the repository
+	 */
 	public Repo newRepository() {
 		this.repo = new RepositoryCreator();
 		return this.repo;

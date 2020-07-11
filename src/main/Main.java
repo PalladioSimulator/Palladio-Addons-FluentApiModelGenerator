@@ -25,6 +25,7 @@ public class Main {
 	public static void main(String[] args) {
 
 		mediaStoreExample();
+		nullExample();
 		MyRepositoryFactory create = new MyRepositoryFactory();
 
 		Repository repo = create.newRepository()
@@ -88,7 +89,7 @@ public class Main {
 			
 //			.conect("Web", creator.getByUUID("comp1"))
 	
-			.build();
+			.createRepositoryNow();
 		
 //		create.newResourceDemandingInternalBehaviour().withSeffBehaviour().withStartAction().
 		//SEFF example
@@ -174,6 +175,15 @@ public class Main {
 			throw new RuntimeException(e);
 		}
 
+	}
+	
+	public static void nullExample() {
+		MyRepositoryFactory create = new MyRepositoryFactory();
+
+		Repository repo = create.newRepository()
+			.withName(null)
+			.withDescription(null)
+			.addToRepository(create.newCollectionDataType(null, Primitive.BOOLEAN)).createRepositoryNow();
 	}
 	
 	public static void mediaStoreExample() {
@@ -263,7 +273,7 @@ public class Main {
 								.withServiceEffectSpecification(create.newSeff())
 								.withServiceEffectSpecification(create.newSeff())
 								.withServiceEffectSpecification(create.newSeff()))
-			.build();
+			.createRepositoryNow();
 			
 			
 		

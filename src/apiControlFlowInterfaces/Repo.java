@@ -3,10 +3,10 @@ package apiControlFlowInterfaces;
 public interface Repo extends RepoAddition {
 
 	/**
-	 * Defines the name of the current entity.
+	 * Defines the name of the repository.
 	 * 
 	 * @param name
-	 * @return current entity
+	 * @return the repository
 	 */
 	Repo withName(String description);
 

@@ -124,7 +124,7 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 	}
 
 	@Override
-	public Repository build() {
+	protected Repository build() {
 		Repository repo = RepositoryFactory.eINSTANCE.createRepository();
 		if (name != null)
 			repo.setEntityName(name);
@@ -139,6 +139,11 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 		repo.getFailureTypes__Repository().addAll(failureTypes);
 
 		return repo;
+	}
+	
+	@Override
+	public Repository createRepositoryNow() {
+		return build();
 	}
 
 	// ------------- getter -------------
