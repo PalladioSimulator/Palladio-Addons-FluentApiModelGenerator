@@ -17,6 +17,17 @@ import repositoryStructure.RepositoryCreator;
 import repositoryStructure.datatypes.Primitive;
 import repositoryStructure.datatypes.PrimitiveType;
 
+/**
+ * This class constructs a
+ * {@link org.palladiosimulator.pcm.repository.OperationSignature
+ * OperationSignature}. It is used to create the
+ * '<em><b>OperationSignature</b></em>' object step-by-step, i.e.
+ * '<em><b>OperationSignatureCreator</b></em>' objects are of intermediate
+ * state.
+ * 
+ * @author Louisa Lambrecht
+ * @see org.palladiosimulator.pcm.repository.OperationSignature
+ */
 public class OperationSignatureCreator extends Entity {
 
 	private DataType returnType;

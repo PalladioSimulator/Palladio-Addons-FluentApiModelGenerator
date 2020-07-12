@@ -12,6 +12,15 @@ import org.palladiosimulator.pcm.seff.SeffFactory;
 
 import repositoryStructure.components.VariableUsageCreator;
 
+/**
+ * This class constructs a {@link org.palladiosimulator.pcm.seff.LoopAction
+ * LoopAction}. It is used to create the '<em><b>LoopAction</b></em>' object
+ * step-by-step, i.e. '<em><b>LoopActionCreator</b></em>' objects are of
+ * intermediate state.
+ * 
+ * @author Louisa Lambrecht
+ * @see org.palladiosimulator.pcm.seff.LoopAction
+ */
 public class LoopActionCreator extends GeneralAction {
 
 	private PCMRandomVariable iterationCount;

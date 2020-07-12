@@ -8,6 +8,7 @@ Fragen:
 ToDo:
 - SetReturnAction
 - TODOs im Code
+- print warning if more than one datatype/component etc. with given name can be fetched.
 
 - dataTypes einlesen 					-> email warten		wie bekommt man dieses href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.1"/>
 - imports 								-> email warten

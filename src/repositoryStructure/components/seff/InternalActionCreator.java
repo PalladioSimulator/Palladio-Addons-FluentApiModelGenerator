@@ -16,6 +16,15 @@ import org.palladiosimulator.pcm.seff.SeffFactory;
 
 import repositoryStructure.components.VariableUsageCreator;
 
+/**
+ * This class constructs a {@link org.palladiosimulator.pcm.seff.InternalAction
+ * InternalAction}. It is used to create the '<em><b>InternalAction</b></em>'
+ * object step-by-step, i.e. '<em><b>InternalActionCreator</b></em>' objects are
+ * of intermediate state.
+ * 
+ * @author Louisa Lambrecht
+ * @see org.palladiosimulator.pcm.seff.InternalAction
+ */
 public class InternalActionCreator extends GeneralAction {
 
 	private List<InternalFailureOccurrenceDescription> failures;

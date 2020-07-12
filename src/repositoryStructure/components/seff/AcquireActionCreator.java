@@ -11,6 +11,16 @@ import org.palladiosimulator.pcm.seff.SeffFactory;
 
 import repositoryStructure.components.VariableUsageCreator;
 
+/**
+ * This class constructs an {@link org.palladiosimulator.pcm.seff.AcquireAction
+ * AcquireAction}. It is used to create the '<em><b>AcquireAction</b></em>'
+ * object step-by-step, i.e. '<em><b>AcquireActionCreator</b></em>' objects are
+ * of intermediate state.
+ * 
+ * @author Louisa Lambrecht
+ * @see org.palladiosimulator.pcm.seff.AcquireAction
+ *
+ */
 public class AcquireActionCreator extends GeneralAction {
 
 	private PassiveResource passiveResource;

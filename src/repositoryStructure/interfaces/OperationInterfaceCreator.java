@@ -11,6 +11,17 @@ import org.palladiosimulator.pcm.repository.RepositoryFactory;
 
 import repositoryStructure.RepositoryCreator;
 
+/**
+ * This class constructs a
+ * {@link org.palladiosimulator.pcm.repository.OperationInterface
+ * OperationInterface}. It is used to create the
+ * '<em><b>OperationInterface</b></em>' object step-by-step, i.e.
+ * '<em><b>OperationInterfaceCreator</b></em>' objects are of intermediate
+ * state.
+ * 
+ * @author Louisa Lambrecht
+ * @see org.palladiosimulator.pcm.repository.OperationInterface
+ */
 public class OperationInterfaceCreator extends Interface {
 
 	private List<OperationSignature> operationSignatures;

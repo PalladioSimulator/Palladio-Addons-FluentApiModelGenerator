@@ -10,6 +10,15 @@ import org.palladiosimulator.pcm.seff.StartAction;
 
 import repositoryStructure.components.VariableUsageCreator;
 
+/**
+ * This class constructs a {@link org.palladiosimulator.pcm.seff.StartAction
+ * StartAction}. It is used to create the '<em><b>StartAction</b></em>' object
+ * step-by-step, i.e. '<em><b>StartActionCreator</b></em>' objects are of
+ * intermediate state.
+ * 
+ * @author Louisa Lambrecht
+ * @see org.palladiosimulator.pcm.seff.StartAction
+ */
 public class StartActionCreator extends GeneralAction {
 
 	public StartActionCreator(SeffCreator seff) {

@@ -17,6 +17,15 @@ import repositoryStructure.RepositoryCreator;
 import repositoryStructure.datatypes.Primitive;
 import repositoryStructure.datatypes.PrimitiveType;
 
+/**
+ * This class constructs a {@link org.palladiosimulator.pcm.repository.EventType
+ * EventType}. It is used to create the '<em><b>EventType</b></em>' object
+ * step-by-step, i.e. '<em><b>EventTypeCreator</b></em>' objects are of
+ * intermediate state.
+ * 
+ * @author Louisa Lambrecht
+ * @see org.palladiosimulator.pcm.repository.EventType
+ */
 public class EventTypeCreator extends Entity {
 
 	private Parameter parameter;

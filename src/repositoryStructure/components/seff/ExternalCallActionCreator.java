@@ -12,6 +12,16 @@ import org.palladiosimulator.pcm.seff.SeffFactory;
 
 import repositoryStructure.components.VariableUsageCreator;
 
+/**
+ * This class constructs a
+ * {@link org.palladiosimulator.pcm.seff.ExternalCallAction ExternalCallAction}.
+ * It is used to create the '<em><b>ExternalCallAction</b></em>' object
+ * step-by-step, i.e. '<em><b>ExternalCallActionCreator</b></em>' objects are of
+ * intermediate state.
+ * 
+ * @author Louisa Lambrecht
+ * @see org.palladiosimulator.pcm.seff.ExternalCallAction
+ */
 public class ExternalCallActionCreator extends SeffAction {
 
 	private Integer retryCount;

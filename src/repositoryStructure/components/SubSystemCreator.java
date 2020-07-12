@@ -24,6 +24,15 @@ import repositoryStructure.interfaces.EventGroupCreator;
 import repositoryStructure.interfaces.InfrastructureInterfaceCreator;
 import repositoryStructure.interfaces.OperationInterfaceCreator;
 
+/**
+ * This class constructs a {@link org.palladiosimulator.pcm.subsystem.SubSystem
+ * SubSystem}. It is used to create the '<em><b>SubSystem</b></em>' object
+ * step-by-step, i.e. '<em><b>SubSystemCreator</b></em>' objects are of
+ * intermediate state.
+ * 
+ * @author Louisa Lambrecht
+ * @see org.palladiosimulator.pcm.subsystem.SubSystem
+ */
 public class SubSystemCreator extends ComplexComponent {
 
 	public SubSystemCreator(RepositoryCreator repo) {

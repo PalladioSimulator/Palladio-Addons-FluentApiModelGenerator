@@ -24,6 +24,30 @@ import apiControlFlowInterfaces.seff.StartSeff;
 import repositoryStructure.Entity;
 import repositoryStructure.datatypes.Failure;
 
+/**
+ * This class constructs a
+ * {@link org.palladiosimulator.pcm.seff.ServiceEffectSpecification
+ * ServiceEffectSpecification} /
+ * {@link org.palladiosimulator.pcm.seff.ResourceDemandingSEFF
+ * ResourceDemandingSEFF} /
+ * {@link org.palladiosimulator.pcm.seff.ResourceDemandingBehaviour
+ * ResourceDemandingBehaviour} /
+ * {@link org.palladiosimulator.pcm.seff.ResourceDemandingInternalBehaviour
+ * ResourceDemandingInternalBehaviour} /
+ * {@link org.palladiosimulator.pcm.seff.ForkedBehaviour ForkedBehaviour} /
+ * {@link org.palladiosimulator.pcm.seff.RecoveryActionBehaviour
+ * RecoveryActionBehaviour}. It is used to create the behaviour objects
+ * step-by-step, i.e. '<em><b>SeffCreator</b></em>' objects are of intermediate
+ * state.
+ * 
+ * @author Louisa Lambrecht
+ * @see org.palladiosimulator.pcm.seff.ServiceEffectSpecification
+ * @see org.palladiosimulator.pcm.seff.ResourceDemandingSEFF
+ * @see org.palladiosimulator.pcm.seff.ResourceDemandingBehaviour
+ * @see org.palladiosimulator.pcm.seff.ResourceDemandingInternalBehaviour
+ * @see org.palladiosimulator.pcm.seff.ForkedBehaviour
+ * @see org.palladiosimulator.pcm.seff.RecoveryActionBehaviour
+ */
 public class SeffCreator extends Entity implements Seff, ActionSeff, StartSeff, InternalSeff, RecoverySeff {
 
 	private AbstractAction current;
@@ -114,7 +138,7 @@ public class SeffCreator extends Entity implements Seff, ActionSeff, StartSeff, 
 	public RecoveryActionCreator recoveryAction() {
 		return new RecoveryActionCreator(this);
 	}
-	
+
 	// ------------ seff methods ------------
 	@Override
 	public SeffCreator withInternalBehaviour(InternalSeff internalBehaviour) {
@@ -151,14 +175,15 @@ public class SeffCreator extends Entity implements Seff, ActionSeff, StartSeff, 
 		this.failures.add(f);
 		return this;
 	}
-	
+
 	@Override
 	public SeffCreator withAlternativeRecoveryBehaviour(RecoverySeff recoveryBehaviour) {
-		//TODO: gehört das vielleicht doch zu den nicht primary behaviours von einer recoveryAction?
+		// TODO: gehört das vielleicht doch zu den nicht primary behaviours von einer
+		// recoveryAction?
 		this.alternatives.add(recoveryBehaviour.buildRecoveryBehaviour());
 		return this;
 	}
-	
+
 	// ------------ build methods ------------
 	@Override
 	public ServiceEffectSpecification build() {

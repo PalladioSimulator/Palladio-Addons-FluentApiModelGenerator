@@ -29,6 +29,17 @@ import repositoryStructure.interfaces.EventGroupCreator;
 import repositoryStructure.interfaces.InfrastructureInterfaceCreator;
 import repositoryStructure.interfaces.OperationInterfaceCreator;
 
+/**
+ * This class constructs a
+ * {@link org.palladiosimulator.pcm.repository.CompositeComponent
+ * CompositeComponent}. It is used to create the
+ * '<em><b>CompositeComponent</b></em>' object step-by-step, i.e.
+ * '<em><b>CompositeComponentCreator</b></em>' objects are of intermediate
+ * state.
+ * 
+ * @author Louisa Lambrecht
+ * @see org.palladiosimulator.pcm.repository.CompositeComponent
+ */
 public class CompositeComponentCreator extends ComplexComponent {
 
 	private ComponentType type;

@@ -179,11 +179,19 @@ public class Main {
 	
 	public static void nullExample() {
 		MyRepositoryFactory create = new MyRepositoryFactory();
-
 		Repository repo = create.newRepository()
 			.withName(null)
 			.withDescription(null)
-			.addToRepository(create.newCollectionDataType(null, Primitive.BOOLEAN)).createRepositoryNow();
+			.addToRepository(create.newCollectionDataType(null, Primitive.BOOLEAN))
+			.addToRepository(create.newCollectionDataType("bla", Primitive.INTEGER))
+			.addToRepository(create.newCollectionDataType(null, create.fetchOfDataType("bla")))
+			.addToRepository(create.newCompositeDataType(null)
+					.withInnerDeclaration(null, create.fetchOfDataType(Primitive.BOOLEAN)))
+			.addToRepository(create.newCompositeDataType(null, null, null).withInnerDeclaration(null, Primitive.BOOLEAN))
+			.addToRepository(create.newBasicComponent())
+			.createRepositoryNow();
+		
+		saveRepository(repo, "null.repository", false);
 	}
 	
 	public static void mediaStoreExample() {

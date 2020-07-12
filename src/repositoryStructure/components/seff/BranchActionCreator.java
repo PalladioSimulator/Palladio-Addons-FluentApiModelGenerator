@@ -20,6 +20,15 @@ import org.palladiosimulator.pcm.seff.SeffFactory;
 
 import repositoryStructure.components.VariableUsageCreator;
 
+/**
+ * This class constructs a {@link org.palladiosimulator.pcm.seff.BranchAction
+ * BranchAction}. It is used to create the '<em><b>BranchAction</b></em>' object
+ * step-by-step, i.e. '<em><b>BranchActionCreator</b></em>' objects are of
+ * intermediate state.
+ * 
+ * @author Louisa Lambrecht
+ * @see org.palladiosimulator.pcm.seff.BranchAction
+ */
 public class BranchActionCreator extends GeneralAction {
 
 	private List<AbstractBranchTransition> branches;

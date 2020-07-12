@@ -40,6 +40,15 @@ import repositoryStructure.datatypes.Failure;
 import repositoryStructure.datatypes.Primitive;
 import repositoryStructure.datatypes.PrimitiveType;
 
+/**
+ * This class constructs a
+ * {@link org.palladiosimulator.pcm.repository.Repository Repository}. It is
+ * used to create the '<em><b>Repository</b></em>' object step-by-step, i.e.
+ * '<em><b>RepositoryCreator</b></em>' objects are of intermediate state.
+ * 
+ * @author Louisa Lambrecht
+ * @see org.palladiosimulator.pcm.repository.Repository
+ */
 public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 
 	private String description;
@@ -140,14 +149,14 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 
 		return repo;
 	}
-	
+
 	@Override
 	public Repository createRepositoryNow() {
 		return build();
 	}
 
 	// ------------- getter -------------
-	//TODO: getter and add Methoden should be protected
+	// TODO: getter and add Methoden should be protected
 	public DataType getDataType(String name) {
 		for (DataType d : this.dataTypes) {
 			if (d instanceof CompositeDataType) {
@@ -297,7 +306,7 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 	public void addRequiredRole(RequiredRole rr) {
 		requiredRoles.add(rr);
 	}
-	
+
 	public void addResourceRequiredRole(ResourceRequiredRole rr) {
 		resourceRequiredRoles.add(rr);
 	}

@@ -11,6 +11,15 @@ import org.palladiosimulator.pcm.repository.RepositoryFactory;
 
 import repositoryStructure.RepositoryCreator;
 
+/**
+ * This class constructs a
+ * {@link org.palladiosimulator.pcm.repository.EventGroup EventGroup}. It is
+ * used to create the '<em><b>EventGroup</b></em>' object step-by-step, i.e.
+ * '<em><b>EventGroupCreator</b></em>' objects are of intermediate state.
+ * 
+ * @author Louisa Lambrecht
+ * @see org.palladiosimulator.pcm.repository.EventGroup
+ */
 public class EventGroupCreator extends Interface {
 
 	private List<EventType> eventTypes;

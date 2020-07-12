@@ -18,7 +18,16 @@ import org.palladiosimulator.pcm.seff.seff_performance.ResourceCall;
 import apiControlFlowInterfaces.seff.StopSeff;
 import repositoryStructure.components.VariableUsageCreator;
 
-public class StopActionCreator extends GeneralAction implements StopSeff{
+/**
+ * This class constructs a {@link org.palladiosimulator.pcm.seff.StopAction
+ * StopAction}. It is used to create the '<em><b>StopAction</b></em>' object
+ * step-by-step, i.e. '<em><b>StopActionCreator</b></em>' objects are of
+ * intermediate state.
+ * 
+ * @author Louisa Lambrecht
+ * @see org.palladiosimulator.pcm.seff.StopAction
+ */
+public class StopActionCreator extends GeneralAction implements StopSeff {
 
 	private List<ParametricResourceDemand> demands = new ArrayList<>();
 	private List<InfrastructureCall> infrastructureCalls = new ArrayList<>();

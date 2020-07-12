@@ -13,6 +13,15 @@ import apiControlFlowInterfaces.EventChannelCreation.Comp;
 import apiControlFlowInterfaces.EventChannelCreation.Sub;
 import repositoryStructure.Entity;
 
+/**
+ * This class constructs an
+ * {@link org.palladiosimulator.pcm.core.composition.EventChannel EventChannel}.
+ * It is used to create the '<em><b>EventChannel</b></em>' object step-by-step,
+ * i.e. '<em><b>EventChannelCreator</b></em>' objects are of intermediate state.
+ * 
+ * @author Louisa Lambrecht
+ * @see org.palladiosimulator.pcm.core.composition.EventChannel
+ */
 public class EventChannelCreator extends Entity implements Comp, Sub {
 
 	private EventGroup eventGroup;
@@ -74,7 +83,7 @@ public class EventChannelCreator extends Entity implements Comp, Sub {
 	@Override
 	protected EventChannel build() {
 		EventChannel eventChannel = CompositionFactory.eINSTANCE.createEventChannel();
-		if(name != null)
+		if (name != null)
 			eventChannel.setEntityName(name);
 		if (eventGroup != null)
 			eventChannel.setEventGroup__EventChannel(eventGroup);

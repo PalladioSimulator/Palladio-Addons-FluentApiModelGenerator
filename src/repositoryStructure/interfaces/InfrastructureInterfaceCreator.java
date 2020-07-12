@@ -11,8 +11,19 @@ import org.palladiosimulator.pcm.repository.RepositoryFactory;
 
 import repositoryStructure.RepositoryCreator;
 
+/**
+ * This class constructs a
+ * {@link org.palladiosimulator.pcm.repository.InfrastructureInterface
+ * InfrastructureInterface}. It is used to create the
+ * '<em><b>InfrastructureInterface</b></em>' object step-by-step, i.e.
+ * '<em><b>InfrastructureInterfaceCreator</b></em>' objects are of intermediate
+ * state.
+ * 
+ * @author Louisa Lambrecht
+ * @see org.palladiosimulator.pcm.repository.InfrastructureInterface
+ */
 public class InfrastructureInterfaceCreator extends Interface {
-	
+
 	private List<InfrastructureSignature> signatures;
 
 	public InfrastructureInterfaceCreator(RepositoryCreator repo) {
@@ -46,7 +57,7 @@ public class InfrastructureInterfaceCreator extends Interface {
 		InfrastructureSignatureCreator signature = new InfrastructureSignatureCreator(this, this.repository);
 		return signature;
 	}
-	
+
 	@Override
 	public InfrastructureInterface build() {
 		InfrastructureInterface interfce = RepositoryFactory.eINSTANCE.createInfrastructureInterface();
@@ -55,7 +66,7 @@ public class InfrastructureInterfaceCreator extends Interface {
 			interfce.setEntityName(name);
 //		if (id != null)
 //			interfce.setId(id);
-		
+
 		interfce.getInfrastructureSignatures__InfrastructureInterface().addAll(signatures);
 
 		interfce.getParentInterfaces__Interface().addAll(parentInterfaces);
@@ -63,7 +74,7 @@ public class InfrastructureInterfaceCreator extends Interface {
 
 		return interfce;
 	}
-	
+
 	protected void addInfrastructureSignatures(InfrastructureSignature signature) {
 		this.signatures.add(signature);
 	}

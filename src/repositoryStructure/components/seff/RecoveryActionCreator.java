@@ -14,6 +14,15 @@ import org.palladiosimulator.pcm.seff.seff_reliability.SeffReliabilityFactory;
 import apiControlFlowInterfaces.seff.RecoverySeff;
 import repositoryStructure.components.VariableUsageCreator;
 
+/**
+ * This class constructs a {@link org.palladiosimulator.pcm.seff.RecoveryAction
+ * RecoveryAction}. It is used to create the '<em><b>RecoveryAction</b></em>'
+ * object step-by-step, i.e. '<em><b>RecoveryActionCreator</b></em>' objects are
+ * of intermediate state.
+ * 
+ * @author Louisa Lambrecht
+ * @see org.palladiosimulator.pcm.seff.RecoveryAction
+ */
 public class RecoveryActionCreator extends GeneralAction {
 
 	private RecoverySeff primary;

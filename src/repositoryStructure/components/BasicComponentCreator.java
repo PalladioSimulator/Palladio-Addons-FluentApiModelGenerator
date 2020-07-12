@@ -24,6 +24,16 @@ import repositoryStructure.interfaces.EventGroupCreator;
 import repositoryStructure.interfaces.InfrastructureInterfaceCreator;
 import repositoryStructure.interfaces.OperationInterfaceCreator;
 
+/**
+ * This class constructs a
+ * {@link org.palladiosimulator.pcm.repository.BasicComponent BasicComponent}.
+ * It is used to create the '<em><b>BasicComponent</b></em>' object
+ * step-by-step, i.e. '<em><b>BasicComponentCreator</b></em>' objects are of
+ * intermediate state.
+ * 
+ * @author Louisa Lambrecht
+ * @see org.palladiosimulator.pcm.repository.BasicComponent
+ */
 public class BasicComponentCreator extends Component {
 
 	private ComponentType type;

@@ -11,6 +11,17 @@ import org.palladiosimulator.pcm.seff.SeffFactory;
 
 import repositoryStructure.components.VariableUsageCreator;
 
+/**
+ * This class constructs a
+ * {@link org.palladiosimulator.pcm.seff.CollectionIteratorAction
+ * CollectionIteratorAction}. It is used to create the
+ * '<em><b>CollectionIteratorAction</b></em>' object step-by-step, i.e.
+ * '<em><b>CollectionIteratorActionCreator</b></em>' objects are of intermediate
+ * state.
+ * 
+ * @author Louisa Lambrecht
+ * @see org.palladiosimulator.pcm.seff.CollectionIteratorAction
+ */
 public class CollectionIteratorActionCreator extends GeneralAction {
 
 	private Parameter parameter;

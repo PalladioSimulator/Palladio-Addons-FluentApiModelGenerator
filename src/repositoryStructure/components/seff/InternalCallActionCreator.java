@@ -16,6 +16,16 @@ import org.palladiosimulator.pcm.seff.SeffFactory;
 import apiControlFlowInterfaces.seff.InternalSeff;
 import repositoryStructure.components.VariableUsageCreator;
 
+/**
+ * This class constructs a
+ * {@link org.palladiosimulator.pcm.seff.InternalCallAction InternalCallAction}.
+ * It is used to create the '<em><b>InternalCallAction</b></em>' object
+ * step-by-step, i.e. '<em><b>InternalCallActionCreator</b></em>' objects are of
+ * intermediate state.
+ * 
+ * @author Louisa Lambrecht
+ * @see org.palladiosimulator.pcm.seff.InternalCallAction
+ */
 public class InternalCallActionCreator extends GeneralAction {
 
 	private List<VariableUsage> inputVariableUsages;

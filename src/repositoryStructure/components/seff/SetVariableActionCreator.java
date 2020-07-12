@@ -14,6 +14,16 @@ import org.palladiosimulator.pcm.seff.SetVariableAction;
 
 import repositoryStructure.components.VariableUsageCreator;
 
+/**
+ * This class constructs a
+ * {@link org.palladiosimulator.pcm.seff.SetVariableAction SetVariableAction}.
+ * It is used to create the '<em><b>SetVariableAction</b></em>' object
+ * step-by-step, i.e. '<em><b>SetVariableActionCreator</b></em>' objects are of
+ * intermediate state.
+ * 
+ * @author Louisa Lambrecht
+ * @see org.palladiosimulator.pcm.seff.SetVariableAction
+ */
 public class SetVariableActionCreator extends GeneralAction {
 
 	private List<VariableUsage> localVariableUsages;
@@ -60,10 +70,10 @@ public class SetVariableActionCreator extends GeneralAction {
 	protected SetVariableAction build() {
 		// TODO: iwelche Voraussetzungen?
 		SetVariableAction action = SeffFactory.eINSTANCE.createSetVariableAction();
-		
-		if(name != null) 
+
+		if (name != null)
 			action.getEntityName();
-			
+
 		action.getLocalVariableUsages_SetVariableAction().addAll(localVariableUsages);
 
 		action.getInfrastructureCall__Action().addAll(infrastructureCalls);

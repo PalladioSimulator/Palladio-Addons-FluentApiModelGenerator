@@ -21,6 +21,16 @@ import de.uka.ipd.sdq.stoex.VariableReference;
 import repositoryStructure.Entity;
 import repositoryStructure.RepositoryCreator;
 
+/**
+ * This class constructs a
+ * {@link org.palladiosimulator.pcm.parameter.VariableUsage VariableUsage}. It
+ * is used to create the '<em><b>VariableUsage</b></em>' object step-by-step,
+ * i.e. '<em><b>VariableUsageCreator</b></em>' objects are of intermediate
+ * state.
+ * 
+ * @author Louisa Lambrecht
+ * @see org.palladiosimulator.pcm.parameter.VariableUsage
+ */
 public class VariableUsageCreator extends Entity {
 
 	private AbstractNamedReference reference;

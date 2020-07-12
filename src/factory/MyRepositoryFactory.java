@@ -2,6 +2,7 @@ package factory;
 
 import java.util.Map;
 
+import org.eclipse.emf.cdo.spi.common.revision.InternalCDOFeatureDelta.WithIndex;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -143,11 +144,13 @@ public class MyRepositoryFactory {
 	/**
 	 * Creates a representation of the model object '<em><b>Repository</b></em>'.
 	 * 
-	 * <p>The repository entity allows storing components, data types, and interfaces
+	 * <p>
+	 * The repository entity allows storing components, data types, and interfaces
 	 * to be fetched and reused for construction of component instances as well as
-	 * new component types.</p>
+	 * new component types.
+	 * </p>
 	 * 
-	 * @return the repository
+	 * @return the repository in the making
 	 */
 	public Repo newRepository() {
 		this.repo = new RepositoryCreator();
@@ -155,6 +158,47 @@ public class MyRepositoryFactory {
 	}
 
 	// ---------------------- Components ----------------------
+	/**
+	 * Creates a new basic component.
+	 * <p>
+	 * Basic components are atomic building blocks of a software architecture.
+	 * Component developers specify basic components by associating interfaces to
+	 * them in a providing or requiring role.
+	 * </p>
+	 * <p>
+	 * Basic components offer the characteristics
+	 * {@link repositoryStructure.components.BasicComponentCreator#withName(String)
+	 * name},
+	 * {@link repositoryStructure.components.BasicComponentCreator#ofType(org.palladiosimulator.pcm.repository.ComponentType)
+	 * type},
+	 * {@link repositoryStructure.components.BasicComponentCreator#withServiceEffectSpecification(Seff)
+	 * SEFF},
+	 * {@link repositoryStructure.components.BasicComponentCreator#withPassiveResource(String, ResourceTimeoutFailureType)
+	 * passive resource} and
+	 * {@link repositoryStructure.components.BasicComponentCreator#withVariableUsage(VariableUsageCreator)
+	 * variable usage}.<br>
+	 * The possible connections/roles to other components/interfaces are
+	 * {@link repositoryStructure.components.BasicComponentCreator#provides(OperationInterface, String)
+	 * providing interfaces},
+	 * {@link repositoryStructure.components.BasicComponentCreator#requires(OperationInterface, String)
+	 * requiring interfaces},
+	 * {@link repositoryStructure.components.BasicComponentCreator#emits(EventGroup, String)
+	 * emitting event groups},
+	 * {@link repositoryStructure.components.BasicComponentCreator#handles(EventGroup, String)
+	 * handling event groups},
+	 * {@link repositoryStructure.components.BasicComponentCreator#conforms(CompleteComponentTypeCreator)
+	 * conformity},
+	 * {@link repositoryStructure.components.BasicComponentCreator#requiresResource(ResourceInterface)
+	 * requiring resources},
+	 * {@link repositoryStructure.components.BasicComponentCreator#providesInfrastructure(InfrastructureInterface, String)
+	 * providing infrastructure interfaces},
+	 * {@link repositoryStructure.components.BasicComponentCreator#requiresInfrastructure(InfrastructureInterface, String)
+	 * requiring infrastructure interfaces},
+	 * </p>
+	 * 
+	 * @return the basic component in the making
+	 * @see org.palladiosimulator.pcm.repository.BasicComponent
+	 */
 	public BasicComponentCreator newBasicComponent() {
 		BasicComponentCreator basicComponent = new BasicComponentCreator(this.repo);
 		return basicComponent;
@@ -201,7 +245,24 @@ public class MyRepositoryFactory {
 
 	// ---------------------- DataTypes ----------------------
 	// access Primitive Data Types using enums
-
+	/**
+	 * Creates a new collection data type with name <code>name</code> and of type
+	 * <code>primitive</code>.
+	 * 
+	 * <p>
+	 * A collection data type represents a list, array, set of items of the
+	 * particular type. For example,
+	 * <code>create.newCollectionDataType("StringList",
+	 * Primitive.String)</code> realizes a data type conforming
+	 * <code>List&lt;String&gt;</code> in Java.
+	 * </p>
+	 * 
+	 * @param name      the <i>unique</i> name of the new collection data type
+	 * @param primitive the primitive data type that the elements have
+	 * @return the collection data type
+	 * @see org.palladiosimulator.pcm.repository.CollectionDataType
+	 * @see repositoryStructure.datatypes.Primitive
+	 */
 	public CollectionDataType newCollectionDataType(String name, Primitive primitive) {
 		PrimitiveDataType p = PrimitiveType.getPrimitiveDataType(primitive);
 
@@ -212,18 +273,66 @@ public class MyRepositoryFactory {
 		return coll;
 	}
 
+	/**
+	 * Creates a new collection data type with name <code>name</code> and of type
+	 * <code>dataType</code>.
+	 * 
+	 * <p>
+	 * A collection data type represents a list, array, set of items of the
+	 * particular type. All previously created data types and primitive data types
+	 * can be referenced using fetching methods, e.g.
+	 * {@link factory.MyRepositoryFactory#fetchOfDataType(String)
+	 * fetchOfDataType(String)}. <br>
+	 * For example, <code>create.newCollectionDataType("PersonList",
+	 * create.fetchOfDataType("Person"))</code> realizes a data type conforming
+	 * <code>List&lt;Person&gt;</code> in Java, assuming that a different data type
+	 * called "Person" has been previously declared.
+	 * </p>
+	 * 
+	 * @param name     the <i>unique</i> name of the new collection data type
+	 * @param dataType the data type that the elements have
+	 * @return the collection data type
+	 * @see factory.MyRepositoryFactory#fetchOfDataType(String)
+	 * @see factory.MyRepositoryFactory#fetchOfDataType(Primitive)
+	 * @see org.palladiosimulator.pcm.repository.CollectionDataType
+	 * @see org.palladiosimulator.pcm.repository.DataType
+	 */
 	public CollectionDataType newCollectionDataType(String name,
-			org.palladiosimulator.pcm.repository.DataType collection) {
+			org.palladiosimulator.pcm.repository.DataType dataType) {
 		CollectionDataType coll = RepositoryFactory.eINSTANCE.createCollectionDataType();
 		coll.setEntityName(name);
-		coll.setInnerType_CollectionDataType(collection);
+		coll.setInnerType_CollectionDataType(dataType);
 		return coll;
 	}
 
-	public CompositeDataTypeCreator newCompositeDataType(String name, CompositeDataType... parent) {
-		if (parent == null)
-			parent = new CompositeDataType[0];
-		CompositeDataTypeCreator c = new CompositeDataTypeCreator(name, parent);
+	/**
+	 * Creates a new collection data type with name <code>name</code> and optionally
+	 * the previously defined parent types <code>parents</code>.
+	 * 
+	 * <p>
+	 * A composite data type represents a complex data type containing other data
+	 * types. This construct is common in higher programming languages as record,
+	 * struct, or class.<br>
+	 * The contained data types can be added using method chaining with
+	 * {@link repositoryStructure.datatypes.CompositeDataTypeCreator#withInnerDeclaration(String, Primitive)
+	 * .withInnerDeclaration(String, Primitive)} and/or
+	 * {@link repositoryStructure.datatypes.CompositeDataTypeCreator#withInnerDeclaration(String, DataType)
+	 * .withInnerDeclaration(String, DataType)}.
+	 * </p>
+	 * 
+	 * @param name    the <i>unique</i> name of the composite data type
+	 * @param parents array of parent composite data types
+	 * @return the composite data type in the making
+	 * @see repositoryStructure.datatypes.CompositeDataTypeCreator#withInnerDeclaration(String,
+	 *      Primitive)
+	 * @see repositoryStructure.datatypes.CompositeDataTypeCreator#withInnerDeclaration(String,
+	 *      DataType)
+	 * @see org.palladiosimulator.pcm.repository.CompositeDataType
+	 */
+	public CompositeDataTypeCreator newCompositeDataType(String name, CompositeDataType... parents) {
+		if (parents == null)
+			parents = new CompositeDataType[0];
+		CompositeDataTypeCreator c = new CompositeDataTypeCreator(name, parents);
 		return c;
 	}
 
@@ -248,7 +357,21 @@ public class MyRepositoryFactory {
 	// ---------------------- Fetching methods ----------------------
 
 	// TODO: exceptionTypes, resourcetypes, resource interfaces etc
-
+	/**
+	 * Extracts the by <code>name</code> referenced data type from the repository.
+	 * <p>
+	 * This method throws a RuntimeException if no data type is present under the
+	 * given <code>name</code>. If more than one data type with this
+	 * <code>name</code> is present, a warning will be printed during runtime and
+	 * the system chooses the first data type it finds.
+	 * </p>
+	 * 
+	 * @param name
+	 * @return the data type
+	 * @see apiControlFlowInterfaces.RepoAddition#addToRepository(CollectionDataType)
+	 * @see apiControlFlowInterfaces.RepoAddition#addToRepository(CompositeDataTypeCreator)
+	 * @see org.palladiosimulator.pcm.repository.DataType
+	 */
 	public DataType fetchOfDataType(String name) {
 
 		DataType dataType = repo.getDataType(name);
@@ -260,6 +383,14 @@ public class MyRepositoryFactory {
 		return dataType;
 	}
 
+	/**
+	 * Extracts the primitive data type corresponding to the enum
+	 * <code>primitive</code> from the repository.
+	 * 
+	 * @param primitive
+	 * @return the data type
+	 * @see org.palladiosimulator.pcm.repository.PrimitiveDataType
+	 */
 	public DataType fetchOfDataType(Primitive primitive) {
 		// TODO:
 		EList<DataType> dataTypes = this.primitives.getDataTypes__Repository();

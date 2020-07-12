@@ -17,6 +17,17 @@ import repositoryStructure.RepositoryCreator;
 import repositoryStructure.datatypes.Primitive;
 import repositoryStructure.datatypes.PrimitiveType;
 
+/**
+ * This class constructs a
+ * {@link org.palladiosimulator.pcm.repository.InfrastructureSignature
+ * InfrastructureSignature}. It is used to create the
+ * '<em><b>InfrastructureSignature</b></em>' object step-by-step, i.e.
+ * '<em><b>InfrastructureSignatureCreator</b></em>' objects are of intermediate
+ * state.
+ * 
+ * @author Louisa Lambrecht
+ * @see org.palladiosimulator.pcm.repository.InfrastructureSignature
+ */
 public class InfrastructureSignatureCreator extends Entity {
 
 	private InfrastructureInterfaceCreator correspondingInterface;

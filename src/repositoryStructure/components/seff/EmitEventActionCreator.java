@@ -11,6 +11,16 @@ import org.palladiosimulator.pcm.seff.SeffFactory;
 
 import repositoryStructure.components.VariableUsageCreator;
 
+/**
+ * This class constructs an
+ * {@link org.palladiosimulator.pcm.seff.EmitEventAction EmitEventAction}. It is
+ * used to create the '<em><b>EmitEventAction</b></em>' object step-by-step,
+ * i.e. '<em><b>EmitEventActionCreator</b></em>' objects are of intermediate
+ * state.
+ * 
+ * @author Louisa Lambrecht
+ * @see org.palladiosimulator.pcm.seff.EmitEventAction
+ */
 public class EmitEventActionCreator extends SeffAction {
 
 	private EventType eventType;

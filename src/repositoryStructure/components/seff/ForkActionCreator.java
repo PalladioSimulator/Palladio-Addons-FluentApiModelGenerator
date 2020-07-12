@@ -17,6 +17,15 @@ import org.palladiosimulator.pcm.seff.SynchronisationPoint;
 import apiControlFlowInterfaces.seff.InternalSeff;
 import repositoryStructure.components.VariableUsageCreator;
 
+/**
+ * This class constructs a {@link org.palladiosimulator.pcm.seff.ForkAction
+ * BranchAction}. It is used to create the '<em><b>ForkAction</b></em>' object
+ * step-by-step, i.e. '<em><b>ForkActionCreator</b></em>' objects are of
+ * intermediate state.
+ * 
+ * @author Louisa Lambrecht
+ * @see org.palladiosimulator.pcm.seff.ForkAction
+ */
 public class ForkActionCreator extends GeneralAction {
 
 	private List<ForkedBehaviour> asynchronousForkedBehaviours;
