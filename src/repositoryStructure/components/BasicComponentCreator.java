@@ -62,6 +62,15 @@ public class BasicComponentCreator extends Component {
 //	}
 
 	// business vs infrstructure component
+	/**
+	 * Sets the type of the basic component.<br>
+	 * <br>
+	 * Possible values are '<em><b>BUSINESS_COMPONENT</b></em>' (default) and
+	 * '<em><b>INFRASTRUCTURE_COMPONENT</b></em>'.
+	 * 
+	 * @param type
+	 * @return the basic component in the making
+	 */
 	public BasicComponentCreator ofType(ComponentType type) {
 		this.type = type;
 		return this;
@@ -210,7 +219,23 @@ public class BasicComponentCreator extends Component {
 		return this;
 	}
 
-	// Passive resources
+	/**
+	 * Adds a passive resource (e.g. a semaphore) to the basic component.
+	 * <p>
+	 * The stochastic expression in <code>capacity_stochasticExpression</code>
+	 * belongs to a {@link org.palladiosimulator.pcm.core.PCMRandomVariable
+	 * PCMRandomVariable} and describes the capacity of the passive resource. The
+	 * given <code>failureType</code> is the failure type that represents a
+	 * timeout&nbsp;failure of an acquiring action for this passive resource.
+	 * </p>
+	 * 
+	 * @param capacity_stochasticExpression stochastic expression as a string
+	 * @param failureType                   a resource timeout failure
+	 * @return the basic component in the making
+	 * @see org.palladiosimulator.pcm.repository.PassiveResource
+	 * @see org.palladiosimulator.pcm.core.PCMRandomVariable
+	 * @see org.palladiosimulator.pcm.reliability.ResourceTimeoutFailureType
+	 */
 	public BasicComponentCreator withPassiveResource(String capacity_stochasticExpression,
 			ResourceTimeoutFailureType failureType) {
 		PCMRandomVariable randVar = CoreFactory.eINSTANCE.createPCMRandomVariable();
@@ -233,6 +258,27 @@ public class BasicComponentCreator extends Component {
 		return this;
 	}
 
+	/**
+	 * Adds a {@link org.palladiosimulator.pcm.parameter.VariableUsage
+	 * VariableUsage} to the basic component.
+	 *
+	 * <p>
+	 * Variable usages are used to characterize variables like input and output
+	 * variables or component parameters. They contain the specification of the
+	 * variable as VariableCharacterisation and also refer to the name of the
+	 * characterized variable in its namedReference association.
+	 * </p>
+	 * 
+	 * <p>
+	 * Create a new variable usage by using the factory, i.e.
+	 * <code>create.newVariableUsage()</code>.
+	 * </p>
+	 * 
+	 * @param variableUsage in the making
+	 * @return the basic component in the making
+	 * @see factory.MyRepositoryFactory#newVariableUsage()
+	 * @see org.palladiosimulator.pcm.parameter.VariableUsage
+	 */
 	public BasicComponentCreator withVariableUsage(VariableUsageCreator variableUsage) {
 		this.componentParameterUsages.add(variableUsage.build());
 		return this;

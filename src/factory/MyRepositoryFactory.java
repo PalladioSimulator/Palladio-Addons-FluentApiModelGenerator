@@ -350,6 +350,34 @@ public class MyRepositoryFactory {
 		return new SeffCreator();
 	}
 
+	/**
+	 * Creates a new {@link org.palladiosimulator.pcm.parameter.VariableUsage
+	 * VariableUsage}.
+	 * 
+	 * <p>
+	 * Variable usages are used to characterize variables like input and output
+	 * variables or component parameters. They contain the specification of the
+	 * variable as VariableCharacterisation and also refer to the name of the
+	 * characterized variable in its namedReference association.
+	 * </p>
+	 * <p>
+	 * Use the methods
+	 * {@link repositoryStructure.components.VariableUsageCreator#withVariableCharacterisation(String, org.palladiosimulator.pcm.parameter.VariableCharacterisationType)
+	 * withVariableCharacterisation(String, VariableCharacterisationType)},
+	 * {@link repositoryStructure.components.VariableUsageCreator#withVariableReference(String)
+	 * withVariableReference(String)} and
+	 * {@link repositoryStructure.components.VariableUsageCreator#withNamespaceReference(String, String...)
+	 * withNamespaceReference(String, String...)} to define the variable usage.
+	 * </p>
+	 * 
+	 * @return the variable usage in the making
+	 * @see repositoryStructure.components.VariableUsageCreator#withVariableCharacterisation(String,
+	 *      org.palladiosimulator.pcm.parameter.VariableCharacterisationType)
+	 * @see repositoryStructure.components.VariableUsageCreator#withVariableReference(String)
+	 * @see repositoryStructure.components.VariableUsageCreator#withNamespaceReference(String,
+	 *      String...)
+	 * @see org.palladiosimulator.pcm.parameter.VariableUsage
+	 */
 	public VariableUsageCreator newVariableUsage() {
 		return new VariableUsageCreator(this.repo);
 	}

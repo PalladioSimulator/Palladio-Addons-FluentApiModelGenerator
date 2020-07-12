@@ -188,7 +188,15 @@ public class Main {
 			.addToRepository(create.newCompositeDataType(null)
 					.withInnerDeclaration(null, create.fetchOfDataType(Primitive.BOOLEAN)))
 			.addToRepository(create.newCompositeDataType(null, null, null).withInnerDeclaration(null, Primitive.BOOLEAN))
-			.addToRepository(create.newBasicComponent())
+			.addToRepository(create.newBasicComponent()
+					.withName(null)
+					.ofType(null)
+					.withPassiveResource(null, null)
+					.withVariableUsage(null)
+					//TODO javadoc:
+					.withVariableUsage(create.newVariableUsage())
+					.withServiceEffectSpecification(null)
+					.withServiceEffectSpecification(create.newSeff()))
 			.createRepositoryNow();
 		
 		saveRepository(repo, "null.repository", false);
