@@ -211,6 +211,11 @@ public class CompositeComponentCreator extends ComplexComponent {
 		return (CompositeComponentCreator) super.requiresResource(resourceInterface);
 	}
 
+	@Override
+	public CompositeComponentCreator requiresResource(ResourceInterface resourceInterface, String name) {
+		return (CompositeComponentCreator) super.requiresResource(resourceInterface, name);
+	}
+
 	// ------------ other listing characteristics ------------
 	/**
 	 * Creates a conforming (parental) connection to the
@@ -246,8 +251,8 @@ public class CompositeComponentCreator extends ComplexComponent {
 	 * structure, i.e., the service effect specifications or assemblies.
 	 * </p>
 	 * <p>
-	 * The <code>completeComponentType</code> can be fetched from the repository
-	 * using the factory, i.e.
+	 * An existing <code>completeComponentType</code> can be fetched from the
+	 * repository using the factory, i.e.
 	 * <code>create.fetchOfCompleteComponentType(name)</code>.
 	 * </p>
 	 * 
@@ -290,13 +295,13 @@ public class CompositeComponentCreator extends ComplexComponent {
 
 	@Override
 	public CompositeComponentCreator withAssemblyContext(RepositoryComponent component, String name,
-			VariableUsage... configParameterUsage) {
+			VariableUsageCreator... configParameterUsage) {
 		return (CompositeComponentCreator) super.withAssemblyContext(component, name, configParameterUsage);
 	}
 
 	@Override
 	public Comp withEventChannel() {
-		return new EventChannelCreator(this);
+		return new EventChannelCreator(this, this.repository);
 	}
 
 	// ------------ connectors ------------

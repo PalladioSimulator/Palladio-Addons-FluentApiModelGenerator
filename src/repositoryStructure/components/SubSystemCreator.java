@@ -3,7 +3,6 @@ package repositoryStructure.components;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.composition.EventChannel;
 import org.palladiosimulator.pcm.core.entity.ResourceRequiredRole;
-import org.palladiosimulator.pcm.parameter.VariableUsage;
 import org.palladiosimulator.pcm.repository.EventGroup;
 import org.palladiosimulator.pcm.repository.InfrastructureInterface;
 import org.palladiosimulator.pcm.repository.InfrastructureProvidedRole;
@@ -183,16 +182,21 @@ public class SubSystemCreator extends ComplexComponent {
 		return (SubSystemCreator) super.requiresResource(resourceInterface);
 	}
 
+	@Override
+	public SubSystemCreator requiresResource(ResourceInterface resourceInterface, String name) {
+		return (SubSystemCreator) super.requiresResource(resourceInterface, name);
+	}
+
 	// ------------ other listing characteristics ------------
 	@Override
 	public SubSystemCreator withAssemblyContext(RepositoryComponent component, String name,
-			VariableUsage... configParameterUsage) {
+			VariableUsageCreator... configParameterUsage) {
 		return (SubSystemCreator) super.withAssemblyContext(component, name, configParameterUsage);
 	}
 
 	@Override
 	public Sub withEventChannel() {
-		return new EventChannelCreator(this);
+		return new EventChannelCreator(this, this.repository);
 	}
 
 	// ------------ connectors ------------

@@ -210,6 +210,11 @@ public class BasicComponentCreator extends Component {
 		return (BasicComponentCreator) super.requiresResource(resourceInterface);
 	}
 
+	@Override
+	public BasicComponentCreator requiresResource(ResourceInterface resourceInterface, String name) {
+		return (BasicComponentCreator) super.requiresResource(resourceInterface, name);
+	}
+
 	// ------------ other listing characteristics ------------
 	// parent complete component types
 	/**
@@ -224,6 +229,7 @@ public class BasicComponentCreator extends Component {
 	 * The <code>completeComponentType</code> can be created using the factory, i.e.
 	 * <code>create.newCompleteComponentType()</code>.
 	 * </p>
+	 * 
 	 * @param completeComponentType
 	 * @return the basic component in the making
 	 * @see factory.MyRepositoryFactory#newCompleteComponentType()
@@ -235,7 +241,7 @@ public class BasicComponentCreator extends Component {
 		this.repository.addComponent(cct);
 		return conforms(cct);
 	}
-	
+
 	/**
 	 * Creates a conforming (parental) connection to the
 	 * <code>completeComponentType</code> and adds it to the basic component.
@@ -245,9 +251,11 @@ public class BasicComponentCreator extends Component {
 	 * structure, i.e., the service effect specifications or assemblies.
 	 * </p>
 	 * <p>
-	 * The <code>completeComponentType</code> can be fetched from the repository using the factory, i.e.
+	 * An existing <code>completeComponentType</code> can be fetched from the
+	 * repository using the factory, i.e.
 	 * <code>create.fetchOfCompleteComponentType(name)</code>.
 	 * </p>
+	 * 
 	 * @param completeComponentType
 	 * @return the basic component in the making
 	 * @see factory.MyRepositoryFactory#fetchOfCompleteComponentType(String)

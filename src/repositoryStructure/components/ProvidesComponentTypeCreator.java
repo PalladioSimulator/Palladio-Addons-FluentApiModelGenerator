@@ -174,6 +174,11 @@ public class ProvidesComponentTypeCreator extends Component {
 	}
 
 	@Override
+	public ProvidesComponentTypeCreator requiresResource(ResourceInterface resourceInterface, String name) {
+		return (ProvidesComponentTypeCreator) super.requiresResource(resourceInterface, name);
+	}
+
+	@Override
 	public ProvidesComponentType build() {
 		ProvidesComponentType pct = RepositoryFactory.eINSTANCE.createProvidesComponentType();
 		if (name != null)

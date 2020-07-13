@@ -10,6 +10,9 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
+import org.palladiosimulator.pcm.core.composition.EventChannel;
+import org.palladiosimulator.pcm.core.composition.EventChannelSinkConnector;
+import org.palladiosimulator.pcm.core.composition.EventChannelSourceConnector;
 import org.palladiosimulator.pcm.core.entity.ResourceRequiredRole;
 import org.palladiosimulator.pcm.reliability.FailureType;
 import org.palladiosimulator.pcm.reliability.ResourceTimeoutFailureType;
@@ -827,6 +830,29 @@ public class MyRepositoryFactory {
 		if (assContext == null)
 			throw new RuntimeException("Assembly context '" + name + "' could not be found");
 		return assContext;
+	}
+
+	public EventChannel fetchOfEventChannel(String name) {
+		EventChannel eventChannel = repo.getEventChannel(name);
+		if (eventChannel == null)
+			throw new RuntimeException("Event Channel '" + name + "' could not be found");
+		return eventChannel;
+	}
+	
+	public EventChannelSinkConnector fetchOfEventChannelSinkConnector(String name) {
+//		EventChannel eventChannel = repo.getEventChannel(name);
+//		if (eventChannel == null)
+//			throw new RuntimeException("Event Channel '" + name + "' could not be found");
+//		return eventChannel;
+		return null; //TODO:
+	}
+	
+	public EventChannelSourceConnector fetchOfEventChannelSourceConnector(String name) {
+//		EventChannel eventChannel = repo.getEventChannel(name);
+//		if (eventChannel == null)
+//			throw new RuntimeException("Event Channel '" + name + "' could not be found");
+//		return eventChannel;
+		return null; //TODO:
 	}
 
 	public Parameter fetchOfParameter(String name) {

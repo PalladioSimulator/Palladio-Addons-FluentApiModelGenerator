@@ -12,6 +12,7 @@ import org.palladiosimulator.pcm.repository.EventGroup;
 import apiControlFlowInterfaces.EventChannelCreation.Comp;
 import apiControlFlowInterfaces.EventChannelCreation.Sub;
 import repositoryStructure.Entity;
+import repositoryStructure.RepositoryCreator;
 
 /**
  * This class constructs an
@@ -31,14 +32,16 @@ public class EventChannelCreator extends Entity implements Comp, Sub {
 	private CompositeComponentCreator correspondingComponent;
 	private SubSystemCreator correspondingSubsystem;
 
-	public EventChannelCreator(CompositeComponentCreator component) {
+	public EventChannelCreator(CompositeComponentCreator component, RepositoryCreator repo) {
 		this.correspondingComponent = component;
+		this.repository = repo;
 		this.sinkConnections = new ArrayList<>();
 		this.sourceConnections = new ArrayList<>();
 	}
 
-	public EventChannelCreator(SubSystemCreator component) {
+	public EventChannelCreator(SubSystemCreator component, RepositoryCreator repo) {
 		this.correspondingSubsystem = component;
+		this.repository = repo;
 		this.sinkConnections = new ArrayList<>();
 		this.sourceConnections = new ArrayList<>();
 	}
@@ -69,6 +72,7 @@ public class EventChannelCreator extends Entity implements Comp, Sub {
 	@Override
 	public CompositeComponentCreator now1() {
 		EventChannel eg = this.build();
+		this.repository.addEventChannel(eg);
 		correspondingComponent.addEventChannel(eg);
 		return correspondingComponent;
 	}
@@ -76,6 +80,7 @@ public class EventChannelCreator extends Entity implements Comp, Sub {
 	@Override
 	public SubSystemCreator now2() {
 		EventChannel eg = this.build();
+		this.repository.addEventChannel(eg);
 		correspondingSubsystem.addEventChannel(eg);
 		return correspondingSubsystem;
 	}

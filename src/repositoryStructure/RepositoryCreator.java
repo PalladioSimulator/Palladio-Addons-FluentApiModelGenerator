@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
+import org.palladiosimulator.pcm.core.composition.EventChannel;
 import org.palladiosimulator.pcm.core.entity.ResourceRequiredRole;
 import org.palladiosimulator.pcm.reliability.FailureType;
 import org.palladiosimulator.pcm.repository.BasicComponent;
@@ -63,6 +64,8 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 	private List<Parameter> parameters;
 	private List<AssemblyContext> assemblyContexts;
 
+	private List<EventChannel> eventChannels;
+
 	public RepositoryCreator() {
 		this.dataTypes = new ArrayList<>();
 		this.failureTypes = new ArrayList<>();
@@ -73,6 +76,7 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 		this.resourceRequiredRoles = new ArrayList<>();
 		this.parameters = new ArrayList<>();
 		this.assemblyContexts = new ArrayList<>();
+		this.eventChannels = new ArrayList<>();
 
 		this.dataTypes.add(PrimitiveType.getPrimitiveDataType(Primitive.BOOLEAN));
 		this.dataTypes.add(PrimitiveType.getPrimitiveDataType(Primitive.BYTE));
@@ -285,6 +289,10 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 	public AssemblyContext getAssemblyContext(String name) {
 		return assemblyContexts.stream().filter(a -> a.getEntityName().contentEquals(name)).findFirst().orElse(null);
 	}
+	
+	public EventChannel getEventChannel(String name) {
+		return eventChannels.stream().filter(a -> a.getEntityName().contentEquals(name)).findFirst().orElse(null);
+	}
 
 	// ------------- adding -------------
 	public void addDataType(DataType dt) {
@@ -317,5 +325,10 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 
 	public void addAssemblyContext(AssemblyContext ac) {
 		assemblyContexts.add(ac);
+	}
+
+	public void addEventChannel(EventChannel eg) {
+		eventChannels.add(eg);
+
 	}
 }
