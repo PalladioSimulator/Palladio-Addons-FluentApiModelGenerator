@@ -267,6 +267,7 @@ public class Main {
 			.addToRepository(create.newOperationInterface()
 					.withName(null)
 					.conforms(null)
+					//TODO:
 					.withOperationSignature().now()
 					.withRequiredCharacterisation(null, null))
 			.addToRepository(create.newInfrastructureInterface())
