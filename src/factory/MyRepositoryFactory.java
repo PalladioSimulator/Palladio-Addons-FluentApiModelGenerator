@@ -174,10 +174,12 @@ public class MyRepositoryFactory {
 	 * {@link repositoryStructure.components.BasicComponentCreator#withServiceEffectSpecification(Seff)
 	 * SEFF},
 	 * {@link repositoryStructure.components.BasicComponentCreator#withPassiveResource(String, ResourceTimeoutFailureType)
-	 * passive resource} and
+	 * passive resource},
 	 * {@link repositoryStructure.components.BasicComponentCreator#withVariableUsage(VariableUsageCreator)
-	 * variable usage}.<br>
-	 * The possible connections/roles to other components/interfaces are
+	 * variable usage} and
+	 * {@link repositoryStructure.components.BasicComponentCreator#conforms(CompleteComponentTypeCreator)
+	 * conformity}.<br>
+	 * The possible roles to other interfaces are
 	 * {@link repositoryStructure.components.BasicComponentCreator#provides(OperationInterface, String)
 	 * providing interfaces},
 	 * {@link repositoryStructure.components.BasicComponentCreator#requires(OperationInterface, String)
@@ -186,14 +188,12 @@ public class MyRepositoryFactory {
 	 * emitting event groups},
 	 * {@link repositoryStructure.components.BasicComponentCreator#handles(EventGroup, String)
 	 * handling event groups},
-	 * {@link repositoryStructure.components.BasicComponentCreator#conforms(CompleteComponentTypeCreator)
-	 * conformity},
 	 * {@link repositoryStructure.components.BasicComponentCreator#requiresResource(ResourceInterface)
 	 * requiring resources},
 	 * {@link repositoryStructure.components.BasicComponentCreator#providesInfrastructure(InfrastructureInterface, String)
 	 * providing infrastructure interfaces},
 	 * {@link repositoryStructure.components.BasicComponentCreator#requiresInfrastructure(InfrastructureInterface, String)
-	 * requiring infrastructure interfaces},
+	 * requiring infrastructure interfaces}.
 	 * </p>
 	 * 
 	 * @return the basic component in the making
@@ -204,21 +204,220 @@ public class MyRepositoryFactory {
 		return basicComponent;
 	}
 
+	/**
+	 * Creates a new composite component.
+	 * 
+	 * <p>
+	 * Composite components are special implementation component types, which are
+	 * composed from inner components. Component developers compose inner components
+	 * within composite components with assembly connectors. A composite component
+	 * may contain other composite components, which are also themselves composed
+	 * out of inner components. This enables building arbitrary hierarchies of
+	 * nested components.
+	 * </p>
+	 * <p>
+	 * Composite components offer the characteristics
+	 * {@link repositoryStructure.components.CompositeComponentCreator#withName(String)
+	 * name},
+	 * {@link repositoryStructure.components.CompositeComponentCreator#ofType(org.palladiosimulator.pcm.repository.ComponentType)
+	 * type},
+	 * {@link repositoryStructure.components.CompositeComponentCreator#withVariableUsage(VariableUsageCreator)
+	 * variable usage} and
+	 * {@link repositoryStructure.components.CompositeComponentCreator#conforms(CompleteComponentTypeCreator)
+	 * conformity}.<br>
+	 * The possible roles to other interfaces are
+	 * {@link repositoryStructure.components.CompositeComponentCreator#provides(OperationInterface, String)
+	 * providing interfaces},
+	 * {@link repositoryStructure.components.CompositeComponentCreator#requires(OperationInterface, String)
+	 * requiring interfaces},
+	 * {@link repositoryStructure.components.CompositeComponentCreator#emits(EventGroup, String)
+	 * emitting event groups},
+	 * {@link repositoryStructure.components.CompositeComponentCreator#handles(EventGroup, String)
+	 * handling event groups},
+	 * {@link repositoryStructure.components.CompositeComponentCreator#requiresResource(ResourceInterface)
+	 * requiring resources},
+	 * {@link repositoryStructure.components.CompositeComponentCreator#providesInfrastructure(InfrastructureInterface, String)
+	 * providing infrastructure interfaces},
+	 * {@link repositoryStructure.components.CompositeComponentCreator#requiresInfrastructure(InfrastructureInterface, String)
+	 * requiring infrastructure interfaces}.<br>
+	 * Composite component/subsystem specific connections with other
+	 * components/interfaces are
+	 * {@link repositoryStructure.components.CompositeComponentCreator#withAssemblyContext(RepositoryComponent, String, org.palladiosimulator.pcm.parameter.VariableUsage...)
+	 * assembly context},
+	 * {@link repositoryStructure.components.CompositeComponentCreator#withEventChannel()
+	 * event channel},
+	 * {@link repositoryStructure.components.CompositeComponentCreator#withAssemblyConnection(OperationProvidedRole, AssemblyContext, OperationRequiredRole, AssemblyContext)
+	 * assembly connection},
+	 * {@link repositoryStructure.components.CompositeComponentCreator#withAssemblyEventConnection(SinkRole, AssemblyContext, SourceRole, AssemblyContext, String)
+	 * assembly event connection},
+	 * {@link repositoryStructure.components.CompositeComponentCreator#withEventChannelSinkConnection(AssemblyContext, org.palladiosimulator.pcm.core.composition.EventChannel, SinkRole, String)
+	 * event channel sink connection},
+	 * {@link repositoryStructure.components.CompositeComponentCreator#withEventChannelSourceConnection(AssemblyContext, org.palladiosimulator.pcm.core.composition.EventChannel, SourceRole)
+	 * event channel source connection},
+	 * {@link repositoryStructure.components.CompositeComponentCreator#withAssemblyInfrastructureConnection(InfrastructureProvidedRole, AssemblyContext, InfrastructureRequiredRole, AssemblyContext)
+	 * assembly infrastructure connection},
+	 * {@link repositoryStructure.components.CompositeComponentCreator#withProvidedDelegationConnection(AssemblyContext, OperationProvidedRole, OperationProvidedRole)
+	 * provided delegation connection},
+	 * {@link repositoryStructure.components.CompositeComponentCreator#withRequiredDelegationConnection(AssemblyContext, OperationRequiredRole, OperationRequiredRole)
+	 * required delegation connection},
+	 * {@link repositoryStructure.components.CompositeComponentCreator#withSinkDelegationConnection(AssemblyContext, SinkRole, SinkRole)
+	 * sink delegation connection},
+	 * {@link repositoryStructure.components.CompositeComponentCreator#withSourceDelegationConnection(AssemblyContext, SourceRole, SourceRole)
+	 * source delegation connection},
+	 * {@link repositoryStructure.components.CompositeComponentCreator#withProvidedInfrastructureDelegationConnection(AssemblyContext, InfrastructureProvidedRole, InfrastructureProvidedRole)
+	 * provided infrastructure delegation connection},
+	 * {@link repositoryStructure.components.CompositeComponentCreator#withRequiredInfrastructureDelegationConnection(AssemblyContext, InfrastructureRequiredRole, InfrastructureRequiredRole)
+	 * requires infrastructure delegation connection},
+	 * {@link repositoryStructure.components.CompositeComponentCreator#withRequiredResourceDelegationConnection(AssemblyContext, ResourceRequiredRole, ResourceRequiredRole)
+	 * required resource delegation connection},
+	 * {@link repositoryStructure.components.CompositeComponentCreator#resourceRequiredDegelationConnection(ResourceRequiredRole, ResourceRequiredRole)
+	 * resource required delegation connection}.
+	 * 
+	 * @return the composite component in the making
+	 * @see org.palladiosimulator.pcm.repository.CompositeComponent
+	 */
 	public CompositeComponentCreator newCompositeComponent() {
 		CompositeComponentCreator compositeComponent = new CompositeComponentCreator(this.repo);
 		return compositeComponent;
 	}
 
+	/**
+	 * Creates a new subsystem.
+	 * 
+	 * <p>
+	 * A SubSystem is structurally comparable to a CompositeComponent. The major
+	 * difference is the white-box property it preserves for System Deployers,
+	 * meaning that they can be allocated to different nodes of the resource
+	 * environment.
+	 * </p>
+	 * <p>
+	 * Subsystems offer the characteristics
+	 * {@link repositoryStructure.components.SubSystemCreator#withName(String)
+	 * name}.<br>
+	 * The possible roles to other interfaces are
+	 * {@link repositoryStructure.components.SubSystemCreator#provides(OperationInterface, String)
+	 * providing interfaces},
+	 * {@link repositoryStructure.components.SubSystemCreator#requires(OperationInterface, String)
+	 * requiring interfaces},
+	 * {@link repositoryStructure.components.SubSystemCreator#emits(EventGroup, String)
+	 * emitting event groups},
+	 * {@link repositoryStructure.components.SubSystemCreator#handles(EventGroup, String)
+	 * handling event groups},
+	 * {@link repositoryStructure.components.SubSystemCreator#requiresResource(ResourceInterface)
+	 * requiring resources},
+	 * {@link repositoryStructure.components.SubSystemCreator#providesInfrastructure(InfrastructureInterface, String)
+	 * providing infrastructure interfaces},
+	 * {@link repositoryStructure.components.SubSystemCreator#requiresInfrastructure(InfrastructureInterface, String)
+	 * requiring infrastructure interfaces}.<br>
+	 * Composite component/subsystem specific connections with other
+	 * components/interfaces are
+	 * {@link repositoryStructure.components.SubSystemCreator#withAssemblyContext(RepositoryComponent, String, org.palladiosimulator.pcm.parameter.VariableUsage...)
+	 * assembly context},
+	 * {@link repositoryStructure.components.SubSystemCreator#withEventChannel()
+	 * event channel},
+	 * {@link repositoryStructure.components.SubSystemCreator#withAssemblyConnection(OperationProvidedRole, AssemblyContext, OperationRequiredRole, AssemblyContext)
+	 * assembly connection},
+	 * {@link repositoryStructure.components.SubSystemCreator#withAssemblyEventConnection(SinkRole, AssemblyContext, SourceRole, AssemblyContext, String)
+	 * assembly event connection},
+	 * {@link repositoryStructure.components.SubSystemCreator#withEventChannelSinkConnection(AssemblyContext, org.palladiosimulator.pcm.core.composition.EventChannel, SinkRole, String)
+	 * event channel sink connection},
+	 * {@link repositoryStructure.components.SubSystemCreator#withEventChannelSourceConnection(AssemblyContext, org.palladiosimulator.pcm.core.composition.EventChannel, SourceRole)
+	 * event channel source connection},
+	 * {@link repositoryStructure.components.SubSystemCreator#withAssemblyInfrastructureConnection(InfrastructureProvidedRole, AssemblyContext, InfrastructureRequiredRole, AssemblyContext)
+	 * assembly infrastructure connection},
+	 * {@link repositoryStructure.components.SubSystemCreator#withProvidedDelegationConnection(AssemblyContext, OperationProvidedRole, OperationProvidedRole)
+	 * provided delegation connection},
+	 * {@link repositoryStructure.components.SubSystemCreator#withRequiredDelegationConnection(AssemblyContext, OperationRequiredRole, OperationRequiredRole)
+	 * required delegation connection},
+	 * {@link repositoryStructure.components.SubSystemCreator#withSinkDelegationConnection(AssemblyContext, SinkRole, SinkRole)
+	 * sink delegation connection},
+	 * {@link repositoryStructure.components.SubSystemCreator#withSourceDelegationConnection(AssemblyContext, SourceRole, SourceRole)
+	 * source delegation connection},
+	 * {@link repositoryStructure.components.SubSystemCreator#withProvidedInfrastructureDelegationConnection(AssemblyContext, InfrastructureProvidedRole, InfrastructureProvidedRole)
+	 * provided infrastructure delegation connection},
+	 * {@link repositoryStructure.components.SubSystemCreator#withRequiredInfrastructureDelegationConnection(AssemblyContext, InfrastructureRequiredRole, InfrastructureRequiredRole)
+	 * requires infrastructure delegation connection},
+	 * {@link repositoryStructure.components.SubSystemCreator#withRequiredResourceDelegationConnection(AssemblyContext, ResourceRequiredRole, ResourceRequiredRole)
+	 * required resource delegation connection},
+	 * {@link repositoryStructure.components.SubSystemCreator#resourceRequiredDegelationConnection(ResourceRequiredRole, ResourceRequiredRole)
+	 * resource required delegation connection}.
+	 * 
+	 * @return the subsystem in the making
+	 * @see org.palladiosimulator.pcm.subsystem.SubSystem
+	 */
 	public SubSystemCreator newSubSystem() {
 		SubSystemCreator subSystem = new SubSystemCreator(this.repo);
 		return subSystem;
 	}
 
+	/**
+	 * Creates a new complete component type.
+	 * <p>
+	 * Complete (Component) types abstract from the realization of components. They
+	 * only contain provided and required roles omitting the components’ internal
+	 * structure, i.e., the service effect specifications or assemblies.
+	 * </p>
+	 * <p>
+	 * Complete component types offer the characteristics
+	 * {@link repositoryStructure.components.CompleteComponentTypeCreator#withName(String)
+	 * name} and provide the roles
+	 * {@link repositoryStructure.components.CompleteComponentTypeCreator#provides(OperationInterface, String)
+	 * providing interfaces},
+	 * {@link repositoryStructure.components.CompleteComponentTypeCreator#requires(OperationInterface, String)
+	 * requiring interfaces},
+	 * {@link repositoryStructure.components.CompleteComponentTypeCreator#emits(EventGroup, String)
+	 * emitting event groups},
+	 * {@link repositoryStructure.components.CompleteComponentTypeCreator#handles(EventGroup, String)
+	 * handling event groups},
+	 * {@link repositoryStructure.components.CompleteComponentTypeCreator#conforms(ProvidesComponentTypeCreator)
+	 * conformity},
+	 * {@link repositoryStructure.components.CompleteComponentTypeCreator#requiresResource(ResourceInterface)
+	 * requiring resources},
+	 * {@link repositoryStructure.components.CompleteComponentTypeCreator#providesInfrastructure(InfrastructureInterface, String)
+	 * providing infrastructure interfaces},
+	 * {@link repositoryStructure.components.CompleteComponentTypeCreator#requiresInfrastructure(InfrastructureInterface, String)
+	 * requiring infrastructure interfaces}.
+	 * </p>
+	 * 
+	 * @return the complete component type in the making
+	 * @see org.palladiosimulator.pcm.repository.CompleteComponentType
+	 */
 	public CompleteComponentTypeCreator newCompleteComponentType() {
 		CompleteComponentTypeCreator cct = new CompleteComponentTypeCreator(this.repo);
 		return cct;
 	}
 
+	/**
+	 * Creates a new provided component type.
+	 * <p>
+	 * Provided (Component) Types abstract a component to its provided interfaces,
+	 * leaving its requirements and implementation details open. So, provided types
+	 * subsume components which offer the same functionality, but with different
+	 * implementations.
+	 * </p>
+	 * <p>
+	 * Provided component types offer the characteristics
+	 * {@link repositoryStructure.components.ProvidesComponentTypeCreator#withName(String)
+	 * name} and provide the roles
+	 * {@link repositoryStructure.components.ProvidesComponentTypeCreator#provides(OperationInterface, String)
+	 * providing interfaces},
+	 * {@link repositoryStructure.components.ProvidesComponentTypeCreator#requires(OperationInterface, String)
+	 * requiring interfaces},
+	 * {@link repositoryStructure.components.ProvidesComponentTypeCreator#emits(EventGroup, String)
+	 * emitting event groups},
+	 * {@link repositoryStructure.components.ProvidesComponentTypeCreator#handles(EventGroup, String)
+	 * handling event groups},
+	 * {@link repositoryStructure.components.ProvidesComponentTypeCreator#requiresResource(ResourceInterface)
+	 * requiring resources},
+	 * {@link repositoryStructure.components.ProvidesComponentTypeCreator#providesInfrastructure(InfrastructureInterface, String)
+	 * providing infrastructure interfaces},
+	 * {@link repositoryStructure.components.ProvidesComponentTypeCreator#requiresInfrastructure(InfrastructureInterface, String)
+	 * requiring infrastructure interfaces}.
+	 * </p>
+	 * 
+	 * @return the provides component type in the making
+	 * @see org.palladiosimulator.pcm.repository.ProvidesComponentType
+	 */
 	public ProvidesComponentTypeCreator newProvidesComponentType() {
 		ProvidesComponentTypeCreator pct = new ProvidesComponentTypeCreator(this.repo);
 		return pct;

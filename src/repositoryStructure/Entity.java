@@ -10,10 +10,10 @@ public abstract class Entity {
 //	protected String id;
 
 	/**
-	 * Defines the name of the current entity.
+	 * Defines the <i>unique</i> name of the current entity.
 	 * 
 	 * @param name
-	 * @return current entity
+	 * @return current entity in the making
 	 */
 	public Entity withName(String name) {
 		this.name = name;

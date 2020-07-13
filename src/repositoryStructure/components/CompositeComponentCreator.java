@@ -62,7 +62,15 @@ public class CompositeComponentCreator extends ComplexComponent {
 //		return (CompositeComponentCreator) super.withId(id);
 //	}
 
-	// business vs infrstructure component
+	/**
+	 * Sets the type of the composite component.<br>
+	 * <br>
+	 * Possible values are '<em><b>BUSINESS_COMPONENT</b></em>' (default) and
+	 * '<em><b>INFRASTRUCTURE_COMPONENT</b></em>'.
+	 * 
+	 * @param type
+	 * @return the composite component in the making
+	 */
 	public CompositeComponentCreator ofType(ComponentType type) {
 		this.type = type;
 		return this;
@@ -204,14 +212,77 @@ public class CompositeComponentCreator extends ComplexComponent {
 	}
 
 	// ------------ other listing characteristics ------------
-	// parent complete component types
+	/**
+	 * Creates a conforming (parental) connection to the
+	 * <code>completeComponentType</code> and adds it to the composite component.
+	 * <p>
+	 * Complete (Component) types abstract from the realization of components. They
+	 * only contain provided and required roles omitting the components’ internal
+	 * structure, i.e., the service effect specifications or assemblies.
+	 * </p>
+	 * <p>
+	 * The <code>completeComponentType</code> can be created using the factory, i.e.
+	 * <code>create.newCompleteComponentType()</code>.
+	 * </p>
+	 * 
+	 * @param completeComponentType
+	 * @return the composite component in the making
+	 * @see factory.MyRepositoryFactory#newCompleteComponentType()
+	 * @see org.palladiosimulator.pcm.repository.CompositeComponent#getParentCompleteComponentTypes()
+	 * @see org.palladiosimulator.pcm.repository.CompleteComponentType
+	 */
 	public CompositeComponentCreator conforms(CompleteComponentTypeCreator completeComponentType) {
 		CompleteComponentType cct = completeComponentType.build();
-		this.conformsCompleteTypes.add(cct);
 		this.repository.addComponent(cct);
+		return conforms(cct);
+	}
+
+	/**
+	 * Creates a conforming (parental) connection to the
+	 * <code>completeComponentType</code> and adds it to the composite component.
+	 * <p>
+	 * Complete (Component) types abstract from the realization of components. They
+	 * only contain provided and required roles omitting the components’ internal
+	 * structure, i.e., the service effect specifications or assemblies.
+	 * </p>
+	 * <p>
+	 * The <code>completeComponentType</code> can be fetched from the repository
+	 * using the factory, i.e.
+	 * <code>create.fetchOfCompleteComponentType(name)</code>.
+	 * </p>
+	 * 
+	 * @param completeComponentType
+	 * @return the composite component in the making
+	 * @see factory.MyRepositoryFactory#fetchOfCompleteComponentType(String)
+	 * @see org.palladiosimulator.pcm.repository.CompositeComponent#getParentCompleteComponentTypes()
+	 * @see org.palladiosimulator.pcm.repository.CompleteComponentType
+	 */
+	public CompositeComponentCreator conforms(CompleteComponentType completeComponentType) {
+		this.conformsCompleteTypes.add(completeComponentType);
 		return this;
 	}
 
+	/**
+	 * Adds a {@link org.palladiosimulator.pcm.parameter.VariableUsage
+	 * VariableUsage} to the composite component.
+	 *
+	 * <p>
+	 * Variable usages are used to characterize variables like input and output
+	 * variables or component parameters. They contain the specification of the
+	 * variable as VariableCharacterisation and also refer to the name of the
+	 * characterized variable in its namedReference association.
+	 * </p>
+	 * 
+	 * <p>
+	 * Create a new variable usage by using the factory, i.e.
+	 * <code>create.newVariableUsage()</code>.
+	 * </p>
+	 * 
+	 * @param variableUsage in the making
+	 * @return the composite component in the making
+	 * @see factory.MyRepositoryFactory#newVariableUsage()
+	 * @see org.palladiosimulator.pcm.parameter.VariableUsage
+	 */
 	public CompositeComponentCreator withVariableUsage(VariableUsageCreator variableUsage) {
 		this.componentParameterUsages.add(variableUsage.build());
 		return this;
@@ -349,7 +420,4 @@ public class CompositeComponentCreator extends ComplexComponent {
 		return compositeComponent;
 	}
 
-	protected void addVariableUsage(VariableUsage varUsage) {
-		this.componentParameterUsages.add(varUsage);
-	}
 }

@@ -212,10 +212,50 @@ public class BasicComponentCreator extends Component {
 
 	// ------------ other listing characteristics ------------
 	// parent complete component types
+	/**
+	 * Creates a conforming (parental) connection to the
+	 * <code>completeComponentType</code> and adds it to the basic component.
+	 * <p>
+	 * Complete (Component) types abstract from the realization of components. They
+	 * only contain provided and required roles omitting the components’ internal
+	 * structure, i.e., the service effect specifications or assemblies.
+	 * </p>
+	 * <p>
+	 * The <code>completeComponentType</code> can be created using the factory, i.e.
+	 * <code>create.newCompleteComponentType()</code>.
+	 * </p>
+	 * @param completeComponentType
+	 * @return the basic component in the making
+	 * @see factory.MyRepositoryFactory#newCompleteComponentType()
+	 * @see org.palladiosimulator.pcm.repository.BasicComponent#getParentCompleteComponentTypes()
+	 * @see org.palladiosimulator.pcm.repository.CompleteComponentType
+	 */
 	public BasicComponentCreator conforms(CompleteComponentTypeCreator completeComponentType) {
 		CompleteComponentType cct = completeComponentType.build();
-		this.conformsCompleteTypes.add(cct);
 		this.repository.addComponent(cct);
+		return conforms(cct);
+	}
+	
+	/**
+	 * Creates a conforming (parental) connection to the
+	 * <code>completeComponentType</code> and adds it to the basic component.
+	 * <p>
+	 * Complete (Component) types abstract from the realization of components. They
+	 * only contain provided and required roles omitting the components’ internal
+	 * structure, i.e., the service effect specifications or assemblies.
+	 * </p>
+	 * <p>
+	 * The <code>completeComponentType</code> can be fetched from the repository using the factory, i.e.
+	 * <code>create.fetchOfCompleteComponentType(name)</code>.
+	 * </p>
+	 * @param completeComponentType
+	 * @return the basic component in the making
+	 * @see factory.MyRepositoryFactory#fetchOfCompleteComponentType(String)
+	 * @see org.palladiosimulator.pcm.repository.BasicComponent#getParentCompleteComponentTypes()
+	 * @see org.palladiosimulator.pcm.repository.CompleteComponentType
+	 */
+	public BasicComponentCreator conforms(CompleteComponentType completeComponentType) {
+		this.conformsCompleteTypes.add(completeComponentType);
 		return this;
 	}
 

@@ -181,9 +181,52 @@ public class CompleteComponentTypeCreator extends Component {
 	}
 
 	// ------------ type roles ------------
+	/**
+	 * Creates a conforming (parental) connection to the
+	 * <code>providesComponentType</code> and adds it to the complete component type.
+	 * <p>
+	 * Provided (Component) Types abstract a component to its provided interfaces,
+	 * leaving its requirements and implementation details open. So, provided types
+	 * subsume components which offer the same functionality, but with different
+	 * implementations.
+	 * </p>
+	 * <p>
+	 * The <code>providesComponentType</code> can be created using the factory, i.e.
+	 * <code>create.newProvidesComponentType()</code>.
+	 * </p>
+	 * @param providesComponentType
+	 * @return the complete component type in the making
+	 * @see factory.MyRepositoryFactory#newProvidesComponentType()
+	 * @see org.palladiosimulator.pcm.repository.CompleteComponentType#getParentProvidesComponentTypes()
+	 * @see org.palladiosimulator.pcm.repository.ProvidesComponentType
+	 */
 	public CompleteComponentTypeCreator conforms(ProvidesComponentTypeCreator providesComponentType) {
 		ProvidesComponentType pct = providesComponentType.build();
-		this.conformsProvidedTypes.add(pct);
+		this.repository.addComponent(pct);
+		return conforms(pct);
+	}
+
+	/**
+	 * Creates a conforming (parental) connection to the
+	 * <code>providesComponentType</code> and adds it to the complete component type.
+	 * <p>
+	 * Provided (Component) Types abstract a component to its provided interfaces,
+	 * leaving its requirements and implementation details open. So, provided types
+	 * subsume components which offer the same functionality, but with different
+	 * implementations.
+	 * </p>
+	 * <p>
+	 * The <code>providesComponentType</code> can be fetched from the repository using the factory, i.e.
+	 * <code>create.fetchOfProvidesComponentType(name)</code>.
+	 * </p>
+	 * @param providesComponentType
+	 * @return the complete component type in the making
+	 * @see factory.MyRepositoryFactory#fetchOfProvidesComponentType(String)
+	 * @see org.palladiosimulator.pcm.repository.CompleteComponentType#getParentProvidesComponentTypes()
+	 * @see org.palladiosimulator.pcm.repository.ProvidesComponentType
+	 */
+	public CompleteComponentTypeCreator conforms(ProvidesComponentType providesComponentType) {
+		this.conformsProvidedTypes.add(providesComponentType);
 		return this;
 	}
 

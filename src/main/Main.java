@@ -198,14 +198,23 @@ public class Main {
 							.withVariableCharacterisation(null, null)
 							.withNamespaceReference(null, null, null)
 							.withVariableReference(null))
+					.conforms(create.fetchOfCompleteComponentType(null))
 					.withServiceEffectSpecification(null)
 					//TODO javadoc for seffs
 					.withServiceEffectSpecification(create.newSeff()))
 			
-			.addToRepository(create.newCompleteComponentType())
-			.addToRepository(create.newCompositeComponent())
-			.addToRepository(create.newProvidesComponentType())
-			.addToRepository(create.newSubSystem())
+			.addToRepository(create.newCompleteComponentType()
+					.withName(null)
+					.conforms(create.fetchOfProvidesComponentType(null)))
+			.addToRepository(create.newCompositeComponent()
+					.withName(null)
+					.conforms(create.fetchOfCompleteComponentType(null))
+					.ofType(null)
+					.withVariableUsage(null))
+			.addToRepository(create.newProvidesComponentType()
+					.withName(null))
+			.addToRepository(create.newSubSystem()
+					.withName(null))
 			.createRepositoryNow();
 		
 		saveRepository(repo, "null.repository", false);
