@@ -338,6 +338,37 @@ public class MyRepositoryFactory {
 
 	// ---------------------- Component Related Stuff ----------------------
 
+	/**
+	 * Creates a new {@link org.palladiosimulator.pcm.seff.ResourceDemandingSEFF
+	 * ResourceDemandingSEFF}. A ResourceDemandingSEFF is a
+	 * '<em><b>ServiceEffectSpecification</b></em>' and a
+	 * '<em><b>Resource-DemandingBehaviour</b></em>' at the same time inheriting
+	 * from both classes.
+	 * 
+	 * <p>
+	 * A resource demanding service effect specification (RDSEFF) is a special type
+	 * of SEFF designed for performance and reliability predictions. Besides
+	 * dependencies between provided and required services of a component, it
+	 * additionally includes notions of resource usage, data flow, and parametric
+	 * dependencies for more accurate predictions.
+	 * </p>
+	 * 
+	 * <p>
+	 * Use the methods
+	 * {@link apiControlFlowInterfaces.seff.Seff#onSignature(Signature)
+	 * onSignature(Signature)},
+	 * {@link apiControlFlowInterfaces.seff.Seff#withSeffTypeID(String)
+	 * withSeffTypeID(String)} and
+	 * {@link apiControlFlowInterfaces.seff.Seff#withInternalBehaviour(InternalSeff)
+	 * withInternalBehaviour(InternalSeff)} to define the seff.<br>
+	 * In the end use the method
+	 * {@link apiControlFlowInterfaces.seff.Seff#withSeffBehaviour()
+	 * withSeffBehaviour()} to specify its step-wise behaviour.
+	 * 
+	 * @return the SEFF in the making
+	 * @see org.palladiosimulator.pcm.repository.Signature
+	 * @see org.palladiosimulator.pcm.seff.ResourceDemandingInternalBehaviour
+	 */
 	public Seff newSeff() {
 		return new SeffCreator();
 	}

@@ -193,10 +193,19 @@ public class Main {
 					.ofType(null)
 					.withPassiveResource(null, null)
 					.withVariableUsage(null)
-					//TODO javadoc:
-					.withVariableUsage(create.newVariableUsage())
+					.withVariableUsage(create.newVariableUsage()
+							.withName(null)
+							.withVariableCharacterisation(null, null)
+							.withNamespaceReference(null, null, null)
+							.withVariableReference(null))
 					.withServiceEffectSpecification(null)
+					//TODO javadoc for seffs
 					.withServiceEffectSpecification(create.newSeff()))
+			
+			.addToRepository(create.newCompleteComponentType())
+			.addToRepository(create.newCompositeComponent())
+			.addToRepository(create.newProvidesComponentType())
+			.addToRepository(create.newSubSystem())
 			.createRepositoryNow();
 		
 		saveRepository(repo, "null.repository", false);

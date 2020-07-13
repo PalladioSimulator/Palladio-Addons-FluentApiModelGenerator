@@ -249,7 +249,24 @@ public class BasicComponentCreator extends Component {
 		return this;
 	}
 
-	// SEFFs
+	/**
+	 * Adds a service effect specification (SEFF) to the basic component.
+	 * <p>
+	 * Service Effect Specification Models the effect of invoking a specific service
+	 * of a basic component. Therefore, it references a signature from an Interface,
+	 * for which the component takes a ProvidedRole, to identify the described
+	 * service.
+	 * </p>
+	 * <p>
+	 * Create a new SEFF by using the factory, i.e. <code>create.newSeff()</code>.
+	 * </p>
+	 * 
+	 * @param seff
+	 * @return the basic component in the making
+	 * @see factory.MyRepositoryFactory#newSeff()
+	 * @see org.palladiosimulator.pcm.seff.ServiceEffectSpecification
+	 * @see org.palladiosimulator.pcm.seff.ResourceDemandingSEFF
+	 */
 	public BasicComponentCreator withServiceEffectSpecification(Seff seff) {
 		if (seff != null) {
 			ServiceEffectSpecification sEfF = seff.build();
