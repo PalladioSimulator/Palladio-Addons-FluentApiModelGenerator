@@ -427,16 +427,78 @@ public class MyRepositoryFactory {
 	}
 
 	// ---------------------- Interfaces ----------------------
+	/**
+	 * Creates a new operation interface.
+	 * <p>
+	 * The OperationInterface is a specific type of interface related to operation
+	 * calls. For this, it also references a set of operation interfaces. Operations
+	 * can represent methods, functions or any comparable concept.
+	 * </p>
+	 * <p>
+	 * Operation interfaces are defined by their
+	 * {@link repositoryStructure.interfaces.OperationInterfaceCreator#withName(String)
+	 * name}, their
+	 * {@link repositoryStructure.interfaces.OperationInterfaceCreator#conforms(Interface)
+	 * parental interfaces (conformity)}, their
+	 * {@link repositoryStructure.interfaces.OperationInterfaceCreator#withOperationSignature()
+	 * operation signatures} and the corresponding
+	 * {@link repositoryStructure.interfaces.OperationInterfaceCreator#withRequiredCharacterisation(Parameter, org.palladiosimulator.pcm.parameter.VariableCharacterisationType)
+	 * required characterizations}.
+	 * </p>
+	 * 
+	 * @return the operation interface in the making
+	 * @see org.palladiosimulator.pcm.repository.OperationInterface
+	 */
 	public OperationInterfaceCreator newOperationInterface() {
 		OperationInterfaceCreator operationInterface = new OperationInterfaceCreator(this.repo);
 		return operationInterface;
 	}
 
+	/**
+	 * Creates a new infrastructure interface.
+	 * 
+	 * <p>
+	 * Infrastructure interfaces are defined by their
+	 * {@link repositoryStructure.interfaces.InfrastructureInterfaceCreator#withName(String)
+	 * name}, their
+	 * {@link repositoryStructure.interfaces.InfrastructureInterfaceCreator#conforms(Interface)
+	 * parental interfaces (conformity)}, their
+	 * {@link repositoryStructure.interfaces.InfrastructureInterfaceCreator#withInfrastructureSignature()
+	 * infrastructure signatures} and the corresponding
+	 * {@link repositoryStructure.interfaces.InfrastructureInterfaceCreator#withRequiredCharacterisation(Parameter, org.palladiosimulator.pcm.parameter.VariableCharacterisationType)
+	 * required characterizations}.
+	 * </p>
+	 * 
+	 * @return the infrastructure interface in the making
+	 * @see org.palladiosimulator.pcm.repository.InfrastructureInterface
+	 */
 	public InfrastructureInterfaceCreator newInfrastructureInterface() {
 		InfrastructureInterfaceCreator infrastructureInterface = new InfrastructureInterfaceCreator(this.repo);
 		return infrastructureInterface;
 	}
 
+	/**
+	 * Creates a new event group.
+	 * <p>
+	 * An EventGroup combines a set of EventTypes that are supported by a Sink
+	 * and/or a Source. This is comparable to an operation interface combining a set
+	 * of operation signatures.
+	 * </p>
+	 * <p>
+	 * Event groups are defined by their
+	 * {@link repositoryStructure.interfaces.EventGroupCreator#withName(String)
+	 * name}, their
+	 * {@link repositoryStructure.interfaces.EventGroupCreator#conforms(Interface)
+	 * parental interfaces (conformity)}, their
+	 * {@link repositoryStructure.interfaces.EventGroupCreator#withEventType() event
+	 * types} and the corresponding
+	 * {@link repositoryStructure.interfaces.EventGroupCreator#withRequiredCharacterisation(Parameter, org.palladiosimulator.pcm.parameter.VariableCharacterisationType)
+	 * required characterizations}.
+	 * </p>
+	 * 
+	 * @return the event group in the making
+	 * @see org.palladiosimulator.pcm.repository.EventGroup
+	 */
 	public EventGroupCreator newEventGroup() {
 		EventGroupCreator eventGroup = new EventGroupCreator(this.repo);
 		return eventGroup;
@@ -838,21 +900,21 @@ public class MyRepositoryFactory {
 			throw new RuntimeException("Event Channel '" + name + "' could not be found");
 		return eventChannel;
 	}
-	
+
 	public EventChannelSinkConnector fetchOfEventChannelSinkConnector(String name) {
 //		EventChannel eventChannel = repo.getEventChannel(name);
 //		if (eventChannel == null)
 //			throw new RuntimeException("Event Channel '" + name + "' could not be found");
 //		return eventChannel;
-		return null; //TODO:
+		return null; // TODO:
 	}
-	
+
 	public EventChannelSourceConnector fetchOfEventChannelSourceConnector(String name) {
 //		EventChannel eventChannel = repo.getEventChannel(name);
 //		if (eventChannel == null)
 //			throw new RuntimeException("Event Channel '" + name + "' could not be found");
 //		return eventChannel;
-		return null; //TODO:
+		return null; // TODO:
 	}
 
 	public Parameter fetchOfParameter(String name) {

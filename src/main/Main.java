@@ -264,6 +264,13 @@ public class Main {
 					.withSourceDelegationConnection(null, null, null)
 					.resourceRequiredDegelationConnection(null, null)
 					)
+			.addToRepository(create.newOperationInterface()
+					.withName(null)
+					.conforms(null)
+					.withOperationSignature().now()
+					.withRequiredCharacterisation(null, null))
+			.addToRepository(create.newInfrastructureInterface())
+			.addToRepository(create.newEventGroup())
 			.createRepositoryNow();
 		
 		saveRepository(repo, "null.repository", false);
