@@ -14,6 +14,7 @@ import org.palladiosimulator.pcm.repository.RepositoryFactory;
 
 import repositoryStructure.Entity;
 import repositoryStructure.RepositoryCreator;
+import repositoryStructure.datatypes.Failure;
 import repositoryStructure.datatypes.Primitive;
 import repositoryStructure.datatypes.PrimitiveType;
 
@@ -49,12 +50,56 @@ public class InfrastructureSignatureCreator extends Entity {
 		return (InfrastructureSignatureCreator) super.withName(name);
 	}
 
+	/**
+	 * Creates a {@link org.palladiosimulator.pcm.repository.Parameter Parameter}
+	 * and adds it to the signature's ordered list of parameters.
+	 * <p>
+	 * Each parameter is a tuple of a <code>name</code> and a <code>dataType</code>
+	 * (which is unique across the parameters). Optionally, the
+	 * <code>modifier</code>s '<em><b>in</b></em>', '<em><b>out</b></em>', and
+	 * '<em><b>inout</b></em>' (with its OMG IDL semantics) can be used for
+	 * parameters, e.g. <code>ParameterModifier.IN</code>.
+	 * </p>
+	 * <p>
+	 * A {@link repositoryStructure.datatypes.Primitive Primitive} data type can
+	 * have the values '<em><b>boolean</b></em>', '<em><b>integer</b></em>',
+	 * '<em><b>string</b></em>', '<em><b>double</b></em>', '<em><b>long</b></em>',
+	 * '<em><b>char</b></em>', '<em><b>byte</b></em>'.
+	 * </p>
+	 * 
+	 * @param name
+	 * @param dataType
+	 * @param modifier may be null
+	 * @return this infrastructure signature in the making
+	 * @see org.palladiosimulator.pcm.repository.ParameterModifier
+	 */
 	public InfrastructureSignatureCreator withParameter(String name, Primitive dataType, ParameterModifier modifier) {
 		PrimitiveDataType dt = PrimitiveType.getPrimitiveDataType(dataType);
-
 		return withParameter(name, dt, modifier);
 	}
 
+	/**
+	 * Creates a {@link org.palladiosimulator.pcm.repository.Parameter Parameter}
+	 * and adds it to the signature's ordered list of parameters.
+	 * <p>
+	 * Each parameter is a tuple of a <code>name</code> and a <code>dataType</code>
+	 * (which is unique across the parameters). Optionally, the
+	 * <code>modifier</code>s '<em><b>in</b></em>', '<em><b>out</b></em>', and
+	 * '<em><b>inout</b></em>' (with its OMG IDL semantics) can be used for
+	 * parameters, e.g. <code>ParameterModifier.IN</code>.
+	 * </p>
+	 * <p>
+	 * An existing data type can be fetched from the repository using the factory,
+	 * i.e. <code>create.fetchOfDataType(name)</code>.
+	 * </p>
+	 * 
+	 * @param name
+	 * @param dataType
+	 * @param modifier may be null
+	 * @return this infrastructure signature in the making
+	 * @see factory.FluentRepositoryFactory#fetchOfDataType(String)
+	 * @see org.palladiosimulator.pcm.repository.ParameterModifier
+	 */
 	public InfrastructureSignatureCreator withParameter(String name, DataType dataType, ParameterModifier modifier) {
 		Parameter param = RepositoryFactory.eINSTANCE.createParameter();
 		if (name != null)
@@ -69,16 +114,66 @@ public class InfrastructureSignatureCreator extends Entity {
 		return this;
 	}
 
+	/**
+	 * Adds the <code>failureType</code> to the signature's list of possible
+	 * failures.
+	 * <p>
+	 * Failure types can be fetched from the repository using the factory, i.e.
+	 * <code>create.fetchOfFailureType(name)</code>.
+	 * </p>
+	 * 
+	 * @param failureType
+	 * @return this infrastructure signature in the making
+	 * @see factory.FluentRepositoryFactory#fetchOfFailureType(String)
+	 */
 	public InfrastructureSignatureCreator withFailureType(FailureType failureType) {
 		this.failures.add(failureType);
 		return this;
 	}
 
+	/**
+	 * Adds the <code>failureType</code> to the signature's list of possible
+	 * failures.
+	 * <p>
+	 * A {@link repositoryStructure.datatypes.Failure Failure} type can have the
+	 * values '<em><b>HARDWARE_CPU</b></em>', '<em><b>HARDWARE_HDD</b></em>',
+	 * '<em><b>HARDWARE_DELAY</b></em>', '<em><b>NETWORK_LAN</b></em>',
+	 * '<em><b>SOFTWARE</b></em>'.
+	 * </p>
+	 * 
+	 * @param failureType
+	 * @return this infrastructure signature in the making
+	 */
+	public InfrastructureSignatureCreator withFailureType(Failure failureType) {
+		FailureType failure = repositoryStructure.datatypes.FailureType.getFailureType(failureType);
+		return withFailureType(failure);
+	}
+
+	/**
+	 * Adds the <code>exceptionType</code> to the signature's list of possible
+	 * exceptions.
+	 * <p>
+	 * An existing exception type can be fetched from the repository using the
+	 * factory, i.e. <code>create.fetchOfExceptionType(name)</code>.
+	 * </p>
+	 * 
+	 * @param exceptionType
+	 * @return this infrastructure signature in the making
+	 * @see factory.FluentRepositoryFactory#fetchOfExceptionType(String)
+	 */
 	public InfrastructureSignatureCreator withExceptionType(ExceptionType exceptionType) {
 		this.exceptions.add(exceptionType);
 		return this;
 	}
 
+	/**
+	 * Turns the infrastructure-signature-in-the-making into an
+	 * '<em><b>Infrastructure Signature</b></em>' object and adds it to the
+	 * corresponding interface.
+	 * 
+	 * @return the corresponding infrastructure interface
+	 * @see org.palladiosimulator.pcm.repository.InfrastructureSignature
+	 */
 	public InfrastructureInterfaceCreator now() {
 		InfrastructureSignature sign = this.build();
 		correspondingInterface.addInfrastructureSignatures(sign);

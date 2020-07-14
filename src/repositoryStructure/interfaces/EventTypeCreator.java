@@ -14,6 +14,7 @@ import org.palladiosimulator.pcm.repository.RepositoryFactory;
 
 import repositoryStructure.Entity;
 import repositoryStructure.RepositoryCreator;
+import repositoryStructure.datatypes.Failure;
 import repositoryStructure.datatypes.Primitive;
 import repositoryStructure.datatypes.PrimitiveType;
 
@@ -43,12 +44,56 @@ public class EventTypeCreator extends Entity {
 		return (EventTypeCreator) super.withName(name);
 	}
 
+	/**
+	 * Creates a {@link org.palladiosimulator.pcm.repository.Parameter Parameter}
+	 * and adds it to the event type's ordered list of parameters.
+	 * <p>
+	 * Each parameter is a tuple of a <code>name</code> and a <code>dataType</code>
+	 * (which is unique across the parameters). Optionally, the
+	 * <code>modifier</code>s '<em><b>in</b></em>', '<em><b>out</b></em>', and
+	 * '<em><b>inout</b></em>' (with its OMG IDL semantics) can be used for
+	 * parameters, e.g. <code>ParameterModifier.IN</code>.
+	 * </p>
+	 * <p>
+	 * A {@link repositoryStructure.datatypes.Primitive Primitive} data type can
+	 * have the values '<em><b>boolean</b></em>', '<em><b>integer</b></em>',
+	 * '<em><b>string</b></em>', '<em><b>double</b></em>', '<em><b>long</b></em>',
+	 * '<em><b>char</b></em>', '<em><b>byte</b></em>'.
+	 * </p>
+	 * 
+	 * @param name
+	 * @param dataType
+	 * @param modifier may be null
+	 * @return this event type in the making
+	 * @see org.palladiosimulator.pcm.repository.ParameterModifier
+	 */
 	public EventTypeCreator withParameter(String name, Primitive dataType, ParameterModifier modifier) {
 		PrimitiveDataType dt = PrimitiveType.getPrimitiveDataType(dataType);
-
 		return withParameter(name, dt, modifier);
 	}
 
+	/**
+	 * Creates a {@link org.palladiosimulator.pcm.repository.Parameter Parameter}
+	 * and adds it to the event type's ordered list of parameters.
+	 * <p>
+	 * Each parameter is a tuple of a <code>name</code> and a <code>dataType</code>
+	 * (which is unique across the parameters). Optionally, the
+	 * <code>modifier</code>s '<em><b>in</b></em>', '<em><b>out</b></em>', and
+	 * '<em><b>inout</b></em>' (with its OMG IDL semantics) can be used for
+	 * parameters, e.g. <code>ParameterModifier.IN</code>.
+	 * </p>
+	 * <p>
+	 * An existing data type can be fetched from the repository using the factory,
+	 * i.e. <code>create.fetchOfDataType(name)</code>.
+	 * </p>
+	 * 
+	 * @param name
+	 * @param dataType
+	 * @param modifier may be null
+	 * @return this event type in the making
+	 * @see factory.FluentRepositoryFactory#fetchOfDataType(String)
+	 * @see org.palladiosimulator.pcm.repository.ParameterModifier
+	 */
 	public EventTypeCreator withParameter(String name, DataType dataType, ParameterModifier modifier) {
 		Parameter param = RepositoryFactory.eINSTANCE.createParameter();
 		if (name != null)
@@ -61,24 +106,67 @@ public class EventTypeCreator extends Entity {
 		this.parameter = param;
 		this.repository.addParameter(param);
 		return this;
-
 	}
 
-//	public EventTypeCreator withParameter(Parameter parameter) {
-//		this.parameter = parameter;
-//		return this;
-//	}
-
+	/**
+	 * Adds the <code>failureType</code> to the event type's list of possible
+	 * failures.
+	 * <p>
+	 * Failure types can be fetched from the repository using the factory, i.e.
+	 * <code>create.fetchOfFailureType(name)</code>.
+	 * </p>
+	 * 
+	 * @param failureType
+	 * @return this event type in the making
+	 * @see factory.FluentRepositoryFactory#fetchOfFailureType(String)
+	 */
 	public EventTypeCreator withFailureType(FailureType failureType) {
 		this.failureTypes.add(failureType);
 		return this;
 	}
 
+	/**
+	 * Adds the <code>failureType</code> to the event type's list of possible
+	 * failures.
+	 * <p>
+	 * A {@link repositoryStructure.datatypes.Failure Failure} type can have the
+	 * values '<em><b>HARDWARE_CPU</b></em>', '<em><b>HARDWARE_HDD</b></em>',
+	 * '<em><b>HARDWARE_DELAY</b></em>', '<em><b>NETWORK_LAN</b></em>',
+	 * '<em><b>SOFTWARE</b></em>'.
+	 * </p>
+	 * 
+	 * @param failureType
+	 * @return this event type in the making
+	 */
+	public EventTypeCreator withFailureType(Failure failureType) {
+		FailureType failure = repositoryStructure.datatypes.FailureType.getFailureType(failureType);
+		return withFailureType(failure);
+	}
+
+	/**
+	 * Adds the <code>exceptionType</code> to the event type's list of possible
+	 * exceptions.
+	 * <p>
+	 * An existing exception type can be fetched from the repository using the
+	 * factory, i.e. <code>create.fetchOfExceptionType(name)</code>.
+	 * </p>
+	 * 
+	 * @param exceptionType
+	 * @return this event type in the making
+	 * @see factory.FluentRepositoryFactory#fetchOfExceptionType(String)
+	 */
 	public EventTypeCreator withExceptionType(ExceptionType exceptionType) {
 		this.exceptionTypes.add(exceptionType);
 		return this;
 	}
 
+	/**
+	 * Turns the event-type-in-the-making into an '<em><b>Event Type</b></em>'
+	 * object and adds it to the corresponding event group.
+	 * 
+	 * @return the corresponding event group
+	 * @see org.palladiosimulator.pcm.repository.EventGroup
+	 */
 	public EventGroupCreator now() {
 		EventType eventType = this.build();
 		correspondingEventGroup.addEventType(eventType);

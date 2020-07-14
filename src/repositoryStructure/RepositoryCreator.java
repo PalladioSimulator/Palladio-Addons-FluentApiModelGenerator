@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
+import org.palladiosimulator.pcm.core.composition.Connector;
 import org.palladiosimulator.pcm.core.composition.EventChannel;
+import org.palladiosimulator.pcm.core.composition.EventChannelSinkConnector;
+import org.palladiosimulator.pcm.core.composition.EventChannelSourceConnector;
 import org.palladiosimulator.pcm.core.entity.ResourceRequiredRole;
 import org.palladiosimulator.pcm.reliability.FailureType;
 import org.palladiosimulator.pcm.repository.BasicComponent;
@@ -31,6 +34,7 @@ import org.palladiosimulator.pcm.repository.RequiredRole;
 import org.palladiosimulator.pcm.repository.Signature;
 import org.palladiosimulator.pcm.repository.SinkRole;
 import org.palladiosimulator.pcm.repository.SourceRole;
+import org.palladiosimulator.pcm.seff.seff_reliability.RecoveryActionBehaviour;
 import org.palladiosimulator.pcm.subsystem.SubSystem;
 
 import apiControlFlowInterfaces.Repo;
@@ -63,8 +67,9 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 	private List<ResourceRequiredRole> resourceRequiredRoles;
 	private List<Parameter> parameters;
 	private List<AssemblyContext> assemblyContexts;
-
 	private List<EventChannel> eventChannels;
+	private List<Connector> connectors;
+	private List<RecoveryActionBehaviour> behaviours;
 
 	public RepositoryCreator() {
 		this.dataTypes = new ArrayList<>();
@@ -77,6 +82,8 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 		this.parameters = new ArrayList<>();
 		this.assemblyContexts = new ArrayList<>();
 		this.eventChannels = new ArrayList<>();
+		this.connectors = new ArrayList<>();
+		this.behaviours = new ArrayList<>();
 
 		this.dataTypes.add(PrimitiveType.getPrimitiveDataType(Primitive.BOOLEAN));
 		this.dataTypes.add(PrimitiveType.getPrimitiveDataType(Primitive.BYTE));
@@ -274,6 +281,11 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 				.filter(r -> r instanceof SourceRole && r.getEntityName().contentEquals(name)).findFirst().orElse(null);
 	}
 
+	public ResourceRequiredRole getResourceRequiredRole(String name) {
+		return resourceRequiredRoles.stream().filter(r -> r.getEntityName().contentEquals(name)).findFirst()
+				.orElse(null);
+	}
+
 	public Parameter getParameter(String name) {
 		return parameters.stream().filter(p -> p.getParameterName().contentEquals(name)).findFirst().orElse(null);
 	}
@@ -289,9 +301,25 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 	public AssemblyContext getAssemblyContext(String name) {
 		return assemblyContexts.stream().filter(a -> a.getEntityName().contentEquals(name)).findFirst().orElse(null);
 	}
-	
+
 	public EventChannel getEventChannel(String name) {
 		return eventChannels.stream().filter(a -> a.getEntityName().contentEquals(name)).findFirst().orElse(null);
+	}
+
+	public EventChannelSinkConnector getEventChannelSinkConnector(String name) {
+		return (EventChannelSinkConnector) connectors.stream()
+				.filter(a -> a instanceof EventChannelSinkConnector && a.getEntityName().contentEquals(name))
+				.findFirst().orElse(null);
+	}
+
+	public EventChannelSourceConnector getEventChannelSourceConnector(String name) {
+		return (EventChannelSourceConnector) connectors.stream()
+				.filter(a -> a instanceof EventChannelSourceConnector && a.getEntityName().contentEquals(name))
+				.findFirst().orElse(null);
+	}
+
+	public RecoveryActionBehaviour getRecoveryActionBehaviour(String name) {
+		return this.behaviours.stream().filter(b -> b.getEntityName().contentEquals(name)).findFirst().orElse(null);
 	}
 
 	// ------------- adding -------------
@@ -329,6 +357,6 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 
 	public void addEventChannel(EventChannel eg) {
 		eventChannels.add(eg);
-
 	}
+	//TODO: add event channel connectors, resource required roles, recovery action behaviours
 }

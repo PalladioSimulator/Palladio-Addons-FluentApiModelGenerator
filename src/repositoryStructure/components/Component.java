@@ -46,8 +46,8 @@ public abstract class Component extends Entity {
 	 * </p>
 	 * 
 	 * @param interfce
-	 * @return the component
-	 * @see factory.MyRepositoryFactory#newOperationInterface()
+	 * @return this component
+	 * @see factory.FluentRepositoryFactory#newOperationInterface()
 	 */
 	public Component provides(OperationInterfaceCreator interfce) {
 		return provides(interfce, null);
@@ -68,8 +68,8 @@ public abstract class Component extends Entity {
 	 * 
 	 * @param interfce
 	 * @param name
-	 * @return the component
-	 * @see factory.MyRepositoryFactory#newOperationInterface()
+	 * @return this component
+	 * @see factory.FluentRepositoryFactory#newOperationInterface()
 	 */
 	public Component provides(OperationInterfaceCreator interfce, String name) {
 		OperationInterface i = interfce.build();
@@ -88,8 +88,8 @@ public abstract class Component extends Entity {
 	 * </p>
 	 * 
 	 * @param interfce
-	 * @return the component
-	 * @see factory.MyRepositoryFactory#fetchOfOperationInterface(String)
+	 * @return this component
+	 * @see factory.FluentRepositoryFactory#fetchOfOperationInterface(String)
 	 */
 	public Component provides(OperationInterface interfce) {
 		return provides(interfce, null);
@@ -110,8 +110,8 @@ public abstract class Component extends Entity {
 	 * 
 	 * @param interfce
 	 * @param name
-	 * @return the component
-	 * @see factory.MyRepositoryFactory#fetchOfOperationInterface(String)
+	 * @return this component
+	 * @see factory.FluentRepositoryFactory#fetchOfOperationInterface(String)
 	 */
 	public Component provides(OperationInterface interfce, String name) {
 		OperationProvidedRole providedRole = RepositoryFactory.eINSTANCE.createOperationProvidedRole();
@@ -136,8 +136,8 @@ public abstract class Component extends Entity {
 	 * </p>
 	 * 
 	 * @param interfce
-	 * @return the component
-	 * @see factory.MyRepositoryFactory#newInfrastructureInterface()
+	 * @return this component
+	 * @see factory.FluentRepositoryFactory#newInfrastructureInterface()
 	 */
 	public Component providesInfrastructure(InfrastructureInterfaceCreator interfce) {
 		return providesInfrastructure(interfce, null);
@@ -159,8 +159,8 @@ public abstract class Component extends Entity {
 	 * 
 	 * @param interfce
 	 * @param name
-	 * @return the component
-	 * @see factory.MyRepositoryFactory#newInfrastructureInterface()
+	 * @return this component
+	 * @see factory.FluentRepositoryFactory#newInfrastructureInterface()
 	 */
 	public Component providesInfrastructure(InfrastructureInterfaceCreator interfce, String name) {
 		InfrastructureInterface i = interfce.build();
@@ -180,8 +180,8 @@ public abstract class Component extends Entity {
 	 * </p>
 	 * 
 	 * @param interfce
-	 * @return the component
-	 * @see factory.MyRepositoryFactory#fetchOfInfrastructureInterface(String)
+	 * @return this component
+	 * @see factory.FluentRepositoryFactory#fetchOfInfrastructureInterface(String)
 	 */
 	public Component providesInfrastructure(InfrastructureInterface interfce) {
 		return providesInfrastructure(interfce, null);
@@ -203,8 +203,8 @@ public abstract class Component extends Entity {
 	 * 
 	 * @param interfce
 	 * @param name
-	 * @return the component
-	 * @see factory.MyRepositoryFactory#fetchOfInfrastructureInterface(String)
+	 * @return this component
+	 * @see factory.FluentRepositoryFactory#fetchOfInfrastructureInterface(String)
 	 */
 	public Component providesInfrastructure(InfrastructureInterface interfce, String name) {
 		InfrastructureProvidedRole providedRole = RepositoryFactory.eINSTANCE.createInfrastructureProvidedRole();
@@ -227,9 +227,9 @@ public abstract class Component extends Entity {
 	 * <code>create.newEventGroup()</code>.
 	 * </p>
 	 * 
-	 * @param interfce
-	 * @return the component
-	 * @see factory.MyRepositoryFactory#newEventGroup()
+	 * @param eventGroup
+	 * @return this component
+	 * @see factory.FluentRepositoryFactory#newEventGroup()
 	 */
 	public Component handles(EventGroupCreator eventGroup) {
 		return handles(eventGroup, null);
@@ -247,10 +247,10 @@ public abstract class Component extends Entity {
 	 * <code>create.newEventGroup()</code>.
 	 * </p>
 	 * 
-	 * @param interfce
+	 * @param eventGroup
 	 * @param name
-	 * @return the component
-	 * @see factory.MyRepositoryFactory#newEventGroup()
+	 * @return this component
+	 * @see factory.FluentRepositoryFactory#newEventGroup()
 	 */
 	public Component handles(EventGroupCreator eventGroup, String name) {
 		EventGroup eg = eventGroup.build();
@@ -268,9 +268,9 @@ public abstract class Component extends Entity {
 	 * the factory, i.e. <code>create.fetchOfEventGroup(name)</code>.
 	 * </p>
 	 * 
-	 * @param interfce
-	 * @return the component
-	 * @see factory.MyRepositoryFactory#fetchOfEventGroup(String)
+	 * @param eventGroup
+	 * @return this component
+	 * @see factory.FluentRepositoryFactory#fetchOfEventGroup(String)
 	 */
 	public Component handles(EventGroup eventGroup) {
 		return handles(eventGroup, null);
@@ -288,10 +288,10 @@ public abstract class Component extends Entity {
 	 * the factory, i.e. <code>create.fetchOfEventGroup(name)</code>.
 	 * </p>
 	 * 
-	 * @param interfce
+	 * @param eventGroup
 	 * @param name
-	 * @return the component
-	 * @see factory.MyRepositoryFactory#fetchOfEventGroup(String)
+	 * @return this component
+	 * @see factory.FluentRepositoryFactory#fetchOfEventGroup(String)
 	 */
 	public Component handles(EventGroup eventGroup, String name) {
 		SinkRole providedRole = RepositoryFactory.eINSTANCE.createSinkRole();
@@ -316,8 +316,8 @@ public abstract class Component extends Entity {
 	 * </p>
 	 * 
 	 * @param interfce
-	 * @return the component
-	 * @see factory.MyRepositoryFactory#newOperationInterface()
+	 * @return this component
+	 * @see factory.FluentRepositoryFactory#newOperationInterface()
 	 */
 	public Component requires(OperationInterfaceCreator interfce) {
 		return requires(interfce, null);
@@ -338,8 +338,8 @@ public abstract class Component extends Entity {
 	 * 
 	 * @param interfce
 	 * @param name
-	 * @return the component
-	 * @see factory.MyRepositoryFactory#newOperationInterface()
+	 * @return this component
+	 * @see factory.FluentRepositoryFactory#newOperationInterface()
 	 */
 	public Component requires(OperationInterfaceCreator interfce, String name) {
 		OperationInterface i = interfce.build();
@@ -358,8 +358,8 @@ public abstract class Component extends Entity {
 	 * </p>
 	 * 
 	 * @param interfce
-	 * @return the component
-	 * @see factory.MyRepositoryFactory#fetchOfOperationInterface(String)
+	 * @return this component
+	 * @see factory.FluentRepositoryFactory#fetchOfOperationInterface(String)
 	 */
 	public Component requires(OperationInterface interfce) {
 		return requires(interfce, null);
@@ -380,8 +380,8 @@ public abstract class Component extends Entity {
 	 * 
 	 * @param interfce
 	 * @param name
-	 * @return the component
-	 * @see factory.MyRepositoryFactory#fetchOfOperationInterface(String)
+	 * @return this component
+	 * @see factory.FluentRepositoryFactory#fetchOfOperationInterface(String)
 	 */
 	public Component requires(OperationInterface interfce, String name) {
 		OperationRequiredRole requiredRole = RepositoryFactory.eINSTANCE.createOperationRequiredRole();
@@ -406,8 +406,8 @@ public abstract class Component extends Entity {
 	 * </p>
 	 * 
 	 * @param interfce
-	 * @return the component
-	 * @see factory.MyRepositoryFactory#newInfrastructureInterface()
+	 * @return this component
+	 * @see factory.FluentRepositoryFactory#newInfrastructureInterface()
 	 */
 	public Component requiresInfrastructure(InfrastructureInterfaceCreator interfce) {
 		return requiresInfrastructure(interfce, null);
@@ -429,8 +429,8 @@ public abstract class Component extends Entity {
 	 * 
 	 * @param interfce
 	 * @param name
-	 * @return the component
-	 * @see factory.MyRepositoryFactory#newInfrastructureInterface()
+	 * @return this component
+	 * @see factory.FluentRepositoryFactory#newInfrastructureInterface()
 	 */
 	public Component requiresInfrastructure(InfrastructureInterfaceCreator interfce, String name) {
 		InfrastructureInterface i = interfce.build();
@@ -450,8 +450,8 @@ public abstract class Component extends Entity {
 	 * </p>
 	 * 
 	 * @param interfce
-	 * @return the component
-	 * @see factory.MyRepositoryFactory#fetchOfInfrastructureInterface(String)
+	 * @return this component
+	 * @see factory.FluentRepositoryFactory#fetchOfInfrastructureInterface(String)
 	 */
 	public Component requiresInfrastructure(InfrastructureInterface interfce) {
 		return requiresInfrastructure(interfce, null);
@@ -473,8 +473,8 @@ public abstract class Component extends Entity {
 	 * 
 	 * @param interfce
 	 * @param name
-	 * @return the component
-	 * @see factory.MyRepositoryFactory#fetchOfInfrastructureInterface(String)
+	 * @return this component
+	 * @see factory.FluentRepositoryFactory#fetchOfInfrastructureInterface(String)
 	 */
 	public Component requiresInfrastructure(InfrastructureInterface interfce, String name) {
 		InfrastructureRequiredRole requiredRole = RepositoryFactory.eINSTANCE.createInfrastructureRequiredRole();
@@ -497,9 +497,9 @@ public abstract class Component extends Entity {
 	 * <code>create.newEventGroup()</code>.
 	 * </p>
 	 * 
-	 * @param interfce
-	 * @return the component
-	 * @see factory.MyRepositoryFactory#newEventGroup()
+	 * @param eventGroup
+	 * @return this component
+	 * @see factory.FluentRepositoryFactory#newEventGroup()
 	 */
 	public Component emits(EventGroupCreator eventGroup) {
 		return emits(eventGroup, null);
@@ -517,10 +517,10 @@ public abstract class Component extends Entity {
 	 * <code>create.newEventGroup()</code>.
 	 * </p>
 	 * 
-	 * @param interfce
+	 * @param eventGroup
 	 * @param name
-	 * @return the component
-	 * @see factory.MyRepositoryFactory#newEventGroup()
+	 * @return this component
+	 * @see factory.FluentRepositoryFactory#newEventGroup()
 	 */
 	public Component emits(EventGroupCreator eventGroup, String name) {
 		EventGroup eg = eventGroup.build();
@@ -538,9 +538,9 @@ public abstract class Component extends Entity {
 	 * the factory, i.e. <code>create.fetchOfEventGroup(name)</code>.
 	 * </p>
 	 * 
-	 * @param interfce
-	 * @return the component
-	 * @see factory.MyRepositoryFactory#fetchOfEventGroup(String)
+	 * @param eventGroup
+	 * @return this component
+	 * @see factory.FluentRepositoryFactory#fetchOfEventGroup(String)
 	 */
 	public Component emits(EventGroup eventGroup) {
 		return emits(eventGroup, null);
@@ -558,10 +558,10 @@ public abstract class Component extends Entity {
 	 * the factory, i.e. <code>create.fetchOfEventGroup(name)</code>.
 	 * </p>
 	 * 
-	 * @param interfce
+	 * @param eventGroup
 	 * @param name
-	 * @return the component
-	 * @see factory.MyRepositoryFactory#fetchOfEventGroup(String)
+	 * @return this component
+	 * @see factory.FluentRepositoryFactory#fetchOfEventGroup(String)
 	 */
 	public Component emits(EventGroup eventGroup, String name) {
 		SourceRole requiredRole = RepositoryFactory.eINSTANCE.createSourceRole();
@@ -586,8 +586,8 @@ public abstract class Component extends Entity {
 	 * 
 	 * @param resourceInterface
 	 * @param name
-	 * @return the component
-	 * @see factory.MyRepositoryFactory#fetchOfResourceInterface(String)
+	 * @return this component
+	 * @see factory.FluentRepositoryFactory#fetchOfResourceInterface(String)
 	 */
 	public Component requiresResource(ResourceInterface resourceInterface) {
 		return requiresResource(resourceInterface, null);
@@ -609,8 +609,8 @@ public abstract class Component extends Entity {
 	 * 
 	 * @param resourceInterface
 	 * @param name
-	 * @return the component
-	 * @see factory.MyRepositoryFactory#fetchOfResourceInterface(String)
+	 * @return this component
+	 * @see factory.FluentRepositoryFactory#fetchOfResourceInterface(String)
 	 */
 	public Component requiresResource(ResourceInterface resourceInterface, String name) {
 		ResourceRequiredRole rrr = EntityFactory.eINSTANCE.createResourceRequiredRole();

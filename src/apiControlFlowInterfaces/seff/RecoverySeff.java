@@ -9,9 +9,9 @@ public interface RecoverySeff {
 
 	public StartSeff withSeffBehaviour();
 
-	public SeffCreator withFailureType(Failure failure);
+	public RecoverySeff withFailureType(Failure failure);
 
-	public SeffCreator withAlternativeRecoveryBehaviour(RecoverySeff recoveryBehaviour);
+	public RecoverySeff withAlternativeRecoveryBehaviour(RecoveryActionBehaviour recoveryBehaviour);
 
 	RecoveryActionBehaviour buildRecoveryBehaviour();
 }

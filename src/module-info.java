@@ -1,4 +1,4 @@
 //module FluentAPIModule {
-//	requires 
+//	requires transitive org.palladiosimulator.pcm;
 //	exports factory;
 //}

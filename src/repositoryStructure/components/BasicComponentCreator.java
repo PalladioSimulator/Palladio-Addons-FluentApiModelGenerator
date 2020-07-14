@@ -232,7 +232,7 @@ public class BasicComponentCreator extends Component {
 	 * 
 	 * @param completeComponentType
 	 * @return the basic component in the making
-	 * @see factory.MyRepositoryFactory#newCompleteComponentType()
+	 * @see factory.FluentRepositoryFactory#newCompleteComponentType()
 	 * @see org.palladiosimulator.pcm.repository.BasicComponent#getParentCompleteComponentTypes()
 	 * @see org.palladiosimulator.pcm.repository.CompleteComponentType
 	 */
@@ -258,7 +258,7 @@ public class BasicComponentCreator extends Component {
 	 * 
 	 * @param completeComponentType
 	 * @return the basic component in the making
-	 * @see factory.MyRepositoryFactory#fetchOfCompleteComponentType(String)
+	 * @see factory.FluentRepositoryFactory#fetchOfCompleteComponentType(String)
 	 * @see org.palladiosimulator.pcm.repository.BasicComponent#getParentCompleteComponentTypes()
 	 * @see org.palladiosimulator.pcm.repository.CompleteComponentType
 	 */
@@ -311,7 +311,7 @@ public class BasicComponentCreator extends Component {
 	 * 
 	 * @param seff
 	 * @return the basic component in the making
-	 * @see factory.MyRepositoryFactory#newSeff()
+	 * @see factory.FluentRepositoryFactory#newSeff()
 	 * @see org.palladiosimulator.pcm.seff.ServiceEffectSpecification
 	 * @see org.palladiosimulator.pcm.seff.ResourceDemandingSEFF
 	 */
@@ -341,7 +341,7 @@ public class BasicComponentCreator extends Component {
 	 * 
 	 * @param variableUsage in the making
 	 * @return the basic component in the making
-	 * @see factory.MyRepositoryFactory#newVariableUsage()
+	 * @see factory.FluentRepositoryFactory#newVariableUsage()
 	 * @see org.palladiosimulator.pcm.parameter.VariableUsage
 	 */
 	public BasicComponentCreator withVariableUsage(VariableUsageCreator variableUsage) {

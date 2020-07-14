@@ -9,8 +9,8 @@ import org.palladiosimulator.pcm.core.composition.EventChannelSinkConnector;
 import org.palladiosimulator.pcm.core.composition.EventChannelSourceConnector;
 import org.palladiosimulator.pcm.repository.EventGroup;
 
-import apiControlFlowInterfaces.EventChannelCreation.Comp;
-import apiControlFlowInterfaces.EventChannelCreation.Sub;
+import apiControlFlowInterfaces.EventChannelCreation.EventChannelComposite;
+import apiControlFlowInterfaces.EventChannelCreation.EventChannelSubsystem;
 import repositoryStructure.Entity;
 import repositoryStructure.RepositoryCreator;
 
@@ -23,7 +23,7 @@ import repositoryStructure.RepositoryCreator;
  * @author Louisa Lambrecht
  * @see org.palladiosimulator.pcm.core.composition.EventChannel
  */
-public class EventChannelCreator extends Entity implements Comp, Sub {
+public class EventChannelCreator extends Entity implements EventChannelComposite, EventChannelSubsystem {
 
 	private EventGroup eventGroup;
 	private List<EventChannelSinkConnector> sinkConnections;

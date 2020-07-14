@@ -9,6 +9,7 @@ import org.palladiosimulator.pcm.repository.InfrastructureSignature;
 import org.palladiosimulator.pcm.resourcetype.ProcessingResourceType;
 import org.palladiosimulator.pcm.resourcetype.ResourceSignature;
 import org.palladiosimulator.pcm.seff.seff_reliability.RecoveryAction;
+import org.palladiosimulator.pcm.seff.seff_reliability.RecoveryActionBehaviour;
 import org.palladiosimulator.pcm.seff.seff_reliability.SeffReliabilityFactory;
 
 import apiControlFlowInterfaces.seff.RecoverySeff;
@@ -25,8 +26,8 @@ import repositoryStructure.components.VariableUsageCreator;
  */
 public class RecoveryActionCreator extends GeneralAction {
 
-	private RecoverySeff primary;
-	private List<RecoverySeff> otherBehaviours;
+	private RecoveryActionBehaviour primary;
+	private List<RecoveryActionBehaviour> otherBehaviours;
 
 	public RecoveryActionCreator(SeffCreator seff) {
 		this.seff = seff;
@@ -40,7 +41,14 @@ public class RecoveryActionCreator extends GeneralAction {
 
 	public RecoveryActionCreator withPrimaryBehaviour(RecoverySeff recoveryActionBehaviour) {
 		if (recoveryActionBehaviour != null) {
-			this.primary = recoveryActionBehaviour;
+			this.primary = recoveryActionBehaviour.buildRecoveryBehaviour();
+		}
+		return this;
+	}
+	
+	public RecoveryActionCreator withAlternativeBehaviour(RecoverySeff recoveryActionBehaviour) {
+		if (recoveryActionBehaviour != null) {
+			this.otherBehaviours.add(recoveryActionBehaviour.buildRecoveryBehaviour());
 		}
 		return this;
 	}
@@ -74,10 +82,9 @@ public class RecoveryActionCreator extends GeneralAction {
 			action.setEntityName(name);
 
 		if (primary != null)
-			action.setPrimaryBehaviour__RecoveryAction(primary.buildRecoveryBehaviour());
+			action.setPrimaryBehaviour__RecoveryAction(primary);
 
-		otherBehaviours.stream().map(r -> r.buildRecoveryBehaviour())
-				.forEach(r -> action.getRecoveryActionBehaviours__RecoveryAction().add(r));
+		action.getRecoveryActionBehaviours__RecoveryAction().addAll(otherBehaviours);
 
 		action.getInfrastructureCall__Action().addAll(infrastructureCalls);
 		action.getResourceCall__Action().addAll(resourceCalls);

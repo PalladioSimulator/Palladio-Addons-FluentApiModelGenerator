@@ -55,7 +55,7 @@ public abstract class ComplexComponent extends Component {
 	 * @param name
 	 * @param configParameterUsages
 	 * @return the component in the making
-	 * @see factory.MyRepositoryFactory#fetchOfComponent(String)
+	 * @see factory.FluentRepositoryFactory#fetchOfComponent(String)
 	 */
 	public ComplexComponent withAssemblyContext(RepositoryComponent encapsulatedComponent, String name,
 			VariableUsageCreator... configParameterUsages) {
@@ -112,9 +112,9 @@ public abstract class ComplexComponent extends Component {
 	 * @param requiredRole
 	 * @param requiringAssemblyContext
 	 * @return the component in the making
-	 * @see factory.MyRepositoryFactory#fetchOfAssemblyContext(String)
-	 * @see factory.MyRepositoryFactory#fetchOfOperationProvidedRole(String)
-	 * @see factory.MyRepositoryFactory#fetchOfOperationRequiredRole(String)
+	 * @see factory.FluentRepositoryFactory#fetchOfAssemblyContext(String)
+	 * @see factory.FluentRepositoryFactory#fetchOfOperationProvidedRole(String)
+	 * @see factory.FluentRepositoryFactory#fetchOfOperationRequiredRole(String)
 	 */
 	public ComplexComponent withAssemblyConnection(OperationProvidedRole providedRole,
 			AssemblyContext providingAssemblyContext, OperationRequiredRole requiredRole,
@@ -147,8 +147,8 @@ public abstract class ComplexComponent extends Component {
 	 * @param innerProvidedRole
 	 * @param outerProvidedRole
 	 * @return the component in the making
-	 * @see factory.MyRepositoryFactory#fetchOfAssemblyContext(String)
-	 * @see factory.MyRepositoryFactory#fetchOfOperationProvidedRole(String)
+	 * @see factory.FluentRepositoryFactory#fetchOfAssemblyContext(String)
+	 * @see factory.FluentRepositoryFactory#fetchOfOperationProvidedRole(String)
 	 */
 	public ComplexComponent withProvidedDelegationConnection(AssemblyContext assemblyContext,
 			OperationProvidedRole innerProvidedRole, OperationProvidedRole outerProvidedRole) {
@@ -179,8 +179,8 @@ public abstract class ComplexComponent extends Component {
 	 * @param innerRequiredRole
 	 * @param outerRequiredRole
 	 * @return the component in the making
-	 * @see factory.MyRepositoryFactory#fetchOfAssemblyContext(String)
-	 * @see factory.MyRepositoryFactory#fetchOfOperationRequiredRole(String)
+	 * @see factory.FluentRepositoryFactory#fetchOfAssemblyContext(String)
+	 * @see factory.FluentRepositoryFactory#fetchOfOperationRequiredRole(String)
 	 */
 	public ComplexComponent withRequiredDelegationConnection(AssemblyContext assemblyContext,
 			OperationRequiredRole innerRequiredRole, OperationRequiredRole outerRequiredRole) {
@@ -217,9 +217,9 @@ public abstract class ComplexComponent extends Component {
 	 * @param sourceAssemblyContext
 	 * @param filterCondition_stochasticExpression
 	 * @return the component in the making
-	 * @see factory.MyRepositoryFactory#fetchOfAssemblyContext(String)
-	 * @see factory.MyRepositoryFactory#fetchOfSinkRole(String)
-	 * @see factory.MyRepositoryFactory#fetchOfSourceRole(String)
+	 * @see factory.FluentRepositoryFactory#fetchOfAssemblyContext(String)
+	 * @see factory.FluentRepositoryFactory#fetchOfSinkRole(String)
+	 * @see factory.FluentRepositoryFactory#fetchOfSourceRole(String)
 	 */
 	public ComplexComponent withAssemblyEventConnection(SinkRole sinkRole, AssemblyContext sinkAssemblyContext,
 			SourceRole sourceRole, AssemblyContext sourceAssemblyContext, String filterCondition_stochasticExpression) {
@@ -254,9 +254,9 @@ public abstract class ComplexComponent extends Component {
 	 * @param sinkRole
 	 * @param filterCondition_stochasticExpression
 	 * @return the component in the making
-	 * @see factory.MyRepositoryFactory#fetchOfAssemblyContext(String)
-	 * @see factory.MyRepositoryFactory#fetchOfEventChannel(String)
-	 * @see factory.MyRepositoryFactory#fetchOfSinkRole(String)
+	 * @see factory.FluentRepositoryFactory#fetchOfAssemblyContext(String)
+	 * @see factory.FluentRepositoryFactory#fetchOfEventChannel(String)
+	 * @see factory.FluentRepositoryFactory#fetchOfSinkRole(String)
 	 */
 	public ComplexComponent withEventChannelSinkConnection(AssemblyContext assemblyContext, EventChannel eventChannel,
 			SinkRole sinkRole, String filterCondition_stochasticExpression) {
@@ -289,9 +289,9 @@ public abstract class ComplexComponent extends Component {
 	 * @param eventChannel
 	 * @param sourceRole
 	 * @return the component in the making
-	 * @see factory.MyRepositoryFactory#fetchOfAssemblyContext(String)
-	 * @see factory.MyRepositoryFactory#fetchOfEventChannel(String)
-	 * @see factory.MyRepositoryFactory#fetchOfSourceRole(String)
+	 * @see factory.FluentRepositoryFactory#fetchOfAssemblyContext(String)
+	 * @see factory.FluentRepositoryFactory#fetchOfEventChannel(String)
+	 * @see factory.FluentRepositoryFactory#fetchOfSourceRole(String)
 	 */
 	public ComplexComponent withEventChannelSourceConnection(AssemblyContext assemblyContext, EventChannel eventChannel,
 			SourceRole sourceRole) {
@@ -322,8 +322,8 @@ public abstract class ComplexComponent extends Component {
 	 * @param innerSinkRole
 	 * @param outerSinkRole
 	 * @return the component in the making
-	 * @see factory.MyRepositoryFactory#fetchOfAssemblyContext(String)
-	 * @see factory.MyRepositoryFactory#fetchOfSinkRole(String)
+	 * @see factory.FluentRepositoryFactory#fetchOfAssemblyContext(String)
+	 * @see factory.FluentRepositoryFactory#fetchOfSinkRole(String)
 	 */
 	public ComplexComponent withSinkDelegationConnection(AssemblyContext assemblyContext, SinkRole innerSinkRole,
 			SinkRole outerSinkRole) {
@@ -355,8 +355,8 @@ public abstract class ComplexComponent extends Component {
 	 * @param innerSourceRole
 	 * @param outerSourceRole
 	 * @return the component in the making
-	 * @see factory.MyRepositoryFactory#fetchOfAssemblyContext(String)
-	 * @see factory.MyRepositoryFactory#fetchOfSourceRole(String)
+	 * @see factory.FluentRepositoryFactory#fetchOfAssemblyContext(String)
+	 * @see factory.FluentRepositoryFactory#fetchOfSourceRole(String)
 	 */
 	public ComplexComponent withSourceDelegationConnection(AssemblyContext assemblyContext, SourceRole innerSourceRole,
 			SourceRole outerSourceRole) {
@@ -385,9 +385,9 @@ public abstract class ComplexComponent extends Component {
 	 * @param requiredRole
 	 * @param requiringAssemblyContext
 	 * @return the component in the making
-	 * @see factory.MyRepositoryFactory#fetchOfAssemblyContext(String)
-	 * @see factory.MyRepositoryFactory#fetchOfInfrastructureProvidedRole(String)
-	 * @see factory.MyRepositoryFactory#fetchOfInfrastructureRequiredRole(String)
+	 * @see factory.FluentRepositoryFactory#fetchOfAssemblyContext(String)
+	 * @see factory.FluentRepositoryFactory#fetchOfInfrastructureProvidedRole(String)
+	 * @see factory.FluentRepositoryFactory#fetchOfInfrastructureRequiredRole(String)
 	 */
 	public ComplexComponent withAssemblyInfrastructureConnection(InfrastructureProvidedRole providedRole,
 			AssemblyContext providingAssemblyContext, InfrastructureRequiredRole requiredRole,
@@ -417,8 +417,8 @@ public abstract class ComplexComponent extends Component {
 	 * @param innerProvidedRole
 	 * @param outerProvidedRole
 	 * @return the component in the making
-	 * @see factory.MyRepositoryFactory#fetchOfAssemblyContext(String)
-	 * @see factory.MyRepositoryFactory#fetchOfInfrastructureProvidedRole(String)
+	 * @see factory.FluentRepositoryFactory#fetchOfAssemblyContext(String)
+	 * @see factory.FluentRepositoryFactory#fetchOfInfrastructureProvidedRole(String)
 	 */
 	public ComplexComponent withProvidedInfrastructureDelegationConnection(AssemblyContext assemblyContext,
 			InfrastructureProvidedRole innerProvidedRole, InfrastructureProvidedRole outerProvidedRole) {
@@ -445,8 +445,8 @@ public abstract class ComplexComponent extends Component {
 	 * @param innerRequiredRole
 	 * @param outerRequiredRole
 	 * @return the component in the making
-	 * @see factory.MyRepositoryFactory#fetchOfAssemblyContext(String)
-	 * @see factory.MyRepositoryFactory#fetchOfInfrastructureRequiredRole(String)
+	 * @see factory.FluentRepositoryFactory#fetchOfAssemblyContext(String)
+	 * @see factory.FluentRepositoryFactory#fetchOfInfrastructureRequiredRole(String)
 	 */
 	public ComplexComponent withRequiredInfrastructureDelegationConnection(AssemblyContext assemblyContext,
 			InfrastructureRequiredRole innerRequiredRole, InfrastructureRequiredRole outerRequiredRole) {
@@ -473,8 +473,8 @@ public abstract class ComplexComponent extends Component {
 	 * @param innerRequiredRole
 	 * @param outerRequiredRole
 	 * @return the component in the making
-	 * @see factory.MyRepositoryFactory#fetchOfAssemblyContext(String)
-	 * @see factory.MyRepositoryFactory#fetchOfResourceRequiredRole(String)
+	 * @see factory.FluentRepositoryFactory#fetchOfAssemblyContext(String)
+	 * @see factory.FluentRepositoryFactory#fetchOfResourceRequiredRole(String)
 	 */
 	public ComplexComponent withRequiredResourceDelegationConnection(AssemblyContext assemblyContext,
 			ResourceRequiredRole innerRequiredRole, ResourceRequiredRole outerRequiredRole) {
@@ -499,7 +499,7 @@ public abstract class ComplexComponent extends Component {
 	 * @param innerRequiredRole
 	 * @param outerRequiredRole
 	 * @return the component in the making
-	 * @see factory.MyRepositoryFactory#fetchOfResourceRequiredRole(String)
+	 * @see factory.FluentRepositoryFactory#fetchOfResourceRequiredRole(String)
 	 */
 	public ComplexComponent resourceRequiredDegelationConnection(ResourceRequiredRole innerRequiredRole,
 			ResourceRequiredRole outerRequiredRole) {

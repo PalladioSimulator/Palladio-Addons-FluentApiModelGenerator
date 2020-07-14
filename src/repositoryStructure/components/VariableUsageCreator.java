@@ -10,9 +10,6 @@ import org.palladiosimulator.pcm.parameter.ParameterFactory;
 import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
 import org.palladiosimulator.pcm.parameter.VariableCharacterisationType;
 import org.palladiosimulator.pcm.parameter.VariableUsage;
-import org.palladiosimulator.pcm.qosannotations.SpecifiedOutputParameterAbstraction;
-import org.palladiosimulator.pcm.usagemodel.EntryLevelSystemCall;
-import org.palladiosimulator.pcm.usagemodel.UserData;
 
 import de.uka.ipd.sdq.stoex.AbstractNamedReference;
 import de.uka.ipd.sdq.stoex.NamespaceReference;
@@ -174,11 +171,11 @@ public class VariableUsageCreator extends Entity {
 
 		// TODO: sind über die GUI nicht setzbar, und in der Dokumentation nicht weiter
 		// erwähnt. muss das gemacht werden?
-		EntryLevelSystemCall a = varUsage.getEntryLevelSystemCall_InputParameterUsage();
-		EntryLevelSystemCall b = varUsage.getEntryLevelSystemCall_OutputParameterUsage();
-		SpecifiedOutputParameterAbstraction c = varUsage
-				.getSpecifiedOutputParameterAbstraction_expectedExternalOutputs_VariableUsage();
-		UserData d = varUsage.getUserData_VariableUsage();
+//		EntryLevelSystemCall a = varUsage.getEntryLevelSystemCall_InputParameterUsage();
+//		EntryLevelSystemCall b = varUsage.getEntryLevelSystemCall_OutputParameterUsage();
+//		SpecifiedOutputParameterAbstraction c = varUsage
+//				.getSpecifiedOutputParameterAbstraction_expectedExternalOutputs_VariableUsage();
+//		UserData d = varUsage.getUserData_VariableUsage();
 		return varUsage;
 	}
 }

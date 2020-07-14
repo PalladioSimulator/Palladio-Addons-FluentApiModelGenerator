@@ -26,8 +26,8 @@ public abstract class Interface extends Entity {
 	 * </p>
 	 * 
 	 * @param parentInterface
-	 * @return the interface/event group in the making
-	 * @see factory.MyRepositoryFactory#fetchOfInterface(String)
+	 * @return this interface/event group in the making
+	 * @see factory.FluentRepositoryFactory#fetchOfInterface(String)
 	 * @see org.palladiosimulator.pcm.repository.Interface#getParentInterfaces__Interface()
 	 * @see org.palladiosimulator.pcm.repository.Interface
 	 */
@@ -50,16 +50,17 @@ public abstract class Interface extends Entity {
 	 * '<em><b>VALUE</b></em>'.
 	 * </p>
 	 * <p>
-	 * An existing <code>parameter</code> can be fetched from the repository using
-	 * the factory, i.e. <code>create.fetchOfParameter(name)</code> and
+	 * An existing <code>parameter</code> from a previously defined signature/event
+	 * type can be fetched from the repository using the factory, i.e.
+	 * <code>create.fetchOfParameter(name)</code> and
 	 * <code>create.fetchOfParameter(name, signatureContext)</code>.
 	 * </p>
 	 * 
 	 * @param parameter that is specified
 	 * @param type      of the parameter
-	 * @return the interface/event group in the making
-	 * @see factory.MyRepositoryFactory#fetchOfParameter(String)
-	 * @see factory.MyRepositoryFactory#fetchOfParameter(String,
+	 * @return this interface/event group in the making
+	 * @see factory.FluentRepositoryFactory#fetchOfParameter(String)
+	 * @see factory.FluentRepositoryFactory#fetchOfParameter(String,
 	 *      org.palladiosimulator.pcm.repository.Signature)
 	 */
 	public Interface withRequiredCharacterisation(Parameter parameter, VariableCharacterisationType type) {

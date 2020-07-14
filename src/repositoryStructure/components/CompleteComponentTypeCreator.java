@@ -203,7 +203,7 @@ public class CompleteComponentTypeCreator extends Component {
 	 * 
 	 * @param providesComponentType
 	 * @return the complete component type in the making
-	 * @see factory.MyRepositoryFactory#newProvidesComponentType()
+	 * @see factory.FluentRepositoryFactory#newProvidesComponentType()
 	 * @see org.palladiosimulator.pcm.repository.CompleteComponentType#getParentProvidesComponentTypes()
 	 * @see org.palladiosimulator.pcm.repository.ProvidesComponentType
 	 */
@@ -231,7 +231,7 @@ public class CompleteComponentTypeCreator extends Component {
 	 * 
 	 * @param providesComponentType
 	 * @return the complete component type in the making
-	 * @see factory.MyRepositoryFactory#fetchOfProvidesComponentType(String)
+	 * @see factory.FluentRepositoryFactory#fetchOfProvidesComponentType(String)
 	 * @see org.palladiosimulator.pcm.repository.CompleteComponentType#getParentProvidesComponentTypes()
 	 * @see org.palladiosimulator.pcm.repository.ProvidesComponentType
 	 */

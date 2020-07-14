@@ -9,7 +9,7 @@ import repositoryStructure.components.SubSystemCreator;
 
 public interface EventChannelCreation {
 
-	public interface Comp extends EventChannelCreation {
+	public interface EventChannelComposite extends EventChannelCreation {
 
 		/**
 		 * Adds an
@@ -23,9 +23,9 @@ public interface EventChannelCreation {
 		 * 
 		 * @param sinkConnection
 		 * @return the event channel in the making
-		 * @see factory.MyRepositoryFactory#fetchOfEventChannelSinkConnector(String)
+		 * @see factory.FluentRepositoryFactory#fetchOfEventChannelSinkConnector(String)
 		 */
-		public Comp withEventChannelSinkConnector(EventChannelSinkConnector sinkConnection);
+		public EventChannelComposite withEventChannelSinkConnector(EventChannelSinkConnector sinkConnection);
 
 		/**
 		 * Adds an
@@ -39,9 +39,9 @@ public interface EventChannelCreation {
 		 * 
 		 * @param sourceConnection
 		 * @return the event channel in the making
-		 * @see factory.MyRepositoryFactory#fetchOfEventChannelSourceConnector(String)
+		 * @see factory.FluentRepositoryFactory#fetchOfEventChannelSourceConnector(String)
 		 */
-		public Comp withEventChannelSourceConnector(EventChannelSourceConnector sourceConnection);
+		public EventChannelComposite withEventChannelSourceConnector(EventChannelSourceConnector sourceConnection);
 
 		/**
 		 * Specifies the {@link org.palladiosimulator.pcm.repository.EventGroup
@@ -53,9 +53,9 @@ public interface EventChannelCreation {
 		 * 
 		 * @param eventGroup
 		 * @return the event channel in the making
-		 * @see factory.MyRepositoryFactory#fetchOfEventGroup(String)
+		 * @see factory.FluentRepositoryFactory#fetchOfEventGroup(String)
 		 */
-		public Comp withEventGroup(EventGroup eventGroup);
+		public EventChannelComposite withEventGroup(EventGroup eventGroup);
 
 		/**
 		 * Turns the event-channel-in-the-making into an '<em><b>Event Channel</b></em>'
@@ -67,7 +67,7 @@ public interface EventChannelCreation {
 		public CompositeComponentCreator now1();
 	}
 
-	public interface Sub extends EventChannelCreation {
+	public interface EventChannelSubsystem extends EventChannelCreation {
 
 		/**
 		 * Adds an
@@ -81,9 +81,9 @@ public interface EventChannelCreation {
 		 * 
 		 * @param sinkConnection
 		 * @return the event channel in the making
-		 * @see factory.MyRepositoryFactory#fetchOfEventChannelSinkConnector(String)
+		 * @see factory.FluentRepositoryFactory#fetchOfEventChannelSinkConnector(String)
 		 */
-		public Sub withEventChannelSinkConnector(EventChannelSinkConnector sinkConnection);
+		public EventChannelSubsystem withEventChannelSinkConnector(EventChannelSinkConnector sinkConnection);
 
 		/**
 		 * Adds an
@@ -97,9 +97,9 @@ public interface EventChannelCreation {
 		 * 
 		 * @param sourceConnection
 		 * @return the event channel in the making
-		 * @see factory.MyRepositoryFactory#fetchOfEventChannelSourceConnector(String)
+		 * @see factory.FluentRepositoryFactory#fetchOfEventChannelSourceConnector(String)
 		 */
-		public Sub withEventChannelSourceConnector(EventChannelSourceConnector sourceConnection);
+		public EventChannelSubsystem withEventChannelSourceConnector(EventChannelSourceConnector sourceConnection);
 
 		/**
 		 * Specifies the {@link org.palladiosimulator.pcm.repository.EventGroup
@@ -111,9 +111,9 @@ public interface EventChannelCreation {
 		 * 
 		 * @param eventGroup
 		 * @return the event channel in the making
-		 * @see factory.MyRepositoryFactory#fetchOfEventGroup(String)
+		 * @see factory.FluentRepositoryFactory#fetchOfEventGroup(String)
 		 */
-		public Sub withEventGroup(EventGroup eventGroup);
+		public EventChannelSubsystem withEventGroup(EventGroup eventGroup);
 
 		/**
 		 * Turns the event-channel-in-the-making into an '<em><b>Event Channel</b></em>'

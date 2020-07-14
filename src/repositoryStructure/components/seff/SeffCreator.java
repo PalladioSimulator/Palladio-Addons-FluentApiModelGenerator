@@ -173,14 +173,12 @@ public class SeffCreator extends Entity implements Seff, ActionSeff, StartSeff, 
 	public SeffCreator withFailureType(Failure failure) {
 		FailureType f = repositoryStructure.datatypes.FailureType.getFailureType(failure);
 		this.failures.add(f);
-		return this;
+		return this; //TODO: extra methode mit FailureType
 	}
 
 	@Override
-	public SeffCreator withAlternativeRecoveryBehaviour(RecoverySeff recoveryBehaviour) {
-		// TODO: gehört das vielleicht doch zu den nicht primary behaviours von einer
-		// recoveryAction?
-		this.alternatives.add(recoveryBehaviour.buildRecoveryBehaviour());
+	public SeffCreator withAlternativeRecoveryBehaviour(RecoveryActionBehaviour recoveryBehaviour) {
+		this.alternatives.add(recoveryBehaviour);
 		return this;
 	}
 

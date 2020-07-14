@@ -2,7 +2,6 @@ package factory;
 
 import java.util.Map;
 
-import org.eclipse.emf.cdo.spi.common.revision.InternalCDOFeatureDelta.WithIndex;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -46,6 +45,7 @@ import org.palladiosimulator.pcm.resourcetype.ResourceInterface;
 import org.palladiosimulator.pcm.resourcetype.ResourceRepository;
 import org.palladiosimulator.pcm.resourcetype.ResourceType;
 import org.palladiosimulator.pcm.resourcetype.ResourcetypePackage;
+import org.palladiosimulator.pcm.seff.ResourceDemandingInternalBehaviour;
 import org.palladiosimulator.pcm.seff.seff_reliability.RecoveryActionBehaviour;
 import org.palladiosimulator.pcm.subsystem.SubSystem;
 
@@ -69,15 +69,14 @@ import repositoryStructure.interfaces.EventGroupCreator;
 import repositoryStructure.interfaces.InfrastructureInterfaceCreator;
 import repositoryStructure.interfaces.OperationInterfaceCreator;
 
-public class MyRepositoryFactory {
-	// TODO: welchen passenderen Namen könnte diese Klasse bekommen?
+public class FluentRepositoryFactory {
 
 	private RepositoryCreator repo;
 	private Repository primitives;
 	private ResourceRepository resourceTypes;
 	private Repository failures;
 
-	public MyRepositoryFactory() {
+	public FluentRepositoryFactory() {
 //		this.primitives = loadPrimitiveTypesRepository();
 //		this.resourceTypes = loadResourceTypeRepository();
 //		this.failures = loadFailureTypesRepository();
@@ -545,7 +544,7 @@ public class MyRepositoryFactory {
 	 * A collection data type represents a list, array, set of items of the
 	 * particular type. All previously created data types and primitive data types
 	 * can be referenced using fetching methods, e.g.
-	 * {@link factory.MyRepositoryFactory#fetchOfDataType(String)
+	 * {@link factory.FluentRepositoryFactory#fetchOfDataType(String)
 	 * fetchOfDataType(String)}. <br>
 	 * For example, <code>create.newCollectionDataType("PersonList",
 	 * create.fetchOfDataType("Person"))</code> realizes a data type conforming
@@ -556,8 +555,8 @@ public class MyRepositoryFactory {
 	 * @param name     the <i>unique</i> name of the new collection data type
 	 * @param dataType the data type that the elements have
 	 * @return the collection data type
-	 * @see factory.MyRepositoryFactory#fetchOfDataType(String)
-	 * @see factory.MyRepositoryFactory#fetchOfDataType(Primitive)
+	 * @see factory.FluentRepositoryFactory#fetchOfDataType(String)
+	 * @see factory.FluentRepositoryFactory#fetchOfDataType(Primitive)
 	 * @see org.palladiosimulator.pcm.repository.CollectionDataType
 	 * @see org.palladiosimulator.pcm.repository.DataType
 	 */
@@ -614,7 +613,8 @@ public class MyRepositoryFactory {
 	 * of SEFF designed for performance and reliability predictions. Besides
 	 * dependencies between provided and required services of a component, it
 	 * additionally includes notions of resource usage, data flow, and parametric
-	 * dependencies for more accurate predictions.
+	 * dependencies for more accurate predictions. Therefore, the class contains a
+	 * chain of AbstractActions.
 	 * </p>
 	 * 
 	 * <p>
@@ -637,10 +637,76 @@ public class MyRepositoryFactory {
 		return new SeffCreator();
 	}
 
+	/**
+	 * Creates a new
+	 * ResourceDemandingInternalBehaviour/ResourceDemandingBehaviour/ForkedBehaviour
+	 * (depending on the context). If the context does not distinctly favor any
+	 * behaviour, ResourceDemandingBehaviour acts as default.
+	 * 
+	 * <p>
+	 * It models the behaviour of a component service as a sequence of internal
+	 * actions with resource demands, control flow constructs, and external calls.
+	 * Therefore, the class contains a chain of AbstractActions.
+	 * </p>
+	 * 
+	 * <p>
+	 * Use the method
+	 * {@link apiControlFlowInterfaces.seff.InternalSeff#withStartAction()
+	 * withStartAction()} to specify its step-wise behaviour.
+	 * 
+	 * @return the internal behaviour in the making
+	 * @see org.palladiosimulator.pcm.seff.ResourceDemandingInternalBehaviour
+	 * @see org.palladiosimulator.pcm.seff.ResourceDemandingBehaviour
+	 * @see org.palladiosimulator.pcm.seff.ForkedBehaviour
+	 */
 	public InternalSeff newInternalBehaviour() {
 		return new SeffCreator();
 	}
 
+	/**
+	 * Creates a new
+	 * {@link org.palladiosimulator.pcm.seff.seff_reliability.RecoveryActionBehaviour
+	 * RecoveryActionBehaviour}.
+	 * <p>
+	 * A recovery action behaviour provides a behaviour (a chain of AbstractActions)
+	 * and alternatives of recovery blocks. They are resource demanding behaviours,
+	 * thus any behaviour can be defined as an alternative. The alternatives of a
+	 * recovery block form a chain. They are failure handling entities, i.e. they
+	 * can handle failures that occur in previous alternatives. If one alternative
+	 * fails, the next alternative is executed that can handle the failure type.
+	 * </p>
+	 * <p>
+	 * Use the methods
+	 * <ul>
+	 * <li>{@link apiControlFlowInterfaces.seff.RecoverySeff#withFailureType(Failure)
+	 * withFailureType(Failure)} to add possibly occurring failures to the
+	 * behaviour,
+	 * <li>{@link apiControlFlowInterfaces.seff.RecoverySeff#withAlternativeRecoveryBehaviour(org.palladiosimulator.pcm.seff.seff_reliability.RecoveryActionBehaviour)
+	 * withAlternativeRecoveryBehaviour(RecoveryActionBehaviour)} to add previously
+	 * defined recovery behaviours as alternatives and
+	 * <li>{@link apiControlFlowInterfaces.seff.RecoverySeff#withSeffBehaviour()
+	 * withSeffBehaviour()} to specify this RecoveryActionBehaviour's step-wise
+	 * behaviour.
+	 * </ul>
+	 * </p>
+	 * <p>
+	 * Previously defined RecoveryActionBehaviours can be fetched from the
+	 * repository using the factory, i.e.
+	 * <code>create.fetchOfRecoveryActionBehaviour(name)</code>.
+	 * </p>
+	 * <p>
+	 * The alternatives of a recovery block form a chain and alternatives are
+	 * referenced by name and have to be previously defined. Thus the chain of
+	 * alternatives has to be created inversely. The last alternative that has no
+	 * alternatives itself is created first, so the second last can reference it as
+	 * its alternative. TODO: beispiel? Reference auf recovery action methode?
+	 * </p>
+	 * 
+	 * @return the recovery action behaviour in the making
+	 * @see org.palladiosimulator.pcm.seff.seff_reliability.RecoveryActionBehaviour
+	 * @see factory.FluentRepositoryFactory#fetchOfRecoveryActionBehaviour(String)
+	 * @see factory.FluentRepositoryFactory#fetchOfFailureType(String)
+	 */
 	public RecoverySeff newRecoveryBehaviour() {
 		return new SeffCreator();
 	}
@@ -724,7 +790,8 @@ public class MyRepositoryFactory {
 	}
 
 	public FailureType fetchOfFailureType(Failure failure) {
-		// TODO:
+		// TODO: integration der importierten und man kann evtl noch eigene erstellen,
+		// die müssen auch beachtet werden -> fetch methode mit string
 		EList<FailureType> failureTypes = this.failures.getFailureTypes__Repository();
 		for (FailureType f : failureTypes) {
 			System.out.println(f);
@@ -732,6 +799,32 @@ public class MyRepositoryFactory {
 
 		return repositoryStructure.datatypes.FailureType.getFailureType(failure);
 	}
+
+	public FailureType fetchOfFailureType(String name) {
+		// TODO: integration der importierten und man kann evtl noch eigene erstellen,
+		// die müssen auch beachtet werden -> fetch methode mit string
+		EList<FailureType> failureTypes = this.failures.getFailureTypes__Repository();
+		for (FailureType f : failureTypes) {
+			System.out.println(f);
+		}
+
+		return null;
+	}
+
+	public FailureType fetchOfExceptionType(String name) {
+		// TODO:
+		return null;
+	}
+
+	public ResourceTimeoutFailureType fetchOfResourceTimeoutFailureType(Failure failure) {
+			FailureType failureType = repositoryStructure.datatypes.FailureType.getFailureType(failure);
+			if (failureType instanceof ResourceTimeoutFailureType)
+				return (ResourceTimeoutFailureType) failureType;
+			// TODO: einkommentieren
+	//		else
+	//			throw new RuntimeException("ResourceTimeoutFailureType could not be found; must be of type SoftwareInducedFailure");
+			return null;
+		}
 
 	public ResourceType fetchOfResourcetype(String name) {
 		// TODO:
@@ -741,16 +834,26 @@ public class MyRepositoryFactory {
 		return null;
 	}
 
-	public ResourceTimeoutFailureType fetchOfResourceTimeoutFailureType(Failure failure) {
-		FailureType failureType = repositoryStructure.datatypes.FailureType.getFailureType(failure);
-		if (failureType instanceof ResourceTimeoutFailureType)
-			return (ResourceTimeoutFailureType) failureType;
-		// TODO: einkommentieren
-//		else
-//			throw new RuntimeException("ResourceTimeoutFailureType could not be found; must be of type SoftwareInducedFailure");
+	public ResourceInterface fetchOfResourceInterface(String name) {
+		// TODO: resource stuff
 		return null;
 	}
 
+	/**
+	 * Extracts the <b>component</b> referenced by <code>name</code> from the
+	 * repository.
+	 * <p>
+	 * This method throws a RuntimeException if no <b>component</b> is present under
+	 * the given <code>name</code>. If more than one <b>component</b> with this
+	 * <code>name</code> is present, a warning will be printed during runtime and
+	 * the system chooses the first <b>component</b> it finds.
+	 * </p>
+	 * 
+	 * @param name
+	 * @return the <b>component</b>
+	 * @see apiControlFlowInterfaces.RepoAddition#addToRepository(repositoryStructure.components.Component)
+	 * @see org.palladiosimulator.pcm.repository.RepositoryComponent
+	 */
 	public RepositoryComponent fetchOfComponent(String name) {
 		RepositoryComponent component = repo.getComponent(name);
 		if (component == null)
@@ -758,6 +861,21 @@ public class MyRepositoryFactory {
 		return component;
 	}
 
+	/**
+	 * Extracts the basic component referenced by <code>name</code> from the
+	 * repository.
+	 * <p>
+	 * This method throws a RuntimeException if no basic component is present under
+	 * the given <code>name</code>. If more than one basic component with this
+	 * <code>name</code> is present, a warning will be printed during runtime and
+	 * the system chooses the first basic component it finds.
+	 * </p>
+	 * 
+	 * @param name
+	 * @return the basic component
+	 * @see apiControlFlowInterfaces.RepoAddition#addToRepository(repositoryStructure.components.Component)
+	 * @see org.palladiosimulator.pcm.repository.BasicComponent
+	 */
 	public BasicComponent fetchOfBasicComponent(String name) {
 		BasicComponent component = repo.getBasicComponent(name);
 		if (component == null)
@@ -765,6 +883,21 @@ public class MyRepositoryFactory {
 		return component;
 	}
 
+	/**
+	 * Extracts the composite component referenced by <code>name</code> from the
+	 * repository.
+	 * <p>
+	 * This method throws a RuntimeException if no composite component is present
+	 * under the given <code>name</code>. If more than one composite component with
+	 * this <code>name</code> is present, a warning will be printed during runtime
+	 * and the system chooses the first composite component it finds.
+	 * </p>
+	 * 
+	 * @param name
+	 * @return the composite component
+	 * @see apiControlFlowInterfaces.RepoAddition#addToRepository(repositoryStructure.components.Component)
+	 * @see org.palladiosimulator.pcm.repository.CompositeComponent
+	 */
 	public CompositeComponent fetchOfCompositeComponent(String name) {
 		CompositeComponent component = repo.getCompositeComponent(name);
 		if (component == null)
@@ -772,6 +905,20 @@ public class MyRepositoryFactory {
 		return component;
 	}
 
+	/**
+	 * Extracts the subsystem referenced by <code>name</code> from the repository.
+	 * <p>
+	 * This method throws a RuntimeException if no subsystem is present under the
+	 * given <code>name</code>. If more than one subsystem with this
+	 * <code>name</code> is present, a warning will be printed during runtime and
+	 * the system chooses the first subsystem it finds.
+	 * </p>
+	 * 
+	 * @param name
+	 * @return the subsystem
+	 * @see apiControlFlowInterfaces.RepoAddition#addToRepository(repositoryStructure.components.Component)
+	 * @see org.palladiosimulator.pcm.subsystem.SubSystem
+	 */
 	public SubSystem fetchOfSubSystem(String name) {
 		SubSystem component = repo.getSubsystem(name);
 		if (component == null)
@@ -779,6 +926,22 @@ public class MyRepositoryFactory {
 		return component;
 	}
 
+	/**
+	 * Extracts the complete component type referenced by <code>name</code> from the
+	 * repository.
+	 * <p>
+	 * This method throws a RuntimeException if no complete component type is
+	 * present under the given <code>name</code>. If more than one complete
+	 * component type with this <code>name</code> is present, a warning will be
+	 * printed during runtime and the system chooses the first complete component
+	 * type it finds.
+	 * </p>
+	 * 
+	 * @param name
+	 * @return the complete component type
+	 * @see apiControlFlowInterfaces.RepoAddition#addToRepository(repositoryStructure.components.Component)
+	 * @see org.palladiosimulator.pcm.repository.CompleteComponentType
+	 */
 	public CompleteComponentType fetchOfCompleteComponentType(String name) {
 		CompleteComponentType component = repo.getCompleteComponentType(name);
 		if (component == null)
@@ -786,6 +949,22 @@ public class MyRepositoryFactory {
 		return component;
 	}
 
+	/**
+	 * Extracts the provides component type referenced by <code>name</code> from the
+	 * repository.
+	 * <p>
+	 * This method throws a RuntimeException if no provides component type is
+	 * present under the given <code>name</code>. If more than one provides
+	 * component type with this <code>name</code> is present, a warning will be
+	 * printed during runtime and the system chooses the first provides component
+	 * type it finds.
+	 * </p>
+	 * 
+	 * @param name
+	 * @return the provides component type
+	 * @see apiControlFlowInterfaces.RepoAddition#addToRepository(repositoryStructure.components.Component)
+	 * @see org.palladiosimulator.pcm.repository.ProvidesComponentType
+	 */
 	public ProvidesComponentType fetchOfProvidesComponentType(String name) {
 		ProvidesComponentType component = repo.getProvidesComponentType(name);
 		if (component == null)
@@ -793,6 +972,20 @@ public class MyRepositoryFactory {
 		return component;
 	}
 
+	/**
+	 * Extracts the interface referenced by <code>name</code> from the repository.
+	 * <p>
+	 * This method throws a RuntimeException if no interface is present under the
+	 * given <code>name</code>. If more than one interface with this
+	 * <code>name</code> is present, a warning will be printed during runtime and
+	 * the system chooses the first interface it finds.
+	 * </p>
+	 * 
+	 * @param name
+	 * @return the interface
+	 * @see apiControlFlowInterfaces.RepoAddition#addToRepository(repositoryStructure.interfaces.Interface)
+	 * @see org.palladiosimulator.pcm.repository.Interface
+	 */
 	public Interface fetchOfInterface(String name) {
 		Interface interfce = repo.getInterface(name);
 		if (interfce == null)
@@ -800,6 +993,21 @@ public class MyRepositoryFactory {
 		return interfce;
 	}
 
+	/**
+	 * Extracts the operation interface referenced by <code>name</code> from the
+	 * repository.
+	 * <p>
+	 * This method throws a RuntimeException if no operation interface is present
+	 * under the given <code>name</code>. If more than one operation interface with
+	 * this <code>name</code> is present, a warning will be printed during runtime
+	 * and the system chooses the first operation interface it finds.
+	 * </p>
+	 * 
+	 * @param name
+	 * @return the operation interface
+	 * @see apiControlFlowInterfaces.RepoAddition#addToRepository(repositoryStructure.interfaces.Interface)
+	 * @see org.palladiosimulator.pcm.repository.OperationInterface
+	 */
 	public OperationInterface fetchOfOperationInterface(String name) {
 		OperationInterface interfce = repo.getOperationInterface(name);
 		if (interfce == null)
@@ -807,6 +1015,22 @@ public class MyRepositoryFactory {
 		return interfce;
 	}
 
+	/**
+	 * Extracts the infrastructure interface referenced by <code>name</code> from
+	 * the repository.
+	 * <p>
+	 * This method throws a RuntimeException if no infrastructure interface is
+	 * present under the given <code>name</code>. If more than one infrastructure
+	 * interface with this <code>name</code> is present, a warning will be printed
+	 * during runtime and the system chooses the first infrastructure interface it
+	 * finds.
+	 * </p>
+	 * 
+	 * @param name
+	 * @return the infrastructure interface
+	 * @see apiControlFlowInterfaces.RepoAddition#addToRepository(repositoryStructure.interfaces.Interface)
+	 * @see org.palladiosimulator.pcm.repository.InfrastructureInterface
+	 */
 	public InfrastructureInterface fetchOfInfrastructureInterface(String name) {
 		InfrastructureInterface interfce = repo.getInfrastructureInterface(name);
 		if (interfce == null)
@@ -814,6 +1038,20 @@ public class MyRepositoryFactory {
 		return interfce;
 	}
 
+	/**
+	 * Extracts the event group referenced by <code>name</code> from the repository.
+	 * <p>
+	 * This method throws a RuntimeException if no event group is present under the
+	 * given <code>name</code>. If more than one event group with this
+	 * <code>name</code> is present, a warning will be printed during runtime and
+	 * the system chooses the first event group it finds.
+	 * </p>
+	 * 
+	 * @param name
+	 * @return the event group
+	 * @see apiControlFlowInterfaces.RepoAddition#addToRepository(repositoryStructure.interfaces.Interface)
+	 * @see org.palladiosimulator.pcm.repository.EventGroup
+	 */
 	public EventGroup fetchOfEventGroup(String name) {
 		EventGroup interfce = repo.getEventGroup(name);
 		if (interfce == null)
@@ -821,6 +1059,20 @@ public class MyRepositoryFactory {
 		return interfce;
 	}
 
+	/**
+	 * Extracts the provided role referenced by <code>name</code> from the
+	 * repository.
+	 * <p>
+	 * This method throws a RuntimeException if no provided role is present under
+	 * the given <code>name</code>. If more than one provided role with this
+	 * <code>name</code> is present, a warning will be printed during runtime and
+	 * the system chooses the first provided role it finds.
+	 * </p>
+	 * 
+	 * @param name
+	 * @return the provided role
+	 * @see org.palladiosimulator.pcm.repository.ProvidedRole
+	 */
 	public ProvidedRole fetchOfProvidedRole(String name) {
 		ProvidedRole provRole = repo.getProvidedRole(name);
 		if (provRole == null)
@@ -828,6 +1080,20 @@ public class MyRepositoryFactory {
 		return provRole;
 	}
 
+	/**
+	 * Extracts the required role referenced by <code>name</code> from the
+	 * repository.
+	 * <p>
+	 * This method throws a RuntimeException if no required role is present under
+	 * the given <code>name</code>. If more than one required role with this
+	 * <code>name</code> is present, a warning will be printed during runtime and
+	 * the system chooses the first required role it finds.
+	 * </p>
+	 * 
+	 * @param name
+	 * @return the required role
+	 * @see org.palladiosimulator.pcm.repository.RequiredRole
+	 */
 	public RequiredRole fetchOfRequiredRole(String name) {
 		RequiredRole reqRole = repo.getRequiredRole(name);
 		if (reqRole == null)
@@ -835,6 +1101,21 @@ public class MyRepositoryFactory {
 		return reqRole;
 	}
 
+	/**
+	 * Extracts the operation provided role referenced by <codrequired roleom the
+	 * repository.
+	 * <p>
+	 * This method throws a RuntimeException if no operation provided role is
+	 * present under the given <code>name</code>. If more than one operation
+	 * provided role with this <code>name</code> is present, a warning will be
+	 * printed during runtime and the system chooses the first operation provided
+	 * role it finds.
+	 * </p>
+	 * 
+	 * @param name
+	 * @return the operation provided role
+	 * @see org.palladiosimulator.pcm.repository.OperationProvidedRole
+	 */
 	public OperationProvidedRole fetchOfOperationProvidedRole(String name) {
 		OperationProvidedRole provRole = repo.getOperationProvidedRole(name);
 		if (provRole == null)
@@ -842,6 +1123,21 @@ public class MyRepositoryFactory {
 		return provRole;
 	}
 
+	/**
+	 * Extracts the operation required role referenced by <code>name</code> from the
+	 * repository.
+	 * <p>
+	 * This method throws a RuntimeException if no operation required role is
+	 * present under the given <code>name</code>. If more than one operation
+	 * required role with this <code>name</code> is present, a warning will be
+	 * printed during runtime and the system chooses the first operation required
+	 * role it finds.
+	 * </p>
+	 * 
+	 * @param name
+	 * @return the operation required role
+	 * @see org.palladiosimulator.pcm.repository.OperationRequiredRole
+	 */
 	public OperationRequiredRole fetchOfOperationRequiredRole(String name) {
 		OperationRequiredRole reqRole = repo.getOperationRequiredRole(name);
 		if (reqRole == null)
@@ -849,6 +1145,21 @@ public class MyRepositoryFactory {
 		return reqRole;
 	}
 
+	/**
+	 * Extracts the infrastructure provided role referenced by <code>name</code>
+	 * from the repository.
+	 * <p>
+	 * This method throws a RuntimeException if no infrastructure provided role is
+	 * present under the given <code>name</code>. If more than one infrastructure
+	 * provided role with this <code>name</code> is present, a warning will be
+	 * printed during runtime and the system chooses the first infrastructure
+	 * provided role it finds.
+	 * </p>
+	 * 
+	 * @param name
+	 * @return the infrastructure provided role
+	 * @see org.palladiosimulator.pcm.repository.InfrastructureProvidedRole
+	 */
 	public InfrastructureProvidedRole fetchOfInfrastructureProvidedRole(String name) {
 		InfrastructureProvidedRole provRole = repo.getInfrastructureProvidedRole(name);
 		if (provRole == null)
@@ -856,6 +1167,21 @@ public class MyRepositoryFactory {
 		return provRole;
 	}
 
+	/**
+	 * Extracts the infrastructure required role referenced by <code>name</code>
+	 * from the repository.
+	 * <p>
+	 * This method throws a RuntimeException if no infrastructure required role is
+	 * present under the given <code>name</code>. If more than one infrastructure
+	 * required role with this <code>name</code> is present, a warning will be
+	 * printed during runtime and the system chooses the first infrastructure
+	 * required role it finds.
+	 * </p>
+	 * 
+	 * @param name
+	 * @return the infrastructure required role
+	 * @see org.palladiosimulator.pcm.repository.InfrastructureRequiredRole
+	 */
 	public InfrastructureRequiredRole fetchOfInfrastructureRequiredRole(String name) {
 		InfrastructureRequiredRole reqRole = repo.getInfrastructureRequiredRole(name);
 		if (reqRole == null)
@@ -863,6 +1189,19 @@ public class MyRepositoryFactory {
 		return reqRole;
 	}
 
+	/**
+	 * Extracts the sink role referenced by <code>name</code> from the repository.
+	 * <p>
+	 * This method throws a RuntimeException if no sink role is present under the
+	 * given <code>name</code>. If more than one sink role with this
+	 * <code>name</code> is present, a warning will be printed during runtime and
+	 * the system chooses the first sink role it finds.
+	 * </p>
+	 * 
+	 * @param name
+	 * @return the sink role
+	 * @see org.palladiosimulator.pcm.repository.SinkRole
+	 */
 	public SinkRole fetchOfSinkRole(String name) {
 		SinkRole provRole = repo.getSinkRole(name);
 		if (provRole == null)
@@ -870,6 +1209,19 @@ public class MyRepositoryFactory {
 		return provRole;
 	}
 
+	/**
+	 * Extracts the source role referenced by <code>name</code> from the repository.
+	 * <p>
+	 * This method throws a RuntimeException if no source role is present under the
+	 * given <code>name</code>. If more than one source role with this
+	 * <code>name</code> is present, a warning will be printed during runtime and
+	 * the system chooses the first source role it finds.
+	 * </p>
+	 * 
+	 * @param name
+	 * @return the source role
+	 * @see org.palladiosimulator.pcm.repository.SourceRole
+	 */
 	public SourceRole fetchOfSourceRole(String name) {
 		SourceRole reqRole = repo.getSourceRole(name);
 		if (reqRole == null)
@@ -877,16 +1229,40 @@ public class MyRepositoryFactory {
 		return reqRole;
 	}
 
+	/**
+	 * Extracts the resource required role referenced by <code>name</code> from the repository.
+	 * <p>
+	 * This method throws a RuntimeException if no resource required role is present under the
+	 * given <code>name</code>. If more than one resource required role with this
+	 * <code>name</code> is present, a warning will be printed during runtime and
+	 * the system chooses the first resource required role it finds.
+	 * </p>
+	 * 
+	 * @param name
+	 * @return the resource required role
+	 * @see org.palladiosimulator.pcm.core.entity.ResourceRequiredRole
+	 */
 	public ResourceRequiredRole fetchOfResourceRequiredRole(String name) {
-		// TODO: resource stuff
-		return null;
+		ResourceRequiredRole reqRole = repo.getResourceRequiredRole(name);
+		if (reqRole == null)
+			throw new RuntimeException("ResourceRequiredRole '" + name + "' could not be found");
+		return reqRole;
 	}
 
-	public ResourceInterface fetchOfResourceInterface(String name) {
-		// TODO: resource stuff
-		return null;
-	}
-
+	/**
+	 * Extracts the assembly context referenced by <code>name</code> from the
+	 * repository.
+	 * <p>
+	 * This method throws a RuntimeException if no assembly context is present under
+	 * the given <code>name</code>. If more than one assembly context with this
+	 * <code>name</code> is present, a warning will be printed during runtime and
+	 * the system chooses the first assembly context it finds.
+	 * </p>
+	 * 
+	 * @param name
+	 * @return the assembly context
+	 * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
+	 */
 	public AssemblyContext fetchOfAssemblyContext(String name) {
 		AssemblyContext assContext = repo.getAssemblyContext(name);
 		if (assContext == null)
@@ -894,6 +1270,20 @@ public class MyRepositoryFactory {
 		return assContext;
 	}
 
+	/**
+	 * Extracts the event channel referenced by <code>name</code> from the
+	 * repository.
+	 * <p>
+	 * This method throws a RuntimeException if no event channel is present under
+	 * the given <code>name</code>. If more than one event channel with this
+	 * <code>name</code> is present, a warning will be printed during runtime and
+	 * the system chooses the first event channel it finds.
+	 * </p>
+	 * 
+	 * @param name
+	 * @return the event channel
+	 * @see org.palladiosimulator.pcm.core.composition.EventChannel
+	 */
 	public EventChannel fetchOfEventChannel(String name) {
 		EventChannel eventChannel = repo.getEventChannel(name);
 		if (eventChannel == null)
@@ -901,22 +1291,63 @@ public class MyRepositoryFactory {
 		return eventChannel;
 	}
 
+	/**
+	 * Extracts the event channel sink connector referenced by <code>name</code>
+	 * from the repository.
+	 * <p>
+	 * This method throws a RuntimeException if no event channel sink connector is
+	 * present under the given <code>name</code>. If more than one event channel
+	 * sink connector with this <code>name</code> is present, a warning will be
+	 * printed during runtime and the system chooses the first event channel sink
+	 * connector it finds.
+	 * </p>
+	 * 
+	 * @param name
+	 * @return the event channel sink connector
+	 * @see org.palladiosimulator.pcm.core.composition.EventChannelSinkConnector
+	 */
 	public EventChannelSinkConnector fetchOfEventChannelSinkConnector(String name) {
-//		EventChannel eventChannel = repo.getEventChannel(name);
-//		if (eventChannel == null)
-//			throw new RuntimeException("Event Channel '" + name + "' could not be found");
-//		return eventChannel;
-		return null; // TODO:
+		EventChannelSinkConnector connector = repo.getEventChannelSinkConnector(name);
+		if (connector == null)
+			throw new RuntimeException("Event Channel Sink Connector '" + name + "' could not be found");
+		return connector;
 	}
 
+	/**
+	 * Extracts the event channel source connector referenced by <code>name</code>
+	 * from the repository.
+	 * <p>
+	 * This method throws a RuntimeException if no event channel source connector is
+	 * present under the given <code>name</code>. If more than one event channel
+	 * source connector with this <code>name</code> is present, a warning will be
+	 * printed during runtime and the system chooses the first event channel source
+	 * connector it finds.
+	 * </p>
+	 * 
+	 * @param name
+	 * @return the event channel source connector
+	 * @see org.palladiosimulator.pcm.core.composition.EventChannelSourceConnector
+	 */
 	public EventChannelSourceConnector fetchOfEventChannelSourceConnector(String name) {
-//		EventChannel eventChannel = repo.getEventChannel(name);
-//		if (eventChannel == null)
-//			throw new RuntimeException("Event Channel '" + name + "' could not be found");
-//		return eventChannel;
-		return null; // TODO:
+		EventChannelSourceConnector connector = repo.getEventChannelSourceConnector(name);
+		if (connector == null)
+			throw new RuntimeException("Event Channel Source Connector '" + name + "' could not be found");
+		return connector;
 	}
 
+	/**
+	 * Extracts the parameter referenced by <code>name</code> from the repository.
+	 * <p>
+	 * This method throws a RuntimeException if no parameter is present under the
+	 * given <code>name</code>. If more than one parameter with this
+	 * <code>name</code> is present, a warning will be printed during runtime and
+	 * the system chooses the first parameter it finds.
+	 * </p>
+	 * 
+	 * @param name
+	 * @return the parameter
+	 * @see org.palladiosimulator.pcm.repository.Parameter
+	 */
 	public Parameter fetchOfParameter(String name) {
 		Parameter p = repo.getParameter(name);
 		if (p == null)
@@ -924,11 +1355,48 @@ public class MyRepositoryFactory {
 		return p;
 	}
 
+	/**
+	 * Extracts the parameter referenced by <code>name</code> occurring in the
+	 * signature <code>context</code> from the repository.
+	 * <p>
+	 * This method throws a RuntimeException if no parameter is present under the
+	 * given <code>name</code>. If more than one parameter with this
+	 * <code>name</code> is present, a warning will be printed during runtime and
+	 * the system chooses the first parameter it finds.
+	 * </p>
+	 * 
+	 * @param name
+	 * @param context
+	 * @return the parameter
+	 * @see org.palladiosimulator.pcm.repository.Parameter
+	 */
 	public Parameter fetchOfParameter(String name, Signature context) {
 		Parameter p = repo.getParameter(name, context);
 		if (p == null)
 			throw new RuntimeException("Parameter '" + name + "' could not be found");
 		return p;
+	}
+
+	/**
+	 * Extracts the recovery action behaviour referenced by <code>name</code> from
+	 * the repository.
+	 * <p>
+	 * This method throws a RuntimeException if no recovery action behaviour is
+	 * present under the given <code>name</code>. If more than one recovery action
+	 * behaviour with this <code>name</code> is present, a warning will be printed
+	 * during runtime and the system chooses the first recovery action behaviour it
+	 * finds.
+	 * </p>
+	 * 
+	 * @param name
+	 * @return the recovery action behaviour
+	 * @see org.palladiosimulator.pcm.seff.seff_reliability.RecoveryActionBehaviour
+	 */
+	public RecoveryActionBehaviour fetchOfRecoveryActionBehaviour(String name) {
+		RecoveryActionBehaviour r = repo.getRecoveryActionBehaviour(name);
+		if(r == null)
+			throw new RuntimeException("Recovery action behaviour '" + name + "' could not be found");
+		return r;
 	}
 
 }

@@ -64,13 +64,13 @@ public class CompositeDataTypeCreator {
 	 * <code>.withInnerDeclaration("age", Primitive.INTEGER)</code> conforms with
 	 * <code>public int age;</code>.<br>
 	 * Non primitive data types can be fetched from the repository using the method
-	 * {@link factory.MyRepositoryFactory#fetchOfDataType(String)
+	 * {@link factory.FluentRepositoryFactory#fetchOfDataType(String)
 	 * fetchOfDataType(String)}.
 	 * 
 	 * @param name     for the inner data type
 	 * @param dataType inner data type
 	 * @return the composite data type in the making
-	 * @see factory.MyRepositoryFactory#fetchOfDataType(String)
+	 * @see factory.FluentRepositoryFactory#fetchOfDataType(String)
 	 * @see org.palladiosimulator.pcm.repository.CompositeDataType
 	 */
 	public CompositeDataTypeCreator withInnerDeclaration(String name, DataType dataType) {

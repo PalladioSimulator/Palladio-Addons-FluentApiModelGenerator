@@ -16,7 +16,7 @@ import org.palladiosimulator.pcm.parameter.VariableCharacterisationType;
 import org.palladiosimulator.pcm.repository.ParameterModifier;
 import org.palladiosimulator.pcm.repository.Repository;
 
-import factory.MyRepositoryFactory;
+import factory.FluentRepositoryFactory;
 import repositoryStructure.datatypes.Failure;
 import repositoryStructure.datatypes.Primitive;
 
@@ -26,7 +26,7 @@ public class Main {
 
 		mediaStoreExample();
 //		nullExample();
-		MyRepositoryFactory create = new MyRepositoryFactory();
+		FluentRepositoryFactory create = new FluentRepositoryFactory();
 
 		Repository repo = create.newRepository()
 			.withName("defaultRepository")
@@ -178,7 +178,7 @@ public class Main {
 	}
 	
 	public static void nullExample() {
-		MyRepositoryFactory create = new MyRepositoryFactory();
+		FluentRepositoryFactory create = new FluentRepositoryFactory();
 		Repository repo = create.newRepository()
 			.withName(null)
 			.withDescription(null)
@@ -201,7 +201,25 @@ public class Main {
 					.conforms(create.fetchOfCompleteComponentType(null))
 					.withServiceEffectSpecification(null)
 					//TODO javadoc for seffs
-					.withServiceEffectSpecification(create.newSeff()))
+					.withServiceEffectSpecification(create.newSeff()
+							.onSignature(null)
+							.withSeffTypeID(null)
+							.withInternalBehaviour(create.newInternalBehaviour()
+									.withStartAction()
+									.followedBy().stopAction().createBehaviourNow())
+							.withSeffBehaviour().withStartAction()
+							.followedBy().recoveryAction()
+									.withAlternativeBehaviour(create.newRecoveryBehaviour()
+//											.withName("foo")
+											.withSeffBehaviour().withStartAction().followedBy().stopAction().createBehaviourNow())
+									.withPrimaryBehaviour(create.newRecoveryBehaviour()
+											.withAlternativeRecoveryBehaviour(create.fetchOfRecoveryActionBehaviour("foo"))
+											.withFailureType(null)
+											.withSeffBehaviour().withStartAction()
+											.followedBy().stopAction().createBehaviourNow())
+							//other actions
+							.followedBy().stopAction().createBehaviourNow()
+					))
 			
 			.addToRepository(create.newCompleteComponentType()
 					.withName(null)
@@ -267,18 +285,41 @@ public class Main {
 			.addToRepository(create.newOperationInterface()
 					.withName(null)
 					.conforms(null)
-					//TODO:
-					.withOperationSignature().now()
+					.withOperationSignature()
+						.withName(null)
+						.withParameter(null, Primitive.BOOLEAN, null)
+						.withReturnType(Primitive.BOOLEAN)
+						.withFailureType(Failure.HARDWARE_CPU)
+						.withExceptionType(null)
+						.now()
 					.withRequiredCharacterisation(null, null))
-			.addToRepository(create.newInfrastructureInterface())
-			.addToRepository(create.newEventGroup())
+			.addToRepository(create.newInfrastructureInterface()
+					.withName(null)
+					.conforms(null)
+					.withInfrastructureSignature()
+						.withName(null)
+						.withParameter(null, Primitive.BOOLEAN, null)
+						.withFailureType(Failure.HARDWARE_CPU)
+						.withExceptionType(null)
+						.now()
+					.withRequiredCharacterisation(null, null))
+			.addToRepository(create.newEventGroup()
+					.withName(null)
+					.conforms(null)
+					.withEventType()
+						.withName(null)
+						.withParameter(null, Primitive.BOOLEAN, null)
+						.withFailureType(Failure.HARDWARE_CPU)
+						.withExceptionType(null)
+						.now()
+					.withRequiredCharacterisation(null, null))
 			.createRepositoryNow();
 		
 		saveRepository(repo, "null.repository", false);
 	}
 	
 	public static void mediaStoreExample() {
-		MyRepositoryFactory create = new MyRepositoryFactory();
+		FluentRepositoryFactory create = new FluentRepositoryFactory();
 
 		//TODO: seffs + failureType + Namen der Provided Roles
 		Repository mediaStore = create.newRepository()

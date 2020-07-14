@@ -22,9 +22,9 @@ public interface RepoAddition {
 	 * 
 	 * @param collectionDataType
 	 * @return the repository, now containing the <code>collectionDataType</code>
-	 * @see factory.MyRepositoryFactory#newCollectionDataType(String,
+	 * @see factory.FluentRepositoryFactory#newCollectionDataType(String,
 	 *      repositoryStructure.datatypes.Primitive)
-	 * @see factory.MyRepositoryFactory#newCollectionDataType(String,
+	 * @see factory.FluentRepositoryFactory#newCollectionDataType(String,
 	 *      org.palladiosimulator.pcm.repository.DataType)
 	 * @see org.palladiosimulator.pcm.repository.CollectionDataType
 	 */
@@ -44,7 +44,7 @@ public interface RepoAddition {
 	 * 
 	 * @param compositeDataType
 	 * @return the repository, now containing the <code>compositeDataType</code>
-	 * @see factory.MyRepositoryFactory#newCompositeDataType(String,
+	 * @see factory.FluentRepositoryFactory#newCompositeDataType(String,
 	 *      org.palladiosimulator.pcm.repository.CompositeDataType...)
 	 * @see org.palladiosimulator.pcm.repository.CompositeDataType
 	 */
@@ -66,11 +66,11 @@ public interface RepoAddition {
 	 * 
 	 * @param component
 	 * @return the repository, now containing the <code>component</code>
-	 * @see factory.MyRepositoryFactory#newBasicComponent()
-	 * @see factory.MyRepositoryFactory#newCompositeComponent()
-	 * @see factory.MyRepositoryFactory#newSubSystem()
-	 * @see factory.MyRepositoryFactory#newCompleteComponentType()
-	 * @see factory.MyRepositoryFactory#newProvidesComponentType()
+	 * @see factory.FluentRepositoryFactory#newBasicComponent()
+	 * @see factory.FluentRepositoryFactory#newCompositeComponent()
+	 * @see factory.FluentRepositoryFactory#newSubSystem()
+	 * @see factory.FluentRepositoryFactory#newCompleteComponentType()
+	 * @see factory.FluentRepositoryFactory#newProvidesComponentType()
 	 * @see org.palladiosimulator.pcm.repository.RepositoryComponent
 	 */
 	RepoAddition addToRepository(Component component);
@@ -90,9 +90,9 @@ public interface RepoAddition {
 	 * 
 	 * @param interfce
 	 * @return the repository, now containing the <code>interfce</code>
-	 * @see factory.MyRepositoryFactory#newOperationInterface()
-	 * @see factory.MyRepositoryFactory#newEventGroup()
-	 * @see factory.MyRepositoryFactory#newInfrastructureInterface()
+	 * @see factory.FluentRepositoryFactory#newOperationInterface()
+	 * @see factory.FluentRepositoryFactory#newEventGroup()
+	 * @see factory.FluentRepositoryFactory#newInfrastructureInterface()
 	 * @see org.palladiosimulator.pcm.repository.Interface
 	 */
 	RepoAddition addToRepository(Interface interfce);

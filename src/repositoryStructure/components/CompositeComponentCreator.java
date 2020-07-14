@@ -23,7 +23,7 @@ import org.palladiosimulator.pcm.repository.SinkRole;
 import org.palladiosimulator.pcm.repository.SourceRole;
 import org.palladiosimulator.pcm.resourcetype.ResourceInterface;
 
-import apiControlFlowInterfaces.EventChannelCreation.Comp;
+import apiControlFlowInterfaces.EventChannelCreation.EventChannelComposite;
 import repositoryStructure.RepositoryCreator;
 import repositoryStructure.interfaces.EventGroupCreator;
 import repositoryStructure.interfaces.InfrastructureInterfaceCreator;
@@ -232,7 +232,7 @@ public class CompositeComponentCreator extends ComplexComponent {
 	 * 
 	 * @param completeComponentType
 	 * @return the composite component in the making
-	 * @see factory.MyRepositoryFactory#newCompleteComponentType()
+	 * @see factory.FluentRepositoryFactory#newCompleteComponentType()
 	 * @see org.palladiosimulator.pcm.repository.CompositeComponent#getParentCompleteComponentTypes()
 	 * @see org.palladiosimulator.pcm.repository.CompleteComponentType
 	 */
@@ -258,7 +258,7 @@ public class CompositeComponentCreator extends ComplexComponent {
 	 * 
 	 * @param completeComponentType
 	 * @return the composite component in the making
-	 * @see factory.MyRepositoryFactory#fetchOfCompleteComponentType(String)
+	 * @see factory.FluentRepositoryFactory#fetchOfCompleteComponentType(String)
 	 * @see org.palladiosimulator.pcm.repository.CompositeComponent#getParentCompleteComponentTypes()
 	 * @see org.palladiosimulator.pcm.repository.CompleteComponentType
 	 */
@@ -285,7 +285,7 @@ public class CompositeComponentCreator extends ComplexComponent {
 	 * 
 	 * @param variableUsage in the making
 	 * @return the composite component in the making
-	 * @see factory.MyRepositoryFactory#newVariableUsage()
+	 * @see factory.FluentRepositoryFactory#newVariableUsage()
 	 * @see org.palladiosimulator.pcm.parameter.VariableUsage
 	 */
 	public CompositeComponentCreator withVariableUsage(VariableUsageCreator variableUsage) {
@@ -300,7 +300,7 @@ public class CompositeComponentCreator extends ComplexComponent {
 	}
 
 	@Override
-	public Comp withEventChannel() {
+	public EventChannelComposite withEventChannel() {
 		return new EventChannelCreator(this, this.repository);
 	}
 

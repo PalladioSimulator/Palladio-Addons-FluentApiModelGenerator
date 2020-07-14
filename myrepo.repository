@@ -1,54 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<repository:Repository xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:composition="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2" xmlns:reliability="http://palladiosimulator.org/PalladioComponentModel/Reliability/5.2" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:seff="http://palladiosimulator.org/PalladioComponentModel/SEFF/5.2" xmlns:stoex="http://sdq.ipd.uka.de/StochasticExpressions/2.2" id="_oEb9YMT1Eeq5ZNhHrpJ8EQ" entityName="defaultRepository" repositoryDescription="This is my PCM model.">
-  <components__Repository xsi:type="repository:BasicComponent" id="_oEQ-QMT1Eeq5ZNhHrpJ8EQ" entityName="Database">
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:SinkRole" id="_oEBtsMT1Eeq5ZNhHrpJ8EQ" eventGroup__SinkRole="_oEBGoMT1Eeq5ZNhHrpJ8EQ"/>
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_oEF_IMT1Eeq5ZNhHrpJ8EQ" entityName="provDB" providedInterface__OperationProvidedRole="_oD_RcMT1Eeq5ZNhHrpJ8EQ"/>
-    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_oEF_IsT1Eeq5ZNhHrpJ8EQ" entityName="reqSomeI" requiredInterface__OperationRequiredRole="_oEF_IcT1Eeq5ZNhHrpJ8EQ"/>
+<repository:Repository xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:composition="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2" xmlns:reliability="http://palladiosimulator.org/PalladioComponentModel/Reliability/5.2" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:seff="http://palladiosimulator.org/PalladioComponentModel/SEFF/5.2" xmlns:stoex="http://sdq.ipd.uka.de/StochasticExpressions/2.2" id="_6Fa84cXBEeq4RdDnYJuQjg" entityName="defaultRepository" repositoryDescription="This is my PCM model.">
+  <components__Repository xsi:type="repository:BasicComponent" id="_6FHa4MXBEeq4RdDnYJuQjg" entityName="Database">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:SinkRole" id="_6EyDsMXBEeq4RdDnYJuQjg" eventGroup__SinkRole="_6ExcoMXBEeq4RdDnYJuQjg"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_6E5_gMXBEeq4RdDnYJuQjg" entityName="provDB" providedInterface__OperationProvidedRole="_6EvncMXBEeq4RdDnYJuQjg"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_6E5_gsXBEeq4RdDnYJuQjg" entityName="reqSomeI" requiredInterface__OperationRequiredRole="_6E5_gcXBEeq4RdDnYJuQjg"/>
     <componentParameterUsage_ImplementationComponentType>
       <variableCharacterisation_VariableUsage/>
     </componentParameterUsage_ImplementationComponentType>
-    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_oEFYEcT1Eeq5ZNhHrpJ8EQ">
-      <steps_Behaviour xsi:type="seff:StartAction" id="_oEDi4MT1Eeq5ZNhHrpJ8EQ" successor_AbstractAction="_oEEJ8MT1Eeq5ZNhHrpJ8EQ"/>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_oEEJ8MT1Eeq5ZNhHrpJ8EQ" predecessor_AbstractAction="_oEDi4MT1Eeq5ZNhHrpJ8EQ" successor_AbstractAction="_oEFYEMT1Eeq5ZNhHrpJ8EQ"/>
-      <steps_Behaviour xsi:type="seff:StopAction" id="_oEFYEMT1Eeq5ZNhHrpJ8EQ" predecessor_AbstractAction="_oEEJ8MT1Eeq5ZNhHrpJ8EQ"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_6E5YccXBEeq4RdDnYJuQjg">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_6E1uEMXBEeq4RdDnYJuQjg" successor_AbstractAction="_6E3jQMXBEeq4RdDnYJuQjg"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_6E3jQMXBEeq4RdDnYJuQjg" predecessor_AbstractAction="_6E1uEMXBEeq4RdDnYJuQjg" successor_AbstractAction="_6E5YcMXBEeq4RdDnYJuQjg"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_6E5YcMXBEeq4RdDnYJuQjg" predecessor_AbstractAction="_6E3jQMXBEeq4RdDnYJuQjg"/>
     </serviceEffectSpecifications__BasicComponent>
-    <passiveResource_BasicComponent id="_oEN68MT1Eeq5ZNhHrpJ8EQ">
+    <passiveResource_BasicComponent id="_6FE-oMXBEeq4RdDnYJuQjg">
       <capacity_PassiveResource specification="2*3"/>
     </passiveResource_BasicComponent>
   </components__Repository>
-  <components__Repository xsi:type="repository:BasicComponent" id="_oEQ-Q8T1Eeq5ZNhHrpJ8EQ" entityName="Web2">
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_oEQ-QsT1Eeq5ZNhHrpJ8EQ" providedInterface__OperationProvidedRole="_oEQ-QcT1Eeq5ZNhHrpJ8EQ"/>
+  <components__Repository xsi:type="repository:BasicComponent" id="_6FHa48XBEeq4RdDnYJuQjg" entityName="Web2">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_6FHa4sXBEeq4RdDnYJuQjg" providedInterface__OperationProvidedRole="_6FHa4cXBEeq4RdDnYJuQjg"/>
   </components__Repository>
-  <components__Repository xsi:type="repository:CompositeComponent" id="_oEbWUMT1Eeq5ZNhHrpJ8EQ" entityName="Web">
-    <assemblyContexts__ComposedStructure id="_oEUooMT1Eeq5ZNhHrpJ8EQ" entityName="DBContext" encapsulatedComponent__AssemblyContext="_oEQ-QMT1Eeq5ZNhHrpJ8EQ"/>
-    <eventChannel__ComposedStructure id="_oEZhIMT1Eeq5ZNhHrpJ8EQ" eventGroup__EventChannel="_oEBGoMT1Eeq5ZNhHrpJ8EQ"/>
-    <connectors__ComposedStructure xsi:type="composition:AssemblyConnector" id="_oEXr8MT1Eeq5ZNhHrpJ8EQ" requiringAssemblyContext_AssemblyConnector="_oEUooMT1Eeq5ZNhHrpJ8EQ" providingAssemblyContext_AssemblyConnector="_oEUooMT1Eeq5ZNhHrpJ8EQ" providedRole_AssemblyConnector="_oEF_IMT1Eeq5ZNhHrpJ8EQ" requiredRole_AssemblyConnector="_oEF_IsT1Eeq5ZNhHrpJ8EQ"/>
-    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_oETagMT1Eeq5ZNhHrpJ8EQ" requiredInterface__OperationRequiredRole="_oESzcMT1Eeq5ZNhHrpJ8EQ"/>
+  <components__Repository xsi:type="repository:CompositeComponent" id="_6Fa84MXBEeq4RdDnYJuQjg" entityName="Web">
+    <assemblyContexts__ComposedStructure id="_6FMTYMXBEeq4RdDnYJuQjg" entityName="DBContext" encapsulatedComponent__AssemblyContext="_6FHa4MXBEeq4RdDnYJuQjg"/>
+    <eventChannel__ComposedStructure id="_6FWrcMXBEeq4RdDnYJuQjg" eventGroup__EventChannel="_6ExcoMXBEeq4RdDnYJuQjg"/>
+    <connectors__ComposedStructure xsi:type="composition:AssemblyConnector" id="_6FUPMMXBEeq4RdDnYJuQjg" requiringAssemblyContext_AssemblyConnector="_6FMTYMXBEeq4RdDnYJuQjg" providingAssemblyContext_AssemblyConnector="_6FMTYMXBEeq4RdDnYJuQjg" providedRole_AssemblyConnector="_6E5_gMXBEeq4RdDnYJuQjg" requiredRole_AssemblyConnector="_6E5_gsXBEeq4RdDnYJuQjg"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_6FJ3IcXBEeq4RdDnYJuQjg" requiredInterface__OperationRequiredRole="_6FJ3IMXBEeq4RdDnYJuQjg"/>
     <componentParameterUsage_ImplementationComponentType>
       <variableCharacterisation_VariableUsage/>
       <namedReference__VariableUsage xsi:type="stoex:NamespaceReference"/>
     </componentParameterUsage_ImplementationComponentType>
   </components__Repository>
-  <interfaces__Repository xsi:type="repository:OperationInterface" id="_oD_RcMT1Eeq5ZNhHrpJ8EQ" entityName="IDatabase">
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_6EvncMXBEeq4RdDnYJuQjg" entityName="IDatabase">
     <requiredCharacterisations type="VALUE" parameter="//@interfaces__Repository.0/@signatures__OperationInterface.0/@parameters__OperationSignature.1"/>
-    <signatures__OperationInterface id="_oD-DUsT1Eeq5ZNhHrpJ8EQ" entityName="saveDatabaseEntry" returnType__OperationSignature="_oD-DUcT1Eeq5ZNhHrpJ8EQ">
-      <parameters__OperationSignature dataType__Parameter="_oD-DUMT1Eeq5ZNhHrpJ8EQ" parameterName="first names"/>
+    <signatures__OperationInterface id="_6EuZUsXBEeq4RdDnYJuQjg" entityName="saveDatabaseEntry" returnType__OperationSignature="_6EuZUcXBEeq4RdDnYJuQjg">
+      <parameters__OperationSignature dataType__Parameter="_6EuZUMXBEeq4RdDnYJuQjg" parameterName="first names"/>
       <parameters__OperationSignature dataType__Parameter="//@dataTypes__Repository.4" parameterName="age" modifier__Parameter="inout"/>
     </signatures__OperationInterface>
   </interfaces__Repository>
-  <interfaces__Repository xsi:type="repository:EventGroup" id="_oEBGoMT1Eeq5ZNhHrpJ8EQ" entityName="hallo">
+  <interfaces__Repository xsi:type="repository:EventGroup" id="_6ExcoMXBEeq4RdDnYJuQjg" entityName="hallo">
     <requiredCharacterisations parameter="//@interfaces__Repository.1/@eventTypes__EventGroup.0/@parameter__EventType"/>
-    <eventTypes__EventGroup id="_oD_4gMT1Eeq5ZNhHrpJ8EQ" entityName="type">
+    <eventTypes__EventGroup id="_6EwOgMXBEeq4RdDnYJuQjg" entityName="type">
       <parameter__EventType dataType__Parameter="//@dataTypes__Repository.0" parameterName="foo"/>
     </eventTypes__EventGroup>
   </interfaces__Repository>
-  <interfaces__Repository xsi:type="repository:OperationInterface" id="_oEF_IcT1Eeq5ZNhHrpJ8EQ" entityName="someInterface"/>
-  <interfaces__Repository xsi:type="repository:OperationInterface" id="_oEQ-QcT1Eeq5ZNhHrpJ8EQ" entityName="IDatabase2"/>
-  <interfaces__Repository xsi:type="repository:OperationInterface" id="_oESzcMT1Eeq5ZNhHrpJ8EQ" entityName="HelloWorld"/>
-  <failureTypes__Repository xsi:type="reliability:HardwareInducedFailureType" id="_HlRi4UNsEd-z_dlODpG6uw" entityName="HardwareInducedFailure (CPU)" processingResourceType__HardwareInducedFailureType="_oCgDsMT1Eeq5ZNhHrpJ8EQ"/>
-  <failureTypes__Repository xsi:type="reliability:HardwareInducedFailureType" id="_L-N5F0NsEd-z_dlODpG6uw" entityName="HardwareInducedFailure (HDD)" processingResourceType__HardwareInducedFailureType="_oCif8cT1Eeq5ZNhHrpJ8EQ"/>
-  <failureTypes__Repository xsi:type="reliability:HardwareInducedFailureType" id="_41yAR0PGEd-ZmrACNr1Mew" entityName="HardwareInducedFailure (DELAY)" processingResourceType__HardwareInducedFailureType="_oCif88T1Eeq5ZNhHrpJ8EQ"/>
-  <failureTypes__Repository xsi:type="reliability:NetworkInducedFailureType" id="_P0TZ10NsEd-z_dlODpG6uw" entityName="NetworkInducedFailure (LAN)" communicationLinkResourceType__NetworkInducedFailureType="_oCh44cT1Eeq5ZNhHrpJ8EQ"/>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_6E5_gcXBEeq4RdDnYJuQjg" entityName="someInterface"/>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_6FHa4cXBEeq4RdDnYJuQjg" entityName="IDatabase2"/>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_6FJ3IMXBEeq4RdDnYJuQjg" entityName="HelloWorld"/>
+  <failureTypes__Repository xsi:type="reliability:HardwareInducedFailureType" id="_HlRi4UNsEd-z_dlODpG6uw" entityName="HardwareInducedFailure (CPU)" processingResourceType__HardwareInducedFailureType="_6CmSYcXBEeq4RdDnYJuQjg"/>
+  <failureTypes__Repository xsi:type="reliability:HardwareInducedFailureType" id="_L-N5F0NsEd-z_dlODpG6uw" entityName="HardwareInducedFailure (HDD)" processingResourceType__HardwareInducedFailureType="_6Couo8XBEeq4RdDnYJuQjg"/>
+  <failureTypes__Repository xsi:type="reliability:HardwareInducedFailureType" id="_41yAR0PGEd-ZmrACNr1Mew" entityName="HardwareInducedFailure (DELAY)" processingResourceType__HardwareInducedFailureType="_6CoupcXBEeq4RdDnYJuQjg"/>
+  <failureTypes__Repository xsi:type="reliability:NetworkInducedFailureType" id="_P0TZ10NsEd-z_dlODpG6uw" entityName="NetworkInducedFailure (LAN)" communicationLinkResourceType__NetworkInducedFailureType="_6CouocXBEeq4RdDnYJuQjg"/>
   <failureTypes__Repository xsi:type="reliability:SoftwareInducedFailureType" id="_sLBREFf0EeW5Q6z-Ts8kIg" entityName="SoftwareInducedFailure"/>
   <dataTypes__Repository xsi:type="repository:PrimitiveDataType" type="BOOL"/>
   <dataTypes__Repository xsi:type="repository:PrimitiveDataType" type="BYTE"/>
@@ -57,9 +57,9 @@
   <dataTypes__Repository xsi:type="repository:PrimitiveDataType"/>
   <dataTypes__Repository xsi:type="repository:PrimitiveDataType" type="LONG"/>
   <dataTypes__Repository xsi:type="repository:PrimitiveDataType" type="STRING"/>
-  <dataTypes__Repository xsi:type="repository:CollectionDataType" id="_oD-DUMT1Eeq5ZNhHrpJ8EQ" entityName="StringList" innerType_CollectionDataType="//@dataTypes__Repository.6"/>
-  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_oD-DUcT1Eeq5ZNhHrpJ8EQ" entityName="Person">
-    <innerDeclaration_CompositeDataType entityName="first names" datatype_InnerDeclaration="_oD-DUMT1Eeq5ZNhHrpJ8EQ"/>
+  <dataTypes__Repository xsi:type="repository:CollectionDataType" id="_6EuZUMXBEeq4RdDnYJuQjg" entityName="StringList" innerType_CollectionDataType="//@dataTypes__Repository.6"/>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_6EuZUcXBEeq4RdDnYJuQjg" entityName="Person">
+    <innerDeclaration_CompositeDataType entityName="first names" datatype_InnerDeclaration="_6EuZUMXBEeq4RdDnYJuQjg"/>
     <innerDeclaration_CompositeDataType entityName="age" datatype_InnerDeclaration="//@dataTypes__Repository.4"/>
   </dataTypes__Repository>
 </repository:Repository>

@@ -1,82 +1,68 @@
 package main;
+
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceFactoryImpl;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceFactoryImpl;
-import org.palladiosimulator.pcm.core.CoreFactory;
-import org.palladiosimulator.pcm.core.PCMRandomVariable;
-import org.palladiosimulator.pcm.parameter.ParameterFactory;
-import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
-import org.palladiosimulator.pcm.parameter.VariableUsage;
 import org.palladiosimulator.pcm.repository.BasicComponent;
 import org.palladiosimulator.pcm.repository.OperationInterface;
 import org.palladiosimulator.pcm.repository.OperationProvidedRole;
-import org.palladiosimulator.pcm.repository.PassiveResource;
-import org.palladiosimulator.pcm.repository.PrimitiveDataType;
-import org.palladiosimulator.pcm.repository.PrimitiveTypeEnum;
 import org.palladiosimulator.pcm.repository.Repository;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
 import org.palladiosimulator.pcm.repository.RepositoryPackage;
 import org.palladiosimulator.pcm.resourcetype.ResourceRepository;
 import org.palladiosimulator.pcm.resourcetype.ResourcetypePackage;
 
-import de.uka.ipd.sdq.stoex.AbstractNamedReference;
-
 public class PalladioTest {
 
 	public static void main(String[] args) {
-		
+
 		ResourceSet resSet = new ResourceSetImpl();
-		
-		Resource resource = 
-				resSet.getResource(URI.createURI("pathmap://PCM_MODELS/Palladio.resourcetype"), 
-				true);
-				ResourceRepository repository = (ResourceRepository) 
-				resource.getContents().get(0);
-		
+
+		Resource resource = resSet.getResource(URI.createURI("pathmap://PCM_MODELS/Palladio.resourcetype"), true);
+		ResourceRepository repository = (ResourceRepository) resource.getContents().get(0);
+
 //		PalladioTest t = new PalladioTest();
 //		ResourceRepository resources = t.loadResourceTypeRepository();
 //		Repository p = t.loadPrimitiveTypesRepository();
 //		Repository f = t.loadFailureTypesRepository();
 //		
 		/*
-		t.setupAndSaveEMFInstanceResource();
-
-		
-//		String fileName = "resources/FailureTypes.repository";
-		String fileName = "/Users/louisalambrecht/Documents/eclipse-workspace/PalladioTest/default.repository";
-
-		Resource repoResource = t.readPalladioRepository(fileName);
-
-		// Warum funktioniert das nur, wenn vorher setup and save EMF instance resource
-		// nicht-statisch aufgerufen wurde? Das eine hat doch mit dem anderen nix zu
-		// tun...
-		if (repoResource.getContents().get(0) instanceof Repository) {
-			Repository repo = (Repository) repoResource.getContents().get(0);
-			BasicComponent dbComp = (BasicComponent) repo.getComponents__Repository().stream()
-					.filter(a -> a.getEntityName().equals("Database")).findFirst().get();
-			PassiveResource passiveResource = dbComp.getPassiveResource_BasicComponent().stream().findFirst().get();
-			PCMRandomVariable capacity = passiveResource.getCapacity_PassiveResource();
-			System.out.println(capacity.getExpression());
-			System.out.println(capacity.getSpecification());
-			System.out.println(passiveResource.getResourceTimeoutFailureType__PassiveResource());
-			System.out.println("Failure Types:");
-			repo.getFailureTypes__Repository().stream().forEach(System.out::println);
-		}
-		
-		*/
+		 * t.setupAndSaveEMFInstanceResource();
+		 * 
+		 * 
+		 * // String fileName = "resources/FailureTypes.repository"; String fileName =
+		 * "/Users/louisalambrecht/Documents/eclipse-workspace/PalladioTest/default.repository";
+		 * 
+		 * Resource repoResource = t.readPalladioRepository(fileName);
+		 * 
+		 * // Warum funktioniert das nur, wenn vorher setup and save EMF instance
+		 * resource // nicht-statisch aufgerufen wurde? Das eine hat doch mit dem
+		 * anderen nix zu // tun... if (repoResource.getContents().get(0) instanceof
+		 * Repository) { Repository repo = (Repository)
+		 * repoResource.getContents().get(0); BasicComponent dbComp = (BasicComponent)
+		 * repo.getComponents__Repository().stream() .filter(a ->
+		 * a.getEntityName().equals("Database")).findFirst().get(); PassiveResource
+		 * passiveResource =
+		 * dbComp.getPassiveResource_BasicComponent().stream().findFirst().get();
+		 * PCMRandomVariable capacity = passiveResource.getCapacity_PassiveResource();
+		 * System.out.println(capacity.getExpression());
+		 * System.out.println(capacity.getSpecification());
+		 * System.out.println(passiveResource.
+		 * getResourceTimeoutFailureType__PassiveResource());
+		 * System.out.println("Failure Types:");
+		 * repo.getFailureTypes__Repository().stream().forEach(System.out::println); }
+		 * 
+		 */
 
 	}
 
@@ -152,7 +138,7 @@ public class PalladioTest {
 
 		return resource;
 	}
-	
+
 	public ResourceRepository loadResourceTypeRepository() {
 		ResourcetypePackage.eINSTANCE.eClass();
 
@@ -172,7 +158,7 @@ public class PalladioTest {
 		ResourceRepository repository = (ResourceRepository) resource.getContents().get(0);
 		return repository;
 	}
-	
+
 	public Repository loadPrimitiveTypesRepository() {
 		RepositoryPackage.eINSTANCE.eClass();
 
@@ -192,7 +178,7 @@ public class PalladioTest {
 		Repository repository = (Repository) resource.getContents().get(0);
 		return repository;
 	}
-	
+
 	public Repository loadFailureTypesRepository() {
 		RepositoryPackage.eINSTANCE.eClass();
 

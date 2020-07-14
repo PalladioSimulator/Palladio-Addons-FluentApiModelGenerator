@@ -17,7 +17,7 @@ import org.palladiosimulator.pcm.resourcetype.ResourceInterface;
 import org.palladiosimulator.pcm.subsystem.SubSystem;
 import org.palladiosimulator.pcm.subsystem.SubsystemFactory;
 
-import apiControlFlowInterfaces.EventChannelCreation.Sub;
+import apiControlFlowInterfaces.EventChannelCreation.EventChannelSubsystem;
 import repositoryStructure.RepositoryCreator;
 import repositoryStructure.interfaces.EventGroupCreator;
 import repositoryStructure.interfaces.InfrastructureInterfaceCreator;
@@ -195,7 +195,7 @@ public class SubSystemCreator extends ComplexComponent {
 	}
 
 	@Override
-	public Sub withEventChannel() {
+	public EventChannelSubsystem withEventChannel() {
 		return new EventChannelCreator(this, this.repository);
 	}
 

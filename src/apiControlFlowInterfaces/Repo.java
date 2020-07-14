@@ -6,15 +6,15 @@ public interface Repo extends RepoAddition {
 	 * Defines the name of the repository.
 	 * 
 	 * @param name
-	 * @return the repository
+	 * @return this repository
 	 */
-	Repo withName(String description);
+	Repo withName(String name);
 
 	/**
-	 * Adds a description to the repository.
+	 * Defines the description of the repository.
 	 * 
 	 * @param description
-	 * @return the repository
+	 * @return this repository
 	 */
 	Repo withDescription(String description);
 
