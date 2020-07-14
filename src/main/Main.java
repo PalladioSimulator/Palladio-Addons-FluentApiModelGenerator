@@ -204,17 +204,21 @@ public class Main {
 					.withServiceEffectSpecification(create.newSeff()
 							.onSignature(null)
 							.withSeffTypeID(null)
+							//internal
 							.withInternalBehaviour(create.newInternalBehaviour()
 									.withStartAction()
 									.followedBy().stopAction().createBehaviourNow())
+							//normal
 							.withSeffBehaviour().withStartAction()
 							.followedBy().recoveryAction()
+									// recovery
 									.withAlternativeBehaviour(create.newRecoveryBehaviour()
-//											.withName("foo")
+											.withName("foo")
 											.withSeffBehaviour().withStartAction().followedBy().stopAction().createBehaviourNow())
 									.withPrimaryBehaviour(create.newRecoveryBehaviour()
+											//TODO: Alternative hier zu setzen ist doppelt zur erstellung der alternative 3 Zeilen drüber
 											.withAlternativeRecoveryBehaviour(create.fetchOfRecoveryActionBehaviour("foo"))
-											.withFailureType(null)
+											.withFailureType(Failure.HARDWARE_CPU)
 											.withSeffBehaviour().withStartAction()
 											.followedBy().stopAction().createBehaviourNow())
 							//other actions

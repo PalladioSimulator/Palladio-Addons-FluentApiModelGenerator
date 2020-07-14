@@ -2,6 +2,8 @@ Fragen:
 
 - SetVariableAction: hat diese Seff-Action Voraussetzungen?
 - sollte ich nullPointerExceptions werfen oder es ignorieren? Weil theoretisch *muss* man keinen wert setzen, aber es ergibt halt keinen Sinn
+- recovery behaviour: iwie ist das alles doppelt:
+die recovery action hat ein primary und alternativen (liste); das primary behaviour hat alternativen (interne liste); jede alternative hat alternativen (rekursiv mit interner Liste).
 
 - einige Funktionen/Eigenschaften stehen mehrfach, andere einfach zur Verfügung; aber einmal aufgerufen kann man sie trotzdem neu aufrufen und damit neu setzen. sollte das verhindert werden?
 

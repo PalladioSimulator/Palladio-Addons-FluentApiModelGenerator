@@ -13,10 +13,10 @@ import repositoryStructure.components.seff.StopActionCreator;
 public interface StopSeff {
 
 	/**
-	 * Defines the name of the current entity.
+	 * Defines the name of this stop action.
 	 * 
 	 * @param name
-	 * @return current entity
+	 * @return this stop action
 	 */
 	public StopActionCreator withName(String name);
 
@@ -30,6 +30,14 @@ public interface StopSeff {
 	public StopActionCreator withResourceCall(String numberOfCalls_stochasticExpression, ResourceSignature signature,
 			ResourceRequiredRole requiredRole, VariableUsageCreator... variableUsages);
 
+	/**
+	 * The body behaviour always ends with a stop action and a finishing call on
+	 * this method. It turns the stop-action-in-the-making into a
+	 * '<em><b>StopAction</b></em>' and adds it to the SEFF'S/behaviour's stepwise
+	 * body behaviour
+	 *
+	 * @return the SEFF/behaviour
+	 */
 	public SeffCreator createBehaviourNow();
 
 }

@@ -10,12 +10,12 @@ public abstract class Entity {
 //	protected String id;
 
 	/**
-	 * Defines the <i>unique</i> name of the current entity. Already created
+	 * Defines the <i>unique</i> name of this current entity. Once created
 	 * entities are referenced by this name. Only entities with a unique name
 	 * can be fetched from the repository.
 	 * 
 	 * @param name
-	 * @return current entity in the making
+	 * @return this current entity in the making
 	 */
 	public Entity withName(String name) {
 		this.name = name;

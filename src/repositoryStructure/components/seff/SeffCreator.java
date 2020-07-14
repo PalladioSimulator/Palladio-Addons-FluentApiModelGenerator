@@ -141,17 +141,10 @@ public class SeffCreator extends Entity implements Seff, ActionSeff, StartSeff, 
 
 	// ------------ seff methods ------------
 	@Override
-	public SeffCreator withInternalBehaviour(InternalSeff internalBehaviour) {
-		this.internalBehaviours.add(internalBehaviour);
-		return this;
-	}
-
-	@Override
 	public SeffCreator withName(String name) {
-		this.name = name;
-		return this;
+		return (SeffCreator) super.withName(name);
 	}
-
+	
 	@Override
 	public SeffCreator onSignature(Signature signature) {
 		this.signature = signature;
@@ -165,6 +158,12 @@ public class SeffCreator extends Entity implements Seff, ActionSeff, StartSeff, 
 	}
 
 	@Override
+	public SeffCreator withInternalBehaviour(InternalSeff internalBehaviour) {
+		this.internalBehaviours.add(internalBehaviour);
+		return this;
+	}
+	
+	@Override
 	public SeffCreator withSeffBehaviour() {
 		return this;
 	}
@@ -172,8 +171,13 @@ public class SeffCreator extends Entity implements Seff, ActionSeff, StartSeff, 
 	@Override
 	public SeffCreator withFailureType(Failure failure) {
 		FailureType f = repositoryStructure.datatypes.FailureType.getFailureType(failure);
-		this.failures.add(f);
-		return this; //TODO: extra methode mit FailureType
+		return withFailureType(f);
+	}
+
+	@Override
+	public SeffCreator withFailureType(FailureType failureType) {
+		this.failures.add(failureType);
+		return this;
 	}
 
 	@Override
@@ -257,5 +261,4 @@ public class SeffCreator extends Entity implements Seff, ActionSeff, StartSeff, 
 	protected String getSeffTypeID() {
 		return this.seffTypeID;
 	}
-
 }

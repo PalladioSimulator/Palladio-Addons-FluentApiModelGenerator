@@ -8,6 +8,11 @@ import repositoryStructure.components.seff.StartActionCreator;
 
 public interface InternalSeff {
 
+	/**
+	 * Creates a {@link org.palladiosimulator.pcm.seff.StartAction StartAction}.
+	 * 
+	 * @return the start action in the making
+	 */
 	public StartActionCreator withStartAction();
 
 	ResourceDemandingInternalBehaviour buildInternalBehaviour();

@@ -690,22 +690,15 @@ public class FluentRepositoryFactory {
 	 * </ul>
 	 * </p>
 	 * <p>
-	 * Previously defined RecoveryActionBehaviours can be fetched from the
-	 * repository using the factory, i.e.
-	 * <code>create.fetchOfRecoveryActionBehaviour(name)</code>.
-	 * </p>
-	 * <p>
 	 * The alternatives of a recovery block form a chain and alternatives are
 	 * referenced by name and have to be previously defined. Thus the chain of
 	 * alternatives has to be created inversely. The last alternative that has no
 	 * alternatives itself is created first, so the second last can reference it as
-	 * its alternative. TODO: beispiel? Reference auf recovery action methode?
+	 * its alternative.
 	 * </p>
 	 * 
 	 * @return the recovery action behaviour in the making
 	 * @see org.palladiosimulator.pcm.seff.seff_reliability.RecoveryActionBehaviour
-	 * @see factory.FluentRepositoryFactory#fetchOfRecoveryActionBehaviour(String)
-	 * @see factory.FluentRepositoryFactory#fetchOfFailureType(String)
 	 */
 	public RecoverySeff newRecoveryBehaviour() {
 		return new SeffCreator();
@@ -1333,6 +1326,10 @@ public class FluentRepositoryFactory {
 		if (connector == null)
 			throw new RuntimeException("Event Channel Source Connector '" + name + "' could not be found");
 		return connector;
+	}
+	
+	public Signature fetchOfSignature(String name) {
+		return null; //TODO:
 	}
 
 	/**
