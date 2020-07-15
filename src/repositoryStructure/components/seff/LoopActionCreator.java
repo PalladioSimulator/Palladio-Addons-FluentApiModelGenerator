@@ -8,6 +8,7 @@ import org.palladiosimulator.pcm.repository.InfrastructureSignature;
 import org.palladiosimulator.pcm.resourcetype.ProcessingResourceType;
 import org.palladiosimulator.pcm.resourcetype.ResourceSignature;
 import org.palladiosimulator.pcm.seff.LoopAction;
+import org.palladiosimulator.pcm.seff.ResourceDemandingSEFF;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 
 import repositoryStructure.components.VariableUsageCreator;
@@ -75,11 +76,12 @@ public class LoopActionCreator extends GeneralAction {
 		action.setIterationCount_LoopAction(iterationCount);
 
 		if (loopBody != null) {
-			if (loopBody.getSignature() == null && loopBody.getSeffTypeID() == null
-					&& loopBody.getInternalBehaviours().isEmpty())
+			ResourceDemandingSEFF build = loopBody.buildRDSeff();
+			if (build.getDescribedService__SEFF() == null && build.getSeffTypeID() == null
+					&& build.getResourceDemandingInternalBehaviours().isEmpty())
 				action.setBodyBehaviour_Loop(loopBody.buildBehaviour());
 			else
-				action.setBodyBehaviour_Loop(loopBody.buildSeff());
+				action.setBodyBehaviour_Loop(build);
 		}
 
 		action.getInfrastructureCall__Action().addAll(infrastructureCalls);

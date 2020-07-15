@@ -1,6 +1,8 @@
 package apiControlFlowInterfaces.seff;
 
 import org.palladiosimulator.pcm.repository.Signature;
+import org.palladiosimulator.pcm.seff.ResourceDemandingBehaviour;
+import org.palladiosimulator.pcm.seff.ResourceDemandingSEFF;
 import org.palladiosimulator.pcm.seff.ServiceEffectSpecification;
 
 public interface Seff {
@@ -47,11 +49,16 @@ public interface Seff {
 	 * action} followed by an arbitrary amount of other
 	 * {@link org.palladiosimulator.pcm.seff.AbstractAction actions}. The body
 	 * behaviour always ends with a stop action and a finishing call on the method
-	 * {@link apiControlFlowInterfaces.seff.StopSeff#createBehaviourNow() createBehaviourNow()}.
+	 * {@link apiControlFlowInterfaces.seff.StopSeff#createBehaviourNow()
+	 * createBehaviourNow()}.
 	 * 
 	 * @return this SEFF's starting body behaviour
 	 */
 	public StartSeff withSeffBehaviour();
 
 	ServiceEffectSpecification build();
+
+	ResourceDemandingSEFF buildRDSeff();
+
+	ResourceDemandingBehaviour buildBehaviour();
 }

@@ -18,6 +18,7 @@ import org.palladiosimulator.pcm.seff.ResourceDemandingBehaviour;
 import org.palladiosimulator.pcm.seff.ResourceDemandingSEFF;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 
+import apiControlFlowInterfaces.seff.Seff;
 import repositoryStructure.components.VariableUsageCreator;
 
 /**
@@ -44,7 +45,7 @@ public class BranchActionCreator extends GeneralAction {
 	}
 
 	public BranchActionCreator withGuardedBranchTransition(String branchCondition_stochasticExpression,
-			SeffCreator branchActions, String name) {
+			Seff branchActions, String name) {
 
 		GuardedBranchTransition branch = SeffFactory.eINSTANCE.createGuardedBranchTransition();
 
@@ -52,12 +53,13 @@ public class BranchActionCreator extends GeneralAction {
 			branch.setEntityName(name);
 
 		if (branchActions != null) {
-			if (branchActions.getSignature() == null && branchActions.getSeffTypeID() == null
-					&& branchActions.getInternalBehaviours().isEmpty()) {
+			ResourceDemandingSEFF build = branchActions.buildRDSeff();
+			if (build.getDescribedService__SEFF() == null && build.getSeffTypeID() == null
+					&& build.getResourceDemandingInternalBehaviours().isEmpty()) {
 				ResourceDemandingBehaviour branchBody = branchActions.buildBehaviour();
 				branch.setBranchBehaviour_BranchTransition(branchBody);
 			} else {
-				ResourceDemandingSEFF branchBody = branchActions.buildSeff();
+				ResourceDemandingSEFF branchBody = branchActions.buildRDSeff();
 				branch.setBranchBehaviour_BranchTransition(branchBody);
 			}
 		}
@@ -86,14 +88,12 @@ public class BranchActionCreator extends GeneralAction {
 			branch.setEntityName(name);
 
 		if (branchActions != null) {
-			if (branchActions.getSignature() == null && branchActions.getSeffTypeID() == null
-					&& branchActions.getInternalBehaviours().isEmpty()) {
-				ResourceDemandingBehaviour branchBody = branchActions.buildBehaviour();
-				branch.setBranchBehaviour_BranchTransition(branchBody);
-			} else {
-				ResourceDemandingSEFF branchBody = branchActions.buildSeff();
-				branch.setBranchBehaviour_BranchTransition(branchBody);
-			}
+			ResourceDemandingSEFF build = branchActions.buildRDSeff();
+			if (build.getDescribedService__SEFF() == null && build.getSeffTypeID() == null
+					&& build.getResourceDemandingInternalBehaviours().isEmpty())
+				branch.setBranchBehaviour_BranchTransition(branchActions.buildBehaviour());
+			else
+				branch.setBranchBehaviour_BranchTransition(build);
 		}
 
 		if (branchProbability != null)

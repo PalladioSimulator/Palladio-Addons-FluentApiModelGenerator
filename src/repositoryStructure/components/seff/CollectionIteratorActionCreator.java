@@ -7,8 +7,10 @@ import org.palladiosimulator.pcm.repository.Parameter;
 import org.palladiosimulator.pcm.resourcetype.ProcessingResourceType;
 import org.palladiosimulator.pcm.resourcetype.ResourceSignature;
 import org.palladiosimulator.pcm.seff.CollectionIteratorAction;
+import org.palladiosimulator.pcm.seff.ResourceDemandingSEFF;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 
+import apiControlFlowInterfaces.seff.Seff;
 import repositoryStructure.components.VariableUsageCreator;
 
 /**
@@ -25,7 +27,7 @@ import repositoryStructure.components.VariableUsageCreator;
 public class CollectionIteratorActionCreator extends GeneralAction {
 
 	private Parameter parameter;
-	private SeffCreator loopBody;
+	private Seff loopBody;
 
 	public CollectionIteratorActionCreator(SeffCreator seff) {
 		this.seff = seff;
@@ -41,7 +43,7 @@ public class CollectionIteratorActionCreator extends GeneralAction {
 		return this;
 	}
 
-	public CollectionIteratorActionCreator withLoopBody(SeffCreator loopBody) {
+	public CollectionIteratorActionCreator withLoopBody(Seff loopBody) {
 		if (loopBody != null)
 			this.loopBody = loopBody;
 		return this;
@@ -77,11 +79,13 @@ public class CollectionIteratorActionCreator extends GeneralAction {
 			action.setParameter_CollectionIteratorAction(parameter);
 
 		if (loopBody != null) {
-			if (loopBody.getSignature() == null && loopBody.getSeffTypeID() == null
-					&& loopBody.getInternalBehaviours().isEmpty())
+			ResourceDemandingSEFF build = loopBody.buildRDSeff();
+			if (build.getDescribedService__SEFF() == null && build.getSeffTypeID() == null
+					&& build.getResourceDemandingInternalBehaviours().isEmpty())
 				action.setBodyBehaviour_Loop(loopBody.buildBehaviour());
 			else
-				action.setBodyBehaviour_Loop(loopBody.buildSeff());
+				action.setBodyBehaviour_Loop(build);
+			;
 		}
 
 		action.getInfrastructureCall__Action().addAll(infrastructureCalls);

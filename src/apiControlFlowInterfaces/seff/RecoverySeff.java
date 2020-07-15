@@ -89,7 +89,6 @@ public interface RecoverySeff {
 	 * repository using the factory, i.e.
 	 * <code>create.fetchOfRecoveryActionBehaviour(name)</code>.
 	 * </p>
-	 * TODO: beispiel? Reference auf recovery action methode?
 	 * 
 	 * @param recoveryBehaviour
 	 * @return this recovery behaviour in the making

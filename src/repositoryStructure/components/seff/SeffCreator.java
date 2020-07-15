@@ -190,10 +190,10 @@ public class SeffCreator extends Entity implements Seff, ActionSeff, StartSeff, 
 	@Override
 	public ServiceEffectSpecification build() {
 		// -> ResourceDemandingSEFF (rdsf) = seff
-		return this.buildSeff();
+		return this.buildRDSeff();
 	}
 
-	protected ResourceDemandingSEFF buildSeff() {
+	public ResourceDemandingSEFF buildRDSeff() {
 		ResourceDemandingSEFF seff = SeffFactory.eINSTANCE.createResourceDemandingSEFF();
 
 		if (this.signature != null)
