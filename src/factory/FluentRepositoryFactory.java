@@ -30,6 +30,7 @@ import org.palladiosimulator.pcm.repository.OperationInterface;
 import org.palladiosimulator.pcm.repository.OperationProvidedRole;
 import org.palladiosimulator.pcm.repository.OperationRequiredRole;
 import org.palladiosimulator.pcm.repository.Parameter;
+import org.palladiosimulator.pcm.repository.PassiveResource;
 import org.palladiosimulator.pcm.repository.PrimitiveDataType;
 import org.palladiosimulator.pcm.repository.ProvidedRole;
 import org.palladiosimulator.pcm.repository.ProvidesComponentType;
@@ -45,7 +46,6 @@ import org.palladiosimulator.pcm.resourcetype.ResourceInterface;
 import org.palladiosimulator.pcm.resourcetype.ResourceRepository;
 import org.palladiosimulator.pcm.resourcetype.ResourceType;
 import org.palladiosimulator.pcm.resourcetype.ResourcetypePackage;
-import org.palladiosimulator.pcm.seff.ResourceDemandingInternalBehaviour;
 import org.palladiosimulator.pcm.seff.seff_reliability.RecoveryActionBehaviour;
 import org.palladiosimulator.pcm.subsystem.SubSystem;
 
@@ -77,27 +77,19 @@ public class FluentRepositoryFactory {
 	private Repository failures;
 
 	public FluentRepositoryFactory() {
-//		this.primitives = loadPrimitiveTypesRepository();
-//		this.resourceTypes = loadResourceTypeRepository();
-//		this.failures = loadFailureTypesRepository();
+		// TODO: pathmap://PCM_MODELS/PrimitiveTypes.repository
+		this.primitives = loadRepository("resources/PrimitiveTypes.repository");
+		this.resourceTypes = loadResourceTypeRepository();
+		this.failures = loadRepository("resources/FailureTypes.repository");
 	}
 
-	private Repository loadPrimitiveTypesRepository() {
+	private Repository loadRepository(String uri) {
 		RepositoryPackage.eINSTANCE.eClass();
-
-		// Register the XMI resource factory for the .repository extension
-
 		Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
 		Map<String, Object> m = reg.getExtensionToFactoryMap();
 		m.put("repository", new XMIResourceFactoryImpl());
-
-		// Obtain a new resource set
 		ResourceSet resSet = new ResourceSetImpl();
-
-		// Get the resource
-		Resource resource = resSet.getResource(URI.createURI("pathmap://PCM_MODELS/PrimitiveTypes.repository"), true);
-		// Get the first model element and cast it to the right type, in my
-		// example everything is hierarchical included in this first node
+		Resource resource = resSet.getResource(URI.createURI(uri), true);
 		Repository repository = (Repository) resource.getContents().get(0);
 		return repository;
 	}
@@ -110,35 +102,17 @@ public class FluentRepositoryFactory {
 		Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
 		Map<String, Object> m = reg.getExtensionToFactoryMap();
 		m.put("repository", new XMIResourceFactoryImpl());
+		m.put("resourcetype", new XMIResourceFactoryImpl());
 
 		// Obtain a new resource set
 		ResourceSet resSet = new ResourceSetImpl();
 
 		// Get the resource
-		Resource resource = resSet.getResource(URI.createURI("pathmap://PCM_MODELS/Palladio.resourcetype"), true);
+//		Resource resource = resSet.getResource(URI.createURI("pathmap://PCM_MODELS/Palladio.resourcetype"), true);
+		Resource resource = resSet.getResource(URI.createURI("resources/Palladio.resourcetype"), true);
 		// Get the first model element and cast it to the right type, in my
 		// example everything is hierarchical included in this first node
 		ResourceRepository repository = (ResourceRepository) resource.getContents().get(0);
-		return repository;
-	}
-
-	private Repository loadFailureTypesRepository() {
-		RepositoryPackage.eINSTANCE.eClass();
-
-		// Register the XMI resource factory for the .repository extension
-
-		Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
-		Map<String, Object> m = reg.getExtensionToFactoryMap();
-		m.put("repository", new XMIResourceFactoryImpl());
-
-		// Obtain a new resource set
-		ResourceSet resSet = new ResourceSetImpl();
-
-		// Get the resource
-		Resource resource = resSet.getResource(URI.createURI("pathmap://PCM_MODELS/FailureTypes.repository"), true);
-		// Get the first model element and cast it to the right type, in my
-		// example everything is hierarchical included in this first node
-		Repository repository = (Repository) resource.getContents().get(0);
 		return repository;
 	}
 
@@ -155,7 +129,10 @@ public class FluentRepositoryFactory {
 	 * @return the repository in the making
 	 */
 	public Repo newRepository() {
-		this.repo = new RepositoryCreator();
+		Repository primitives = loadRepository("resources/PrimitiveTypes.repository");
+		ResourceRepository resourceTypes = loadResourceTypeRepository();
+		Repository failures = loadRepository("resources/FailureTypes.repository");
+		this.repo = new RepositoryCreator(primitives, resourceTypes, failures);
 		return this.repo;
 	}
 
@@ -810,14 +787,15 @@ public class FluentRepositoryFactory {
 	}
 
 	public ResourceTimeoutFailureType fetchOfResourceTimeoutFailureType(Failure failure) {
-			FailureType failureType = repositoryStructure.datatypes.FailureType.getFailureType(failure);
-			if (failureType instanceof ResourceTimeoutFailureType)
-				return (ResourceTimeoutFailureType) failureType;
-			// TODO: einkommentieren
-	//		else
-	//			throw new RuntimeException("ResourceTimeoutFailureType could not be found; must be of type SoftwareInducedFailure");
-			return null;
-		}
+		FailureType failureType = repositoryStructure.datatypes.FailureType.getFailureType(failure);
+		if (failureType instanceof ResourceTimeoutFailureType)
+			return (ResourceTimeoutFailureType) failureType;
+		// TODO: einkommentieren
+		// else
+		// throw new RuntimeException("ResourceTimeoutFailureType could not be found;
+		// must be of type SoftwareInducedFailure");
+		return null;
+	}
 
 	public ResourceType fetchOfResourcetype(String name) {
 		// TODO:
@@ -1223,12 +1201,13 @@ public class FluentRepositoryFactory {
 	}
 
 	/**
-	 * Extracts the resource required role referenced by <code>name</code> from the repository.
+	 * Extracts the resource required role referenced by <code>name</code> from the
+	 * repository.
 	 * <p>
-	 * This method throws a RuntimeException if no resource required role is present under the
-	 * given <code>name</code>. If more than one resource required role with this
-	 * <code>name</code> is present, a warning will be printed during runtime and
-	 * the system chooses the first resource required role it finds.
+	 * This method throws a RuntimeException if no resource required role is present
+	 * under the given <code>name</code>. If more than one resource required role
+	 * with this <code>name</code> is present, a warning will be printed during
+	 * runtime and the system chooses the first resource required role it finds.
 	 * </p>
 	 * 
 	 * @param name
@@ -1327,9 +1306,9 @@ public class FluentRepositoryFactory {
 			throw new RuntimeException("Event Channel Source Connector '" + name + "' could not be found");
 		return connector;
 	}
-	
+
 	public Signature fetchOfSignature(String name) {
-		return null; //TODO:
+		return null; // TODO:
 	}
 
 	/**
@@ -1391,9 +1370,29 @@ public class FluentRepositoryFactory {
 	 */
 	public RecoveryActionBehaviour fetchOfRecoveryActionBehaviour(String name) {
 		RecoveryActionBehaviour r = repo.getRecoveryActionBehaviour(name);
-		if(r == null)
+		if (r == null)
 			throw new RuntimeException("Recovery action behaviour '" + name + "' could not be found");
 		return r;
 	}
 
+	/**
+	 * Extracts the passive resource referenced by <code>name</code> from the
+	 * repository.
+	 * <p>
+	 * This method throws a RuntimeException if no passive resource is present under
+	 * the given <code>name</code>. If more than one passive resource with this
+	 * <code>name</code> is present, a warning will be printed during runtime and
+	 * the system chooses the first passive resource it finds.
+	 * </p>
+	 * 
+	 * @param name
+	 * @return the recovery action behaviour
+	 * @see org.palladiosimulator.pcm.seff.seff_reliability.RecoveryActionBehaviour
+	 */
+	public PassiveResource fetchOfPassiveResource(String name) {
+		PassiveResource r = repo.getPassiveResource(name);
+		if (r == null)
+			throw new RuntimeException("Passive Resource '" + name + "' could not be found");
+		return r;
+	}
 }

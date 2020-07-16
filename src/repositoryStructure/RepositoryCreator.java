@@ -1,8 +1,12 @@
 package repositoryStructure;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
+import org.eclipse.emf.common.util.EList;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.composition.Connector;
 import org.palladiosimulator.pcm.core.composition.EventChannel;
@@ -25,6 +29,9 @@ import org.palladiosimulator.pcm.repository.OperationInterface;
 import org.palladiosimulator.pcm.repository.OperationProvidedRole;
 import org.palladiosimulator.pcm.repository.OperationRequiredRole;
 import org.palladiosimulator.pcm.repository.Parameter;
+import org.palladiosimulator.pcm.repository.PassiveResource;
+import org.palladiosimulator.pcm.repository.PrimitiveDataType;
+import org.palladiosimulator.pcm.repository.PrimitiveTypeEnum;
 import org.palladiosimulator.pcm.repository.ProvidedRole;
 import org.palladiosimulator.pcm.repository.ProvidesComponentType;
 import org.palladiosimulator.pcm.repository.Repository;
@@ -34,6 +41,12 @@ import org.palladiosimulator.pcm.repository.RequiredRole;
 import org.palladiosimulator.pcm.repository.Signature;
 import org.palladiosimulator.pcm.repository.SinkRole;
 import org.palladiosimulator.pcm.repository.SourceRole;
+import org.palladiosimulator.pcm.resourcetype.CommunicationLinkResourceType;
+import org.palladiosimulator.pcm.resourcetype.ProcessingResourceType;
+import org.palladiosimulator.pcm.resourcetype.ResourceInterface;
+import org.palladiosimulator.pcm.resourcetype.ResourceRepository;
+import org.palladiosimulator.pcm.resourcetype.ResourceType;
+import org.palladiosimulator.pcm.resourcetype.SchedulingPolicy;
 import org.palladiosimulator.pcm.seff.seff_reliability.RecoveryActionBehaviour;
 import org.palladiosimulator.pcm.subsystem.SubSystem;
 
@@ -59,6 +72,7 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 	private String description;
 
 	private List<DataType> dataTypes;
+	private Map<Primitive, PrimitiveDataType> primitives;
 	private List<FailureType> failureTypes;
 	private List<Interface> interfaces;
 	private List<RepositoryComponent> components;
@@ -71,8 +85,11 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 	private List<Connector> connectors;
 	private List<RecoveryActionBehaviour> behaviours;
 
-	public RepositoryCreator() {
+	private List<PassiveResource> passiveResources;
+
+	public RepositoryCreator(Repository primitiveDataTypes, ResourceRepository resourceTypes, Repository failureTypes) {
 		this.dataTypes = new ArrayList<>();
+		this.primitives = new HashMap<>();
 		this.failureTypes = new ArrayList<>();
 		this.interfaces = new ArrayList<>();
 		this.components = new ArrayList<>();
@@ -84,6 +101,7 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 		this.eventChannels = new ArrayList<>();
 		this.connectors = new ArrayList<>();
 		this.behaviours = new ArrayList<>();
+		this.passiveResources = new ArrayList<>();
 
 		this.dataTypes.add(PrimitiveType.getPrimitiveDataType(Primitive.BOOLEAN));
 		this.dataTypes.add(PrimitiveType.getPrimitiveDataType(Primitive.BYTE));
@@ -98,6 +116,70 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 		this.failureTypes.add(repositoryStructure.datatypes.FailureType.getFailureType(Failure.HARDWARE_DELAY));
 		this.failureTypes.add(repositoryStructure.datatypes.FailureType.getFailureType(Failure.NETWORK_LAN));
 		this.failureTypes.add(repositoryStructure.datatypes.FailureType.getFailureType(Failure.SOFTWARE));
+
+		initPredefinedDataTypesAndResources(primitiveDataTypes, resourceTypes, failureTypes);
+	}
+
+	private void initPredefinedDataTypesAndResources(Repository primitiveDataTypes, ResourceRepository resourceTypes,
+			Repository failureTypes) {
+		// Primitive Data Types
+		EList<DataType> dts = primitiveDataTypes.getDataTypes__Repository();
+		for (DataType d : dts) {
+			PrimitiveDataType p = (PrimitiveDataType) d;
+			PrimitiveTypeEnum type = p.getType();
+			switch (type) {
+			case BOOL:
+				this.primitives.put(Primitive.BOOLEAN, p);
+				break;
+			case BYTE:
+				this.primitives.put(Primitive.BYTE, p);
+				break;
+			case CHAR:
+				this.primitives.put(Primitive.CHAR, p);
+				break;
+			case DOUBLE:
+				this.primitives.put(Primitive.DOUBLE, p);
+				break;
+			case INT:
+				this.primitives.put(Primitive.INTEGER, p);
+				break;
+			case LONG:
+				this.primitives.put(Primitive.LONG, p);
+				break;
+			case STRING:
+				this.primitives.put(Primitive.STRING, p);
+				break;
+			default:
+				System.err.println("wuhaaaaa");
+				break;
+			}
+		}
+
+		// ResourceTypes
+		EList<ResourceType> resources = resourceTypes.getAvailableResourceTypes_ResourceRepository();
+		EList<ResourceInterface> interfacs = resourceTypes.getResourceInterfaces__ResourceRepository();
+		EList<SchedulingPolicy> schedules = resourceTypes.getSchedulingPolicies__ResourceRepository();
+
+		ProcessingResourceType cpu = null;
+		ProcessingResourceType hdd = null;
+		ProcessingResourceType delay = null;
+		CommunicationLinkResourceType lan = null;
+		for (ResourceType resourceType : resources) {
+			System.out.println(resourceType + " " + resourceType.getEntityName());
+			if (resourceType instanceof ProcessingResourceType) {
+				if (resourceType.getEntityName().toLowerCase().equals("cpu")) {
+					cpu = (ProcessingResourceType) resourceType;
+				} else if (resourceType.getEntityName().toLowerCase().equals("hdd")) {
+					hdd = (ProcessingResourceType) resourceType;
+				} else if (resourceType.getEntityName().toLowerCase().equals("delay")) {
+					delay = (ProcessingResourceType) resourceType;
+				}
+			} else if (resourceType instanceof CommunicationLinkResourceType) {
+				lan = (CommunicationLinkResourceType) resourceType;
+			}
+		}
+
+//		System.out.println(delay);
 	}
 
 	@Override
@@ -322,6 +404,16 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 		return this.behaviours.stream().filter(b -> b.getEntityName().contentEquals(name)).findFirst().orElse(null);
 	}
 
+	public PassiveResource getPassiveResource(String name) {
+		List<PassiveResource> collect = passiveResources.stream().filter(b -> b.getEntityName().contentEquals(name))
+				.collect(Collectors.toList());
+		if (collect.isEmpty())
+			return null;
+		if (collect.size() > 1)
+			;// TODO: print log and change rest of methods
+		return collect.get(0);
+	}
+
 	// ------------- adding -------------
 	public void addDataType(DataType dt) {
 		dataTypes.add(dt);
@@ -358,5 +450,11 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 	public void addEventChannel(EventChannel eg) {
 		eventChannels.add(eg);
 	}
-	//TODO: add event channel connectors, resource required roles, recovery action behaviours
+	// TODO: add event channel connectors, resource required roles, recovery action
+	// behaviours
+
+	public void addPassiveResource(PassiveResource pass) {
+		passiveResources.add(pass);
+
+	}
 }

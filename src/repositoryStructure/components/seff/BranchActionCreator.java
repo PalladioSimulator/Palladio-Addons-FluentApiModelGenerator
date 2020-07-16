@@ -44,6 +44,25 @@ public class BranchActionCreator extends GeneralAction {
 		return (BranchActionCreator) super.withName(name);
 	}
 
+	/**
+	 * Adds a guarded branch transition to this action's list of branches.
+	 * <p>
+	 * A {@link org.palladiosimulator.pcm.seff.GuardedBranchTransition Guarded
+	 * Branch Transition} provides a link between a BranchAction and a nested
+	 * ResourceDemandingBehaviour, which includes the actions executed inside the
+	 * branch. It uses a guard, i.e. a boolean expression specified by a
+	 * RandomVariable, to determine whether the transition is chosen. If the guard
+	 * evaluates to true, the branch is chosen, otherwise if the guard evaluates to
+	 * false another branch transition must be chosen.
+	 * </p>
+	 * 
+	 * @param branchCondition_stochasticExpression boolean expression, condition of
+	 *                                             the branch
+	 * @param branchActions                        nested resource demanding
+	 *                                             behaviour
+	 * @param name                                 of the branch
+	 * @return this branch action in the making
+	 */
 	public BranchActionCreator withGuardedBranchTransition(String branchCondition_stochasticExpression,
 			Seff branchActions, String name) {
 
@@ -74,11 +93,44 @@ public class BranchActionCreator extends GeneralAction {
 		return this;
 	}
 
+	/**
+	 * Adds a guarded branch transition to this action's list of branches.
+	 * <p>
+	 * A {@link org.palladiosimulator.pcm.seff.GuardedBranchTransition Guarded
+	 * Branch Transition} provides a link between a BranchAction and a nested
+	 * ResourceDemandingBehaviour, which includes the actions executed inside the
+	 * branch. It uses a guard, i.e. a boolean expression specified by a
+	 * RandomVariable, to determine whether the transition is chosen. If the guard
+	 * evaluates to true, the branch is chosen, otherwise if the guard evaluates to
+	 * false another branch transition must be chosen.
+	 * </p>
+	 * 
+	 * @param branchCondition_stochasticExpression boolean expression, condition of
+	 *                                             the branch
+	 * @param branchActions                        nested resource demanding
+	 *                                             behaviour
+	 * @return this branch action in the making
+	 */
 	public BranchActionCreator withGuardedBranchTransition(String branchCondition_stochasticExpression,
 			SeffCreator branchActions) {
 		return withGuardedBranchTransition(branchCondition_stochasticExpression, branchActions, null);
 	}
 
+	/**
+	 * Adds a probabilistic branch transition to this action's list of branches.
+	 * <p>
+	 * A {@link org.palladiosimulator.pcm.seff.ProbabilisticBranchTransition
+	 * Probabilistic Branch Transition} provides a link between a BranchAction and a
+	 * nested ResourceDemandingBehaviour, which includes the actions executed inside
+	 * the branch. But instead of using a guard, it specifies a branching
+	 * probability without parameter dependencies.
+	 * </p>
+	 * 
+	 * @param branchProbability
+	 * @param branchActions     nested resource demanding behaviour
+	 * @param name
+	 * @return this branch action in the making
+	 */
 	public BranchActionCreator withProbabilisticBranchTransition(Double branchProbability, SeffCreator branchActions,
 			String name) {
 
@@ -103,6 +155,20 @@ public class BranchActionCreator extends GeneralAction {
 		return this;
 	}
 
+	/**
+	 * Adds a probabilistic branch transition to this action's list of branches.
+	 * <p>
+	 * A {@link org.palladiosimulator.pcm.seff.ProbabilisticBranchTransition
+	 * Probabilistic Branch Transition} provides a link between a BranchAction and a
+	 * nested ResourceDemandingBehaviour, which includes the actions executed inside
+	 * the branch. But instead of using a guard, it specifies a branching
+	 * probability without parameter dependencies.
+	 * </p>
+	 * 
+	 * @param branchProbability
+	 * @param branchActions     nested resource demanding behaviour
+	 * @return this branch action in the making
+	 */
 	public BranchActionCreator withProbabilisticBranchTransition(Double branchProbability, SeffCreator branchActions) {
 		return withProbabilisticBranchTransition(branchProbability, branchActions, null);
 	}

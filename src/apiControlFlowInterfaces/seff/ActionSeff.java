@@ -17,6 +17,15 @@ public interface ActionSeff {
 	/**
 	 * Creates a {@link org.palladiosimulator.pcm.seff.AcquireAction AcquireAction}.
 	 * <p>
+	 * In an RDSEFF, component developers can specify an AcquireAction, which
+	 * references a passive resource types. Once analysis tools execute this action,
+	 * they decrease the amount of items available from the referenced passive
+	 * resource type by one, if at least one item is available. If none item is
+	 * available, because other, concurrently executed requests have acquired all of
+	 * them, analysis tools enqueue the current request (first-come-first-serve
+	 * scheduling policy) and block it's further execution.
+	 * </p>
+	 * <p>
 	 * Offers the specifying methods
 	 * {@link repositoryStructure.components.seff.AcquireActionCreator#withPassiveResource(org.palladiosimulator.pcm.repository.PassiveResource)
 	 * withPassiveResource(PassiveResource)},
@@ -45,11 +54,20 @@ public interface ActionSeff {
 	/**
 	 * Creates a {@link org.palladiosimulator.pcm.seff.BranchAction BranchAction}.
 	 * <p>
+	 * The BranchAction splits the RDSEFF control flow with an XOR-semantic, meaning
+	 * that the control flow continues on exactly one of its attached
+	 * AbstractBranchTransitions. The RDSEFF supports two different kinds of branch
+	 * transitions, GuardedBranchTransitions, and ProbabilisticBranchTransitions.
+	 * RDSEFFs do not allow to use both kinds of transitions on a single
+	 * BranchAction.
+	 * </p>
+	 * <p>
 	 * Offers the specifying methods
 	 * {@link repositoryStructure.components.seff.BranchActionCreator#withGuardedBranchTransition(String, repositoryStructure.components.seff.SeffCreator, String)
 	 * withGuardedBranchTransition(String, SeffCreator, String)} and
 	 * {@link repositoryStructure.components.seff.BranchActionCreator#withProbabilisticBranchTransition(Double, repositoryStructure.components.seff.SeffCreator, String)
-	 * withProbabilisticBranchTransition(Double, SeffCreator, String)}.
+	 * withProbabilisticBranchTransition(Double, SeffCreator, String)}. Do not use
+	 * both methods within the same branch action.
 	 * </p>
 	 * 
 	 * @return the branch action in the making
@@ -71,6 +89,10 @@ public interface ActionSeff {
 	/**
 	 * Creates a {@link org.palladiosimulator.pcm.seff.CollectionIteratorAction
 	 * CollectionIteratorAction}.
+	 * <p>
+	 * A Collection Iterator Action models the repeated execution of its inner
+	 * ResourceDemandingBehaviour for each element of a collection data type.
+	 * </p>
 	 * <p>
 	 * Offers the specifying methods
 	 * {@link repositoryStructure.components.seff.CollectionIteratorActionCreator#withParameter(org.palladiosimulator.pcm.repository.Parameter)

@@ -38,11 +38,25 @@ public class CollectionIteratorActionCreator extends GeneralAction {
 		return (CollectionIteratorActionCreator) super.withName(name);
 	}
 
+	/**
+	 * Defines the parameter that holds the collection which is iterated over, i.e.
+	 * the parameter is of type CollectionDataType.
+	 * 
+	 * @param parameter
+	 * @return this collection iterator action in the making
+	 */
 	public CollectionIteratorActionCreator withParameter(Parameter parameter) {
 		this.parameter = parameter;
 		return this;
 	}
 
+	/**
+	 * Defines the inner resource demanding behaviour that is executed for each
+	 * element of a collection.
+	 * 
+	 * @param loopBody a nested resource demanding behaviour (seff)
+	 * @return this collection iterator action in the making
+	 */
 	public CollectionIteratorActionCreator withLoopBody(Seff loopBody) {
 		if (loopBody != null)
 			this.loopBody = loopBody;

@@ -24,7 +24,7 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		mediaStoreExample();
+//		mediaStoreExample();
 //		nullExample();
 		FluentRepositoryFactory create = new FluentRepositoryFactory();
 
@@ -63,7 +63,7 @@ public class Main {
 				.withServiceEffectSpecification(create.newSeff().withSeffBehaviour().withStartAction().followedBy().externalCallAction().followedBy().stopAction().createBehaviourNow())
 				.provides(create.fetchOfOperationInterface("IDatabase"), "provDB")
 				.requires(create.newOperationInterface().withName("someInterface"), "reqSomeI")
-				.withPassiveResource("2*3", create.fetchOfResourceTimeoutFailureType(Failure.SOFTWARE))
+				.withPassiveResource("2*3", create.fetchOfResourceTimeoutFailureType(Failure.SOFTWARE), "passResource")
 				.withVariableUsage(create.newVariableUsage().withVariableCharacterisation(null, null))
 			)
 						
@@ -141,7 +141,7 @@ public class Main {
 						.followedBy().stopAction().createBehaviourNow();
 		
 		
-		saveRepository(repo, "myrepo.repository", true);	
+		saveRepository(repo, "myrepo.repository", false);	
 	}
 	
 	public static void saveRepository(Repository repo, String name, boolean print) {
@@ -191,7 +191,7 @@ public class Main {
 			.addToRepository(create.newBasicComponent()
 					.withName(null)
 					.ofType(null)
-					.withPassiveResource(null, null)
+					.withPassiveResource(null, null, null)
 					.withVariableUsage(null)
 					.withVariableUsage(create.newVariableUsage()
 							.withName(null)
@@ -210,6 +210,20 @@ public class Main {
 									.followedBy().stopAction().createBehaviourNow())
 							//normal
 							.withSeffBehaviour().withStartAction()
+							.followedBy().acquireAction()
+								.withPassiveResource(null)
+								.isTimeout(true)
+								.withTimeoutValue(4.0)
+								.withInfrastructureCall(null, null, null)
+								.withResourceCall(null, null, null)
+								.withResourceDemand(null, null)
+							.followedBy().branchAction()
+								.withGuardedBranchTransition(null, null, null)
+								.withProbabilisticBranchTransition(null, null, null)
+							.followedBy().collectionIteratorAction()
+								.withLoopBody(null)
+								.withParameter(null)
+							
 							.followedBy().recoveryAction()
 									// recovery
 									.withAlternativeBehaviour(create.newRecoveryBehaviour()

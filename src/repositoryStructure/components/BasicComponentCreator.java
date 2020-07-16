@@ -268,7 +268,8 @@ public class BasicComponentCreator extends Component {
 	}
 
 	/**
-	 * Adds a passive resource (e.g. a semaphore) to the basic component.
+	 * Adds a passive resource (e.g. a semaphore) with name <code>name</code> to the
+	 * basic component.
 	 * <p>
 	 * The stochastic expression in <code>capacity_stochasticExpression</code>
 	 * belongs to a {@link org.palladiosimulator.pcm.core.PCMRandomVariable
@@ -279,20 +280,22 @@ public class BasicComponentCreator extends Component {
 	 * 
 	 * @param capacity_stochasticExpression stochastic expression as a string
 	 * @param failureType                   a resource timeout failure
+	 * @param name                          unique name of the passive resource
 	 * @return the basic component in the making
 	 * @see org.palladiosimulator.pcm.repository.PassiveResource
 	 * @see org.palladiosimulator.pcm.core.PCMRandomVariable
 	 * @see org.palladiosimulator.pcm.reliability.ResourceTimeoutFailureType
 	 */
 	public BasicComponentCreator withPassiveResource(String capacity_stochasticExpression,
-			ResourceTimeoutFailureType failureType) {
+			ResourceTimeoutFailureType failureType, String name) {
 		PCMRandomVariable randVar = CoreFactory.eINSTANCE.createPCMRandomVariable();
 		randVar.setSpecification(capacity_stochasticExpression);
 
 		PassiveResource pass = RepositoryFactory.eINSTANCE.createPassiveResource();
 		pass.setCapacity_PassiveResource(randVar);
 		pass.setResourceTimeoutFailureType__PassiveResource(failureType);
-
+		pass.setEntityName(name);
+		this.repository.addPassiveResource(pass);
 		this.passiveResources.add(pass);
 		return this;
 	}

@@ -20,13 +20,55 @@ public interface StopSeff {
 	 */
 	public StopActionCreator withName(String name);
 
+	/**
+	 * Adds a
+	 * {@link org.palladiosimulator.pcm.seff.seff_performance.ParametricResourceDemand
+	 * ParametricResourceDemand} to this action.
+	 * <p>
+	 * Parametric Resource Demand specifies the amount of processing requested from
+	 * a certain type of resource in a parameterized way. It assigns the demand
+	 * specified as a Random-Variable
+	 * (<code>specification_stochasticExpression</code>) to an abstract
+	 * ProcessingResourceType <code>processingResource</code>(e.g., CPU, hard disk)
+	 * instead of a concrete ProcessingResourceSpecification (e.g., 5 GHz CPU, 20
+	 * MByte/s hard disk).
+	 * </p>
+	 * TODO: woher kommt die Processing resource type -> see mit fetch?
+	 * 
+	 * @param specification_stochasticExpression
+	 * @param processingResource
+	 * @return this action in the making
+	 */
 	public StopActionCreator withResourceDemand(String specification_stochasticExpression,
 			ProcessingResourceType processingResource);
 
+	/**
+	 * Adds an
+	 * {@link org.palladiosimulator.pcm.seff.seff_performance.InfrastructureCall
+	 * InfrastructureCall} to this action.
+	 * 
+	 * TODO:
+	 * 
+	 * @param numberOfCalls_stochasticExpression
+	 * @param signature
+	 * @param requiredRole
+	 * @param variableUsages
+	 * @return this stop action in the making
+	 */
 	public StopActionCreator withInfrastructureCall(String numberOfCalls_stochasticExpression,
 			InfrastructureSignature signature, InfrastructureRequiredRole requiredRole,
 			VariableUsageCreator... variableUsages);
 
+	/**
+	 * Adds a {@link org.palladiosimulator.pcm.seff.seff_performance.ResourceCall
+	 * ResourceCall} to this action. TODO
+	 * 
+	 * @param numberOfCalls_stochasticExpression
+	 * @param signature
+	 * @param requiredRole
+	 * @param variableUsages
+	 * @return this stop action in the making
+	 */
 	public StopActionCreator withResourceCall(String numberOfCalls_stochasticExpression, ResourceSignature signature,
 			ResourceRequiredRole requiredRole, VariableUsageCreator... variableUsages);
 

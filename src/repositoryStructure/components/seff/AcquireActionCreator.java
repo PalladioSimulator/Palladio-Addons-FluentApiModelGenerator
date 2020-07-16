@@ -36,16 +36,39 @@ public class AcquireActionCreator extends GeneralAction {
 		return (AcquireActionCreator) super.withName(name);
 	}
 
+	/**
+	 * Defines the passive resource of this acquire action.
+	 * <p>
+	 * An existing <code>passiveResource</code> can be fetched from the repository
+	 * using the factory, i.e. <code>create.fetchOfPassiveResource(name)</code>.
+	 * </p>
+	 * 
+	 * @param passiveResource
+	 * @return this acquire action in the making
+	 * @see factory.FluentRepositoryFactory#fetchOfPassiveResource(String)
+	 */
 	public AcquireActionCreator withPassiveResource(PassiveResource passiveResource) {
 		this.passiveResource = passiveResource;
 		return this;
 	}
 
+	/**
+	 * Defines the timeout value of this acquire action.
+	 * 
+	 * @param timeoutValue
+	 * @return this acquire action in the making
+	 */
 	public AcquireActionCreator withTimeoutValue(Double timeoutValue) {
 		this.timeoutValue = timeoutValue;
 		return this;
 	}
 
+	/**
+	 * Defines if this acquire action is timeout.
+	 * 
+	 * @param isTimeout
+	 * @return this acquire action in the making
+	 */
 	public AcquireActionCreator isTimeout(Boolean isTimeout) {
 		this.isTimeout = isTimeout;
 		return this;
