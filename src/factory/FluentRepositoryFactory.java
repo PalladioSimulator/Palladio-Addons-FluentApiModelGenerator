@@ -2,7 +2,6 @@ package factory;
 
 import java.util.Map;
 
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -14,14 +13,17 @@ import org.palladiosimulator.pcm.core.composition.EventChannelSinkConnector;
 import org.palladiosimulator.pcm.core.composition.EventChannelSourceConnector;
 import org.palladiosimulator.pcm.core.entity.ResourceRequiredRole;
 import org.palladiosimulator.pcm.reliability.FailureType;
+import org.palladiosimulator.pcm.reliability.HardwareInducedFailureType;
+import org.palladiosimulator.pcm.reliability.NetworkInducedFailureType;
+import org.palladiosimulator.pcm.reliability.ReliabilityFactory;
 import org.palladiosimulator.pcm.reliability.ResourceTimeoutFailureType;
 import org.palladiosimulator.pcm.repository.BasicComponent;
 import org.palladiosimulator.pcm.repository.CollectionDataType;
 import org.palladiosimulator.pcm.repository.CompleteComponentType;
 import org.palladiosimulator.pcm.repository.CompositeComponent;
-import org.palladiosimulator.pcm.repository.CompositeDataType;
 import org.palladiosimulator.pcm.repository.DataType;
 import org.palladiosimulator.pcm.repository.EventGroup;
+import org.palladiosimulator.pcm.repository.ExceptionType;
 import org.palladiosimulator.pcm.repository.InfrastructureInterface;
 import org.palladiosimulator.pcm.repository.InfrastructureProvidedRole;
 import org.palladiosimulator.pcm.repository.InfrastructureRequiredRole;
@@ -44,12 +46,13 @@ import org.palladiosimulator.pcm.repository.SinkRole;
 import org.palladiosimulator.pcm.repository.SourceRole;
 import org.palladiosimulator.pcm.resourcetype.ResourceInterface;
 import org.palladiosimulator.pcm.resourcetype.ResourceRepository;
-import org.palladiosimulator.pcm.resourcetype.ResourceType;
 import org.palladiosimulator.pcm.resourcetype.ResourcetypePackage;
 import org.palladiosimulator.pcm.seff.seff_reliability.RecoveryActionBehaviour;
 import org.palladiosimulator.pcm.subsystem.SubSystem;
 
 import apiControlFlowInterfaces.Repo;
+import apiControlFlowInterfaces.SoftwareFailureType.ResourceTimeoutFailure;
+import apiControlFlowInterfaces.SoftwareFailureType.SoftwareInducedFailure;
 import apiControlFlowInterfaces.seff.InternalSeff;
 import apiControlFlowInterfaces.seff.RecoverySeff;
 import apiControlFlowInterfaces.seff.Seff;
@@ -61,10 +64,12 @@ import repositoryStructure.components.ProvidesComponentTypeCreator;
 import repositoryStructure.components.SubSystemCreator;
 import repositoryStructure.components.VariableUsageCreator;
 import repositoryStructure.components.seff.SeffCreator;
+import repositoryStructure.datatypes.CommunicationLinkResource;
 import repositoryStructure.datatypes.CompositeDataTypeCreator;
 import repositoryStructure.datatypes.Failure;
+import repositoryStructure.datatypes.FailureTypeCreator;
 import repositoryStructure.datatypes.Primitive;
-import repositoryStructure.datatypes.PrimitiveType;
+import repositoryStructure.datatypes.ProcessingResource;
 import repositoryStructure.interfaces.EventGroupCreator;
 import repositoryStructure.interfaces.InfrastructureInterfaceCreator;
 import repositoryStructure.interfaces.OperationInterfaceCreator;
@@ -72,15 +77,8 @@ import repositoryStructure.interfaces.OperationInterfaceCreator;
 public class FluentRepositoryFactory {
 
 	private RepositoryCreator repo;
-	private Repository primitives;
-	private ResourceRepository resourceTypes;
-	private Repository failures;
 
 	public FluentRepositoryFactory() {
-		// TODO: pathmap://PCM_MODELS/PrimitiveTypes.repository
-		this.primitives = loadRepository("resources/PrimitiveTypes.repository");
-		this.resourceTypes = loadResourceTypeRepository();
-		this.failures = loadRepository("resources/FailureTypes.repository");
 	}
 
 	private Repository loadRepository(String uri) {
@@ -129,6 +127,7 @@ public class FluentRepositoryFactory {
 	 * @return the repository in the making
 	 */
 	public Repo newRepository() {
+		// TODO: pathmap://PCM_MODELS/PrimitiveTypes.repository
 		Repository primitives = loadRepository("resources/PrimitiveTypes.repository");
 		ResourceRepository resourceTypes = loadResourceTypeRepository();
 		Repository failures = loadRepository("resources/FailureTypes.repository");
@@ -504,7 +503,7 @@ public class FluentRepositoryFactory {
 	 * @see repositoryStructure.datatypes.Primitive
 	 */
 	public CollectionDataType newCollectionDataType(String name, Primitive primitive) {
-		PrimitiveDataType p = PrimitiveType.getPrimitiveDataType(primitive);
+		PrimitiveDataType p = repo.getPrimitiveDataType(primitive);
 
 		CollectionDataType coll = RepositoryFactory.eINSTANCE.createCollectionDataType();
 		coll.setEntityName(name);
@@ -569,11 +568,33 @@ public class FluentRepositoryFactory {
 	 *      DataType)
 	 * @see org.palladiosimulator.pcm.repository.CompositeDataType
 	 */
-	public CompositeDataTypeCreator newCompositeDataType(String name, CompositeDataType... parents) {
-		if (parents == null)
-			parents = new CompositeDataType[0];
-		CompositeDataTypeCreator c = new CompositeDataTypeCreator(name, parents);
-		return c;
+	public CompositeDataTypeCreator newCompositeDataType() {
+		return new CompositeDataTypeCreator(this.repo);
+	}
+
+	public HardwareInducedFailureType newHardwareInducedFailureType(String name,
+			ProcessingResource processingResource) {
+		HardwareInducedFailureType h = ReliabilityFactory.eINSTANCE.createHardwareInducedFailureType();
+		h.setEntityName(name);
+		h.setProcessingResourceType__HardwareInducedFailureType(repo.getProcessingResource(processingResource));
+		return h;
+	}
+
+	public NetworkInducedFailureType newNetworkInducedFailureType(String name,
+			CommunicationLinkResource communicationLinkResource) {
+		NetworkInducedFailureType n = ReliabilityFactory.eINSTANCE.createNetworkInducedFailureType();
+		n.setEntityName(name);
+		n.setCommunicationLinkResourceType__NetworkInducedFailureType(
+				repo.getCommunicationLinkResource(communicationLinkResource));
+		return null;
+	}
+
+	public ResourceTimeoutFailure newResourceTimeoutFailureType() {
+		return new FailureTypeCreator(this.repo);
+	}
+
+	public SoftwareInducedFailure newSoftwareInducedFailureType(String name) {
+		return new FailureTypeCreator(this.repo);
 	}
 
 	// ---------------------- Component Related Stuff ----------------------
@@ -735,7 +756,7 @@ public class FluentRepositoryFactory {
 
 		DataType dataType = repo.getDataType(name);
 		if (dataType == null)
-			dataType = PrimitiveType.getPrimitiveDataType(name);
+			dataType = repo.getPrimitiveDataType(name);
 		if (dataType == null)
 			throw new RuntimeException("Datatype '" + name + "' could not be found");
 
@@ -751,43 +772,27 @@ public class FluentRepositoryFactory {
 	 * @see org.palladiosimulator.pcm.repository.PrimitiveDataType
 	 */
 	public DataType fetchOfDataType(Primitive primitive) {
-		// TODO:
-		EList<DataType> dataTypes = this.primitives.getDataTypes__Repository();
-		for (DataType d : dataTypes) {
-			System.out.println(d);
-		}
-		return PrimitiveType.getPrimitiveDataType(primitive);
+		PrimitiveDataType p = repo.getPrimitiveDataType(primitive);
+		if (p == null)
+			throw new RuntimeException("Primitive data Type '" + primitive + "' could not be found");
+		return p;
 	}
 
 	public FailureType fetchOfFailureType(Failure failure) {
-		// TODO: integration der importierten und man kann evtl noch eigene erstellen,
-		// die müssen auch beachtet werden -> fetch methode mit string
-		EList<FailureType> failureTypes = this.failures.getFailureTypes__Repository();
-		for (FailureType f : failureTypes) {
-			System.out.println(f);
-		}
-
-		return repositoryStructure.datatypes.FailureType.getFailureType(failure);
+		FailureType f = repo.getFailureType(failure);
+		if (f == null)
+			throw new RuntimeException("Failure Type '" + failure + "' could not be found");
+		return f;
 	}
 
 	public FailureType fetchOfFailureType(String name) {
-		// TODO: integration der importierten und man kann evtl noch eigene erstellen,
-		// die müssen auch beachtet werden -> fetch methode mit string
-		EList<FailureType> failureTypes = this.failures.getFailureTypes__Repository();
-		for (FailureType f : failureTypes) {
-			System.out.println(f);
-		}
-
-		return null;
-	}
-
-	public FailureType fetchOfExceptionType(String name) {
-		// TODO:
+		// TODO: Kann man kann evtl noch eigene erstellen? -> fetch mit String; auch
+		// übertragen auf Failure
 		return null;
 	}
 
 	public ResourceTimeoutFailureType fetchOfResourceTimeoutFailureType(Failure failure) {
-		FailureType failureType = repositoryStructure.datatypes.FailureType.getFailureType(failure);
+		FailureType failureType = repo.getFailureType(Failure.SOFTWARE);
 		if (failureType instanceof ResourceTimeoutFailureType)
 			return (ResourceTimeoutFailureType) failureType;
 		// TODO: einkommentieren
@@ -797,19 +802,15 @@ public class FluentRepositoryFactory {
 		return null;
 	}
 
-	public ResourceType fetchOfResourcetype(String name) {
+	public ExceptionType fetchOfExceptionType(String name) {
 		// TODO:
-		this.resourceTypes.getAvailableResourceTypes_ResourceRepository();
-		this.resourceTypes.getResourceInterfaces__ResourceRepository();
-		this.resourceTypes.getSchedulingPolicies__ResourceRepository();
 		return null;
 	}
 
-	public ResourceInterface fetchOfResourceInterface(String name) {
-		// TODO: resource stuff
+	public ResourceInterface fetchOfResourceInterface(repositoryStructure.datatypes.ResourceInterface resourceInterface) {
+		//TODO
 		return null;
 	}
-
 	/**
 	 * Extracts the <b>component</b> referenced by <code>name</code> from the
 	 * repository.

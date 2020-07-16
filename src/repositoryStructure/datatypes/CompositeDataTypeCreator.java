@@ -1,13 +1,15 @@
 package repositoryStructure.datatypes;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.palladiosimulator.pcm.repository.CompositeDataType;
 import org.palladiosimulator.pcm.repository.InnerDeclaration;
 import org.palladiosimulator.pcm.repository.PrimitiveDataType;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
+
+import repositoryStructure.Entity;
+import repositoryStructure.RepositoryCreator;
 
 import org.palladiosimulator.pcm.repository.DataType;
 
@@ -21,19 +23,22 @@ import org.palladiosimulator.pcm.repository.DataType;
  * @author Louisa Lambrecht
  * @see org.palladiosimulator.pcm.repository.CompositeDataType
  */
-public class CompositeDataTypeCreator {
+public class CompositeDataTypeCreator extends Entity{
 
-	private String name;
 	private List<CompositeDataType> parents;
 	private List<InnerDeclaration> innerDeclarations;
 
-	public CompositeDataTypeCreator(String name, CompositeDataType[] parents) {
-		this.name = name;
+	public CompositeDataTypeCreator(RepositoryCreator repo) {
+		this.repository = repo;
 		this.parents = new ArrayList<>();
 		this.innerDeclarations = new ArrayList<>();
-		this.parents.addAll(Arrays.asList(parents));
 	}
 
+	@Override
+	public CompositeDataTypeCreator withName(String name) {
+		return (CompositeDataTypeCreator) super.withName(name);
+	}
+	
 	/**
 	 * Adds an inner data type to a composite data type with name <code>name</code>
 	 * and of type <code>primitive</code>.
@@ -50,7 +55,7 @@ public class CompositeDataTypeCreator {
 	public CompositeDataTypeCreator withInnerDeclaration(String name, Primitive primitive) {
 		InnerDeclaration inner = RepositoryFactory.eINSTANCE.createInnerDeclaration();
 		inner.setEntityName(name);
-		PrimitiveDataType p = PrimitiveType.getPrimitiveDataType(primitive);
+		PrimitiveDataType p = repository.getPrimitiveDataType(primitive);
 		inner.setDatatype_InnerDeclaration(p);
 		innerDeclarations.add(inner);
 		return this;
@@ -78,6 +83,11 @@ public class CompositeDataTypeCreator {
 		inner.setEntityName(name);
 		inner.setDatatype_InnerDeclaration(dataType);
 		innerDeclarations.add(inner);
+		return this;
+	}
+	
+	public CompositeDataTypeCreator withParentCompositeDataType(CompositeDataType parent) {
+		this.parents.add(parent);
 		return this;
 	}
 

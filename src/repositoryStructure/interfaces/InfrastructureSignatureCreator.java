@@ -16,7 +16,6 @@ import repositoryStructure.Entity;
 import repositoryStructure.RepositoryCreator;
 import repositoryStructure.datatypes.Failure;
 import repositoryStructure.datatypes.Primitive;
-import repositoryStructure.datatypes.PrimitiveType;
 
 /**
  * This class constructs a
@@ -74,7 +73,7 @@ public class InfrastructureSignatureCreator extends Entity {
 	 * @see org.palladiosimulator.pcm.repository.ParameterModifier
 	 */
 	public InfrastructureSignatureCreator withParameter(String name, Primitive dataType, ParameterModifier modifier) {
-		PrimitiveDataType dt = PrimitiveType.getPrimitiveDataType(dataType);
+		PrimitiveDataType dt = repository.getPrimitiveDataType(dataType);
 		return withParameter(name, dt, modifier);
 	}
 
@@ -145,7 +144,7 @@ public class InfrastructureSignatureCreator extends Entity {
 	 * @return this infrastructure signature in the making
 	 */
 	public InfrastructureSignatureCreator withFailureType(Failure failureType) {
-		FailureType failure = repositoryStructure.datatypes.FailureType.getFailureType(failureType);
+		FailureType failure = this.repository.getFailureType(failureType);
 		return withFailureType(failure);
 	}
 

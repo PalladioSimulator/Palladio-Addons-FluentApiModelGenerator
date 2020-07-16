@@ -16,7 +16,6 @@ import repositoryStructure.Entity;
 import repositoryStructure.RepositoryCreator;
 import repositoryStructure.datatypes.Failure;
 import repositoryStructure.datatypes.Primitive;
-import repositoryStructure.datatypes.PrimitiveType;
 
 /**
  * This class constructs a {@link org.palladiosimulator.pcm.repository.EventType
@@ -68,7 +67,7 @@ public class EventTypeCreator extends Entity {
 	 * @see org.palladiosimulator.pcm.repository.ParameterModifier
 	 */
 	public EventTypeCreator withParameter(String name, Primitive dataType, ParameterModifier modifier) {
-		PrimitiveDataType dt = PrimitiveType.getPrimitiveDataType(dataType);
+		PrimitiveDataType dt = repository.getPrimitiveDataType(dataType);
 		return withParameter(name, dt, modifier);
 	}
 
@@ -139,7 +138,7 @@ public class EventTypeCreator extends Entity {
 	 * @return this event type in the making
 	 */
 	public EventTypeCreator withFailureType(Failure failureType) {
-		FailureType failure = repositoryStructure.datatypes.FailureType.getFailureType(failureType);
+		FailureType failure = this.repository.getFailureType(failureType);
 		return withFailureType(failure);
 	}
 

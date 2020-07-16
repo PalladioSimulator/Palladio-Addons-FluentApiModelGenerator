@@ -1,5 +1,6 @@
 package apiControlFlowInterfaces;
 
+import org.palladiosimulator.pcm.reliability.FailureType;
 import org.palladiosimulator.pcm.repository.CollectionDataType;
 import org.palladiosimulator.pcm.repository.Repository;
 
@@ -11,7 +12,7 @@ public interface RepoAddition {
 
 	/**
 	 * Adds the <code>collectionDataType</code> to the list of data types provided
-	 * by the repository.
+	 * by this repository.
 	 * 
 	 * <p>
 	 * The <code>collectionDataType</code> represents a collection data type, e.g. a
@@ -21,7 +22,7 @@ public interface RepoAddition {
 	 * </p>
 	 * 
 	 * @param collectionDataType
-	 * @return the repository, now containing the <code>collectionDataType</code>
+	 * @return this repository, now containing the <code>collectionDataType</code>
 	 * @see factory.FluentRepositoryFactory#newCollectionDataType(String,
 	 *      repositoryStructure.datatypes.Primitive)
 	 * @see factory.FluentRepositoryFactory#newCollectionDataType(String,
@@ -32,7 +33,7 @@ public interface RepoAddition {
 
 	/**
 	 * Adds the <code>compositeDataType</code> to the list of data types provided by
-	 * the repository.
+	 * this repository.
 	 * 
 	 * <p>
 	 * The <code>compositeDataType</code> represents a complex data type containing
@@ -43,13 +44,27 @@ public interface RepoAddition {
 	 * </p>
 	 * 
 	 * @param compositeDataType
-	 * @return the repository, now containing the <code>compositeDataType</code>
+	 * @return this repository, now containing the <code>compositeDataType</code>
 	 * @see factory.FluentRepositoryFactory#newCompositeDataType(String,
 	 *      org.palladiosimulator.pcm.repository.CompositeDataType...)
 	 * @see org.palladiosimulator.pcm.repository.CompositeDataType
 	 */
 	RepoAddition addToRepository(CompositeDataTypeCreator compositeDataType);
 
+	/**
+	 * TODO:
+	 * @param failureType
+	 * @return this repository, now containing the <code>collectionDataType</code>
+	 */
+	RepoAddition addToRepository(FailureType failureType);
+	
+	/**
+	 * TODO:
+	 * @param failureType
+	 * @return this repository, now containing the <code>collectionDataType</code>
+	 */
+	RepoAddition addToRepository(SoftwareFailureType failureType);
+	
 	/**
 	 * Adds the <code>component</code> to the list of components stored in the
 	 * repository.
@@ -65,7 +80,7 @@ public interface RepoAddition {
 	 * </p>
 	 * 
 	 * @param component
-	 * @return the repository, now containing the <code>component</code>
+	 * @return this repository, now containing the <code>component</code>
 	 * @see factory.FluentRepositoryFactory#newBasicComponent()
 	 * @see factory.FluentRepositoryFactory#newCompositeComponent()
 	 * @see factory.FluentRepositoryFactory#newSubSystem()
@@ -89,7 +104,7 @@ public interface RepoAddition {
 	 * </p>
 	 * 
 	 * @param interfce
-	 * @return the repository, now containing the <code>interfce</code>
+	 * @return this repository, now containing the <code>interfce</code>
 	 * @see factory.FluentRepositoryFactory#newOperationInterface()
 	 * @see factory.FluentRepositoryFactory#newEventGroup()
 	 * @see factory.FluentRepositoryFactory#newInfrastructureInterface()
@@ -98,7 +113,7 @@ public interface RepoAddition {
 	RepoAddition addToRepository(Interface interfce);
 
 	/**
-	 * Turns the repository-in-the-making into a
+	 * Turns this repository-in-the-making into a
 	 * Palladio-'<em><b>Repository</b></em>' object.
 	 * 
 	 * @return the final repository object

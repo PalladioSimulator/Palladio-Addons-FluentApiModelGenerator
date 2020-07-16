@@ -170,7 +170,7 @@ public class SeffCreator extends Entity implements Seff, ActionSeff, StartSeff, 
 
 	@Override
 	public SeffCreator withFailureType(Failure failure) {
-		FailureType f = repositoryStructure.datatypes.FailureType.getFailureType(failure);
+		FailureType f = this.repository.getFailureType(failure);
 		return withFailureType(f);
 	}
 

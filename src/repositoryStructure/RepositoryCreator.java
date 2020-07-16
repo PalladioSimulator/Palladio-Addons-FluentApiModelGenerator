@@ -14,6 +14,9 @@ import org.palladiosimulator.pcm.core.composition.EventChannelSinkConnector;
 import org.palladiosimulator.pcm.core.composition.EventChannelSourceConnector;
 import org.palladiosimulator.pcm.core.entity.ResourceRequiredRole;
 import org.palladiosimulator.pcm.reliability.FailureType;
+import org.palladiosimulator.pcm.reliability.HardwareInducedFailureType;
+import org.palladiosimulator.pcm.reliability.NetworkInducedFailureType;
+import org.palladiosimulator.pcm.reliability.SoftwareInducedFailureType;
 import org.palladiosimulator.pcm.repository.BasicComponent;
 import org.palladiosimulator.pcm.repository.CollectionDataType;
 import org.palladiosimulator.pcm.repository.CompleteComponentType;
@@ -52,11 +55,13 @@ import org.palladiosimulator.pcm.subsystem.SubSystem;
 
 import apiControlFlowInterfaces.Repo;
 import apiControlFlowInterfaces.RepoAddition;
+import apiControlFlowInterfaces.SoftwareFailureType;
 import repositoryStructure.components.Component;
+import repositoryStructure.datatypes.CommunicationLinkResource;
 import repositoryStructure.datatypes.CompositeDataTypeCreator;
 import repositoryStructure.datatypes.Failure;
 import repositoryStructure.datatypes.Primitive;
-import repositoryStructure.datatypes.PrimitiveType;
+import repositoryStructure.datatypes.ProcessingResource;
 
 /**
  * This class constructs a
@@ -73,7 +78,11 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 
 	private List<DataType> dataTypes;
 	private Map<Primitive, PrimitiveDataType> primitives;
-	private List<FailureType> failureTypes;
+	private List<ProcessingResourceType> processingResources;
+	private List<CommunicationLinkResourceType> communicationLinkResources;
+	private List<ResourceInterface> resourceInterfaces;
+	private List<SchedulingPolicy> schedulingPolicies;
+	private Map<Failure, FailureType> failureTypes;
 	private List<Interface> interfaces;
 	private List<RepositoryComponent> components;
 	private List<ProvidedRole> providedRoles;
@@ -84,13 +93,16 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 	private List<EventChannel> eventChannels;
 	private List<Connector> connectors;
 	private List<RecoveryActionBehaviour> behaviours;
-
 	private List<PassiveResource> passiveResources;
 
 	public RepositoryCreator(Repository primitiveDataTypes, ResourceRepository resourceTypes, Repository failureTypes) {
 		this.dataTypes = new ArrayList<>();
 		this.primitives = new HashMap<>();
-		this.failureTypes = new ArrayList<>();
+		this.processingResources = new ArrayList<>();
+		this.communicationLinkResources = new ArrayList<>();
+		this.resourceInterfaces = new ArrayList<>();
+		this.schedulingPolicies = new ArrayList<>();
+		this.failureTypes = new HashMap<>();
 		this.interfaces = new ArrayList<>();
 		this.components = new ArrayList<>();
 		this.providedRoles = new ArrayList<>();
@@ -102,20 +114,6 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 		this.connectors = new ArrayList<>();
 		this.behaviours = new ArrayList<>();
 		this.passiveResources = new ArrayList<>();
-
-		this.dataTypes.add(PrimitiveType.getPrimitiveDataType(Primitive.BOOLEAN));
-		this.dataTypes.add(PrimitiveType.getPrimitiveDataType(Primitive.BYTE));
-		this.dataTypes.add(PrimitiveType.getPrimitiveDataType(Primitive.CHAR));
-		this.dataTypes.add(PrimitiveType.getPrimitiveDataType(Primitive.DOUBLE));
-		this.dataTypes.add(PrimitiveType.getPrimitiveDataType(Primitive.INTEGER));
-		this.dataTypes.add(PrimitiveType.getPrimitiveDataType(Primitive.LONG));
-		this.dataTypes.add(PrimitiveType.getPrimitiveDataType(Primitive.STRING));
-
-		this.failureTypes.add(repositoryStructure.datatypes.FailureType.getFailureType(Failure.HARDWARE_CPU));
-		this.failureTypes.add(repositoryStructure.datatypes.FailureType.getFailureType(Failure.HARDWARE_HDD));
-		this.failureTypes.add(repositoryStructure.datatypes.FailureType.getFailureType(Failure.HARDWARE_DELAY));
-		this.failureTypes.add(repositoryStructure.datatypes.FailureType.getFailureType(Failure.NETWORK_LAN));
-		this.failureTypes.add(repositoryStructure.datatypes.FailureType.getFailureType(Failure.SOFTWARE));
 
 		initPredefinedDataTypesAndResources(primitiveDataTypes, resourceTypes, failureTypes);
 	}
@@ -150,36 +148,45 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 				this.primitives.put(Primitive.STRING, p);
 				break;
 			default:
-				System.err.println("wuhaaaaa");
+				System.err.println("TODO:primitives");
 				break;
 			}
 		}
 
 		// ResourceTypes
-		EList<ResourceType> resources = resourceTypes.getAvailableResourceTypes_ResourceRepository();
-		EList<ResourceInterface> interfacs = resourceTypes.getResourceInterfaces__ResourceRepository();
-		EList<SchedulingPolicy> schedules = resourceTypes.getSchedulingPolicies__ResourceRepository();
-
-		ProcessingResourceType cpu = null;
-		ProcessingResourceType hdd = null;
-		ProcessingResourceType delay = null;
-		CommunicationLinkResourceType lan = null;
-		for (ResourceType resourceType : resources) {
-			System.out.println(resourceType + " " + resourceType.getEntityName());
+		for (ResourceType resourceType : resourceTypes.getAvailableResourceTypes_ResourceRepository()) {
 			if (resourceType instanceof ProcessingResourceType) {
-				if (resourceType.getEntityName().toLowerCase().equals("cpu")) {
-					cpu = (ProcessingResourceType) resourceType;
-				} else if (resourceType.getEntityName().toLowerCase().equals("hdd")) {
-					hdd = (ProcessingResourceType) resourceType;
-				} else if (resourceType.getEntityName().toLowerCase().equals("delay")) {
-					delay = (ProcessingResourceType) resourceType;
-				}
+				this.processingResources.add((ProcessingResourceType) resourceType);
 			} else if (resourceType instanceof CommunicationLinkResourceType) {
-				lan = (CommunicationLinkResourceType) resourceType;
+				this.communicationLinkResources.add((CommunicationLinkResourceType) resourceType);
 			}
 		}
 
-//		System.out.println(delay);
+		this.resourceInterfaces.addAll(resourceTypes.getResourceInterfaces__ResourceRepository());
+		this.schedulingPolicies.addAll(resourceTypes.getSchedulingPolicies__ResourceRepository());
+
+		// FailureTypes
+		EList<FailureType> failures = failureTypes.getFailureTypes__Repository();
+		for (FailureType f : failures) {
+			if (f instanceof SoftwareInducedFailureType && !this.failureTypes.containsKey(Failure.SOFTWARE))
+				this.failureTypes.put(Failure.SOFTWARE, f);
+			else if (f instanceof NetworkInducedFailureType && !this.failureTypes.containsKey(Failure.NETWORK_LAN))
+				this.failureTypes.put(Failure.NETWORK_LAN, f);
+			else if (f instanceof HardwareInducedFailureType) {
+				if (f.getEntityName().toLowerCase().contentEquals("hardwareinducedfailure (cpu)")
+						&& !this.failureTypes.containsKey(Failure.HARDWARE_CPU))
+					this.failureTypes.put(Failure.HARDWARE_CPU, f);
+				else if (f.getEntityName().toLowerCase().contentEquals("hardwareinducedfailure (hdd)")
+						&& !this.failureTypes.containsKey(Failure.HARDWARE_HDD))
+					this.failureTypes.put(Failure.HARDWARE_HDD, f);
+				else if (f.getEntityName().toLowerCase().contentEquals("hardwareinducedfailure (delay)")
+						&& !this.failureTypes.containsKey(Failure.HARDWARE_DELAY))
+					this.failureTypes.put(Failure.HARDWARE_DELAY, f);
+				else
+					System.err.println("TODO:hardwareFailure");
+			} else
+				System.err.println("TODO:failure");
+		}
 	}
 
 	@Override
@@ -210,6 +217,18 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 		dataTypes.add(dataType);
 		return this;
 	}
+	
+	@Override
+	public RepoAddition addToRepository(FailureType failureType) {
+		//TODO:
+		return this;
+	}
+	
+	@Override
+	public RepoAddition addToRepository(SoftwareFailureType failureType) {
+		//TODO:
+		return this;
+	}
 
 	@Override
 	public RepoAddition addToRepository(repositoryStructure.interfaces.Interface interfce) {
@@ -236,9 +255,10 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 			repo.setRepositoryDescription(description);
 
 		repo.getDataTypes__Repository().addAll(dataTypes);
+		repo.getDataTypes__Repository().addAll(primitives.values());
 		repo.getInterfaces__Repository().addAll(interfaces);
 		repo.getComponents__Repository().addAll(components);
-		repo.getFailureTypes__Repository().addAll(failureTypes);
+		repo.getFailureTypes__Repository().addAll(failureTypes.values());
 
 		return repo;
 	}
@@ -263,8 +283,28 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 			} else {
 			}
 		}
-
 		return null;
+	}
+
+	public PrimitiveDataType getPrimitiveDataType(Primitive primitive) {
+		return primitives.get(primitive);
+	}
+
+	public PrimitiveDataType getPrimitiveDataType(String name) {
+		try {
+			if (name.equalsIgnoreCase("int"))
+				name = "integer";
+			if (name.equalsIgnoreCase("bool"))
+				name = "boolean";
+			Primitive valueOf = Primitive.valueOf(name.toUpperCase());
+			return primitives.get(valueOf);
+		} catch (IllegalArgumentException e) {
+			return null;
+		}
+	}
+	
+	public FailureType getFailureType(Failure failure) {
+		return failureTypes.get(failure);
 	}
 
 	public Interface getInterface(String name) {
@@ -450,11 +490,27 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 	public void addEventChannel(EventChannel eg) {
 		eventChannels.add(eg);
 	}
-	// TODO: add event channel connectors, resource required roles, recovery action
-	// behaviours
 
+	public void addConnector(Connector r) {
+		connectors.add(r);
+	}
+	
+	public void addRecoveryActionBehaviour(RecoveryActionBehaviour recovery) {
+		behaviours.add(recovery);
+	}
 	public void addPassiveResource(PassiveResource pass) {
 		passiveResources.add(pass);
 
+	}
+
+	public ProcessingResourceType getProcessingResource(ProcessingResource processingResource) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public CommunicationLinkResourceType getCommunicationLinkResource(
+			CommunicationLinkResource communicationLinkResource) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
