@@ -77,12 +77,12 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 	private String description;
 
 	private List<DataType> dataTypes;
-	private Map<Primitive, PrimitiveDataType> primitives;
-	private List<ProcessingResourceType> processingResources;
-	private List<CommunicationLinkResourceType> communicationLinkResources;
-	private List<ResourceInterface> resourceInterfaces;
-	private List<SchedulingPolicy> schedulingPolicies;
-	private Map<Failure, FailureType> failureTypes;
+	private Map<Primitive, PrimitiveDataType> internalPrimitives;
+	private List<ProcessingResourceType> internalProcessingResources;
+	private List<CommunicationLinkResourceType> internalCommunicationLinkResources;
+	private List<ResourceInterface> internalResourceInterfaces;
+	private List<SchedulingPolicy> internalSchedulingPolicies;
+	private Map<Failure, FailureType> internalFailureTypes;
 	private List<Interface> interfaces;
 	private List<RepositoryComponent> components;
 	private List<ProvidedRole> providedRoles;
@@ -97,12 +97,12 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 
 	public RepositoryCreator(Repository primitiveDataTypes, ResourceRepository resourceTypes, Repository failureTypes) {
 		this.dataTypes = new ArrayList<>();
-		this.primitives = new HashMap<>();
-		this.processingResources = new ArrayList<>();
-		this.communicationLinkResources = new ArrayList<>();
-		this.resourceInterfaces = new ArrayList<>();
-		this.schedulingPolicies = new ArrayList<>();
-		this.failureTypes = new HashMap<>();
+		this.internalPrimitives = new HashMap<>();
+		this.internalProcessingResources = new ArrayList<>();
+		this.internalCommunicationLinkResources = new ArrayList<>();
+		this.internalResourceInterfaces = new ArrayList<>();
+		this.internalSchedulingPolicies = new ArrayList<>();
+		this.internalFailureTypes = new HashMap<>();
 		this.interfaces = new ArrayList<>();
 		this.components = new ArrayList<>();
 		this.providedRoles = new ArrayList<>();
@@ -127,25 +127,25 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 			PrimitiveTypeEnum type = p.getType();
 			switch (type) {
 			case BOOL:
-				this.primitives.put(Primitive.BOOLEAN, p);
+				this.internalPrimitives.put(Primitive.BOOLEAN, p);
 				break;
 			case BYTE:
-				this.primitives.put(Primitive.BYTE, p);
+				this.internalPrimitives.put(Primitive.BYTE, p);
 				break;
 			case CHAR:
-				this.primitives.put(Primitive.CHAR, p);
+				this.internalPrimitives.put(Primitive.CHAR, p);
 				break;
 			case DOUBLE:
-				this.primitives.put(Primitive.DOUBLE, p);
+				this.internalPrimitives.put(Primitive.DOUBLE, p);
 				break;
 			case INT:
-				this.primitives.put(Primitive.INTEGER, p);
+				this.internalPrimitives.put(Primitive.INTEGER, p);
 				break;
 			case LONG:
-				this.primitives.put(Primitive.LONG, p);
+				this.internalPrimitives.put(Primitive.LONG, p);
 				break;
 			case STRING:
-				this.primitives.put(Primitive.STRING, p);
+				this.internalPrimitives.put(Primitive.STRING, p);
 				break;
 			default:
 				System.err.println("TODO:primitives");
@@ -156,32 +156,33 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 		// ResourceTypes
 		for (ResourceType resourceType : resourceTypes.getAvailableResourceTypes_ResourceRepository()) {
 			if (resourceType instanceof ProcessingResourceType) {
-				this.processingResources.add((ProcessingResourceType) resourceType);
+				this.internalProcessingResources.add((ProcessingResourceType) resourceType);
 			} else if (resourceType instanceof CommunicationLinkResourceType) {
-				this.communicationLinkResources.add((CommunicationLinkResourceType) resourceType);
+				this.internalCommunicationLinkResources.add((CommunicationLinkResourceType) resourceType);
 			}
 		}
 
-		this.resourceInterfaces.addAll(resourceTypes.getResourceInterfaces__ResourceRepository());
-		this.schedulingPolicies.addAll(resourceTypes.getSchedulingPolicies__ResourceRepository());
+		this.internalResourceInterfaces.addAll(resourceTypes.getResourceInterfaces__ResourceRepository());
+		this.internalSchedulingPolicies.addAll(resourceTypes.getSchedulingPolicies__ResourceRepository());
 
 		// FailureTypes
 		EList<FailureType> failures = failureTypes.getFailureTypes__Repository();
 		for (FailureType f : failures) {
-			if (f instanceof SoftwareInducedFailureType && !this.failureTypes.containsKey(Failure.SOFTWARE))
-				this.failureTypes.put(Failure.SOFTWARE, f);
-			else if (f instanceof NetworkInducedFailureType && !this.failureTypes.containsKey(Failure.NETWORK_LAN))
-				this.failureTypes.put(Failure.NETWORK_LAN, f);
+			if (f instanceof SoftwareInducedFailureType && !this.internalFailureTypes.containsKey(Failure.SOFTWARE))
+				this.internalFailureTypes.put(Failure.SOFTWARE, f);
+			else if (f instanceof NetworkInducedFailureType
+					&& !this.internalFailureTypes.containsKey(Failure.NETWORK_LAN))
+				this.internalFailureTypes.put(Failure.NETWORK_LAN, f);
 			else if (f instanceof HardwareInducedFailureType) {
 				if (f.getEntityName().toLowerCase().contentEquals("hardwareinducedfailure (cpu)")
-						&& !this.failureTypes.containsKey(Failure.HARDWARE_CPU))
-					this.failureTypes.put(Failure.HARDWARE_CPU, f);
+						&& !this.internalFailureTypes.containsKey(Failure.HARDWARE_CPU))
+					this.internalFailureTypes.put(Failure.HARDWARE_CPU, f);
 				else if (f.getEntityName().toLowerCase().contentEquals("hardwareinducedfailure (hdd)")
-						&& !this.failureTypes.containsKey(Failure.HARDWARE_HDD))
-					this.failureTypes.put(Failure.HARDWARE_HDD, f);
+						&& !this.internalFailureTypes.containsKey(Failure.HARDWARE_HDD))
+					this.internalFailureTypes.put(Failure.HARDWARE_HDD, f);
 				else if (f.getEntityName().toLowerCase().contentEquals("hardwareinducedfailure (delay)")
-						&& !this.failureTypes.containsKey(Failure.HARDWARE_DELAY))
-					this.failureTypes.put(Failure.HARDWARE_DELAY, f);
+						&& !this.internalFailureTypes.containsKey(Failure.HARDWARE_DELAY))
+					this.internalFailureTypes.put(Failure.HARDWARE_DELAY, f);
 				else
 					System.err.println("TODO:hardwareFailure");
 			} else
@@ -217,16 +218,16 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 		dataTypes.add(dataType);
 		return this;
 	}
-	
+
 	@Override
 	public RepoAddition addToRepository(FailureType failureType) {
-		//TODO:
+		// TODO:
 		return this;
 	}
-	
+
 	@Override
 	public RepoAddition addToRepository(SoftwareFailureType failureType) {
-		//TODO:
+		// TODO:
 		return this;
 	}
 
@@ -255,10 +256,8 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 			repo.setRepositoryDescription(description);
 
 		repo.getDataTypes__Repository().addAll(dataTypes);
-		repo.getDataTypes__Repository().addAll(primitives.values());
 		repo.getInterfaces__Repository().addAll(interfaces);
 		repo.getComponents__Repository().addAll(components);
-		repo.getFailureTypes__Repository().addAll(failureTypes.values());
 
 		return repo;
 	}
@@ -287,7 +286,7 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 	}
 
 	public PrimitiveDataType getPrimitiveDataType(Primitive primitive) {
-		return primitives.get(primitive);
+		return internalPrimitives.get(primitive);
 	}
 
 	public PrimitiveDataType getPrimitiveDataType(String name) {
@@ -297,14 +296,14 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 			if (name.equalsIgnoreCase("bool"))
 				name = "boolean";
 			Primitive valueOf = Primitive.valueOf(name.toUpperCase());
-			return primitives.get(valueOf);
+			return internalPrimitives.get(valueOf);
 		} catch (IllegalArgumentException e) {
 			return null;
 		}
 	}
-	
+
 	public FailureType getFailureType(Failure failure) {
-		return failureTypes.get(failure);
+		return internalFailureTypes.get(failure);
 	}
 
 	public Interface getInterface(String name) {
@@ -494,10 +493,11 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 	public void addConnector(Connector r) {
 		connectors.add(r);
 	}
-	
+
 	public void addRecoveryActionBehaviour(RecoveryActionBehaviour recovery) {
 		behaviours.add(recovery);
 	}
+
 	public void addPassiveResource(PassiveResource pass) {
 		passiveResources.add(pass);
 

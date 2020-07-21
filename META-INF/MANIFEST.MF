@@ -1,9 +1,10 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: FluentAPICreation
-Bundle-SymbolicName: org.palladiosimulator.fluentapi
+Bundle-SymbolicName: org.palladiosimulator.fluentapi;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: KIT
 Automatic-Module-Name: org.palladiosimulator.fluentapi
 Bundle-RequiredExecutionEnvironment: JavaSE-11
-Require-Bundle: org.palladiosimulator.pcm;bundle-version="4.2.0"
+Require-Bundle: org.palladiosimulator.pcm;bundle-version="4.2.0",
+ org.palladiosimulator.pcm.resources;bundle-version="4.2.0"

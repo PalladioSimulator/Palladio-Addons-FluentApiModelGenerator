@@ -25,11 +25,6 @@ class PalladioTest {
 
 	public static void main(String[] args) {
 
-		ResourceSet resSet = new ResourceSetImpl();
-
-		Resource resource = resSet.getResource(URI.createURI("pathmap://PCM_MODELS/Palladio.resourcetype"), true);
-		ResourceRepository repository = (ResourceRepository) resource.getContents().get(0);
-
 //		PalladioTest t = new PalladioTest();
 //		ResourceRepository resources = t.loadResourceTypeRepository();
 //		Repository p = t.loadPrimitiveTypesRepository();

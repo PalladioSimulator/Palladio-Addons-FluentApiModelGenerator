@@ -3,6 +3,7 @@ package factory;
 import java.util.Map;
 
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
@@ -87,6 +88,8 @@ public class FluentRepositoryFactory {
 		Map<String, Object> m = reg.getExtensionToFactoryMap();
 		m.put("repository", new XMIResourceFactoryImpl());
 		ResourceSet resSet = new ResourceSetImpl();
+//		resSet.getURIConverter().getURIMap().putAll(EcorePlugin.computePlatformURIMap(false));
+//		Resource resource = resSet.getResource(URI.createPlatformResourceURI(uri, true), true);
 		Resource resource = resSet.getResource(URI.createURI(uri), true);
 		Repository repository = (Repository) resource.getContents().get(0);
 		return repository;
@@ -96,7 +99,6 @@ public class FluentRepositoryFactory {
 		ResourcetypePackage.eINSTANCE.eClass();
 
 		// Register the XMI resource factory for the .repository extension
-
 		Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
 		Map<String, Object> m = reg.getExtensionToFactoryMap();
 		m.put("repository", new XMIResourceFactoryImpl());

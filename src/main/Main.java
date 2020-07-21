@@ -27,7 +27,7 @@ public class Main {
 //		mediaStoreExample();
 //		nullExample();
 		FluentRepositoryFactory create = new FluentRepositoryFactory();
-
+		
 		Repository repo = create.newRepository()
 			.withName("defaultRepository").withDescription("This is my PCM model.")
 //			.withId("abc123")
@@ -109,7 +109,7 @@ public class Main {
 				.withSynchronousForkedBehaviourAtSynchronisationPoint(null).followedBy().recoveryAction().followedBy()
 				.stopAction().createBehaviourNow();
 
-//		saveRepository(repo, "myrepo.repository", false);	
+		saveRepository(repo, "myrepo.repository", true);	
 	}
 
 	public static void saveRepository(Repository repo, String name, boolean print) {
