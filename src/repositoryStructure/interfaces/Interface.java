@@ -10,6 +10,15 @@ import org.palladiosimulator.pcm.repository.RequiredCharacterisation;
 
 import repositoryStructure.Entity;
 
+/**
+ * This class provides the general infrastructure of an interface, i.e.
+ * OperationInterface, InfrastructureInterface and EventGroup. It provides the
+ * implementation of the methods for adding parent interfaces and providing
+ * required characterizations.
+ * 
+ * @author Louisa Lambrecht
+ *
+ */
 public abstract class Interface extends Entity {
 
 	protected List<org.palladiosimulator.pcm.repository.Interface> parentInterfaces = new ArrayList<>();

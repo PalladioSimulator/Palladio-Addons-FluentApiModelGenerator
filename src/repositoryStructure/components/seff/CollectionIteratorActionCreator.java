@@ -29,7 +29,7 @@ public class CollectionIteratorActionCreator extends GeneralAction {
 	private Parameter parameter;
 	private Seff loopBody;
 
-	public CollectionIteratorActionCreator(SeffCreator seff) {
+	protected CollectionIteratorActionCreator(SeffCreator seff) {
 		this.seff = seff;
 	}
 

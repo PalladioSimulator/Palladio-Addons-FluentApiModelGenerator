@@ -31,7 +31,7 @@ public class InternalCallActionCreator extends GeneralAction {
 	private List<VariableUsage> inputVariableUsages;
 	private InternalSeff internalSeff;
 
-	public InternalCallActionCreator(SeffCreator seff) {
+	protected InternalCallActionCreator(SeffCreator seff) {
 		this.seff = seff;
 		this.demands = new ArrayList<>();
 		this.infrastructureCalls = new ArrayList<>();

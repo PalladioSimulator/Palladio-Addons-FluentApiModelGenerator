@@ -33,7 +33,7 @@ public class StopActionCreator extends GeneralAction implements StopSeff {
 	private List<InfrastructureCall> infrastructureCalls = new ArrayList<>();
 	private List<ResourceCall> resourceCalls = new ArrayList<>();
 
-	public StopActionCreator(SeffCreator seff) {
+	protected StopActionCreator(SeffCreator seff) {
 		this.seff = seff;
 	}
 

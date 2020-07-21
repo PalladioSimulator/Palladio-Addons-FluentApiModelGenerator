@@ -18,6 +18,14 @@ import org.palladiosimulator.pcm.seff.seff_performance.SeffPerformanceFactory;
 
 import repositoryStructure.components.VariableUsageCreator;
 
+/**
+ * This class provides the implementation of the methods that add resource
+ * demands, resource calls and infrastructure calls to a SEFF action. Most of
+ * the actions in a SEFF offer these characteristics.
+ * 
+ * @author Louisa Lambrecht
+ *
+ */
 public abstract class GeneralAction extends SeffAction {
 
 	protected List<ParametricResourceDemand> demands = new ArrayList<>();

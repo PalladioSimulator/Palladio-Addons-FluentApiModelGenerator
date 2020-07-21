@@ -29,7 +29,7 @@ public class RecoveryActionCreator extends GeneralAction {
 	private RecoveryActionBehaviour primary;
 	private List<RecoveryActionBehaviour> otherBehaviours;
 
-	public RecoveryActionCreator(SeffCreator seff) {
+	protected RecoveryActionCreator(SeffCreator seff) {
 		this.seff = seff;
 		this.otherBehaviours = new ArrayList<>();
 	}

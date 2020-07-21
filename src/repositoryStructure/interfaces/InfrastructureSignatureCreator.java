@@ -36,7 +36,7 @@ public class InfrastructureSignatureCreator extends Entity {
 	private List<ExceptionType> exceptions;
 	private List<FailureType> failures;
 
-	public InfrastructureSignatureCreator(InfrastructureInterfaceCreator infrastructureInterfaceCreator,
+	protected InfrastructureSignatureCreator(InfrastructureInterfaceCreator infrastructureInterfaceCreator,
 			RepositoryCreator repository) {
 		this.repository = repository;
 		this.correspondingInterface = infrastructureInterfaceCreator;

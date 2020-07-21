@@ -36,7 +36,7 @@ public class OperationSignatureCreator extends Entity {
 	private List<ExceptionType> exceptionTypes;
 	private OperationInterfaceCreator correspondingInterface;
 
-	public OperationSignatureCreator(OperationInterfaceCreator interfce, RepositoryCreator repo) {
+	protected OperationSignatureCreator(OperationInterfaceCreator interfce, RepositoryCreator repo) {
 		this.correspondingInterface = interfce;
 		this.repository = repo;
 		this.ownedParameters = new ArrayList<>();

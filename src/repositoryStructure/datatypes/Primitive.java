@@ -9,5 +9,32 @@ package repositoryStructure.datatypes;
  * @author Louisa Lambrecht
  */
 public enum Primitive {
-	BOOLEAN, INTEGER, STRING, DOUBLE, LONG, CHAR, BYTE
+	/**
+	 * primitive data type boolean
+	 */
+	BOOLEAN,
+	/**
+	 * primitive data type integer
+	 */
+	INTEGER,
+	/**
+	 * primitive data type string
+	 */
+	STRING,
+	/**
+	 * primitive data type double
+	 */
+	DOUBLE,
+	/**
+	 * primitive data type long
+	 */
+	LONG,
+	/**
+	 * primitive data type char
+	 */
+	CHAR,
+	/**
+	 * primitive data type byte
+	 */
+	BYTE
 }

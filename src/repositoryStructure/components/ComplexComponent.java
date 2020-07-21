@@ -34,6 +34,14 @@ import org.palladiosimulator.pcm.repository.SourceRole;
 
 import apiControlFlowInterfaces.EventChannelCreation;
 
+/**
+ * This class provides the general infrastructure of a compositional component,
+ * i.e. CompositeComponent and SubSystem. It provides the implementation of the
+ * methods for creating assembly contexts, connectors and event channels.
+ * 
+ * @author Louisa Lambrecht
+ *
+ */
 public abstract class ComplexComponent extends Component {
 
 	protected List<AssemblyContext> assemblyContexts = new ArrayList<>();

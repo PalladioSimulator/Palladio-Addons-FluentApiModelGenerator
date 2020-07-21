@@ -27,7 +27,7 @@ public class AcquireActionCreator extends GeneralAction {
 	private Double timeoutValue;
 	private Boolean isTimeout;
 
-	public AcquireActionCreator(SeffCreator seff) {
+	protected AcquireActionCreator(SeffCreator seff) {
 		this.seff = seff;
 	}
 

@@ -33,7 +33,7 @@ public class EventTypeCreator extends Entity {
 	private List<ExceptionType> exceptionTypes = new ArrayList<>();
 	private EventGroupCreator correspondingEventGroup;
 
-	public EventTypeCreator(EventGroupCreator eventGroup, RepositoryCreator repo) {
+	protected EventTypeCreator(EventGroupCreator eventGroup, RepositoryCreator repo) {
 		this.correspondingEventGroup = eventGroup;
 		this.repository = repo;
 	}

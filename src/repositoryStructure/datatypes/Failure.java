@@ -9,5 +9,24 @@ package repositoryStructure.datatypes;
  * @author Louisa Lambrecht
  */
 public enum Failure {
-	HARDWARE_CPU, HARDWARE_HDD, HARDWARE_DELAY, NETWORK_LAN, SOFTWARE
+	/**
+	 * hardware induced failure type (CPU)
+	 */
+	HARDWARE_CPU,
+	/**
+	 * hardware induced failure type (HDD)
+	 */
+	HARDWARE_HDD,
+	/**
+	 * hardware induced failure type (DELAY)
+	 */
+	HARDWARE_DELAY,
+	/**
+	 * network induced failure type (LAN)
+	 */
+	NETWORK_LAN,
+	/**
+	 * software induced failure type
+	 */
+	SOFTWARE
 }

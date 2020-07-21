@@ -15,6 +15,17 @@ import apiControlFlowInterfaces.SoftwareFailureType.ResourceTimeoutFailure;
 import repositoryStructure.Entity;
 import repositoryStructure.RepositoryCreator;
 
+/**
+ * This class constructs a
+ * {@link org.palladiosimulator.pcm.reliability.FailureType FailureType}. It is
+ * used to create the '<em><b>FailureType</b></em>' object step-by-step, i.e.
+ * '<em><b>FailureTypeCreator</b></em>' objects are of intermediate state.
+ * 
+ * @author Louisa Lambrecht
+ * @see org.palladiosimulator.pcm.reliability.FailureType
+ * @see apiControlFlowInterfaces.SoftwareFailureType.ResourceTimeoutFailure
+ * @see apiControlFlowInterfaces.SoftwareFailureType.SoftwareInducedFailure
+ */
 public class FailureTypeCreator extends Entity implements ResourceTimeoutFailure, SoftwareInducedFailure {
 
 	private PassiveResource passiveResource;

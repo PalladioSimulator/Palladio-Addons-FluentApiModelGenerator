@@ -28,7 +28,7 @@ public class LoopActionCreator extends GeneralAction {
 	private PCMRandomVariable iterationCount;
 	private Seff loopBody;
 
-	public LoopActionCreator(SeffCreator seff) {
+	protected LoopActionCreator(SeffCreator seff) {
 		this.seff = seff;
 	}
 

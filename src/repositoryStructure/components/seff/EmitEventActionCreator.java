@@ -27,7 +27,7 @@ public class EmitEventActionCreator extends SeffAction {
 	private SourceRole requiredRole;
 	private List<VariableUsage> inputVariableUsages;
 
-	public EmitEventActionCreator(SeffCreator seff) {
+	protected EmitEventActionCreator(SeffCreator seff) {
 		this.seff = seff;
 		this.inputVariableUsages = new ArrayList<>();
 	}

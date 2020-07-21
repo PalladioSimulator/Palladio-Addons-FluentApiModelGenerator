@@ -34,7 +34,7 @@ public class BranchActionCreator extends GeneralAction {
 
 	private List<AbstractBranchTransition> branches;
 
-	public BranchActionCreator(SeffCreator seff) {
+	protected BranchActionCreator(SeffCreator seff) {
 		this.seff = seff;
 		this.branches = new ArrayList<>();
 	}

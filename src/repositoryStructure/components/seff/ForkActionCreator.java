@@ -32,7 +32,7 @@ public class ForkActionCreator extends GeneralAction {
 	private List<ForkedBehaviour> synchronousForkedBehaviours;
 	private List<VariableUsage> variableUsages;
 
-	public ForkActionCreator(SeffCreator seff) {
+	protected ForkActionCreator(SeffCreator seff) {
 		this.seff = seff;
 		this.asynchronousForkedBehaviours = new ArrayList<>();
 		this.synchronousForkedBehaviours = new ArrayList<>();

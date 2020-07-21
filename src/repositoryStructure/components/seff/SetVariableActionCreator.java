@@ -28,7 +28,7 @@ public class SetVariableActionCreator extends GeneralAction {
 
 	private List<VariableUsage> localVariableUsages;
 
-	public SetVariableActionCreator(SeffCreator seff) {
+	protected SetVariableActionCreator(SeffCreator seff) {
 		this.seff = seff;
 		this.localVariableUsages = new ArrayList<>();
 	}

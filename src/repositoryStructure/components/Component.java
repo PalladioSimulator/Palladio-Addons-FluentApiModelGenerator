@@ -25,6 +25,15 @@ import repositoryStructure.interfaces.EventGroupCreator;
 import repositoryStructure.interfaces.InfrastructureInterfaceCreator;
 import repositoryStructure.interfaces.OperationInterfaceCreator;
 
+/**
+ * This class provides the general infrastructure of a component, i.e.
+ * BasicComponent CompositeComponent, SubSystem, CompleteComponentTypea and
+ * ProvidesComponentType. It provides the implementation of the methods for
+ * creating role connections (ProvidedRole, RequiredRole, ResourceRequiredRole).
+ * 
+ * @author Louisa Lambrecht
+ *
+ */
 public abstract class Component extends Entity {
 
 	protected List<ProvidedRole> providedRoles = new ArrayList<>();

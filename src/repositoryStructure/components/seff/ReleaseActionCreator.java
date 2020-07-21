@@ -24,7 +24,7 @@ public class ReleaseActionCreator extends GeneralAction {
 
 	private PassiveResource passiveResource;
 
-	public ReleaseActionCreator(SeffCreator seff) {
+	protected ReleaseActionCreator(SeffCreator seff) {
 		this.seff = seff;
 	}
 

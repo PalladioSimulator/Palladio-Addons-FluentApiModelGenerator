@@ -13,7 +13,7 @@ import org.palladiosimulator.pcm.seff.SeffFactory;
 import repositoryStructure.components.VariableUsageCreator;
 
 /**
- * This class constructs a
+ * This class constructs an
  * {@link org.palladiosimulator.pcm.seff.ExternalCallAction ExternalCallAction}.
  * It is used to create the '<em><b>ExternalCallAction</b></em>' object
  * step-by-step, i.e. '<em><b>ExternalCallActionCreator</b></em>' objects are of
@@ -31,7 +31,7 @@ public class ExternalCallActionCreator extends SeffAction {
 	private List<VariableUsage> returnVariableUsages;
 	private List<FailureType> failures;
 
-	public ExternalCallActionCreator(SeffCreator seff) {
+	protected ExternalCallActionCreator(SeffCreator seff) {
 		this.seff = seff;
 		this.inputVariableUsages = new ArrayList<>();
 		this.returnVariableUsages = new ArrayList<>();

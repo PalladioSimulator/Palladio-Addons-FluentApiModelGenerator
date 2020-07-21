@@ -22,6 +22,7 @@ import org.palladiosimulator.pcm.repository.BasicComponent;
 import org.palladiosimulator.pcm.repository.CollectionDataType;
 import org.palladiosimulator.pcm.repository.CompleteComponentType;
 import org.palladiosimulator.pcm.repository.CompositeComponent;
+import org.palladiosimulator.pcm.repository.CompositeDataType;
 import org.palladiosimulator.pcm.repository.DataType;
 import org.palladiosimulator.pcm.repository.EventGroup;
 import org.palladiosimulator.pcm.repository.EventType;
@@ -77,10 +78,19 @@ import repositoryStructure.interfaces.EventGroupCreator;
 import repositoryStructure.interfaces.InfrastructureInterfaceCreator;
 import repositoryStructure.interfaces.OperationInterfaceCreator;
 
+/**
+ * TODO
+ * 
+ * @author Louisa Lambrecht
+ *
+ */
 public class FluentRepositoryFactory {
 
 	private RepositoryCreator repo;
 
+	/**
+	 * TODO
+	 */
 	public FluentRepositoryFactory() {
 	}
 
@@ -549,8 +559,7 @@ public class FluentRepositoryFactory {
 	}
 
 	/**
-	 * Creates a new collection data type with name <code>name</code> and optionally
-	 * the previously defined parent types <code>parents</code>.
+	 * Creates a new collection data type.
 	 * 
 	 * <p>
 	 * A composite data type represents a complex data type containing other data
@@ -576,6 +585,15 @@ public class FluentRepositoryFactory {
 		return new CompositeDataTypeCreator(this.repo);
 	}
 
+	/**
+	 * Creates a new hardware induced failure type with name <code>name</code> and
+	 * processing resource <code>processingResource</code>.
+	 * 
+	 * @param name
+	 * @param processingResource
+	 * @return the hardware induced failure type
+	 * @see org.palladiosimulator.pcm.reliability.HardwareInducedFailureType
+	 */
 	public HardwareInducedFailureType newHardwareInducedFailureType(String name,
 			ProcessingResource processingResource) {
 		HardwareInducedFailureType h = ReliabilityFactory.eINSTANCE.createHardwareInducedFailureType();
@@ -584,20 +602,55 @@ public class FluentRepositoryFactory {
 		return h;
 	}
 
+	/**
+	 * Creates a new network induced failure type with name <code>name</code> and
+	 * communication link resource <code>communicationLinkResource</code>.
+	 * 
+	 * @param name
+	 * @param communicationLinkResource
+	 * @return the network induced failure type
+	 * @see org.palladiosimulator.pcm.reliability.NetworkInducedFailureType
+	 */
 	public NetworkInducedFailureType newNetworkInducedFailureType(String name,
 			CommunicationLinkResource communicationLinkResource) {
 		NetworkInducedFailureType n = ReliabilityFactory.eINSTANCE.createNetworkInducedFailureType();
 		n.setEntityName(name);
 		n.setCommunicationLinkResourceType__NetworkInducedFailureType(
 				repo.getCommunicationLinkResource(communicationLinkResource));
-		return null;
+		return n;
 	}
 
+	/**
+	 * Creates a new resource timeout failure type.
+	 * <p>
+	 * Resource timeout failure types offer the characteristics
+	 * {@link apiControlFlowInterfaces.SoftwareFailureType.ResourceTimeoutFailure#withName(String name)
+	 * name},
+	 * {@link apiControlFlowInterfaces.SoftwareFailureType.ResourceTimeoutFailure#withPassiveResource(PassiveResource)
+	 * passive resource} and
+	 * {@link apiControlFlowInterfaces.SoftwareFailureType.ResourceTimeoutFailure#withInternalFailureOccurrenceDescription(double)
+	 * internal failure occurrence description}.
+	 * 
+	 * @return the resource timeout failure type in the making
+	 * @see org.palladiosimulator.pcm.reliability.ResourceTimeoutFailureType
+	 */
 	public ResourceTimeoutFailure newResourceTimeoutFailureType() {
 		return new FailureTypeCreator(this.repo);
 	}
 
-	public SoftwareInducedFailure newSoftwareInducedFailureType(String name) {
+	/**
+	 * Creates a new software induced failure type.
+	 * <p>
+	 * Software induced failure types offer the characteristics
+	 * {@link apiControlFlowInterfaces.SoftwareFailureType.SoftwareInducedFailure#withName(String name)
+	 * name} and
+	 * {@link apiControlFlowInterfaces.SoftwareFailureType.SoftwareInducedFailure#withInternalFailureOccurrenceDescription(double)
+	 * internal failure occurrence description}.
+	 * 
+	 * @return the software induced failure type in the making
+	 * @see org.palladiosimulator.pcm.reliability.SoftwareInducedFailureType
+	 */
+	public SoftwareInducedFailure newSoftwareInducedFailureType() {
 		return new FailureTypeCreator(this.repo);
 	}
 
@@ -782,6 +835,35 @@ public class FluentRepositoryFactory {
 		return p;
 	}
 
+	/**
+	 * Extracts the by <code>name</code> referenced composite data type from the
+	 * repository.
+	 * <p>
+	 * This method throws a RuntimeException if no composite data type is present
+	 * under the given <code>name</code>. If more than one composite data type with
+	 * this <code>name</code> is present, a warning will be printed during runtime
+	 * and the system chooses the first composite data type it finds.
+	 * </p>
+	 * 
+	 * @param name
+	 * @return the composite data type
+	 * @see apiControlFlowInterfaces.RepoAddition#addToRepository(CompositeDataTypeCreator)
+	 * @see org.palladiosimulator.pcm.repository.CompositeDataType
+	 */
+	public CompositeDataType fetchOfCompositeDataType(String name) {
+
+		CompositeDataType dataType = repo.getCompositeDataType(name);
+		if (dataType == null)
+			throw new RuntimeException("Composite data type '" + name + "' could not be found");
+
+		return dataType;
+	}
+
+	/**
+	 * TODO
+	 * @param failure
+	 * @return
+	 */
 	public FailureType fetchOfFailureType(Failure failure) {
 		FailureType f = repo.getFailureType(failure);
 		if (f == null)
@@ -789,12 +871,22 @@ public class FluentRepositoryFactory {
 		return f;
 	}
 
+	/**
+	 * TODO
+	 * @param name
+	 * @return
+	 */
 	public FailureType fetchOfFailureType(String name) {
 		// TODO: Kann man kann evtl noch eigene erstellen? -> fetch mit String; auch
 		// übertragen auf Failure
 		return null;
 	}
 
+	/**
+	 * TODO
+	 * @param failure
+	 * @return
+	 */
 	public ResourceTimeoutFailureType fetchOfResourceTimeoutFailureType(Failure failure) {
 		FailureType failureType = repo.getFailureType(Failure.SOFTWARE);
 		if (failureType instanceof ResourceTimeoutFailureType)
@@ -806,15 +898,27 @@ public class FluentRepositoryFactory {
 		return null;
 	}
 
+	/**
+	 * TODO
+	 * @param name
+	 * @return
+	 */
 	public ExceptionType fetchOfExceptionType(String name) {
 		// TODO:
 		return null;
 	}
 
-	public ResourceInterface fetchOfResourceInterface(repositoryStructure.datatypes.ResourceInterface resourceInterface) {
-		//TODO
+	/**
+	 * TODO
+	 * @param resourceInterface
+	 * @return
+	 */
+	public ResourceInterface fetchOfResourceInterface(
+			repositoryStructure.datatypes.ResourceInterface resourceInterface) {
+		// TODO
 		return null;
 	}
+
 	/**
 	 * Extracts the <b>component</b> referenced by <code>name</code> from the
 	 * repository.
@@ -1034,14 +1138,15 @@ public class FluentRepositoryFactory {
 			throw new RuntimeException("EventGroup '" + name + "' could not be found");
 		return interfce;
 	}
-	
+
 	/**
-	 * Extracts the operation signature referenced by <code>name</code> from the repository.
+	 * Extracts the operation signature referenced by <code>name</code> from the
+	 * repository.
 	 * <p>
-	 * This method throws a RuntimeException if no operation signature is present under the
-	 * given <code>name</code>. If more than one operation signature with this
-	 * <code>name</code> is present, a warning will be printed during runtime and
-	 * the system chooses the first operation signature it finds.
+	 * This method throws a RuntimeException if no operation signature is present
+	 * under the given <code>name</code>. If more than one operation signature with
+	 * this <code>name</code> is present, a warning will be printed during runtime
+	 * and the system chooses the first operation signature it finds.
 	 * </p>
 	 * 
 	 * @param name
@@ -1054,7 +1159,7 @@ public class FluentRepositoryFactory {
 			throw new RuntimeException("Operation signature '" + name + "' could not be found");
 		return signature;
 	}
-	
+
 	/**
 	 * Extracts the event type referenced by <code>name</code> from the repository.
 	 * <p>
@@ -1352,6 +1457,11 @@ public class FluentRepositoryFactory {
 		return connector;
 	}
 
+	/**
+	 * TODO
+	 * @param name
+	 * @return
+	 */
 	public Signature fetchOfSignature(String name) {
 		return null; // TODO:
 	}

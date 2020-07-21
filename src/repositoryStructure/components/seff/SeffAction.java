@@ -5,6 +5,14 @@ import org.palladiosimulator.pcm.seff.AbstractAction;
 import apiControlFlowInterfaces.seff.ActionSeff;
 import repositoryStructure.Entity;
 
+/**
+ * This class provides the general infrastructure of a SEFF action: an action
+ * belongs to a SEFF and has a successor. All actions except for the StopAction
+ * inherit from this class.
+ * 
+ * @author Louisa Lambrecht
+ *
+ */
 public abstract class SeffAction extends Entity {
 
 	protected SeffCreator seff;

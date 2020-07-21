@@ -525,4 +525,9 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public CompositeDataType getCompositeDataType(String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

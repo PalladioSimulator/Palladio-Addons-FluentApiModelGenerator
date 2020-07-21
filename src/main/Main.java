@@ -20,7 +20,7 @@ import factory.FluentRepositoryFactory;
 import repositoryStructure.datatypes.Failure;
 import repositoryStructure.datatypes.Primitive;
 
-public class Main {
+class Main {
 
 	public static void main(String[] args) {
 

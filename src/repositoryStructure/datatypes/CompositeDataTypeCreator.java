@@ -23,7 +23,7 @@ import org.palladiosimulator.pcm.repository.DataType;
  * @author Louisa Lambrecht
  * @see org.palladiosimulator.pcm.repository.CompositeDataType
  */
-public class CompositeDataTypeCreator extends Entity{
+public class CompositeDataTypeCreator extends Entity {
 
 	private List<CompositeDataType> parents;
 	private List<InnerDeclaration> innerDeclarations;
@@ -38,7 +38,7 @@ public class CompositeDataTypeCreator extends Entity{
 	public CompositeDataTypeCreator withName(String name) {
 		return (CompositeDataTypeCreator) super.withName(name);
 	}
-	
+
 	/**
 	 * Adds an inner data type to a composite data type with name <code>name</code>
 	 * and of type <code>primitive</code>.
@@ -49,7 +49,7 @@ public class CompositeDataTypeCreator extends Entity{
 	 * 
 	 * @param name      for the inner data type
 	 * @param primitive inner data type
-	 * @return the composite data type in the making
+	 * @return this composite data type in the making
 	 * @see org.palladiosimulator.pcm.repository.CompositeDataType
 	 */
 	public CompositeDataTypeCreator withInnerDeclaration(String name, Primitive primitive) {
@@ -74,7 +74,7 @@ public class CompositeDataTypeCreator extends Entity{
 	 * 
 	 * @param name     for the inner data type
 	 * @param dataType inner data type
-	 * @return the composite data type in the making
+	 * @return this composite data type in the making
 	 * @see factory.FluentRepositoryFactory#fetchOfDataType(String)
 	 * @see org.palladiosimulator.pcm.repository.CompositeDataType
 	 */
@@ -85,7 +85,21 @@ public class CompositeDataTypeCreator extends Entity{
 		innerDeclarations.add(inner);
 		return this;
 	}
-	
+
+	/**
+	 * Adds <code>parent</code> to the list of parents this composite data type
+	 * inherits from.
+	 * <p>
+	 * An existing composite data type can be fetched from the
+	 * repository using the factory, i.e.
+	 * <code>create.fetchOfCompleteComponentType(name)</code>.
+	 * </p>
+	 * 
+	 * @param parent
+	 * @return this composite data type in the making
+	 * @see factory.FluentRepositoryFactory#fetchOfComposite
+	 * @see org.palladiosimulator.pcm.repository.CompositeDataType
+	 */
 	public CompositeDataTypeCreator withParentCompositeDataType(CompositeDataType parent) {
 		this.parents.add(parent);
 		return this;

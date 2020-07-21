@@ -21,7 +21,7 @@ import repositoryStructure.components.VariableUsageCreator;
  */
 public class StartActionCreator extends GeneralAction {
 
-	public StartActionCreator(SeffCreator seff) {
+	protected StartActionCreator(SeffCreator seff) {
 		this.seff = seff;
 	}
 

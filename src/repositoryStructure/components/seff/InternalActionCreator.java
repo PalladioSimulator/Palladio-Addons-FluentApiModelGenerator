@@ -29,7 +29,7 @@ public class InternalActionCreator extends GeneralAction {
 
 	private List<InternalFailureOccurrenceDescription> failures;
 
-	public InternalActionCreator(SeffCreator seff) {
+	protected InternalActionCreator(SeffCreator seff) {
 		this.seff = seff;
 		this.demands = new ArrayList<>();
 		this.failures = new ArrayList<>();
