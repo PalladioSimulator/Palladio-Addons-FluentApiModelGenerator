@@ -82,33 +82,6 @@ public class Main {
 
 				.createRepositoryNow();
 
-//		create.newResourceDemandingInternalBehaviour().withSeffBehaviour().withStartAction().
-		// SEFF example
-		create.newSeff().onSignature(null).withSeffTypeID(null).withInternalBehaviour(
-				create.newInternalBehaviour().withStartAction().followedBy().stopAction().createBehaviourNow())
-//				.withInternalBehaviour(create.newResourceDemandingInternalBehaviour().withSeffBehaviour().withStartAction().withName("Start").followedBy().stopAction().createBehaviourNow())
-				.withSeffBehaviour().withStartAction().followedBy().internalAction().withResourceDemand(null, null)
-				.withInternalFailureOccurrenceDescription(null, null).withInfrastructureCall(null, null, null)
-				.followedBy().internalCallAction().withInternalBehaviour(null).withName(null).followedBy()
-				.externalCallAction().withCalledService(null).withFailureType(null).withInputVariableUsage(null)
-				.withRequiredRole(null).withRetryCount(null).withReturnVariableUsage(null).followedBy()
-				.emitEventAction().withEventType(null).withSourceRole(null).withInputVariableUsage(null).followedBy()
-				.setVariableAction().followedBy().acquireAction().withPassiveResource(null).withTimeoutValue(null)
-				.isTimeout(null).followedBy().releaseAction().withPassiveResource(null).followedBy().loopAction()
-				.withIterationCount(null).withLoopBody(null)
-//													create.newSeffBehaviour().withStartAction()
-//																				.withInfrastructureCall(null, null, null)
-//																	.followedBy().internalAction().withInfrastructureCall(null, null, null)
-//																	.followedBy().stopAction().createBehaviourNow())
-				.followedBy().collectionIteratorAction().withParameter(create.fetchOfParameter("foo"))
-				.withLoopBody(null).followedBy().branchAction()
-//					    					.withGuardedBranchTransition(null, null)
-//					    					.withProbabilisticBranchTransition(null, null)
-				.followedBy().forkAction().withAsynchronousForkedBehaviour(null)
-				.withOutputParameterUsageAtSynchronisationPoint(null)
-				.withSynchronousForkedBehaviourAtSynchronisationPoint(null).followedBy().recoveryAction().followedBy()
-				.stopAction().createBehaviourNow();
-
 		saveRepository(repo, "myrepo.repository", true);	
 	}
 

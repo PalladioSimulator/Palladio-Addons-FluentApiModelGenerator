@@ -38,6 +38,14 @@ public class SetVariableActionCreator extends GeneralAction {
 		return (SetVariableActionCreator) super.withName(name);
 	}
 
+	/**
+	 * Adds the <code>variableUsage</code> to this action's list of local variable
+	 * usages.
+	 * 
+	 * @param variableUsage
+	 * @return this set variable action in the making
+	 * @see factory.FluentRepositoryFactory#newVariableUsage()
+	 */
 	public SetVariableActionCreator withLocalVariableUsage(VariableUsageCreator variableUsage) {
 		if (variableUsage != null)
 			this.localVariableUsages.add(variableUsage.build());

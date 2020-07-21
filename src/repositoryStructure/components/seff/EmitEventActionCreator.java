@@ -37,16 +37,46 @@ public class EmitEventActionCreator extends SeffAction {
 		return (EmitEventActionCreator) super.withName(name);
 	}
 
+	/**
+	 * Specifies the <code>eventType</code> that is emitted by this action.
+	 * <p>
+	 * An existing <code>eventType</code> can be fetched from the repository using
+	 * the factory, i.e. <code>create.fetchOfEventType(name)</code>.
+	 * </p>
+	 * 
+	 * @param eventType
+	 * @return this emit event action in the making
+	 * @see factory.FluentRepositoryFactory#fetchOfEventType(String)
+	 */
 	public EmitEventActionCreator withEventType(EventType eventType) {
 		this.eventType = eventType;
 		return this;
 	}
 
+	/**
+	 * Specifies the <code>sourceRole</code> that is triggered by this action.
+	 * <p>
+	 * An existing <code>sourceRole</code> can be fetched from the repository using
+	 * the factory, i.e. <code>create.fetchOfSourceRole(name)</code>.
+	 * </p>
+	 * 
+	 * @param sourceRole
+	 * @return this emit event action in the making
+	 * @see factory.FluentRepositoryFactory#fetchOfSourceRole(String)
+	 */
 	public EmitEventActionCreator withSourceRole(SourceRole sourceRole) {
 		this.requiredRole = sourceRole;
 		return this;
 	}
 
+	/**
+	 * Adds the <code>variableUsage</code> to this action's list of input variable
+	 * usages.
+	 * 
+	 * @param variableUsage
+	 * @return this emit event action in the making
+	 * @see factory.FluentRepositoryFactory#newVariableUsage()
+	 */
 	public EmitEventActionCreator withInputVariableUsage(VariableUsageCreator variableUsage) {
 		if (variableUsage != null)
 			this.inputVariableUsages.add(variableUsage.build());

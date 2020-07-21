@@ -37,7 +37,7 @@ public class AcquireActionCreator extends GeneralAction {
 	}
 
 	/**
-	 * Defines the passive resource of this acquire action.
+	 * Specifies the passive resource of this acquire action.
 	 * <p>
 	 * An existing <code>passiveResource</code> can be fetched from the repository
 	 * using the factory, i.e. <code>create.fetchOfPassiveResource(name)</code>.
@@ -53,7 +53,7 @@ public class AcquireActionCreator extends GeneralAction {
 	}
 
 	/**
-	 * Defines the timeout value of this acquire action.
+	 * Specifies the timeout value of this acquire action.
 	 * 
 	 * @param timeoutValue
 	 * @return this acquire action in the making
@@ -64,7 +64,7 @@ public class AcquireActionCreator extends GeneralAction {
 	}
 
 	/**
-	 * Defines if this acquire action is timeout.
+	 * Specifies if this acquire action is timeout.
 	 * 
 	 * @param isTimeout
 	 * @return this acquire action in the making

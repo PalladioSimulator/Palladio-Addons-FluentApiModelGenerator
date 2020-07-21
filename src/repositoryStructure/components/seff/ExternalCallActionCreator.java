@@ -43,34 +43,93 @@ public class ExternalCallActionCreator extends SeffAction {
 		return (ExternalCallActionCreator) super.withName(name);
 	}
 
-	public ExternalCallActionCreator withRetryCount(Integer retryCount) {
-		if (retryCount != null)
-			this.retryCount = retryCount;
+	/**
+	 * Specifies the <code>retryCount</code> of this external call action.
+	 * 
+	 * @param retryCount
+	 * @return this external call action in the making
+	 */
+	public ExternalCallActionCreator withRetryCount(int retryCount) {
+		this.retryCount = retryCount;
 		return this;
 	}
 
+	/**
+	 * Specifies the <code>signature</code> of the service that is called on by this
+	 * action.
+	 * <p>
+	 * An existing <code>signature</code> can be fetched from the repository using
+	 * the factory, i.e. <code>create.fetchOfOperationSignature(name)</code>.
+	 * </p>
+	 * 
+	 * @param signature
+	 * @return this external call action in the making
+	 * @see factory.FluentRepositoryFactory#fetchOfOperationSignature(String)
+	 */
 	public ExternalCallActionCreator withCalledService(OperationSignature signature) {
 		this.signature = signature;
 		return this;
 	}
 
+	/**
+	 * Specifies the <code>requiredRole</code> corresponding to the service that is
+	 * called on by this action.
+	 * <p>
+	 * An existing <code>requiredRole</code> can be fetched from the repository
+	 * using the factory, i.e.
+	 * <code>create.fetchOfOperationRequiredRole(name)</code>.
+	 * </p>
+	 * 
+	 * @param requiredRole
+	 * @return this external call action in the making
+	 * @see factory.FluentRepositoryFactory#fetchOfOperationRequiredRole(String)
+	 */
 	public ExternalCallActionCreator withRequiredRole(OperationRequiredRole requiredRole) {
 		this.requiredRole = requiredRole;
 		return this;
 	}
 
+	/**
+	 * Adds the <code>variableUsage</code> to this action's list of input variable
+	 * usages.
+	 * 
+	 * @param variableUsage
+	 * @return this external call action in the making
+	 * @see factory.FluentRepositoryFactory#newVariableUsage()
+	 */
 	public ExternalCallActionCreator withInputVariableUsage(VariableUsageCreator variableUsage) {
 		if (variableUsage != null)
 			this.inputVariableUsages.add(variableUsage.build());
 		return this;
 	}
 
+	/**
+	 * Adds the <code>variableUsage</code> to this action's list of return variable
+	 * usages.
+	 * 
+	 * @param variableUsage
+	 * @return this external call action in the making
+	 * @see factory.FluentRepositoryFactory#newVariableUsage()
+	 */
 	public ExternalCallActionCreator withReturnVariableUsage(VariableUsageCreator variableUsage) {
 		if (variableUsage != null)
 			this.returnVariableUsages.add(variableUsage.build());
 		return this;
 	}
 
+	/**
+	 * Adds the failure type <code>failure</code> to this action's list of failure
+	 * types.
+	 * <p>
+	 * An existing <code>failure</code> can be fetched from the repository using the
+	 * factory, e.g. <code>create.fetchOfFailureType(name)</code>.
+	 * </p>
+	 * 
+	 * @param failure
+	 * @return this external call action in the making
+	 * @see factory.FluentRepositoryFactory#fetchOfFailureType(repositoryStructure.datatypes.Failure)
+	 * @see factory.FluentRepositoryFactory#fetchOfFailureType(String)
+	 */
 	public ExternalCallActionCreator withFailureType(FailureType failure) {
 		if (failure != null)
 			this.failures.add(failure);

@@ -33,6 +33,17 @@ public class ReleaseActionCreator extends GeneralAction {
 		return (ReleaseActionCreator) super.withName(name);
 	}
 
+	/**
+	 * Specifies the passive resource of this release action.
+	 * <p>
+	 * An existing <code>passiveResource</code> can be fetched from the repository
+	 * using the factory, i.e. <code>create.fetchOfPassiveResource(name)</code>.
+	 * </p>
+	 * 
+	 * @param passiveResource
+	 * @return this release action in the making
+	 * @see factory.FluentRepositoryFactory#fetchOfPassiveResource(String)
+	 */
 	public ReleaseActionCreator withPassiveResource(PassiveResource passiveResource) {
 		this.passiveResource = passiveResource;
 		return this;

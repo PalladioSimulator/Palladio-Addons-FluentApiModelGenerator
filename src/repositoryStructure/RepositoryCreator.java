@@ -24,6 +24,7 @@ import org.palladiosimulator.pcm.repository.CompositeComponent;
 import org.palladiosimulator.pcm.repository.CompositeDataType;
 import org.palladiosimulator.pcm.repository.DataType;
 import org.palladiosimulator.pcm.repository.EventGroup;
+import org.palladiosimulator.pcm.repository.EventType;
 import org.palladiosimulator.pcm.repository.InfrastructureInterface;
 import org.palladiosimulator.pcm.repository.InfrastructureProvidedRole;
 import org.palladiosimulator.pcm.repository.InfrastructureRequiredRole;
@@ -31,6 +32,7 @@ import org.palladiosimulator.pcm.repository.Interface;
 import org.palladiosimulator.pcm.repository.OperationInterface;
 import org.palladiosimulator.pcm.repository.OperationProvidedRole;
 import org.palladiosimulator.pcm.repository.OperationRequiredRole;
+import org.palladiosimulator.pcm.repository.OperationSignature;
 import org.palladiosimulator.pcm.repository.Parameter;
 import org.palladiosimulator.pcm.repository.PassiveResource;
 import org.palladiosimulator.pcm.repository.PrimitiveDataType;
@@ -510,6 +512,16 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 
 	public CommunicationLinkResourceType getCommunicationLinkResource(
 			CommunicationLinkResource communicationLinkResource) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public EventType getEventType(String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public OperationSignature getOperationSignature(String name) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -39,13 +39,28 @@ public class RecoveryActionCreator extends GeneralAction {
 		return (RecoveryActionCreator) super.withName(name);
 	}
 
+	/**
+	 * Specifies the primary recovery behaviour of this recovery action.
+	 * 
+	 * @param recoveryActionBehaviour
+	 * @return this recovery action in the making
+	 * @see factory.FluentRepositoryFactory#newRecoveryBehaviour()
+	 */
 	public RecoveryActionCreator withPrimaryBehaviour(RecoverySeff recoveryActionBehaviour) {
 		if (recoveryActionBehaviour != null) {
 			this.primary = recoveryActionBehaviour.buildRecoveryBehaviour();
 		}
 		return this;
 	}
-	
+
+	/**
+	 * Adds the <code>recoveryActionBehaviour</code> to this action's list of
+	 * alternate recovery behaviours.
+	 * 
+	 * @param recoveryActionBehaviour
+	 * @return this recovery action in the making
+	 * @see factory.FluentRepositoryFactory#newRecoveryBehaviour()
+	 */
 	public RecoveryActionCreator withAlternativeBehaviour(RecoverySeff recoveryActionBehaviour) {
 		if (recoveryActionBehaviour != null) {
 			this.otherBehaviours.add(recoveryActionBehaviour.buildRecoveryBehaviour());

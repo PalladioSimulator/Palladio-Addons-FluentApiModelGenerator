@@ -44,24 +44,48 @@ public class ForkActionCreator extends GeneralAction {
 		return (ForkActionCreator) super.withName(name);
 	}
 
+	/**
+	 * Adds the <code>variableUsage</code> to this action's list of output parameter
+	 * usages at the synchronization point.
+	 * 
+	 * @param variableUsage
+	 * @return this fork action in the making
+	 * @see factory.FluentRepositoryFactory#newVariableUsage()
+	 */
 	public ForkActionCreator withOutputParameterUsageAtSynchronisationPoint(VariableUsageCreator variableUsage) {
 		if (variableUsage != null)
 			this.variableUsages.add(variableUsage.build());
 		return this;
 	}
 
-	public ForkActionCreator withSynchronousForkedBehaviourAtSynchronisationPoint(InternalSeff forkedBehaviours) {
-		if (forkedBehaviours != null) {
-			ForkedBehaviour forkedBehaviour = forkedBehaviours.buildForkedBehaviour();
-			this.synchronousForkedBehaviours.add(forkedBehaviour);
+	/**
+	 * Adds the <code>forkedBehaviour</code> to this action's list of synchronous
+	 * forked behaviours at the synchronization point.
+	 * 
+	 * @param forkedBehaviour
+	 * @return this fork action in the making
+	 * @see factory.FluentRepositoryFactory#newInternalBehaviour()
+	 */
+	public ForkActionCreator withSynchronousForkedBehaviourAtSynchronisationPoint(InternalSeff forkedBehaviour) {
+		if (forkedBehaviour != null) {
+			ForkedBehaviour fork = forkedBehaviour.buildForkedBehaviour();
+			this.synchronousForkedBehaviours.add(fork);
 		}
 		return this;
 	}
 
-	public ForkActionCreator withAsynchronousForkedBehaviour(InternalSeff forkedBehaviours) {
-		if (forkedBehaviours != null) {
-			ForkedBehaviour forkedBehaviour = forkedBehaviours.buildForkedBehaviour();
-			this.asynchronousForkedBehaviours.add(forkedBehaviour);
+	/**
+	 * Adds the <code>forkedBehaviour</code> to this action's list of asynchronous
+	 * forked behaviours.
+	 * 
+	 * @param forkedBehaviour
+	 * @return this fork action in the making
+	 * @see factory.FluentRepositoryFactory#newInternalBehaviour()
+	 */
+	public ForkActionCreator withAsynchronousForkedBehaviour(InternalSeff forkedBehaviour) {
+		if (forkedBehaviour != null) {
+			ForkedBehaviour fork = forkedBehaviour.buildForkedBehaviour();
+			this.asynchronousForkedBehaviours.add(fork);
 		}
 		return this;
 	}

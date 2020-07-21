@@ -42,17 +42,20 @@ public class StopActionCreator extends GeneralAction implements StopSeff {
 		return (StopActionCreator) super.withName(name);
 	}
 
+	@Override
 	public SeffCreator createBehaviourNow() {
 		AbstractAction action = this.build();
 		seff.setNext(action);
 		return seff;
 	}
 
+	@Override
 	public StopActionCreator withResourceDemand(String specification_stochasticExpression,
 			ProcessingResourceType processingResource) {
 		return (StopActionCreator) super.withResourceDemand(specification_stochasticExpression, processingResource);
 	}
 
+	@Override
 	public StopActionCreator withInfrastructureCall(String numberOfCalls_stochasticExpression,
 			InfrastructureSignature signature, InfrastructureRequiredRole requiredRole,
 			VariableUsageCreator... variableUsages) {
@@ -60,6 +63,7 @@ public class StopActionCreator extends GeneralAction implements StopSeff {
 				requiredRole, variableUsages);
 	}
 
+	@Override
 	public StopActionCreator withResourceCall(String numberOfCalls_stochasticExpression, ResourceSignature signature,
 			ResourceRequiredRole requiredRole, VariableUsageCreator... variableUsages) {
 		return (StopActionCreator) super.withResourceCall(numberOfCalls_stochasticExpression, signature, requiredRole,

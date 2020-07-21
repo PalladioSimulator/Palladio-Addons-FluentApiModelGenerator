@@ -44,13 +44,28 @@ public class InternalCallActionCreator extends GeneralAction {
 		return (InternalCallActionCreator) super.withName(name);
 	}
 
-	public InternalCallActionCreator withVaribleUsage(VariableUsageCreator inputVariableUsage) {
-		this.inputVariableUsages.add(inputVariableUsage.build());
+	/**
+	 * Adds the <code>variableUsage</code> to this action's list of input variable
+	 * usages.
+	 * 
+	 * @param variableUsage
+	 * @return this internal call action in the making
+	 * @see factory.FluentRepositoryFactory#newVariableUsage()
+	 */
+	public InternalCallActionCreator withInputVaribleUsage(VariableUsageCreator variableUsage) {
+		this.inputVariableUsages.add(variableUsage.build());
 		return this;
 	}
 
-	public InternalCallActionCreator withInternalBehaviour(InternalSeff seff) {
-		this.internalSeff = seff;
+	/**
+	 * Specifies the internal behaviour that is called on by this action.
+	 * 
+	 * @param internalBehaviour
+	 * @return this internal call action in the making
+	 * @see factory.FluentRepositoryFactory#newInternalBehaviour()
+	 */
+	public InternalCallActionCreator withInternalBehaviour(InternalSeff internalBehaviour) {
+		this.internalSeff = internalBehaviour;
 		return this;
 	}
 

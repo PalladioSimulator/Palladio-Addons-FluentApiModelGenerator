@@ -42,6 +42,17 @@ public class InternalActionCreator extends GeneralAction {
 		return (InternalActionCreator) super.withName(name);
 	}
 
+	/**
+	 * Creates an internal failure occurrence description with the failure
+	 * probability <code>failureProbability</code> of the software induced failure
+	 * type <code>failureType</code> and adds it to this action's list of internal
+	 * failure occurrence descriptions.
+	 * 
+	 * @param failureProbability
+	 * @param failureType
+	 * @return this internal action in the making
+	 * @see org.palladiosimulator.pcm.reliability.InternalFailureOccurrenceDescription
+	 */
 	public InternalActionCreator withInternalFailureOccurrenceDescription(Double failureProbability,
 			SoftwareInducedFailureType failureType) {
 		InternalFailureOccurrenceDescription failure = ReliabilityFactory.eINSTANCE

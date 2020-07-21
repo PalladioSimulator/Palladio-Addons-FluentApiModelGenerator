@@ -121,6 +121,12 @@ public interface ActionSeff {
 	 * Creates a {@link org.palladiosimulator.pcm.seff.EmitEventAction
 	 * EmitEventAction}.
 	 * <p>
+	 * EmitEventAction specifies when a component emits an event during its
+	 * processing. The EmitEventAction defines which type of events are emitted,
+	 * their characteristics and the SourceRole that triggered. Each EmitEventAction
+	 * is limited to one type of events.
+	 * </p>
+	 * <p>
 	 * Offers the specifying methods
 	 * {@link repositoryStructure.components.seff.EmitEventActionCreator#withEventType(org.palladiosimulator.pcm.repository.EventType)
 	 * withEventType(EventType)},
@@ -147,8 +153,25 @@ public interface ActionSeff {
 	public EmitEventActionCreator emitEventAction();
 
 	/**
-	 * Creates a {@link org.palladiosimulator.pcm.seff.ExternalCallAction
+	 * Creates an {@link org.palladiosimulator.pcm.seff.ExternalCallAction
 	 * ExternalCallAction}.
+	 * <p>
+	 * ExternalCallAction models the invocation of a service specified in a required
+	 * interface. Therefore, it references a Role, from which the providing
+	 * component can be derived, and a Signature to specify the called service.
+	 * ExternalCallActions do not have resource demands by themselves. Component
+	 * developers need to specify the resource demand of the called service in the
+	 * RDSEFF of that service.<br>
+	 * ExternalCallActions may contain two sets of VariableUsages specifying input
+	 * parameter characterisations and output parameter characterisations
+	 * respectively. VariableUsages for input parameters may only reference IN or
+	 * INOUT parameters of the call's referenced signature. The random variable
+	 * characterisation inside such a VariableUsage may be constants, probability
+	 * distribution functions, or include a stochastic expression involving for
+	 * example arithmetic operations. The latter models a dependency between the
+	 * current service's own input parameters and the input parameters of the
+	 * required service.
+	 * </p>
 	 * <p>
 	 * Offers the specifying methods
 	 * {@link repositoryStructure.components.seff.ExternalCallActionCreator#withCalledService(org.palladiosimulator.pcm.repository.OperationSignature)
@@ -168,21 +191,16 @@ public interface ActionSeff {
 	 * @return the external call action in the making
 	 * @see repositoryStructure.components.seff.ExternalCallActionCreator#withName(String)
 	 * @see repositoryStructure.components.seff.ExternalCallActionCreator#followedBy()
-	 * @see repositoryStructure.components.seff.ExternalCallActionCreator#withResourceDemand(String,
-	 *      org.palladiosimulator.pcm.resourcetype.ProcessingResourceType)
-	 * @see repositoryStructure.components.seff.ExternalCallActionCreator#withResourceCall(String,
-	 *      org.palladiosimulator.pcm.resourcetype.ResourceSignature,
-	 *      org.palladiosimulator.pcm.core.entity.ResourceRequiredRole,
-	 *      repositoryStructure.components.VariableUsageCreator...)
-	 * @see repositoryStructure.components.seff.ExternalCallActionCreator#withInfrastructureCall(String,
-	 *      org.palladiosimulator.pcm.repository.InfrastructureSignature,
-	 *      org.palladiosimulator.pcm.repository.InfrastructureRequiredRole,
-	 *      repositoryStructure.components.VariableUsageCreator...)
 	 */
 	public ExternalCallActionCreator externalCallAction();
 
 	/**
 	 * Creates a {@link org.palladiosimulator.pcm.seff.ForkAction ForkAction}.
+	 * <p>
+	 * Fork Action Splits the RDSEFF control flow with an AND-semantic, meaning that
+	 * it invokes several ForkedBehaviours concurrently. ForkActions allow both
+	 * asynchronously and synchronously forked behaviours.
+	 * </p>
 	 * <p>
 	 * Offers the specifying methods
 	 * {@link repositoryStructure.components.seff.ForkActionCreator#withAsynchronousForkedBehaviour(InternalSeff)
@@ -213,6 +231,11 @@ public interface ActionSeff {
 	 * Creates a {@link org.palladiosimulator.pcm.seff.InternalAction
 	 * InternalAction}.
 	 * <p>
+	 * Internal Action Combines the execution of a number of internal computations
+	 * by a component service in a single model entity. It models calculations
+	 * inside a component service, which do not include calls to required services.
+	 * </p>
+	 * <p>
 	 * Offers the specifying method
 	 * {@link repositoryStructure.components.seff.InternalActionCreator#withInternalFailureOccurrenceDescription(Double, org.palladiosimulator.pcm.reliability.SoftwareInducedFailureType)
 	 * withInternalFailureOccurrenceDescription(Double,
@@ -239,6 +262,9 @@ public interface ActionSeff {
 	 * Creates a {@link org.palladiosimulator.pcm.seff.InternalCallAction
 	 * InternalCallAction}.
 	 * <p>
+	 * A "SubSEFF"-Action: Realizes an internal method call within a SEFF.
+	 * </p>
+	 * <p>
 	 * Offers the specifying methods
 	 * {@link repositoryStructure.components.seff.InternalCallActionCreator#withInternalBehaviour(InternalSeff)
 	 * withInternalBehaviour(InternalSeff)} and
@@ -264,6 +290,11 @@ public interface ActionSeff {
 
 	/**
 	 * Creates a {@link org.palladiosimulator.pcm.seff.LoopAction LoopAction}.
+	 * <p>
+	 * Models the repeated execution of its inner ResourceDemandingBehaviour for the
+	 * loop body. The number of repetitions is specified by a random variable
+	 * evaluating to integer or an IntPMF.
+	 * </p>
 	 * <p>
 	 * Offers the specifying methods
 	 * {@link repositoryStructure.components.seff.LoopActionCreator#withLoopBody(repositoryStructure.components.seff.SeffCreator)
@@ -292,6 +323,13 @@ public interface ActionSeff {
 	 * Creates a {@link org.palladiosimulator.pcm.seff.RecoveryAction
 	 * RecoveryAction}. TODO
 	 * <p>
+	 * Recover block actions are a generic failure handling technique. A recovery
+	 * block consists of a a primary algorithm and one or more alternatives that can
+	 * be used in case of failure. If the primary algorithm fails, the next
+	 * alternative is chosen. Here the alternatives also support failure types.
+	 * Alternatives may specify which kind of failures they can handle.
+	 * </p>
+	 * <p>
 	 * Offers the specifying methods
 	 * {@link repositoryStructure.components.seff.RecoveryActionCreator#withAlternativeBehaviour(RecoverySeff)
 	 * withAlternativeBehaviour(RecoverySeff)},
@@ -317,6 +355,9 @@ public interface ActionSeff {
 
 	/**
 	 * Creates a {@link org.palladiosimulator.pcm.seff.StopAction StopAction}.
+	 * <p>
+	 * StopActions end a scenario behaviour and contain only a predecessor.
+	 * </p>
 	 * <p>
 	 * Offers the specifying method
 	 * {@link repositoryStructure.components.seff.ReleaseActionCreator#withPassiveResource(org.palladiosimulator.pcm.repository.PassiveResource)

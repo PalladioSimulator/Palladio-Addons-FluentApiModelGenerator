@@ -11,6 +11,7 @@ import org.palladiosimulator.pcm.seff.LoopAction;
 import org.palladiosimulator.pcm.seff.ResourceDemandingSEFF;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 
+import apiControlFlowInterfaces.seff.Seff;
 import repositoryStructure.components.VariableUsageCreator;
 
 /**
@@ -25,7 +26,7 @@ import repositoryStructure.components.VariableUsageCreator;
 public class LoopActionCreator extends GeneralAction {
 
 	private PCMRandomVariable iterationCount;
-	private SeffCreator loopBody;
+	private Seff loopBody;
 
 	public LoopActionCreator(SeffCreator seff) {
 		this.seff = seff;
@@ -36,6 +37,24 @@ public class LoopActionCreator extends GeneralAction {
 		return (LoopActionCreator) super.withName(name);
 	}
 
+	/**
+	 * Specifies the number of repetitions the inner ResourceDemandingBehaviour is
+	 * executed.
+	 * <p>
+	 * The number of repetitions is specified by a random variable evaluating to
+	 * integer or an IntPMF. The number of iterations specified by the random
+	 * variable always needs to be bounded, i.e., the probabilities in an IntPMF for
+	 * iteration numbers above a certain threshold must be zero. Otherwise, it would
+	 * be possible that certain requests do not terminate, which would complicate
+	 * performance analyses. The stochastic expression defining the iteration random
+	 * variable may include references to input or component parameters to model
+	 * dependencies between the usage profile and the number of loop iterations.
+	 * </p>
+	 * 
+	 * @param iterationCount_stochasticExpression
+	 * @return this loop action in the making
+	 * @see org.palladiosimulator.pcm.seff.LoopAction
+	 */
 	public LoopActionCreator withIterationCount(String iterationCount_stochasticExpression) {
 		PCMRandomVariable rand = CoreFactory.eINSTANCE.createPCMRandomVariable();
 		rand.setSpecification(iterationCount_stochasticExpression);
@@ -43,7 +62,20 @@ public class LoopActionCreator extends GeneralAction {
 		return this;
 	}
 
-	public LoopActionCreator withLoopBody(SeffCreator loopBody) {
+	/**
+	 * Specifies the inner ResourceDemandingBehaviour representing the loop body.
+	 * <p>
+	 * Notice, that loop actions should only be modeled if the loop body contains
+	 * either external service calls or resource demands directed at special
+	 * resources. Otherwise, control flow loops in component behaviour should be
+	 * abstracted by subsuming them in InternalAction, which combine a number of
+	 * instructions.
+	 * </p>
+	 * 
+	 * @param loopBody
+	 * @return this loop action in the making
+	 */
+	public LoopActionCreator withLoopBody(Seff loopBody) {
 		if (loopBody != null)
 			this.loopBody = loopBody;
 		return this;

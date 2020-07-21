@@ -38,7 +38,8 @@ public interface RecoverySeff {
 	 * A recovery behaviour is failure handling entity i.e. it can handle failures
 	 * that occur in previous alternatives. If one alternative fails, the next
 	 * alternative is executed that can handle the failure type. The failure type
-	 * <code>failure</code> is the reason why this behaviour could fail.
+	 * <code>failure</code> is (one of) the failure type(s) this recovery behaviour
+	 * can handle.
 	 * </p>
 	 * <p>
 	 * A failure can be one of '<em><b>HARDWARE_CPU</b></em>',
@@ -58,7 +59,8 @@ public interface RecoverySeff {
 	 * A recovery behaviour is failure handling entity i.e. it can handle failures
 	 * that occur in previous alternatives. If one alternative fails, the next
 	 * alternative is executed that can handle the failure type. The failure type
-	 * <code>failure</code> is the reason why this behaviour could fail.
+	 * <code>failure</code> is (one of) the failure type(s) this recovery behaviour
+	 * can handle.
 	 * </p>
 	 * <p>
 	 * An existing <code>failureType</code> can be fetched from the repository using

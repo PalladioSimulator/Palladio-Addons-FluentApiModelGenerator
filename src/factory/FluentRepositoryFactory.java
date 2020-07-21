@@ -24,6 +24,7 @@ import org.palladiosimulator.pcm.repository.CompleteComponentType;
 import org.palladiosimulator.pcm.repository.CompositeComponent;
 import org.palladiosimulator.pcm.repository.DataType;
 import org.palladiosimulator.pcm.repository.EventGroup;
+import org.palladiosimulator.pcm.repository.EventType;
 import org.palladiosimulator.pcm.repository.ExceptionType;
 import org.palladiosimulator.pcm.repository.InfrastructureInterface;
 import org.palladiosimulator.pcm.repository.InfrastructureProvidedRole;
@@ -32,6 +33,7 @@ import org.palladiosimulator.pcm.repository.Interface;
 import org.palladiosimulator.pcm.repository.OperationInterface;
 import org.palladiosimulator.pcm.repository.OperationProvidedRole;
 import org.palladiosimulator.pcm.repository.OperationRequiredRole;
+import org.palladiosimulator.pcm.repository.OperationSignature;
 import org.palladiosimulator.pcm.repository.Parameter;
 import org.palladiosimulator.pcm.repository.PassiveResource;
 import org.palladiosimulator.pcm.repository.PrimitiveDataType;
@@ -1031,6 +1033,46 @@ public class FluentRepositoryFactory {
 		if (interfce == null)
 			throw new RuntimeException("EventGroup '" + name + "' could not be found");
 		return interfce;
+	}
+	
+	/**
+	 * Extracts the operation signature referenced by <code>name</code> from the repository.
+	 * <p>
+	 * This method throws a RuntimeException if no operation signature is present under the
+	 * given <code>name</code>. If more than one operation signature with this
+	 * <code>name</code> is present, a warning will be printed during runtime and
+	 * the system chooses the first operation signature it finds.
+	 * </p>
+	 * 
+	 * @param name
+	 * @return the operation signature
+	 * @see org.palladiosimulator.pcm.repository.OperationSignature
+	 */
+	public OperationSignature fetchOfOperationSignature(String name) {
+		OperationSignature signature = repo.getOperationSignature(name);
+		if (signature == null)
+			throw new RuntimeException("Operation signature '" + name + "' could not be found");
+		return signature;
+	}
+	
+	/**
+	 * Extracts the event type referenced by <code>name</code> from the repository.
+	 * <p>
+	 * This method throws a RuntimeException if no event type is present under the
+	 * given <code>name</code>. If more than one event type with this
+	 * <code>name</code> is present, a warning will be printed during runtime and
+	 * the system chooses the first event type it finds.
+	 * </p>
+	 * 
+	 * @param name
+	 * @return the event type
+	 * @see org.palladiosimulator.pcm.repository.EventType
+	 */
+	public EventType fetchOfEventType(String name) {
+		EventType eventType = repo.getEventType(name);
+		if (eventType == null)
+			throw new RuntimeException("EventType '" + name + "' could not be found");
+		return eventType;
 	}
 
 	/**

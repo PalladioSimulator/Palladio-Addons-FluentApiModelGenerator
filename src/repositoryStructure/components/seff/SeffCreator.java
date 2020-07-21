@@ -144,7 +144,7 @@ public class SeffCreator extends Entity implements Seff, ActionSeff, StartSeff, 
 	public SeffCreator withName(String name) {
 		return (SeffCreator) super.withName(name);
 	}
-	
+
 	@Override
 	public SeffCreator onSignature(Signature signature) {
 		this.signature = signature;
@@ -162,7 +162,7 @@ public class SeffCreator extends Entity implements Seff, ActionSeff, StartSeff, 
 		this.internalBehaviours.add(internalBehaviour);
 		return this;
 	}
-	
+
 	@Override
 	public SeffCreator withSeffBehaviour() {
 		return this;
@@ -193,6 +193,7 @@ public class SeffCreator extends Entity implements Seff, ActionSeff, StartSeff, 
 		return this.buildRDSeff();
 	}
 
+	@Override
 	public ResourceDemandingSEFF buildRDSeff() {
 		ResourceDemandingSEFF seff = SeffFactory.eINSTANCE.createResourceDemandingSEFF();
 
@@ -209,24 +210,28 @@ public class SeffCreator extends Entity implements Seff, ActionSeff, StartSeff, 
 
 	}
 
+	@Override
 	public ResourceDemandingBehaviour buildBehaviour() {
 		ResourceDemandingBehaviour behaviour = SeffFactory.eINSTANCE.createResourceDemandingBehaviour();
 		behaviour.getSteps_Behaviour().addAll(steps);
 		return behaviour;
 	}
 
+	@Override
 	public ResourceDemandingInternalBehaviour buildInternalBehaviour() {
 		ResourceDemandingInternalBehaviour internal = SeffFactory.eINSTANCE.createResourceDemandingInternalBehaviour();
 		internal.getSteps_Behaviour().addAll(steps);
 		return internal;
 	}
 
+	@Override
 	public ForkedBehaviour buildForkedBehaviour() {
 		ForkedBehaviour fork = SeffFactory.eINSTANCE.createForkedBehaviour();
 		fork.getSteps_Behaviour().addAll(steps);
 		return fork;
 	}
 
+	@Override
 	public RecoveryActionBehaviour buildRecoveryBehaviour() {
 		RecoveryActionBehaviour recovActionBehaviour = SeffReliabilityFactory.eINSTANCE.createRecoveryActionBehaviour();
 
@@ -250,15 +255,4 @@ public class SeffCreator extends Entity implements Seff, ActionSeff, StartSeff, 
 		steps.add(action);
 	}
 
-	protected List<InternalSeff> getInternalBehaviours() {
-		return this.internalBehaviours;
-	}
-
-	protected Signature getSignature() {
-		return this.signature;
-	}
-
-	protected String getSeffTypeID() {
-		return this.seffTypeID;
-	}
 }
