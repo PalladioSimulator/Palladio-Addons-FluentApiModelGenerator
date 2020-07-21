@@ -2,6 +2,7 @@ package repositoryStructure.interfaces;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import org.palladiosimulator.pcm.reliability.FailureType;
 import org.palladiosimulator.pcm.repository.DataType;
@@ -161,6 +162,7 @@ public class InfrastructureSignatureCreator extends Entity {
 	 * @see factory.FluentRepositoryFactory#fetchOfExceptionType(String)
 	 */
 	public InfrastructureSignatureCreator withExceptionType(ExceptionType exceptionType) {
+		Objects.requireNonNull(exceptionType, "exceptionType must not be null");
 		this.exceptions.add(exceptionType);
 		return this;
 	}

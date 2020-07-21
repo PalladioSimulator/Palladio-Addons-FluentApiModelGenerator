@@ -3,6 +3,7 @@ package repositoryStructure.components;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import org.palladiosimulator.pcm.core.CoreFactory;
 import org.palladiosimulator.pcm.core.PCMRandomVariable;
@@ -67,6 +68,10 @@ public abstract class ComplexComponent extends Component {
 	 */
 	public ComplexComponent withAssemblyContext(RepositoryComponent encapsulatedComponent, String name,
 			VariableUsageCreator... configParameterUsages) {
+		if (configParameterUsages != null && configParameterUsages.length > 0)
+			for (int i = 0; i < configParameterUsages.length; i++)
+				Objects.requireNonNull(configParameterUsages[i], "config parameter usages must not be null");
+
 		AssemblyContext ac = CompositionFactory.eINSTANCE.createAssemblyContext();
 		if (name != null)
 			ac.setEntityName(name);

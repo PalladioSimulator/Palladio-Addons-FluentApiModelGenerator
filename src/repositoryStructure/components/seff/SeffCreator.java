@@ -22,6 +22,7 @@ import apiControlFlowInterfaces.seff.RecoverySeff;
 import apiControlFlowInterfaces.seff.Seff;
 import apiControlFlowInterfaces.seff.StartSeff;
 import repositoryStructure.Entity;
+import repositoryStructure.RepositoryCreator;
 import repositoryStructure.datatypes.Failure;
 
 /**
@@ -58,7 +59,8 @@ public class SeffCreator extends Entity implements Seff, ActionSeff, StartSeff, 
 	private List<FailureType> failures;
 	private List<RecoveryActionBehaviour> alternatives;
 
-	public SeffCreator() {
+	public SeffCreator(RepositoryCreator repo) {
+		this.repository = repo;
 		this.steps = new ArrayList<>();
 		this.internalBehaviours = new ArrayList<>();
 		this.failures = new ArrayList<>();
@@ -136,7 +138,7 @@ public class SeffCreator extends Entity implements Seff, ActionSeff, StartSeff, 
 
 	@Override
 	public RecoveryActionCreator recoveryAction() {
-		return new RecoveryActionCreator(this);
+		return new RecoveryActionCreator(this, repository);
 	}
 
 	// ------------ seff methods ------------

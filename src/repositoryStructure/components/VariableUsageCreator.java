@@ -2,6 +2,7 @@ package repositoryStructure.components;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.palladiosimulator.pcm.core.CoreFactory;
@@ -131,10 +132,10 @@ public class VariableUsageCreator extends Entity {
 	 */
 	public VariableUsageCreator withNamespaceReference(String reference, String... innerReferences) {
 		if (innerReferences != null && innerReferences.length > 0) {
-			String string = innerReferences[innerReferences.length];
+			String string = innerReferences[innerReferences.length-1];
 			VariableReference variableReference = StoexFactory.eINSTANCE.createVariableReference();
 			variableReference.setReferenceName(string);
-			List<String> asList = Arrays.asList(innerReferences);
+			List<String> asList = new LinkedList<String>(Arrays.asList(innerReferences));
 			asList.remove(asList.size() - 1);
 			asList.add(0, reference);
 			this.reference = rec(variableReference, asList);

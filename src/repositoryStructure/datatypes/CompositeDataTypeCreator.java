@@ -2,6 +2,7 @@ package repositoryStructure.datatypes;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import org.palladiosimulator.pcm.repository.CompositeDataType;
 import org.palladiosimulator.pcm.repository.InnerDeclaration;
@@ -101,6 +102,7 @@ public class CompositeDataTypeCreator extends Entity {
 	 * @see org.palladiosimulator.pcm.repository.CompositeDataType
 	 */
 	public CompositeDataTypeCreator withParentCompositeDataType(CompositeDataType parent) {
+		Objects.requireNonNull(parent, "parent must not be null");
 		this.parents.add(parent);
 		return this;
 	}

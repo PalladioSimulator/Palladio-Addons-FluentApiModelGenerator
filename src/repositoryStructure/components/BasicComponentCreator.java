@@ -2,6 +2,7 @@ package repositoryStructure.components;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import org.palladiosimulator.pcm.core.CoreFactory;
 import org.palladiosimulator.pcm.core.PCMRandomVariable;
@@ -348,6 +349,7 @@ public class BasicComponentCreator extends Component {
 	 * @see org.palladiosimulator.pcm.parameter.VariableUsage
 	 */
 	public BasicComponentCreator withVariableUsage(VariableUsageCreator variableUsage) {
+		Objects.requireNonNull(variableUsage, "variableUsage must not be null");
 		this.componentParameterUsages.add(variableUsage.build());
 		return this;
 	}

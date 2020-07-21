@@ -13,6 +13,7 @@ import org.palladiosimulator.pcm.seff.seff_reliability.RecoveryActionBehaviour;
 import org.palladiosimulator.pcm.seff.seff_reliability.SeffReliabilityFactory;
 
 import apiControlFlowInterfaces.seff.RecoverySeff;
+import repositoryStructure.RepositoryCreator;
 import repositoryStructure.components.VariableUsageCreator;
 
 /**
@@ -29,7 +30,8 @@ public class RecoveryActionCreator extends GeneralAction {
 	private RecoveryActionBehaviour primary;
 	private List<RecoveryActionBehaviour> otherBehaviours;
 
-	protected RecoveryActionCreator(SeffCreator seff) {
+	protected RecoveryActionCreator(SeffCreator seff, RepositoryCreator repo) {
+		this.repository = repo;
 		this.seff = seff;
 		this.otherBehaviours = new ArrayList<>();
 	}
@@ -63,7 +65,9 @@ public class RecoveryActionCreator extends GeneralAction {
 	 */
 	public RecoveryActionCreator withAlternativeBehaviour(RecoverySeff recoveryActionBehaviour) {
 		if (recoveryActionBehaviour != null) {
-			this.otherBehaviours.add(recoveryActionBehaviour.buildRecoveryBehaviour());
+			RecoveryActionBehaviour buildRecoveryBehaviour = recoveryActionBehaviour.buildRecoveryBehaviour();
+			this.otherBehaviours.add(buildRecoveryBehaviour);
+			this.repository.addRecoveryActionBehaviour(buildRecoveryBehaviour);
 		}
 		return this;
 	}

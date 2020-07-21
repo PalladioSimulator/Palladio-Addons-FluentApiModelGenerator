@@ -1,5 +1,7 @@
 package repositoryStructure;
 
+import java.util.Objects;
+
 import org.eclipse.emf.cdo.CDOObject;
 
 /**
@@ -25,6 +27,7 @@ public abstract class Entity {
 	 * @return this current entity in the making
 	 */
 	public Entity withName(String name) {
+		Objects.requireNonNull(name, "name must not be null");
 		this.name = name;
 		return this;
 	}

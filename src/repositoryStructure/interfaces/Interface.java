@@ -2,6 +2,7 @@ package repositoryStructure.interfaces;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import org.palladiosimulator.pcm.parameter.VariableCharacterisationType;
 import org.palladiosimulator.pcm.repository.Parameter;
@@ -41,6 +42,7 @@ public abstract class Interface extends Entity {
 	 * @see org.palladiosimulator.pcm.repository.Interface
 	 */
 	public Interface conforms(org.palladiosimulator.pcm.repository.Interface parentInterface) {
+		Objects.requireNonNull(parentInterface, "parentInterface must not be null");
 		parentInterfaces.add(parentInterface);
 		return this;
 	}

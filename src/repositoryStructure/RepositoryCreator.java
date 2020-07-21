@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.eclipse.emf.common.util.EList;
@@ -204,18 +205,21 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 
 	@Override
 	public RepositoryCreator withDescription(String description) {
+		Objects.requireNonNull(description, "description must not be null");
 		this.description = description;
 		return this;
 	}
 
 	@Override
 	public RepoAddition addToRepository(CollectionDataType collectionDataType) {
+		Objects.requireNonNull(collectionDataType, "collectionDataType must not be null");
 		dataTypes.add(collectionDataType);
 		return this;
 	}
 
 	@Override
 	public RepoAddition addToRepository(CompositeDataTypeCreator compositeDataType) {
+		Objects.requireNonNull(compositeDataType, "compositeDataType must not be null");
 		CompositeDataType dataType = compositeDataType.build();
 		dataTypes.add(dataType);
 		return this;
@@ -223,18 +227,21 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 
 	@Override
 	public RepoAddition addToRepository(FailureType failureType) {
+		Objects.requireNonNull(failureType, "failureType must not be null");
 		// TODO:
 		return this;
 	}
 
 	@Override
 	public RepoAddition addToRepository(SoftwareFailureType failureType) {
+		Objects.requireNonNull(failureType, "failureType must not be null");
 		// TODO:
 		return this;
 	}
 
 	@Override
 	public RepoAddition addToRepository(repositoryStructure.interfaces.Interface interfce) {
+		Objects.requireNonNull(interfce, "interfce must not be null");
 		Interface i = interfce.build();
 		interfaces.add(i);
 		return this;
@@ -242,6 +249,7 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 
 	@Override
 	public RepoAddition addToRepository(Component component) {
+		Objects.requireNonNull(component, "component must not be null");
 		RepositoryComponent c = component.build();
 		components.add(c);
 		return this;

@@ -2,6 +2,7 @@ package repositoryStructure.components;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import org.palladiosimulator.pcm.core.composition.CompositionFactory;
 import org.palladiosimulator.pcm.core.composition.EventChannel;
@@ -53,12 +54,14 @@ public class EventChannelCreator extends Entity implements EventChannelComposite
 
 	@Override
 	public EventChannelCreator withEventChannelSinkConnector(EventChannelSinkConnector sinkConnection) {
+		Objects.requireNonNull(sinkConnection, "sinkConnection must not be null");
 		sinkConnections.add(sinkConnection);
 		return this;
 	}
 
 	@Override
 	public EventChannelCreator withEventChannelSourceConnector(EventChannelSourceConnector sourceConnection) {
+		Objects.requireNonNull(sourceConnection, "sourceConnection must not be null");
 		sourceConnections.add(sourceConnection);
 		return this;
 	}

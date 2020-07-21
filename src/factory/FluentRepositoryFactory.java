@@ -1,6 +1,7 @@
 package factory;
 
 import java.util.Map;
+import java.util.Objects;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
@@ -517,6 +518,7 @@ public class FluentRepositoryFactory {
 	 * @see repositoryStructure.datatypes.Primitive
 	 */
 	public CollectionDataType newCollectionDataType(String name, Primitive primitive) {
+		Objects.requireNonNull(name, "name must not be null");
 		PrimitiveDataType p = repo.getPrimitiveDataType(primitive);
 
 		CollectionDataType coll = RepositoryFactory.eINSTANCE.createCollectionDataType();
@@ -552,6 +554,7 @@ public class FluentRepositoryFactory {
 	 */
 	public CollectionDataType newCollectionDataType(String name,
 			org.palladiosimulator.pcm.repository.DataType dataType) {
+		Objects.requireNonNull(name, "name must not be null");
 		CollectionDataType coll = RepositoryFactory.eINSTANCE.createCollectionDataType();
 		coll.setEntityName(name);
 		coll.setInnerType_CollectionDataType(dataType);
@@ -596,6 +599,7 @@ public class FluentRepositoryFactory {
 	 */
 	public HardwareInducedFailureType newHardwareInducedFailureType(String name,
 			ProcessingResource processingResource) {
+		Objects.requireNonNull(name, "name must not be null");
 		HardwareInducedFailureType h = ReliabilityFactory.eINSTANCE.createHardwareInducedFailureType();
 		h.setEntityName(name);
 		h.setProcessingResourceType__HardwareInducedFailureType(repo.getProcessingResource(processingResource));
@@ -613,6 +617,7 @@ public class FluentRepositoryFactory {
 	 */
 	public NetworkInducedFailureType newNetworkInducedFailureType(String name,
 			CommunicationLinkResource communicationLinkResource) {
+		Objects.requireNonNull(name, "name must not be null");
 		NetworkInducedFailureType n = ReliabilityFactory.eINSTANCE.createNetworkInducedFailureType();
 		n.setEntityName(name);
 		n.setCommunicationLinkResourceType__NetworkInducedFailureType(
@@ -689,7 +694,7 @@ public class FluentRepositoryFactory {
 	 * @see org.palladiosimulator.pcm.seff.ResourceDemandingInternalBehaviour
 	 */
 	public Seff newSeff() {
-		return new SeffCreator();
+		return new SeffCreator(this.repo);
 	}
 
 	/**
@@ -715,7 +720,7 @@ public class FluentRepositoryFactory {
 	 * @see org.palladiosimulator.pcm.seff.ForkedBehaviour
 	 */
 	public InternalSeff newInternalBehaviour() {
-		return new SeffCreator();
+		return new SeffCreator(this.repo);
 	}
 
 	/**
@@ -756,7 +761,7 @@ public class FluentRepositoryFactory {
 	 * @see org.palladiosimulator.pcm.seff.seff_reliability.RecoveryActionBehaviour
 	 */
 	public RecoverySeff newRecoveryBehaviour() {
-		return new SeffCreator();
+		return new SeffCreator(this.repo);
 	}
 
 	/**
@@ -810,7 +815,7 @@ public class FluentRepositoryFactory {
 	 * @see org.palladiosimulator.pcm.repository.DataType
 	 */
 	public DataType fetchOfDataType(String name) {
-
+		Objects.requireNonNull(name, "name must not be null");
 		DataType dataType = repo.getDataType(name);
 		if (dataType == null)
 			dataType = repo.getPrimitiveDataType(name);
@@ -851,7 +856,7 @@ public class FluentRepositoryFactory {
 	 * @see org.palladiosimulator.pcm.repository.CompositeDataType
 	 */
 	public CompositeDataType fetchOfCompositeDataType(String name) {
-
+		Objects.requireNonNull(name, "name must not be null");
 		CompositeDataType dataType = repo.getCompositeDataType(name);
 		if (dataType == null)
 			throw new RuntimeException("Composite data type '" + name + "' could not be found");
@@ -861,6 +866,7 @@ public class FluentRepositoryFactory {
 
 	/**
 	 * TODO
+	 * 
 	 * @param failure
 	 * @return
 	 */
@@ -873,10 +879,12 @@ public class FluentRepositoryFactory {
 
 	/**
 	 * TODO
+	 * 
 	 * @param name
 	 * @return
 	 */
 	public FailureType fetchOfFailureType(String name) {
+		Objects.requireNonNull(name, "name must not be null");
 		// TODO: Kann man kann evtl noch eigene erstellen? -> fetch mit String; auch
 		// übertragen auf Failure
 		return null;
@@ -884,6 +892,7 @@ public class FluentRepositoryFactory {
 
 	/**
 	 * TODO
+	 * 
 	 * @param failure
 	 * @return
 	 */
@@ -900,16 +909,19 @@ public class FluentRepositoryFactory {
 
 	/**
 	 * TODO
+	 * 
 	 * @param name
 	 * @return
 	 */
 	public ExceptionType fetchOfExceptionType(String name) {
+		Objects.requireNonNull(name, "name must not be null");
 		// TODO:
 		return null;
 	}
 
 	/**
 	 * TODO
+	 * 
 	 * @param resourceInterface
 	 * @return
 	 */
@@ -935,6 +947,7 @@ public class FluentRepositoryFactory {
 	 * @see org.palladiosimulator.pcm.repository.RepositoryComponent
 	 */
 	public RepositoryComponent fetchOfComponent(String name) {
+		Objects.requireNonNull(name, "name must not be null");
 		RepositoryComponent component = repo.getComponent(name);
 		if (component == null)
 			throw new RuntimeException("Component '" + name + "' could not be found");
@@ -957,6 +970,7 @@ public class FluentRepositoryFactory {
 	 * @see org.palladiosimulator.pcm.repository.BasicComponent
 	 */
 	public BasicComponent fetchOfBasicComponent(String name) {
+		Objects.requireNonNull(name, "name must not be null");
 		BasicComponent component = repo.getBasicComponent(name);
 		if (component == null)
 			throw new RuntimeException("BasicComponent '" + name + "' could not be found");
@@ -979,6 +993,7 @@ public class FluentRepositoryFactory {
 	 * @see org.palladiosimulator.pcm.repository.CompositeComponent
 	 */
 	public CompositeComponent fetchOfCompositeComponent(String name) {
+		Objects.requireNonNull(name, "name must not be null");
 		CompositeComponent component = repo.getCompositeComponent(name);
 		if (component == null)
 			throw new RuntimeException("CompositeComponent '" + name + "' could not be found");
@@ -1000,6 +1015,7 @@ public class FluentRepositoryFactory {
 	 * @see org.palladiosimulator.pcm.subsystem.SubSystem
 	 */
 	public SubSystem fetchOfSubSystem(String name) {
+		Objects.requireNonNull(name, "name must not be null");
 		SubSystem component = repo.getSubsystem(name);
 		if (component == null)
 			throw new RuntimeException("Subsystem '" + name + "' could not be found");
@@ -1023,6 +1039,7 @@ public class FluentRepositoryFactory {
 	 * @see org.palladiosimulator.pcm.repository.CompleteComponentType
 	 */
 	public CompleteComponentType fetchOfCompleteComponentType(String name) {
+		Objects.requireNonNull(name, "name must not be null");
 		CompleteComponentType component = repo.getCompleteComponentType(name);
 		if (component == null)
 			throw new RuntimeException("CompleteComponentType '" + name + "' could not be found");
@@ -1046,6 +1063,7 @@ public class FluentRepositoryFactory {
 	 * @see org.palladiosimulator.pcm.repository.ProvidesComponentType
 	 */
 	public ProvidesComponentType fetchOfProvidesComponentType(String name) {
+		Objects.requireNonNull(name, "name must not be null");
 		ProvidesComponentType component = repo.getProvidesComponentType(name);
 		if (component == null)
 			throw new RuntimeException("ProvidesComponentType '" + name + "' could not be found");
@@ -1067,6 +1085,7 @@ public class FluentRepositoryFactory {
 	 * @see org.palladiosimulator.pcm.repository.Interface
 	 */
 	public Interface fetchOfInterface(String name) {
+		Objects.requireNonNull(name, "name must not be null");
 		Interface interfce = repo.getInterface(name);
 		if (interfce == null)
 			throw new RuntimeException("Interface '" + name + "' could not be found");
@@ -1089,6 +1108,7 @@ public class FluentRepositoryFactory {
 	 * @see org.palladiosimulator.pcm.repository.OperationInterface
 	 */
 	public OperationInterface fetchOfOperationInterface(String name) {
+		Objects.requireNonNull(name, "name must not be null");
 		OperationInterface interfce = repo.getOperationInterface(name);
 		if (interfce == null)
 			throw new RuntimeException("OperationInterface '" + name + "' could not be found");
@@ -1112,6 +1132,7 @@ public class FluentRepositoryFactory {
 	 * @see org.palladiosimulator.pcm.repository.InfrastructureInterface
 	 */
 	public InfrastructureInterface fetchOfInfrastructureInterface(String name) {
+		Objects.requireNonNull(name, "name must not be null");
 		InfrastructureInterface interfce = repo.getInfrastructureInterface(name);
 		if (interfce == null)
 			throw new RuntimeException("InfrastructureInterface '" + name + "' could not be found");
@@ -1133,6 +1154,7 @@ public class FluentRepositoryFactory {
 	 * @see org.palladiosimulator.pcm.repository.EventGroup
 	 */
 	public EventGroup fetchOfEventGroup(String name) {
+		Objects.requireNonNull(name, "name must not be null");
 		EventGroup interfce = repo.getEventGroup(name);
 		if (interfce == null)
 			throw new RuntimeException("EventGroup '" + name + "' could not be found");
@@ -1154,6 +1176,7 @@ public class FluentRepositoryFactory {
 	 * @see org.palladiosimulator.pcm.repository.OperationSignature
 	 */
 	public OperationSignature fetchOfOperationSignature(String name) {
+		Objects.requireNonNull(name, "name must not be null");
 		OperationSignature signature = repo.getOperationSignature(name);
 		if (signature == null)
 			throw new RuntimeException("Operation signature '" + name + "' could not be found");
@@ -1174,6 +1197,7 @@ public class FluentRepositoryFactory {
 	 * @see org.palladiosimulator.pcm.repository.EventType
 	 */
 	public EventType fetchOfEventType(String name) {
+		Objects.requireNonNull(name, "name must not be null");
 		EventType eventType = repo.getEventType(name);
 		if (eventType == null)
 			throw new RuntimeException("EventType '" + name + "' could not be found");
@@ -1195,6 +1219,7 @@ public class FluentRepositoryFactory {
 	 * @see org.palladiosimulator.pcm.repository.ProvidedRole
 	 */
 	public ProvidedRole fetchOfProvidedRole(String name) {
+		Objects.requireNonNull(name, "name must not be null");
 		ProvidedRole provRole = repo.getProvidedRole(name);
 		if (provRole == null)
 			throw new RuntimeException("ProvidedRole '" + name + "' could not be found");
@@ -1216,6 +1241,7 @@ public class FluentRepositoryFactory {
 	 * @see org.palladiosimulator.pcm.repository.RequiredRole
 	 */
 	public RequiredRole fetchOfRequiredRole(String name) {
+		Objects.requireNonNull(name, "name must not be null");
 		RequiredRole reqRole = repo.getRequiredRole(name);
 		if (reqRole == null)
 			throw new RuntimeException("RequiredRole '" + name + "' could not be found");
@@ -1238,6 +1264,7 @@ public class FluentRepositoryFactory {
 	 * @see org.palladiosimulator.pcm.repository.OperationProvidedRole
 	 */
 	public OperationProvidedRole fetchOfOperationProvidedRole(String name) {
+		Objects.requireNonNull(name, "name must not be null");
 		OperationProvidedRole provRole = repo.getOperationProvidedRole(name);
 		if (provRole == null)
 			throw new RuntimeException("ProvidedRole '" + name + "' could not be found");
@@ -1260,6 +1287,7 @@ public class FluentRepositoryFactory {
 	 * @see org.palladiosimulator.pcm.repository.OperationRequiredRole
 	 */
 	public OperationRequiredRole fetchOfOperationRequiredRole(String name) {
+		Objects.requireNonNull(name, "name must not be null");
 		OperationRequiredRole reqRole = repo.getOperationRequiredRole(name);
 		if (reqRole == null)
 			throw new RuntimeException("RequiredRole '" + name + "' could not be found");
@@ -1282,6 +1310,7 @@ public class FluentRepositoryFactory {
 	 * @see org.palladiosimulator.pcm.repository.InfrastructureProvidedRole
 	 */
 	public InfrastructureProvidedRole fetchOfInfrastructureProvidedRole(String name) {
+		Objects.requireNonNull(name, "name must not be null");
 		InfrastructureProvidedRole provRole = repo.getInfrastructureProvidedRole(name);
 		if (provRole == null)
 			throw new RuntimeException("ProvidedRole '" + name + "' could not be found");
@@ -1304,6 +1333,7 @@ public class FluentRepositoryFactory {
 	 * @see org.palladiosimulator.pcm.repository.InfrastructureRequiredRole
 	 */
 	public InfrastructureRequiredRole fetchOfInfrastructureRequiredRole(String name) {
+		Objects.requireNonNull(name, "name must not be null");
 		InfrastructureRequiredRole reqRole = repo.getInfrastructureRequiredRole(name);
 		if (reqRole == null)
 			throw new RuntimeException("RequiredRole '" + name + "' could not be found");
@@ -1324,6 +1354,7 @@ public class FluentRepositoryFactory {
 	 * @see org.palladiosimulator.pcm.repository.SinkRole
 	 */
 	public SinkRole fetchOfSinkRole(String name) {
+		Objects.requireNonNull(name, "name must not be null");
 		SinkRole provRole = repo.getSinkRole(name);
 		if (provRole == null)
 			throw new RuntimeException("SinkRole '" + name + "' could not be found");
@@ -1344,6 +1375,7 @@ public class FluentRepositoryFactory {
 	 * @see org.palladiosimulator.pcm.repository.SourceRole
 	 */
 	public SourceRole fetchOfSourceRole(String name) {
+		Objects.requireNonNull(name, "name must not be null");
 		SourceRole reqRole = repo.getSourceRole(name);
 		if (reqRole == null)
 			throw new RuntimeException("SourceRole '" + name + "' could not be found");
@@ -1365,6 +1397,7 @@ public class FluentRepositoryFactory {
 	 * @see org.palladiosimulator.pcm.core.entity.ResourceRequiredRole
 	 */
 	public ResourceRequiredRole fetchOfResourceRequiredRole(String name) {
+		Objects.requireNonNull(name, "name must not be null");
 		ResourceRequiredRole reqRole = repo.getResourceRequiredRole(name);
 		if (reqRole == null)
 			throw new RuntimeException("ResourceRequiredRole '" + name + "' could not be found");
@@ -1386,6 +1419,7 @@ public class FluentRepositoryFactory {
 	 * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
 	 */
 	public AssemblyContext fetchOfAssemblyContext(String name) {
+		Objects.requireNonNull(name, "name must not be null");
 		AssemblyContext assContext = repo.getAssemblyContext(name);
 		if (assContext == null)
 			throw new RuntimeException("Assembly context '" + name + "' could not be found");
@@ -1407,6 +1441,7 @@ public class FluentRepositoryFactory {
 	 * @see org.palladiosimulator.pcm.core.composition.EventChannel
 	 */
 	public EventChannel fetchOfEventChannel(String name) {
+		Objects.requireNonNull(name, "name must not be null");
 		EventChannel eventChannel = repo.getEventChannel(name);
 		if (eventChannel == null)
 			throw new RuntimeException("Event Channel '" + name + "' could not be found");
@@ -1429,6 +1464,7 @@ public class FluentRepositoryFactory {
 	 * @see org.palladiosimulator.pcm.core.composition.EventChannelSinkConnector
 	 */
 	public EventChannelSinkConnector fetchOfEventChannelSinkConnector(String name) {
+		Objects.requireNonNull(name, "name must not be null");
 		EventChannelSinkConnector connector = repo.getEventChannelSinkConnector(name);
 		if (connector == null)
 			throw new RuntimeException("Event Channel Sink Connector '" + name + "' could not be found");
@@ -1451,6 +1487,7 @@ public class FluentRepositoryFactory {
 	 * @see org.palladiosimulator.pcm.core.composition.EventChannelSourceConnector
 	 */
 	public EventChannelSourceConnector fetchOfEventChannelSourceConnector(String name) {
+		Objects.requireNonNull(name, "name must not be null");
 		EventChannelSourceConnector connector = repo.getEventChannelSourceConnector(name);
 		if (connector == null)
 			throw new RuntimeException("Event Channel Source Connector '" + name + "' could not be found");
@@ -1459,10 +1496,12 @@ public class FluentRepositoryFactory {
 
 	/**
 	 * TODO
+	 * 
 	 * @param name
 	 * @return
 	 */
 	public Signature fetchOfSignature(String name) {
+		Objects.requireNonNull(name, "name must not be null");
 		return null; // TODO:
 	}
 
@@ -1480,6 +1519,7 @@ public class FluentRepositoryFactory {
 	 * @see org.palladiosimulator.pcm.repository.Parameter
 	 */
 	public Parameter fetchOfParameter(String name) {
+		Objects.requireNonNull(name, "name must not be null");
 		Parameter p = repo.getParameter(name);
 		if (p == null)
 			throw new RuntimeException("Parameter '" + name + "' could not be found");
@@ -1502,6 +1542,7 @@ public class FluentRepositoryFactory {
 	 * @see org.palladiosimulator.pcm.repository.Parameter
 	 */
 	public Parameter fetchOfParameter(String name, Signature context) {
+		Objects.requireNonNull(name, "name must not be null");
 		Parameter p = repo.getParameter(name, context);
 		if (p == null)
 			throw new RuntimeException("Parameter '" + name + "' could not be found");
@@ -1524,6 +1565,7 @@ public class FluentRepositoryFactory {
 	 * @see org.palladiosimulator.pcm.seff.seff_reliability.RecoveryActionBehaviour
 	 */
 	public RecoveryActionBehaviour fetchOfRecoveryActionBehaviour(String name) {
+		Objects.requireNonNull(name, "name must not be null");
 		RecoveryActionBehaviour r = repo.getRecoveryActionBehaviour(name);
 		if (r == null)
 			throw new RuntimeException("Recovery action behaviour '" + name + "' could not be found");
@@ -1545,6 +1587,7 @@ public class FluentRepositoryFactory {
 	 * @see org.palladiosimulator.pcm.seff.seff_reliability.RecoveryActionBehaviour
 	 */
 	public PassiveResource fetchOfPassiveResource(String name) {
+		Objects.requireNonNull(name, "name must not be null");
 		PassiveResource r = repo.getPassiveResource(name);
 		if (r == null)
 			throw new RuntimeException("Passive Resource '" + name + "' could not be found");

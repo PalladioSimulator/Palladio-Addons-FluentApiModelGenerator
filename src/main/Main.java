@@ -24,8 +24,8 @@ class Main {
 
 	public static void main(String[] args) {
 
-//		mediaStoreExample();
-//		nullExample();
+		mediaStoreExample();
+		nullExample();
 		FluentRepositoryFactory create = new FluentRepositoryFactory();
 		
 		Repository repo = create.newRepository()
@@ -68,7 +68,7 @@ class Main {
 
 				// COMPOSITE COMPONENTS
 				.addToRepository(create.newCompositeComponent().withName("Web")
-						.withVariableUsage(create.newVariableUsage().withName(null)
+						.withVariableUsage(create.newVariableUsage()
 								.withVariableCharacterisation(null, null).withNamespaceReference(null))
 						.requires(create.newOperationInterface().withName("HelloWorld"))
 						.withAssemblyContext(create.fetchOfComponent("Database"), "DBContext")
@@ -120,23 +120,22 @@ class Main {
 
 	public static void nullExample() {
 		FluentRepositoryFactory create = new FluentRepositoryFactory();
-		Repository repo = create.newRepository().withName(null).withDescription(null)
-				.addToRepository(create.newCollectionDataType(null, Primitive.BOOLEAN))
+		Repository repo = create.newRepository()
+				.addToRepository(create.newCollectionDataType("kp", Primitive.BOOLEAN))
 				.addToRepository(create.newCollectionDataType("bla", Primitive.INTEGER))
-				.addToRepository(create.newCollectionDataType(null, create.fetchOfDataType("bla")))
-				.addToRepository(create.newCompositeDataType().withName(null).withParentCompositeDataType(null)
+				
+				.addToRepository(create.newCollectionDataType("blabla", create.fetchOfDataType("bla")))
+				
+				.addToRepository(create.newCompositeDataType()
 						.withInnerDeclaration(null, create.fetchOfDataType(Primitive.BOOLEAN)))
 				.addToRepository(create.newCompositeDataType().withInnerDeclaration(null, Primitive.BOOLEAN))
 				.addToRepository(create.newResourceTimeoutFailureType()
-								.withName(null)
 								.withPassiveResource(null))
 				.addToRepository(
-						create.newBasicComponent().withName(null).ofType(null).withPassiveResource(null, null, null)
-								.withVariableUsage(null)
+						create.newBasicComponent().ofType(null).withPassiveResource(null, null, null)
 								.withVariableUsage(create
-										.newVariableUsage().withName(null).withVariableCharacterisation(null, null)
+										.newVariableUsage().withVariableCharacterisation(null, null)
 										.withNamespaceReference(null, null, null).withVariableReference(null))
-								.conforms(create.fetchOfCompleteComponentType(null))
 								.withServiceEffectSpecification(null)
 								// TODO javadoc for seffs
 								.withServiceEffectSpecification(create.newSeff().onSignature(null).withSeffTypeID(null)
@@ -167,35 +166,26 @@ class Main {
 										// other actions
 										.followedBy().stopAction().createBehaviourNow()))
 
-				.addToRepository(create.newCompleteComponentType().withName(null)
-						.conforms(create.fetchOfProvidesComponentType(null)))
-				.addToRepository(create.newProvidesComponentType().withName(null))
-				.addToRepository(create.newSubSystem().withName(null))
-				.addToRepository(create.newCompositeComponent().withName(null).ofType(null).withVariableUsage(null)
-						.conforms(create.fetchOfCompleteComponentType(null)).conforms(create.newCompleteComponentType())
+				.addToRepository(create.newCompleteComponentType())
+				.addToRepository(create.newProvidesComponentType())
+				.addToRepository(create.newSubSystem())
+				.addToRepository(create.newCompositeComponent().ofType(null)
+						.conforms(create.newCompleteComponentType())
 						// roles
-						.emits(create.fetchOfEventGroup(null)).emits(create.fetchOfEventGroup(null), null)
 						.emits(create.newEventGroup()).emits(create.newEventGroup(), null)
-						.handles(create.fetchOfEventGroup(null)).handles(create.fetchOfEventGroup(null), null)
 						.handles(create.newEventGroup()).handles(create.newEventGroup(), null)
-						.provides(create.fetchOfOperationInterface(null))
-						.provides(create.fetchOfOperationInterface(null), null).provides(create.newOperationInterface())
+						.provides(create.newOperationInterface())
 						.provides(create.newOperationInterface(), null)
-						.providesInfrastructure(create.fetchOfInfrastructureInterface(null))
-						.providesInfrastructure(create.fetchOfInfrastructureInterface(null), null)
 						.providesInfrastructure(create.newInfrastructureInterface())
 						.providesInfrastructure(create.newInfrastructureInterface(), null)
-						.requires(create.fetchOfOperationInterface(null))
-						.requires(create.fetchOfOperationInterface(null), null).requires(create.newOperationInterface())
+						.requires(create.newOperationInterface())
 						.requires(create.newOperationInterface(), null)
-						.requiresInfrastructure(create.fetchOfInfrastructureInterface(null))
-						.requiresInfrastructure(create.fetchOfInfrastructureInterface(null), null)
 						.requiresInfrastructure(create.newInfrastructureInterface())
-						.requiresInfrastructure(create.newInfrastructureInterface(), null).requiresResource(null)
+						.requiresInfrastructure(create.newInfrastructureInterface(), null)
+						.requiresResource(null)
 						.requiresResource(null, null)
 						// connectors
-						.withAssemblyContext(null, null, null, null).withEventChannel().withEventGroup(null)
-						.withEventChannelSinkConnector(null).withEventChannelSourceConnector(null).now1()
+						.withAssemblyContext(null, null).withEventChannel().withEventGroup(null).now1()
 						.withAssemblyConnection(null, null, null, null)
 						.withAssemblyEventConnection(null, null, null, null, null)
 						.withAssemblyInfrastructureConnection(null, null, null, null)
@@ -208,17 +198,17 @@ class Main {
 						.withRequiredResourceDelegationConnection(null, null, null)
 						.withSinkDelegationConnection(null, null, null).withSourceDelegationConnection(null, null, null)
 						.resourceRequiredDegelationConnection(null, null))
-				.addToRepository(create.newOperationInterface().withName(null).conforms(null).withOperationSignature()
-						.withName(null).withParameter(null, Primitive.BOOLEAN, null).withReturnType(Primitive.BOOLEAN)
+				.addToRepository(create.newOperationInterface().withOperationSignature()
+						.withParameter(null, Primitive.BOOLEAN, null).withReturnType(Primitive.BOOLEAN)
 						.withFailureType(Failure.HARDWARE_CPU).withExceptionType(null).now()
 						.withRequiredCharacterisation(null, null))
-				.addToRepository(create.newInfrastructureInterface().withName(null).conforms(null)
-						.withInfrastructureSignature().withName(null).withParameter(null, Primitive.BOOLEAN, null)
-						.withFailureType(Failure.HARDWARE_CPU).withExceptionType(null).now()
+				.addToRepository(create.newInfrastructureInterface()
+						.withInfrastructureSignature().withParameter(null, Primitive.BOOLEAN, null)
+						.withFailureType(Failure.HARDWARE_CPU).now()
 						.withRequiredCharacterisation(null, null))
-				.addToRepository(create.newEventGroup().withName(null).conforms(null).withEventType().withName(null)
+				.addToRepository(create.newEventGroup().withEventType()
 						.withParameter(null, Primitive.BOOLEAN, null).withFailureType(Failure.HARDWARE_CPU)
-						.withExceptionType(null).now().withRequiredCharacterisation(null, null))
+						.now().withRequiredCharacterisation(null, null))
 				.createRepositoryNow();
 
 		saveRepository(repo, "null.repository", false);

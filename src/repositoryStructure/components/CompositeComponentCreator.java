@@ -2,6 +2,7 @@ package repositoryStructure.components;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.composition.EventChannel;
@@ -289,6 +290,7 @@ public class CompositeComponentCreator extends ComplexComponent {
 	 * @see org.palladiosimulator.pcm.parameter.VariableUsage
 	 */
 	public CompositeComponentCreator withVariableUsage(VariableUsageCreator variableUsage) {
+		Objects.requireNonNull(variableUsage, "variableUsage must not be null");
 		this.componentParameterUsages.add(variableUsage.build());
 		return this;
 	}
