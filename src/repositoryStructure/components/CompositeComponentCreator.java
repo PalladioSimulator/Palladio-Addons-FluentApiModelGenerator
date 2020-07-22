@@ -73,6 +73,7 @@ public class CompositeComponentCreator extends ComplexComponent {
 	 * @return the composite component in the making
 	 */
 	public CompositeComponentCreator ofType(ComponentType type) {
+		Objects.requireNonNull(type, "type must not be null");
 		this.type = type;
 		return this;
 	}
@@ -238,6 +239,7 @@ public class CompositeComponentCreator extends ComplexComponent {
 	 * @see org.palladiosimulator.pcm.repository.CompleteComponentType
 	 */
 	public CompositeComponentCreator conforms(CompleteComponentTypeCreator completeComponentType) {
+		Objects.requireNonNull(completeComponentType, "completeComponentType must not be null");
 		CompleteComponentType cct = completeComponentType.build();
 		this.repository.addComponent(cct);
 		return conforms(cct);
@@ -264,6 +266,7 @@ public class CompositeComponentCreator extends ComplexComponent {
 	 * @see org.palladiosimulator.pcm.repository.CompleteComponentType
 	 */
 	public CompositeComponentCreator conforms(CompleteComponentType completeComponentType) {
+		Objects.requireNonNull(completeComponentType, "completeComponentType must not be null");
 		this.conformsCompleteTypes.add(completeComponentType);
 		return this;
 	}

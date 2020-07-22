@@ -73,6 +73,7 @@ public class BasicComponentCreator extends Component {
 	 * @return the basic component in the making
 	 */
 	public BasicComponentCreator ofType(ComponentType type) {
+		Objects.requireNonNull(type, "type must not be null");
 		this.type = type;
 		return this;
 	}
@@ -238,6 +239,7 @@ public class BasicComponentCreator extends Component {
 	 * @see org.palladiosimulator.pcm.repository.CompleteComponentType
 	 */
 	public BasicComponentCreator conforms(CompleteComponentTypeCreator completeComponentType) {
+		Objects.requireNonNull(completeComponentType, "completeComponentType must not be null");
 		CompleteComponentType cct = completeComponentType.build();
 		this.repository.addComponent(cct);
 		return conforms(cct);
@@ -264,6 +266,7 @@ public class BasicComponentCreator extends Component {
 	 * @see org.palladiosimulator.pcm.repository.CompleteComponentType
 	 */
 	public BasicComponentCreator conforms(CompleteComponentType completeComponentType) {
+		Objects.requireNonNull(completeComponentType, "completeComponentType must not be null");
 		this.conformsCompleteTypes.add(completeComponentType);
 		return this;
 	}
@@ -289,6 +292,9 @@ public class BasicComponentCreator extends Component {
 	 */
 	public BasicComponentCreator withPassiveResource(String capacity_stochasticExpression,
 			ResourceTimeoutFailureType failureType, String name) {
+		Objects.requireNonNull(capacity_stochasticExpression, "capacity_stochasticExpression must not be null");
+		// TODO: should failure + name not be null? sollte es die Methode auch ohne name
+		// geben?
 		PCMRandomVariable randVar = CoreFactory.eINSTANCE.createPCMRandomVariable();
 		randVar.setSpecification(capacity_stochasticExpression);
 
@@ -320,10 +326,9 @@ public class BasicComponentCreator extends Component {
 	 * @see org.palladiosimulator.pcm.seff.ResourceDemandingSEFF
 	 */
 	public BasicComponentCreator withServiceEffectSpecification(Seff seff) {
-		if (seff != null) {
-			ServiceEffectSpecification sEfF = seff.build();
-			this.seffs.add(sEfF);
-		}
+		Objects.requireNonNull(seff, "seff must not be null");
+		ServiceEffectSpecification sEfF = seff.build();
+		this.seffs.add(sEfF);
 		return this;
 	}
 

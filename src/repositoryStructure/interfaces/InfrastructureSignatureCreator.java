@@ -74,6 +74,8 @@ public class InfrastructureSignatureCreator extends Entity {
 	 * @see org.palladiosimulator.pcm.repository.ParameterModifier
 	 */
 	public InfrastructureSignatureCreator withParameter(String name, Primitive dataType, ParameterModifier modifier) {
+		Objects.requireNonNull(name, "name must not be null");
+		Objects.requireNonNull(dataType, "dataType must not be null");
 		PrimitiveDataType dt = repository.getPrimitiveDataType(dataType);
 		return withParameter(name, dt, modifier);
 	}
@@ -101,6 +103,8 @@ public class InfrastructureSignatureCreator extends Entity {
 	 * @see org.palladiosimulator.pcm.repository.ParameterModifier
 	 */
 	public InfrastructureSignatureCreator withParameter(String name, DataType dataType, ParameterModifier modifier) {
+		Objects.requireNonNull(name, "name must not be null");
+		Objects.requireNonNull(dataType, "dataType must not be null");
 		Parameter param = RepositoryFactory.eINSTANCE.createParameter();
 		if (name != null)
 			param.setParameterName(name);
@@ -127,6 +131,7 @@ public class InfrastructureSignatureCreator extends Entity {
 	 * @see factory.FluentRepositoryFactory#fetchOfFailureType(String)
 	 */
 	public InfrastructureSignatureCreator withFailureType(FailureType failureType) {
+		Objects.requireNonNull(failureType, "failureType must not be null");
 		this.failures.add(failureType);
 		return this;
 	}
@@ -145,6 +150,7 @@ public class InfrastructureSignatureCreator extends Entity {
 	 * @return this infrastructure signature in the making
 	 */
 	public InfrastructureSignatureCreator withFailureType(Failure failureType) {
+		Objects.requireNonNull(failureType, "failureType must not be null");
 		FailureType failure = this.repository.getFailureType(failureType);
 		return withFailureType(failure);
 	}

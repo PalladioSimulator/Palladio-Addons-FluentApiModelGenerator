@@ -1,5 +1,7 @@
 package repositoryStructure.datatypes;
 
+import java.util.Objects;
+
 import org.palladiosimulator.pcm.repository.ExceptionType;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
 
@@ -38,6 +40,7 @@ public class ExceptionTypeCreator extends Entity {
 	 * @return this exception in the making
 	 */
 	public ExceptionTypeCreator withExceptionMessage(String message) {
+		Objects.requireNonNull(message, "message must not be null");
 		this.exceptionMessage = message;
 		return this;
 	}

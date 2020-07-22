@@ -2,6 +2,7 @@ package repositoryStructure.components;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import org.palladiosimulator.pcm.core.entity.EntityFactory;
 import org.palladiosimulator.pcm.core.entity.ResourceRequiredRole;
@@ -59,6 +60,7 @@ public abstract class Component extends Entity {
 	 * @see factory.FluentRepositoryFactory#newOperationInterface()
 	 */
 	public Component provides(OperationInterfaceCreator interfce) {
+		Objects.requireNonNull(interfce, "interfce must not be null");
 		return provides(interfce, null);
 	}
 
@@ -81,6 +83,7 @@ public abstract class Component extends Entity {
 	 * @see factory.FluentRepositoryFactory#newOperationInterface()
 	 */
 	public Component provides(OperationInterfaceCreator interfce, String name) {
+		Objects.requireNonNull(interfce, "interfce must not be null");
 		OperationInterface i = interfce.build();
 		this.repository.addInterface(i);
 		return provides(i, name);
@@ -101,6 +104,7 @@ public abstract class Component extends Entity {
 	 * @see factory.FluentRepositoryFactory#fetchOfOperationInterface(String)
 	 */
 	public Component provides(OperationInterface interfce) {
+		Objects.requireNonNull(interfce, "interfce must not be null");
 		return provides(interfce, null);
 	}
 
@@ -123,6 +127,7 @@ public abstract class Component extends Entity {
 	 * @see factory.FluentRepositoryFactory#fetchOfOperationInterface(String)
 	 */
 	public Component provides(OperationInterface interfce, String name) {
+		Objects.requireNonNull(interfce, "interfce must not be null");
 		OperationProvidedRole providedRole = RepositoryFactory.eINSTANCE.createOperationProvidedRole();
 		if (name != null)
 			providedRole.setEntityName(name);
@@ -149,6 +154,7 @@ public abstract class Component extends Entity {
 	 * @see factory.FluentRepositoryFactory#newInfrastructureInterface()
 	 */
 	public Component providesInfrastructure(InfrastructureInterfaceCreator interfce) {
+		Objects.requireNonNull(interfce, "interfce must not be null");
 		return providesInfrastructure(interfce, null);
 	}
 
@@ -172,6 +178,7 @@ public abstract class Component extends Entity {
 	 * @see factory.FluentRepositoryFactory#newInfrastructureInterface()
 	 */
 	public Component providesInfrastructure(InfrastructureInterfaceCreator interfce, String name) {
+		Objects.requireNonNull(interfce, "interfce must not be null");
 		InfrastructureInterface i = interfce.build();
 		this.repository.addInterface(i);
 		return providesInfrastructure(i, name);
@@ -193,6 +200,7 @@ public abstract class Component extends Entity {
 	 * @see factory.FluentRepositoryFactory#fetchOfInfrastructureInterface(String)
 	 */
 	public Component providesInfrastructure(InfrastructureInterface interfce) {
+		Objects.requireNonNull(interfce, "interfce must not be null");
 		return providesInfrastructure(interfce, null);
 	}
 
@@ -216,6 +224,7 @@ public abstract class Component extends Entity {
 	 * @see factory.FluentRepositoryFactory#fetchOfInfrastructureInterface(String)
 	 */
 	public Component providesInfrastructure(InfrastructureInterface interfce, String name) {
+		Objects.requireNonNull(interfce, "interfce must not be null");
 		InfrastructureProvidedRole providedRole = RepositoryFactory.eINSTANCE.createInfrastructureProvidedRole();
 		if (name != null)
 			providedRole.setEntityName(name);
@@ -241,6 +250,7 @@ public abstract class Component extends Entity {
 	 * @see factory.FluentRepositoryFactory#newEventGroup()
 	 */
 	public Component handles(EventGroupCreator eventGroup) {
+		Objects.requireNonNull(eventGroup, "eventGroup must not be null");
 		return handles(eventGroup, null);
 	}
 
@@ -262,6 +272,7 @@ public abstract class Component extends Entity {
 	 * @see factory.FluentRepositoryFactory#newEventGroup()
 	 */
 	public Component handles(EventGroupCreator eventGroup, String name) {
+		Objects.requireNonNull(eventGroup, "eventGroup must not be null");
 		EventGroup eg = eventGroup.build();
 		this.repository.addInterface(eg);
 		return handles(eg, name);
@@ -282,6 +293,7 @@ public abstract class Component extends Entity {
 	 * @see factory.FluentRepositoryFactory#fetchOfEventGroup(String)
 	 */
 	public Component handles(EventGroup eventGroup) {
+		Objects.requireNonNull(eventGroup, "eventGroup must not be null");
 		return handles(eventGroup, null);
 	}
 
@@ -303,6 +315,7 @@ public abstract class Component extends Entity {
 	 * @see factory.FluentRepositoryFactory#fetchOfEventGroup(String)
 	 */
 	public Component handles(EventGroup eventGroup, String name) {
+		Objects.requireNonNull(eventGroup, "eventGroup must not be null");
 		SinkRole providedRole = RepositoryFactory.eINSTANCE.createSinkRole();
 		if (name != null)
 			providedRole.setEntityName(name);
@@ -329,6 +342,7 @@ public abstract class Component extends Entity {
 	 * @see factory.FluentRepositoryFactory#newOperationInterface()
 	 */
 	public Component requires(OperationInterfaceCreator interfce) {
+		Objects.requireNonNull(interfce, "interfce must not be null");
 		return requires(interfce, null);
 	}
 
@@ -351,6 +365,7 @@ public abstract class Component extends Entity {
 	 * @see factory.FluentRepositoryFactory#newOperationInterface()
 	 */
 	public Component requires(OperationInterfaceCreator interfce, String name) {
+		Objects.requireNonNull(interfce, "interfce must not be null");
 		OperationInterface i = interfce.build();
 		this.repository.addInterface(i);
 		return requires(i, name);
@@ -371,6 +386,7 @@ public abstract class Component extends Entity {
 	 * @see factory.FluentRepositoryFactory#fetchOfOperationInterface(String)
 	 */
 	public Component requires(OperationInterface interfce) {
+		Objects.requireNonNull(interfce, "interfce must not be null");
 		return requires(interfce, null);
 	}
 
@@ -393,6 +409,7 @@ public abstract class Component extends Entity {
 	 * @see factory.FluentRepositoryFactory#fetchOfOperationInterface(String)
 	 */
 	public Component requires(OperationInterface interfce, String name) {
+		Objects.requireNonNull(interfce, "interfce must not be null");
 		OperationRequiredRole requiredRole = RepositoryFactory.eINSTANCE.createOperationRequiredRole();
 		if (name != null)
 			requiredRole.setEntityName(name);
@@ -419,6 +436,7 @@ public abstract class Component extends Entity {
 	 * @see factory.FluentRepositoryFactory#newInfrastructureInterface()
 	 */
 	public Component requiresInfrastructure(InfrastructureInterfaceCreator interfce) {
+		Objects.requireNonNull(interfce, "interfce must not be null");
 		return requiresInfrastructure(interfce, null);
 	}
 
@@ -442,6 +460,7 @@ public abstract class Component extends Entity {
 	 * @see factory.FluentRepositoryFactory#newInfrastructureInterface()
 	 */
 	public Component requiresInfrastructure(InfrastructureInterfaceCreator interfce, String name) {
+		Objects.requireNonNull(interfce, "interfce must not be null");
 		InfrastructureInterface i = interfce.build();
 		this.repository.addInterface(i);
 		return requiresInfrastructure(i, name);
@@ -463,6 +482,7 @@ public abstract class Component extends Entity {
 	 * @see factory.FluentRepositoryFactory#fetchOfInfrastructureInterface(String)
 	 */
 	public Component requiresInfrastructure(InfrastructureInterface interfce) {
+		Objects.requireNonNull(interfce, "interfce must not be null");
 		return requiresInfrastructure(interfce, null);
 	}
 
@@ -486,6 +506,7 @@ public abstract class Component extends Entity {
 	 * @see factory.FluentRepositoryFactory#fetchOfInfrastructureInterface(String)
 	 */
 	public Component requiresInfrastructure(InfrastructureInterface interfce, String name) {
+		Objects.requireNonNull(interfce, "interfce must not be null");
 		InfrastructureRequiredRole requiredRole = RepositoryFactory.eINSTANCE.createInfrastructureRequiredRole();
 		if (name != null)
 			requiredRole.setEntityName(name);
@@ -511,6 +532,7 @@ public abstract class Component extends Entity {
 	 * @see factory.FluentRepositoryFactory#newEventGroup()
 	 */
 	public Component emits(EventGroupCreator eventGroup) {
+		Objects.requireNonNull(eventGroup, "eventGroup must not be null");
 		return emits(eventGroup, null);
 	}
 
@@ -532,6 +554,7 @@ public abstract class Component extends Entity {
 	 * @see factory.FluentRepositoryFactory#newEventGroup()
 	 */
 	public Component emits(EventGroupCreator eventGroup, String name) {
+		Objects.requireNonNull(eventGroup, "eventGroup must not be null");
 		EventGroup eg = eventGroup.build();
 		this.repository.addInterface(eg);
 		return emits(eg, name);
@@ -552,6 +575,7 @@ public abstract class Component extends Entity {
 	 * @see factory.FluentRepositoryFactory#fetchOfEventGroup(String)
 	 */
 	public Component emits(EventGroup eventGroup) {
+		Objects.requireNonNull(eventGroup, "eventGroup must not be null");
 		return emits(eventGroup, null);
 	}
 
@@ -573,6 +597,7 @@ public abstract class Component extends Entity {
 	 * @see factory.FluentRepositoryFactory#fetchOfEventGroup(String)
 	 */
 	public Component emits(EventGroup eventGroup, String name) {
+		Objects.requireNonNull(eventGroup, "eventGroup must not be null");
 		SourceRole requiredRole = RepositoryFactory.eINSTANCE.createSourceRole();
 		if (name != null)
 			requiredRole.setEntityName(name);
@@ -599,6 +624,7 @@ public abstract class Component extends Entity {
 	 * @see factory.FluentRepositoryFactory#fetchOfResourceInterface(String)
 	 */
 	public Component requiresResource(ResourceInterface resourceInterface) {
+		Objects.requireNonNull(resourceInterface, "resourceInterface must not be null");
 		return requiresResource(resourceInterface, null);
 	}
 
@@ -622,6 +648,7 @@ public abstract class Component extends Entity {
 	 * @see factory.FluentRepositoryFactory#fetchOfResourceInterface(String)
 	 */
 	public Component requiresResource(ResourceInterface resourceInterface, String name) {
+		Objects.requireNonNull(resourceInterface, "resourceInterface must not be null");
 		ResourceRequiredRole rrr = EntityFactory.eINSTANCE.createResourceRequiredRole();
 		if (name != null)
 			rrr.setEntityName(name);

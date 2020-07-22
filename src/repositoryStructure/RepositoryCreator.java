@@ -58,7 +58,6 @@ import org.palladiosimulator.pcm.subsystem.SubSystem;
 
 import apiControlFlowInterfaces.Repo;
 import apiControlFlowInterfaces.RepoAddition;
-import apiControlFlowInterfaces.SoftwareFailureType;
 import repositoryStructure.components.Component;
 import repositoryStructure.datatypes.CommunicationLinkResource;
 import repositoryStructure.datatypes.CompositeDataTypeCreator;
@@ -233,13 +232,6 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 	}
 
 	@Override
-	public RepoAddition addToRepository(SoftwareFailureType failureType) {
-		Objects.requireNonNull(failureType, "failureType must not be null");
-		// TODO:
-		return this;
-	}
-
-	@Override
 	public RepoAddition addToRepository(repositoryStructure.interfaces.Interface interfce) {
 		Objects.requireNonNull(interfce, "interfce must not be null");
 		Interface i = interfce.build();
@@ -274,6 +266,7 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 
 	@Override
 	public Repository createRepositoryNow() {
+		//TODO: and validate
 		return build();
 	}
 

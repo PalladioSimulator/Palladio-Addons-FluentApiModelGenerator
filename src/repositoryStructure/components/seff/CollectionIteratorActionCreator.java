@@ -1,5 +1,7 @@
 package repositoryStructure.components.seff;
 
+import java.util.Objects;
+
 import org.palladiosimulator.pcm.core.entity.ResourceRequiredRole;
 import org.palladiosimulator.pcm.repository.InfrastructureRequiredRole;
 import org.palladiosimulator.pcm.repository.InfrastructureSignature;
@@ -46,6 +48,7 @@ public class CollectionIteratorActionCreator extends GeneralAction {
 	 * @return this collection iterator action in the making
 	 */
 	public CollectionIteratorActionCreator withParameter(Parameter parameter) {
+		Objects.requireNonNull(parameter, "parameter must not be null");
 		this.parameter = parameter;
 		return this;
 	}
@@ -58,8 +61,8 @@ public class CollectionIteratorActionCreator extends GeneralAction {
 	 * @return this collection iterator action in the making
 	 */
 	public CollectionIteratorActionCreator withLoopBody(Seff loopBody) {
-		if (loopBody != null)
-			this.loopBody = loopBody;
+		Objects.requireNonNull(loopBody, "loopBody must not be null");
+		this.loopBody = loopBody;
 		return this;
 	}
 

@@ -2,6 +2,7 @@ package repositoryStructure.components.seff;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import org.palladiosimulator.pcm.core.CoreFactory;
 import org.palladiosimulator.pcm.core.PCMRandomVariable;
@@ -65,7 +66,9 @@ public class BranchActionCreator extends GeneralAction {
 	 */
 	public BranchActionCreator withGuardedBranchTransition(String branchCondition_stochasticExpression,
 			Seff branchActions, String name) {
-
+		Objects.requireNonNull(branchCondition_stochasticExpression,
+				"branchCondition_stochasticExpression must not be null");
+		Objects.requireNonNull(branchActions, "branchActions must not be null");
 		GuardedBranchTransition branch = SeffFactory.eINSTANCE.createGuardedBranchTransition();
 
 		if (name != null)
@@ -131,8 +134,9 @@ public class BranchActionCreator extends GeneralAction {
 	 * @param name
 	 * @return this branch action in the making
 	 */
-	public BranchActionCreator withProbabilisticBranchTransition(Double branchProbability, SeffCreator branchActions,
+	public BranchActionCreator withProbabilisticBranchTransition(double branchProbability, SeffCreator branchActions,
 			String name) {
+		Objects.requireNonNull(branchActions, "branchActions must not be null");
 
 		ProbabilisticBranchTransition branch = SeffFactory.eINSTANCE.createProbabilisticBranchTransition();
 
@@ -148,8 +152,7 @@ public class BranchActionCreator extends GeneralAction {
 				branch.setBranchBehaviour_BranchTransition(build);
 		}
 
-		if (branchProbability != null)
-			branch.setBranchProbability(branchProbability);
+		branch.setBranchProbability(branchProbability);
 
 		this.branches.add(branch);
 		return this;

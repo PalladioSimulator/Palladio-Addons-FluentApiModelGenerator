@@ -2,6 +2,7 @@ package repositoryStructure.interfaces;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import org.palladiosimulator.pcm.reliability.FailureType;
 import org.palladiosimulator.pcm.repository.DataType;
@@ -60,6 +61,7 @@ public class OperationSignatureCreator extends Entity {
 	 * @see factory.FluentRepositoryFactory#fetchOfDataType(String)
 	 */
 	public OperationSignatureCreator withReturnType(DataType returnType) {
+		Objects.requireNonNull(returnType, "returnType must not be null");
 		this.returnType = returnType;
 		return this;
 	}
@@ -77,6 +79,7 @@ public class OperationSignatureCreator extends Entity {
 	 * @return this operation signature in the making
 	 */
 	public OperationSignatureCreator withReturnType(Primitive returnType) {
+		Objects.requireNonNull(returnType, "returnType must not be null");
 		PrimitiveDataType primitiveDataType = repository.getPrimitiveDataType(returnType);
 		return withReturnType(primitiveDataType);
 	}
@@ -105,6 +108,8 @@ public class OperationSignatureCreator extends Entity {
 	 * @see org.palladiosimulator.pcm.repository.ParameterModifier
 	 */
 	public OperationSignatureCreator withParameter(String name, Primitive dataType, ParameterModifier modifier) {
+		Objects.requireNonNull(name, "name must not be null");
+		Objects.requireNonNull(dataType, "dataType must not be null");
 		PrimitiveDataType dt = repository.getPrimitiveDataType(dataType);
 		return withParameter(name, dt, modifier);
 	}
@@ -132,6 +137,8 @@ public class OperationSignatureCreator extends Entity {
 	 * @see org.palladiosimulator.pcm.repository.ParameterModifier
 	 */
 	public OperationSignatureCreator withParameter(String name, DataType dataType, ParameterModifier modifier) {
+		Objects.requireNonNull(name, "name must not be null");
+		Objects.requireNonNull(dataType, "dataType must not be null");
 		Parameter param = RepositoryFactory.eINSTANCE.createParameter();
 		if (name != null)
 			param.setParameterName(name);
@@ -158,6 +165,7 @@ public class OperationSignatureCreator extends Entity {
 	 * @see factory.FluentRepositoryFactory#fetchOfFailureType(String)
 	 */
 	public OperationSignatureCreator withFailureType(FailureType failureType) {
+		Objects.requireNonNull(failureType, "failureType must not be null");
 		this.failureTypes.add(failureType);
 		return this;
 	}
@@ -176,6 +184,7 @@ public class OperationSignatureCreator extends Entity {
 	 * @return this operation signature in the making
 	 */
 	public OperationSignatureCreator withFailureType(Failure failureType) {
+		Objects.requireNonNull(failureType, "failureType must not be null");
 		FailureType failure = this.repository.getFailureType(failureType);
 		return withFailureType(failure);
 	}
@@ -193,6 +202,7 @@ public class OperationSignatureCreator extends Entity {
 	 * @see factory.FluentRepositoryFactory#fetchOfExceptionType(String)
 	 */
 	public OperationSignatureCreator withExceptionType(ExceptionType exceptionType) {
+		Objects.requireNonNull(exceptionType, "exceptionType must not be null");
 		if (exceptionType != null)
 			this.exceptionTypes.add(exceptionType);
 		return this;

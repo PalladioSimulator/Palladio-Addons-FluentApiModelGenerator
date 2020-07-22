@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 import org.palladiosimulator.pcm.core.CoreFactory;
 import org.palladiosimulator.pcm.core.PCMRandomVariable;
@@ -73,6 +74,9 @@ public class VariableUsageCreator extends Entity {
 	 */
 	public VariableUsageCreator withVariableCharacterisation(String specification_stochasticExpression,
 			VariableCharacterisationType type) {
+		Objects.requireNonNull(specification_stochasticExpression,
+				"specification_stochasticExpression must not be null");
+		Objects.requireNonNull(type, "type must not be null");
 		VariableCharacterisation varchar = ParameterFactory.eINSTANCE.createVariableCharacterisation();
 		if (specification_stochasticExpression != null) {
 			PCMRandomVariable rand = CoreFactory.eINSTANCE.createPCMRandomVariable();
@@ -103,6 +107,7 @@ public class VariableUsageCreator extends Entity {
 	 * @see de.uka.ipd.sdq.stoex.AbstractNamedReference
 	 */
 	public VariableUsageCreator withVariableReference(String reference) {
+		Objects.requireNonNull(reference, "reference must not be null");
 		VariableReference variableReference = StoexFactory.eINSTANCE.createVariableReference();
 		variableReference.setReferenceName(reference);
 		this.reference = variableReference;
@@ -131,8 +136,13 @@ public class VariableUsageCreator extends Entity {
 	 * @see de.uka.ipd.sdq.stoex.AbstractNamedReference
 	 */
 	public VariableUsageCreator withNamespaceReference(String reference, String... innerReferences) {
+		Objects.requireNonNull(reference, "reference must not be null");
+		if (innerReferences != null && innerReferences.length > 0)
+			for (int i = 0; i < innerReferences.length; i++)
+				Objects.requireNonNull(innerReferences[i], "inner references must not be null");
+
 		if (innerReferences != null && innerReferences.length > 0) {
-			String string = innerReferences[innerReferences.length-1];
+			String string = innerReferences[innerReferences.length - 1];
 			VariableReference variableReference = StoexFactory.eINSTANCE.createVariableReference();
 			variableReference.setReferenceName(string);
 			List<String> asList = new LinkedList<String>(Arrays.asList(innerReferences));

@@ -2,6 +2,7 @@ package repositoryStructure.components.seff;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import org.palladiosimulator.pcm.parameter.VariableUsage;
 import org.palladiosimulator.pcm.reliability.FailureType;
@@ -67,6 +68,7 @@ public class ExternalCallActionCreator extends SeffAction {
 	 * @see factory.FluentRepositoryFactory#fetchOfOperationSignature(String)
 	 */
 	public ExternalCallActionCreator withCalledService(OperationSignature signature) {
+		Objects.requireNonNull(signature, "signature must not be null");
 		this.signature = signature;
 		return this;
 	}
@@ -85,6 +87,7 @@ public class ExternalCallActionCreator extends SeffAction {
 	 * @see factory.FluentRepositoryFactory#fetchOfOperationRequiredRole(String)
 	 */
 	public ExternalCallActionCreator withRequiredRole(OperationRequiredRole requiredRole) {
+		Objects.requireNonNull(requiredRole, "requiredRole must not be null");
 		this.requiredRole = requiredRole;
 		return this;
 	}
@@ -98,8 +101,8 @@ public class ExternalCallActionCreator extends SeffAction {
 	 * @see factory.FluentRepositoryFactory#newVariableUsage()
 	 */
 	public ExternalCallActionCreator withInputVariableUsage(VariableUsageCreator variableUsage) {
-		if (variableUsage != null)
-			this.inputVariableUsages.add(variableUsage.build());
+		Objects.requireNonNull(variableUsage, "variableUsage must not be null");
+		this.inputVariableUsages.add(variableUsage.build());
 		return this;
 	}
 
@@ -112,8 +115,8 @@ public class ExternalCallActionCreator extends SeffAction {
 	 * @see factory.FluentRepositoryFactory#newVariableUsage()
 	 */
 	public ExternalCallActionCreator withReturnVariableUsage(VariableUsageCreator variableUsage) {
-		if (variableUsage != null)
-			this.returnVariableUsages.add(variableUsage.build());
+		Objects.requireNonNull(variableUsage, "variableUsage must not be null");
+		this.returnVariableUsages.add(variableUsage.build());
 		return this;
 	}
 
@@ -131,8 +134,8 @@ public class ExternalCallActionCreator extends SeffAction {
 	 * @see factory.FluentRepositoryFactory#fetchOfFailureType(String)
 	 */
 	public ExternalCallActionCreator withFailureType(FailureType failure) {
-		if (failure != null)
-			this.failures.add(failure);
+		Objects.requireNonNull(failure, "failure must not be null");
+		this.failures.add(failure);
 		return this;
 	}
 

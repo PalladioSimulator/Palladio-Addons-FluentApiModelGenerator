@@ -2,6 +2,7 @@ package repositoryStructure.components.seff;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import org.palladiosimulator.pcm.core.entity.ResourceRequiredRole;
 import org.palladiosimulator.pcm.parameter.VariableUsage;
@@ -53,6 +54,7 @@ public class InternalCallActionCreator extends GeneralAction {
 	 * @see factory.FluentRepositoryFactory#newVariableUsage()
 	 */
 	public InternalCallActionCreator withInputVaribleUsage(VariableUsageCreator variableUsage) {
+		Objects.requireNonNull(variableUsage, "variableUsage must not be null");
 		this.inputVariableUsages.add(variableUsage.build());
 		return this;
 	}
@@ -65,6 +67,7 @@ public class InternalCallActionCreator extends GeneralAction {
 	 * @see factory.FluentRepositoryFactory#newInternalBehaviour()
 	 */
 	public InternalCallActionCreator withInternalBehaviour(InternalSeff internalBehaviour) {
+		Objects.requireNonNull(internalBehaviour, "internalBehaviour must not be null");
 		this.internalSeff = internalBehaviour;
 		return this;
 	}

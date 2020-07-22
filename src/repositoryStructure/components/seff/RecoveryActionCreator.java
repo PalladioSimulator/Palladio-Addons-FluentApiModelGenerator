@@ -2,6 +2,7 @@ package repositoryStructure.components.seff;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import org.palladiosimulator.pcm.core.entity.ResourceRequiredRole;
 import org.palladiosimulator.pcm.repository.InfrastructureRequiredRole;
@@ -49,9 +50,8 @@ public class RecoveryActionCreator extends GeneralAction {
 	 * @see factory.FluentRepositoryFactory#newRecoveryBehaviour()
 	 */
 	public RecoveryActionCreator withPrimaryBehaviour(RecoverySeff recoveryActionBehaviour) {
-		if (recoveryActionBehaviour != null) {
-			this.primary = recoveryActionBehaviour.buildRecoveryBehaviour();
-		}
+		Objects.requireNonNull(recoveryActionBehaviour, "recoveryActionBehaviour must not be null");
+		this.primary = recoveryActionBehaviour.buildRecoveryBehaviour();
 		return this;
 	}
 
@@ -64,11 +64,10 @@ public class RecoveryActionCreator extends GeneralAction {
 	 * @see factory.FluentRepositoryFactory#newRecoveryBehaviour()
 	 */
 	public RecoveryActionCreator withAlternativeBehaviour(RecoverySeff recoveryActionBehaviour) {
-		if (recoveryActionBehaviour != null) {
-			RecoveryActionBehaviour buildRecoveryBehaviour = recoveryActionBehaviour.buildRecoveryBehaviour();
-			this.otherBehaviours.add(buildRecoveryBehaviour);
-			this.repository.addRecoveryActionBehaviour(buildRecoveryBehaviour);
-		}
+		Objects.requireNonNull(recoveryActionBehaviour, "recoveryActionBehaviour must not be null");
+		RecoveryActionBehaviour buildRecoveryBehaviour = recoveryActionBehaviour.buildRecoveryBehaviour();
+		this.otherBehaviours.add(buildRecoveryBehaviour);
+		this.repository.addRecoveryActionBehaviour(buildRecoveryBehaviour);
 		return this;
 	}
 
@@ -96,10 +95,8 @@ public class RecoveryActionCreator extends GeneralAction {
 	@Override
 	protected RecoveryAction build() {
 		RecoveryAction action = SeffReliabilityFactory.eINSTANCE.createRecoveryAction();
-
 		if (name != null)
 			action.setEntityName(name);
-
 		if (primary != null)
 			action.setPrimaryBehaviour__RecoveryAction(primary);
 

@@ -75,6 +75,8 @@ public abstract class Interface extends Entity {
 	 *      org.palladiosimulator.pcm.repository.Signature)
 	 */
 	public Interface withRequiredCharacterisation(Parameter parameter, VariableCharacterisationType type) {
+		Objects.requireNonNull(parameter, "parameter must not be null");
+		Objects.requireNonNull(type, "type must not be null");
 		RequiredCharacterisation reqChar = RepositoryFactory.eINSTANCE.createRequiredCharacterisation();
 		reqChar.setParameter(parameter);
 		reqChar.setType(type);

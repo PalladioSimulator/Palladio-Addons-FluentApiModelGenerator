@@ -2,6 +2,7 @@ package repositoryStructure.components.seff;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.palladiosimulator.pcm.reliability.FailureType;
@@ -149,18 +150,21 @@ public class SeffCreator extends Entity implements Seff, ActionSeff, StartSeff, 
 
 	@Override
 	public SeffCreator onSignature(Signature signature) {
+		Objects.requireNonNull(signature, "signature must not be null");
 		this.signature = signature;
 		return this;
 	}
 
 	@Override
 	public SeffCreator withSeffTypeID(String seffTypeID) {
+		Objects.requireNonNull(seffTypeID, "seffTypeID must not be null");
 		this.seffTypeID = seffTypeID;
 		return this;
 	}
 
 	@Override
 	public SeffCreator withInternalBehaviour(InternalSeff internalBehaviour) {
+		Objects.requireNonNull(internalBehaviour, "internalBehaviour must not be null");
 		this.internalBehaviours.add(internalBehaviour);
 		return this;
 	}
@@ -172,18 +176,21 @@ public class SeffCreator extends Entity implements Seff, ActionSeff, StartSeff, 
 
 	@Override
 	public SeffCreator withFailureType(Failure failure) {
+		Objects.requireNonNull(failure, "failure must not be null");
 		FailureType f = this.repository.getFailureType(failure);
 		return withFailureType(f);
 	}
 
 	@Override
 	public SeffCreator withFailureType(FailureType failureType) {
+		Objects.requireNonNull(failureType, "failureType must not be null");
 		this.failures.add(failureType);
 		return this;
 	}
 
 	@Override
 	public SeffCreator withAlternativeRecoveryBehaviour(RecoveryActionBehaviour recoveryBehaviour) {
+		Objects.requireNonNull(recoveryBehaviour, "recoveryBehaviour must not be null");
 		this.alternatives.add(recoveryBehaviour);
 		return this;
 	}

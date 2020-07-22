@@ -54,6 +54,8 @@ public class CompositeDataTypeCreator extends Entity {
 	 * @see org.palladiosimulator.pcm.repository.CompositeDataType
 	 */
 	public CompositeDataTypeCreator withInnerDeclaration(String name, Primitive primitive) {
+		Objects.requireNonNull(name, "name must not be null");
+		Objects.requireNonNull(primitive, "primitive must not be null");
 		InnerDeclaration inner = RepositoryFactory.eINSTANCE.createInnerDeclaration();
 		inner.setEntityName(name);
 		PrimitiveDataType p = repository.getPrimitiveDataType(primitive);
@@ -80,6 +82,8 @@ public class CompositeDataTypeCreator extends Entity {
 	 * @see org.palladiosimulator.pcm.repository.CompositeDataType
 	 */
 	public CompositeDataTypeCreator withInnerDeclaration(String name, DataType dataType) {
+		Objects.requireNonNull(name, "name must not be null");
+		Objects.requireNonNull(dataType, "dataType must not be null");
 		InnerDeclaration inner = RepositoryFactory.eINSTANCE.createInnerDeclaration();
 		inner.setEntityName(name);
 		inner.setDatatype_InnerDeclaration(dataType);
@@ -91,9 +95,8 @@ public class CompositeDataTypeCreator extends Entity {
 	 * Adds <code>parent</code> to the list of parents this composite data type
 	 * inherits from.
 	 * <p>
-	 * An existing composite data type can be fetched from the
-	 * repository using the factory, i.e.
-	 * <code>create.fetchOfCompleteComponentType(name)</code>.
+	 * An existing composite data type can be fetched from the repository using the
+	 * factory, i.e. <code>create.fetchOfCompleteComponentType(name)</code>.
 	 * </p>
 	 * 
 	 * @param parent

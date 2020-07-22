@@ -2,6 +2,7 @@ package repositoryStructure.components.seff;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import org.palladiosimulator.pcm.parameter.VariableUsage;
 import org.palladiosimulator.pcm.repository.EventType;
@@ -49,6 +50,7 @@ public class EmitEventActionCreator extends SeffAction {
 	 * @see factory.FluentRepositoryFactory#fetchOfEventType(String)
 	 */
 	public EmitEventActionCreator withEventType(EventType eventType) {
+		Objects.requireNonNull(eventType, "eventType must not be null");
 		this.eventType = eventType;
 		return this;
 	}
@@ -65,6 +67,7 @@ public class EmitEventActionCreator extends SeffAction {
 	 * @see factory.FluentRepositoryFactory#fetchOfSourceRole(String)
 	 */
 	public EmitEventActionCreator withSourceRole(SourceRole sourceRole) {
+		Objects.requireNonNull(sourceRole, "sourceRole must not be null");
 		this.requiredRole = sourceRole;
 		return this;
 	}
@@ -78,8 +81,8 @@ public class EmitEventActionCreator extends SeffAction {
 	 * @see factory.FluentRepositoryFactory#newVariableUsage()
 	 */
 	public EmitEventActionCreator withInputVariableUsage(VariableUsageCreator variableUsage) {
-		if (variableUsage != null)
-			this.inputVariableUsages.add(variableUsage.build());
+		Objects.requireNonNull(variableUsage, "variableUsage must not be null");
+		this.inputVariableUsages.add(variableUsage.build());
 		return this;
 	}
 

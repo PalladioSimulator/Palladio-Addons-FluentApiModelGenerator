@@ -1,5 +1,7 @@
 package repositoryStructure.components.seff;
 
+import java.util.Objects;
+
 import org.palladiosimulator.pcm.core.CoreFactory;
 import org.palladiosimulator.pcm.core.PCMRandomVariable;
 import org.palladiosimulator.pcm.core.entity.ResourceRequiredRole;
@@ -56,6 +58,8 @@ public class LoopActionCreator extends GeneralAction {
 	 * @see org.palladiosimulator.pcm.seff.LoopAction
 	 */
 	public LoopActionCreator withIterationCount(String iterationCount_stochasticExpression) {
+		Objects.requireNonNull(iterationCount_stochasticExpression,
+				"iterationCount_stochasticExpression must not be null");
 		PCMRandomVariable rand = CoreFactory.eINSTANCE.createPCMRandomVariable();
 		rand.setSpecification(iterationCount_stochasticExpression);
 		this.iterationCount = rand;
@@ -76,8 +80,8 @@ public class LoopActionCreator extends GeneralAction {
 	 * @return this loop action in the making
 	 */
 	public LoopActionCreator withLoopBody(Seff loopBody) {
-		if (loopBody != null)
-			this.loopBody = loopBody;
+		Objects.requireNonNull(loopBody, "loopBody must not be null");
+		this.loopBody = loopBody;
 		return this;
 	}
 

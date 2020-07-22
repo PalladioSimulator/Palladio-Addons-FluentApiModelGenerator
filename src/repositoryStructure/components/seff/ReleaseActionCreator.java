@@ -1,5 +1,7 @@
 package repositoryStructure.components.seff;
 
+import java.util.Objects;
+
 import org.palladiosimulator.pcm.core.entity.ResourceRequiredRole;
 import org.palladiosimulator.pcm.repository.InfrastructureRequiredRole;
 import org.palladiosimulator.pcm.repository.InfrastructureSignature;
@@ -45,6 +47,7 @@ public class ReleaseActionCreator extends GeneralAction {
 	 * @see factory.FluentRepositoryFactory#fetchOfPassiveResource(String)
 	 */
 	public ReleaseActionCreator withPassiveResource(PassiveResource passiveResource) {
+		Objects.requireNonNull(passiveResource, "passiveResource must not be null");
 		this.passiveResource = passiveResource;
 		return this;
 	}

@@ -2,6 +2,7 @@ package repositoryStructure.components.seff;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import org.palladiosimulator.pcm.core.entity.ResourceRequiredRole;
 import org.palladiosimulator.pcm.parameter.VariableUsage;
@@ -47,8 +48,8 @@ public class SetVariableActionCreator extends GeneralAction {
 	 * @see factory.FluentRepositoryFactory#newVariableUsage()
 	 */
 	public SetVariableActionCreator withLocalVariableUsage(VariableUsageCreator variableUsage) {
-		if (variableUsage != null)
-			this.localVariableUsages.add(variableUsage.build());
+		Objects.requireNonNull(variableUsage, "variableUsage must not be null");
+		this.localVariableUsages.add(variableUsage.build());
 		return this;
 	}
 

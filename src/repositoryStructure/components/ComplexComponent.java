@@ -68,6 +68,8 @@ public abstract class ComplexComponent extends Component {
 	 */
 	public ComplexComponent withAssemblyContext(RepositoryComponent encapsulatedComponent, String name,
 			VariableUsageCreator... configParameterUsages) {
+		//TODO: methode auch ohne name?
+		Objects.requireNonNull(encapsulatedComponent, "encapsulatedComponent must not be null");
 		if (configParameterUsages != null && configParameterUsages.length > 0)
 			for (int i = 0; i < configParameterUsages.length; i++)
 				Objects.requireNonNull(configParameterUsages[i], "config parameter usages must not be null");

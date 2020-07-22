@@ -2,6 +2,7 @@ package repositoryStructure.components;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import org.palladiosimulator.pcm.repository.CompleteComponentType;
 import org.palladiosimulator.pcm.repository.EventGroup;
@@ -208,6 +209,7 @@ public class CompleteComponentTypeCreator extends Component {
 	 * @see org.palladiosimulator.pcm.repository.ProvidesComponentType
 	 */
 	public CompleteComponentTypeCreator conforms(ProvidesComponentTypeCreator providesComponentType) {
+		Objects.requireNonNull(providesComponentType, "providesComponentType must not be null");
 		ProvidesComponentType pct = providesComponentType.build();
 		this.repository.addComponent(pct);
 		return conforms(pct);
@@ -236,6 +238,7 @@ public class CompleteComponentTypeCreator extends Component {
 	 * @see org.palladiosimulator.pcm.repository.ProvidesComponentType
 	 */
 	public CompleteComponentTypeCreator conforms(ProvidesComponentType providesComponentType) {
+		Objects.requireNonNull(providesComponentType, "providesComponentType must not be null");
 		this.conformsProvidedTypes.add(providesComponentType);
 		return this;
 	}

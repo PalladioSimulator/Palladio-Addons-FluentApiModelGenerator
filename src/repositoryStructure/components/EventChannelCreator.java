@@ -68,6 +68,7 @@ public class EventChannelCreator extends Entity implements EventChannelComposite
 
 	@Override
 	public EventChannelCreator withEventGroup(EventGroup eventGroup) {
+		Objects.requireNonNull(eventGroup, "eventGroup must not be null");
 		this.eventGroup = eventGroup;
 		return this;
 	}

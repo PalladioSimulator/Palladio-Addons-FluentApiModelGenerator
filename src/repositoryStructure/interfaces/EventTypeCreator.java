@@ -2,6 +2,7 @@ package repositoryStructure.interfaces;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import org.palladiosimulator.pcm.reliability.FailureType;
 import org.palladiosimulator.pcm.repository.DataType;
@@ -67,6 +68,8 @@ public class EventTypeCreator extends Entity {
 	 * @see org.palladiosimulator.pcm.repository.ParameterModifier
 	 */
 	public EventTypeCreator withParameter(String name, Primitive dataType, ParameterModifier modifier) {
+		Objects.requireNonNull(name, "name must not be null");
+		Objects.requireNonNull(dataType, "dataType must not be null");
 		PrimitiveDataType dt = repository.getPrimitiveDataType(dataType);
 		return withParameter(name, dt, modifier);
 	}
@@ -94,6 +97,8 @@ public class EventTypeCreator extends Entity {
 	 * @see org.palladiosimulator.pcm.repository.ParameterModifier
 	 */
 	public EventTypeCreator withParameter(String name, DataType dataType, ParameterModifier modifier) {
+		Objects.requireNonNull(name, "name must not be null");
+		Objects.requireNonNull(dataType, "dataType must not be null");
 		Parameter param = RepositoryFactory.eINSTANCE.createParameter();
 		if (name != null)
 			param.setParameterName(name);
@@ -120,6 +125,7 @@ public class EventTypeCreator extends Entity {
 	 * @see factory.FluentRepositoryFactory#fetchOfFailureType(String)
 	 */
 	public EventTypeCreator withFailureType(FailureType failureType) {
+		Objects.requireNonNull(failureType, "failureType must not be null");
 		this.failureTypes.add(failureType);
 		return this;
 	}
@@ -138,6 +144,7 @@ public class EventTypeCreator extends Entity {
 	 * @return this event type in the making
 	 */
 	public EventTypeCreator withFailureType(Failure failureType) {
+		Objects.requireNonNull(failureType, "failureType must not be null");
 		FailureType failure = this.repository.getFailureType(failureType);
 		return withFailureType(failure);
 	}
@@ -155,6 +162,7 @@ public class EventTypeCreator extends Entity {
 	 * @see factory.FluentRepositoryFactory#fetchOfExceptionType(String)
 	 */
 	public EventTypeCreator withExceptionType(ExceptionType exceptionType) {
+		Objects.requireNonNull(exceptionType, "exceptionType must not be null");
 		this.exceptionTypes.add(exceptionType);
 		return this;
 	}

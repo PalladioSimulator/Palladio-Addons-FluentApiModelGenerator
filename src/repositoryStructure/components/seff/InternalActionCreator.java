@@ -2,6 +2,7 @@ package repositoryStructure.components.seff;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import org.palladiosimulator.pcm.core.entity.ResourceRequiredRole;
 import org.palladiosimulator.pcm.reliability.InternalFailureOccurrenceDescription;
@@ -53,14 +54,13 @@ public class InternalActionCreator extends GeneralAction {
 	 * @return this internal action in the making
 	 * @see org.palladiosimulator.pcm.reliability.InternalFailureOccurrenceDescription
 	 */
-	public InternalActionCreator withInternalFailureOccurrenceDescription(Double failureProbability,
+	public InternalActionCreator withInternalFailureOccurrenceDescription(double failureProbability,
 			SoftwareInducedFailureType failureType) {
+		Objects.requireNonNull(failureType, "failureType must not be null");
 		InternalFailureOccurrenceDescription failure = ReliabilityFactory.eINSTANCE
 				.createInternalFailureOccurrenceDescription();
-		if (failureProbability != null)
-			failure.setFailureProbability(failureProbability);
-		if (failureType != null)
-			failure.setSoftwareInducedFailureType__InternalFailureOccurrenceDescription(failureType);
+		failure.setFailureProbability(failureProbability);
+		failure.setSoftwareInducedFailureType__InternalFailureOccurrenceDescription(failureType);
 		this.failures.add(failure);
 		return this;
 	}

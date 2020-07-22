@@ -19,6 +19,7 @@ import org.palladiosimulator.pcm.reliability.HardwareInducedFailureType;
 import org.palladiosimulator.pcm.reliability.NetworkInducedFailureType;
 import org.palladiosimulator.pcm.reliability.ReliabilityFactory;
 import org.palladiosimulator.pcm.reliability.ResourceTimeoutFailureType;
+import org.palladiosimulator.pcm.reliability.SoftwareInducedFailureType;
 import org.palladiosimulator.pcm.repository.BasicComponent;
 import org.palladiosimulator.pcm.repository.CollectionDataType;
 import org.palladiosimulator.pcm.repository.CompleteComponentType;
@@ -56,8 +57,6 @@ import org.palladiosimulator.pcm.seff.seff_reliability.RecoveryActionBehaviour;
 import org.palladiosimulator.pcm.subsystem.SubSystem;
 
 import apiControlFlowInterfaces.Repo;
-import apiControlFlowInterfaces.SoftwareFailureType.ResourceTimeoutFailure;
-import apiControlFlowInterfaces.SoftwareFailureType.SoftwareInducedFailure;
 import apiControlFlowInterfaces.seff.InternalSeff;
 import apiControlFlowInterfaces.seff.RecoverySeff;
 import apiControlFlowInterfaces.seff.Seff;
@@ -72,7 +71,6 @@ import repositoryStructure.components.seff.SeffCreator;
 import repositoryStructure.datatypes.CommunicationLinkResource;
 import repositoryStructure.datatypes.CompositeDataTypeCreator;
 import repositoryStructure.datatypes.Failure;
-import repositoryStructure.datatypes.FailureTypeCreator;
 import repositoryStructure.datatypes.Primitive;
 import repositoryStructure.datatypes.ProcessingResource;
 import repositoryStructure.interfaces.EventGroupCreator;
@@ -626,37 +624,40 @@ public class FluentRepositoryFactory {
 	}
 
 	/**
-	 * Creates a new resource timeout failure type.
+	 * Creates a new resource timeout failure type with name <code>name</code> and
+	 * passive resource <code>passiveResource</code>.
 	 * <p>
-	 * Resource timeout failure types offer the characteristics
-	 * {@link apiControlFlowInterfaces.SoftwareFailureType.ResourceTimeoutFailure#withName(String name)
-	 * name},
-	 * {@link apiControlFlowInterfaces.SoftwareFailureType.ResourceTimeoutFailure#withPassiveResource(PassiveResource)
-	 * passive resource} and
-	 * {@link apiControlFlowInterfaces.SoftwareFailureType.ResourceTimeoutFailure#withInternalFailureOccurrenceDescription(double)
-	 * internal failure occurrence description}.
+	 * An existing <code>passiveResource</code> can be fetched from the repository
+	 * using the factory, i.e. <code>create.fetchOfPassiveResource(name)</code>.
+	 * </p>
 	 * 
-	 * @return the resource timeout failure type in the making
+	 * @param name
+	 * @param passiveResource
+	 * @return the resource timeout failure type
+	 * @see factory.FluentRepositoryFactory#fetchOfPassiveResource(String)
 	 * @see org.palladiosimulator.pcm.reliability.ResourceTimeoutFailureType
 	 */
-	public ResourceTimeoutFailure newResourceTimeoutFailureType() {
-		return new FailureTypeCreator(this.repo);
+	public ResourceTimeoutFailureType newResourceTimeoutFailureType(String name, PassiveResource passiveResource) {
+		Objects.requireNonNull(name, "name must not be null");
+		Objects.requireNonNull(passiveResource, "passiveResource must not be null");
+		ResourceTimeoutFailureType timeout = ReliabilityFactory.eINSTANCE.createResourceTimeoutFailureType();
+		timeout.setEntityName(name);
+		timeout.setPassiveResource__ResourceTimeoutFailureType(passiveResource);
+		return timeout;
 	}
 
 	/**
-	 * Creates a new software induced failure type.
-	 * <p>
-	 * Software induced failure types offer the characteristics
-	 * {@link apiControlFlowInterfaces.SoftwareFailureType.SoftwareInducedFailure#withName(String name)
-	 * name} and
-	 * {@link apiControlFlowInterfaces.SoftwareFailureType.SoftwareInducedFailure#withInternalFailureOccurrenceDescription(double)
-	 * internal failure occurrence description}.
+	 * Creates a new software induced failure type with name <code>name</code>.
 	 * 
-	 * @return the software induced failure type in the making
+	 * @param name
+	 * @return the software induced failure type
 	 * @see org.palladiosimulator.pcm.reliability.SoftwareInducedFailureType
 	 */
-	public SoftwareInducedFailure newSoftwareInducedFailureType() {
-		return new FailureTypeCreator(this.repo);
+	public SoftwareInducedFailureType newSoftwareInducedFailureType(String name) {
+		Objects.requireNonNull(name, "name must not be null");
+		SoftwareInducedFailureType s = ReliabilityFactory.eINSTANCE.createSoftwareInducedFailureType();
+		s.setEntityName(name);
+		return s;
 	}
 
 	// ---------------------- Component Related Stuff ----------------------

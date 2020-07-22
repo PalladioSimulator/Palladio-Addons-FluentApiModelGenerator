@@ -59,13 +59,6 @@ public interface RepoAddition {
 	RepoAddition addToRepository(FailureType failureType);
 	
 	/**
-	 * TODO:
-	 * @param failureType
-	 * @return this repository, now containing the <code>collectionDataType</code>
-	 */
-	RepoAddition addToRepository(SoftwareFailureType failureType);
-	
-	/**
 	 * Adds the <code>component</code> to the list of components stored in the
 	 * repository.
 	 * 

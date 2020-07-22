@@ -2,6 +2,7 @@ package repositoryStructure.components.seff;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import org.palladiosimulator.pcm.core.entity.ResourceRequiredRole;
 import org.palladiosimulator.pcm.parameter.VariableUsage;
@@ -53,8 +54,8 @@ public class ForkActionCreator extends GeneralAction {
 	 * @see factory.FluentRepositoryFactory#newVariableUsage()
 	 */
 	public ForkActionCreator withOutputParameterUsageAtSynchronisationPoint(VariableUsageCreator variableUsage) {
-		if (variableUsage != null)
-			this.variableUsages.add(variableUsage.build());
+		Objects.requireNonNull(variableUsage, "variableUsage must not be null");
+		this.variableUsages.add(variableUsage.build());
 		return this;
 	}
 
@@ -67,10 +68,9 @@ public class ForkActionCreator extends GeneralAction {
 	 * @see factory.FluentRepositoryFactory#newInternalBehaviour()
 	 */
 	public ForkActionCreator withSynchronousForkedBehaviourAtSynchronisationPoint(InternalSeff forkedBehaviour) {
-		if (forkedBehaviour != null) {
-			ForkedBehaviour fork = forkedBehaviour.buildForkedBehaviour();
-			this.synchronousForkedBehaviours.add(fork);
-		}
+		Objects.requireNonNull(forkedBehaviour, "forkedBehaviour must not be null");
+		ForkedBehaviour fork = forkedBehaviour.buildForkedBehaviour();
+		this.synchronousForkedBehaviours.add(fork);
 		return this;
 	}
 
@@ -83,10 +83,9 @@ public class ForkActionCreator extends GeneralAction {
 	 * @see factory.FluentRepositoryFactory#newInternalBehaviour()
 	 */
 	public ForkActionCreator withAsynchronousForkedBehaviour(InternalSeff forkedBehaviour) {
-		if (forkedBehaviour != null) {
-			ForkedBehaviour fork = forkedBehaviour.buildForkedBehaviour();
-			this.asynchronousForkedBehaviours.add(fork);
-		}
+		Objects.requireNonNull(forkedBehaviour, "forkedBehaviour must not be null");
+		ForkedBehaviour fork = forkedBehaviour.buildForkedBehaviour();
+		this.asynchronousForkedBehaviours.add(fork);
 		return this;
 	}
 

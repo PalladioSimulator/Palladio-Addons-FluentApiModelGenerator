@@ -3,6 +3,7 @@ package repositoryStructure.components.seff;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import org.palladiosimulator.pcm.core.CoreFactory;
 import org.palladiosimulator.pcm.core.PCMRandomVariable;
@@ -53,7 +54,9 @@ public abstract class GeneralAction extends SeffAction {
 	 */
 	public GeneralAction withResourceDemand(String specification_stochasticExpression,
 			ProcessingResourceType processingResource) {
-
+		Objects.requireNonNull(specification_stochasticExpression,
+				"specification_stochasticExpression must not be null");
+		Objects.requireNonNull(processingResource, "processingResource must not be null");
 		ParametricResourceDemand demand = SeffPerformanceFactory.eINSTANCE.createParametricResourceDemand();
 
 		if (processingResource != null)
@@ -84,6 +87,13 @@ public abstract class GeneralAction extends SeffAction {
 	public GeneralAction withInfrastructureCall(String numberOfCalls_stochasticExpression,
 			InfrastructureSignature signature, InfrastructureRequiredRole requiredRole,
 			VariableUsageCreator... variableUsages) {
+		Objects.requireNonNull(numberOfCalls_stochasticExpression,
+				"numberOfCalls_stochasticExpression must not be null");
+		Objects.requireNonNull(signature, "signature must not be null");
+		Objects.requireNonNull(requiredRole, "requiredRole must not be null");
+		if (variableUsages != null && variableUsages.length > 0)
+			for (int i = 0; i < variableUsages.length; i++)
+				Objects.requireNonNull(variableUsages[i], "variable usages must not be null");
 
 		InfrastructureCall call = SeffPerformanceFactory.eINSTANCE.createInfrastructureCall();
 
@@ -116,6 +126,14 @@ public abstract class GeneralAction extends SeffAction {
 	 */
 	public GeneralAction withResourceCall(String numberOfCalls_stochasticExpression, ResourceSignature signature,
 			ResourceRequiredRole requiredRole, VariableUsageCreator... variableUsages) {
+
+		Objects.requireNonNull(numberOfCalls_stochasticExpression,
+				"numberOfCalls_stochasticExpression must not be null");
+		Objects.requireNonNull(signature, "signature must not be null");
+		Objects.requireNonNull(requiredRole, "requiredRole must not be null");
+		if (variableUsages != null && variableUsages.length > 0)
+			for (int i = 0; i < variableUsages.length; i++)
+				Objects.requireNonNull(variableUsages[i], "variable usages must not be null");
 
 		ResourceCall call = SeffPerformanceFactory.eINSTANCE.createResourceCall();
 
