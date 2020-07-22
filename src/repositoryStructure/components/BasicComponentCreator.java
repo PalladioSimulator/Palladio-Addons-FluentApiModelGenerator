@@ -62,7 +62,6 @@ public class BasicComponentCreator extends Component {
 //		return (BasicComponentCreator) super.withId(id);
 //	}
 
-	// business vs infrstructure component
 	/**
 	 * Sets the type of the basic component.<br>
 	 * <br>

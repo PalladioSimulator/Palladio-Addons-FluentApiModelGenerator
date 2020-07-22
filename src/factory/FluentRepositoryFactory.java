@@ -71,6 +71,7 @@ import repositoryStructure.components.VariableUsageCreator;
 import repositoryStructure.components.seff.SeffCreator;
 import repositoryStructure.datatypes.CommunicationLinkResource;
 import repositoryStructure.datatypes.CompositeDataTypeCreator;
+import repositoryStructure.datatypes.ExceptionTypeCreator;
 import repositoryStructure.datatypes.Failure;
 import repositoryStructure.datatypes.Primitive;
 import repositoryStructure.datatypes.ProcessingResource;
@@ -602,6 +603,7 @@ public class FluentRepositoryFactory {
 		HardwareInducedFailureType h = ReliabilityFactory.eINSTANCE.createHardwareInducedFailureType();
 		h.setEntityName(name);
 		h.setProcessingResourceType__HardwareInducedFailureType(repo.getProcessingResource(processingResource));
+		this.repo.addFailureType(h);
 		return h;
 	}
 
@@ -621,6 +623,7 @@ public class FluentRepositoryFactory {
 		n.setEntityName(name);
 		n.setCommunicationLinkResourceType__NetworkInducedFailureType(
 				repo.getCommunicationLinkResource(communicationLinkResource));
+		this.repo.addFailureType(n);
 		return n;
 	}
 
@@ -638,12 +641,13 @@ public class FluentRepositoryFactory {
 	 * @see factory.FluentRepositoryFactory#fetchOfPassiveResource(String)
 	 * @see org.palladiosimulator.pcm.reliability.ResourceTimeoutFailureType
 	 */
-	public ResourceTimeoutFailureType newResourceTimeoutFailureType(String name, PassiveResource passiveResource) {
+	public ResourceTimeoutFailureType newResourceTimeoutFailureType(String name) {
 		Objects.requireNonNull(name, "name must not be null");
-		Objects.requireNonNull(passiveResource, "passiveResource must not be null");
+//		Objects.requireNonNull(passiveResource, "passiveResource must not be null");
 		ResourceTimeoutFailureType timeout = ReliabilityFactory.eINSTANCE.createResourceTimeoutFailureType();
 		timeout.setEntityName(name);
-		timeout.setPassiveResource__ResourceTimeoutFailureType(passiveResource);
+//		timeout.setPassiveResource__ResourceTimeoutFailureType(passiveResource);
+		this.repo.addFailureType(timeout);
 		return timeout;
 	}
 
@@ -658,7 +662,12 @@ public class FluentRepositoryFactory {
 		Objects.requireNonNull(name, "name must not be null");
 		SoftwareInducedFailureType s = ReliabilityFactory.eINSTANCE.createSoftwareInducedFailureType();
 		s.setEntityName(name);
+		this.repo.addFailureType(s);
 		return s;
+	}
+	
+	public ExceptionTypeCreator newExceptionType() {
+		return new ExceptionTypeCreator(this.repo);
 	}
 
 	// ---------------------- Component Related Stuff ----------------------

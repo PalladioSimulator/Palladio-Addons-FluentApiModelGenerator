@@ -34,10 +34,12 @@ class Main {
 
 				// DATATYPES
 				.addToRepository(create.newCollectionDataType("StringList", Primitive.STRING))
-
+				
+				
 				.addToRepository(create.newCompositeDataType().withName("Person")
 						.withInnerDeclaration("first names", create.fetchOfDataType("StringList"))
 						.withInnerDeclaration("age", Primitive.INTEGER))
+				.addToRepository(create.newExceptionType().withName("myException").withExceptionMessage("FEHLER!"))
 
 				// INTERFACES
 				.addToRepository(create.newOperationInterface().withName("IDatabase").withOperationSignature()
@@ -55,9 +57,10 @@ class Main {
 										create.fetchOfParameter("foo"), VariableCharacterisationType.STRUCTURE))
 						.withServiceEffectSpecification(create.newSeff().withSeffBehaviour().withStartAction()
 								.followedBy().externalCallAction().followedBy().stopAction().createBehaviourNow())
+						.withPassiveResource("3", create.newResourceTimeoutFailureType("blub"), "passivo")
 						.provides(create.fetchOfOperationInterface("IDatabase"), "provDB")
 						.requires(create.newOperationInterface().withName("someInterface"), "reqSomeI")
-						.withPassiveResource("2*3", create.fetchOfResourceTimeoutFailureType(Failure.SOFTWARE),
+						.withPassiveResource("2*3", create.fetchOfResourceTimeoutFailureType("blub"),
 								"passResource")
 						.withVariableUsage(create.newVariableUsage()))
 

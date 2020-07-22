@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.eclipse.emf.common.util.EList;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
@@ -50,6 +52,7 @@ import org.palladiosimulator.pcm.repository.RequiredRole;
 import org.palladiosimulator.pcm.repository.Signature;
 import org.palladiosimulator.pcm.repository.SinkRole;
 import org.palladiosimulator.pcm.repository.SourceRole;
+import org.palladiosimulator.pcm.repository.util.RepositoryValidator;
 import org.palladiosimulator.pcm.resourcetype.CommunicationLinkResourceType;
 import org.palladiosimulator.pcm.resourcetype.ProcessingResourceType;
 import org.palladiosimulator.pcm.resourcetype.ResourceInterface;
@@ -80,6 +83,7 @@ import repositoryStructure.datatypes.ProcessingResource;
  */
 public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 
+	private Logger logger;
 	private String description;
 
 	private List<DataType> dataTypes;
@@ -128,6 +132,9 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 		this.signatures = new ArrayList<>();
 
 		initPredefinedDataTypesAndResources(primitiveDataTypes, resourceTypes, failureTypes);
+
+		this.logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+		logger.setLevel(Level.ALL);
 	}
 
 	private void initPredefinedDataTypesAndResources(Repository primitiveDataTypes, ResourceRepository resourceTypes,
@@ -284,10 +291,17 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 
 	@Override
 	public Repository createRepositoryNow() {
-		// TODO: and validate
-		return build();
+		Repository repo = build();
+		RepositoryValidator v = new RepositoryValidator();
+
+		boolean validate = v.validate(repo, null, null);
+		if (!validate)
+			logger.severe("Repository is not valid.");
+		return repo;
 	}
 
+	// ------------- getter -------------
+	// TODO: getter and add Methoden should be protected
 	public PrimitiveDataType getPrimitiveDataType(Primitive primitive) {
 		return internalPrimitives.get(primitive);
 	}
@@ -306,21 +320,26 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 	}
 
 	public CompositeDataType getCompositeDataType(String name) {
-		// TODO Auto-generated method stub
-		return null;
+		List<CompositeDataType> collect = dataTypes.stream().filter(c -> c instanceof CompositeDataType)
+				.map(b -> (CompositeDataType) b)
+				.filter(c -> c.getEntityName() != null && c.getEntityName().contentEquals(name))
+				.collect(Collectors.toList());
+		if (collect.isEmpty())
+			return null;
+		if (collect.size() > 1)
+			logger.warning("More than one composite data type with name '" + name + "' found.");
+		return collect.get(0);
 	}
 
-	// ------------- getter -------------
-	// TODO: getter and add Methoden should be protected
 	public DataType getDataType(String name) {
 		for (DataType d : this.dataTypes) {
 			if (d instanceof CompositeDataType) {
 				CompositeDataType comp = (CompositeDataType) d;
-				if (comp.getEntityName().contentEquals(name))
+				if (comp.getEntityName() != null && comp.getEntityName().contentEquals(name))
 					return comp;
 			} else if (d instanceof CollectionDataType) {
 				CollectionDataType coll = (CollectionDataType) d;
-				if (coll.getEntityName().contentEquals(name))
+				if (coll.getEntityName() != null && coll.getEntityName().contentEquals(name))
 					return coll;
 			} else {
 			}
@@ -333,18 +352,41 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 	}
 
 	public FailureType getFailureType(String name) {
-		// TODO: getter
-		return null;
+		List<FailureType> collect = failureTypes.stream()
+				.filter(c -> c.getEntityName() != null && c.getEntityName().contentEquals(name))
+				.collect(Collectors.toList());
+		List<FailureType> collect2 = internalFailureTypes.values().stream()
+				.filter(c -> c.getEntityName() != null && c.getEntityName().contentEquals(name))
+				.collect(Collectors.toList());
+		collect.addAll(collect2);
+		if (collect.isEmpty())
+			return null;
+		if (collect.size() > 1)
+			logger.warning("More than one failure type with name '" + name + "' found.");
+		return collect.get(0);
 	}
-	
+
 	public ResourceTimeoutFailureType getResourceTimeoutFailureType(String name) {
-		// TODO: getter
-		return null;
+		List<ResourceTimeoutFailureType> collect = failureTypes.stream()
+				.filter(b -> b instanceof ResourceTimeoutFailureType && b.getEntityName() != null
+						&& b.getEntityName().contentEquals(name))
+				.map(b -> (ResourceTimeoutFailureType) b).collect(Collectors.toList());
+		if (collect.isEmpty())
+			return null;
+		if (collect.size() > 1)
+			logger.warning("More than one resource timeout failure type with name '" + name + "' found.");
+		return collect.get(0);
 	}
 
 	public ExceptionType getExceptionType(String name) {
-		// TODO Auto-generated method stub
-		return null;
+		List<ExceptionType> collect = exceptionTypes.stream()
+				.filter(c -> c.getExceptionName() != null && c.getExceptionName().contentEquals(name))
+				.collect(Collectors.toList());
+		if (collect.isEmpty())
+			return null;
+		if (collect.size() > 1)
+			logger.warning("More than one component with name '" + name + "' found.");
+		return collect.get(0);
 	}
 
 	public ProcessingResourceType getProcessingResource(ProcessingResource processingResource) {
@@ -359,156 +401,339 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 	}
 
 	public RepositoryComponent getComponent(String name) {
-		return components.stream().filter(c -> c.getEntityName().contentEquals(name)).findFirst().orElse(null);
+		List<RepositoryComponent> collect = components.stream()
+				.filter(c -> c.getEntityName() != null && c.getEntityName().contentEquals(name))
+				.collect(Collectors.toList());
+		if (collect.isEmpty())
+			return null;
+		if (collect.size() > 1)
+			logger.warning("More than one component with name '" + name + "' found.");
+		return collect.get(0);
 	}
 
 	public BasicComponent getBasicComponent(String name) {
-		return (BasicComponent) components.stream()
-				.filter(c -> c instanceof BasicComponent && c.getEntityName().contentEquals(name)).findFirst()
-				.orElse(null);
+		List<BasicComponent> collect = components.stream().filter(
+				c -> c instanceof BasicComponent && c.getEntityName() != null && c.getEntityName().contentEquals(name))
+				.map(b -> (BasicComponent) b).collect(Collectors.toList());
+		if (collect.isEmpty())
+			return null;
+		if (collect.size() > 1)
+			logger.warning("More than one basic component with name '" + name + "' found.");
+		return collect.get(0);
 	}
 
 	public CompositeComponent getCompositeComponent(String name) {
-		return (CompositeComponent) components.stream()
-				.filter(c -> c instanceof CompositeComponent && c.getEntityName().contentEquals(name)).findFirst()
-				.orElse(null);
+		List<CompositeComponent> collect = components.stream()
+				.filter(c -> c instanceof CompositeComponent && c.getEntityName() != null
+						&& c.getEntityName().contentEquals(name))
+				.map(b -> (CompositeComponent) b).collect(Collectors.toList());
+		if (collect.isEmpty())
+			return null;
+		if (collect.size() > 1)
+			logger.warning("More than one composite component with name '" + name + "' found.");
+		return collect.get(0);
 	}
 
 	public SubSystem getSubsystem(String name) {
-		return (SubSystem) components.stream()
-				.filter(c -> c instanceof SubSystem && c.getEntityName().contentEquals(name)).findFirst().orElse(null);
+		List<SubSystem> collect = components.stream().filter(
+				c -> c instanceof SubSystem && c.getEntityName() != null && c.getEntityName().contentEquals(name))
+				.map(b -> (SubSystem) b).collect(Collectors.toList());
+		if (collect.isEmpty())
+			return null;
+		if (collect.size() > 1)
+			logger.warning("More than one subsystem with name '" + name + "' found.");
+		return collect.get(0);
 	}
 
 	public CompleteComponentType getCompleteComponentType(String name) {
-		return (CompleteComponentType) components.stream()
-				.filter(c -> c instanceof CompleteComponentType && c.getEntityName().contentEquals(name)).findFirst()
-				.orElse(null);
+		List<CompleteComponentType> collect = components.stream()
+				.filter(c -> c instanceof CompleteComponentType && c.getEntityName() != null
+						&& c.getEntityName().contentEquals(name))
+				.map(b -> (CompleteComponentType) b).collect(Collectors.toList());
+		if (collect.isEmpty())
+			return null;
+		if (collect.size() > 1)
+			logger.warning("More than one complete component type with name '" + name + "' found.");
+		return collect.get(0);
 	}
 
 	public ProvidesComponentType getProvidesComponentType(String name) {
-		return (ProvidesComponentType) components.stream()
-				.filter(c -> c instanceof ProvidesComponentType && c.getEntityName().contentEquals(name)).findFirst()
-				.orElse(null);
+		List<ProvidesComponentType> collect = components.stream()
+				.filter(c -> c instanceof ProvidesComponentType && c.getEntityName() != null
+						&& c.getEntityName().contentEquals(name))
+				.map(b -> (ProvidesComponentType) b).collect(Collectors.toList());
+		if (collect.isEmpty())
+			return null;
+		if (collect.size() > 1)
+			logger.warning("More than one provides component type with name '" + name + "' found.");
+		return collect.get(0);
 	}
 
 	public Interface getInterface(String name) {
-		return interfaces.stream().filter(i -> i.getEntityName().contentEquals(name)).findFirst().orElse(null);
+		List<Interface> collect = interfaces.stream()
+				.filter(i -> i.getEntityName() != null && i.getEntityName().contentEquals(name))
+				.collect(Collectors.toList());
+		if (collect.isEmpty())
+			return null;
+		if (collect.size() > 1)
+			logger.warning("More than one interface with name '" + name + "' found.");
+		return collect.get(0);
 	}
 
 	public OperationInterface getOperationInterface(String name) {
-		return (OperationInterface) interfaces.stream()
-				.filter(i -> i instanceof OperationInterface && i.getEntityName().contentEquals(name)).findFirst()
-				.orElse(null);
+		List<OperationInterface> collect = interfaces.stream()
+				.filter(i -> i instanceof OperationInterface && i.getEntityName() != null
+						&& i.getEntityName().contentEquals(name))
+				.map(b -> (OperationInterface) b).collect(Collectors.toList());
+		if (collect.isEmpty())
+			return null;
+		if (collect.size() > 1)
+			logger.warning("More than one operation interface with name '" + name + "' found.");
+		return collect.get(0);
 	}
 
 	public InfrastructureInterface getInfrastructureInterface(String name) {
-		return (InfrastructureInterface) interfaces.stream()
-				.filter(i -> i instanceof InfrastructureInterface && i.getEntityName().contentEquals(name)).findFirst()
-				.orElse(null);
+		List<InfrastructureInterface> collect = interfaces.stream()
+				.filter(i -> i instanceof InfrastructureInterface && i.getEntityName() != null
+						&& i.getEntityName().contentEquals(name))
+				.map(b -> (InfrastructureInterface) b).collect(Collectors.toList());
+		if (collect.isEmpty())
+			return null;
+		if (collect.size() > 1)
+			logger.warning("More than one infrastructure interface with name '" + name + "' found.");
+		return collect.get(0);
 	}
 
 	public EventGroup getEventGroup(String name) {
-		return (EventGroup) interfaces.stream()
-				.filter(i -> i instanceof EventGroup && i.getEntityName().contentEquals(name)).findFirst().orElse(null);
+		List<EventGroup> collect = interfaces.stream().filter(
+				i -> i instanceof EventGroup && i.getEntityName() != null && i.getEntityName().contentEquals(name))
+				.map(b -> (EventGroup) b).collect(Collectors.toList());
+		if (collect.isEmpty())
+			return null;
+		if (collect.size() > 1)
+			logger.warning("More than one event group with name '" + name + "' found.");
+		return collect.get(0);
 	}
 
 	public ProvidedRole getProvidedRole(String name) {
-		return providedRoles.stream().filter(r -> r.getEntityName().contentEquals(name)).findFirst().orElse(null);
+		List<ProvidedRole> collect = providedRoles.stream()
+				.filter(r -> r.getEntityName() != null && r.getEntityName().contentEquals(name))
+				.collect(Collectors.toList());
+		if (collect.isEmpty())
+			return null;
+		if (collect.size() > 1)
+			logger.warning("More than one provided role with name '" + name + "' found.");
+		return collect.get(0);
 	}
 
 	public OperationProvidedRole getOperationProvidedRole(String name) {
-		return (OperationProvidedRole) providedRoles.stream()
-				.filter(r -> r instanceof OperationProvidedRole && r.getEntityName().contentEquals(name)).findFirst()
-				.orElse(null);
+		List<OperationProvidedRole> collect = providedRoles.stream()
+				.filter(r -> r instanceof OperationProvidedRole && r.getEntityName() != null
+						&& r.getEntityName().contentEquals(name))
+				.map(b -> (OperationProvidedRole) b).collect(Collectors.toList());
+		if (collect.isEmpty())
+			return null;
+		if (collect.size() > 1)
+			logger.warning("More than one operation provided role with name '" + name + "' found.");
+		return collect.get(0);
 	}
 
 	public InfrastructureProvidedRole getInfrastructureProvidedRole(String name) {
-		return (InfrastructureProvidedRole) providedRoles.stream()
-				.filter(r -> r instanceof InfrastructureProvidedRole && r.getEntityName().contentEquals(name))
-				.findFirst().orElse(null);
+		List<InfrastructureProvidedRole> collect = providedRoles.stream()
+				.filter(r -> r instanceof InfrastructureProvidedRole && r.getEntityName() != null
+						&& r.getEntityName().contentEquals(name))
+				.map(b -> (InfrastructureProvidedRole) b).collect(Collectors.toList());
+		if (collect.isEmpty())
+			return null;
+		if (collect.size() > 1)
+			logger.warning("More than one infrastructure provided role with name '" + name + "' found.");
+		return collect.get(0);
 	}
 
 	public SinkRole getSinkRole(String name) {
-		return (SinkRole) providedRoles.stream()
-				.filter(r -> r instanceof SinkRole && r.getEntityName().contentEquals(name)).findFirst().orElse(null);
+		List<SinkRole> collect = providedRoles.stream().filter(
+				r -> r instanceof SinkRole && r.getEntityName() != null && r.getEntityName().contentEquals(name))
+				.map(b -> (SinkRole) b).collect(Collectors.toList());
+		if (collect.isEmpty())
+			return null;
+		if (collect.size() > 1)
+			logger.warning("More than one sink role with name '" + name + "' found.");
+		return collect.get(0);
 	}
 
 	public RequiredRole getRequiredRole(String name) {
-		return requiredRoles.stream().filter(r -> r.getEntityName().contentEquals(name)).findFirst().orElse(null);
+		List<RequiredRole> collect = requiredRoles.stream()
+				.filter(r -> r.getEntityName() != null && r.getEntityName().contentEquals(name))
+				.collect(Collectors.toList());
+		if (collect.isEmpty())
+			return null;
+		if (collect.size() > 1)
+			logger.warning("More than one required role with name '" + name + "' found.");
+		return collect.get(0);
 	}
 
 	public OperationRequiredRole getOperationRequiredRole(String name) {
-		return (OperationRequiredRole) requiredRoles.stream()
-				.filter(r -> r instanceof OperationRequiredRole && r.getEntityName().contentEquals(name)).findFirst()
-				.orElse(null);
+		List<OperationRequiredRole> collect = requiredRoles.stream()
+				.filter(r -> r instanceof OperationRequiredRole && r.getEntityName() != null
+						&& r.getEntityName().contentEquals(name))
+				.map(b -> (OperationRequiredRole) b).collect(Collectors.toList());
+		if (collect.isEmpty())
+			return null;
+		if (collect.size() > 1)
+			logger.warning("More than one operation required role with name '" + name + "' found.");
+		return collect.get(0);
 	}
 
 	public InfrastructureRequiredRole getInfrastructureRequiredRole(String name) {
-		return (InfrastructureRequiredRole) requiredRoles.stream()
-				.filter(r -> r instanceof InfrastructureRequiredRole && r.getEntityName().contentEquals(name))
-				.findFirst().orElse(null);
+		List<InfrastructureRequiredRole> collect = requiredRoles.stream()
+				.filter(r -> r instanceof InfrastructureRequiredRole && r.getEntityName() != null
+						&& r.getEntityName().contentEquals(name))
+				.map(b -> (InfrastructureRequiredRole) b).collect(Collectors.toList());
+		if (collect.isEmpty())
+			return null;
+		if (collect.size() > 1)
+			logger.warning("More than one infrastructure required role with name '" + name + "' found.");
+		return collect.get(0);
 	}
 
 	public SourceRole getSourceRole(String name) {
-		return (SourceRole) requiredRoles.stream()
-				.filter(r -> r instanceof SourceRole && r.getEntityName().contentEquals(name)).findFirst().orElse(null);
+		List<SourceRole> collect = requiredRoles.stream().filter(
+				r -> r instanceof SourceRole && r.getEntityName() != null && r.getEntityName().contentEquals(name))
+				.map(b -> (SourceRole) b).collect(Collectors.toList());
+		if (collect.isEmpty())
+			return null;
+		if (collect.size() > 1)
+			logger.warning("More than one source role with name '" + name + "' found.");
+		return collect.get(0);
 	}
 
 	public ResourceRequiredRole getResourceRequiredRole(String name) {
-		return resourceRequiredRoles.stream().filter(r -> r.getEntityName().contentEquals(name)).findFirst()
-				.orElse(null);
+		List<ResourceRequiredRole> collect = resourceRequiredRoles.stream()
+				.filter(r -> r.getEntityName() != null && r.getEntityName().contentEquals(name))
+				.collect(Collectors.toList());
+		if (collect.isEmpty())
+			return null;
+		if (collect.size() > 1)
+			logger.warning("More than one resource required role with name '" + name + "' found.");
+		return collect.get(0);
 	}
 
 	public Signature getSignature(String name) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Signature> collect = signatures.stream()
+				.filter(c -> c.getEntityName() != null && c.getEntityName().contentEquals(name))
+				.collect(Collectors.toList());
+		if (collect.isEmpty())
+			return null;
+		if (collect.size() > 1)
+			logger.warning("More than one signature with name '" + name + "' found.");
+		return collect.get(0);
 	}
 
 	public OperationSignature getOperationSignature(String name) {
-		// TODO Auto-generated method stub
-		return null;
+		List<OperationSignature> collect = signatures.stream()
+				.filter(c -> c instanceof OperationSignature && c.getEntityName() != null
+						&& c.getEntityName().contentEquals(name))
+				.map(b -> (OperationSignature) b).collect(Collectors.toList());
+		if (collect.isEmpty())
+			return null;
+		if (collect.size() > 1)
+			logger.warning("More than one operation signature with name '" + name + "' found.");
+		return collect.get(0);
 	}
 
 	public InfrastructureSignature getInfrastructureSignature(String name) {
-		// TODO Auto-generated method stub
-		return null;
+		List<InfrastructureSignature> collect = signatures.stream()
+				.filter(c -> c instanceof InfrastructureSignature && c.getEntityName() != null
+						&& c.getEntityName().contentEquals(name))
+				.map(b -> (InfrastructureSignature) b).collect(Collectors.toList());
+		if (collect.isEmpty())
+			return null;
+		if (collect.size() > 1)
+			logger.warning("More than one infrastructure signature with name '" + name + "' found.");
+		return collect.get(0);
 	}
 
 	public EventType getEventType(String name) {
-		// TODO Auto-generated method stub
-		return null;
+		List<EventType> collect = signatures.stream().filter(
+				c -> c instanceof EventType && c.getEntityName() != null && c.getEntityName().contentEquals(name))
+				.map(b -> (EventType) b).collect(Collectors.toList());
+		if (collect.isEmpty())
+			return null;
+		if (collect.size() > 1)
+			logger.warning("More than one event type with name '" + name + "' found.");
+		return collect.get(0);
 	}
 
 	public AssemblyContext getAssemblyContext(String name) {
-		return assemblyContexts.stream().filter(a -> a.getEntityName().contentEquals(name)).findFirst().orElse(null);
+		List<AssemblyContext> collect = assemblyContexts.stream()
+				.filter(a -> a.getEntityName() != null && a.getEntityName().contentEquals(name))
+				.collect(Collectors.toList());
+		if (collect.isEmpty())
+			return null;
+		if (collect.size() > 1)
+			logger.warning("More than one assembly context with name '" + name + "' found.");
+		return collect.get(0);
 	}
 
 	public EventChannel getEventChannel(String name) {
-		return eventChannels.stream().filter(a -> a.getEntityName().contentEquals(name)).findFirst().orElse(null);
+		List<EventChannel> collect = eventChannels.stream()
+				.filter(a -> a.getEntityName() != null && a.getEntityName().contentEquals(name))
+				.collect(Collectors.toList());
+		if (collect.isEmpty())
+			return null;
+		if (collect.size() > 1)
+			logger.warning("More than one event channel with name '" + name + "' found.");
+		return collect.get(0);
 	}
 
 	public EventChannelSinkConnector getEventChannelSinkConnector(String name) {
-		return (EventChannelSinkConnector) connectors.stream()
-				.filter(a -> a instanceof EventChannelSinkConnector && a.getEntityName().contentEquals(name))
-				.findFirst().orElse(null);
+		List<EventChannelSinkConnector> collect = connectors.stream()
+				.filter(a -> a instanceof EventChannelSinkConnector && a.getEntityName() != null
+						&& a.getEntityName().contentEquals(name))
+				.map(b -> (EventChannelSinkConnector) b).collect(Collectors.toList());
+		if (collect.isEmpty())
+			return null;
+		if (collect.size() > 1)
+			logger.warning("More than one event channel sink connector with name '" + name + "' found.");
+		return collect.get(0);
 	}
 
 	public EventChannelSourceConnector getEventChannelSourceConnector(String name) {
-		return (EventChannelSourceConnector) connectors.stream()
-				.filter(a -> a instanceof EventChannelSourceConnector && a.getEntityName().contentEquals(name))
-				.findFirst().orElse(null);
+		List<EventChannelSourceConnector> collect = connectors.stream()
+				.filter(a -> a instanceof EventChannelSourceConnector && a.getEntityName() != null
+						&& a.getEntityName().contentEquals(name))
+				.map(b -> (EventChannelSourceConnector) b).collect(Collectors.toList());
+		if (collect.isEmpty())
+			return null;
+		if (collect.size() > 1)
+			logger.warning("More than one event channel source connector with name '" + name + "' found.");
+		return collect.get(0);
 	}
 
 	public Parameter getParameter(String name) {
-		return parameters.stream().filter(p -> p.getParameterName().contentEquals(name)).findFirst().orElse(null);
+		List<Parameter> collect = parameters.stream()
+				.filter(p -> p.getParameterName() != null && p.getParameterName().contentEquals(name))
+				.collect(Collectors.toList());
+		if (collect.isEmpty())
+			return null;
+		if (collect.size() > 1)
+			logger.warning("More than one parameter with name '" + name + "' found.");
+		return collect.get(0);
 	}
 
 	public Parameter getParameter(String name, Signature context) {
-		return parameters.stream().filter(
-				p -> p.getParameterName().contentEquals(name) && (p.getOperationSignature__Parameter().equals(context)
-						|| p.getInfrastructureSignature__Parameter().equals(context)
-						|| p.getEventType__Parameter().equals(context)))
-				.findFirst().orElse(null);
+		List<Parameter> collect = parameters.stream()
+				.filter(p -> p.getParameterName() != null && p.getParameterName().contentEquals(name)
+						&& (p.getOperationSignature__Parameter().equals(context)
+								|| p.getInfrastructureSignature__Parameter().equals(context)
+								|| p.getEventType__Parameter().equals(context)))
+				.collect(Collectors.toList());
+		if (collect.isEmpty())
+			return null;
+		if (collect.size() > 1)
+			logger.warning("More than one parameter with name '" + name + "' found in context '"
+					+ context.getEntityName() + "'.");
+		return collect.get(0);
 	}
 
 	public PassiveResource getPassiveResource(String name) {
@@ -518,18 +743,29 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 		if (collect.isEmpty())
 			return null;
 		if (collect.size() > 1)
-			;// TODO: print log and change rest of methods; mit != null abfrage
+			logger.warning("More than one passive resource with name '" + name + "' found.");
 		return collect.get(0);
 	}
 
 	public RecoveryActionBehaviour getRecoveryActionBehaviour(String name) {
-		return this.behaviours.stream().filter(b -> b.getEntityName().contentEquals(name)).findFirst().orElse(null);
+		List<RecoveryActionBehaviour> collect = behaviours.stream()
+				.filter(b -> b.getEntityName() != null && b.getEntityName().contentEquals(name))
+				.collect(Collectors.toList());
+		if (collect.isEmpty())
+			return null;
+		if (collect.size() > 1)
+			logger.warning("More than one recovery action behaviour with name '" + name + "' found.");
+		return collect.get(0);
 	}
 
 	// ------------- adding -------------
 
 	public void addDataType(DataType dt) {
 		dataTypes.add(dt);
+	}
+
+	public void addFailureType(FailureType f) {
+		failureTypes.add(f);
 	}
 
 	public void addComponent(RepositoryComponent c) {

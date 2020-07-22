@@ -1,92 +1,92 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<repository:Repository xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:composition="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2" xmlns:reliability="http://palladiosimulator.org/PalladioComponentModel/Reliability/5.2" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:seff="http://palladiosimulator.org/PalladioComponentModel/SEFF/5.2" xmlns:seff_reliability="http://palladiosimulator.org/PalladioComponentModel/SEFF/SEFF_Reliability/5.2" xmlns:subsystem="http://palladiosimulator.org/PalladioComponentModel/SubSystem/5.2" id="_Ww5DsswhEeqr8Iq0WZFh6w">
-  <components__Repository xsi:type="repository:BasicComponent" id="_WwjFccwhEeqr8Iq0WZFh6w">
+<repository:Repository xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:composition="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2" xmlns:reliability="http://palladiosimulator.org/PalladioComponentModel/Reliability/5.2" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:seff="http://palladiosimulator.org/PalladioComponentModel/SEFF/5.2" xmlns:seff_reliability="http://palladiosimulator.org/PalladioComponentModel/SEFF/SEFF_Reliability/5.2" xmlns:subsystem="http://palladiosimulator.org/PalladioComponentModel/SubSystem/5.2" id="_7sWdUsw2EeqA4rHerlzmyQ">
+  <components__Repository xsi:type="repository:BasicComponent" id="_7r2uEcw2EeqA4rHerlzmyQ">
     <componentParameterUsage_ImplementationComponentType/>
-    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_Wwh3UswhEeqr8Iq0WZFh6w">
-      <steps_Behaviour xsi:type="seff:StartAction" id="_WwbJocwhEeqr8Iq0WZFh6w" successor_AbstractAction="_WwbwsMwhEeqr8Iq0WZFh6w"/>
-      <steps_Behaviour xsi:type="seff:AcquireAction" id="_WwbwsMwhEeqr8Iq0WZFh6w" predecessor_AbstractAction="_WwbJocwhEeqr8Iq0WZFh6w" successor_AbstractAction="_Wwc-0MwhEeqr8Iq0WZFh6w" timeoutValue="4.0"/>
-      <steps_Behaviour xsi:type="seff:BranchAction" id="_Wwc-0MwhEeqr8Iq0WZFh6w" predecessor_AbstractAction="_WwbwsMwhEeqr8Iq0WZFh6w" successor_AbstractAction="_WweM8MwhEeqr8Iq0WZFh6w"/>
-      <steps_Behaviour xsi:type="seff:CollectionIteratorAction" id="_WweM8MwhEeqr8Iq0WZFh6w" predecessor_AbstractAction="_Wwc-0MwhEeqr8Iq0WZFh6w" successor_AbstractAction="_Wwh3UMwhEeqr8Iq0WZFh6w"/>
-      <steps_Behaviour xsi:type="seff_reliability:RecoveryAction" id="_Wwh3UMwhEeqr8Iq0WZFh6w" predecessor_AbstractAction="_WweM8MwhEeqr8Iq0WZFh6w" successor_AbstractAction="_Wwh3UcwhEeqr8Iq0WZFh6w" primaryBehaviour__RecoveryAction="_WwhQQMwhEeqr8Iq0WZFh6w">
-        <recoveryActionBehaviours__RecoveryAction id="_WwgCIMwhEeqr8Iq0WZFh6w" entityName="foo">
-          <steps_Behaviour xsi:type="seff:StartAction" id="_Wwe0AMwhEeqr8Iq0WZFh6w" successor_AbstractAction="_Wwe0AcwhEeqr8Iq0WZFh6w"/>
-          <steps_Behaviour xsi:type="seff:StopAction" id="_Wwe0AcwhEeqr8Iq0WZFh6w" predecessor_AbstractAction="_Wwe0AMwhEeqr8Iq0WZFh6w"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_7r1f8cw2EeqA4rHerlzmyQ">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_7rs9Ecw2EeqA4rHerlzmyQ" successor_AbstractAction="_7ruyQMw2EeqA4rHerlzmyQ"/>
+      <steps_Behaviour xsi:type="seff:AcquireAction" id="_7ruyQMw2EeqA4rHerlzmyQ" predecessor_AbstractAction="_7rs9Ecw2EeqA4rHerlzmyQ" successor_AbstractAction="_7rwAYMw2EeqA4rHerlzmyQ" timeoutValue="4.0"/>
+      <steps_Behaviour xsi:type="seff:BranchAction" id="_7rwAYMw2EeqA4rHerlzmyQ" predecessor_AbstractAction="_7ruyQMw2EeqA4rHerlzmyQ" successor_AbstractAction="_7rxOgMw2EeqA4rHerlzmyQ"/>
+      <steps_Behaviour xsi:type="seff:CollectionIteratorAction" id="_7rxOgMw2EeqA4rHerlzmyQ" predecessor_AbstractAction="_7rwAYMw2EeqA4rHerlzmyQ" successor_AbstractAction="_7r044Mw2EeqA4rHerlzmyQ"/>
+      <steps_Behaviour xsi:type="seff_reliability:RecoveryAction" id="_7r044Mw2EeqA4rHerlzmyQ" predecessor_AbstractAction="_7rxOgMw2EeqA4rHerlzmyQ" successor_AbstractAction="_7r1f8Mw2EeqA4rHerlzmyQ" primaryBehaviour__RecoveryAction="_7r0R0sw2EeqA4rHerlzmyQ">
+        <recoveryActionBehaviours__RecoveryAction id="_7rzqwMw2EeqA4rHerlzmyQ" entityName="foo">
+          <steps_Behaviour xsi:type="seff:StartAction" id="_7rx1kMw2EeqA4rHerlzmyQ" successor_AbstractAction="_7rx1kcw2EeqA4rHerlzmyQ"/>
+          <steps_Behaviour xsi:type="seff:StopAction" id="_7rx1kcw2EeqA4rHerlzmyQ" predecessor_AbstractAction="_7rx1kMw2EeqA4rHerlzmyQ"/>
         </recoveryActionBehaviours__RecoveryAction>
       </steps_Behaviour>
-      <steps_Behaviour xsi:type="seff:StopAction" id="_Wwh3UcwhEeqr8Iq0WZFh6w" predecessor_AbstractAction="_Wwh3UMwhEeqr8Iq0WZFh6w"/>
-      <resourceDemandingInternalBehaviours id="_WwjFcMwhEeqr8Iq0WZFh6w">
-        <steps_Behaviour xsi:type="seff:StartAction" id="_WwZ7gMwhEeqr8Iq0WZFh6w" successor_AbstractAction="_WwbJoMwhEeqr8Iq0WZFh6w"/>
-        <steps_Behaviour xsi:type="seff:StopAction" id="_WwbJoMwhEeqr8Iq0WZFh6w" predecessor_AbstractAction="_WwZ7gMwhEeqr8Iq0WZFh6w"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_7r1f8Mw2EeqA4rHerlzmyQ" predecessor_AbstractAction="_7r044Mw2EeqA4rHerlzmyQ"/>
+      <resourceDemandingInternalBehaviours id="_7r2uEMw2EeqA4rHerlzmyQ">
+        <steps_Behaviour xsi:type="seff:StartAction" id="_7rqg0Mw2EeqA4rHerlzmyQ" successor_AbstractAction="_7rs9EMw2EeqA4rHerlzmyQ"/>
+        <steps_Behaviour xsi:type="seff:StopAction" id="_7rs9EMw2EeqA4rHerlzmyQ" predecessor_AbstractAction="_7rqg0Mw2EeqA4rHerlzmyQ"/>
       </resourceDemandingInternalBehaviours>
     </serviceEffectSpecifications__BasicComponent>
   </components__Repository>
-  <components__Repository xsi:type="repository:CompleteComponentType" id="_WwjsgMwhEeqr8Iq0WZFh6w"/>
-  <components__Repository xsi:type="repository:ProvidesComponentType" id="_Wwk6oMwhEeqr8Iq0WZFh6w"/>
-  <components__Repository xsi:type="subsystem:SubSystem" id="_Wwmv0MwhEeqr8Iq0WZFh6w"/>
-  <components__Repository xsi:type="repository:CompleteComponentType" id="_Wwn98MwhEeqr8Iq0WZFh6w"/>
-  <components__Repository xsi:type="repository:CompositeComponent" id="_Ww2ncMwhEeqr8Iq0WZFh6w" parentCompleteComponentTypes="_Wwn98MwhEeqr8Iq0WZFh6w">
+  <components__Repository xsi:type="repository:CompleteComponentType" id="_7r3VIMw2EeqA4rHerlzmyQ"/>
+  <components__Repository xsi:type="repository:ProvidesComponentType" id="_7r4jQMw2EeqA4rHerlzmyQ"/>
+  <components__Repository xsi:type="subsystem:SubSystem" id="_7r7mkMw2EeqA4rHerlzmyQ"/>
+  <components__Repository xsi:type="repository:CompleteComponentType" id="_7r80sMw2EeqA4rHerlzmyQ"/>
+  <components__Repository xsi:type="repository:CompositeComponent" id="_7sUBEMw2EeqA4rHerlzmyQ" parentCompleteComponentTypes="_7r80sMw2EeqA4rHerlzmyQ">
     <resourceRequiredDelegationConnectors_ComposedStructure/>
-    <eventChannel__ComposedStructure id="_Wws2cMwhEeqr8Iq0WZFh6w"/>
-    <connectors__ComposedStructure xsi:type="composition:AssemblyConnector" id="_WwuEkMwhEeqr8Iq0WZFh6w"/>
-    <connectors__ComposedStructure xsi:type="composition:AssemblyEventConnector" id="_WwuroMwhEeqr8Iq0WZFh6w"/>
-    <connectors__ComposedStructure xsi:type="composition:AssemblyInfrastructureConnector" id="_Wwv5wMwhEeqr8Iq0WZFh6w"/>
-    <connectors__ComposedStructure xsi:type="composition:EventChannelSinkConnector" id="_Wwv5wcwhEeqr8Iq0WZFh6w"/>
-    <connectors__ComposedStructure xsi:type="composition:EventChannelSourceConnector" id="_Wwwg0MwhEeqr8Iq0WZFh6w"/>
-    <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_Wwxu8MwhEeqr8Iq0WZFh6w"/>
-    <connectors__ComposedStructure xsi:type="composition:ProvidedInfrastructureDelegationConnector" id="_Wwy9EMwhEeqr8Iq0WZFh6w"/>
-    <connectors__ComposedStructure xsi:type="composition:RequiredDelegationConnector" id="_WwzkIMwhEeqr8Iq0WZFh6w"/>
-    <connectors__ComposedStructure xsi:type="composition:RequiredInfrastructureDelegationConnector" id="_Ww0LMMwhEeqr8Iq0WZFh6w"/>
-    <connectors__ComposedStructure xsi:type="composition:RequiredResourceDelegationConnector" id="_Ww0yQMwhEeqr8Iq0WZFh6w"/>
-    <connectors__ComposedStructure xsi:type="composition:SinkDelegationConnector" id="_Ww0yQcwhEeqr8Iq0WZFh6w"/>
-    <connectors__ComposedStructure xsi:type="composition:SourceDelegationConnector" id="_Ww1ZUMwhEeqr8Iq0WZFh6w"/>
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:SinkRole" id="_WwpMEMwhEeqr8Iq0WZFh6w" eventGroup__SinkRole="_WwolA8whEeqr8Iq0WZFh6w"/>
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:SinkRole" id="_WwpMEswhEeqr8Iq0WZFh6w" eventGroup__SinkRole="_WwpMEcwhEeqr8Iq0WZFh6w"/>
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_WwpMFMwhEeqr8Iq0WZFh6w" providedInterface__OperationProvidedRole="_WwpME8whEeqr8Iq0WZFh6w"/>
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_WwpzIcwhEeqr8Iq0WZFh6w" providedInterface__OperationProvidedRole="_WwpzIMwhEeqr8Iq0WZFh6w"/>
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:InfrastructureProvidedRole" id="_WwqaMMwhEeqr8Iq0WZFh6w" providedInterface__InfrastructureProvidedRole="_WwpzIswhEeqr8Iq0WZFh6w"/>
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:InfrastructureProvidedRole" id="_WwrBQcwhEeqr8Iq0WZFh6w" providedInterface__InfrastructureProvidedRole="_WwrBQMwhEeqr8Iq0WZFh6w"/>
-    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:SourceRole" id="_WwolAMwhEeqr8Iq0WZFh6w" eventGroup__SourceRole="_Wwn98cwhEeqr8Iq0WZFh6w"/>
-    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:SourceRole" id="_WwolAswhEeqr8Iq0WZFh6w" eventGroup__SourceRole="_WwolAcwhEeqr8Iq0WZFh6w"/>
-    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_WwrBQ8whEeqr8Iq0WZFh6w" requiredInterface__OperationRequiredRole="_WwrBQswhEeqr8Iq0WZFh6w"/>
-    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_WwrBRcwhEeqr8Iq0WZFh6w" requiredInterface__OperationRequiredRole="_WwrBRMwhEeqr8Iq0WZFh6w"/>
-    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:InfrastructureRequiredRole" id="_WwroUMwhEeqr8Iq0WZFh6w" requiredInterface__InfrastructureRequiredRole="_WwrBRswhEeqr8Iq0WZFh6w"/>
-    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:InfrastructureRequiredRole" id="_WwroUswhEeqr8Iq0WZFh6w" requiredInterface__InfrastructureRequiredRole="_WwroUcwhEeqr8Iq0WZFh6w"/>
+    <eventChannel__ComposedStructure id="_7sGlsMw2EeqA4rHerlzmyQ"/>
+    <connectors__ComposedStructure xsi:type="composition:AssemblyConnector" id="_7sHMwMw2EeqA4rHerlzmyQ"/>
+    <connectors__ComposedStructure xsi:type="composition:AssemblyEventConnector" id="_7sIa4Mw2EeqA4rHerlzmyQ"/>
+    <connectors__ComposedStructure xsi:type="composition:AssemblyInfrastructureConnector" id="_7sJB8Mw2EeqA4rHerlzmyQ"/>
+    <connectors__ComposedStructure xsi:type="composition:EventChannelSinkConnector" id="_7sKQEMw2EeqA4rHerlzmyQ"/>
+    <connectors__ComposedStructure xsi:type="composition:EventChannelSourceConnector" id="_7sK3IMw2EeqA4rHerlzmyQ"/>
+    <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_7sMFQMw2EeqA4rHerlzmyQ"/>
+    <connectors__ComposedStructure xsi:type="composition:ProvidedInfrastructureDelegationConnector" id="_7sMsUMw2EeqA4rHerlzmyQ"/>
+    <connectors__ComposedStructure xsi:type="composition:RequiredDelegationConnector" id="_7sN6cMw2EeqA4rHerlzmyQ"/>
+    <connectors__ComposedStructure xsi:type="composition:RequiredInfrastructureDelegationConnector" id="_7sOhgMw2EeqA4rHerlzmyQ"/>
+    <connectors__ComposedStructure xsi:type="composition:RequiredResourceDelegationConnector" id="_7sPvoMw2EeqA4rHerlzmyQ"/>
+    <connectors__ComposedStructure xsi:type="composition:SinkDelegationConnector" id="_7sQWsMw2EeqA4rHerlzmyQ"/>
+    <connectors__ComposedStructure xsi:type="composition:SourceDelegationConnector" id="_7sQ9wMw2EeqA4rHerlzmyQ"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:SinkRole" id="_7sCUQMw2EeqA4rHerlzmyQ" eventGroup__SinkRole="_7sBtMsw2EeqA4rHerlzmyQ"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:SinkRole" id="_7sCUQsw2EeqA4rHerlzmyQ" eventGroup__SinkRole="_7sCUQcw2EeqA4rHerlzmyQ"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_7sCURMw2EeqA4rHerlzmyQ" providedInterface__OperationProvidedRole="_7sCUQ8w2EeqA4rHerlzmyQ"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_7sCURsw2EeqA4rHerlzmyQ" providedInterface__OperationProvidedRole="_7sCURcw2EeqA4rHerlzmyQ"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:InfrastructureProvidedRole" id="_7sDiYMw2EeqA4rHerlzmyQ" providedInterface__InfrastructureProvidedRole="_7sC7UMw2EeqA4rHerlzmyQ"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:InfrastructureProvidedRole" id="_7sDiYsw2EeqA4rHerlzmyQ" providedInterface__InfrastructureProvidedRole="_7sDiYcw2EeqA4rHerlzmyQ"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:SourceRole" id="_7sBGIMw2EeqA4rHerlzmyQ" eventGroup__SourceRole="_7sAfEMw2EeqA4rHerlzmyQ"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:SourceRole" id="_7sBtMcw2EeqA4rHerlzmyQ" eventGroup__SourceRole="_7sBtMMw2EeqA4rHerlzmyQ"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_7sDiZMw2EeqA4rHerlzmyQ" requiredInterface__OperationRequiredRole="_7sDiY8w2EeqA4rHerlzmyQ"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_7sDiZsw2EeqA4rHerlzmyQ" requiredInterface__OperationRequiredRole="_7sDiZcw2EeqA4rHerlzmyQ"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:InfrastructureRequiredRole" id="_7sEJcMw2EeqA4rHerlzmyQ" requiredInterface__InfrastructureRequiredRole="_7sDiZ8w2EeqA4rHerlzmyQ"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:InfrastructureRequiredRole" id="_7sEJcsw2EeqA4rHerlzmyQ" requiredInterface__InfrastructureRequiredRole="_7sEJccw2EeqA4rHerlzmyQ"/>
   </components__Repository>
-  <interfaces__Repository xsi:type="repository:EventGroup" id="_Wwn98cwhEeqr8Iq0WZFh6w"/>
-  <interfaces__Repository xsi:type="repository:EventGroup" id="_WwolAcwhEeqr8Iq0WZFh6w"/>
-  <interfaces__Repository xsi:type="repository:EventGroup" id="_WwolA8whEeqr8Iq0WZFh6w"/>
-  <interfaces__Repository xsi:type="repository:EventGroup" id="_WwpMEcwhEeqr8Iq0WZFh6w"/>
-  <interfaces__Repository xsi:type="repository:OperationInterface" id="_WwpME8whEeqr8Iq0WZFh6w"/>
-  <interfaces__Repository xsi:type="repository:OperationInterface" id="_WwpzIMwhEeqr8Iq0WZFh6w"/>
-  <interfaces__Repository xsi:type="repository:InfrastructureInterface" id="_WwpzIswhEeqr8Iq0WZFh6w"/>
-  <interfaces__Repository xsi:type="repository:InfrastructureInterface" id="_WwrBQMwhEeqr8Iq0WZFh6w"/>
-  <interfaces__Repository xsi:type="repository:OperationInterface" id="_WwrBQswhEeqr8Iq0WZFh6w"/>
-  <interfaces__Repository xsi:type="repository:OperationInterface" id="_WwrBRMwhEeqr8Iq0WZFh6w"/>
-  <interfaces__Repository xsi:type="repository:InfrastructureInterface" id="_WwrBRswhEeqr8Iq0WZFh6w"/>
-  <interfaces__Repository xsi:type="repository:InfrastructureInterface" id="_WwroUcwhEeqr8Iq0WZFh6w"/>
-  <interfaces__Repository xsi:type="repository:OperationInterface" id="_Ww3OgcwhEeqr8Iq0WZFh6w">
-    <signatures__OperationInterface id="_Ww3OgMwhEeqr8Iq0WZFh6w">
+  <interfaces__Repository xsi:type="repository:EventGroup" id="_7sAfEMw2EeqA4rHerlzmyQ"/>
+  <interfaces__Repository xsi:type="repository:EventGroup" id="_7sBtMMw2EeqA4rHerlzmyQ"/>
+  <interfaces__Repository xsi:type="repository:EventGroup" id="_7sBtMsw2EeqA4rHerlzmyQ"/>
+  <interfaces__Repository xsi:type="repository:EventGroup" id="_7sCUQcw2EeqA4rHerlzmyQ"/>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_7sCUQ8w2EeqA4rHerlzmyQ"/>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_7sCURcw2EeqA4rHerlzmyQ"/>
+  <interfaces__Repository xsi:type="repository:InfrastructureInterface" id="_7sC7UMw2EeqA4rHerlzmyQ"/>
+  <interfaces__Repository xsi:type="repository:InfrastructureInterface" id="_7sDiYcw2EeqA4rHerlzmyQ"/>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_7sDiY8w2EeqA4rHerlzmyQ"/>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_7sDiZcw2EeqA4rHerlzmyQ"/>
+  <interfaces__Repository xsi:type="repository:InfrastructureInterface" id="_7sDiZ8w2EeqA4rHerlzmyQ"/>
+  <interfaces__Repository xsi:type="repository:InfrastructureInterface" id="_7sEJccw2EeqA4rHerlzmyQ"/>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_7sUBEsw2EeqA4rHerlzmyQ">
+    <signatures__OperationInterface id="_7sUBEcw2EeqA4rHerlzmyQ">
       <failureType xsi:type="reliability:HardwareInducedFailureType" href="resources/FailureTypes.repository#_HlRi4UNsEd-z_dlODpG6uw"/>
       <returnType__OperationSignature xsi:type="repository:PrimitiveDataType" href="resources/PrimitiveTypes.repository#//@dataTypes__Repository.2"/>
     </signatures__OperationInterface>
   </interfaces__Repository>
-  <interfaces__Repository xsi:type="repository:InfrastructureInterface" id="_Ww31kcwhEeqr8Iq0WZFh6w">
-    <infrastructureSignatures__InfrastructureInterface id="_Ww31kMwhEeqr8Iq0WZFh6w">
+  <interfaces__Repository xsi:type="repository:InfrastructureInterface" id="_7sVPMcw2EeqA4rHerlzmyQ">
+    <infrastructureSignatures__InfrastructureInterface id="_7sVPMMw2EeqA4rHerlzmyQ">
       <failureType xsi:type="reliability:HardwareInducedFailureType" href="resources/FailureTypes.repository#_HlRi4UNsEd-z_dlODpG6uw"/>
     </infrastructureSignatures__InfrastructureInterface>
   </interfaces__Repository>
-  <interfaces__Repository xsi:type="repository:EventGroup" id="_Ww5DscwhEeqr8Iq0WZFh6w">
-    <eventTypes__EventGroup id="_Ww5DsMwhEeqr8Iq0WZFh6w">
+  <interfaces__Repository xsi:type="repository:EventGroup" id="_7sWdUcw2EeqA4rHerlzmyQ">
+    <eventTypes__EventGroup id="_7sWdUMw2EeqA4rHerlzmyQ">
       <failureType xsi:type="reliability:HardwareInducedFailureType" href="resources/FailureTypes.repository#_HlRi4UNsEd-z_dlODpG6uw"/>
     </eventTypes__EventGroup>
   </interfaces__Repository>
-  <dataTypes__Repository xsi:type="repository:CollectionDataType" id="_WwVDAMwhEeqr8Iq0WZFh6w" entityName="kp">
+  <dataTypes__Repository xsi:type="repository:CollectionDataType" id="_7rkaMMw2EeqA4rHerlzmyQ" entityName="kp">
     <innerType_CollectionDataType xsi:type="repository:PrimitiveDataType" href="resources/PrimitiveTypes.repository#//@dataTypes__Repository.2"/>
   </dataTypes__Repository>
-  <dataTypes__Repository xsi:type="repository:CollectionDataType" id="_WwVqEMwhEeqr8Iq0WZFh6w" entityName="bla">
+  <dataTypes__Repository xsi:type="repository:CollectionDataType" id="_7rkaMcw2EeqA4rHerlzmyQ" entityName="bla">
     <innerType_CollectionDataType xsi:type="repository:PrimitiveDataType" href="resources/PrimitiveTypes.repository#//@dataTypes__Repository.0"/>
   </dataTypes__Repository>
-  <dataTypes__Repository xsi:type="repository:CollectionDataType" id="_WwVqEcwhEeqr8Iq0WZFh6w" entityName="blabla" innerType_CollectionDataType="_WwVqEMwhEeqr8Iq0WZFh6w"/>
-  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_WwVqEswhEeqr8Iq0WZFh6w"/>
-  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_WwVqE8whEeqr8Iq0WZFh6w"/>
+  <dataTypes__Repository xsi:type="repository:CollectionDataType" id="_7rkaMsw2EeqA4rHerlzmyQ" entityName="blabla" innerType_CollectionDataType="_7rkaMcw2EeqA4rHerlzmyQ"/>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_7rkaM8w2EeqA4rHerlzmyQ"/>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_7rkaNMw2EeqA4rHerlzmyQ"/>
 </repository:Repository>

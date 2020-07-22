@@ -23,7 +23,6 @@ public class ExceptionTypeCreator extends Entity {
 	private String exceptionMessage;
 
 	public ExceptionTypeCreator(RepositoryCreator repo) {
-		// TODO: later
 		this.repository = repo;
 	}
 
