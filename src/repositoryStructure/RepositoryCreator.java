@@ -297,6 +297,8 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 		boolean validate = v.validate(repo, null, null);
 		if (!validate)
 			logger.severe("Repository is not valid.");
+		
+		//TODO: tut das validate und rufe add Methoden überall an den jeweiligen stellen auf
 		return repo;
 	}
 

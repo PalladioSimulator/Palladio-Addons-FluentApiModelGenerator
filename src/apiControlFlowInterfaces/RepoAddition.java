@@ -53,19 +53,32 @@ public interface RepoAddition {
 	RepoAddition addToRepository(CompositeDataTypeCreator compositeDataType);
 
 	/**
-	 * TODO: javadoc
+	 * Adds the <code>failureType</code> to the list of failure types provided by
+	 * this repository.
+	 * 
 	 * @param failureType
 	 * @return this repository, now containing the <code>failureType</code>
+	 * @see factory.FluentRepositoryFactory#newHardwareInducedFailureType(String,
+	 *      repositoryStructure.datatypes.ProcessingResource)
+	 * @see factory.FluentRepositoryFactory#newNetworkInducedFailureType(String,
+	 *      repositoryStructure.datatypes.CommunicationLinkResource)
+	 * @see factory.FluentRepositoryFactory#newSoftwareInducedFailureType(String)
+	 * @see factory.FluentRepositoryFactory#newResourceTimeoutFailureType(String)
+	 * @see org.palladiosimulator.pcm.reliability.FailureType
 	 */
 	RepoAddition addToRepository(FailureType failureType);
-	
+
 	/**
-	 * TODO: javadoc
+	 * Adds the <code>exceptionType</code> to the list of exception types provided
+	 * by this repository.
+	 * 
 	 * @param exceptionType
 	 * @return this repository, now containing the <code>exceptionType</code>
+	 * @see factory.FluentRepositoryFactory#newExceptionType()
+	 * @see org.palladiosimulator.pcm.repository.ExceptionType
 	 */
 	RepoAddition addToRepository(ExceptionTypeCreator exceptionType);
-	
+
 	/**
 	 * Adds the <code>component</code> to the list of components stored in the
 	 * repository.

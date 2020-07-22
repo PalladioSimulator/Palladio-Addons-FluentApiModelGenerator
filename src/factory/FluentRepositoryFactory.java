@@ -665,7 +665,7 @@ public class FluentRepositoryFactory {
 		this.repo.addFailureType(s);
 		return s;
 	}
-	
+
 	public ExceptionTypeCreator newExceptionType() {
 		return new ExceptionTypeCreator(this.repo);
 	}
@@ -875,10 +875,19 @@ public class FluentRepositoryFactory {
 	}
 
 	/**
-	 * TODO: javadoc
+	 * Extracts the resource timeout failure type referenced by <code>name</code>
+	 * from the repository.
+	 * <p>
+	 * This method throws a RuntimeException if no resource timeout failure type is
+	 * present under the given <code>name</code>. If more than one resource timeout
+	 * failure type with this <code>name</code> is present, a warning will be
+	 * printed during runtime and the system chooses the first resource timeout
+	 * failure type it finds.
+	 * </p>
 	 * 
 	 * @param name
-	 * @return
+	 * @return the resource timeout failure type
+	 * @see org.palladiosimulator.pcm.reliability.ResourceTimeoutFailureType
 	 */
 	public ResourceTimeoutFailureType fetchOfResourceTimeoutFailureType(String name) {
 		ResourceTimeoutFailureType failureType = repo.getResourceTimeoutFailureType(name);
@@ -888,10 +897,18 @@ public class FluentRepositoryFactory {
 	}
 
 	/**
-	 * TODO: javadoc
+	 * Extracts the failure type referenced by <code>failure</code> from the
+	 * repository.
+	 * <p>
+	 * This method throws a RuntimeException if no failure type is present under the
+	 * given <code>name</code>. If more than one failure type with this
+	 * <code>name</code> is present, a warning will be printed during runtime and
+	 * the system chooses the first failure type it finds.
+	 * </p>
 	 * 
 	 * @param failure
-	 * @return
+	 * @return the failure type
+	 * @see org.palladiosimulator.pcm.reliability.FailureType
 	 */
 	public FailureType fetchOfFailureType(Failure failure) {
 		FailureType f = repo.getFailureType(failure);
@@ -901,10 +918,18 @@ public class FluentRepositoryFactory {
 	}
 
 	/**
-	 * TODO: javadoc
+	 * Extracts the failure type referenced by <code>name</code> from the
+	 * repository.
+	 * <p>
+	 * This method throws a RuntimeException if no failure type is present under the
+	 * given <code>name</code>. If more than one failure type with this
+	 * <code>name</code> is present, a warning will be printed during runtime and
+	 * the system chooses the first failure type it finds.
+	 * </p>
 	 * 
 	 * @param name
-	 * @return
+	 * @return the failure type
+	 * @see org.palladiosimulator.pcm.reliability.FailureType
 	 */
 	public FailureType fetchOfFailureType(String name) {
 		Objects.requireNonNull(name, "name must not be null");
@@ -915,10 +940,18 @@ public class FluentRepositoryFactory {
 	}
 
 	/**
-	 * TODO: javadoc
+	 * Extracts the exception type referenced by <code>name</code> from the
+	 * repository.
+	 * <p>
+	 * This method throws a RuntimeException if no exception type is present under
+	 * the given <code>name</code>. If more than one exception type with this
+	 * <code>name</code> is present, a warning will be printed during runtime and
+	 * the system chooses the first exception type it finds.
+	 * </p>
 	 * 
 	 * @param name
-	 * @return
+	 * @return the exception type
+	 * @see org.palladiosimulator.pcm.repository.ExceptionType
 	 */
 	public ExceptionType fetchOfExceptionType(String name) {
 		Objects.requireNonNull(name, "name must not be null");
@@ -1376,10 +1409,17 @@ public class FluentRepositoryFactory {
 	}
 
 	/**
-	 * TODO: javadoc
+	 * Extracts the signature referenced by <code>name</code> from the repository.
+	 * <p>
+	 * This method throws a RuntimeException if no signature is present under the
+	 * given <code>name</code>. If more than one signature with this
+	 * <code>name</code> is present, a warning will be printed during runtime and
+	 * the system chooses the first signature it finds.
+	 * </p>
 	 * 
 	 * @param name
-	 * @return
+	 * @return the signature
+	 * @see org.palladiosimulator.pcm.repository.Signature
 	 */
 	public Signature fetchOfSignature(String name) {
 		Objects.requireNonNull(name, "name must not be null");
@@ -1412,10 +1452,19 @@ public class FluentRepositoryFactory {
 	}
 
 	/**
-	 * TODO: javadoc
+	 * Extracts the infrastructure signature referenced by <code>name</code> from
+	 * the repository.
+	 * <p>
+	 * This method throws a RuntimeException if no infrastructure signature is
+	 * present under the given <code>name</code>. If more than one infrastructure
+	 * signature with this <code>name</code> is present, a warning will be printed
+	 * during runtime and the system chooses the first infrastructure signature it
+	 * finds.
+	 * </p>
 	 * 
 	 * @param name
-	 * @return
+	 * @return the infrastructure signature
+	 * @see org.palladiosimulator.pcm.repository.InfrastructureSignature
 	 */
 	public InfrastructureSignature fetchOfInfrastructureSignature(String name) {
 		Objects.requireNonNull(name, "name must not be null");
