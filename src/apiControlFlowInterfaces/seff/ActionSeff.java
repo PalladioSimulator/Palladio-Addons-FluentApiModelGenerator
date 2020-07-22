@@ -321,7 +321,7 @@ public interface ActionSeff {
 
 	/**
 	 * Creates a {@link org.palladiosimulator.pcm.seff.RecoveryAction
-	 * RecoveryAction}. TODO
+	 * RecoveryAction}. TODO: javadoc
 	 * <p>
 	 * Recover block actions are a generic failure handling technique. A recovery
 	 * block consists of a a primary algorithm and one or more alternatives that can

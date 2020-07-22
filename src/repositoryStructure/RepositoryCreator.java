@@ -17,6 +17,7 @@ import org.palladiosimulator.pcm.core.entity.ResourceRequiredRole;
 import org.palladiosimulator.pcm.reliability.FailureType;
 import org.palladiosimulator.pcm.reliability.HardwareInducedFailureType;
 import org.palladiosimulator.pcm.reliability.NetworkInducedFailureType;
+import org.palladiosimulator.pcm.reliability.ResourceTimeoutFailureType;
 import org.palladiosimulator.pcm.reliability.SoftwareInducedFailureType;
 import org.palladiosimulator.pcm.repository.BasicComponent;
 import org.palladiosimulator.pcm.repository.CollectionDataType;
@@ -26,9 +27,11 @@ import org.palladiosimulator.pcm.repository.CompositeDataType;
 import org.palladiosimulator.pcm.repository.DataType;
 import org.palladiosimulator.pcm.repository.EventGroup;
 import org.palladiosimulator.pcm.repository.EventType;
+import org.palladiosimulator.pcm.repository.ExceptionType;
 import org.palladiosimulator.pcm.repository.InfrastructureInterface;
 import org.palladiosimulator.pcm.repository.InfrastructureProvidedRole;
 import org.palladiosimulator.pcm.repository.InfrastructureRequiredRole;
+import org.palladiosimulator.pcm.repository.InfrastructureSignature;
 import org.palladiosimulator.pcm.repository.Interface;
 import org.palladiosimulator.pcm.repository.OperationInterface;
 import org.palladiosimulator.pcm.repository.OperationProvidedRole;
@@ -61,6 +64,7 @@ import apiControlFlowInterfaces.RepoAddition;
 import repositoryStructure.components.Component;
 import repositoryStructure.datatypes.CommunicationLinkResource;
 import repositoryStructure.datatypes.CompositeDataTypeCreator;
+import repositoryStructure.datatypes.ExceptionTypeCreator;
 import repositoryStructure.datatypes.Failure;
 import repositoryStructure.datatypes.Primitive;
 import repositoryStructure.datatypes.ProcessingResource;
@@ -85,6 +89,8 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 	private List<ResourceInterface> internalResourceInterfaces;
 	private List<SchedulingPolicy> internalSchedulingPolicies;
 	private Map<Failure, FailureType> internalFailureTypes;
+	private List<FailureType> failureTypes;
+	private List<ExceptionType> exceptionTypes;
 	private List<Interface> interfaces;
 	private List<RepositoryComponent> components;
 	private List<ProvidedRole> providedRoles;
@@ -96,6 +102,7 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 	private List<Connector> connectors;
 	private List<RecoveryActionBehaviour> behaviours;
 	private List<PassiveResource> passiveResources;
+	private List<Signature> signatures;
 
 	public RepositoryCreator(Repository primitiveDataTypes, ResourceRepository resourceTypes, Repository failureTypes) {
 		this.dataTypes = new ArrayList<>();
@@ -105,6 +112,7 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 		this.internalResourceInterfaces = new ArrayList<>();
 		this.internalSchedulingPolicies = new ArrayList<>();
 		this.internalFailureTypes = new HashMap<>();
+		this.failureTypes = new ArrayList<>();
 		this.interfaces = new ArrayList<>();
 		this.components = new ArrayList<>();
 		this.providedRoles = new ArrayList<>();
@@ -116,6 +124,8 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 		this.connectors = new ArrayList<>();
 		this.behaviours = new ArrayList<>();
 		this.passiveResources = new ArrayList<>();
+		this.exceptionTypes = new ArrayList<>();
+		this.signatures = new ArrayList<>();
 
 		initPredefinedDataTypesAndResources(primitiveDataTypes, resourceTypes, failureTypes);
 	}
@@ -227,7 +237,15 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 	@Override
 	public RepoAddition addToRepository(FailureType failureType) {
 		Objects.requireNonNull(failureType, "failureType must not be null");
-		// TODO:
+		failureTypes.add(failureType);
+		return this;
+	}
+
+	@Override
+	public RepoAddition addToRepository(ExceptionTypeCreator exceptionType) {
+		Objects.requireNonNull(exceptionType, "exceptionType must not be null");
+		ExceptionType build = exceptionType.build();
+		exceptionTypes.add(build);
 		return this;
 	}
 
@@ -266,8 +284,30 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 
 	@Override
 	public Repository createRepositoryNow() {
-		//TODO: and validate
+		// TODO: and validate
 		return build();
+	}
+
+	public PrimitiveDataType getPrimitiveDataType(Primitive primitive) {
+		return internalPrimitives.get(primitive);
+	}
+
+	public PrimitiveDataType getPrimitiveDataType(String name) {
+		try {
+			if (name.equalsIgnoreCase("int"))
+				name = "integer";
+			if (name.equalsIgnoreCase("bool"))
+				name = "boolean";
+			Primitive valueOf = Primitive.valueOf(name.toUpperCase());
+			return internalPrimitives.get(valueOf);
+		} catch (IllegalArgumentException e) {
+			return null;
+		}
+	}
+
+	public CompositeDataType getCompositeDataType(String name) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	// ------------- getter -------------
@@ -288,46 +328,34 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 		return null;
 	}
 
-	public PrimitiveDataType getPrimitiveDataType(Primitive primitive) {
-		return internalPrimitives.get(primitive);
-	}
-
-	public PrimitiveDataType getPrimitiveDataType(String name) {
-		try {
-			if (name.equalsIgnoreCase("int"))
-				name = "integer";
-			if (name.equalsIgnoreCase("bool"))
-				name = "boolean";
-			Primitive valueOf = Primitive.valueOf(name.toUpperCase());
-			return internalPrimitives.get(valueOf);
-		} catch (IllegalArgumentException e) {
-			return null;
-		}
-	}
-
 	public FailureType getFailureType(Failure failure) {
 		return internalFailureTypes.get(failure);
 	}
 
-	public Interface getInterface(String name) {
-		return interfaces.stream().filter(i -> i.getEntityName().contentEquals(name)).findFirst().orElse(null);
+	public FailureType getFailureType(String name) {
+		// TODO: getter
+		return null;
+	}
+	
+	public ResourceTimeoutFailureType getResourceTimeoutFailureType(String name) {
+		// TODO: getter
+		return null;
 	}
 
-	public OperationInterface getOperationInterface(String name) {
-		return (OperationInterface) interfaces.stream()
-				.filter(i -> i instanceof OperationInterface && i.getEntityName().contentEquals(name)).findFirst()
-				.orElse(null);
+	public ExceptionType getExceptionType(String name) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
-	public InfrastructureInterface getInfrastructureInterface(String name) {
-		return (InfrastructureInterface) interfaces.stream()
-				.filter(i -> i instanceof InfrastructureInterface && i.getEntityName().contentEquals(name)).findFirst()
-				.orElse(null);
+	public ProcessingResourceType getProcessingResource(ProcessingResource processingResource) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
-	public EventGroup getEventGroup(String name) {
-		return (EventGroup) interfaces.stream()
-				.filter(i -> i instanceof EventGroup && i.getEntityName().contentEquals(name)).findFirst().orElse(null);
+	public CommunicationLinkResourceType getCommunicationLinkResource(
+			CommunicationLinkResource communicationLinkResource) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	public RepositoryComponent getComponent(String name) {
@@ -361,6 +389,27 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 		return (ProvidesComponentType) components.stream()
 				.filter(c -> c instanceof ProvidesComponentType && c.getEntityName().contentEquals(name)).findFirst()
 				.orElse(null);
+	}
+
+	public Interface getInterface(String name) {
+		return interfaces.stream().filter(i -> i.getEntityName().contentEquals(name)).findFirst().orElse(null);
+	}
+
+	public OperationInterface getOperationInterface(String name) {
+		return (OperationInterface) interfaces.stream()
+				.filter(i -> i instanceof OperationInterface && i.getEntityName().contentEquals(name)).findFirst()
+				.orElse(null);
+	}
+
+	public InfrastructureInterface getInfrastructureInterface(String name) {
+		return (InfrastructureInterface) interfaces.stream()
+				.filter(i -> i instanceof InfrastructureInterface && i.getEntityName().contentEquals(name)).findFirst()
+				.orElse(null);
+	}
+
+	public EventGroup getEventGroup(String name) {
+		return (EventGroup) interfaces.stream()
+				.filter(i -> i instanceof EventGroup && i.getEntityName().contentEquals(name)).findFirst().orElse(null);
 	}
 
 	public ProvidedRole getProvidedRole(String name) {
@@ -410,16 +459,24 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 				.orElse(null);
 	}
 
-	public Parameter getParameter(String name) {
-		return parameters.stream().filter(p -> p.getParameterName().contentEquals(name)).findFirst().orElse(null);
+	public Signature getSignature(String name) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
-	public Parameter getParameter(String name, Signature context) {
-		return parameters.stream().filter(
-				p -> p.getParameterName().contentEquals(name) && (p.getOperationSignature__Parameter().equals(context)
-						|| p.getInfrastructureSignature__Parameter().equals(context)
-						|| p.getEventType__Parameter().equals(context)))
-				.findFirst().orElse(null);
+	public OperationSignature getOperationSignature(String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public InfrastructureSignature getInfrastructureSignature(String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public EventType getEventType(String name) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	public AssemblyContext getAssemblyContext(String name) {
@@ -442,31 +499,45 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 				.findFirst().orElse(null);
 	}
 
-	public RecoveryActionBehaviour getRecoveryActionBehaviour(String name) {
-		return this.behaviours.stream().filter(b -> b.getEntityName().contentEquals(name)).findFirst().orElse(null);
+	public Parameter getParameter(String name) {
+		return parameters.stream().filter(p -> p.getParameterName().contentEquals(name)).findFirst().orElse(null);
+	}
+
+	public Parameter getParameter(String name, Signature context) {
+		return parameters.stream().filter(
+				p -> p.getParameterName().contentEquals(name) && (p.getOperationSignature__Parameter().equals(context)
+						|| p.getInfrastructureSignature__Parameter().equals(context)
+						|| p.getEventType__Parameter().equals(context)))
+				.findFirst().orElse(null);
 	}
 
 	public PassiveResource getPassiveResource(String name) {
-		List<PassiveResource> collect = passiveResources.stream().filter(b -> b.getEntityName().contentEquals(name))
+		List<PassiveResource> collect = passiveResources.stream()
+				.filter(b -> b.getEntityName() != null && b.getEntityName().contentEquals(name))
 				.collect(Collectors.toList());
 		if (collect.isEmpty())
 			return null;
 		if (collect.size() > 1)
-			;// TODO: print log and change rest of methods
+			;// TODO: print log and change rest of methods; mit != null abfrage
 		return collect.get(0);
 	}
 
+	public RecoveryActionBehaviour getRecoveryActionBehaviour(String name) {
+		return this.behaviours.stream().filter(b -> b.getEntityName().contentEquals(name)).findFirst().orElse(null);
+	}
+
 	// ------------- adding -------------
+
 	public void addDataType(DataType dt) {
 		dataTypes.add(dt);
 	}
 
-	public void addInterface(Interface i) {
-		interfaces.add(i);
-	}
-
 	public void addComponent(RepositoryComponent c) {
 		components.add(c);
+	}
+
+	public void addInterface(Interface i) {
+		interfaces.add(i);
 	}
 
 	public void addProvidedRole(ProvidedRole pr) {
@@ -481,54 +552,31 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 		resourceRequiredRoles.add(rr);
 	}
 
-	public void addParameter(Parameter p) {
-		parameters.add(p);
+	public void addSignature(Signature sign) {
+		this.signatures.add(sign);
 	}
 
 	public void addAssemblyContext(AssemblyContext ac) {
 		assemblyContexts.add(ac);
 	}
 
-	public void addEventChannel(EventChannel eg) {
-		eventChannels.add(eg);
-	}
-
 	public void addConnector(Connector r) {
 		connectors.add(r);
 	}
 
-	public void addRecoveryActionBehaviour(RecoveryActionBehaviour recovery) {
-		behaviours.add(recovery);
+	public void addEventChannel(EventChannel eg) {
+		eventChannels.add(eg);
+	}
+
+	public void addParameter(Parameter p) {
+		parameters.add(p);
 	}
 
 	public void addPassiveResource(PassiveResource pass) {
 		passiveResources.add(pass);
-
 	}
 
-	public ProcessingResourceType getProcessingResource(ProcessingResource processingResource) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public CommunicationLinkResourceType getCommunicationLinkResource(
-			CommunicationLinkResource communicationLinkResource) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public EventType getEventType(String name) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public OperationSignature getOperationSignature(String name) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public CompositeDataType getCompositeDataType(String name) {
-		// TODO Auto-generated method stub
-		return null;
+	public void addRecoveryActionBehaviour(RecoveryActionBehaviour recovery) {
+		behaviours.add(recovery);
 	}
 }

@@ -6,6 +6,7 @@ import org.palladiosimulator.pcm.repository.Repository;
 
 import repositoryStructure.components.Component;
 import repositoryStructure.datatypes.CompositeDataTypeCreator;
+import repositoryStructure.datatypes.ExceptionTypeCreator;
 import repositoryStructure.interfaces.Interface;
 
 public interface RepoAddition {
@@ -52,11 +53,18 @@ public interface RepoAddition {
 	RepoAddition addToRepository(CompositeDataTypeCreator compositeDataType);
 
 	/**
-	 * TODO:
+	 * TODO: javadoc
 	 * @param failureType
-	 * @return this repository, now containing the <code>collectionDataType</code>
+	 * @return this repository, now containing the <code>failureType</code>
 	 */
 	RepoAddition addToRepository(FailureType failureType);
+	
+	/**
+	 * TODO: javadoc
+	 * @param exceptionType
+	 * @return this repository, now containing the <code>exceptionType</code>
+	 */
+	RepoAddition addToRepository(ExceptionTypeCreator exceptionType);
 	
 	/**
 	 * Adds the <code>component</code> to the list of components stored in the

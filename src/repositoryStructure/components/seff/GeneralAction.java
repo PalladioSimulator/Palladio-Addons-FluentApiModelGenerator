@@ -46,7 +46,7 @@ public abstract class GeneralAction extends SeffAction {
 	 * instead of a concrete ProcessingResourceSpecification (e.g., 5 GHz CPU, 20
 	 * MByte/s hard disk).
 	 * </p>
-	 * TODO: woher kommt die Processing resource type -> see mit fetch?
+	 * TODO: javadoc mit fetch?
 	 * 
 	 * @param specification_stochasticExpression
 	 * @param processingResource
@@ -76,7 +76,7 @@ public abstract class GeneralAction extends SeffAction {
 	 * {@link org.palladiosimulator.pcm.seff.seff_performance.InfrastructureCall
 	 * InfrastructureCall} to this action.
 	 * 
-	 * TODO:
+	 * TODO: javadoc
 	 * 
 	 * @param numberOfCalls_stochasticExpression
 	 * @param signature
@@ -116,7 +116,7 @@ public abstract class GeneralAction extends SeffAction {
 
 	/**
 	 * Adds a {@link org.palladiosimulator.pcm.seff.seff_performance.ResourceCall
-	 * ResourceCall} to this action. TODO
+	 * ResourceCall} to this action. TODO: javadoc
 	 * 
 	 * @param numberOfCalls_stochasticExpression
 	 * @param signature

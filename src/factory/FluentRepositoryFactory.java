@@ -32,6 +32,7 @@ import org.palladiosimulator.pcm.repository.ExceptionType;
 import org.palladiosimulator.pcm.repository.InfrastructureInterface;
 import org.palladiosimulator.pcm.repository.InfrastructureProvidedRole;
 import org.palladiosimulator.pcm.repository.InfrastructureRequiredRole;
+import org.palladiosimulator.pcm.repository.InfrastructureSignature;
 import org.palladiosimulator.pcm.repository.Interface;
 import org.palladiosimulator.pcm.repository.OperationInterface;
 import org.palladiosimulator.pcm.repository.OperationProvidedRole;
@@ -78,7 +79,7 @@ import repositoryStructure.interfaces.InfrastructureInterfaceCreator;
 import repositoryStructure.interfaces.OperationInterfaceCreator;
 
 /**
- * TODO
+ * TODO: javadoc
  * 
  * @author Louisa Lambrecht
  *
@@ -88,7 +89,7 @@ public class FluentRepositoryFactory {
 	private RepositoryCreator repo;
 
 	/**
-	 * TODO
+	 * TODO: javadoc
 	 */
 	public FluentRepositoryFactory() {
 	}
@@ -799,7 +800,45 @@ public class FluentRepositoryFactory {
 
 	// ---------------------- Fetching methods ----------------------
 
-	// TODO: exceptionTypes, resourcetypes, resource interfaces etc
+	/**
+	 * Extracts the by <code>name</code> referenced composite data type from the
+	 * repository.
+	 * <p>
+	 * This method throws a RuntimeException if no composite data type is present
+	 * under the given <code>name</code>. If more than one composite data type with
+	 * this <code>name</code> is present, a warning will be printed during runtime
+	 * and the system chooses the first composite data type it finds.
+	 * </p>
+	 * 
+	 * @param name
+	 * @return the composite data type
+	 * @see apiControlFlowInterfaces.RepoAddition#addToRepository(CompositeDataTypeCreator)
+	 * @see org.palladiosimulator.pcm.repository.CompositeDataType
+	 */
+	public CompositeDataType fetchOfCompositeDataType(String name) {
+		Objects.requireNonNull(name, "name must not be null");
+		CompositeDataType dataType = repo.getCompositeDataType(name);
+		if (dataType == null)
+			throw new RuntimeException("Composite data type '" + name + "' could not be found");
+
+		return dataType;
+	}
+
+	/**
+	 * Extracts the primitive data type corresponding to the enum
+	 * <code>primitive</code> from the repository.
+	 * 
+	 * @param primitive
+	 * @return the data type
+	 * @see org.palladiosimulator.pcm.repository.PrimitiveDataType
+	 */
+	public DataType fetchOfDataType(Primitive primitive) {
+		PrimitiveDataType p = repo.getPrimitiveDataType(primitive);
+		if (p == null)
+			throw new RuntimeException("Primitive data Type '" + primitive + "' could not be found");
+		return p;
+	}
+
 	/**
 	 * Extracts the by <code>name</code> referenced data type from the repository.
 	 * <p>
@@ -827,46 +866,20 @@ public class FluentRepositoryFactory {
 	}
 
 	/**
-	 * Extracts the primitive data type corresponding to the enum
-	 * <code>primitive</code> from the repository.
-	 * 
-	 * @param primitive
-	 * @return the data type
-	 * @see org.palladiosimulator.pcm.repository.PrimitiveDataType
-	 */
-	public DataType fetchOfDataType(Primitive primitive) {
-		PrimitiveDataType p = repo.getPrimitiveDataType(primitive);
-		if (p == null)
-			throw new RuntimeException("Primitive data Type '" + primitive + "' could not be found");
-		return p;
-	}
-
-	/**
-	 * Extracts the by <code>name</code> referenced composite data type from the
-	 * repository.
-	 * <p>
-	 * This method throws a RuntimeException if no composite data type is present
-	 * under the given <code>name</code>. If more than one composite data type with
-	 * this <code>name</code> is present, a warning will be printed during runtime
-	 * and the system chooses the first composite data type it finds.
-	 * </p>
+	 * TODO: javadoc
 	 * 
 	 * @param name
-	 * @return the composite data type
-	 * @see apiControlFlowInterfaces.RepoAddition#addToRepository(CompositeDataTypeCreator)
-	 * @see org.palladiosimulator.pcm.repository.CompositeDataType
+	 * @return
 	 */
-	public CompositeDataType fetchOfCompositeDataType(String name) {
-		Objects.requireNonNull(name, "name must not be null");
-		CompositeDataType dataType = repo.getCompositeDataType(name);
-		if (dataType == null)
-			throw new RuntimeException("Composite data type '" + name + "' could not be found");
-
-		return dataType;
+	public ResourceTimeoutFailureType fetchOfResourceTimeoutFailureType(String name) {
+		ResourceTimeoutFailureType failureType = repo.getResourceTimeoutFailureType(name);
+		if (failureType == null)
+			throw new RuntimeException("Failure Type '" + name + "' could not be found");
+		return failureType;
 	}
 
 	/**
-	 * TODO
+	 * TODO: javadoc
 	 * 
 	 * @param failure
 	 * @return
@@ -879,56 +892,47 @@ public class FluentRepositoryFactory {
 	}
 
 	/**
-	 * TODO
+	 * TODO: javadoc
 	 * 
 	 * @param name
 	 * @return
 	 */
 	public FailureType fetchOfFailureType(String name) {
 		Objects.requireNonNull(name, "name must not be null");
-		// TODO: Kann man kann evtl noch eigene erstellen? -> fetch mit String; auch
-		// übertragen auf Failure
-		return null;
+		FailureType f = repo.getFailureType(name);
+		if (f == null)
+			throw new RuntimeException("Failure Type '" + name + "' could not be found");
+		return f;
 	}
 
 	/**
-	 * TODO
-	 * 
-	 * @param failure
-	 * @return
-	 */
-	public ResourceTimeoutFailureType fetchOfResourceTimeoutFailureType(Failure failure) {
-		FailureType failureType = repo.getFailureType(Failure.SOFTWARE);
-		if (failureType instanceof ResourceTimeoutFailureType)
-			return (ResourceTimeoutFailureType) failureType;
-		// TODO: einkommentieren
-		// else
-		// throw new RuntimeException("ResourceTimeoutFailureType could not be found;
-		// must be of type SoftwareInducedFailure");
-		return null;
-	}
-
-	/**
-	 * TODO
+	 * TODO: javadoc
 	 * 
 	 * @param name
 	 * @return
 	 */
 	public ExceptionType fetchOfExceptionType(String name) {
 		Objects.requireNonNull(name, "name must not be null");
-		// TODO:
+		ExceptionType e = repo.getExceptionType(name);
+		if (e == null)
+			throw new RuntimeException("Failure Type '" + name + "' could not be found");
+		return e;
+	}
+
+	public ProcessingResource fetchOfProcessingResource() {
+		// TODO: kann man die auch selbst erstellen oder nur über enums?
 		return null;
 	}
 
 	/**
-	 * TODO
+	 * TODO: javadoc
 	 * 
 	 * @param resourceInterface
 	 * @return
 	 */
 	public ResourceInterface fetchOfResourceInterface(
 			repositoryStructure.datatypes.ResourceInterface resourceInterface) {
-		// TODO
+		// TODO: kann man die auch selbst erstellen oder nur über enums?
 		return null;
 	}
 
@@ -1163,49 +1167,6 @@ public class FluentRepositoryFactory {
 	}
 
 	/**
-	 * Extracts the operation signature referenced by <code>name</code> from the
-	 * repository.
-	 * <p>
-	 * This method throws a RuntimeException if no operation signature is present
-	 * under the given <code>name</code>. If more than one operation signature with
-	 * this <code>name</code> is present, a warning will be printed during runtime
-	 * and the system chooses the first operation signature it finds.
-	 * </p>
-	 * 
-	 * @param name
-	 * @return the operation signature
-	 * @see org.palladiosimulator.pcm.repository.OperationSignature
-	 */
-	public OperationSignature fetchOfOperationSignature(String name) {
-		Objects.requireNonNull(name, "name must not be null");
-		OperationSignature signature = repo.getOperationSignature(name);
-		if (signature == null)
-			throw new RuntimeException("Operation signature '" + name + "' could not be found");
-		return signature;
-	}
-
-	/**
-	 * Extracts the event type referenced by <code>name</code> from the repository.
-	 * <p>
-	 * This method throws a RuntimeException if no event type is present under the
-	 * given <code>name</code>. If more than one event type with this
-	 * <code>name</code> is present, a warning will be printed during runtime and
-	 * the system chooses the first event type it finds.
-	 * </p>
-	 * 
-	 * @param name
-	 * @return the event type
-	 * @see org.palladiosimulator.pcm.repository.EventType
-	 */
-	public EventType fetchOfEventType(String name) {
-		Objects.requireNonNull(name, "name must not be null");
-		EventType eventType = repo.getEventType(name);
-		if (eventType == null)
-			throw new RuntimeException("EventType '" + name + "' could not be found");
-		return eventType;
-	}
-
-	/**
 	 * Extracts the provided role referenced by <code>name</code> from the
 	 * repository.
 	 * <p>
@@ -1225,28 +1186,6 @@ public class FluentRepositoryFactory {
 		if (provRole == null)
 			throw new RuntimeException("ProvidedRole '" + name + "' could not be found");
 		return provRole;
-	}
-
-	/**
-	 * Extracts the required role referenced by <code>name</code> from the
-	 * repository.
-	 * <p>
-	 * This method throws a RuntimeException if no required role is present under
-	 * the given <code>name</code>. If more than one required role with this
-	 * <code>name</code> is present, a warning will be printed during runtime and
-	 * the system chooses the first required role it finds.
-	 * </p>
-	 * 
-	 * @param name
-	 * @return the required role
-	 * @see org.palladiosimulator.pcm.repository.RequiredRole
-	 */
-	public RequiredRole fetchOfRequiredRole(String name) {
-		Objects.requireNonNull(name, "name must not be null");
-		RequiredRole reqRole = repo.getRequiredRole(name);
-		if (reqRole == null)
-			throw new RuntimeException("RequiredRole '" + name + "' could not be found");
-		return reqRole;
 	}
 
 	/**
@@ -1273,29 +1212,6 @@ public class FluentRepositoryFactory {
 	}
 
 	/**
-	 * Extracts the operation required role referenced by <code>name</code> from the
-	 * repository.
-	 * <p>
-	 * This method throws a RuntimeException if no operation required role is
-	 * present under the given <code>name</code>. If more than one operation
-	 * required role with this <code>name</code> is present, a warning will be
-	 * printed during runtime and the system chooses the first operation required
-	 * role it finds.
-	 * </p>
-	 * 
-	 * @param name
-	 * @return the operation required role
-	 * @see org.palladiosimulator.pcm.repository.OperationRequiredRole
-	 */
-	public OperationRequiredRole fetchOfOperationRequiredRole(String name) {
-		Objects.requireNonNull(name, "name must not be null");
-		OperationRequiredRole reqRole = repo.getOperationRequiredRole(name);
-		if (reqRole == null)
-			throw new RuntimeException("RequiredRole '" + name + "' could not be found");
-		return reqRole;
-	}
-
-	/**
 	 * Extracts the infrastructure provided role referenced by <code>name</code>
 	 * from the repository.
 	 * <p>
@@ -1319,6 +1235,72 @@ public class FluentRepositoryFactory {
 	}
 
 	/**
+	 * Extracts the sink role referenced by <code>name</code> from the repository.
+	 * <p>
+	 * This method throws a RuntimeException if no sink role is present under the
+	 * given <code>name</code>. If more than one sink role with this
+	 * <code>name</code> is present, a warning will be printed during runtime and
+	 * the system chooses the first sink role it finds.
+	 * </p>
+	 * 
+	 * @param name
+	 * @return the sink role
+	 * @see org.palladiosimulator.pcm.repository.SinkRole
+	 */
+	public SinkRole fetchOfSinkRole(String name) {
+		Objects.requireNonNull(name, "name must not be null");
+		SinkRole provRole = repo.getSinkRole(name);
+		if (provRole == null)
+			throw new RuntimeException("SinkRole '" + name + "' could not be found");
+		return provRole;
+	}
+
+	/**
+	 * Extracts the required role referenced by <code>name</code> from the
+	 * repository.
+	 * <p>
+	 * This method throws a RuntimeException if no required role is present under
+	 * the given <code>name</code>. If more than one required role with this
+	 * <code>name</code> is present, a warning will be printed during runtime and
+	 * the system chooses the first required role it finds.
+	 * </p>
+	 * 
+	 * @param name
+	 * @return the required role
+	 * @see org.palladiosimulator.pcm.repository.RequiredRole
+	 */
+	public RequiredRole fetchOfRequiredRole(String name) {
+		Objects.requireNonNull(name, "name must not be null");
+		RequiredRole reqRole = repo.getRequiredRole(name);
+		if (reqRole == null)
+			throw new RuntimeException("RequiredRole '" + name + "' could not be found");
+		return reqRole;
+	}
+
+	/**
+	 * Extracts the operation required role referenced by <code>name</code> from the
+	 * repository.
+	 * <p>
+	 * This method throws a RuntimeException if no operation required role is
+	 * present under the given <code>name</code>. If more than one operation
+	 * required role with this <code>name</code> is present, a warning will be
+	 * printed during runtime and the system chooses the first operation required
+	 * role it finds.
+	 * </p>
+	 * 
+	 * @param name
+	 * @return the operation required role
+	 * @see org.palladiosimulator.pcm.repository.OperationRequiredRole
+	 */
+	public OperationRequiredRole fetchOfOperationRequiredRole(String name) {
+		Objects.requireNonNull(name, "name must not be null");
+		OperationRequiredRole reqRole = repo.getOperationRequiredRole(name);
+		if (reqRole == null)
+			throw new RuntimeException("RequiredRole '" + name + "' could not be found");
+		return reqRole;
+	}
+
+	/**
 	 * Extracts the infrastructure required role referenced by <code>name</code>
 	 * from the repository.
 	 * <p>
@@ -1339,27 +1321,6 @@ public class FluentRepositoryFactory {
 		if (reqRole == null)
 			throw new RuntimeException("RequiredRole '" + name + "' could not be found");
 		return reqRole;
-	}
-
-	/**
-	 * Extracts the sink role referenced by <code>name</code> from the repository.
-	 * <p>
-	 * This method throws a RuntimeException if no sink role is present under the
-	 * given <code>name</code>. If more than one sink role with this
-	 * <code>name</code> is present, a warning will be printed during runtime and
-	 * the system chooses the first sink role it finds.
-	 * </p>
-	 * 
-	 * @param name
-	 * @return the sink role
-	 * @see org.palladiosimulator.pcm.repository.SinkRole
-	 */
-	public SinkRole fetchOfSinkRole(String name) {
-		Objects.requireNonNull(name, "name must not be null");
-		SinkRole provRole = repo.getSinkRole(name);
-		if (provRole == null)
-			throw new RuntimeException("SinkRole '" + name + "' could not be found");
-		return provRole;
 	}
 
 	/**
@@ -1403,6 +1364,77 @@ public class FluentRepositoryFactory {
 		if (reqRole == null)
 			throw new RuntimeException("ResourceRequiredRole '" + name + "' could not be found");
 		return reqRole;
+	}
+
+	/**
+	 * TODO: javadoc
+	 * 
+	 * @param name
+	 * @return
+	 */
+	public Signature fetchOfSignature(String name) {
+		Objects.requireNonNull(name, "name must not be null");
+		Signature signature = repo.getSignature(name);
+		if (signature == null)
+			throw new RuntimeException("Signature '" + name + "' could not be found");
+		return signature;
+	}
+
+	/**
+	 * Extracts the operation signature referenced by <code>name</code> from the
+	 * repository.
+	 * <p>
+	 * This method throws a RuntimeException if no operation signature is present
+	 * under the given <code>name</code>. If more than one operation signature with
+	 * this <code>name</code> is present, a warning will be printed during runtime
+	 * and the system chooses the first operation signature it finds.
+	 * </p>
+	 * 
+	 * @param name
+	 * @return the operation signature
+	 * @see org.palladiosimulator.pcm.repository.OperationSignature
+	 */
+	public OperationSignature fetchOfOperationSignature(String name) {
+		Objects.requireNonNull(name, "name must not be null");
+		OperationSignature signature = repo.getOperationSignature(name);
+		if (signature == null)
+			throw new RuntimeException("Operation signature '" + name + "' could not be found");
+		return signature;
+	}
+
+	/**
+	 * TODO: javadoc
+	 * 
+	 * @param name
+	 * @return
+	 */
+	public InfrastructureSignature fetchOfInfrastructureSignature(String name) {
+		Objects.requireNonNull(name, "name must not be null");
+		InfrastructureSignature signature = repo.getInfrastructureSignature(name);
+		if (signature == null)
+			throw new RuntimeException("Operation signature '" + name + "' could not be found");
+		return signature;
+	}
+
+	/**
+	 * Extracts the event type referenced by <code>name</code> from the repository.
+	 * <p>
+	 * This method throws a RuntimeException if no event type is present under the
+	 * given <code>name</code>. If more than one event type with this
+	 * <code>name</code> is present, a warning will be printed during runtime and
+	 * the system chooses the first event type it finds.
+	 * </p>
+	 * 
+	 * @param name
+	 * @return the event type
+	 * @see org.palladiosimulator.pcm.repository.EventType
+	 */
+	public EventType fetchOfEventType(String name) {
+		Objects.requireNonNull(name, "name must not be null");
+		EventType eventType = repo.getEventType(name);
+		if (eventType == null)
+			throw new RuntimeException("EventType '" + name + "' could not be found");
+		return eventType;
 	}
 
 	/**
@@ -1496,17 +1528,6 @@ public class FluentRepositoryFactory {
 	}
 
 	/**
-	 * TODO
-	 * 
-	 * @param name
-	 * @return
-	 */
-	public Signature fetchOfSignature(String name) {
-		Objects.requireNonNull(name, "name must not be null");
-		return null; // TODO:
-	}
-
-	/**
 	 * Extracts the parameter referenced by <code>name</code> from the repository.
 	 * <p>
 	 * This method throws a RuntimeException if no parameter is present under the
@@ -1551,6 +1572,28 @@ public class FluentRepositoryFactory {
 	}
 
 	/**
+	 * Extracts the passive resource referenced by <code>name</code> from the
+	 * repository.
+	 * <p>
+	 * This method throws a RuntimeException if no passive resource is present under
+	 * the given <code>name</code>. If more than one passive resource with this
+	 * <code>name</code> is present, a warning will be printed during runtime and
+	 * the system chooses the first passive resource it finds.
+	 * </p>
+	 * 
+	 * @param name
+	 * @return the recovery action behaviour
+	 * @see org.palladiosimulator.pcm.seff.seff_reliability.RecoveryActionBehaviour
+	 */
+	public PassiveResource fetchOfPassiveResource(String name) {
+		Objects.requireNonNull(name, "name must not be null");
+		PassiveResource r = repo.getPassiveResource(name);
+		if (r == null)
+			throw new RuntimeException("Passive Resource '" + name + "' could not be found");
+		return r;
+	}
+
+	/**
 	 * Extracts the recovery action behaviour referenced by <code>name</code> from
 	 * the repository.
 	 * <p>
@@ -1570,28 +1613,6 @@ public class FluentRepositoryFactory {
 		RecoveryActionBehaviour r = repo.getRecoveryActionBehaviour(name);
 		if (r == null)
 			throw new RuntimeException("Recovery action behaviour '" + name + "' could not be found");
-		return r;
-	}
-
-	/**
-	 * Extracts the passive resource referenced by <code>name</code> from the
-	 * repository.
-	 * <p>
-	 * This method throws a RuntimeException if no passive resource is present under
-	 * the given <code>name</code>. If more than one passive resource with this
-	 * <code>name</code> is present, a warning will be printed during runtime and
-	 * the system chooses the first passive resource it finds.
-	 * </p>
-	 * 
-	 * @param name
-	 * @return the recovery action behaviour
-	 * @see org.palladiosimulator.pcm.seff.seff_reliability.RecoveryActionBehaviour
-	 */
-	public PassiveResource fetchOfPassiveResource(String name) {
-		Objects.requireNonNull(name, "name must not be null");
-		PassiveResource r = repo.getPassiveResource(name);
-		if (r == null)
-			throw new RuntimeException("Passive Resource '" + name + "' could not be found");
 		return r;
 	}
 }

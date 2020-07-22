@@ -20,7 +20,6 @@ import repositoryStructure.RepositoryCreator;
  */
 public class ExceptionTypeCreator extends Entity {
 
-	private String name;
 	private String exceptionMessage;
 
 	public ExceptionTypeCreator(RepositoryCreator repo) {
