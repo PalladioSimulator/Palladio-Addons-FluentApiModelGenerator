@@ -606,7 +606,7 @@ public class FluentRepositoryFactory {
 		Objects.requireNonNull(name, "name must not be null");
 		HardwareInducedFailureType h = ReliabilityFactory.eINSTANCE.createHardwareInducedFailureType();
 		h.setEntityName(name);
-		h.setProcessingResourceType__HardwareInducedFailureType(repo.getProcessingResource(processingResource));
+		h.setProcessingResourceType__HardwareInducedFailureType(repo.getProcessingResourceType(processingResource));
 		this.repo.addFailureType(h);
 		return h;
 	}

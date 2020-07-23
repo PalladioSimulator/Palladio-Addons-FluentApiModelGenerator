@@ -1,6 +1,14 @@
 # FluentAPICreation
 
 
+
+Hi Philip,
+
+wenn du bis morgen wartest, erstelle ich dir hier noch ein Beispiel ins Readme. Dann musst du dich nicht ewig einlesen. :)
+
+Grüße Louisa
+
+
 # Projekt erstellen
 Java Plugin Projekt mit Palladio (org.palladiosimulator.pcm) als Abhängigkeit. 
 
