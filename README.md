@@ -1,12 +1,40 @@
 # FluentAPICreation
 
-
-
 Hi Philip,
 
-wenn du bis morgen wartest, erstelle ich dir hier noch ein Beispiel ins Readme. Dann musst du dich nicht ewig einlesen. :)
+die fluent API läuft komplett über die FluentAPIFactory. Die musst du einmal initialisieren und kannst dann damit Repository, Components oder eben SEFFs erstellen.
+```java
+FluentRepositoryFactory create = new FluentRepositoryFactory();
+		
+Repository repo = create.newRepository()
+				.addToRepository(create.newOperationInterface().withName("IDatabase")
+									.withOperationSignature()
+										.withName("saveDatabaseEntry").now())
+				.addToRepository(create.newBasicComponent().withName("Database")
+									.withServiceEffectSpecification(create.newSeff()
+											.onSignature(create.fetchOfSignature("saveDatabaseEntry"))
+											.withSeffBehaviour().withStartAction()
+												.followedBy().externalCallAction()
+												// beliebig viele Actions
+												.followedBy().stopAction().createBehaviourNow()))
+				.createRepositoryNow();
+```
 
-Grüße Louisa
+Oder wenn du wirklich nur den SEFF willst:
+
+```java
+ServiceEffectSpecification seff = create.newSeff()
+		.withSeffBehaviour().withStartAction()
+			.followedBy().externalCallAction()
+			// beliebig viele Actions
+			.followedBy().stopAction().createBehaviourNow().build();
+```
+
+Ich hoffe, das hilft dir erst mal weiter. Wenn du Fehler findest oder Verbesserungsvorschläge hast, immer her damit.
+
+Viele Grüße
+Louisa
+
 
 
 # Projekt erstellen
