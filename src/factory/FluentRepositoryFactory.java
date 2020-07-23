@@ -854,35 +854,6 @@ public class FluentRepositoryFactory {
 
 	/**
 	 * Extracts the by <code>name</code> referenced data type from the repository.
-	 * If the data type should be searched among imported repositories, set
-	 * <code>imported</code> to <code>true</code>.
-	 * <p>
-	 * This method throws a RuntimeException if no data type is present under the
-	 * given <code>name</code>. If more than one data type with this
-	 * <code>name</code> is present, a warning will be printed during runtime and
-	 * the system chooses the first data type it finds.
-	 * </p>
-	 * 
-	 * @param name
-	 * @param imported
-	 * @return the data type
-	 * @see apiControlFlowInterfaces.RepoAddition#addToRepository(CollectionDataType)
-	 * @see apiControlFlowInterfaces.RepoAddition#addToRepository(CompositeDataTypeCreator)
-	 * @see org.palladiosimulator.pcm.repository.DataType
-	 */
-	public DataType fetchOfDataType(String name, boolean imported) {
-		Objects.requireNonNull(name, "name must not be null");
-		DataType dataType = repo.getDataType(name, imported);
-		if (dataType == null)
-			dataType = repo.getPrimitiveDataType(name);
-		if (dataType == null)
-			throw new RuntimeException("Datatype '" + name + "' could not be found");
-
-		return dataType;
-	}
-
-	/**
-	 * Extracts the by <code>name</code> referenced data type from the repository.
 	 * <p>
 	 * This method throws a RuntimeException if no data type is present under the
 	 * given <code>name</code>. If more than one data type with this
@@ -898,8 +869,14 @@ public class FluentRepositoryFactory {
 	 * @see org.palladiosimulator.pcm.repository.DataType
 	 */
 	public DataType fetchOfDataType(String name) {
-		return fetchOfDataType(name, false);
-		// TODO: boolean imported; sollte das so bei allen sein?
+		Objects.requireNonNull(name, "name must not be null");
+		DataType dataType = repo.getDataType(name);
+		if (dataType == null)
+			dataType = repo.getPrimitiveDataType(name);
+		if (dataType == null)
+			throw new RuntimeException("Datatype '" + name + "' could not be found");
+
+		return dataType;
 	}
 
 	/**

@@ -2,6 +2,7 @@ package repositoryStructure;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.IllegalFormatException;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -365,6 +366,17 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 		return repo;
 	}
 
+	private Repository getRepositoryByName(String name) {
+		List<Repository> collect = imports.stream()
+				.filter(r -> r.getEntityName() != null && r.getEntityName().contentEquals(name))
+				.collect(Collectors.toList());
+		if (collect.isEmpty())
+			return null;
+		if (collect.size() > 1)
+			logger.warning("More than repository with name '" + name + "' found.");
+		return collect.get(0);
+	}
+
 	// ------------- getter -------------
 	// TODO: getter and add Methoden should be protected
 	public PrimitiveDataType getPrimitiveDataType(Primitive primitive) {
@@ -385,8 +397,26 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 	}
 
 	public CompositeDataType getCompositeDataType(String name) {
-		List<CompositeDataType> collect = dataTypes.stream().filter(c -> c instanceof CompositeDataType)
-				.map(b -> (CompositeDataType) b)
+		List<CompositeDataType> collect;
+		String[] split = name.split(".");
+		if (split.length == 2) {
+			name = split[1];
+			Repository r = getRepositoryByName(split[0]);
+			if (r == null)
+				throw new RuntimeException("Repository '" + name + "' could not be found");
+			collect = r.getDataTypes__Repository().stream().filter(d -> d instanceof CompositeDataType)
+					.map(d -> (CompositeDataType) d).collect(Collectors.toList());
+		} else if (split.length == 1)
+			collect = this.dataTypes.stream().filter(d -> d instanceof CompositeDataType)
+					.map(d -> (CompositeDataType) d).collect(Collectors.toList());
+		else
+			throw new IllegalArgumentException(
+					"To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
+		return getCompositeDataTypeFromList(name, collect);
+	}
+
+	private CompositeDataType getCompositeDataTypeFromList(String name, List<CompositeDataType> dataTypes) {
+		List<CompositeDataType> collect = dataTypes.stream()
 				.filter(c -> c.getEntityName() != null && c.getEntityName().contentEquals(name))
 				.collect(Collectors.toList());
 		if (collect.isEmpty())
@@ -396,38 +426,39 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 		return collect.get(0);
 	}
 
-	public DataType getDataType(String name, boolean imported) {
-		List<DataType> collect = new ArrayList<>();
-		if (imported) {
-			List<CollectionDataType> collectColl = importedDataTypes.stream().filter(d -> d instanceof CollectionDataType)
-					.map(d -> (CollectionDataType) d)
-					.filter(d -> d.getEntityName() != null && d.getEntityName().contentEquals(name))
-					.collect(Collectors.toList());
-			List<CompositeDataType> collectComp = importedDataTypes.stream().filter(d -> d instanceof CompositeDataType)
-					.map(d -> (CompositeDataType) d)
-					.filter(d -> d.getEntityName() != null && d.getEntityName().contentEquals(name))
-					.collect(Collectors.toList());
-			collect.addAll(collectColl);
-			collect.addAll(collectComp);
+	public DataType getDataType(String name) {
+		String[] split = name.split(".");
+		if (split.length == 2) {
+			String entityName = split[1];
+			Repository r = getRepositoryByName(split[0]);
+			if (r == null)
+				throw new RuntimeException("Repository '" + name + "' could not be found");
+			return getDataTypeFromList(entityName, r.getDataTypes__Repository());
+		} else if (split.length == 1) {
+			return getDataTypeFromList(name, this.dataTypes);
 		} else {
-			List<CollectionDataType> collectColl = dataTypes.stream().filter(d -> d instanceof CollectionDataType)
-					.map(d -> (CollectionDataType) d)
-					.filter(d -> d.getEntityName() != null && d.getEntityName().contentEquals(name))
-					.collect(Collectors.toList());
-			List<CompositeDataType> collectComp = dataTypes.stream().filter(d -> d instanceof CompositeDataType)
-					.map(d -> (CompositeDataType) d)
-					.filter(d -> d.getEntityName() != null && d.getEntityName().contentEquals(name))
-					.collect(Collectors.toList());
-			collect.addAll(collectColl);
-			collect.addAll(collectComp);
+			throw new IllegalArgumentException(
+					"To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
 		}
+	}
+
+	private DataType getDataTypeFromList(String name, List<DataType> dataTypes) {
+		List<DataType> collect = new ArrayList<>();
+		List<CollectionDataType> collectColl = dataTypes.stream().filter(d -> d instanceof CollectionDataType)
+				.map(d -> (CollectionDataType) d)
+				.filter(d -> d.getEntityName() != null && d.getEntityName().contentEquals(name))
+				.collect(Collectors.toList());
+		List<CompositeDataType> collectComp = dataTypes.stream().filter(d -> d instanceof CompositeDataType)
+				.map(d -> (CompositeDataType) d)
+				.filter(d -> d.getEntityName() != null && d.getEntityName().contentEquals(name))
+				.collect(Collectors.toList());
+		collect.addAll(collectColl);
+		collect.addAll(collectComp);
+
 		if (collect.isEmpty())
 			return getPrimitiveDataType(name);
 		if (collect.size() > 1)
-			if (imported)
-				logger.warning("More than one data type with name '" + name + "' found in imports.");
-			else
-				logger.warning("More than one data type with name '" + name + "' found.");
+			logger.warning("More than one data type with name '" + name + "' found.");
 		return collect.get(0);
 	}
 
