@@ -88,15 +88,23 @@ import repositoryStructure.interfaces.OperationInterfaceCreator;
 public class FluentRepositoryFactory {
 
 	private RepositoryCreator repo;
+	private Repository primitives;
+	private ResourceRepository resourceTypes;
+	private Repository failures;
 
 	/**
 	 * TODO: javadoc
 	 */
 	public FluentRepositoryFactory() {
+		EcorePlugin.ExtensionProcessor.process(null);
+		primitives = loadRepository("pathmap://PCM_MODELS/PrimitiveTypes.repository");
+		resourceTypes = loadResourceTypeRepository("pathmap://PCM_MODELS/Palladio.resourcetype");
+		failures = loadRepository("pathmap://PCM_MODELS/FailureTypes.repository");
 	}
 
 	private static Repository loadRepository(String uri) {
 		RepositoryPackage.eINSTANCE.eClass();
+
 		Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
 		Map<String, Object> m = reg.getExtensionToFactoryMap();
 		m.put("repository", new XMIResourceFactoryImpl());
@@ -108,7 +116,7 @@ public class FluentRepositoryFactory {
 		return repository;
 	}
 
-	private static ResourceRepository loadResourceTypeRepository() {
+	private static ResourceRepository loadResourceTypeRepository(String uri) {
 		ResourcetypePackage.eINSTANCE.eClass();
 
 		// Register the XMI resource factory for the .repository extension
@@ -122,7 +130,7 @@ public class FluentRepositoryFactory {
 
 		// Get the resource
 //		Resource resource = resSet.getResource(URI.createURI("pathmap://PCM_MODELS/Palladio.resourcetype"), true);
-		Resource resource = resSet.getResource(URI.createURI("resources/Palladio.resourcetype"), true);
+		Resource resource = resSet.getResource(URI.createURI(uri), true);
 		// Get the first model element and cast it to the right type, in my
 		// example everything is hierarchical included in this first node
 		ResourceRepository repository = (ResourceRepository) resource.getContents().get(0);
@@ -142,10 +150,6 @@ public class FluentRepositoryFactory {
 	 * @return the repository in the making
 	 */
 	public Repo newRepository() {
-		// TODO: pathmap://PCM_MODELS/PrimitiveTypes.repository
-		Repository primitives = loadRepository("resources/PrimitiveTypes.repository");
-		ResourceRepository resourceTypes = loadResourceTypeRepository();
-		Repository failures = loadRepository("resources/FailureTypes.repository");
 		this.repo = new RepositoryCreator(primitives, resourceTypes, failures);
 		return this.repo;
 	}
@@ -876,7 +880,7 @@ public class FluentRepositoryFactory {
 
 		return dataType;
 	}
-	
+
 	/**
 	 * Extracts the by <code>name</code> referenced data type from the repository.
 	 * <p>
@@ -895,7 +899,7 @@ public class FluentRepositoryFactory {
 	 */
 	public DataType fetchOfDataType(String name) {
 		return fetchOfDataType(name, false);
-		//TODO: sollte das so bei allen sein?
+		// TODO: boolean imported; sollte das so bei allen sein?
 	}
 
 	/**

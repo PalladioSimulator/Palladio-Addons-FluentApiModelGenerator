@@ -1,19 +1,13 @@
 Fragen:
 
-- build.xml vom Projekt, sodass import klappt
-
-- kann man resources (aus resourceRepo) auch selbst erstellen?
-- fetch of imported components etc explizit über boolean. Was wenn mehrere Imports, und componenten mit gleichem Namen existieren?
-
 - sollte es alle Methoden, wo man den Namen direkt setzen kann auch ohne Namen geben? (passive resource, assembly context etc.)
 - SetVariableAction: was ist die Voraussetzung?
 - ResourceTimoutFailureType vs Passive Resource: wo wird was gesetzt?
 
-- validation vom repository
-
-
 
 ToDo:
+- fetch of imported components: name mit Punkt: mediastore.Database
+- validation vom repository -> Yves fragt nach
 - Sichtbarkeit
 - Reihenfolge mit Interfaces regeln: required characterisation geht nicht vor signature; manche Sachen dürfen nur einmal aufgerufen werden
 

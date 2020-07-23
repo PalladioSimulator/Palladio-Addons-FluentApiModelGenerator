@@ -73,7 +73,6 @@ import org.palladiosimulator.pcm.subsystem.SubSystem;
 
 import apiControlFlowInterfaces.Repo;
 import apiControlFlowInterfaces.RepoAddition;
-import factory.FluentRepositoryFactory;
 import repositoryStructure.components.Component;
 import repositoryStructure.datatypes.CommunicationLinkResource;
 import repositoryStructure.datatypes.CompositeDataTypeCreator;
