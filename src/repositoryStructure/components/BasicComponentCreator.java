@@ -292,8 +292,8 @@ public class BasicComponentCreator extends Component {
 	public BasicComponentCreator withPassiveResource(String capacity_stochasticExpression,
 			ResourceTimeoutFailureType failureType, String name) {
 		Objects.requireNonNull(capacity_stochasticExpression, "capacity_stochasticExpression must not be null");
-		// TODO: should failure + name not be null? sollte es die Methode auch ohne name
-		// geben?
+		Objects.requireNonNull(failureType, "failureType must not be null");
+		// TODO: sollte es die Methode auch ohne name geben?
 		PCMRandomVariable randVar = CoreFactory.eINSTANCE.createPCMRandomVariable();
 		randVar.setSpecification(capacity_stochasticExpression);
 

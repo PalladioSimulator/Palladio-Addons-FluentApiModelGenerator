@@ -1,33 +1,31 @@
 Fragen:
 
-- SetVariableAction: hat diese Seff-Action Voraussetzungen?
-- sollte ich nullPointerExceptions werfen oder es ignorieren? Weil theoretisch *muss* man keinen wert setzen, aber es ergibt halt keinen Sinn
-- recovery behaviour: iwie ist das alles doppelt:
-die recovery action hat ein primary und alternativen (liste); das primary behaviour hat alternativen (interne liste); jede alternative hat alternativen (rekursiv mit interner Liste).
+- build.xml vom Projekt, sodass import klappt
 
-- einige Funktionen/Eigenschaften stehen mehrfach, andere einfach zur Verfügung; aber einmal aufgerufen kann man sie trotzdem neu aufrufen und damit neu setzen. sollte das verhindert werden?
--> non null
-7.9. 9-12 MS Teams
-11:30-11:50 Louisa 20min Präsentation 15min; Ziel motivation, was gemacht, Sprachdesign, Beispiel-minimum Elemente eingehe: repos;
-ARE Vorlagen
-Readme statt Ausarbeitung: Beschreibung; was braucht man zum selbst bauen, abhängigkeit, wie benutzen
+- kann man resources (aus resourceRepo) auch selbst erstellen?
+- fetch of imported components etc explizit über boolean. Was wenn mehrere Imports, und componenten mit gleichem Namen existieren?
+
+- sollte es alle Methoden, wo man den Namen direkt setzen kann auch ohne Namen geben? (passive resource, assembly context etc.)
+- SetVariableAction: was ist die Voraussetzung?
+- ResourceTimoutFailureType vs Passive Resource: wo wird was gesetzt?
+
+- validation vom repository
+
+
 
 ToDo:
-- SetReturnAction
-- TODOs im Code
-- print warning if more than one datatype/component etc. with given name can be fetched.
-
-- dataTypes einlesen 					-> email warten		wie bekommt man dieses href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.1"/>
-- imports 								-> email warten
-
-- Resource required zeug 				-> später
-- ExceptionTypes 						-> später
-
 - Sichtbarkeit
-- Reihenfolge mit Interfaces regeln: required characterisation geht nicht vor signature
-- JavaDoc
+- Reihenfolge mit Interfaces regeln: required characterisation geht nicht vor signature; manche Sachen dürfen nur einmal aufgerufen werden
+
 
 Nutzer: anonymous; PW: anonymous;
+
+
+Vortrag und Ausarbeitung
+- 7.9. 9-12 MS Teams
+- 11:30-11:50 Louisa 20min Präsentation 15min; Ziel motivation, was gemacht, Sprachdesign, Beispiel-minimum Elemente eingehe: repos;
+- ARE Vorlagen
+- Readme statt Ausarbeitung: Beschreibung; was braucht man zum selbst bauen, abhängigkeit, wie benutzen
 
 
 Notizen

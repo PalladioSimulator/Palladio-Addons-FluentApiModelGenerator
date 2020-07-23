@@ -17,5 +17,12 @@ public interface Repo extends RepoAddition {
 	 * @return this repository
 	 */
 	Repo withDescription(String description);
+	
+	/**
+	 * TODO: javadoc
+	 * @param path
+	 * @return
+	 */
+	Repo withImportedResource(String path);
 
 }

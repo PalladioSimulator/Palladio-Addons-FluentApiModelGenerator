@@ -180,13 +180,6 @@ public class VariableUsageCreator extends Entity {
 
 		varUsage.getVariableCharacterisation_VariableUsage().addAll(variableCharacterisations);
 
-		// TODO: sind über die GUI nicht setzbar, und in der Dokumentation nicht weiter
-		// erwähnt. muss das gemacht werden?
-//		EntryLevelSystemCall a = varUsage.getEntryLevelSystemCall_InputParameterUsage();
-//		EntryLevelSystemCall b = varUsage.getEntryLevelSystemCall_OutputParameterUsage();
-//		SpecifiedOutputParameterAbstraction c = varUsage
-//				.getSpecifiedOutputParameterAbstraction_expectedExternalOutputs_VariableUsage();
-//		UserData d = varUsage.getUserData_VariableUsage();
 		return varUsage;
 	}
 }

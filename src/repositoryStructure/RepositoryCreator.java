@@ -9,7 +9,14 @@ import java.util.stream.Collectors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.eclipse.emf.common.util.BasicDiagnostic;
+import org.eclipse.emf.common.util.DiagnosticChain;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.composition.Connector;
 import org.palladiosimulator.pcm.core.composition.EventChannel;
@@ -48,6 +55,7 @@ import org.palladiosimulator.pcm.repository.ProvidesComponentType;
 import org.palladiosimulator.pcm.repository.Repository;
 import org.palladiosimulator.pcm.repository.RepositoryComponent;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
+import org.palladiosimulator.pcm.repository.RepositoryPackage;
 import org.palladiosimulator.pcm.repository.RequiredRole;
 import org.palladiosimulator.pcm.repository.Signature;
 import org.palladiosimulator.pcm.repository.SinkRole;
@@ -58,12 +66,14 @@ import org.palladiosimulator.pcm.resourcetype.ProcessingResourceType;
 import org.palladiosimulator.pcm.resourcetype.ResourceInterface;
 import org.palladiosimulator.pcm.resourcetype.ResourceRepository;
 import org.palladiosimulator.pcm.resourcetype.ResourceType;
+import org.palladiosimulator.pcm.resourcetype.ResourcetypePackage;
 import org.palladiosimulator.pcm.resourcetype.SchedulingPolicy;
 import org.palladiosimulator.pcm.seff.seff_reliability.RecoveryActionBehaviour;
 import org.palladiosimulator.pcm.subsystem.SubSystem;
 
 import apiControlFlowInterfaces.Repo;
 import apiControlFlowInterfaces.RepoAddition;
+import factory.FluentRepositoryFactory;
 import repositoryStructure.components.Component;
 import repositoryStructure.datatypes.CommunicationLinkResource;
 import repositoryStructure.datatypes.CompositeDataTypeCreator;
@@ -86,6 +96,11 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 	private Logger logger;
 	private String description;
 
+	private List<Repository> imports;
+	private List<DataType> importedDataTypes;
+	private List<FailureType> importedFailureTypes;
+	private List<RepositoryComponent> importedComponents;
+	private List<Interface> importedInterfaces;
 	private List<DataType> dataTypes;
 	private Map<Primitive, PrimitiveDataType> internalPrimitives;
 	private List<ProcessingResourceType> internalProcessingResources;
@@ -109,6 +124,11 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 	private List<Signature> signatures;
 
 	public RepositoryCreator(Repository primitiveDataTypes, ResourceRepository resourceTypes, Repository failureTypes) {
+		this.imports = new ArrayList<>();
+		this.importedDataTypes = new ArrayList<>();
+		this.importedFailureTypes = new ArrayList<>();
+		this.importedComponents = new ArrayList<>();
+		this.importedInterfaces = new ArrayList<>();
 		this.dataTypes = new ArrayList<>();
 		this.internalPrimitives = new HashMap<>();
 		this.internalProcessingResources = new ArrayList<>();
@@ -135,6 +155,40 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 
 		this.logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 		logger.setLevel(Level.ALL);
+	}
+
+	private static Repository loadRepository(String uri) {
+		RepositoryPackage.eINSTANCE.eClass();
+		Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
+		Map<String, Object> m = reg.getExtensionToFactoryMap();
+		m.put("repository", new XMIResourceFactoryImpl());
+		ResourceSet resSet = new ResourceSetImpl();
+//		resSet.getURIConverter().getURIMap().putAll(EcorePlugin.computePlatformURIMap(false));
+//		Resource resource = resSet.getResource(URI.createPlatformResourceURI(uri, true), true);
+		Resource resource = resSet.getResource(URI.createURI(uri), true);
+		Repository repository = (Repository) resource.getContents().get(0);
+		return repository;
+	}
+
+	private static ResourceRepository loadResourceTypeRepository() {
+		ResourcetypePackage.eINSTANCE.eClass();
+
+		// Register the XMI resource factory for the .repository extension
+		Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
+		Map<String, Object> m = reg.getExtensionToFactoryMap();
+		m.put("repository", new XMIResourceFactoryImpl());
+		m.put("resourcetype", new XMIResourceFactoryImpl());
+
+		// Obtain a new resource set
+		ResourceSet resSet = new ResourceSetImpl();
+
+		// Get the resource
+//		Resource resource = resSet.getResource(URI.createURI("pathmap://PCM_MODELS/Palladio.resourcetype"), true);
+		Resource resource = resSet.getResource(URI.createURI("resources/Palladio.resourcetype"), true);
+		// Get the first model element and cast it to the right type, in my
+		// example everything is hierarchical included in this first node
+		ResourceRepository repository = (ResourceRepository) resource.getContents().get(0);
+		return repository;
 	}
 
 	private void initPredefinedDataTypesAndResources(Repository primitiveDataTypes, ResourceRepository resourceTypes,
@@ -165,9 +219,6 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 				break;
 			case STRING:
 				this.internalPrimitives.put(Primitive.STRING, p);
-				break;
-			default:
-				System.err.println("TODO:primitives");
 				break;
 			}
 		}
@@ -223,6 +274,17 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 	public RepositoryCreator withDescription(String description) {
 		Objects.requireNonNull(description, "description must not be null");
 		this.description = description;
+		return this;
+	}
+
+	@Override
+	public Repo withImportedResource(String path) {
+		Repository imported = loadRepository(path);
+		this.imports.add(imported);
+		this.importedDataTypes.addAll(imported.getDataTypes__Repository());
+		this.importedFailureTypes.addAll(imported.getFailureTypes__Repository());
+		this.importedComponents.addAll(imported.getComponents__Repository());
+		this.importedInterfaces.addAll(imported.getInterfaces__Repository());
 		return this;
 	}
 
@@ -293,12 +355,14 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 	public Repository createRepositoryNow() {
 		Repository repo = build();
 		RepositoryValidator v = new RepositoryValidator();
+		DiagnosticChain dc = new BasicDiagnostic();
 
-		boolean validate = v.validate(repo, null, null);
+		boolean validate = v.validate(repo, dc, null);
 		if (!validate)
 			logger.severe("Repository is not valid.");
-		
-		//TODO: tut das validate und rufe add Methoden überall an den jeweiligen stellen auf
+
+		// TODO: tut das validate und rufe add Methoden überall an den jeweiligen
+		// stellen auf
 		return repo;
 	}
 
@@ -333,20 +397,39 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 		return collect.get(0);
 	}
 
-	public DataType getDataType(String name) {
-		for (DataType d : this.dataTypes) {
-			if (d instanceof CompositeDataType) {
-				CompositeDataType comp = (CompositeDataType) d;
-				if (comp.getEntityName() != null && comp.getEntityName().contentEquals(name))
-					return comp;
-			} else if (d instanceof CollectionDataType) {
-				CollectionDataType coll = (CollectionDataType) d;
-				if (coll.getEntityName() != null && coll.getEntityName().contentEquals(name))
-					return coll;
-			} else {
-			}
+	public DataType getDataType(String name, boolean imported) {
+		List<DataType> collect = new ArrayList<>();
+		if (imported) {
+			List<CollectionDataType> collectColl = importedDataTypes.stream().filter(d -> d instanceof CollectionDataType)
+					.map(d -> (CollectionDataType) d)
+					.filter(d -> d.getEntityName() != null && d.getEntityName().contentEquals(name))
+					.collect(Collectors.toList());
+			List<CompositeDataType> collectComp = importedDataTypes.stream().filter(d -> d instanceof CompositeDataType)
+					.map(d -> (CompositeDataType) d)
+					.filter(d -> d.getEntityName() != null && d.getEntityName().contentEquals(name))
+					.collect(Collectors.toList());
+			collect.addAll(collectColl);
+			collect.addAll(collectComp);
+		} else {
+			List<CollectionDataType> collectColl = dataTypes.stream().filter(d -> d instanceof CollectionDataType)
+					.map(d -> (CollectionDataType) d)
+					.filter(d -> d.getEntityName() != null && d.getEntityName().contentEquals(name))
+					.collect(Collectors.toList());
+			List<CompositeDataType> collectComp = dataTypes.stream().filter(d -> d instanceof CompositeDataType)
+					.map(d -> (CompositeDataType) d)
+					.filter(d -> d.getEntityName() != null && d.getEntityName().contentEquals(name))
+					.collect(Collectors.toList());
+			collect.addAll(collectColl);
+			collect.addAll(collectComp);
 		}
-		return null;
+		if (collect.isEmpty())
+			return getPrimitiveDataType(name);
+		if (collect.size() > 1)
+			if (imported)
+				logger.warning("More than one data type with name '" + name + "' found in imports.");
+			else
+				logger.warning("More than one data type with name '" + name + "' found.");
+		return collect.get(0);
 	}
 
 	public FailureType getFailureType(Failure failure) {

@@ -24,8 +24,8 @@ class Main {
 
 	public static void main(String[] args) {
 
-		mediaStoreExample();
-		nullExample();
+//		mediaStoreExample();
+//		nullExample();
 		FluentRepositoryFactory create = new FluentRepositoryFactory();
 		
 		Repository repo = create.newRepository()
@@ -134,7 +134,7 @@ class Main {
 						create.newBasicComponent()
 								.withVariableUsage(create
 										.newVariableUsage())
-								
+								.withPassiveResource("3", create.newResourceTimeoutFailureType("123"), null)
 								.withServiceEffectSpecification(create.newSeff()
 										// internal
 										.withInternalBehaviour(create.newInternalBehaviour().withStartAction()
@@ -152,8 +152,6 @@ class Main {
 												.withSeffBehaviour().withStartAction().followedBy().stopAction()
 												.createBehaviourNow())
 										.withPrimaryBehaviour(create.newRecoveryBehaviour()
-												// TODO: Alternative hier zu setzen ist doppelt zur erstellung der
-												// alternative 3 Zeilen drüber
 												.withAlternativeRecoveryBehaviour(
 														create.fetchOfRecoveryActionBehaviour("foo"))
 												.withFailureType(Failure.HARDWARE_CPU).withSeffBehaviour()
@@ -178,19 +176,7 @@ class Main {
 						.requiresInfrastructure(create.newInfrastructureInterface())
 						.requiresInfrastructure(create.newInfrastructureInterface(), null)
 						// connectors
-						.withEventChannel().now1()
-						.withAssemblyConnection(null, null, null, null)
-						.withAssemblyEventConnection(null, null, null, null, null)
-						.withAssemblyInfrastructureConnection(null, null, null, null)
-						.withEventChannelSinkConnection(null, null, null, null)
-						.withEventChannelSourceConnection(null, null, null)
-						.withProvidedDelegationConnection(null, null, null)
-						.withProvidedInfrastructureDelegationConnection(null, null, null)
-						.withRequiredDelegationConnection(null, null, null)
-						.withRequiredInfrastructureDelegationConnection(null, null, null)
-						.withRequiredResourceDelegationConnection(null, null, null)
-						.withSinkDelegationConnection(null, null, null).withSourceDelegationConnection(null, null, null)
-						.resourceRequiredDegelationConnection(null, null))
+						.withEventChannel().now1())
 				.addToRepository(create.newOperationInterface().withOperationSignature()
 						.withReturnType(Primitive.BOOLEAN)
 						.withFailureType(Failure.HARDWARE_CPU).now())
@@ -208,7 +194,7 @@ class Main {
 	public static void mediaStoreExample() {
 		FluentRepositoryFactory create = new FluentRepositoryFactory();
 
-		// TODO: seffs + failureType + Namen der Provided Roles
+		// TODO: mediastore: seffs + failureType + Namen der Provided Roles
 		Repository mediaStore = create.newRepository().withName("defaultRepository")
 				.withDescription("This is my PCM model.")
 //			.withId("abc123")

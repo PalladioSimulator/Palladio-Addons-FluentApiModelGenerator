@@ -95,7 +95,7 @@ public class FluentRepositoryFactory {
 	public FluentRepositoryFactory() {
 	}
 
-	private Repository loadRepository(String uri) {
+	private static Repository loadRepository(String uri) {
 		RepositoryPackage.eINSTANCE.eClass();
 		Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
 		Map<String, Object> m = reg.getExtensionToFactoryMap();
@@ -108,7 +108,7 @@ public class FluentRepositoryFactory {
 		return repository;
 	}
 
-	private ResourceRepository loadResourceTypeRepository() {
+	private static ResourceRepository loadResourceTypeRepository() {
 		ResourcetypePackage.eINSTANCE.eClass();
 
 		// Register the XMI resource factory for the .repository extension
@@ -850,6 +850,8 @@ public class FluentRepositoryFactory {
 
 	/**
 	 * Extracts the by <code>name</code> referenced data type from the repository.
+	 * If the data type should be searched among imported repositories, set
+	 * <code>imported</code> to <code>true</code>.
 	 * <p>
 	 * This method throws a RuntimeException if no data type is present under the
 	 * given <code>name</code>. If more than one data type with this
@@ -858,20 +860,42 @@ public class FluentRepositoryFactory {
 	 * </p>
 	 * 
 	 * @param name
+	 * @param imported
 	 * @return the data type
 	 * @see apiControlFlowInterfaces.RepoAddition#addToRepository(CollectionDataType)
 	 * @see apiControlFlowInterfaces.RepoAddition#addToRepository(CompositeDataTypeCreator)
 	 * @see org.palladiosimulator.pcm.repository.DataType
 	 */
-	public DataType fetchOfDataType(String name) {
+	public DataType fetchOfDataType(String name, boolean imported) {
 		Objects.requireNonNull(name, "name must not be null");
-		DataType dataType = repo.getDataType(name);
+		DataType dataType = repo.getDataType(name, imported);
 		if (dataType == null)
 			dataType = repo.getPrimitiveDataType(name);
 		if (dataType == null)
 			throw new RuntimeException("Datatype '" + name + "' could not be found");
 
 		return dataType;
+	}
+	
+	/**
+	 * Extracts the by <code>name</code> referenced data type from the repository.
+	 * <p>
+	 * This method throws a RuntimeException if no data type is present under the
+	 * given <code>name</code>. If more than one data type with this
+	 * <code>name</code> is present, a warning will be printed during runtime and
+	 * the system chooses the first data type it finds.
+	 * </p>
+	 * 
+	 * @param name
+	 * @param imported
+	 * @return the data type
+	 * @see apiControlFlowInterfaces.RepoAddition#addToRepository(CollectionDataType)
+	 * @see apiControlFlowInterfaces.RepoAddition#addToRepository(CompositeDataTypeCreator)
+	 * @see org.palladiosimulator.pcm.repository.DataType
+	 */
+	public DataType fetchOfDataType(String name) {
+		return fetchOfDataType(name, false);
+		//TODO: sollte das so bei allen sein?
 	}
 
 	/**

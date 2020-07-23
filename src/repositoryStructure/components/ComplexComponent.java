@@ -68,7 +68,6 @@ public abstract class ComplexComponent extends Component {
 	 */
 	public ComplexComponent withAssemblyContext(RepositoryComponent encapsulatedComponent, String name,
 			VariableUsageCreator... configParameterUsages) {
-		//TODO: methode auch ohne name?
 		Objects.requireNonNull(encapsulatedComponent, "encapsulatedComponent must not be null");
 		if (configParameterUsages != null && configParameterUsages.length > 0)
 			for (int i = 0; i < configParameterUsages.length; i++)
@@ -134,6 +133,10 @@ public abstract class ComplexComponent extends Component {
 	public ComplexComponent withAssemblyConnection(OperationProvidedRole providedRole,
 			AssemblyContext providingAssemblyContext, OperationRequiredRole requiredRole,
 			AssemblyContext requiringAssemblyContext) {
+		Objects.requireNonNull(providedRole, "providedRole must not be null");
+		Objects.requireNonNull(providingAssemblyContext, "providingAssemblyContext must not be null");
+		Objects.requireNonNull(requiredRole, "requiredRole must not be null");
+		Objects.requireNonNull(requiringAssemblyContext, "requiringAssemblyContext must not be null");
 		AssemblyConnector assemblyConnector = CompositionFactory.eINSTANCE.createAssemblyConnector();
 
 		assemblyConnector.setProvidedRole_AssemblyConnector(providedRole);
@@ -167,6 +170,9 @@ public abstract class ComplexComponent extends Component {
 	 */
 	public ComplexComponent withProvidedDelegationConnection(AssemblyContext assemblyContext,
 			OperationProvidedRole innerProvidedRole, OperationProvidedRole outerProvidedRole) {
+		Objects.requireNonNull(assemblyContext, "assemblyContext must not be null");
+		Objects.requireNonNull(innerProvidedRole, "innerProvidedRole must not be null");
+		Objects.requireNonNull(outerProvidedRole, "outerProvidedRole must not be null");
 		ProvidedDelegationConnector connector = CompositionFactory.eINSTANCE.createProvidedDelegationConnector();
 
 		connector.setAssemblyContext_ProvidedDelegationConnector(assemblyContext);
@@ -199,6 +205,9 @@ public abstract class ComplexComponent extends Component {
 	 */
 	public ComplexComponent withRequiredDelegationConnection(AssemblyContext assemblyContext,
 			OperationRequiredRole innerRequiredRole, OperationRequiredRole outerRequiredRole) {
+		Objects.requireNonNull(assemblyContext, "assemblyContext must not be null");
+		Objects.requireNonNull(innerRequiredRole, "innerRequiredRole must not be null");
+		Objects.requireNonNull(outerRequiredRole, "outerRequiredRole must not be null");
 		RequiredDelegationConnector connector = CompositionFactory.eINSTANCE.createRequiredDelegationConnector();
 
 		connector.setAssemblyContext_RequiredDelegationConnector(assemblyContext);
@@ -238,6 +247,12 @@ public abstract class ComplexComponent extends Component {
 	 */
 	public ComplexComponent withAssemblyEventConnection(SinkRole sinkRole, AssemblyContext sinkAssemblyContext,
 			SourceRole sourceRole, AssemblyContext sourceAssemblyContext, String filterCondition_stochasticExpression) {
+		Objects.requireNonNull(sinkRole, "sinkRole must not be null");
+		Objects.requireNonNull(sinkAssemblyContext, "sinkAssemblyContext must not be null");
+		Objects.requireNonNull(sourceRole, "sourceRole must not be null");
+		Objects.requireNonNull(sourceAssemblyContext, "sourceAssemblyContext must not be null");
+		Objects.requireNonNull(filterCondition_stochasticExpression,
+				"filterCondition_stochasticExpression must not be null");
 		AssemblyEventConnector connector = CompositionFactory.eINSTANCE.createAssemblyEventConnector();
 
 		connector.setSinkRole__AssemblyEventConnector(sinkRole);
@@ -275,6 +290,11 @@ public abstract class ComplexComponent extends Component {
 	 */
 	public ComplexComponent withEventChannelSinkConnection(AssemblyContext assemblyContext, EventChannel eventChannel,
 			SinkRole sinkRole, String filterCondition_stochasticExpression) {
+		Objects.requireNonNull(assemblyContext, "assemblyContext must not be null");
+		Objects.requireNonNull(eventChannel, "eventChannel must not be null");
+		Objects.requireNonNull(sinkRole, "sinkRole must not be null");
+		Objects.requireNonNull(filterCondition_stochasticExpression,
+				"filterCondition_stochasticExpression must not be null");
 		EventChannelSinkConnector connector = CompositionFactory.eINSTANCE.createEventChannelSinkConnector();
 
 		connector.setAssemblyContext__EventChannelSinkConnector(assemblyContext);
@@ -310,6 +330,9 @@ public abstract class ComplexComponent extends Component {
 	 */
 	public ComplexComponent withEventChannelSourceConnection(AssemblyContext assemblyContext, EventChannel eventChannel,
 			SourceRole sourceRole) {
+		Objects.requireNonNull(assemblyContext, "assemblyContext must not be null");
+		Objects.requireNonNull(eventChannel, "eventChannel must not be null");
+		Objects.requireNonNull(sourceRole, "sourceRole must not be null");
 		EventChannelSourceConnector connector = CompositionFactory.eINSTANCE.createEventChannelSourceConnector();
 
 		connector.setAssemblyContext__EventChannelSourceConnector(assemblyContext);
@@ -342,6 +365,9 @@ public abstract class ComplexComponent extends Component {
 	 */
 	public ComplexComponent withSinkDelegationConnection(AssemblyContext assemblyContext, SinkRole innerSinkRole,
 			SinkRole outerSinkRole) {
+		Objects.requireNonNull(assemblyContext, "assemblyContext must not be null");
+		Objects.requireNonNull(innerSinkRole, "innerSinkRole must not be null");
+		Objects.requireNonNull(outerSinkRole, "outerSinkRole must not be null");
 		SinkDelegationConnector connector = CompositionFactory.eINSTANCE.createSinkDelegationConnector();
 
 		connector.setAssemblyContext__SinkDelegationConnector(assemblyContext);
@@ -375,6 +401,9 @@ public abstract class ComplexComponent extends Component {
 	 */
 	public ComplexComponent withSourceDelegationConnection(AssemblyContext assemblyContext, SourceRole innerSourceRole,
 			SourceRole outerSourceRole) {
+		Objects.requireNonNull(assemblyContext, "assemblyContext must not be null");
+		Objects.requireNonNull(innerSourceRole, "innerSourceRole must not be null");
+		Objects.requireNonNull(outerSourceRole, "outerSourceRole must not be null");
 		SourceDelegationConnector connector = CompositionFactory.eINSTANCE.createSourceDelegationConnector();
 
 		connector.setAssemblyContext__SourceDelegationConnector(assemblyContext);
@@ -407,6 +436,10 @@ public abstract class ComplexComponent extends Component {
 	public ComplexComponent withAssemblyInfrastructureConnection(InfrastructureProvidedRole providedRole,
 			AssemblyContext providingAssemblyContext, InfrastructureRequiredRole requiredRole,
 			AssemblyContext requiringAssemblyContext) {
+		Objects.requireNonNull(providedRole, "providedRole must not be null");
+		Objects.requireNonNull(providingAssemblyContext, "providingAssemblyContext must not be null");
+		Objects.requireNonNull(requiredRole, "requiredRole must not be null");
+		Objects.requireNonNull(requiringAssemblyContext, "requiringAssemblyContext must not be null");
 		AssemblyInfrastructureConnector connector = CompositionFactory.eINSTANCE
 				.createAssemblyInfrastructureConnector();
 
@@ -437,6 +470,9 @@ public abstract class ComplexComponent extends Component {
 	 */
 	public ComplexComponent withProvidedInfrastructureDelegationConnection(AssemblyContext assemblyContext,
 			InfrastructureProvidedRole innerProvidedRole, InfrastructureProvidedRole outerProvidedRole) {
+		Objects.requireNonNull(assemblyContext, "assemblyContext must not be null");
+		Objects.requireNonNull(innerProvidedRole, "innerProvidedRole must not be null");
+		Objects.requireNonNull(outerProvidedRole, "outerProvidedRole must not be null");
 		ProvidedInfrastructureDelegationConnector connector = CompositionFactory.eINSTANCE
 				.createProvidedInfrastructureDelegationConnector();
 		connector.setAssemblyContext__ProvidedInfrastructureDelegationConnector(assemblyContext);
@@ -465,6 +501,9 @@ public abstract class ComplexComponent extends Component {
 	 */
 	public ComplexComponent withRequiredInfrastructureDelegationConnection(AssemblyContext assemblyContext,
 			InfrastructureRequiredRole innerRequiredRole, InfrastructureRequiredRole outerRequiredRole) {
+		Objects.requireNonNull(assemblyContext, "assemblyContext must not be null");
+		Objects.requireNonNull(innerRequiredRole, "innerRequiredRole must not be null");
+		Objects.requireNonNull(outerRequiredRole, "outerRequiredRole must not be null");
 		RequiredInfrastructureDelegationConnector connector = CompositionFactory.eINSTANCE
 				.createRequiredInfrastructureDelegationConnector();
 		connector.setAssemblyContext__RequiredInfrastructureDelegationConnector(assemblyContext);
@@ -493,6 +532,9 @@ public abstract class ComplexComponent extends Component {
 	 */
 	public ComplexComponent withRequiredResourceDelegationConnection(AssemblyContext assemblyContext,
 			ResourceRequiredRole innerRequiredRole, ResourceRequiredRole outerRequiredRole) {
+		Objects.requireNonNull(assemblyContext, "assemblyContext must not be null");
+		Objects.requireNonNull(innerRequiredRole, "innerRequiredRole must not be null");
+		Objects.requireNonNull(outerRequiredRole, "outerRequiredRole must not be null");
 		RequiredResourceDelegationConnector connector = CompositionFactory.eINSTANCE
 				.createRequiredResourceDelegationConnector();
 		connector.setAssemblyContext__RequiredResourceDelegationConnector(assemblyContext);
@@ -518,6 +560,8 @@ public abstract class ComplexComponent extends Component {
 	 */
 	public ComplexComponent resourceRequiredDegelationConnection(ResourceRequiredRole innerRequiredRole,
 			ResourceRequiredRole outerRequiredRole) {
+		Objects.requireNonNull(innerRequiredRole, "innerRequiredRole must not be null");
+		Objects.requireNonNull(outerRequiredRole, "outerRequiredRole must not be null");
 		ResourceRequiredDelegationConnector connector = CompositionFactory.eINSTANCE
 				.createResourceRequiredDelegationConnector();
 		connector.setInnerResourceRequiredRole_ResourceRequiredDelegationConnector(innerRequiredRole);
