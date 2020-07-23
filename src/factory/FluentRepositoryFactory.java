@@ -104,35 +104,28 @@ public class FluentRepositoryFactory {
 
 	private static Repository loadRepository(String uri) {
 		RepositoryPackage.eINSTANCE.eClass();
-
+		// Register the XMI resource factory for the .repository extension
 		Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
 		Map<String, Object> m = reg.getExtensionToFactoryMap();
 		m.put("repository", new XMIResourceFactoryImpl());
+		// Get the resource
 		ResourceSet resSet = new ResourceSetImpl();
-//		resSet.getURIConverter().getURIMap().putAll(EcorePlugin.computePlatformURIMap(false));
-//		Resource resource = resSet.getResource(URI.createPlatformResourceURI(uri, true), true);
 		Resource resource = resSet.getResource(URI.createURI(uri), true);
+		// Get the first model element and cast it to the right type
 		Repository repository = (Repository) resource.getContents().get(0);
 		return repository;
 	}
 
 	private static ResourceRepository loadResourceTypeRepository(String uri) {
 		ResourcetypePackage.eINSTANCE.eClass();
-
-		// Register the XMI resource factory for the .repository extension
+		// Register the XMI resource factory for the .resourcetype extension
 		Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
 		Map<String, Object> m = reg.getExtensionToFactoryMap();
-		m.put("repository", new XMIResourceFactoryImpl());
 		m.put("resourcetype", new XMIResourceFactoryImpl());
-
-		// Obtain a new resource set
-		ResourceSet resSet = new ResourceSetImpl();
-
 		// Get the resource
-//		Resource resource = resSet.getResource(URI.createURI("pathmap://PCM_MODELS/Palladio.resourcetype"), true);
+		ResourceSet resSet = new ResourceSetImpl();
 		Resource resource = resSet.getResource(URI.createURI(uri), true);
-		// Get the first model element and cast it to the right type, in my
-		// example everything is hierarchical included in this first node
+		// Get the first model element and cast it to the right type
 		ResourceRepository repository = (ResourceRepository) resource.getContents().get(0);
 		return repository;
 	}
@@ -815,7 +808,8 @@ public class FluentRepositoryFactory {
 
 	/**
 	 * Extracts the by <code>name</code> referenced composite data type from the
-	 * repository.
+	 * repository. If the entity belongs to an imported repository, refer to it as
+	 * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
 	 * <p>
 	 * This method throws a RuntimeException if no composite data type is present
 	 * under the given <code>name</code>. If more than one composite data type with
@@ -854,6 +848,8 @@ public class FluentRepositoryFactory {
 
 	/**
 	 * Extracts the by <code>name</code> referenced data type from the repository.
+	 * If the entity belongs to an imported repository, refer to it as
+	 * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
 	 * <p>
 	 * This method throws a RuntimeException if no data type is present under the
 	 * given <code>name</code>. If more than one data type with this
@@ -881,7 +877,8 @@ public class FluentRepositoryFactory {
 
 	/**
 	 * Extracts the resource timeout failure type referenced by <code>name</code>
-	 * from the repository.
+	 * from the repository. If the entity belongs to an imported repository, refer
+	 * to it as <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
 	 * <p>
 	 * This method throws a RuntimeException if no resource timeout failure type is
 	 * present under the given <code>name</code>. If more than one resource timeout
@@ -903,7 +900,8 @@ public class FluentRepositoryFactory {
 
 	/**
 	 * Extracts the failure type referenced by <code>failure</code> from the
-	 * repository.
+	 * repository. If the entity belongs to an imported repository, refer to it as
+	 * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
 	 * <p>
 	 * This method throws a RuntimeException if no failure type is present under the
 	 * given <code>name</code>. If more than one failure type with this
@@ -924,7 +922,8 @@ public class FluentRepositoryFactory {
 
 	/**
 	 * Extracts the failure type referenced by <code>name</code> from the
-	 * repository.
+	 * repository. If the entity belongs to an imported repository, refer to it as
+	 * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
 	 * <p>
 	 * This method throws a RuntimeException if no failure type is present under the
 	 * given <code>name</code>. If more than one failure type with this
@@ -985,7 +984,8 @@ public class FluentRepositoryFactory {
 
 	/**
 	 * Extracts the <b>component</b> referenced by <code>name</code> from the
-	 * repository.
+	 * repository. If the entity belongs to an imported repository, refer to it as
+	 * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
 	 * <p>
 	 * This method throws a RuntimeException if no <b>component</b> is present under
 	 * the given <code>name</code>. If more than one <b>component</b> with this
@@ -1008,7 +1008,8 @@ public class FluentRepositoryFactory {
 
 	/**
 	 * Extracts the basic component referenced by <code>name</code> from the
-	 * repository.
+	 * repository. If the entity belongs to an imported repository, refer to it as
+	 * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
 	 * <p>
 	 * This method throws a RuntimeException if no basic component is present under
 	 * the given <code>name</code>. If more than one basic component with this
@@ -1031,7 +1032,8 @@ public class FluentRepositoryFactory {
 
 	/**
 	 * Extracts the composite component referenced by <code>name</code> from the
-	 * repository.
+	 * repository. If the entity belongs to an imported repository, refer to it as
+	 * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
 	 * <p>
 	 * This method throws a RuntimeException if no composite component is present
 	 * under the given <code>name</code>. If more than one composite component with
@@ -1054,6 +1056,8 @@ public class FluentRepositoryFactory {
 
 	/**
 	 * Extracts the subsystem referenced by <code>name</code> from the repository.
+	 * If the entity belongs to an imported repository, refer to it as
+	 * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
 	 * <p>
 	 * This method throws a RuntimeException if no subsystem is present under the
 	 * given <code>name</code>. If more than one subsystem with this
@@ -1076,7 +1080,8 @@ public class FluentRepositoryFactory {
 
 	/**
 	 * Extracts the complete component type referenced by <code>name</code> from the
-	 * repository.
+	 * repository. If the entity belongs to an imported repository, refer to it as
+	 * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
 	 * <p>
 	 * This method throws a RuntimeException if no complete component type is
 	 * present under the given <code>name</code>. If more than one complete
@@ -1100,7 +1105,8 @@ public class FluentRepositoryFactory {
 
 	/**
 	 * Extracts the provides component type referenced by <code>name</code> from the
-	 * repository.
+	 * repository. If the entity belongs to an imported repository, refer to it as
+	 * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
 	 * <p>
 	 * This method throws a RuntimeException if no provides component type is
 	 * present under the given <code>name</code>. If more than one provides
@@ -1124,6 +1130,8 @@ public class FluentRepositoryFactory {
 
 	/**
 	 * Extracts the interface referenced by <code>name</code> from the repository.
+	 * If the entity belongs to an imported repository, refer to it as
+	 * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
 	 * <p>
 	 * This method throws a RuntimeException if no interface is present under the
 	 * given <code>name</code>. If more than one interface with this
@@ -1146,7 +1154,8 @@ public class FluentRepositoryFactory {
 
 	/**
 	 * Extracts the operation interface referenced by <code>name</code> from the
-	 * repository.
+	 * repository. If the entity belongs to an imported repository, refer to it as
+	 * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
 	 * <p>
 	 * This method throws a RuntimeException if no operation interface is present
 	 * under the given <code>name</code>. If more than one operation interface with
@@ -1169,7 +1178,8 @@ public class FluentRepositoryFactory {
 
 	/**
 	 * Extracts the infrastructure interface referenced by <code>name</code> from
-	 * the repository.
+	 * the repository. If the entity belongs to an imported repository, refer to it
+	 * as <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
 	 * <p>
 	 * This method throws a RuntimeException if no infrastructure interface is
 	 * present under the given <code>name</code>. If more than one infrastructure
@@ -1193,6 +1203,8 @@ public class FluentRepositoryFactory {
 
 	/**
 	 * Extracts the event group referenced by <code>name</code> from the repository.
+	 * If the entity belongs to an imported repository, refer to it as
+	 * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
 	 * <p>
 	 * This method throws a RuntimeException if no event group is present under the
 	 * given <code>name</code>. If more than one event group with this
@@ -1215,7 +1227,8 @@ public class FluentRepositoryFactory {
 
 	/**
 	 * Extracts the provided role referenced by <code>name</code> from the
-	 * repository.
+	 * repository. If the entity belongs to an imported repository, refer to it as
+	 * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
 	 * <p>
 	 * This method throws a RuntimeException if no provided role is present under
 	 * the given <code>name</code>. If more than one provided role with this
@@ -1237,7 +1250,8 @@ public class FluentRepositoryFactory {
 
 	/**
 	 * Extracts the operation provided role referenced by <codrequired roleom the
-	 * repository.
+	 * repository. If the entity belongs to an imported repository, refer to it as
+	 * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
 	 * <p>
 	 * This method throws a RuntimeException if no operation provided role is
 	 * present under the given <code>name</code>. If more than one operation
@@ -1260,7 +1274,8 @@ public class FluentRepositoryFactory {
 
 	/**
 	 * Extracts the infrastructure provided role referenced by <code>name</code>
-	 * from the repository.
+	 * from the repository. If the entity belongs to an imported repository, refer
+	 * to it as <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
 	 * <p>
 	 * This method throws a RuntimeException if no infrastructure provided role is
 	 * present under the given <code>name</code>. If more than one infrastructure
@@ -1283,6 +1298,8 @@ public class FluentRepositoryFactory {
 
 	/**
 	 * Extracts the sink role referenced by <code>name</code> from the repository.
+	 * If the entity belongs to an imported repository, refer to it as
+	 * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
 	 * <p>
 	 * This method throws a RuntimeException if no sink role is present under the
 	 * given <code>name</code>. If more than one sink role with this
@@ -1304,7 +1321,8 @@ public class FluentRepositoryFactory {
 
 	/**
 	 * Extracts the required role referenced by <code>name</code> from the
-	 * repository.
+	 * repository. If the entity belongs to an imported repository, refer to it as
+	 * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
 	 * <p>
 	 * This method throws a RuntimeException if no required role is present under
 	 * the given <code>name</code>. If more than one required role with this
@@ -1326,7 +1344,8 @@ public class FluentRepositoryFactory {
 
 	/**
 	 * Extracts the operation required role referenced by <code>name</code> from the
-	 * repository.
+	 * repository. If the entity belongs to an imported repository, refer to it as
+	 * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
 	 * <p>
 	 * This method throws a RuntimeException if no operation required role is
 	 * present under the given <code>name</code>. If more than one operation
@@ -1349,7 +1368,8 @@ public class FluentRepositoryFactory {
 
 	/**
 	 * Extracts the infrastructure required role referenced by <code>name</code>
-	 * from the repository.
+	 * from the repository. If the entity belongs to an imported repository, refer
+	 * to it as <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
 	 * <p>
 	 * This method throws a RuntimeException if no infrastructure required role is
 	 * present under the given <code>name</code>. If more than one infrastructure
@@ -1372,6 +1392,8 @@ public class FluentRepositoryFactory {
 
 	/**
 	 * Extracts the source role referenced by <code>name</code> from the repository.
+	 * If the entity belongs to an imported repository, refer to it as
+	 * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
 	 * <p>
 	 * This method throws a RuntimeException if no source role is present under the
 	 * given <code>name</code>. If more than one source role with this
@@ -1393,7 +1415,8 @@ public class FluentRepositoryFactory {
 
 	/**
 	 * Extracts the resource required role referenced by <code>name</code> from the
-	 * repository.
+	 * repository. If the entity belongs to an imported repository, refer to it as
+	 * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
 	 * <p>
 	 * This method throws a RuntimeException if no resource required role is present
 	 * under the given <code>name</code>. If more than one resource required role
@@ -1415,6 +1438,8 @@ public class FluentRepositoryFactory {
 
 	/**
 	 * Extracts the signature referenced by <code>name</code> from the repository.
+	 * If the entity belongs to an imported repository, refer to it as
+	 * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
 	 * <p>
 	 * This method throws a RuntimeException if no signature is present under the
 	 * given <code>name</code>. If more than one signature with this
@@ -1436,7 +1461,8 @@ public class FluentRepositoryFactory {
 
 	/**
 	 * Extracts the operation signature referenced by <code>name</code> from the
-	 * repository.
+	 * repository. If the entity belongs to an imported repository, refer to it as
+	 * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
 	 * <p>
 	 * This method throws a RuntimeException if no operation signature is present
 	 * under the given <code>name</code>. If more than one operation signature with
@@ -1458,7 +1484,8 @@ public class FluentRepositoryFactory {
 
 	/**
 	 * Extracts the infrastructure signature referenced by <code>name</code> from
-	 * the repository.
+	 * the repository. If the entity belongs to an imported repository, refer to it
+	 * as <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
 	 * <p>
 	 * This method throws a RuntimeException if no infrastructure signature is
 	 * present under the given <code>name</code>. If more than one infrastructure
@@ -1481,6 +1508,8 @@ public class FluentRepositoryFactory {
 
 	/**
 	 * Extracts the event type referenced by <code>name</code> from the repository.
+	 * If the entity belongs to an imported repository, refer to it as
+	 * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
 	 * <p>
 	 * This method throws a RuntimeException if no event type is present under the
 	 * given <code>name</code>. If more than one event type with this
@@ -1502,7 +1531,8 @@ public class FluentRepositoryFactory {
 
 	/**
 	 * Extracts the assembly context referenced by <code>name</code> from the
-	 * repository.
+	 * repository. If the entity belongs to an imported repository, refer to it as
+	 * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
 	 * <p>
 	 * This method throws a RuntimeException if no assembly context is present under
 	 * the given <code>name</code>. If more than one assembly context with this
@@ -1524,7 +1554,8 @@ public class FluentRepositoryFactory {
 
 	/**
 	 * Extracts the event channel referenced by <code>name</code> from the
-	 * repository.
+	 * repository. If the entity belongs to an imported repository, refer to it as
+	 * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
 	 * <p>
 	 * This method throws a RuntimeException if no event channel is present under
 	 * the given <code>name</code>. If more than one event channel with this
@@ -1546,7 +1577,8 @@ public class FluentRepositoryFactory {
 
 	/**
 	 * Extracts the event channel sink connector referenced by <code>name</code>
-	 * from the repository.
+	 * from the repository. If the entity belongs to an imported repository, refer
+	 * to it as <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
 	 * <p>
 	 * This method throws a RuntimeException if no event channel sink connector is
 	 * present under the given <code>name</code>. If more than one event channel
@@ -1569,7 +1601,8 @@ public class FluentRepositoryFactory {
 
 	/**
 	 * Extracts the event channel source connector referenced by <code>name</code>
-	 * from the repository.
+	 * from the repository. If the entity belongs to an imported repository, refer
+	 * to it as <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
 	 * <p>
 	 * This method throws a RuntimeException if no event channel source connector is
 	 * present under the given <code>name</code>. If more than one event channel
@@ -1592,6 +1625,8 @@ public class FluentRepositoryFactory {
 
 	/**
 	 * Extracts the parameter referenced by <code>name</code> from the repository.
+	 * If the entity belongs to an imported repository, refer to it as
+	 * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
 	 * <p>
 	 * This method throws a RuntimeException if no parameter is present under the
 	 * given <code>name</code>. If more than one parameter with this
@@ -1613,7 +1648,9 @@ public class FluentRepositoryFactory {
 
 	/**
 	 * Extracts the parameter referenced by <code>name</code> occurring in the
-	 * signature <code>context</code> from the repository.
+	 * signature <code>context</code> from the repository. If the entity belongs to
+	 * an imported repository, refer to it as
+	 * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
 	 * <p>
 	 * This method throws a RuntimeException if no parameter is present under the
 	 * given <code>name</code>. If more than one parameter with this
@@ -1636,7 +1673,8 @@ public class FluentRepositoryFactory {
 
 	/**
 	 * Extracts the passive resource referenced by <code>name</code> from the
-	 * repository.
+	 * repository. If the entity belongs to an imported repository, refer to it as
+	 * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
 	 * <p>
 	 * This method throws a RuntimeException if no passive resource is present under
 	 * the given <code>name</code>. If more than one passive resource with this
@@ -1658,7 +1696,8 @@ public class FluentRepositoryFactory {
 
 	/**
 	 * Extracts the recovery action behaviour referenced by <code>name</code> from
-	 * the repository.
+	 * the repository. If the entity belongs to an imported repository, refer to it
+	 * as <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
 	 * <p>
 	 * This method throws a RuntimeException if no recovery action behaviour is
 	 * present under the given <code>name</code>. If more than one recovery action

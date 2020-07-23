@@ -1,6 +1,6 @@
 Fragen:
 
-- sollte es alle Methoden, wo man den Namen direkt setzen kann auch ohne Namen geben? (passive resource, assembly context etc.)
+- sollte es alle Methoden, wo man den Namen direkt setzen kann auch ohne Namen geben? (passive resource, assembly context etc.) : ja
 - SetVariableAction: was ist die Voraussetzung?
 - ResourceTimoutFailureType vs Passive Resource: wo wird was gesetzt?
 
