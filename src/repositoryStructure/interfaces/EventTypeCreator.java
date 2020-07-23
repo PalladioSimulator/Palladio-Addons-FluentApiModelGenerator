@@ -177,6 +177,7 @@ public class EventTypeCreator extends Entity {
 	public EventGroupCreator now() {
 		EventType eventType = this.build();
 		correspondingEventGroup.addEventType(eventType);
+		this.repository.addSignature(eventType);
 		return correspondingEventGroup;
 	}
 

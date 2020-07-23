@@ -195,6 +195,12 @@ public class SubSystemCreator extends ComplexComponent {
 	}
 
 	@Override
+	public SubSystemCreator withAssemblyContext(RepositoryComponent component,
+			VariableUsageCreator... configParameterUsage) {
+		return (SubSystemCreator) super.withAssemblyContext(component, configParameterUsage);
+	}
+
+	@Override
 	public EventChannelSubsystem withEventChannel() {
 		return new EventChannelCreator(this, this.repository);
 	}
@@ -231,15 +237,15 @@ public class SubSystemCreator extends ComplexComponent {
 
 	@Override
 	public SubSystemCreator withEventChannelSinkConnection(AssemblyContext assemblyContext, EventChannel eventChannel,
-			SinkRole sinkRole, String filterCondition_stochasticExpression) {
+			SinkRole sinkRole, String filterCondition_stochasticExpression, String name) {
 		return (SubSystemCreator) super.withEventChannelSinkConnection(assemblyContext, eventChannel, sinkRole,
-				filterCondition_stochasticExpression);
+				filterCondition_stochasticExpression, name);
 	}
 
 	@Override
 	public SubSystemCreator withEventChannelSourceConnection(AssemblyContext assemblyContext, EventChannel eventChannel,
-			SourceRole sourceRole) {
-		return (SubSystemCreator) super.withEventChannelSourceConnection(assemblyContext, eventChannel, sourceRole);
+			SourceRole sourceRole, String name) {
+		return (SubSystemCreator) super.withEventChannelSourceConnection(assemblyContext, eventChannel, sourceRole, name);
 	}
 
 	@Override

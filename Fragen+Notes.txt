@@ -1,11 +1,12 @@
 Fragen:
-
+- EventChannel und EventChannelSinkConnector: was war zuerst da - der EventChannel oder der Connector? (wie bei Passiv Resource und ResourceTimeoutFailureType - da hat man den ResourceTimeoutFailureType)
+Übergibt man dem EventChannel die Connectors oder spezifiziert der Connector seinen EventChannel? (Ich würde design-technisch zum letzteren tendieren)
 
 ToDo:
 - validation vom repository -> Yves fragt nach
 
-- sollte es alle Methoden, wo man den Namen direkt setzen kann auch ohne Namen geben? (assembly context etc.) : ja
-- SetVariableAction: was ist die Voraussetzung? return type von signature muss gesetzt sein
+- brauchen die connector Namen?
+- Henne-Ei-Problem vom Event Channel
 
 - Sichtbarkeit
 - Reihenfolge mit Interfaces regeln: required characterisation geht nicht vor signature; manche Sachen dürfen nur einmal aufgerufen werden

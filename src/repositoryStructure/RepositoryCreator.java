@@ -353,8 +353,7 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 		if (!validate)
 			logger.severe("Repository is not valid.");
 
-		// TODO: tut das validate und rufe add Methoden überall an den jeweiligen
-		// stellen auf
+		// TODO: validate tut nicht
 		return repo;
 	}
 
@@ -1568,14 +1567,6 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 	}
 
 	// ------------- adding -------------
-
-	public void addDataType(DataType dt) {
-		dataTypes.add(dt);
-	}
-
-	public void addFailureType(FailureType f) {
-		failureTypes.add(f);
-	}
 
 	public void addComponent(RepositoryComponent c) {
 		components.add(c);

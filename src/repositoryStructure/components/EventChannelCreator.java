@@ -55,6 +55,7 @@ public class EventChannelCreator extends Entity implements EventChannelComposite
 	@Override
 	public EventChannelCreator withEventChannelSinkConnector(EventChannelSinkConnector sinkConnection) {
 		Objects.requireNonNull(sinkConnection, "sinkConnection must not be null");
+		//TODO: Henne-Ei-Problem mit Event Channel und Connector
 		sinkConnections.add(sinkConnection);
 		return this;
 	}

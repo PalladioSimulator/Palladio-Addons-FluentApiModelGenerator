@@ -51,7 +51,9 @@ public class RecoveryActionCreator extends GeneralAction {
 	 */
 	public RecoveryActionCreator withPrimaryBehaviour(RecoverySeff recoveryActionBehaviour) {
 		Objects.requireNonNull(recoveryActionBehaviour, "recoveryActionBehaviour must not be null");
-		this.primary = recoveryActionBehaviour.buildRecoveryBehaviour();
+		RecoveryActionBehaviour build = recoveryActionBehaviour.buildRecoveryBehaviour();
+		this.primary = build;
+		this.repository.addRecoveryActionBehaviour(build);
 		return this;
 	}
 

@@ -77,7 +77,6 @@ public class SetVariableActionCreator extends GeneralAction {
 
 	@Override
 	protected SetVariableAction build() {
-		// TODO: iwelche Voraussetzungen?
 		SetVariableAction action = SeffFactory.eINSTANCE.createSetVariableAction();
 
 		if (name != null)

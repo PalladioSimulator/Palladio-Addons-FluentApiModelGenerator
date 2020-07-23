@@ -85,6 +85,27 @@ public abstract class ComplexComponent extends Component {
 	}
 
 	/**
+	 * Creates an {@link org.palladiosimulator.pcm.core.composition.AssemblyContext
+	 * AssemblyContext} and optionally many <code>configParameterUsages</code> and
+	 * adds it to the component.
+	 * <p>
+	 * An existing {@link org.palladiosimulator.pcm.repository.RepositoryComponent
+	 * RepositoryComponent} can be fetched from the repository using the factory,
+	 * i.e. <code>create.fetchOfComponent(name)</code>.
+	 * </p>
+	 * 
+	 * @param encapsulatedComponent
+	 * @param name
+	 * @param configParameterUsages
+	 * @return the component in the making
+	 * @see factory.FluentRepositoryFactory#fetchOfComponent(String)
+	 */
+	public ComplexComponent withAssemblyContext(RepositoryComponent encapsulatedComponent,
+			VariableUsageCreator... configParameterUsages) {
+		return withAssemblyContext(encapsulatedComponent, null, configParameterUsages);
+	}
+
+	/**
 	 * Creates a new {@link org.palladiosimulator.pcm.core.composition.EventChannel
 	 * EventChannel}.
 	 * <p>
@@ -273,7 +294,8 @@ public abstract class ComplexComponent extends Component {
 	/**
 	 * Creates an
 	 * {@link org.palladiosimulator.pcm.core.composition.EventChannelSinkConnector
-	 * EventChannelSinkConnector} and adds it to the component.
+	 * EventChannelSinkConnector} with name <code>name</code> and adds it to the
+	 * component.
 	 * <p>
 	 * Existing roles, assembly contexts and event channels can be fetched from the
 	 * repository using the factory.
@@ -283,13 +305,14 @@ public abstract class ComplexComponent extends Component {
 	 * @param eventChannel
 	 * @param sinkRole
 	 * @param filterCondition_stochasticExpression
+	 * @param name
 	 * @return the component in the making
 	 * @see factory.FluentRepositoryFactory#fetchOfAssemblyContext(String)
 	 * @see factory.FluentRepositoryFactory#fetchOfEventChannel(String)
 	 * @see factory.FluentRepositoryFactory#fetchOfSinkRole(String)
 	 */
 	public ComplexComponent withEventChannelSinkConnection(AssemblyContext assemblyContext, EventChannel eventChannel,
-			SinkRole sinkRole, String filterCondition_stochasticExpression) {
+			SinkRole sinkRole, String filterCondition_stochasticExpression, String name) {
 		Objects.requireNonNull(assemblyContext, "assemblyContext must not be null");
 		Objects.requireNonNull(eventChannel, "eventChannel must not be null");
 		Objects.requireNonNull(sinkRole, "sinkRole must not be null");
@@ -300,12 +323,11 @@ public abstract class ComplexComponent extends Component {
 		connector.setAssemblyContext__EventChannelSinkConnector(assemblyContext);
 		connector.setEventChannel__EventChannelSinkConnector(eventChannel);
 		connector.setSinkRole__EventChannelSinkConnector(sinkRole);
+		connector.setEntityName(name);
 
-		if (filterCondition_stochasticExpression != null) {
-			PCMRandomVariable rand = CoreFactory.eINSTANCE.createPCMRandomVariable();
-			rand.setSpecification(filterCondition_stochasticExpression);
-			connector.setFilterCondition__EventChannelSinkConnector(rand);
-		}
+		PCMRandomVariable rand = CoreFactory.eINSTANCE.createPCMRandomVariable();
+		rand.setSpecification(filterCondition_stochasticExpression);
+		connector.setFilterCondition__EventChannelSinkConnector(rand);
 
 		this.connectors.add(connector);
 		return this;
@@ -314,7 +336,8 @@ public abstract class ComplexComponent extends Component {
 	/**
 	 * Creates an
 	 * {@link org.palladiosimulator.pcm.core.composition.EventChannelSourceConnector
-	 * EventChannelSourceConnector} and adds it to the component.
+	 * EventChannelSourceConnector} with name <code>name</code> and adds it to the
+	 * component.
 	 * <p>
 	 * Existing roles, assembly contexts and event channels can be fetched from the
 	 * repository using the factory.
@@ -323,13 +346,15 @@ public abstract class ComplexComponent extends Component {
 	 * @param assemblyContext
 	 * @param eventChannel
 	 * @param sourceRole
+	 * @param name
 	 * @return the component in the making
 	 * @see factory.FluentRepositoryFactory#fetchOfAssemblyContext(String)
 	 * @see factory.FluentRepositoryFactory#fetchOfEventChannel(String)
 	 * @see factory.FluentRepositoryFactory#fetchOfSourceRole(String)
 	 */
 	public ComplexComponent withEventChannelSourceConnection(AssemblyContext assemblyContext, EventChannel eventChannel,
-			SourceRole sourceRole) {
+			SourceRole sourceRole, String name) {
+		//TODO: Henne Ei Problem vom Event Channel
 		Objects.requireNonNull(assemblyContext, "assemblyContext must not be null");
 		Objects.requireNonNull(eventChannel, "eventChannel must not be null");
 		Objects.requireNonNull(sourceRole, "sourceRole must not be null");
@@ -338,6 +363,7 @@ public abstract class ComplexComponent extends Component {
 		connector.setAssemblyContext__EventChannelSourceConnector(assemblyContext);
 		connector.setEventChannel__EventChannelSourceConnector(eventChannel);
 		connector.setSourceRole__EventChannelSourceRole(sourceRole);
+		connector.setEntityName(name);
 
 		this.connectors.add(connector);
 		return this;

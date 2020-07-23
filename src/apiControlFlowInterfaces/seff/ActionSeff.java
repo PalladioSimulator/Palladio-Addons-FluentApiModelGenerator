@@ -382,7 +382,8 @@ public interface ActionSeff {
 
 	/**
 	 * Creates a {@link org.palladiosimulator.pcm.seff.SetVariableAction
-	 * SetVariableAction}.
+	 * SetVariableAction}. Requires that the service this SEFF is describing has a
+	 * return type.
 	 * <p>
 	 * Offers the specifying method
 	 * {@link repositoryStructure.components.seff.SetVariableActionCreator#withLocalVariableUsage(repositoryStructure.components.VariableUsageCreator)

@@ -305,6 +305,12 @@ public class CompositeComponentCreator extends ComplexComponent {
 	}
 
 	@Override
+	public CompositeComponentCreator withAssemblyContext(RepositoryComponent component,
+			VariableUsageCreator... configParameterUsage) {
+		return (CompositeComponentCreator) super.withAssemblyContext(component, configParameterUsage);
+	}
+
+	@Override
 	public EventChannelComposite withEventChannel() {
 		return new EventChannelCreator(this, this.repository);
 	}
@@ -341,16 +347,16 @@ public class CompositeComponentCreator extends ComplexComponent {
 
 	@Override
 	public CompositeComponentCreator withEventChannelSinkConnection(AssemblyContext assemblyContext,
-			EventChannel eventChannel, SinkRole sinkRole, String filterCondition_stochasticExpression) {
+			EventChannel eventChannel, SinkRole sinkRole, String filterCondition_stochasticExpression, String name) {
 		return (CompositeComponentCreator) super.withEventChannelSinkConnection(assemblyContext, eventChannel, sinkRole,
-				filterCondition_stochasticExpression);
+				filterCondition_stochasticExpression, name);
 	}
 
 	@Override
 	public CompositeComponentCreator withEventChannelSourceConnection(AssemblyContext assemblyContext,
-			EventChannel eventChannel, SourceRole sourceRole) {
+			EventChannel eventChannel, SourceRole sourceRole, String name) {
 		return (CompositeComponentCreator) super.withEventChannelSourceConnection(assemblyContext, eventChannel,
-				sourceRole);
+				sourceRole, name);
 	}
 
 	@Override

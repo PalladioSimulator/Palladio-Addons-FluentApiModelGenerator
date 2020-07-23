@@ -218,6 +218,7 @@ public class OperationSignatureCreator extends Entity {
 	public OperationInterfaceCreator now() {
 		OperationSignature sign = this.build();
 		correspondingInterface.addOperationSignatures(sign);
+		this.repository.addSignature(sign);
 		return correspondingInterface;
 	}
 

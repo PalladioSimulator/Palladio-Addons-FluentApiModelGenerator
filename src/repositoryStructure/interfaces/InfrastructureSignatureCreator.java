@@ -184,6 +184,7 @@ public class InfrastructureSignatureCreator extends Entity {
 	public InfrastructureInterfaceCreator now() {
 		InfrastructureSignature sign = this.build();
 		correspondingInterface.addInfrastructureSignatures(sign);
+		this.repository.addSignature(sign);
 		return correspondingInterface;
 	}
 
