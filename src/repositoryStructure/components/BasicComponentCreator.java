@@ -293,7 +293,7 @@ public class BasicComponentCreator extends Component {
 			ResourceTimeoutFailureType failureType, String name) {
 		Objects.requireNonNull(capacity_stochasticExpression, "capacity_stochasticExpression must not be null");
 		Objects.requireNonNull(failureType, "failureType must not be null");
-		// TODO: sollte es die Methode auch ohne name geben?
+		
 		PCMRandomVariable randVar = CoreFactory.eINSTANCE.createPCMRandomVariable();
 		randVar.setSpecification(capacity_stochasticExpression);
 
@@ -304,6 +304,28 @@ public class BasicComponentCreator extends Component {
 		this.repository.addPassiveResource(pass);
 		this.passiveResources.add(pass);
 		return this;
+	}
+
+	/**
+	 * Adds a passive resource (e.g. a semaphore) to the basic component.
+	 * <p>
+	 * The stochastic expression in <code>capacity_stochasticExpression</code>
+	 * belongs to a {@link org.palladiosimulator.pcm.core.PCMRandomVariable
+	 * PCMRandomVariable} and describes the capacity of the passive resource. The
+	 * given <code>failureType</code> is the failure type that represents a
+	 * timeout&nbsp;failure of an acquiring action for this passive resource.
+	 * </p>
+	 * 
+	 * @param capacity_stochasticExpression stochastic expression as a string
+	 * @param failureType                   a resource timeout failure
+	 * @return the basic component in the making
+	 * @see org.palladiosimulator.pcm.repository.PassiveResource
+	 * @see org.palladiosimulator.pcm.core.PCMRandomVariable
+	 * @see org.palladiosimulator.pcm.reliability.ResourceTimeoutFailureType
+	 */
+	public BasicComponentCreator withPassiveResource(String capacity_stochasticExpression,
+			ResourceTimeoutFailureType failureType) {
+		return withPassiveResource(capacity_stochasticExpression, failureType, null);
 	}
 
 	/**

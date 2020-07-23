@@ -7,6 +7,7 @@ import org.palladiosimulator.pcm.repository.Repository;
 import repositoryStructure.components.Component;
 import repositoryStructure.datatypes.CompositeDataTypeCreator;
 import repositoryStructure.datatypes.ExceptionTypeCreator;
+import repositoryStructure.datatypes.ResourceTimeoutFailureTypeCreator;
 import repositoryStructure.interfaces.Interface;
 
 public interface RepoAddition {
@@ -67,6 +68,22 @@ public interface RepoAddition {
 	 * @see org.palladiosimulator.pcm.reliability.FailureType
 	 */
 	RepoAddition addToRepository(FailureType failureType);
+	
+	/**
+	 * Adds the <code>failureType</code> to the list of failure types provided by
+	 * this repository.
+	 * 
+	 * @param failureType
+	 * @return this repository, now containing the <code>failureType</code>
+	 * @see factory.FluentRepositoryFactory#newHardwareInducedFailureType(String,
+	 *      repositoryStructure.datatypes.ProcessingResource)
+	 * @see factory.FluentRepositoryFactory#newNetworkInducedFailureType(String,
+	 *      repositoryStructure.datatypes.CommunicationLinkResource)
+	 * @see factory.FluentRepositoryFactory#newSoftwareInducedFailureType(String)
+	 * @see factory.FluentRepositoryFactory#newResourceTimeoutFailureType(String)
+	 * @see org.palladiosimulator.pcm.reliability.FailureType
+	 */
+	RepoAddition addToRepository(ResourceTimeoutFailureTypeCreator failureType);
 
 	/**
 	 * Adds the <code>exceptionType</code> to the list of exception types provided

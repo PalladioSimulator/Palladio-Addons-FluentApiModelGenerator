@@ -75,6 +75,7 @@ import repositoryStructure.datatypes.ExceptionTypeCreator;
 import repositoryStructure.datatypes.Failure;
 import repositoryStructure.datatypes.Primitive;
 import repositoryStructure.datatypes.ProcessingResource;
+import repositoryStructure.datatypes.ResourceTimeoutFailureTypeCreator;
 import repositoryStructure.interfaces.EventGroupCreator;
 import repositoryStructure.interfaces.InfrastructureInterfaceCreator;
 import repositoryStructure.interfaces.OperationInterfaceCreator;
@@ -600,7 +601,6 @@ public class FluentRepositoryFactory {
 		HardwareInducedFailureType h = ReliabilityFactory.eINSTANCE.createHardwareInducedFailureType();
 		h.setEntityName(name);
 		h.setProcessingResourceType__HardwareInducedFailureType(repo.getProcessingResourceType(processingResource));
-		this.repo.addFailureType(h);
 		return h;
 	}
 
@@ -620,32 +620,19 @@ public class FluentRepositoryFactory {
 		n.setEntityName(name);
 		n.setCommunicationLinkResourceType__NetworkInducedFailureType(
 				repo.getCommunicationLinkResource(communicationLinkResource));
-		this.repo.addFailureType(n);
 		return n;
 	}
 
 	/**
-	 * Creates a new resource timeout failure type with name <code>name</code> and
-	 * passive resource <code>passiveResource</code>.
-	 * <p>
-	 * An existing <code>passiveResource</code> can be fetched from the repository
-	 * using the factory, i.e. <code>create.fetchOfPassiveResource(name)</code>.
-	 * </p>
+	 * Creates a new resource timeout failure type with name <code>name</code>.
 	 * 
 	 * @param name
-	 * @param passiveResource
 	 * @return the resource timeout failure type
-	 * @see factory.FluentRepositoryFactory#fetchOfPassiveResource(String)
 	 * @see org.palladiosimulator.pcm.reliability.ResourceTimeoutFailureType
 	 */
-	public ResourceTimeoutFailureType newResourceTimeoutFailureType(String name) {
+	public ResourceTimeoutFailureTypeCreator newResourceTimeoutFailureType(String name) {
 		Objects.requireNonNull(name, "name must not be null");
-//		Objects.requireNonNull(passiveResource, "passiveResource must not be null");
-		ResourceTimeoutFailureType timeout = ReliabilityFactory.eINSTANCE.createResourceTimeoutFailureType();
-		timeout.setEntityName(name);
-//		timeout.setPassiveResource__ResourceTimeoutFailureType(passiveResource);
-		this.repo.addFailureType(timeout);
-		return timeout;
+		return new ResourceTimeoutFailureTypeCreator(name, this.repo);
 	}
 
 	/**
@@ -659,7 +646,6 @@ public class FluentRepositoryFactory {
 		Objects.requireNonNull(name, "name must not be null");
 		SoftwareInducedFailureType s = ReliabilityFactory.eINSTANCE.createSoftwareInducedFailureType();
 		s.setEntityName(name);
-		this.repo.addFailureType(s);
 		return s;
 	}
 

@@ -34,7 +34,7 @@ class Main {
 
 				// DATATYPES
 				.addToRepository(create.newCollectionDataType("StringList", Primitive.STRING))
-				
+				.addToRepository(create.newResourceTimeoutFailureType("blub"))
 				
 				.addToRepository(create.newCompositeDataType().withName("Person")
 						.withInnerDeclaration("first names", create.fetchOfDataType("StringList"))
@@ -57,7 +57,7 @@ class Main {
 										create.fetchOfParameter("foo"), VariableCharacterisationType.STRUCTURE))
 						.withServiceEffectSpecification(create.newSeff().withSeffBehaviour().withStartAction()
 								.followedBy().externalCallAction().followedBy().stopAction().createBehaviourNow())
-						.withPassiveResource("3", create.newResourceTimeoutFailureType("blub"), "passivo")
+						.withPassiveResource("3", create.fetchOfResourceTimeoutFailureType("blub"), "passivo")
 						.provides(create.fetchOfOperationInterface("IDatabase"), "provDB")
 						.requires(create.newOperationInterface().withName("someInterface"), "reqSomeI")
 						.withPassiveResource("2*3", create.fetchOfResourceTimeoutFailureType("blub"),
@@ -130,11 +130,12 @@ class Main {
 				
 				.addToRepository(create.newCompositeDataType())
 				.addToRepository(create.newCompositeDataType())
+				.addToRepository(create.newResourceTimeoutFailureType("blub"))
 				.addToRepository(
 						create.newBasicComponent()
 								.withVariableUsage(create
 										.newVariableUsage())
-								.withPassiveResource("3", create.newResourceTimeoutFailureType("123"), null)
+								.withPassiveResource("3", create.fetchOfResourceTimeoutFailureType("123"), null)
 								.withServiceEffectSpecification(create.newSeff()
 										// internal
 										.withInternalBehaviour(create.newInternalBehaviour().withStartAction()

@@ -85,6 +85,7 @@ import repositoryStructure.datatypes.ExceptionTypeCreator;
 import repositoryStructure.datatypes.Failure;
 import repositoryStructure.datatypes.Primitive;
 import repositoryStructure.datatypes.ProcessingResource;
+import repositoryStructure.datatypes.ResourceTimeoutFailureTypeCreator;
 
 /**
  * This class constructs a
@@ -291,6 +292,13 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 	public RepoAddition addToRepository(FailureType failureType) {
 		Objects.requireNonNull(failureType, "failureType must not be null");
 		failureTypes.add(failureType);
+		return this;
+	}
+	
+	@Override
+	public RepoAddition addToRepository(ResourceTimeoutFailureTypeCreator failureType) {
+		Objects.requireNonNull(failureType, "failureType must not be null");
+		failureTypes.add(failureType.build());
 		return this;
 	}
 
