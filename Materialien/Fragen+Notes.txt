@@ -4,6 +4,7 @@ ToDo:
 - validation vom repository -> Yves fragt nach
 - Sichtbarkeit -> module
 - Reihenfolge mit Interfaces regeln: required characterisation geht nicht vor signature; manche Sachen dürfen nur einmal aufgerufen werden
+- Für die Zukunft: resourcen einbinden
 
 
 Nutzer: anonymous; PW: anonymous;
@@ -11,30 +12,7 @@ Nutzer: anonymous; PW: anonymous;
 
 Vortrag und Ausarbeitung
 - 7.9. 9-12 MS Teams
-- 11:30-11:50 Louisa 20min Präsentation 15min; Ziel motivation, was gemacht, Sprachdesign, Beispiel-minimum Elemente eingehe: repos;
+- 11:30-11:50 Louisa 20min Präsentation 15min + 5min Diskussion; 
+	Struktur: Ziel, Motivation, was gemacht wurde, Sprachdesign, Mini-Beispiel, auf Elemente eingehen
 - ARE Vorlagen
-- Readme statt Ausarbeitung: Beschreibung; was braucht man zum selbst bauen, abhängigkeit, wie benutzen
-
-
-Notizen
-
-Wo werden Parameter erstellt?
-- signaturen: OperationSignature, infrastructureSignature, EventType, resourceSignature -> Parameter erstellen
-- collection iteration action -> fetch
-- required characterisation -> fetch
-
-Wo werden Variable Usages erstellt?
-- GeneralAction: resource call + infrastructure call
-- andere Actions: SetVariableAction, ForkAction, ExternalCallAction
-- components
-
-- sinnvoll über Factory zu erstellen: components, interfaces, data types/failure/exception types, seffs
-- TextBasedModelGenerator nicht alles umgesetzt -> die hier verwendet sind, sind wichtig
-- erst die Seffs anschauen
-- Infrastructure and Resource Sachen zuletzt anschauen (Resource Interface)
-- exception types erst mal ignorieren
-- keine Passiv-Relationen erstellen
-- interface Protocols ignorieren
-- access über fetch methoden; nicht nur String, damit weniger Magie
-- nicht immer direkt einen Namen verlangen -> TODO: wird das eingehalten
-- seffs haben keinen Namen
+- Readme statt Ausarbeitung: Beschreibung; was braucht man zum selbst bauen, Abhängigkeit, wie benutzt man die API
