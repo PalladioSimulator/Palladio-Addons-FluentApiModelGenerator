@@ -25,6 +25,7 @@ import org.palladiosimulator.pcm.core.composition.ResourceRequiredDelegationConn
 import org.palladiosimulator.pcm.core.composition.SinkDelegationConnector;
 import org.palladiosimulator.pcm.core.composition.SourceDelegationConnector;
 import org.palladiosimulator.pcm.core.entity.ResourceRequiredRole;
+import org.palladiosimulator.pcm.repository.EventGroup;
 import org.palladiosimulator.pcm.repository.InfrastructureProvidedRole;
 import org.palladiosimulator.pcm.repository.InfrastructureRequiredRole;
 import org.palladiosimulator.pcm.repository.OperationProvidedRole;
@@ -32,8 +33,6 @@ import org.palladiosimulator.pcm.repository.OperationRequiredRole;
 import org.palladiosimulator.pcm.repository.RepositoryComponent;
 import org.palladiosimulator.pcm.repository.SinkRole;
 import org.palladiosimulator.pcm.repository.SourceRole;
-
-import apiControlFlowInterfaces.EventChannelCreation;
 
 /**
  * This class provides the general infrastructure of a compositional component,
@@ -107,6 +106,34 @@ public abstract class ComplexComponent extends Component {
 
 	/**
 	 * Creates a new {@link org.palladiosimulator.pcm.core.composition.EventChannel
+	 * EventChannel} with name <code>name</code>.
+	 * <p>
+	 * Event channels consist of an
+	 * {@link org.palladiosimulator.pcm.repository.EventGroup EventGroup} and
+	 * arbitrarily many
+	 * {@link org.palladiosimulator.pcm.core.composition.EventChannelSinkConnector
+	 * EventChannelSinkConnector}s and
+	 * {@link org.palladiosimulator.pcm.core.composition.EventChannelSinkConnector
+	 * EventChannelSinkConnector}s that are added when creating the connectors.
+	 * </p>
+	 * 
+	 * @param eventGroup
+	 * @param name
+	 * @return the component in the making
+	 * @see factory.FluentRepositoryFactory#fetchOfEventGroup(String)
+	 */
+	public ComplexComponent withEventChannel(EventGroup eventGroup, String name) {
+		Objects.requireNonNull(eventGroup, "eventGroup must not be null");
+		EventChannel eventChannel = CompositionFactory.eINSTANCE.createEventChannel();
+		if (name != null)
+			eventChannel.setEntityName(name);
+		eventChannel.setEventGroup__EventChannel(eventGroup);
+		this.eventChannels.add(eventChannel);
+		return this;
+	}
+
+	/**
+	 * Creates a new {@link org.palladiosimulator.pcm.core.composition.EventChannel
 	 * EventChannel}.
 	 * <p>
 	 * Event channels consist of an
@@ -115,15 +142,17 @@ public abstract class ComplexComponent extends Component {
 	 * {@link org.palladiosimulator.pcm.core.composition.EventChannelSinkConnector
 	 * EventChannelSinkConnector}s and
 	 * {@link org.palladiosimulator.pcm.core.composition.EventChannelSinkConnector
-	 * EventChannelSinkConnector}s.
+	 * EventChannelSinkConnector}s that are added when creating the connectors.
+	 * However, that required the specification of a name for the event channel.
 	 * </p>
 	 * 
-	 * @return the event channel in the making
-	 * @see repositoryStructure.components.EventChannelCreator#withEventGroup(org.palladiosimulator.pcm.repository.EventGroup)
-	 * @see repositoryStructure.components.EventChannelCreator#withEventChannelSinkConnector(EventChannelSinkConnector)
-	 * @see repositoryStructure.components.EventChannelCreator#withEventChannelSourceConnector(EventChannelSourceConnector)
+	 * @param eventGroup
+	 * @return the component in the making
+	 * @see factory.FluentRepositoryFactory#fetchOfEventGroup(String)
 	 */
-	public abstract EventChannelCreation withEventChannel();
+	public ComplexComponent withEventChannel(EventGroup eventGroup) {
+		return withEventChannel(eventGroup, null);
+	}
 
 	// ------------ operation role connectors ------------
 	/**
@@ -354,7 +383,7 @@ public abstract class ComplexComponent extends Component {
 	 */
 	public ComplexComponent withEventChannelSourceConnection(AssemblyContext assemblyContext, EventChannel eventChannel,
 			SourceRole sourceRole, String name) {
-		//TODO: Henne Ei Problem vom Event Channel
+		// TODO: Henne Ei Problem vom Event Channel
 		Objects.requireNonNull(assemblyContext, "assemblyContext must not be null");
 		Objects.requireNonNull(eventChannel, "eventChannel must not be null");
 		Objects.requireNonNull(sourceRole, "sourceRole must not be null");

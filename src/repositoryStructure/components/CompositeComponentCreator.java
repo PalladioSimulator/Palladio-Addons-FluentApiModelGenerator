@@ -22,13 +22,12 @@ import org.palladiosimulator.pcm.repository.RepositoryComponent;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
 import org.palladiosimulator.pcm.repository.SinkRole;
 import org.palladiosimulator.pcm.repository.SourceRole;
-import org.palladiosimulator.pcm.resourcetype.ResourceInterface;
 
-import apiControlFlowInterfaces.EventChannelCreation.EventChannelComposite;
 import repositoryStructure.RepositoryCreator;
 import repositoryStructure.interfaces.EventGroupCreator;
 import repositoryStructure.interfaces.InfrastructureInterfaceCreator;
 import repositoryStructure.interfaces.OperationInterfaceCreator;
+import repositoryStructure.internals.ResourceInterface;
 
 /**
  * This class constructs a
@@ -311,8 +310,13 @@ public class CompositeComponentCreator extends ComplexComponent {
 	}
 
 	@Override
-	public EventChannelComposite withEventChannel() {
-		return new EventChannelCreator(this, this.repository);
+	public CompositeComponentCreator withEventChannel(EventGroup eventGroup, String name) {
+		return (CompositeComponentCreator) super.withEventChannel(eventGroup, name);
+	}
+
+	@Override
+	public CompositeComponentCreator withEventChannel(EventGroup eventGroup) {
+		return (CompositeComponentCreator) super.withEventChannel(eventGroup);
 	}
 
 	// ------------ connectors ------------

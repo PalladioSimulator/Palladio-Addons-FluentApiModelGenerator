@@ -10,12 +10,12 @@ import org.palladiosimulator.pcm.reliability.ReliabilityFactory;
 import org.palladiosimulator.pcm.reliability.SoftwareInducedFailureType;
 import org.palladiosimulator.pcm.repository.InfrastructureRequiredRole;
 import org.palladiosimulator.pcm.repository.InfrastructureSignature;
-import org.palladiosimulator.pcm.resourcetype.ProcessingResourceType;
-import org.palladiosimulator.pcm.resourcetype.ResourceSignature;
 import org.palladiosimulator.pcm.seff.InternalAction;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 
 import repositoryStructure.components.VariableUsageCreator;
+import repositoryStructure.internals.ProcessingResource;
+import repositoryStructure.internals.ResourceSignature;
 
 /**
  * This class constructs a {@link org.palladiosimulator.pcm.seff.InternalAction
@@ -67,7 +67,7 @@ public class InternalActionCreator extends GeneralAction {
 
 	@Override
 	public InternalActionCreator withResourceDemand(String specification_stochasticExpression,
-			ProcessingResourceType processingResource) {
+			ProcessingResource processingResource) {
 		return (InternalActionCreator) super.withResourceDemand(specification_stochasticExpression, processingResource);
 	}
 

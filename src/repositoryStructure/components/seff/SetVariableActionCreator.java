@@ -8,12 +8,12 @@ import org.palladiosimulator.pcm.core.entity.ResourceRequiredRole;
 import org.palladiosimulator.pcm.parameter.VariableUsage;
 import org.palladiosimulator.pcm.repository.InfrastructureRequiredRole;
 import org.palladiosimulator.pcm.repository.InfrastructureSignature;
-import org.palladiosimulator.pcm.resourcetype.ProcessingResourceType;
-import org.palladiosimulator.pcm.resourcetype.ResourceSignature;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 import org.palladiosimulator.pcm.seff.SetVariableAction;
 
 import repositoryStructure.components.VariableUsageCreator;
+import repositoryStructure.internals.ProcessingResource;
+import repositoryStructure.internals.ResourceSignature;
 
 /**
  * This class constructs a
@@ -55,7 +55,7 @@ public class SetVariableActionCreator extends GeneralAction {
 
 	@Override
 	public SetVariableActionCreator withResourceDemand(String specification_stochasticExpression,
-			ProcessingResourceType processingResource) {
+			ProcessingResource processingResource) {
 		return (SetVariableActionCreator) super.withResourceDemand(specification_stochasticExpression,
 				processingResource);
 	}

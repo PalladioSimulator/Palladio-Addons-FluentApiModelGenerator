@@ -6,8 +6,6 @@ import java.util.List;
 import org.palladiosimulator.pcm.core.entity.ResourceRequiredRole;
 import org.palladiosimulator.pcm.repository.InfrastructureRequiredRole;
 import org.palladiosimulator.pcm.repository.InfrastructureSignature;
-import org.palladiosimulator.pcm.resourcetype.ProcessingResourceType;
-import org.palladiosimulator.pcm.resourcetype.ResourceSignature;
 import org.palladiosimulator.pcm.seff.AbstractAction;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 import org.palladiosimulator.pcm.seff.StopAction;
@@ -17,6 +15,8 @@ import org.palladiosimulator.pcm.seff.seff_performance.ResourceCall;
 
 import apiControlFlowInterfaces.seff.StopSeff;
 import repositoryStructure.components.VariableUsageCreator;
+import repositoryStructure.internals.ProcessingResource;
+import repositoryStructure.internals.ResourceSignature;
 
 /**
  * This class constructs a {@link org.palladiosimulator.pcm.seff.StopAction
@@ -51,7 +51,7 @@ public class StopActionCreator extends GeneralAction implements StopSeff {
 
 	@Override
 	public StopActionCreator withResourceDemand(String specification_stochasticExpression,
-			ProcessingResourceType processingResource) {
+			ProcessingResource processingResource) {
 		return (StopActionCreator) super.withResourceDemand(specification_stochasticExpression, processingResource);
 	}
 
@@ -64,7 +64,8 @@ public class StopActionCreator extends GeneralAction implements StopSeff {
 	}
 
 	@Override
-	public StopActionCreator withResourceCall(String numberOfCalls_stochasticExpression, ResourceSignature signature,
+	public StopActionCreator withResourceCall(String numberOfCalls_stochasticExpression,
+			ResourceSignature signature,
 			ResourceRequiredRole requiredRole, VariableUsageCreator... variableUsages) {
 		return (StopActionCreator) super.withResourceCall(numberOfCalls_stochasticExpression, signature, requiredRole,
 				variableUsages);

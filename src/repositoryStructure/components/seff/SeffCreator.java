@@ -24,7 +24,7 @@ import apiControlFlowInterfaces.seff.Seff;
 import apiControlFlowInterfaces.seff.StartSeff;
 import repositoryStructure.Entity;
 import repositoryStructure.RepositoryCreator;
-import repositoryStructure.datatypes.Failure;
+import repositoryStructure.internals.Failure;
 
 /**
  * This class constructs a

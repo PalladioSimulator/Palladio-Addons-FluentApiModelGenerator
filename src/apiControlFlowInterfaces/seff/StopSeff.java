@@ -3,12 +3,12 @@ package apiControlFlowInterfaces.seff;
 import org.palladiosimulator.pcm.core.entity.ResourceRequiredRole;
 import org.palladiosimulator.pcm.repository.InfrastructureRequiredRole;
 import org.palladiosimulator.pcm.repository.InfrastructureSignature;
-import org.palladiosimulator.pcm.resourcetype.ProcessingResourceType;
-import org.palladiosimulator.pcm.resourcetype.ResourceSignature;
 
 import repositoryStructure.components.VariableUsageCreator;
 import repositoryStructure.components.seff.SeffCreator;
 import repositoryStructure.components.seff.StopActionCreator;
+import repositoryStructure.internals.ProcessingResource;
+import repositoryStructure.internals.ResourceSignature;
 
 public interface StopSeff {
 
@@ -40,7 +40,7 @@ public interface StopSeff {
 	 * @return this action in the making
 	 */
 	public StopActionCreator withResourceDemand(String specification_stochasticExpression,
-			ProcessingResourceType processingResource);
+			ProcessingResource processingResource);
 
 	/**
 	 * Adds an
@@ -69,7 +69,8 @@ public interface StopSeff {
 	 * @param variableUsages
 	 * @return this stop action in the making
 	 */
-	public StopActionCreator withResourceCall(String numberOfCalls_stochasticExpression, ResourceSignature signature,
+	public StopActionCreator withResourceCall(String numberOfCalls_stochasticExpression,
+			ResourceSignature signature,
 			ResourceRequiredRole requiredRole, VariableUsageCreator... variableUsages);
 
 	/**

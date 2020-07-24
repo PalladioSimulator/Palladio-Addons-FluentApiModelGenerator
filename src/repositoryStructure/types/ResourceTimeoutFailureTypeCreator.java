@@ -1,4 +1,4 @@
-package repositoryStructure.datatypes;
+package repositoryStructure.types;
 
 import org.palladiosimulator.pcm.reliability.FailureType;
 import org.palladiosimulator.pcm.reliability.ReliabilityFactory;

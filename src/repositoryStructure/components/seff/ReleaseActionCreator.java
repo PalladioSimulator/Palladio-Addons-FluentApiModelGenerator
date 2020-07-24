@@ -6,12 +6,12 @@ import org.palladiosimulator.pcm.core.entity.ResourceRequiredRole;
 import org.palladiosimulator.pcm.repository.InfrastructureRequiredRole;
 import org.palladiosimulator.pcm.repository.InfrastructureSignature;
 import org.palladiosimulator.pcm.repository.PassiveResource;
-import org.palladiosimulator.pcm.resourcetype.ProcessingResourceType;
-import org.palladiosimulator.pcm.resourcetype.ResourceSignature;
 import org.palladiosimulator.pcm.seff.ReleaseAction;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 
 import repositoryStructure.components.VariableUsageCreator;
+import repositoryStructure.internals.ProcessingResource;
+import repositoryStructure.internals.ResourceSignature;
 
 /**
  * This class constructs a {@link org.palladiosimulator.pcm.seff.ReleaseAction
@@ -54,7 +54,7 @@ public class ReleaseActionCreator extends GeneralAction {
 
 	@Override
 	public ReleaseActionCreator withResourceDemand(String specification_stochasticExpression,
-			ProcessingResourceType processingResource) {
+			ProcessingResource processingResource) {
 		return (ReleaseActionCreator) super.withResourceDemand(specification_stochasticExpression, processingResource);
 	}
 
@@ -67,7 +67,8 @@ public class ReleaseActionCreator extends GeneralAction {
 	}
 
 	@Override
-	public ReleaseActionCreator withResourceCall(String numberOfCalls_stochasticExpression, ResourceSignature signature,
+	public ReleaseActionCreator withResourceCall(String numberOfCalls_stochasticExpression,
+			ResourceSignature signature,
 			ResourceRequiredRole requiredRole, VariableUsageCreator... variableUsages) {
 		return (ReleaseActionCreator) super.withResourceCall(numberOfCalls_stochasticExpression, signature,
 				requiredRole, variableUsages);

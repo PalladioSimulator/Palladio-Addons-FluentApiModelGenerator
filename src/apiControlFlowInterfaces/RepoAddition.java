@@ -5,10 +5,10 @@ import org.palladiosimulator.pcm.repository.CollectionDataType;
 import org.palladiosimulator.pcm.repository.Repository;
 
 import repositoryStructure.components.Component;
-import repositoryStructure.datatypes.CompositeDataTypeCreator;
-import repositoryStructure.datatypes.ExceptionTypeCreator;
-import repositoryStructure.datatypes.ResourceTimeoutFailureTypeCreator;
 import repositoryStructure.interfaces.Interface;
+import repositoryStructure.types.CompositeDataTypeCreator;
+import repositoryStructure.types.ExceptionTypeCreator;
+import repositoryStructure.types.ResourceTimeoutFailureTypeCreator;
 
 public interface RepoAddition {
 

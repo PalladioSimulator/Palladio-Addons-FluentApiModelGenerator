@@ -1,4 +1,4 @@
-package repositoryStructure.datatypes;
+package repositoryStructure.types;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +11,7 @@ import org.palladiosimulator.pcm.repository.RepositoryFactory;
 
 import repositoryStructure.Entity;
 import repositoryStructure.RepositoryCreator;
+import repositoryStructure.internals.Primitive;
 
 import org.palladiosimulator.pcm.repository.DataType;
 

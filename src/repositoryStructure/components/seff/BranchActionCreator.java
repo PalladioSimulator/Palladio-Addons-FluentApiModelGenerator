@@ -9,8 +9,6 @@ import org.palladiosimulator.pcm.core.PCMRandomVariable;
 import org.palladiosimulator.pcm.core.entity.ResourceRequiredRole;
 import org.palladiosimulator.pcm.repository.InfrastructureRequiredRole;
 import org.palladiosimulator.pcm.repository.InfrastructureSignature;
-import org.palladiosimulator.pcm.resourcetype.ProcessingResourceType;
-import org.palladiosimulator.pcm.resourcetype.ResourceSignature;
 import org.palladiosimulator.pcm.seff.AbstractBranchTransition;
 import org.palladiosimulator.pcm.seff.BranchAction;
 import org.palladiosimulator.pcm.seff.GuardedBranchTransition;
@@ -21,6 +19,8 @@ import org.palladiosimulator.pcm.seff.SeffFactory;
 
 import apiControlFlowInterfaces.seff.Seff;
 import repositoryStructure.components.VariableUsageCreator;
+import repositoryStructure.internals.ProcessingResource;
+import repositoryStructure.internals.ResourceSignature;
 
 /**
  * This class constructs a {@link org.palladiosimulator.pcm.seff.BranchAction
@@ -178,7 +178,7 @@ public class BranchActionCreator extends GeneralAction {
 
 	@Override
 	public BranchActionCreator withResourceDemand(String specification_stochasticExpression,
-			ProcessingResourceType processingResource) {
+			ProcessingResource processingResource) {
 		return (BranchActionCreator) super.withResourceDemand(specification_stochasticExpression, processingResource);
 	}
 
@@ -191,7 +191,8 @@ public class BranchActionCreator extends GeneralAction {
 	}
 
 	@Override
-	public BranchActionCreator withResourceCall(String numberOfCalls_stochasticExpression, ResourceSignature signature,
+	public BranchActionCreator withResourceCall(String numberOfCalls_stochasticExpression,
+			ResourceSignature signature,
 			ResourceRequiredRole requiredRole, VariableUsageCreator... variableUsages) {
 		return (BranchActionCreator) super.withResourceCall(numberOfCalls_stochasticExpression, signature, requiredRole,
 				variableUsages);

@@ -19,12 +19,12 @@ import org.palladiosimulator.pcm.repository.RepositoryFactory;
 import org.palladiosimulator.pcm.repository.RequiredRole;
 import org.palladiosimulator.pcm.repository.SinkRole;
 import org.palladiosimulator.pcm.repository.SourceRole;
-import org.palladiosimulator.pcm.resourcetype.ResourceInterface;
 
 import repositoryStructure.Entity;
 import repositoryStructure.interfaces.EventGroupCreator;
 import repositoryStructure.interfaces.InfrastructureInterfaceCreator;
 import repositoryStructure.interfaces.OperationInterfaceCreator;
+import repositoryStructure.internals.ResourceInterface;
 
 /**
  * This class provides the general infrastructure of a component, i.e.
@@ -652,7 +652,9 @@ public abstract class Component extends Entity {
 		ResourceRequiredRole rrr = EntityFactory.eINSTANCE.createResourceRequiredRole();
 		if (name != null)
 			rrr.setEntityName(name);
-		rrr.setRequiredResourceInterface__ResourceRequiredRole(resourceInterface);
+		org.palladiosimulator.pcm.resourcetype.ResourceInterface resInt = this.repository
+				.getResourceInterface(resourceInterface);
+		rrr.setRequiredResourceInterface__ResourceRequiredRole(resInt);
 		this.resourceRequiredRoles.add(rrr);
 		this.repository.addResourceRequiredRole(rrr);
 		return this;

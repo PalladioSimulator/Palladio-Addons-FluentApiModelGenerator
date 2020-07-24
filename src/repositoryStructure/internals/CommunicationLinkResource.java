@@ -1,4 +1,4 @@
-package repositoryStructure.datatypes;
+package repositoryStructure.internals;
 
 /**
  * Represents built-in communication link resources available in the resource

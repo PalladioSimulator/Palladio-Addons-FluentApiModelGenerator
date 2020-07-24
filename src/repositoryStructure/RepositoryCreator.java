@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -22,8 +23,6 @@ import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.composition.Connector;
 import org.palladiosimulator.pcm.core.composition.EventChannel;
-import org.palladiosimulator.pcm.core.composition.EventChannelSinkConnector;
-import org.palladiosimulator.pcm.core.composition.EventChannelSourceConnector;
 import org.palladiosimulator.pcm.core.entity.ComposedProvidingRequiringEntity;
 import org.palladiosimulator.pcm.core.entity.ResourceRequiredRole;
 import org.palladiosimulator.pcm.reliability.FailureType;
@@ -68,8 +67,8 @@ import org.palladiosimulator.pcm.resourcetype.CommunicationLinkResourceType;
 import org.palladiosimulator.pcm.resourcetype.ProcessingResourceType;
 import org.palladiosimulator.pcm.resourcetype.ResourceInterface;
 import org.palladiosimulator.pcm.resourcetype.ResourceRepository;
+import org.palladiosimulator.pcm.resourcetype.ResourceSignature;
 import org.palladiosimulator.pcm.resourcetype.ResourceType;
-import org.palladiosimulator.pcm.resourcetype.SchedulingPolicy;
 import org.palladiosimulator.pcm.seff.ResourceDemandingSEFF;
 import org.palladiosimulator.pcm.seff.ServiceEffectSpecification;
 import org.palladiosimulator.pcm.seff.seff_reliability.RecoveryAction;
@@ -79,13 +78,13 @@ import org.palladiosimulator.pcm.subsystem.SubSystem;
 import apiControlFlowInterfaces.Repo;
 import apiControlFlowInterfaces.RepoAddition;
 import repositoryStructure.components.Component;
-import repositoryStructure.datatypes.CommunicationLinkResource;
-import repositoryStructure.datatypes.CompositeDataTypeCreator;
-import repositoryStructure.datatypes.ExceptionTypeCreator;
-import repositoryStructure.datatypes.Failure;
-import repositoryStructure.datatypes.Primitive;
-import repositoryStructure.datatypes.ProcessingResource;
-import repositoryStructure.datatypes.ResourceTimeoutFailureTypeCreator;
+import repositoryStructure.internals.CommunicationLinkResource;
+import repositoryStructure.internals.Failure;
+import repositoryStructure.internals.Primitive;
+import repositoryStructure.internals.ProcessingResource;
+import repositoryStructure.types.CompositeDataTypeCreator;
+import repositoryStructure.types.ExceptionTypeCreator;
+import repositoryStructure.types.ResourceTimeoutFailureTypeCreator;
 
 /**
  * This class constructs a
@@ -108,10 +107,10 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 	private List<Interface> importedInterfaces;
 	private List<DataType> dataTypes;
 	private Map<Primitive, PrimitiveDataType> internalPrimitives;
-	private List<ProcessingResourceType> internalProcessingResources;
-	private List<CommunicationLinkResourceType> internalCommunicationLinkResources;
-	private List<ResourceInterface> internalResourceInterfaces;
-	private List<SchedulingPolicy> internalSchedulingPolicies;
+	private Map<ProcessingResource, ProcessingResourceType> internalProcessingResources;
+	private Map<repositoryStructure.internals.ResourceSignature, ResourceSignature> internalResourceSignatures;
+	private Map<CommunicationLinkResource, CommunicationLinkResourceType> internalCommunicationLinkResources;
+	private Map<repositoryStructure.internals.ResourceInterface, ResourceInterface> internalResourceInterfaces;
 	private Map<Failure, FailureType> internalFailureTypes;
 	private List<FailureType> failureTypes;
 	private List<ExceptionType> exceptionTypes;
@@ -136,10 +135,10 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 		this.importedInterfaces = new ArrayList<>();
 		this.dataTypes = new ArrayList<>();
 		this.internalPrimitives = new HashMap<>();
-		this.internalProcessingResources = new ArrayList<>();
-		this.internalCommunicationLinkResources = new ArrayList<>();
-		this.internalResourceInterfaces = new ArrayList<>();
-		this.internalSchedulingPolicies = new ArrayList<>();
+		this.internalProcessingResources = new HashMap<>();
+		this.internalResourceSignatures = new HashMap<>();
+		this.internalCommunicationLinkResources = new HashMap<>();
+		this.internalResourceInterfaces = new HashMap<>();
 		this.internalFailureTypes = new HashMap<>();
 		this.failureTypes = new ArrayList<>();
 		this.interfaces = new ArrayList<>();
@@ -211,14 +210,43 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 		// ResourceTypes
 		for (ResourceType resourceType : resourceTypes.getAvailableResourceTypes_ResourceRepository()) {
 			if (resourceType instanceof ProcessingResourceType) {
-				this.internalProcessingResources.add((ProcessingResourceType) resourceType);
+				ProcessingResourceType p = (ProcessingResourceType) resourceType;
+				if (p.getEntityName().contentEquals("CPU"))
+					this.internalProcessingResources.put(ProcessingResource.CPU, p);
+				else if (p.getEntityName().contentEquals("HDD"))
+					this.internalProcessingResources.put(ProcessingResource.HDD, p);
+				else if (p.getEntityName().contentEquals("DELAY"))
+					this.internalProcessingResources.put(ProcessingResource.DELAY, p);
+				else
+					System.err.println("Unexpected Processing Resource Type.");
+
 			} else if (resourceType instanceof CommunicationLinkResourceType) {
-				this.internalCommunicationLinkResources.add((CommunicationLinkResourceType) resourceType);
+				this.internalCommunicationLinkResources.put(CommunicationLinkResource.LAN,
+						(CommunicationLinkResourceType) resourceType);
 			}
 		}
 
-		this.internalResourceInterfaces.addAll(resourceTypes.getResourceInterfaces__ResourceRepository());
-		this.internalSchedulingPolicies.addAll(resourceTypes.getSchedulingPolicies__ResourceRepository());
+		// Resource interfaces and signatures
+		for (ResourceInterface resourceInterface : resourceTypes.getResourceInterfaces__ResourceRepository()) {
+			if (resourceInterface.getEntityName().contentEquals("CpuInterface"))
+				this.internalResourceInterfaces.put(repositoryStructure.internals.ResourceInterface.CPU,
+						resourceInterface);
+			else if (resourceInterface.getEntityName().contentEquals("HddInterface"))
+				this.internalResourceInterfaces.put(repositoryStructure.internals.ResourceInterface.HDD,
+						resourceInterface);
+			else
+				System.err.println("Unexpected Resource Interface.");
+
+			for (ResourceSignature s : resourceInterface.getResourceSignatures__ResourceInterface())
+				if (s.getEntityName().contentEquals("process"))
+					this.internalResourceSignatures.put(repositoryStructure.internals.ResourceSignature.PROCESS, s);
+				else if (s.getEntityName().contentEquals("read"))
+					this.internalResourceSignatures.put(repositoryStructure.internals.ResourceSignature.READ, s);
+				else if (s.getEntityName().contentEquals("write"))
+					this.internalResourceSignatures.put(repositoryStructure.internals.ResourceSignature.WRITE, s);
+				else
+					System.err.println("Unexpected Resource Signature.");
+		}
 
 		// FailureTypes
 		EList<FailureType> failures = failureTypes.getFailureTypes__Repository();
@@ -294,7 +322,7 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 		failureTypes.add(failureType);
 		return this;
 	}
-	
+
 	@Override
 	public RepoAddition addToRepository(ResourceTimeoutFailureTypeCreator failureType) {
 		Objects.requireNonNull(failureType, "failureType must not be null");
@@ -370,7 +398,7 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 
 	// ------------- getter -------------
 	// TODO: getter and add Methoden should not be visible for the user -> module
-	
+
 	// I didn't put much thought into where it actually makes sense to fetch
 	// something from an imported resource. It probably doesn't make sense e.g. for
 	// parameters. However, it is implemented. Maybe later this can be restricted if
@@ -536,14 +564,20 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 	}
 
 	public ProcessingResourceType getProcessingResourceType(ProcessingResource processingResource) {
-		// TODO Auto-generated method stub
-		return null;
+		return internalProcessingResources.get(processingResource);
 	}
 
 	public CommunicationLinkResourceType getCommunicationLinkResource(
 			CommunicationLinkResource communicationLinkResource) {
-		// TODO Auto-generated method stub
-		return null;
+		return internalCommunicationLinkResources.get(communicationLinkResource);
+	}
+
+	public ResourceInterface getResourceInterface(repositoryStructure.internals.ResourceInterface resourceInterface) {
+		return internalResourceInterfaces.get(resourceInterface);
+	}
+
+	public ResourceSignature getResourceSignature(repositoryStructure.internals.ResourceSignature resourceSignature) {
+		return internalResourceSignatures.get(resourceSignature);
 	}
 
 	public RepositoryComponent getComponent(String name) {
@@ -1338,82 +1372,6 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 			return null;
 		if (collect.size() > 1)
 			logger.warning("More than one event channel with name '" + name + "' found.");
-		return collect.get(0);
-	}
-
-	public EventChannelSinkConnector getEventChannelSinkConnector(String name) {
-		List<EventChannelSinkConnector> collect = new ArrayList<>();
-		String[] split = name.split("\\.");
-		if (split.length == 2) {
-			name = split[1];
-			Repository r = getRepositoryByName(split[0]);
-			if (r == null)
-				throw new RuntimeException("Repository '" + split[0] + "' could not be found");
-
-			for (RepositoryComponent c : r.getComponents__Repository()) {
-				if (c instanceof ComposedProvidingRequiringEntity) {
-					ComposedProvidingRequiringEntity cc = (ComposedProvidingRequiringEntity) c;
-					collect.addAll(cc.getConnectors__ComposedStructure().stream()
-							.filter(f -> f instanceof EventChannelSinkConnector).map(f -> (EventChannelSinkConnector) f)
-							.collect(Collectors.toList()));
-				}
-			}
-		} else if (split.length == 1)
-			collect = this.connectors.stream().filter(f -> f instanceof EventChannelSinkConnector)
-					.map(f -> (EventChannelSinkConnector) f).collect(Collectors.toList());
-		else
-			throw new IllegalArgumentException(
-					"To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
-		return getEventChannelSinkConnectorFromList(name, collect);
-	}
-
-	private EventChannelSinkConnector getEventChannelSinkConnectorFromList(String name,
-			List<EventChannelSinkConnector> connectors) {
-		List<EventChannelSinkConnector> collect = connectors.stream()
-				.filter(a -> a.getEntityName() != null && a.getEntityName().contentEquals(name))
-				.collect(Collectors.toList());
-		if (collect.isEmpty())
-			return null;
-		if (collect.size() > 1)
-			logger.warning("More than one event channel sink connector with name '" + name + "' found.");
-		return collect.get(0);
-	}
-
-	public EventChannelSourceConnector getEventChannelSourceConnector(String name) {
-		List<EventChannelSourceConnector> collect = new ArrayList<>();
-		String[] split = name.split("\\.");
-		if (split.length == 2) {
-			name = split[1];
-			Repository r = getRepositoryByName(split[0]);
-			if (r == null)
-				throw new RuntimeException("Repository '" + split[0] + "' could not be found");
-
-			for (RepositoryComponent c : r.getComponents__Repository()) {
-				if (c instanceof ComposedProvidingRequiringEntity) {
-					ComposedProvidingRequiringEntity cc = (ComposedProvidingRequiringEntity) c;
-					collect.addAll(cc.getConnectors__ComposedStructure().stream()
-							.filter(f -> f instanceof EventChannelSourceConnector)
-							.map(f -> (EventChannelSourceConnector) f).collect(Collectors.toList()));
-				}
-			}
-		} else if (split.length == 1)
-			collect = this.connectors.stream().filter(f -> f instanceof EventChannelSourceConnector)
-					.map(f -> (EventChannelSourceConnector) f).collect(Collectors.toList());
-		else
-			throw new IllegalArgumentException(
-					"To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
-		return getEventChannelSourceConnectorFromList(name, collect);
-	}
-
-	private EventChannelSourceConnector getEventChannelSourceConnectorFromList(String name,
-			List<EventChannelSourceConnector> connectors) {
-		List<EventChannelSourceConnector> collect = connectors.stream()
-				.filter(a -> a.getEntityName() != null && a.getEntityName().contentEquals(name))
-				.collect(Collectors.toList());
-		if (collect.isEmpty())
-			return null;
-		if (collect.size() > 1)
-			logger.warning("More than one event channel source connector with name '" + name + "' found.");
 		return collect.get(0);
 	}
 

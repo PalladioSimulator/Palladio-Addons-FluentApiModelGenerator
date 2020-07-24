@@ -1,4 +1,4 @@
-package repositoryStructure.datatypes;
+package repositoryStructure.internals;
 
 /**
  * Represents built-in resource interfaces available in the resource repository,

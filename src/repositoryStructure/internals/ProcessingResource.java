@@ -1,4 +1,4 @@
-package repositoryStructure.datatypes;
+package repositoryStructure.internals;
 
 /**
  * Represents built-in processing resources available in the resource

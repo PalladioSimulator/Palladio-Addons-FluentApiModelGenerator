@@ -10,12 +10,12 @@ import org.palladiosimulator.pcm.repository.InfrastructureInterface;
 import org.palladiosimulator.pcm.repository.OperationInterface;
 import org.palladiosimulator.pcm.repository.ProvidesComponentType;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
-import org.palladiosimulator.pcm.resourcetype.ResourceInterface;
 
 import repositoryStructure.RepositoryCreator;
 import repositoryStructure.interfaces.EventGroupCreator;
 import repositoryStructure.interfaces.InfrastructureInterfaceCreator;
 import repositoryStructure.interfaces.OperationInterfaceCreator;
+import repositoryStructure.internals.ResourceInterface;
 
 /**
  * This class constructs a

@@ -8,8 +8,6 @@ import org.palladiosimulator.pcm.core.entity.ResourceRequiredRole;
 import org.palladiosimulator.pcm.parameter.VariableUsage;
 import org.palladiosimulator.pcm.repository.InfrastructureRequiredRole;
 import org.palladiosimulator.pcm.repository.InfrastructureSignature;
-import org.palladiosimulator.pcm.resourcetype.ProcessingResourceType;
-import org.palladiosimulator.pcm.resourcetype.ResourceSignature;
 import org.palladiosimulator.pcm.seff.ForkAction;
 import org.palladiosimulator.pcm.seff.ForkedBehaviour;
 import org.palladiosimulator.pcm.seff.SeffFactory;
@@ -17,6 +15,8 @@ import org.palladiosimulator.pcm.seff.SynchronisationPoint;
 
 import apiControlFlowInterfaces.seff.InternalSeff;
 import repositoryStructure.components.VariableUsageCreator;
+import repositoryStructure.internals.ProcessingResource;
+import repositoryStructure.internals.ResourceSignature;
 
 /**
  * This class constructs a {@link org.palladiosimulator.pcm.seff.ForkAction
@@ -91,7 +91,7 @@ public class ForkActionCreator extends GeneralAction {
 
 	@Override
 	public ForkActionCreator withResourceDemand(String specification_stochasticExpression,
-			ProcessingResourceType processingResource) {
+			ProcessingResource processingResource) {
 		return (ForkActionCreator) super.withResourceDemand(specification_stochasticExpression, processingResource);
 	}
 
@@ -104,7 +104,8 @@ public class ForkActionCreator extends GeneralAction {
 	}
 
 	@Override
-	public ForkActionCreator withResourceCall(String numberOfCalls_stochasticExpression, ResourceSignature signature,
+	public ForkActionCreator withResourceCall(String numberOfCalls_stochasticExpression,
+			ResourceSignature signature,
 			ResourceRequiredRole requiredRole, VariableUsageCreator... variableUsages) {
 		return (ForkActionCreator) super.withResourceCall(numberOfCalls_stochasticExpression, signature, requiredRole,
 				variableUsages);

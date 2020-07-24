@@ -11,13 +11,14 @@ import org.palladiosimulator.pcm.core.entity.ResourceRequiredRole;
 import org.palladiosimulator.pcm.repository.InfrastructureRequiredRole;
 import org.palladiosimulator.pcm.repository.InfrastructureSignature;
 import org.palladiosimulator.pcm.resourcetype.ProcessingResourceType;
-import org.palladiosimulator.pcm.resourcetype.ResourceSignature;
 import org.palladiosimulator.pcm.seff.seff_performance.InfrastructureCall;
 import org.palladiosimulator.pcm.seff.seff_performance.ParametricResourceDemand;
 import org.palladiosimulator.pcm.seff.seff_performance.ResourceCall;
 import org.palladiosimulator.pcm.seff.seff_performance.SeffPerformanceFactory;
 
 import repositoryStructure.components.VariableUsageCreator;
+import repositoryStructure.internals.ProcessingResource;
+import repositoryStructure.internals.ResourceSignature;
 
 /**
  * This class provides the implementation of the methods that add resource
@@ -46,27 +47,24 @@ public abstract class GeneralAction extends SeffAction {
 	 * instead of a concrete ProcessingResourceSpecification (e.g., 5 GHz CPU, 20
 	 * MByte/s hard disk).
 	 * </p>
-	 * TODO: javadoc mit fetch?
 	 * 
 	 * @param specification_stochasticExpression
 	 * @param processingResource
 	 * @return this action in the making
 	 */
 	public GeneralAction withResourceDemand(String specification_stochasticExpression,
-			ProcessingResourceType processingResource) {
+			ProcessingResource processingResource) {
 		Objects.requireNonNull(specification_stochasticExpression,
 				"specification_stochasticExpression must not be null");
 		Objects.requireNonNull(processingResource, "processingResource must not be null");
 		ParametricResourceDemand demand = SeffPerformanceFactory.eINSTANCE.createParametricResourceDemand();
 
-		if (processingResource != null)
-			demand.setRequiredResource_ParametricResourceDemand(processingResource);
+		ProcessingResourceType processingResourceType = this.repository.getProcessingResourceType(processingResource);
+		demand.setRequiredResource_ParametricResourceDemand(processingResourceType);
 
-		if (specification_stochasticExpression != null) {
-			PCMRandomVariable rand = CoreFactory.eINSTANCE.createPCMRandomVariable();
-			rand.setSpecification(specification_stochasticExpression);
-			demand.setSpecification_ParametericResourceDemand(rand);
-		}
+		PCMRandomVariable rand = CoreFactory.eINSTANCE.createPCMRandomVariable();
+		rand.setSpecification(specification_stochasticExpression);
+		demand.setSpecification_ParametericResourceDemand(rand);
 		this.demands.add(demand);
 		return this;
 	}
@@ -137,15 +135,15 @@ public abstract class GeneralAction extends SeffAction {
 
 		ResourceCall call = SeffPerformanceFactory.eINSTANCE.createResourceCall();
 
-		if (numberOfCalls_stochasticExpression != null) {
-			PCMRandomVariable rand = CoreFactory.eINSTANCE.createPCMRandomVariable();
-			rand.setSpecification(numberOfCalls_stochasticExpression);
-			call.setNumberOfCalls__ResourceCall(rand);
-		}
-		if (signature != null)
-			call.setSignature__ResourceCall(signature);
-		if (requiredRole != null)
-			call.setResourceRequiredRole__ResourceCall(requiredRole);
+		PCMRandomVariable rand = CoreFactory.eINSTANCE.createPCMRandomVariable();
+		rand.setSpecification(numberOfCalls_stochasticExpression);
+		call.setNumberOfCalls__ResourceCall(rand);
+
+		org.palladiosimulator.pcm.resourcetype.ResourceSignature resourceSignature = this.repository
+				.getResourceSignature(signature);
+		call.setSignature__ResourceCall(resourceSignature);
+		call.setResourceRequiredRole__ResourceCall(requiredRole);
+
 		if (variableUsages != null && variableUsages.length != 0)
 			Arrays.asList(variableUsages).stream().map(v -> v.build())
 					.forEach(v -> call.getInputVariableUsages__CallAction().add(v));

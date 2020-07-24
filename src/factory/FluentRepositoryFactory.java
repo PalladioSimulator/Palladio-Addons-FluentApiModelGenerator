@@ -11,8 +11,6 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.composition.EventChannel;
-import org.palladiosimulator.pcm.core.composition.EventChannelSinkConnector;
-import org.palladiosimulator.pcm.core.composition.EventChannelSourceConnector;
 import org.palladiosimulator.pcm.core.entity.ResourceRequiredRole;
 import org.palladiosimulator.pcm.reliability.FailureType;
 import org.palladiosimulator.pcm.reliability.HardwareInducedFailureType;
@@ -69,16 +67,16 @@ import repositoryStructure.components.ProvidesComponentTypeCreator;
 import repositoryStructure.components.SubSystemCreator;
 import repositoryStructure.components.VariableUsageCreator;
 import repositoryStructure.components.seff.SeffCreator;
-import repositoryStructure.datatypes.CommunicationLinkResource;
-import repositoryStructure.datatypes.CompositeDataTypeCreator;
-import repositoryStructure.datatypes.ExceptionTypeCreator;
-import repositoryStructure.datatypes.Failure;
-import repositoryStructure.datatypes.Primitive;
-import repositoryStructure.datatypes.ProcessingResource;
-import repositoryStructure.datatypes.ResourceTimeoutFailureTypeCreator;
 import repositoryStructure.interfaces.EventGroupCreator;
 import repositoryStructure.interfaces.InfrastructureInterfaceCreator;
 import repositoryStructure.interfaces.OperationInterfaceCreator;
+import repositoryStructure.internals.CommunicationLinkResource;
+import repositoryStructure.internals.Failure;
+import repositoryStructure.internals.Primitive;
+import repositoryStructure.internals.ProcessingResource;
+import repositoryStructure.types.CompositeDataTypeCreator;
+import repositoryStructure.types.ExceptionTypeCreator;
+import repositoryStructure.types.ResourceTimeoutFailureTypeCreator;
 
 /**
  * TODO: javadoc
@@ -513,7 +511,7 @@ public class FluentRepositoryFactory {
 	 * @param primitive the primitive data type that the elements have
 	 * @return the collection data type
 	 * @see org.palladiosimulator.pcm.repository.CollectionDataType
-	 * @see repositoryStructure.datatypes.Primitive
+	 * @see repositoryStructure.internals.Primitive
 	 */
 	public CollectionDataType newCollectionDataType(String name, Primitive primitive) {
 		Objects.requireNonNull(name, "name must not be null");
@@ -567,18 +565,18 @@ public class FluentRepositoryFactory {
 	 * types. This construct is common in higher programming languages as record,
 	 * struct, or class.<br>
 	 * The contained data types can be added using method chaining with
-	 * {@link repositoryStructure.datatypes.CompositeDataTypeCreator#withInnerDeclaration(String, Primitive)
+	 * {@link repositoryStructure.types.CompositeDataTypeCreator#withInnerDeclaration(String, Primitive)
 	 * .withInnerDeclaration(String, Primitive)} and/or
-	 * {@link repositoryStructure.datatypes.CompositeDataTypeCreator#withInnerDeclaration(String, DataType)
+	 * {@link repositoryStructure.types.CompositeDataTypeCreator#withInnerDeclaration(String, DataType)
 	 * .withInnerDeclaration(String, DataType)}.
 	 * </p>
 	 * 
 	 * @param name    the <i>unique</i> name of the composite data type
 	 * @param parents array of parent composite data types
 	 * @return the composite data type in the making
-	 * @see repositoryStructure.datatypes.CompositeDataTypeCreator#withInnerDeclaration(String,
+	 * @see repositoryStructure.types.CompositeDataTypeCreator#withInnerDeclaration(String,
 	 *      Primitive)
-	 * @see repositoryStructure.datatypes.CompositeDataTypeCreator#withInnerDeclaration(String,
+	 * @see repositoryStructure.types.CompositeDataTypeCreator#withInnerDeclaration(String,
 	 *      DataType)
 	 * @see org.palladiosimulator.pcm.repository.CompositeDataType
 	 */
@@ -949,23 +947,6 @@ public class FluentRepositoryFactory {
 		if (e == null)
 			throw new RuntimeException("Failure Type '" + name + "' could not be found");
 		return e;
-	}
-
-	public ProcessingResource fetchOfProcessingResource() {
-		// TODO: kann man die auch selbst erstellen oder nur über enums?
-		return null;
-	}
-
-	/**
-	 * TODO: javadoc
-	 * 
-	 * @param resourceInterface
-	 * @return
-	 */
-	public ResourceInterface fetchOfResourceInterface(
-			repositoryStructure.datatypes.ResourceInterface resourceInterface) {
-		// TODO: kann man die auch selbst erstellen oder nur über enums?
-		return null;
 	}
 
 	/**
@@ -1559,54 +1540,6 @@ public class FluentRepositoryFactory {
 		if (eventChannel == null)
 			throw new RuntimeException("Event Channel '" + name + "' could not be found");
 		return eventChannel;
-	}
-
-	/**
-	 * Extracts the event channel sink connector referenced by <code>name</code>
-	 * from the repository. If the entity belongs to an imported repository, refer
-	 * to it as <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
-	 * <p>
-	 * This method throws a RuntimeException if no event channel sink connector is
-	 * present under the given <code>name</code>. If more than one event channel
-	 * sink connector with this <code>name</code> is present, a warning will be
-	 * printed during runtime and the system chooses the first event channel sink
-	 * connector it finds.
-	 * </p>
-	 * 
-	 * @param name
-	 * @return the event channel sink connector
-	 * @see org.palladiosimulator.pcm.core.composition.EventChannelSinkConnector
-	 */
-	public EventChannelSinkConnector fetchOfEventChannelSinkConnector(String name) {
-		Objects.requireNonNull(name, "name must not be null");
-		EventChannelSinkConnector connector = repo.getEventChannelSinkConnector(name);
-		if (connector == null)
-			throw new RuntimeException("Event Channel Sink Connector '" + name + "' could not be found");
-		return connector;
-	}
-
-	/**
-	 * Extracts the event channel source connector referenced by <code>name</code>
-	 * from the repository. If the entity belongs to an imported repository, refer
-	 * to it as <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
-	 * <p>
-	 * This method throws a RuntimeException if no event channel source connector is
-	 * present under the given <code>name</code>. If more than one event channel
-	 * source connector with this <code>name</code> is present, a warning will be
-	 * printed during runtime and the system chooses the first event channel source
-	 * connector it finds.
-	 * </p>
-	 * 
-	 * @param name
-	 * @return the event channel source connector
-	 * @see org.palladiosimulator.pcm.core.composition.EventChannelSourceConnector
-	 */
-	public EventChannelSourceConnector fetchOfEventChannelSourceConnector(String name) {
-		Objects.requireNonNull(name, "name must not be null");
-		EventChannelSourceConnector connector = repo.getEventChannelSourceConnector(name);
-		if (connector == null)
-			throw new RuntimeException("Event Channel Source Connector '" + name + "' could not be found");
-		return connector;
 	}
 
 	/**

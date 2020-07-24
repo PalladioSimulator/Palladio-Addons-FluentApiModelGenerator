@@ -17,8 +17,8 @@ import org.palladiosimulator.pcm.repository.ParameterModifier;
 import org.palladiosimulator.pcm.repository.Repository;
 
 import factory.FluentRepositoryFactory;
-import repositoryStructure.datatypes.Failure;
-import repositoryStructure.datatypes.Primitive;
+import repositoryStructure.internals.Failure;
+import repositoryStructure.internals.Primitive;
 
 class Main {
 
@@ -48,7 +48,8 @@ class Main {
 						.withParameter("age", Primitive.INTEGER, ParameterModifier.INOUT)
 						.withReturnType(create.fetchOfDataType("Person")).now().withRequiredCharacterisation(
 								create.fetchOfParameter("age"), VariableCharacterisationType.VALUE))
-
+				.addToRepository(create.newEventGroup().withName("haha"))
+				
 				// BASIC COMPONENTS
 				.addToRepository(create.newBasicComponent().withName("Database")
 //				.withId("comp1")
@@ -78,7 +79,7 @@ class Main {
 								create.fetchOfAssemblyContext("DBContext"),
 								create.fetchOfOperationRequiredRole("reqSomeI"),
 								create.fetchOfAssemblyContext("DBContext"))
-						.withEventChannel().withEventGroup(create.fetchOfEventGroup("hallo")).now1())
+						.withEventChannel(create.fetchOfEventGroup("haha")))
 
 //			.conect("Web", creator.getByUUID("comp1"))
 
@@ -163,6 +164,7 @@ class Main {
 				.addToRepository(create.newCompleteComponentType())
 				.addToRepository(create.newProvidesComponentType())
 				.addToRepository(create.newSubSystem())
+				
 				.addToRepository(create.newCompositeComponent()
 						.conforms(create.newCompleteComponentType())
 						// roles
@@ -175,9 +177,8 @@ class Main {
 						.requires(create.newOperationInterface())
 						.requires(create.newOperationInterface(), null)
 						.requiresInfrastructure(create.newInfrastructureInterface())
-						.requiresInfrastructure(create.newInfrastructureInterface(), null)
+						.requiresInfrastructure(create.newInfrastructureInterface(), null))
 						// connectors
-						.withEventChannel().now1())
 				.addToRepository(create.newOperationInterface().withOperationSignature()
 						.withReturnType(Primitive.BOOLEAN)
 						.withFailureType(Failure.HARDWARE_CPU).now())

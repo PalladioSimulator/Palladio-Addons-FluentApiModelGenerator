@@ -13,15 +13,14 @@ import org.palladiosimulator.pcm.repository.OperationRequiredRole;
 import org.palladiosimulator.pcm.repository.RepositoryComponent;
 import org.palladiosimulator.pcm.repository.SinkRole;
 import org.palladiosimulator.pcm.repository.SourceRole;
-import org.palladiosimulator.pcm.resourcetype.ResourceInterface;
 import org.palladiosimulator.pcm.subsystem.SubSystem;
 import org.palladiosimulator.pcm.subsystem.SubsystemFactory;
 
-import apiControlFlowInterfaces.EventChannelCreation.EventChannelSubsystem;
 import repositoryStructure.RepositoryCreator;
 import repositoryStructure.interfaces.EventGroupCreator;
 import repositoryStructure.interfaces.InfrastructureInterfaceCreator;
 import repositoryStructure.interfaces.OperationInterfaceCreator;
+import repositoryStructure.internals.ResourceInterface;
 
 /**
  * This class constructs a {@link org.palladiosimulator.pcm.subsystem.SubSystem
@@ -201,8 +200,13 @@ public class SubSystemCreator extends ComplexComponent {
 	}
 
 	@Override
-	public EventChannelSubsystem withEventChannel() {
-		return new EventChannelCreator(this, this.repository);
+	public SubSystemCreator withEventChannel(EventGroup eventGroup, String name) {
+		return (SubSystemCreator) super.withEventChannel(eventGroup, name);
+	}
+
+	@Override
+	public SubSystemCreator withEventChannel(EventGroup eventGroup) {
+		return (SubSystemCreator) super.withEventChannel(eventGroup);
 	}
 
 	// ------------ connectors ------------
@@ -245,7 +249,8 @@ public class SubSystemCreator extends ComplexComponent {
 	@Override
 	public SubSystemCreator withEventChannelSourceConnection(AssemblyContext assemblyContext, EventChannel eventChannel,
 			SourceRole sourceRole, String name) {
-		return (SubSystemCreator) super.withEventChannelSourceConnection(assemblyContext, eventChannel, sourceRole, name);
+		return (SubSystemCreator) super.withEventChannelSourceConnection(assemblyContext, eventChannel, sourceRole,
+				name);
 	}
 
 	@Override

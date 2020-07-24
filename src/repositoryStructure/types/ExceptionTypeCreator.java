@@ -1,4 +1,4 @@
-package repositoryStructure.datatypes;
+package repositoryStructure.types;
 
 import java.util.Objects;
 

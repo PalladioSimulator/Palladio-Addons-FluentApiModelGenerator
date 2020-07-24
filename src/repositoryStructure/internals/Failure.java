@@ -1,4 +1,4 @@
-package repositoryStructure.datatypes;
+package repositoryStructure.internals;
 
 /**
  * Represents built-in failure types available in the repository, i.e.

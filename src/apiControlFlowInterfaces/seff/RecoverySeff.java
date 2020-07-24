@@ -3,7 +3,7 @@ package apiControlFlowInterfaces.seff;
 import org.palladiosimulator.pcm.reliability.FailureType;
 import org.palladiosimulator.pcm.seff.seff_reliability.RecoveryActionBehaviour;
 
-import repositoryStructure.datatypes.Failure;
+import repositoryStructure.internals.Failure;
 
 public interface RecoverySeff {
 

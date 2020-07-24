@@ -7,8 +7,6 @@ import java.util.Objects;
 import org.palladiosimulator.pcm.core.entity.ResourceRequiredRole;
 import org.palladiosimulator.pcm.repository.InfrastructureRequiredRole;
 import org.palladiosimulator.pcm.repository.InfrastructureSignature;
-import org.palladiosimulator.pcm.resourcetype.ProcessingResourceType;
-import org.palladiosimulator.pcm.resourcetype.ResourceSignature;
 import org.palladiosimulator.pcm.seff.seff_reliability.RecoveryAction;
 import org.palladiosimulator.pcm.seff.seff_reliability.RecoveryActionBehaviour;
 import org.palladiosimulator.pcm.seff.seff_reliability.SeffReliabilityFactory;
@@ -16,6 +14,8 @@ import org.palladiosimulator.pcm.seff.seff_reliability.SeffReliabilityFactory;
 import apiControlFlowInterfaces.seff.RecoverySeff;
 import repositoryStructure.RepositoryCreator;
 import repositoryStructure.components.VariableUsageCreator;
+import repositoryStructure.internals.ProcessingResource;
+import repositoryStructure.internals.ResourceSignature;
 
 /**
  * This class constructs a {@link org.palladiosimulator.pcm.seff.RecoveryAction
@@ -75,7 +75,7 @@ public class RecoveryActionCreator extends GeneralAction {
 
 	@Override
 	public RecoveryActionCreator withResourceDemand(String specification_stochasticExpression,
-			ProcessingResourceType processingResource) {
+			ProcessingResource processingResource) {
 		return (RecoveryActionCreator) super.withResourceDemand(specification_stochasticExpression, processingResource);
 	}
 

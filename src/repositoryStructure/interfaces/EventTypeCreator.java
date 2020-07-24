@@ -15,8 +15,8 @@ import org.palladiosimulator.pcm.repository.RepositoryFactory;
 
 import repositoryStructure.Entity;
 import repositoryStructure.RepositoryCreator;
-import repositoryStructure.datatypes.Failure;
-import repositoryStructure.datatypes.Primitive;
+import repositoryStructure.internals.Failure;
+import repositoryStructure.internals.Primitive;
 
 /**
  * This class constructs a {@link org.palladiosimulator.pcm.repository.EventType
@@ -55,7 +55,7 @@ public class EventTypeCreator extends Entity {
 	 * parameters, e.g. <code>ParameterModifier.IN</code>.
 	 * </p>
 	 * <p>
-	 * A {@link repositoryStructure.datatypes.Primitive Primitive} data type can
+	 * A {@link repositoryStructure.internals.Primitive Primitive} data type can
 	 * have the values '<em><b>boolean</b></em>', '<em><b>integer</b></em>',
 	 * '<em><b>string</b></em>', '<em><b>double</b></em>', '<em><b>long</b></em>',
 	 * '<em><b>char</b></em>', '<em><b>byte</b></em>'.
@@ -134,7 +134,7 @@ public class EventTypeCreator extends Entity {
 	 * Adds the <code>failureType</code> to the event type's list of possible
 	 * failures.
 	 * <p>
-	 * A {@link repositoryStructure.datatypes.Failure Failure} type can have the
+	 * A {@link repositoryStructure.internals.Failure Failure} type can have the
 	 * values '<em><b>HARDWARE_CPU</b></em>', '<em><b>HARDWARE_HDD</b></em>',
 	 * '<em><b>HARDWARE_DELAY</b></em>', '<em><b>NETWORK_LAN</b></em>',
 	 * '<em><b>SOFTWARE</b></em>'.
