@@ -17,11 +17,14 @@ public interface Repo extends RepoAddition {
 	 * @return this repository
 	 */
 	Repo withDescription(String description);
-	
+
 	/**
-	 * TODO: javadoc
-	 * @param path
-	 * @return
+	 * Loads the repository located in <code>path</code> as a Resource and provides
+	 * its entities in the fetching methods by calling on the entities with the name
+	 * of the repository leading.
+	 * 
+	 * @param path to the import repository
+	 * @return this repository
 	 */
 	Repo withImportedResource(String path);
 

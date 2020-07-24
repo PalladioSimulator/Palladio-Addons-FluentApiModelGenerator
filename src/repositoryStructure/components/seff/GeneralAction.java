@@ -74,8 +74,6 @@ public abstract class GeneralAction extends SeffAction {
 	 * {@link org.palladiosimulator.pcm.seff.seff_performance.InfrastructureCall
 	 * InfrastructureCall} to this action.
 	 * 
-	 * TODO: javadoc
-	 * 
 	 * @param numberOfCalls_stochasticExpression
 	 * @param signature
 	 * @param requiredRole
@@ -114,7 +112,7 @@ public abstract class GeneralAction extends SeffAction {
 
 	/**
 	 * Adds a {@link org.palladiosimulator.pcm.seff.seff_performance.ResourceCall
-	 * ResourceCall} to this action. TODO: javadoc
+	 * ResourceCall} to this action.
 	 * 
 	 * @param numberOfCalls_stochasticExpression
 	 * @param signature

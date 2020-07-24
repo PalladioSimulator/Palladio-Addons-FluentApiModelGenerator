@@ -292,6 +292,11 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 
 	@Override
 	public Repo withImportedResource(String path) {
+		Objects.requireNonNull(path, "path must not be null");
+
+		if (!path.substring(path.length() - 12, path.length() - 1).contentEquals(".repository"))
+			throw new IllegalArgumentException("The specified path must lead to a .repository file");
+
 		Repository imported = loadRepository(path);
 		this.imports.add(imported);
 		this.importedDataTypes.addAll(imported.getDataTypes__Repository());
@@ -397,7 +402,7 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 	}
 
 	// ------------- getter -------------
-	// TODO: getter and add Methoden should not be visible for the user -> module
+	// TODO: getter and add Methoden should not be visible for the user -> module-info.java
 
 	// I didn't put much thought into where it actually makes sense to fetch
 	// something from an imported resource. It probably doesn't make sense e.g. for

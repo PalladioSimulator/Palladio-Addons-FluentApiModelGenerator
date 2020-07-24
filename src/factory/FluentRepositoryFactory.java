@@ -79,7 +79,20 @@ import repositoryStructure.types.ExceptionTypeCreator;
 import repositoryStructure.types.ResourceTimeoutFailureTypeCreator;
 
 /**
- * TODO: javadoc
+ * This class provides all the methods to create a Repository and create
+ * Entities that are added to this Repository. Characteristics of the entities
+ * are specified by method chaining.<br>
+ * Existing entities that have to be referenced later can be retrieved by using
+ * this factory's fetching methods.
+ * <p>
+ * Start creating a repository like this:
+ * <code>FluentRepositoryFactory create = new FluentRepositoryFactory();</code><br>
+ * <code>Repository repo = create.newRepository()<br> 
+ * <p style="margin-left: 130px">//create datatypes, components, interfaces etc. here</p>
+ * <p style="margin-left: 130px">.createRepositoryNow();</p>
+ *  </code>
+ * 
+ * Refer to the project's Readme for an introduction and detailed examples.
  * 
  * @author Louisa Lambrecht
  *
@@ -92,7 +105,7 @@ public class FluentRepositoryFactory {
 	private Repository failures;
 
 	/**
-	 * TODO: javadoc
+	 * Creates an instance of the FluentRepositoryFactory.
 	 */
 	public FluentRepositoryFactory() {
 		EcorePlugin.ExtensionProcessor.process(null);

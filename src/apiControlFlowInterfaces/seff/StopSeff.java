@@ -33,7 +33,6 @@ public interface StopSeff {
 	 * instead of a concrete ProcessingResourceSpecification (e.g., 5 GHz CPU, 20
 	 * MByte/s hard disk).
 	 * </p>
-	 * TODO: javadoc mit fetch
 	 * 
 	 * @param specification_stochasticExpression
 	 * @param processingResource
@@ -47,8 +46,6 @@ public interface StopSeff {
 	 * {@link org.palladiosimulator.pcm.seff.seff_performance.InfrastructureCall
 	 * InfrastructureCall} to this action.
 	 * 
-	 * TODO: javadoc
-	 * 
 	 * @param numberOfCalls_stochasticExpression
 	 * @param signature
 	 * @param requiredRole
@@ -61,7 +58,7 @@ public interface StopSeff {
 
 	/**
 	 * Adds a {@link org.palladiosimulator.pcm.seff.seff_performance.ResourceCall
-	 * ResourceCall} to this action. TODO: javadoc
+	 * ResourceCall} to this action.
 	 * 
 	 * @param numberOfCalls_stochasticExpression
 	 * @param signature
@@ -69,8 +66,7 @@ public interface StopSeff {
 	 * @param variableUsages
 	 * @return this stop action in the making
 	 */
-	public StopActionCreator withResourceCall(String numberOfCalls_stochasticExpression,
-			ResourceSignature signature,
+	public StopActionCreator withResourceCall(String numberOfCalls_stochasticExpression, ResourceSignature signature,
 			ResourceRequiredRole requiredRole, VariableUsageCreator... variableUsages);
 
 	/**

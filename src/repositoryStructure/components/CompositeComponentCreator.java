@@ -351,16 +351,16 @@ public class CompositeComponentCreator extends ComplexComponent {
 
 	@Override
 	public CompositeComponentCreator withEventChannelSinkConnection(AssemblyContext assemblyContext,
-			EventChannel eventChannel, SinkRole sinkRole, String filterCondition_stochasticExpression, String name) {
+			EventChannel eventChannel, SinkRole sinkRole, String filterCondition_stochasticExpression) {
 		return (CompositeComponentCreator) super.withEventChannelSinkConnection(assemblyContext, eventChannel, sinkRole,
-				filterCondition_stochasticExpression, name);
+				filterCondition_stochasticExpression);
 	}
 
 	@Override
 	public CompositeComponentCreator withEventChannelSourceConnection(AssemblyContext assemblyContext,
-			EventChannel eventChannel, SourceRole sourceRole, String name) {
+			EventChannel eventChannel, SourceRole sourceRole) {
 		return (CompositeComponentCreator) super.withEventChannelSourceConnection(assemblyContext, eventChannel,
-				sourceRole, name);
+				sourceRole);
 	}
 
 	@Override

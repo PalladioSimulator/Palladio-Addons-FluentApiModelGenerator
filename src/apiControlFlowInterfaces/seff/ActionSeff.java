@@ -321,7 +321,7 @@ public interface ActionSeff {
 
 	/**
 	 * Creates a {@link org.palladiosimulator.pcm.seff.RecoveryAction
-	 * RecoveryAction}. TODO: javadoc
+	 * RecoveryAction}.
 	 * <p>
 	 * Recover block actions are a generic failure handling technique. A recovery
 	 * block consists of a a primary algorithm and one or more alternatives that can
@@ -354,9 +354,13 @@ public interface ActionSeff {
 	public RecoveryActionCreator recoveryAction();
 
 	/**
-	 * Creates a {@link org.palladiosimulator.pcm.seff.StopAction StopAction}.
+	 * Creates a {@link org.palladiosimulator.pcm.seff.ReleaseAction ReleaseAction}.
 	 * <p>
-	 * StopActions end a scenario behaviour and contain only a predecessor.
+	 * The ReleaseAction increases the number of available item for the given
+	 * passive resource type, before the current request can continue. It should be
+	 * to execute by one of the other concurrent requests. Acquisition and release
+	 * of passive resources happen instantaneously and do not consume any time
+	 * except for waiting delays before actual acquisition.
 	 * </p>
 	 * <p>
 	 * Offers the specifying method
@@ -383,7 +387,7 @@ public interface ActionSeff {
 	/**
 	 * Creates a {@link org.palladiosimulator.pcm.seff.SetVariableAction
 	 * SetVariableAction}. Requires that the service this SEFF is describing has a
-	 * return type.
+	 * return type and sets its value.
 	 * <p>
 	 * Offers the specifying method
 	 * {@link repositoryStructure.components.seff.SetVariableActionCreator#withLocalVariableUsage(repositoryStructure.components.VariableUsageCreator)
@@ -408,6 +412,9 @@ public interface ActionSeff {
 
 	/**
 	 * Creates a {@link org.palladiosimulator.pcm.seff.StopAction StopAction}.
+	 * <p>
+	 * StopActions end a scenario behaviour and contain only a predecessor.
+	 * </p>
 	 * <p>
 	 * Call on {@link apiControlFlowInterfaces.seff.StopSeff#createBehaviourNow()
 	 * createBehaviourNow()} to finish the SEFF/behaviour creation.
