@@ -12,9 +12,20 @@ import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceFactoryImpl;
+import org.palladiosimulator.pcm.core.CoreFactory;
+import org.palladiosimulator.pcm.parameter.ParameterFactory;
 import org.palladiosimulator.pcm.parameter.VariableCharacterisationType;
+import org.palladiosimulator.pcm.repository.BasicComponent;
+import org.palladiosimulator.pcm.repository.OperationInterface;
+import org.palladiosimulator.pcm.repository.OperationProvidedRole;
+import org.palladiosimulator.pcm.repository.OperationRequiredRole;
+import org.palladiosimulator.pcm.repository.OperationSignature;
+import org.palladiosimulator.pcm.repository.Parameter;
 import org.palladiosimulator.pcm.repository.ParameterModifier;
 import org.palladiosimulator.pcm.repository.Repository;
+import org.palladiosimulator.pcm.repository.RepositoryFactory;
+import org.palladiosimulator.pcm.seff.ResourceDemandingSEFF;
+import org.palladiosimulator.pcm.seff.SeffFactory;
 
 import factory.FluentRepositoryFactory;
 import repositoryStructure.internals.Primitive;
@@ -31,7 +42,8 @@ class Example {
 	public static void mediaStoreExample() {
 		FluentRepositoryFactory create = new FluentRepositoryFactory();
 
-		// TODO: mediastore Beispiel vervollständigen: seffs + failureType + Namen der Provided Roles
+		// TODO: mediastore Beispiel vervollständigen: seffs + failureType + Namen der
+		// Provided Roles
 		Repository mediaStore = create.newRepository().withName("MediaStoreRepository")
 				.addToRepository(create.newCompositeDataType().withName("FileContent"))
 				.addToRepository(create.newCompositeDataType().withName("AudioCollectionRequest")
@@ -99,7 +111,7 @@ class Example {
 	public static void exampleWithoutMeaning() {
 		FluentRepositoryFactory create = new FluentRepositoryFactory();
 
-		//TODO: Ausführliches Beispiel zum Testen der API
+		// TODO: Ausführliches Beispiel zum Testen der API
 		Repository repo = create.newRepository().withName("defaultRepository").withDescription("This is my PCM model.")
 
 				// DATATYPES
@@ -150,6 +162,93 @@ class Example {
 
 		saveRepository(repo, "/Users/louisalambrecht/Documents/eclipse-workspace/FluentAPICreation/",
 				"myrepo.repository", false);
+	}
+
+	public static void readmeExampleBackend() {
+		// Factory
+		RepositoryFactory repoFact = RepositoryFactory.eINSTANCE;
+
+		// Repository
+		Repository repository = repoFact.createRepository();
+
+		// Database component
+		BasicComponent databaseComponent = repoFact.createBasicComponent();
+		databaseComponent.setEntityName("Database");
+
+		// IDatabase interface
+		OperationInterface databaseInterface = repoFact.createOperationInterface();
+		databaseInterface.setEntityName("IDatabase");
+
+		// Signature store
+		OperationSignature store = repoFact.createOperationSignature();
+		store.setEntityName("store");
+		// with parameters forename, name
+		Parameter forename = repoFact.createParameter();
+		forename.setParameterName("forename");
+		forename.setDataType__Parameter(null); // referencing the imported data types poses another problem
+		Parameter name = repoFact.createParameter();
+		name.setParameterName("forename");
+		name.setDataType__Parameter(null);
+
+		// Providing connection from Database component to IDatabase interface
+		OperationProvidedRole dbProvIDb = repoFact.createOperationProvidedRole();
+		dbProvIDb.setProvidedInterface__OperationProvidedRole(databaseInterface);
+		dbProvIDb.setProvidingEntity_ProvidedRole(databaseComponent);
+
+		// Seff for Database component on service store
+		ResourceDemandingSEFF storeSeff = SeffFactory.eINSTANCE.createResourceDemandingSEFF();
+		storeSeff.setDescribedService__SEFF(store);
+		databaseComponent.getServiceEffectSpecifications__BasicComponent().add(storeSeff);
+
+		// Adding component + interfaces to the repository
+		repository.getComponents__Repository().add(databaseComponent);
+		repository.getInterfaces__Repository().add(databaseInterface);
+
+		// Web component
+		BasicComponent webComponent = repoFact.createBasicComponent();
+		databaseComponent.setEntityName("Web");
+
+		OperationInterface webInterface = repoFact.createOperationInterface();
+		databaseInterface.setEntityName("IWeb");
+
+		OperationSignature submit = repoFact.createOperationSignature();
+		submit.setEntityName("submit");
+		// with parameters forename, name
+		Parameter forename2 = repoFact.createParameter();
+		forename2.setParameterName("forename");
+		forename2.setDataType__Parameter(null);
+		Parameter name2 = repoFact.createParameter();
+		name2.setParameterName("forename");
+		name2.setDataType__Parameter(null);
+
+		OperationProvidedRole webProvIweb = repoFact.createOperationProvidedRole();
+		webProvIweb.setProvidedInterface__OperationProvidedRole(webInterface);
+		webProvIweb.setProvidingEntity_ProvidedRole(webComponent);
+
+		ResourceDemandingSEFF submitSeff = SeffFactory.eINSTANCE.createResourceDemandingSEFF();
+		submitSeff.setDescribedService__SEFF(submit);
+		webComponent.getServiceEffectSpecifications__BasicComponent().add(submitSeff);
+
+		OperationRequiredRole webRequIDb = repoFact.createOperationRequiredRole();
+		webRequIDb.setRequiredInterface__OperationRequiredRole(databaseInterface);
+		webRequIDb.setRequiringEntity_RequiredRole(webComponent);
+
+		// Adding component + interfaces to the repository
+		repository.getComponents__Repository().add(webComponent);
+		repository.getInterfaces__Repository().add(webInterface);
+	}
+
+	public static void readmeExampleFluentAPI() {
+		// Factory
+		FluentRepositoryFactory create = new FluentRepositoryFactory();
+		
+		create.newRepository()
+			.addToRepository(create.newOperationInterface()
+					.withName("IDatabase")
+					.withOperationSignature()
+						.withName("store")
+						.withParameter("forename", Primitive.STRING, ParamterModifier))
+			.addToRepository(create.newBasicComponent().withName("Database")).createRepositoryNow();
 	}
 
 	public static void saveRepository(Repository repo, String path, String name, boolean printToConsole) {

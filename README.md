@@ -49,12 +49,69 @@ The tree view of the repository model editor shows the model elements in their s
 ![PCM Repository Model: Tree Editor](materials/pcm_repo_model_tree.png "PCM Repository Model: Tree Editor")
 
 #### Fluent Interfaces
-A fluent interface, also called fluent API, is a certain style of interface which is especially useful for creating and manipulating objects. The goal of a fluent interface is to increase code legibility by creating a domain-specific language (DSL). Its design relies on method chaining to implement method cascading. Thus, each method usually returns this, i.e. the manipulated object itself. Prominent examples of fluent interfaces are the [Java Stream API](https://docs.oracle.com/javase/8/docs/api/java/util/stream/package-summary.html) and [JMock](http://jmock.org).
+A fluent interface, also called fluent API, is a certain style of interface which is especially useful for creating and manipulating objects. The goal of a fluent interface is to increase code legibility by creating a domain-specific language (DSL). Its design relies on method chaining to implement method cascading. Thus, each method usually returns this, i.e. the manipulated object itself. Furthermore, the chaining methods are supposed to "flow like a natural sentence" (hence the name "fluent interface"), automatically guiding the user and giving a natural feeling of the available features. 
+
+Prominent examples of fluent interfaces are the [Java Stream API](https://docs.oracle.com/javase/8/docs/api/java/util/stream/package-summary.html) and [JMock](http://jmock.org).
 
 ## Motivation
-- das in code zu implementieren ist halt kacke mit den 20 verschiedenen factories. -> code Beispiel; Und der Aufbau soll möglichst simple sein, um anwendern ohne großes vorwissen genau diese Methoden auszuspucken, die halt hier sinnvoll sind. 
+Even though the model editor provides a comfortable and graphic possibility of creating PCM repository models, experienced users may find it exhausting to work with a graphical interface and wish for a simple API to create their models programmatically and therefore faster. 
+However, the backend of PCM provides not just one but around 10 different factories, that are needed to create a PCM repository model. Searching for the correct factory for the different model elements and the method names that sets the desired properties is not user friendly. Especially, because the model objects offer more method proposals than sensible for creating a repository model. 
+
+The following code example shows the code needed for creating the half of the repository model from the image of the graphical editor.
+
+```java
+		// Factory
+		RepositoryFactory repoFact = RepositoryFactory.eINSTANCE;
+		
+		// Repository
+		Repository repository = repoFact.createRepository();
+		
+		// Database component
+		BasicComponent databaseComponent = repoFact.createBasicComponent();
+		databaseComponent.setEntityName("Database");
+		
+		// IDatabase interface
+		OperationInterface databaseInterface = repoFact.createOperationInterface();
+		databaseInterface.setEntityName("IDatabase");
+		
+		// Signature store
+		OperationSignature store = repoFact.createOperationSignature();
+		store.setEntityName("store");
+		// with parameters forename, name
+		Parameter forename = repoFact.createParameter();
+		forename.setParameterName("forename");
+		forename.setDataType__Parameter(null); // referencing the imported data types poses another problem
+		Parameter name = repoFact.createParameter();
+		name.setParameterName("forename");
+		name.setDataType__Parameter(null);
+		
+		// Seff for Database component on service store
+		ResourceDemandingSEFF storeSeff = SeffFactory.eINSTANCE.createResourceDemandingSEFF();
+		storeSeff.setDescribedService__SEFF(store);
+		databaseComponent.getServiceEffectSpecifications__BasicComponent().add(storeSeff);
+		
+		// Providing connection from Database component to IDatabase interface
+		OperationProvidedRole dbProvIDb = repoFact.createOperationProvidedRole();
+		dbProvIDb.setProvidedInterface__OperationProvidedRole(databaseInterface);
+		dbProvIDb.setProvidingEntity_ProvidedRole(databaseComponent);
+		
+		// Adding component + interfaces to the repository
+		repository.getComponents__Repository().add(databaseComponent);
+		repository.getInterfaces__Repository().add(databaseInterface);
+```
+
+The overhead of creating the repository model that way is extesive. The fluent API has the goal not only to reduce the overhead of creating a model programmatically but also to provide a clear frame that guides the user through the different steps of the model creation, naturally indicating which step comes next. Consequently the API is easy to use even for unexperienced users. 
 
 ## Example
+Creating the example repository from the image of the graphical editor using the fluent API is much simpler, shorter and easier to understand than when using the backend directly.
+
+```java
+
+```
+
+
+The package ```examples``` provides you with several examples of repositories that were created using the fluent API.
+
 Ein Beispiel -> verlinke auf Beispiel Code im Repo
 
 ## Aufbau der API
