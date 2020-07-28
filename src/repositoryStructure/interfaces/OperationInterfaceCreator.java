@@ -91,7 +91,7 @@ public class OperationInterfaceCreator extends Interface {
 	 * <p>
 	 * To return to editing the operation interface this signature belongs to, the
 	 * modification of the signature has to be completed with calling a
-	 * {@link repositoryStructure.interfaces.OperationSignatureCreator#now() final
+	 * {@link repositoryStructure.interfaces.OperationSignatureCreator#createSignature() final
 	 * method}.
 	 * </p>
 	 * 
@@ -107,7 +107,7 @@ public class OperationInterfaceCreator extends Interface {
 	 *      org.palladiosimulator.pcm.repository.ParameterModifier)
 	 * @see repositoryStructure.interfaces.OperationSignatureCreator#withExceptionType(org.palladiosimulator.pcm.repository.ExceptionType)
 	 * @see repositoryStructure.interfaces.OperationSignatureCreator#withFailureType(org.palladiosimulator.pcm.reliability.FailureType)
-	 * @see repositoryStructure.interfaces.OperationSignatureCreator#now()
+	 * @see repositoryStructure.interfaces.OperationSignatureCreator#createSignature()
 	 */
 	public OperationSignatureCreator withOperationSignature() {
 		OperationSignatureCreator operationSignature = new OperationSignatureCreator(this, this.repository);

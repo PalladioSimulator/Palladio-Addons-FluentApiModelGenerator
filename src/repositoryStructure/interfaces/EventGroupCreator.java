@@ -88,7 +88,7 @@ public class EventGroupCreator extends Interface {
 	 * <p>
 	 * To return to editing the event group this event type belongs to, the
 	 * modification of the event type has to be completed with calling a
-	 * {@link repositoryStructure.interfaces.EventTypeCreator#now() final
+	 * {@link repositoryStructure.interfaces.EventTypeCreator#createEventType() final
 	 * method}.
 	 * </p>
 	 * 
@@ -104,7 +104,7 @@ public class EventGroupCreator extends Interface {
 	 *      org.palladiosimulator.pcm.repository.ParameterModifier)
 	 * @see repositoryStructure.interfaces.EventTypeCreator#withExceptionType(org.palladiosimulator.pcm.repository.ExceptionType)
 	 * @see repositoryStructure.interfaces.EventTypeCreator#withFailureType(org.palladiosimulator.pcm.reliability.FailureType)
-	 * @see repositoryStructure.interfaces.EventTypeCreator#now()
+	 * @see repositoryStructure.interfaces.EventTypeCreator#createEventType()
 	 */
 	public EventTypeCreator withEventType() {
 		EventTypeCreator etc = new EventTypeCreator(this, this.repository);

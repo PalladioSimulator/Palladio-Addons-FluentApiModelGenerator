@@ -181,7 +181,7 @@ public class InfrastructureSignatureCreator extends Entity {
 	 * @return the corresponding infrastructure interface
 	 * @see org.palladiosimulator.pcm.repository.InfrastructureSignature
 	 */
-	public InfrastructureInterfaceCreator now() {
+	public InfrastructureInterfaceCreator createSignature() {
 		InfrastructureSignature sign = this.build();
 		correspondingInterface.addInfrastructureSignatures(sign);
 		this.repository.addSignature(sign);

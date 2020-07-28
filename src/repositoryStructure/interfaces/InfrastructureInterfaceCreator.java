@@ -93,7 +93,7 @@ public class InfrastructureInterfaceCreator extends Interface {
 	 * <p>
 	 * To return to editing the infrastructure interface this signature belongs to,
 	 * the modification of the signature has to be completed with calling a
-	 * {@link repositoryStructure.interfaces.InfrastructureSignatureCreator#now()
+	 * {@link repositoryStructure.interfaces.InfrastructureSignatureCreator#createSignature()
 	 * final method}.
 	 * </p>
 	 * 
@@ -109,7 +109,7 @@ public class InfrastructureInterfaceCreator extends Interface {
 	 *      org.palladiosimulator.pcm.repository.ParameterModifier)
 	 * @see repositoryStructure.interfaces.InfrastructureSignatureCreator#withExceptionType(org.palladiosimulator.pcm.repository.ExceptionType)
 	 * @see repositoryStructure.interfaces.InfrastructureSignatureCreator#withFailureType(org.palladiosimulator.pcm.reliability.FailureType)
-	 * @see repositoryStructure.interfaces.InfrastructureSignatureCreator#now()
+	 * @see repositoryStructure.interfaces.InfrastructureSignatureCreator#createSignature()
 	 */
 	public InfrastructureSignatureCreator withInfrastructureSignature() {
 		InfrastructureSignatureCreator signature = new InfrastructureSignatureCreator(this, this.repository);

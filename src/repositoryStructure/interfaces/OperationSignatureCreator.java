@@ -215,7 +215,7 @@ public class OperationSignatureCreator extends Entity {
 	 * @return the corresponding operation interface
 	 * @see org.palladiosimulator.pcm.repository.OperationSignature
 	 */
-	public OperationInterfaceCreator now() {
+	public OperationInterfaceCreator createSignature() {
 		OperationSignature sign = this.build();
 		correspondingInterface.addOperationSignatures(sign);
 		this.repository.addSignature(sign);

@@ -174,7 +174,7 @@ public class EventTypeCreator extends Entity {
 	 * @return the corresponding event group
 	 * @see org.palladiosimulator.pcm.repository.EventGroup
 	 */
-	public EventGroupCreator now() {
+	public EventGroupCreator createEventType() {
 		EventType eventType = this.build();
 		correspondingEventGroup.addEventType(eventType);
 		this.repository.addSignature(eventType);
