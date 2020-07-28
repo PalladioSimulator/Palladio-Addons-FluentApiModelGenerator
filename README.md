@@ -42,7 +42,7 @@ This project provides a fluent API to create a PCM Repository Model.
 The Palladio Component Model (PCM) is one of the core assets of the Palladio approach. It is designed to enable early performance, reliability, maintainability, and cost predictions for software architectures and is aligned with a component-based software development process. The PCM is implemented using the Eclipse Modeling Framework (EMF). Visit the [Homepage](https://www.palladio-simulator.com)
 
 #### PCM Repository Model
-![PCM Repository Model Editor](https://git.scc.kit.edu/uotnl/fluentapicreation/-/blob/master/Materialien/PCM%20Repository%20Model.png "PCM Repository Model Editor")
+![PCM Repository Model Editor](Materialien/PCM Repository Model.png "PCM Repository Model Editor")
 
 
 ## Project Setup
