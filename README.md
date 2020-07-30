@@ -38,7 +38,7 @@ Louisa
 ## Project Description
 This project provides a fluent API to create PCM Repository Models simply and programmatically.
 
-If you are familiar with the backgroud of PCM and fluent interfaces, jump directly to [Motivation](#motivation) or [How to use the Palladio Fluent API](##how-to-use-the-palladio-fluent-api).
+If you are familiar with the backgroud of PCM and fluent interfaces, jump directly to [Motivation](#motivation) or [How to use the Palladio Fluent API](#how-to-use-the-palladio-fluent-api).
 
 ## Background
 
