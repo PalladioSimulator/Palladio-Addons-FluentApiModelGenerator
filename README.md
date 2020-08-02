@@ -2,41 +2,6 @@
 # Palladio-Addons-FluentApiModelGenerator
 A fluid interface for easy and programmatic creation of PCM repository model instances.
 
-Hi Philip,
-
-die fluent API läuft komplett über die FluentAPIFactory. Die musst du einmal initialisieren und kannst dann damit Repository, Components oder eben SEFFs erstellen.
-```java
-FluentRepositoryFactory create = new FluentRepositoryFactory();
-		
-Repository repo = create.newRepository()
-				.addToRepository(create.newOperationInterface().withName("IDatabase")
-									.withOperationSignature()
-										.withName("saveDatabaseEntry").now())
-				.addToRepository(create.newBasicComponent().withName("Database")
-									.withServiceEffectSpecification(create.newSeff()
-											.onSignature(create.fetchOfSignature("saveDatabaseEntry"))
-											.withSeffBehaviour().withStartAction()
-												.followedBy().externalCallAction()
-												// beliebig viele Actions
-												.followedBy().stopAction().createBehaviourNow()))
-				.createRepositoryNow();
-```
-
-Oder wenn du wirklich nur den SEFF willst:
-
-```java
-ServiceEffectSpecification seff = create.newSeff()
-		.withSeffBehaviour().withStartAction()
-			.followedBy().externalCallAction()
-			// beliebig viele Actions
-			.followedBy().stopAction().createBehaviourNow().build();
-```
-
-Ich hoffe, das hilft dir erst mal weiter. Wenn du Fehler findest oder Verbesserungsvorschläge hast, immer her damit.
-
-Viele Grüße
-Louisa
-
 ## Project Description
 This project provides a fluent API to create PCM Repository Models simply and programmatically.
 
@@ -212,3 +177,31 @@ für den Nutzer unwichtig, aber als Praktikumsbericht sinnvoll: was hab ich mir 
 * PCM Komponentenmodell erstellen
 * Fluent Interface Ansatz mit Builder Pattern ausprobieren
 * PCM programmatisch erstellen: Teste Code von Wiki-Seite, erstelle ein einfaches PCM Modell programmatisch über RepositoryFactory; identifiziere Methoden zur Manipulation des Repository Objekts
+
+
+```java
+FluentRepositoryFactory create = new FluentRepositoryFactory();
+		
+Repository repo = create.newRepository()
+				.addToRepository(create.newOperationInterface().withName("IDatabase")
+									.withOperationSignature()
+										.withName("saveDatabaseEntry").now())
+				.addToRepository(create.newBasicComponent().withName("Database")
+									.withServiceEffectSpecification(create.newSeff()
+											.onSignature(create.fetchOfSignature("saveDatabaseEntry"))
+											.withSeffBehaviour().withStartAction()
+												.followedBy().externalCallAction()
+												// beliebig viele Actions
+												.followedBy().stopAction().createBehaviourNow()))
+				.createRepositoryNow();
+```
+
+Nur der SEFF:
+
+```java
+ServiceEffectSpecification seff = create.newSeff()
+		.withSeffBehaviour().withStartAction()
+			.followedBy().externalCallAction()
+			// beliebig viele Actions
+			.followedBy().stopAction().createBehaviourNow().build();
+```
