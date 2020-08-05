@@ -2,10 +2,7 @@
 # Palladio-Addons-FluentApiModelGenerator
 A fluid interface for easy and programmatic creation of PCM repository model instances.
 
-## Project Description
-This project provides a fluent API to create PCM Repository Models simply and programmatically.
-
-If you are familiar with the backgroud of PCM and fluent interfaces, jump directly to [Motivation](#motivation) or [How to use the Palladio Fluent API](#how-to-use-the-palladio-fluent-api).
+If you are familiar with the backgroud of PCM and fluent interfaces, jump directly to [Motivation](#motivation) or [How to use the Fluent API Model Generator](#how-to-use-the-fluent-api-model-generator).
 
 ## Background
 
@@ -28,7 +25,7 @@ Prominent examples of fluent interfaces are the [Java Stream API](https://docs.o
 Even though the model editor provides a comfortable and graphic possibility of creating PCM repository models, experienced users may find it exhausting to work with a graphical interface and wish for a simple API to create their models programmatically and therefore faster. 
 However, the backend of PCM provides not just one but around 10 different factories, that are needed to create a PCM repository model. Searching for the correct factory for the different model elements and the method names that sets the desired properties is not user friendly. Especially, because the model objects offer more method proposals than sensible for creating a repository model. 
 
-The following code example shows the code needed for creating the half of the repository model from the image of the graphical editor.
+The following code example shows the code needed for creating half of the repository model from the image of the graphical editor.
 
 ```java
 // Factory
@@ -71,44 +68,11 @@ repository.getComponents__Repository().add(databaseComponent);
 repository.getInterfaces__Repository().add(databaseInterface);
 ```
 
-The overhead of creating the repository model that way is extesive. The fluent API has the goal not only to reduce the overhead of creating a model programmatically but also to provide a clear frame that guides the user through the different steps of the model creation, naturally indicating which step comes next. Consequently the API is easy to use even for unexperienced users. 
+The overhead of creating the repository model that way is extesive. The fluent API has the goal not only to reduce the overhead of creating a model programmatically but also to provide a clear frame that guides the user through the different steps of the model creation, naturally indicating which step comes next. Consequently, the API is easy to use even for unexperienced users. 
 
-### Fluent API Example
-Creating the whole example repository from the image of the graphical editor using the fluent API is much simpler, shorter and easier to understand than when using the backend directly.
+Check out the full code of the example from the image of the graphical editor [here](#example).
 
-```java
-// Factory
-FluentRepositoryFactory create = new FluentRepositoryFactory();
-		
-Repository repository = create.newRepository()
-	// Database
-	.addToRepository(create.newOperationInterface()
-			.withName("IDatabase")
-			.withOperationSignature()
-				.withName("store")
-				.withParameter("forename", Primitive.STRING, ParameterModifier.NONE)
-				.withParameter("name", Primitive.STRING, ParameterModifier.NONE).createSignature())
-	.addToRepository(create.newBasicComponent()
-			.withName("Database")
-			.withServiceEffectSpecification(create.newSeff().onSignature(create.fetchOfSignature("store")))
-			.provides(create.fetchOfOperationInterface("IDatabase")))
-	// Web
-	.addToRepository(create.newOperationInterface()
-			.withName("IWeb")
-			.withOperationSignature()
-				.withName("submit")
-				.withParameter("forename", Primitive.STRING, ParameterModifier.NONE)
-				.withParameter("name", Primitive.STRING, ParameterModifier.NONE).createSignature())
-	.addToRepository(create.newBasicComponent()
-			.withName("Web")
-			.withServiceEffectSpecification(create.newSeff().onSignature(create.fetchOfSignature("submit")))
-			.provides(create.fetchOfOperationInterface("IWeb"))
-			.requires(create.fetchOfOperationInterface("IDatabase")))
-	.createRepositoryNow();
-```
-The package [```examples```](src/examples/) provides more examples of repositories that were created using the fluent API.
-
-## How to use the Palladio Fluent API
+## How to use the Fluent API Model Generator
 
 ### Project Setup
 
@@ -122,7 +86,7 @@ Create your own Plug-in Project and add the three dependencies in the MANIFEST.M
 You are now ready to use the `FluentRepositoryFactory` to create a Repository.
 
 
-### Structure 
+### Structure of the API
 The Palladio Fluent API's main component is the ```FluentRepositoryFactory```. This factory can create 
 * a repository, 
 * basic model elements like 
@@ -158,50 +122,100 @@ All model elements offer the specification of a name. This name should be unique
 The three repositories that are imported by default in the graphical and tree editor are also part of the API. The built in primitive types, failure types and resources from the repository resource can be referenced using the enum classes ```Primitive```, ```Failure```, ```ProcessingResource```, ```ResourceInterface```, ```ResourceSignature``` and ```CommunicationLinkResource```. See, for example, the generation of a list of strings in line 2 of the example above. The primitive data type String from the imported ```PrimitiveDataTypes.repository``` is referenced by ```Primitive.STRING```.
 
 
-## How did this Project Evolve
+### Data Types
+There are two kinds of data types a user can create: collection data types that represent a list or a set of a certain type, and composite data types that similar to a Java class form a container to store several values that belong together.
 
-### Recherche und Entwicklung
-für den Nutzer unwichtig, aber als Praktikumsbericht sinnvoll: was hab ich mir wobei gedacht.
-* Analyse der Bauteile eines PCM Komponenten-Modells (über GUI, Baumstruktur, TextBasedModelGenerator-Projekt) -> Komponenten, Interfaces, SEFFs etc.etc.
-* Implementierung eines Prototyps (Erstellen eines Repository mit Basic Components und Interfaces)
+Collection data types simply need a name and another data type that can be any data type from primitive to a collection or composition data type.
+```java
+create.newCollectionDataType("StringList", Primitive.STRING)
+```
+Composite data types should also be provided with a name (even though not required), so it can be refereced later on. The inner declaration are the "fields" that this data type is composed of. Previously created data types can be fetched from the repository as indicated in line 3 below.
+```java
+create.newCompositeDataType()
+	.withName("Person")
+	.withInnerDeclaration("names", create.fetchOfDataType("StringList"))
+	.withInnerDeclaration("age", Primitive.INTEGER)
+```
 
-### Recherche
-* EMF
-* Eclipse Plugin
-* Fluent Interfaces
-* Palladio
-* diverse Tutorials, YouTube Videos, Wiki Seiten, andere Internet-Ressourcen
+### Interfaces
+There are three types of interfaces: operation interfaces, infrastructure interfaces, and event groups. All of them can bear a signature and a required characterisation of parameters and have parent interfaces.
+```java
+create.newOperationInterface()
+	.withName("interface")
+	.withOperationSignature()
+		.withName("signature")
+		.withParameter("parameter", create.fetchOfDataType("Person"), ParameterModifier.IN)
+		.createSignature()
+	.withRequiredCharacterisation(create.fetchOfParameter("parameter"), VariableCharacterisationType.STRUCTURE)
+	.conforms(create.fetchOfInterface("parent interface")
+```
+Signatures require a call on the ```createSignature()``` method for technical reasons of the API design to return to the interface that is currently created.
 
-#### Praktische Recherche
-* EMF Modell erstellen
-* PCM Komponentenmodell erstellen
-* Fluent Interface Ansatz mit Builder Pattern ausprobieren
-* PCM programmatisch erstellen: Teste Code von Wiki-Seite, erstelle ein einfaches PCM Modell programmatisch über RepositoryFactory; identifiziere Methoden zur Manipulation des Repository Objekts
 
+### Components
+Basic components, composite components, subsystems and the component types (complete and provides) can all connect in certain roles to interfaces.
+```java
+create.newBasicComponent()
+	.withName("basic component")
+	.provides(create.fetchOfOperationInterface("interface"), "basic component provides interface")
+	.requires(create.fetchOfOperationInterface("interface"), "basic component requires interface")
+```
+
+Composite components and subsystem can further define assembly contexts, various connectors and event channels.
+```java
+create.newCompositeComponent()
+	.withAssemblyContext(create.fetchOfComponent("basic component"), "basic component context")
+	.withAssemblyConnection(create.fetchOfOperationProvidedRole("basic component provides interface"), 
+		create.fetchOfAssemblyContext("basic component context"), 
+		create.fetchOfOperationRequiredRole("basic component requires interface"), 
+		create.fetchOfAssemblyContext("basic component context"))
+	.withEventChannel(create.fetchOfEventGroup("event group"))
+```
+
+### SEFFs
+Basic components can define the behaviour of signature/method of an interface it provides.
+```java
+create.newBasicComponent()
+	.withServiceEffectSpecification(create.newSeff()
+		.onSignature(create.fetchOfSignature("signature"))
+		.withSeffBehaviour().withStartAction().followedBy().stopAction().createBehaviourNow()))
+```
+The SEFF behaviour consists of a start action followed by a stop action at the very least. In between there can follow arbitrarily many other actions, like internal actions, external actions, aquire actions, branch actions, loop actions etc. As the signatures of the interfaces, a behaviour has to be terminated with a call on the ```createBehaviourNow()``` method for technical reasons of the API design.
+
+## Example
+Creating the whole example repository from the image of the graphical editor using the fluent API is much simpler, shorter and easier to understand than when using the backend directly.
 
 ```java
+// Factory
 FluentRepositoryFactory create = new FluentRepositoryFactory();
 		
-Repository repo = create.newRepository()
-				.addToRepository(create.newOperationInterface().withName("IDatabase")
-									.withOperationSignature()
-										.withName("saveDatabaseEntry").now())
-				.addToRepository(create.newBasicComponent().withName("Database")
-									.withServiceEffectSpecification(create.newSeff()
-											.onSignature(create.fetchOfSignature("saveDatabaseEntry"))
-											.withSeffBehaviour().withStartAction()
-												.followedBy().externalCallAction()
-												// beliebig viele Actions
-												.followedBy().stopAction().createBehaviourNow()))
-				.createRepositoryNow();
+Repository repository = create.newRepository()
+	// Database
+	.addToRepository(create.newOperationInterface()
+			.withName("IDatabase")
+			.withOperationSignature()
+				.withName("store")
+				.withParameter("forename", Primitive.STRING, ParameterModifier.NONE)
+				.withParameter("name", Primitive.STRING, ParameterModifier.NONE).createSignature())
+	.addToRepository(create.newBasicComponent()
+			.withName("Database")
+			.withServiceEffectSpecification(create.newSeff().onSignature(create.fetchOfSignature("store")))
+			.provides(create.fetchOfOperationInterface("IDatabase")))
+	// Web
+	.addToRepository(create.newOperationInterface()
+			.withName("IWeb")
+			.withOperationSignature()
+				.withName("submit")
+				.withParameter("forename", Primitive.STRING, ParameterModifier.NONE)
+				.withParameter("name", Primitive.STRING, ParameterModifier.NONE).createSignature())
+	.addToRepository(create.newBasicComponent()
+			.withName("Web")
+			.withServiceEffectSpecification(create.newSeff().onSignature(create.fetchOfSignature("submit")))
+			.provides(create.fetchOfOperationInterface("IWeb"))
+			.requires(create.fetchOfOperationInterface("IDatabase")))
+	.createRepositoryNow();
 ```
+The package [```examples```](src/examples/) provides more examples of repositories that were created using the fluent API.
 
-Nur der SEFF:
-
-```java
-ServiceEffectSpecification seff = create.newSeff()
-		.withSeffBehaviour().withStartAction()
-			.followedBy().externalCallAction()
-			// beliebig viele Actions
-			.followedBy().stopAction().createBehaviourNow().build();
-```
+## Miscellaneous
+See issues on git for further enhancements of this API.
