@@ -51,64 +51,19 @@ public class EventGroupCreator extends Interface {
 	}
 
 	/**
-	 * Creates a new {@link org.palladiosimulator.pcm.repository.EventType
-	 * EventType}.
-	 * <p>
-	 * Every service of an interface/event group has a unique signature/event type, like <code>void
-	 * doSomething(int a)</code>. A PCM signature/event type is comparable to a method
-	 * signature in programming languages like C#, Java or the OMG IDL.
-	 * </p>
-	 * <p>
-	 * An event type contains
-	 * <ul>
-	 * <li>a
-	 * {@link repositoryStructure.interfaces.EventTypeCreator#withReturnType(org.palladiosimulator.pcm.repository.DataType)
-	 * type of the return value} or void (no return value),
-	 * <li>an
-	 * {@link repositoryStructure.interfaces.EventTypeCreator#withName(String)
-	 * identifier} naming the service,
-	 * <li>an ordered set of
-	 * {@link repositoryStructure.interfaces.EventTypeCreator#withParameter(String, org.palladiosimulator.pcm.repository.DataType, org.palladiosimulator.pcm.repository.ParameterModifier)
-	 * parameters} (0..*). Each parameter is a tuple of a <code>dataType</code> and
-	 * an <code>identifier</code> (which is unique across the parameters).
-	 * Optionally, the <code>modifiers</code> in, out, and inout (with its OMG IDL
-	 * semantics) can be used for parameters.
-	 * <li>and an unordered set of
-	 * {@link repositoryStructure.interfaces.EventTypeCreator#withExceptionType(org.palladiosimulator.pcm.repository.ExceptionType)
-	 * exceptions}.
-	 * <li>Furthermore
-	 * {@link repositoryStructure.interfaces.EventTypeCreator#withFailureType(org.palladiosimulator.pcm.reliability.FailureType)
-	 * failures} that may occur inside external services must be specified at the
-	 * service signatures/event types.
-	 * </ul>
-	 * A signature/event type has to be unique for an interface/event group through the tuple (identifier,
-	 * order of parameters). Different interfaces/event groups can define equally named
-	 * signatures/event types, however, they are not identical.
-	 * </p>
-	 * <p>
-	 * To return to editing the event group this event type belongs to, the
-	 * modification of the event type has to be completed with calling a
-	 * {@link repositoryStructure.interfaces.EventTypeCreator#createEventType() final
-	 * method}.
-	 * </p>
+	 * Adds the <code>eventType</code> to this event group's list of event types.
+	 * The <code>eventType</code> can be created using the factory, i.e.
+	 * <code>create.newEventType()</code>.
 	 * 
-	 * @return the event type in the making
-	 * @see org.palladiosimulator.pcm.repository.Signature
-	 * @see repositoryStructure.interfaces.EventTypeCreator#withName(String)
-	 * @see repositoryStructure.interfaces.EventTypeCreator#withReturnType(org.palladiosimulator.pcm.repository.DataType)
-	 * @see repositoryStructure.interfaces.EventTypeCreator#withParameter(String,
-	 *      org.palladiosimulator.pcm.repository.DataType,
-	 *      org.palladiosimulator.pcm.repository.ParameterModifier)
-	 * @see repositoryStructure.interfaces.EventTypeCreator#withParameter(String,
-	 *      repositoryStructure.datatypes.Primitive,
-	 *      org.palladiosimulator.pcm.repository.ParameterModifier)
-	 * @see repositoryStructure.interfaces.EventTypeCreator#withExceptionType(org.palladiosimulator.pcm.repository.ExceptionType)
-	 * @see repositoryStructure.interfaces.EventTypeCreator#withFailureType(org.palladiosimulator.pcm.reliability.FailureType)
-	 * @see repositoryStructure.interfaces.EventTypeCreator#createEventType()
+	 * @param eventType
+	 * @return this event group in the making
+	 * @see factory.FluentRepositoryFactory#newEventType()
 	 */
-	public EventTypeCreator withEventType() {
-		EventTypeCreator etc = new EventTypeCreator(this, this.repository);
-		return etc;
+	public EventGroupCreator withEventType(EventTypeCreator eventType) {
+		EventType build = eventType.build();
+		this.repository.addSignature(build);
+		this.eventTypes.add(build);
+		return this;
 	}
 
 	@Override

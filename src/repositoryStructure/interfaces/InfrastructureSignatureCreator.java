@@ -31,16 +31,12 @@ import repositoryStructure.internals.Primitive;
  */
 public class InfrastructureSignatureCreator extends Entity {
 
-	private InfrastructureInterfaceCreator correspondingInterface;
-
 	private List<Parameter> parameters;
 	private List<ExceptionType> exceptions;
 	private List<FailureType> failures;
 
-	protected InfrastructureSignatureCreator(InfrastructureInterfaceCreator infrastructureInterfaceCreator,
-			RepositoryCreator repository) {
+	public InfrastructureSignatureCreator(RepositoryCreator repository) {
 		this.repository = repository;
-		this.correspondingInterface = infrastructureInterfaceCreator;
 		this.parameters = new ArrayList<>();
 		this.exceptions = new ArrayList<>();
 		this.failures = new ArrayList<>();
@@ -171,21 +167,6 @@ public class InfrastructureSignatureCreator extends Entity {
 		Objects.requireNonNull(exceptionType, "exceptionType must not be null");
 		this.exceptions.add(exceptionType);
 		return this;
-	}
-
-	/**
-	 * Turns the infrastructure-signature-in-the-making into an
-	 * '<em><b>Infrastructure Signature</b></em>' object and adds it to the
-	 * corresponding interface.
-	 * 
-	 * @return the corresponding infrastructure interface
-	 * @see org.palladiosimulator.pcm.repository.InfrastructureSignature
-	 */
-	public InfrastructureInterfaceCreator createSignature() {
-		InfrastructureSignature sign = this.build();
-		correspondingInterface.addInfrastructureSignatures(sign);
-		this.repository.addSignature(sign);
-		return correspondingInterface;
 	}
 
 	@Override

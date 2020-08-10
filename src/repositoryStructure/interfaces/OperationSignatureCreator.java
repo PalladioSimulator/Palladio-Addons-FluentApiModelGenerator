@@ -35,10 +35,8 @@ public class OperationSignatureCreator extends Entity {
 	private List<Parameter> ownedParameters;
 	private List<FailureType> failureTypes;
 	private List<ExceptionType> exceptionTypes;
-	private OperationInterfaceCreator correspondingInterface;
 
-	protected OperationSignatureCreator(OperationInterfaceCreator interfce, RepositoryCreator repo) {
-		this.correspondingInterface = interfce;
+	public OperationSignatureCreator(RepositoryCreator repo) {
 		this.repository = repo;
 		this.ownedParameters = new ArrayList<>();
 		this.failureTypes = new ArrayList<>();
@@ -206,20 +204,6 @@ public class OperationSignatureCreator extends Entity {
 		if (exceptionType != null)
 			this.exceptionTypes.add(exceptionType);
 		return this;
-	}
-
-	/**
-	 * Turns the operation-signature-in-the-making into an '<em><b>Operation
-	 * Signature</b></em>' object and adds it to the corresponding interface.
-	 * 
-	 * @return the corresponding operation interface
-	 * @see org.palladiosimulator.pcm.repository.OperationSignature
-	 */
-	public OperationInterfaceCreator createSignature() {
-		OperationSignature sign = this.build();
-		correspondingInterface.addOperationSignatures(sign);
-		this.repository.addSignature(sign);
-		return correspondingInterface;
 	}
 
 	@Override
