@@ -80,7 +80,6 @@ class Example {
 	public static void readmeExampleBackend() {
 		// Factory
 		RepositoryFactory repoFact = RepositoryFactory.eINSTANCE;
-
 		// Repository
 		Repository repository = repoFact.createRepository();
 
@@ -91,7 +90,7 @@ class Example {
 		// IDatabase interface
 		OperationInterface databaseInterface = repoFact.createOperationInterface();
 		databaseInterface.setEntityName("IDatabase");
-
+		
 		// Signature store
 		OperationSignature store = repoFact.createOperationSignature();
 		store.setEntityName("store");
@@ -176,6 +175,23 @@ class Example {
 						.withServiceEffectSpecification(create.newSeff().onSignature(create.fetchOfSignature("submit")))
 						.provides(create.fetchOfOperationInterface("IWeb"))
 						.requires(create.fetchOfOperationInterface("IDatabase")))
+				.createRepositoryNow();
+
+		saveRepository(repository, "./", "fluentAPIExample.repository", false);
+	}
+	
+	public static void presentationExample() {
+		FluentRepositoryFactory create = new FluentRepositoryFactory();
+
+		Repository repository = create.newRepository()
+				.addToRepository(create.newBasicComponent()
+						.withName("Database")
+						.requires(create.newOperationInterface()
+								.withName("IDatabase")
+								.withOperationSignature(create.newOperationSignature()
+										.withName("store")
+										.withParameter("forename", Primitive.STRING, ParameterModifier.NONE)
+										.withParameter("name", Primitive.STRING, ParameterModifier.NONE))))
 				.createRepositoryNow();
 
 		saveRepository(repository, "./", "fluentAPIExample.repository", false);

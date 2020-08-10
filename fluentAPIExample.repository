@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<repository:Repository xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:seff="http://palladiosimulator.org/PalladioComponentModel/SEFF/5.2" id="_atiIidsAEeqwF6OdMbsJhg">
+  <components__Repository xsi:type="repository:BasicComponent" id="_atiIgtsAEeqwF6OdMbsJhg" entityName="Database">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_atiIgdsAEeqwF6OdMbsJhg" providedInterface__OperationProvidedRole="_atg6YdsAEeqwF6OdMbsJhg"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_atiIgNsAEeqwF6OdMbsJhg" describedService__SEFF="_atg6YNsAEeqwF6OdMbsJhg"/>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_atiIiNsAEeqwF6OdMbsJhg" entityName="Web">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_atiIhtsAEeqwF6OdMbsJhg" providedInterface__OperationProvidedRole="_atiIhNsAEeqwF6OdMbsJhg"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_atiIh9sAEeqwF6OdMbsJhg" requiredInterface__OperationRequiredRole="_atg6YdsAEeqwF6OdMbsJhg"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_atiIhdsAEeqwF6OdMbsJhg" describedService__SEFF="_atiIg9sAEeqwF6OdMbsJhg"/>
+  </components__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_atg6YdsAEeqwF6OdMbsJhg" entityName="IDatabase">
+    <signatures__OperationInterface id="_atg6YNsAEeqwF6OdMbsJhg" entityName="store">
+      <parameters__OperationSignature parameterName="forename">
+        <dataType__Parameter xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.1"/>
+      </parameters__OperationSignature>
+      <parameters__OperationSignature parameterName="name">
+        <dataType__Parameter xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.1"/>
+      </parameters__OperationSignature>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_atiIhNsAEeqwF6OdMbsJhg" entityName="IWeb">
+    <signatures__OperationInterface id="_atiIg9sAEeqwF6OdMbsJhg" entityName="submit">
+      <parameters__OperationSignature parameterName="forename">
+        <dataType__Parameter xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.1"/>
+      </parameters__OperationSignature>
+      <parameters__OperationSignature parameterName="name">
+        <dataType__Parameter xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.1"/>
+      </parameters__OperationSignature>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+</repository:Repository>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<repository:Repository xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:seff="http://palladiosimulator.org/PalladioComponentModel/SEFF/5.2" id="_atynMtsAEeqwF6OdMbsJhg" entityName="MediaStoreRepository">
+  <components__Repository xsi:type="repository:BasicComponent" id="_atwyCNsAEeqwF6OdMbsJhg" entityName="EnqueueDownloadCache">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_atwyBdsAEeqwF6OdMbsJhg" providedInterface__OperationProvidedRole="_atwK89sAEeqwF6OdMbsJhg"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_atwyBtsAEeqwF6OdMbsJhg" requiredInterface__OperationRequiredRole="_atwK89sAEeqwF6OdMbsJhg"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_atwyB9sAEeqwF6OdMbsJhg"/>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_atxZEtsAEeqwF6OdMbsJhg" entityName="InstantDownloadCache">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_atwyCdsAEeqwF6OdMbsJhg" providedInterface__OperationProvidedRole="_atwK89sAEeqwF6OdMbsJhg"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_atxZENsAEeqwF6OdMbsJhg" requiredInterface__OperationRequiredRole="_atwK89sAEeqwF6OdMbsJhg"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_atxZEdsAEeqwF6OdMbsJhg"/>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_atxZFtsAEeqwF6OdMbsJhg" entityName="FileStorage">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_atxZE9sAEeqwF6OdMbsJhg" entityName="IDataStorage" providedInterface__OperationProvidedRole="_atwK8dsAEeqwF6OdMbsJhg"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_atxZFNsAEeqwF6OdMbsJhg"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_atxZFdsAEeqwF6OdMbsJhg"/>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_atyAItsAEeqwF6OdMbsJhg" entityName="MediaManagement">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_atxZF9sAEeqwF6OdMbsJhg" providedInterface__OperationProvidedRole="_atwyBNsAEeqwF6OdMbsJhg"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_atxZGNsAEeqwF6OdMbsJhg" requiredInterface__OperationRequiredRole="_atwK89sAEeqwF6OdMbsJhg"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_atxZGdsAEeqwF6OdMbsJhg" requiredInterface__OperationRequiredRole="_atwyANsAEeqwF6OdMbsJhg"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_atxZGtsAEeqwF6OdMbsJhg" requiredInterface__OperationRequiredRole="_atwK9tsAEeqwF6OdMbsJhg"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_atxZG9sAEeqwF6OdMbsJhg"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_atyAINsAEeqwF6OdMbsJhg"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_atyAIdsAEeqwF6OdMbsJhg"/>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_atyAJdsAEeqwF6OdMbsJhg" entityName="Packaging">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_atyAI9sAEeqwF6OdMbsJhg" providedInterface__OperationProvidedRole="_atwyANsAEeqwF6OdMbsJhg"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_atyAJNsAEeqwF6OdMbsJhg"/>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_atynMdsAEeqwF6OdMbsJhg" entityName="MediaAccess">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_atyAJtsAEeqwF6OdMbsJhg" providedInterface__OperationProvidedRole="_atwK9tsAEeqwF6OdMbsJhg"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_atyAJ9sAEeqwF6OdMbsJhg" providedInterface__OperationProvidedRole="_atwK89sAEeqwF6OdMbsJhg"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_atyAKNsAEeqwF6OdMbsJhg" entityName="IDataStorage" requiredInterface__OperationRequiredRole="_atwK8dsAEeqwF6OdMbsJhg"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_atyAKdsAEeqwF6OdMbsJhg"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_atyAKtsAEeqwF6OdMbsJhg"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_atynMNsAEeqwF6OdMbsJhg"/>
+  </components__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_atwK8dsAEeqwF6OdMbsJhg" entityName="IFileStorage">
+    <signatures__OperationInterface id="_atvj4tsAEeqwF6OdMbsJhg" entityName="getFiles" returnType__OperationSignature="_atvj4NsAEeqwF6OdMbsJhg">
+      <parameters__OperationSignature dataType__Parameter="_atvj4dsAEeqwF6OdMbsJhg" parameterName="audioRequest"/>
+    </signatures__OperationInterface>
+    <signatures__OperationInterface id="_atwK8NsAEeqwF6OdMbsJhg" entityName="storeFile">
+      <parameters__OperationSignature dataType__Parameter="_atvj4NsAEeqwF6OdMbsJhg" parameterName="file"/>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_atwK89sAEeqwF6OdMbsJhg" entityName="IDownload">
+    <signatures__OperationInterface id="_atwK8tsAEeqwF6OdMbsJhg" entityName="download" returnType__OperationSignature="_atvj4dsAEeqwF6OdMbsJhg">
+      <parameters__OperationSignature dataType__Parameter="_atvj4dsAEeqwF6OdMbsJhg" parameterName="audioRequest"/>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_atwK9tsAEeqwF6OdMbsJhg" entityName="IMediaAccess">
+    <signatures__OperationInterface id="_atwK9NsAEeqwF6OdMbsJhg" entityName="upload">
+      <parameters__OperationSignature dataType__Parameter="_atvj4NsAEeqwF6OdMbsJhg" parameterName="file"/>
+    </signatures__OperationInterface>
+    <signatures__OperationInterface id="_atwK9dsAEeqwF6OdMbsJhg" entityName="getFileList"/>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_atwyANsAEeqwF6OdMbsJhg" entityName="IPackaging">
+    <signatures__OperationInterface id="_atwK99sAEeqwF6OdMbsJhg" entityName="zip" returnType__OperationSignature="_atvj4NsAEeqwF6OdMbsJhg">
+      <parameters__OperationSignature dataType__Parameter="_atvj4dsAEeqwF6OdMbsJhg" parameterName="audios"/>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_atwyBNsAEeqwF6OdMbsJhg" entityName="IMediaManagement">
+    <signatures__OperationInterface id="_atwyAdsAEeqwF6OdMbsJhg" entityName="upload">
+      <parameters__OperationSignature dataType__Parameter="_atvj4NsAEeqwF6OdMbsJhg" parameterName="file"/>
+    </signatures__OperationInterface>
+    <signatures__OperationInterface id="_atwyAtsAEeqwF6OdMbsJhg" entityName="download" returnType__OperationSignature="_atvj4NsAEeqwF6OdMbsJhg">
+      <parameters__OperationSignature dataType__Parameter="_atvj4dsAEeqwF6OdMbsJhg" parameterName="audioRequest"/>
+    </signatures__OperationInterface>
+    <signatures__OperationInterface id="_atwyA9sAEeqwF6OdMbsJhg" entityName="getFileList"/>
+  </interfaces__Repository>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_atvj4NsAEeqwF6OdMbsJhg" entityName="FileContent"/>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_atvj4dsAEeqwF6OdMbsJhg" entityName="AudioCollectionRequest">
+    <innerDeclaration_CompositeDataType entityName="Count">
+      <datatype_InnerDeclaration xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.0"/>
+    </innerDeclaration_CompositeDataType>
+    <innerDeclaration_CompositeDataType entityName="Size">
+      <datatype_InnerDeclaration xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.0"/>
+    </innerDeclaration_CompositeDataType>
+  </dataTypes__Repository>
+</repository:Repository>

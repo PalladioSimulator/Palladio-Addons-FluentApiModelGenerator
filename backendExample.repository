@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<repository:Repository xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:seff="http://palladiosimulator.org/PalladioComponentModel/SEFF/5.2" id="_atSQ4NsAEeqwF6OdMbsJhg">
+  <components__Repository xsi:type="repository:BasicComponent" id="_atSQ4dsAEeqwF6OdMbsJhg" entityName="Web">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_atSQ5NsAEeqwF6OdMbsJhg" providedInterface__OperationProvidedRole="_atSQ4tsAEeqwF6OdMbsJhg"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_atTfANsAEeqwF6OdMbsJhg" describedService__SEFF="_atSQ49sAEeqwF6OdMbsJhg"/>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_atTfAdsAEeqwF6OdMbsJhg">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_atTfBNsAEeqwF6OdMbsJhg" providedInterface__OperationProvidedRole="_atTfAtsAEeqwF6OdMbsJhg"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_atUGENsAEeqwF6OdMbsJhg" requiredInterface__OperationRequiredRole="_atSQ4tsAEeqwF6OdMbsJhg"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_atTfBdsAEeqwF6OdMbsJhg" describedService__SEFF="_atTfA9sAEeqwF6OdMbsJhg"/>
+  </components__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_atSQ4tsAEeqwF6OdMbsJhg" entityName="IWeb"/>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_atTfAtsAEeqwF6OdMbsJhg"/>
+</repository:Repository>

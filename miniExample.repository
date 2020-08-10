@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<repository:Repository xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:composition="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:seff="http://palladiosimulator.org/PalladioComponentModel/SEFF/5.2" id="_asPvENsAEeqwF6OdMbsJhg">
+  <components__Repository xsi:type="repository:BasicComponent" id="_ar-pUNsAEeqwF6OdMbsJhg" entityName="basic component">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_armO0NsAEeqwF6OdMbsJhg" entityName="basic component provides interface" providedInterface__OperationProvidedRole="_arjLgNsAEeqwF6OdMbsJhg"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_arnc8NsAEeqwF6OdMbsJhg" entityName="basic component requires interface" requiredInterface__OperationRequiredRole="_arjLgNsAEeqwF6OdMbsJhg"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_ar7mANsAEeqwF6OdMbsJhg" describedService__SEFF="_arh9YNsAEeqwF6OdMbsJhg">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_ar2tgNsAEeqwF6OdMbsJhg" successor_AbstractAction="_ar5JwNsAEeqwF6OdMbsJhg"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_ar5JwNsAEeqwF6OdMbsJhg" predecessor_AbstractAction="_ar2tgNsAEeqwF6OdMbsJhg"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:CompositeComponent" id="_asPIANsAEeqwF6OdMbsJhg">
+    <assemblyContexts__ComposedStructure id="_asCTsNsAEeqwF6OdMbsJhg" entityName="basic component context" encapsulatedComponent__AssemblyContext="_ar-pUNsAEeqwF6OdMbsJhg"/>
+    <eventChannel__ComposedStructure id="_asHzQNsAEeqwF6OdMbsJhg" eventGroup__EventChannel="_arjykNsAEeqwF6OdMbsJhg"/>
+    <connectors__ComposedStructure xsi:type="composition:AssemblyConnector" id="_asNS0NsAEeqwF6OdMbsJhg" requiringAssemblyContext_AssemblyConnector="_asCTsNsAEeqwF6OdMbsJhg" providingAssemblyContext_AssemblyConnector="_asCTsNsAEeqwF6OdMbsJhg" providedRole_AssemblyConnector="_armO0NsAEeqwF6OdMbsJhg" requiredRole_AssemblyConnector="_arnc8NsAEeqwF6OdMbsJhg"/>
+  </components__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_ardE4NsAEeqwF6OdMbsJhg" entityName="parent interface"/>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_arjLgNsAEeqwF6OdMbsJhg" entityName="interface" parentInterfaces__Interface="_ardE4NsAEeqwF6OdMbsJhg">
+    <requiredCharacterisations parameter="//@interfaces__Repository.1/@signatures__OperationInterface.0/@parameters__OperationSignature.0"/>
+    <signatures__OperationInterface id="_arh9YNsAEeqwF6OdMbsJhg" entityName="signature">
+      <parameters__OperationSignature dataType__Parameter="_arbPsNsAEeqwF6OdMbsJhg" parameterName="parameter" modifier__Parameter="in"/>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:EventGroup" id="_arjykNsAEeqwF6OdMbsJhg" entityName="event group"/>
+  <dataTypes__Repository xsi:type="repository:CollectionDataType" id="_arT68NsAEeqwF6OdMbsJhg" entityName="String List">
+    <innerType_CollectionDataType xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.1"/>
+  </dataTypes__Repository>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_arbPsNsAEeqwF6OdMbsJhg" entityName="Person">
+    <innerDeclaration_CompositeDataType entityName="names" datatype_InnerDeclaration="_arT68NsAEeqwF6OdMbsJhg"/>
+    <innerDeclaration_CompositeDataType entityName="age">
+      <datatype_InnerDeclaration xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.0"/>
+    </innerDeclaration_CompositeDataType>
+  </dataTypes__Repository>
+</repository:Repository>
