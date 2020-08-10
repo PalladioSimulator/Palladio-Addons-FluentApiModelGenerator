@@ -54,66 +54,19 @@ public class InfrastructureInterfaceCreator extends Interface {
 	}
 
 	/**
-	 * Creates a new
-	 * {@link org.palladiosimulator.pcm.repository.InfrastructureSignature
-	 * InfrastructureSignature}.
-	 * <p>
-	 * Every service of an interface has a unique signature, like <code>void
-	 * doSomething(int a)</code>. A PCM signature is comparable to a method
-	 * signature in programming languages like C#, Java or the OMG IDL.
-	 * </p>
-	 * <p>
-	 * An infrastructure signature contains
-	 * <ul>
-	 * <!--
-	 * <li>a
-	 * {@link repositoryStructure.interfaces.InfrastructureSignatureCreator#withReturnType(org.palladiosimulator.pcm.repository.DataType)
-	 * type of the return value} or void (no return value), -->
-	 * <li>an
-	 * {@link repositoryStructure.interfaces.InfrastructureSignatureCreator#withName(String)
-	 * identifier} naming the service,
-	 * <li>an ordered set of
-	 * {@link repositoryStructure.interfaces.InfrastructureSignatureCreator#withParameter(String, org.palladiosimulator.pcm.repository.DataType, org.palladiosimulator.pcm.repository.ParameterModifier)
-	 * parameters} (0..*). Each parameter is a tuple of a <code>dataType</code> and
-	 * an <code>identifier</code> (which is unique across the parameters).
-	 * Optionally, the <code>modifiers</code> in, out, and inout (with its OMG IDL
-	 * semantics) can be used for parameters.
-	 * <li>and an unordered set of
-	 * {@link repositoryStructure.interfaces.InfrastructureSignatureCreator#withExceptionType(org.palladiosimulator.pcm.repository.ExceptionType)
-	 * exceptions}.
-	 * <li>Furthermore
-	 * {@link repositoryStructure.interfaces.InfrastructureSignatureCreator#withFailureType(org.palladiosimulator.pcm.reliability.FailureType)
-	 * failures} that may occur inside external services must be specified at the
-	 * service signatures.
-	 * </ul>
-	 * A signature has to be unique for an interface through the tuple (identifier,
-	 * order of parameters). Different interfaces can define equally named
-	 * signatures, however, they are not identical.
-	 * </p>
-	 * <p>
-	 * To return to editing the infrastructure interface this signature belongs to,
-	 * the modification of the signature has to be completed with calling a
-	 * {@link repositoryStructure.interfaces.InfrastructureSignatureCreator#createSignature()
-	 * final method}.
-	 * </p>
+	 * Adds the <code>signature</code> to this interface's list of signatures. The
+	 * <code>signature</code> can be created using the factory, i.e.
+	 * <code>create.newInfrastructureSignature()</code>.
 	 * 
-	 * @return the infrastructure signature in the making
-	 * @see org.palladiosimulator.pcm.repository.Signature
-	 * @see repositoryStructure.interfaces.InfrastructureSignatureCreator#withName(String)
-	 * @see repositoryStructure.interfaces.InfrastructureSignatureCreator#withReturnType(org.palladiosimulator.pcm.repository.DataType)
-	 * @see repositoryStructure.interfaces.InfrastructureSignatureCreator#withParameter(String,
-	 *      org.palladiosimulator.pcm.repository.DataType,
-	 *      org.palladiosimulator.pcm.repository.ParameterModifier)
-	 * @see repositoryStructure.interfaces.InfrastructureSignatureCreator#withParameter(String,
-	 *      repositoryStructure.datatypes.Primitive,
-	 *      org.palladiosimulator.pcm.repository.ParameterModifier)
-	 * @see repositoryStructure.interfaces.InfrastructureSignatureCreator#withExceptionType(org.palladiosimulator.pcm.repository.ExceptionType)
-	 * @see repositoryStructure.interfaces.InfrastructureSignatureCreator#withFailureType(org.palladiosimulator.pcm.reliability.FailureType)
-	 * @see repositoryStructure.interfaces.InfrastructureSignatureCreator#createSignature()
+	 * @param signature
+	 * @return this infrastructure interface in the making
+	 * @see factory.FluentRepositoryFactory#newInfrastructureSignature()
 	 */
-	public InfrastructureSignatureCreator withInfrastructureSignature() {
-		InfrastructureSignatureCreator signature = new InfrastructureSignatureCreator(this, this.repository);
-		return signature;
+	public InfrastructureInterfaceCreator withInfrastructureSignature(InfrastructureSignatureCreator signature) {
+		InfrastructureSignature build = signature.build();
+		this.repository.addSignature(build);
+		this.signatures.add(build);
+		return this;
 	}
 
 	@Override

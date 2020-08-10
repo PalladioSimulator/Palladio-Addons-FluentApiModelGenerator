@@ -52,10 +52,10 @@ class Example {
 						.withInnerDeclaration("age", Primitive.INTEGER))
 				.addToRepository(create.newHardwareInducedFailureType("CPU Hardware Error", ProcessingResource.CPU))
 				.addToRepository(create.newOperationInterface().withName("parent interface"))
-				.addToRepository(create.newOperationInterface().withName("interface").withOperationSignature()
-						.withName("signature")
-						.withParameter("parameter", create.fetchOfDataType("Person"), ParameterModifier.IN)
-						.createSignature()
+				.addToRepository(create.newOperationInterface().withName("interface")
+						.withOperationSignature(create.newOperationSignature()
+								.withName("signature")
+								.withParameter("parameter", create.fetchOfDataType("Person"), ParameterModifier.IN))
 						.withRequiredCharacterisation(create.fetchOfParameter("parameter"),
 								VariableCharacterisationType.STRUCTURE)
 						.conforms(create.fetchOfInterface("parent interface")))
@@ -80,7 +80,6 @@ class Example {
 	public static void readmeExampleBackend() {
 		// Factory
 		RepositoryFactory repoFact = RepositoryFactory.eINSTANCE;
-
 		// Repository
 		Repository repository = repoFact.createRepository();
 
@@ -91,7 +90,7 @@ class Example {
 		// IDatabase interface
 		OperationInterface databaseInterface = repoFact.createOperationInterface();
 		databaseInterface.setEntityName("IDatabase");
-
+		
 		// Signature store
 		OperationSignature store = repoFact.createOperationSignature();
 		store.setEntityName("store");
@@ -159,20 +158,40 @@ class Example {
 
 		Repository repository = create.newRepository()
 				// Database
-				.addToRepository(create.newOperationInterface().withName("IDatabase").withOperationSignature()
-						.withName("store").withParameter("forename", Primitive.STRING, ParameterModifier.NONE)
-						.withParameter("name", Primitive.STRING, ParameterModifier.NONE).createSignature())
+				.addToRepository(create.newOperationInterface().withName("IDatabase")
+						.withOperationSignature(create.newOperationSignature()
+								.withName("store")
+								.withParameter("forename", Primitive.STRING, ParameterModifier.NONE)
+								.withParameter("name", Primitive.STRING, ParameterModifier.NONE)))
 				.addToRepository(create.newBasicComponent().withName("Database")
 						.withServiceEffectSpecification(create.newSeff().onSignature(create.fetchOfSignature("store")))
 						.provides(create.fetchOfOperationInterface("IDatabase")))
 				// Web
-				.addToRepository(create.newOperationInterface().withName("IWeb").withOperationSignature()
+				.addToRepository(create.newOperationInterface().withName("IWeb")
+						.withOperationSignature(create.newOperationSignature()
 						.withName("submit").withParameter("forename", Primitive.STRING, ParameterModifier.NONE)
-						.withParameter("name", Primitive.STRING, ParameterModifier.NONE).createSignature())
+						.withParameter("name", Primitive.STRING, ParameterModifier.NONE)))
 				.addToRepository(create.newBasicComponent().withName("Web")
 						.withServiceEffectSpecification(create.newSeff().onSignature(create.fetchOfSignature("submit")))
 						.provides(create.fetchOfOperationInterface("IWeb"))
 						.requires(create.fetchOfOperationInterface("IDatabase")))
+				.createRepositoryNow();
+
+		saveRepository(repository, "./", "fluentAPIExample.repository", false);
+	}
+	
+	public static void presentationExample() {
+		FluentRepositoryFactory create = new FluentRepositoryFactory();
+
+		Repository repository = create.newRepository()
+				.addToRepository(create.newBasicComponent()
+						.withName("Database")
+						.requires(create.newOperationInterface()
+								.withName("IDatabase")
+								.withOperationSignature(create.newOperationSignature()
+										.withName("store")
+										.withParameter("forename", Primitive.STRING, ParameterModifier.NONE)
+										.withParameter("name", Primitive.STRING, ParameterModifier.NONE))))
 				.createRepositoryNow();
 
 		saveRepository(repository, "./", "fluentAPIExample.repository", false);
@@ -188,31 +207,38 @@ class Example {
 				.addToRepository(create.newCompositeDataType().withName("AudioCollectionRequest")
 						.withInnerDeclaration("Count", Primitive.INTEGER)
 						.withInnerDeclaration("Size", Primitive.INTEGER))
-				.addToRepository(create.newOperationInterface().withName("IFileStorage").withOperationSignature()
+				.addToRepository(create.newOperationInterface().withName("IFileStorage")
+						.withOperationSignature(create.newOperationSignature()
 						.withName("getFiles")
 						.withParameter("audioRequest", create.fetchOfDataType("AudioCollectionRequest"),
 								ParameterModifier.NONE)
-						.withReturnType(create.fetchOfDataType("FileContent")).createSignature()
-						.withOperationSignature().withName("storeFile")
-						.withParameter("file", create.fetchOfDataType("FileContent"), null).createSignature())
-				.addToRepository(create.newOperationInterface().withName("IDownload").withOperationSignature()
+						.withReturnType(create.fetchOfDataType("FileContent")))
+						.withOperationSignature(create.newOperationSignature().withName("storeFile")
+						.withParameter("file", create.fetchOfDataType("FileContent"), null)))
+				.addToRepository(create.newOperationInterface().withName("IDownload")
+						.withOperationSignature(create.newOperationSignature()
 						.withName("download")
 						.withParameter("audioRequest", create.fetchOfDataType("AudioCollectionRequest"),
 								ParameterModifier.NONE)
-						.withReturnType(create.fetchOfDataType("AudioCollectionRequest")).createSignature())
-				.addToRepository(create.newOperationInterface().withName("IMediaAccess").withOperationSignature()
-						.withName("upload").withParameter("file", create.fetchOfDataType("FileContent"), null)
-						.createSignature().withOperationSignature().withName("getFileList").createSignature())
-				.addToRepository(create.newOperationInterface().withName("IPackaging").withOperationSignature()
+						.withReturnType(create.fetchOfDataType("AudioCollectionRequest"))))
+				.addToRepository(create.newOperationInterface().withName("IMediaAccess")
+						.withOperationSignature(create.newOperationSignature()
+						.withName("upload").withParameter("file", create.fetchOfDataType("FileContent"), null))
+						.withOperationSignature(create.newOperationSignature().withName("getFileList")))
+				.addToRepository(create.newOperationInterface().withName("IPackaging")
+						.withOperationSignature(create.newOperationSignature()
 						.withName("zip").withParameter("audios", create.fetchOfDataType("AudioCollectionRequest"), null)
-						.withReturnType(create.fetchOfDataType("FileContent")).createSignature())
-				.addToRepository(create.newOperationInterface().withName("IMediaManagement").withOperationSignature()
-						.withName("upload").withParameter("file", create.fetchOfDataType("FileContent"), null)
-						.createSignature().withOperationSignature().withName("download")
-						.withParameter("audioRequest", create.fetchOfDataType("AudioCollectionRequest"),
-								ParameterModifier.NONE)
-						.withReturnType(create.fetchOfDataType("FileContent")).createSignature()
-						.withOperationSignature().withName("getFileList").createSignature())
+						.withReturnType(create.fetchOfDataType("FileContent"))))
+				.addToRepository(create.newOperationInterface().withName("IMediaManagement")
+						.withOperationSignature(create.newOperationSignature()
+								.withName("upload")
+								.withParameter("file", create.fetchOfDataType("FileContent"), null))
+						.withOperationSignature(create.newOperationSignature()
+								.withName("download")
+								.withParameter("audioRequest", create.fetchOfDataType("AudioCollectionRequest"), ParameterModifier.NONE)
+								.withReturnType(create.fetchOfDataType("FileContent")))
+						.withOperationSignature(create.newOperationSignature()
+								.withName("getFileList")))
 				.addToRepository(create.newBasicComponent().withName("EnqueueDownloadCache")
 						.provides(create.fetchOfOperationInterface("IDownload"))
 						.requires(create.fetchOfOperationInterface("IDownload"))
@@ -265,19 +291,22 @@ class Example {
 				.addToRepository(create.newExceptionType().withName("myException").withExceptionMessage("FEHLER!"))
 
 				// INTERFACES
-				.addToRepository(create.newOperationInterface().withName("IDatabase").withOperationSignature()
-						.withName("saveDatabaseEntry")
-						.withParameter("first names", create.fetchOfDataType("StringList"), null)
-						.withParameter("age", Primitive.INTEGER, ParameterModifier.INOUT)
-						.withReturnType(create.fetchOfDataType("Person")).createSignature()
+				.addToRepository(create.newOperationInterface().withName("IDatabase")
+						.withOperationSignature(create.newOperationSignature()
+								.withName("saveDatabaseEntry")
+								.withParameter("first names", create.fetchOfDataType("StringList"), null)
+								.withParameter("age", Primitive.INTEGER, ParameterModifier.INOUT)
+								.withReturnType(create.fetchOfDataType("Person")))
 						.withRequiredCharacterisation(create.fetchOfParameter("age"),
 								VariableCharacterisationType.VALUE))
 				.addToRepository(create.newEventGroup().withName("haha"))
 
 				// BASIC COMPONENTS
 				.addToRepository(create.newBasicComponent().withName("Database")
-						.handles(create.newEventGroup().withName("hallo").withEventType().withName("type")
-								.withParameter("foo", Primitive.BOOLEAN, null).createEventType()
+						.handles(create.newEventGroup()
+								.withName("hallo")
+								.withEventType(create.newEventType().withName("type")
+								.withParameter("foo", Primitive.BOOLEAN, null))
 								.withRequiredCharacterisation(create.fetchOfParameter("foo"),
 										VariableCharacterisationType.STRUCTURE))
 						.withServiceEffectSpecification(create.newSeff().withSeffBehaviour().withStartAction()

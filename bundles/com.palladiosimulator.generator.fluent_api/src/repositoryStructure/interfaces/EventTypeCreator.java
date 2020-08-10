@@ -32,10 +32,8 @@ public class EventTypeCreator extends Entity {
 	private Parameter parameter;
 	private List<FailureType> failureTypes = new ArrayList<>();
 	private List<ExceptionType> exceptionTypes = new ArrayList<>();
-	private EventGroupCreator correspondingEventGroup;
 
-	protected EventTypeCreator(EventGroupCreator eventGroup, RepositoryCreator repo) {
-		this.correspondingEventGroup = eventGroup;
+	public EventTypeCreator(RepositoryCreator repo) {
 		this.repository = repo;
 	}
 
@@ -165,20 +163,6 @@ public class EventTypeCreator extends Entity {
 		Objects.requireNonNull(exceptionType, "exceptionType must not be null");
 		this.exceptionTypes.add(exceptionType);
 		return this;
-	}
-
-	/**
-	 * Turns the event-type-in-the-making into an '<em><b>Event Type</b></em>'
-	 * object and adds it to the corresponding event group.
-	 * 
-	 * @return the corresponding event group
-	 * @see org.palladiosimulator.pcm.repository.EventGroup
-	 */
-	public EventGroupCreator createEventType() {
-		EventType eventType = this.build();
-		correspondingEventGroup.addEventType(eventType);
-		this.repository.addSignature(eventType);
-		return correspondingEventGroup;
 	}
 
 	@Override
