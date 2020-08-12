@@ -1,3 +1,3 @@
 PalladioPipeline {
-    deployUpdatesite 'releng/org.palladiosimulator.textual.updatesite/target/repository'
+    deployUpdatesite 'releng/org.palladiosimulator.generator.fluent_api.updatesite/target/repository'
 }
