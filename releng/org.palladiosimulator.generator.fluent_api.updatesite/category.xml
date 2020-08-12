@@ -5,11 +5,6 @@
         <category name="org.palladiosimulator.addons.category" />
     </feature>
 
-    <feature id="org.palladiosimulator.generator.fluent_api.feature.source">
-        <category name="org.palladiosimulator.addons.source.category" />
-    </feature>
-
-
     <!-- category definitions -->
     <category-def name="org.palladiosimulator.corefeatures.category"
         label="Palladio Bench Core Features">
@@ -26,7 +21,7 @@
     <category-def name="org.palladiosimulator.addons.category"
         label="Palladio Bench Addons">
         <description>
-          Palladio Bench Addons
+            Palladio Bench Addons
         </description>
     </category-def>
     <category-def name="org.palladiosimulator.addons.source.category"
