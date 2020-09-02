@@ -1,4 +1,9 @@
+# Palladio
+*.repository
+
 # Eclipse
+.project
+.classpath
 .loadpath
 .metadata
 .recommenders
