@@ -186,7 +186,7 @@ class Example {
 		Repository repository = create.newRepository()
 				.addToRepository(create.newBasicComponent()
 						.withName("Database")
-						.requires(create.newOperationInterface()
+						.provides(create.newOperationInterface()
 								.withName("IDatabase")
 								.withOperationSignature(create.newOperationSignature()
 										.withName("store")
