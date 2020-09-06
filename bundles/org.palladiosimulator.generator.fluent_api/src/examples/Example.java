@@ -181,19 +181,15 @@ class Example {
 	}
 	
 	public static void presentationExample() {
+		
 		FluentRepositoryFactory create = new FluentRepositoryFactory();
 
 		Repository repository = create.newRepository()
 				.addToRepository(create.newBasicComponent()
-						.withName("Database")
-						.provides(create.newOperationInterface()
-								.withName("IDatabase")
-								.withOperationSignature(create.newOperationSignature()
-										.withName("store")
-										.withParameter("forename", Primitive.STRING, ParameterModifier.NONE)
-										.withParameter("name", Primitive.STRING, ParameterModifier.NONE))))
+						.withName("Database"))
 				.createRepositoryNow();
 
+		
 		saveRepository(repository, "./", "fluentAPIExample.repository", false);
 	}
 
