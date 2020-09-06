@@ -90,13 +90,13 @@ You are now ready to use the `FluentRepositoryFactory` to create a Repository.
 The Palladio Fluent API's main component is the ```FluentRepositoryFactory```. This factory can create 
 * a repository, 
 * basic model elements like 
-..* components, 
-..* interfaces, 
-..* data types, 
-..* failure types and 
+    * components, 
+    * interfaces, 
+    * data types, 
+    * failure types and 
 * the more complex model elements like 
-..* SEFFs and 
-..* variable usages. 
+    * SEFFs and 
+    * variable usages. 
 All other internal model elements are created using method chaining. Therefore, no other objects have to be instantiated by the user. In addition, the factory provides numerous fetching methods that allows the user to reference created model elements in a later context.
 
 
