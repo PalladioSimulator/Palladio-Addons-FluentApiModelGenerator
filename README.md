@@ -74,6 +74,9 @@ Check out the full code of the example from the image of the graphical editor [h
 
 ## How to use the Fluent API Model Generator
 
+The easiest way to use the API as an end user is to install it in Eclipse via the provided update page:
+* https://updatesite.palladio-simulator.com/palladio-addons-fluentapimodelgenerator/nightly/
+
 ### Project Setup
 
 For using the fluent API, three dependencies are required:
@@ -218,4 +221,5 @@ Repository repository = create.newRepository()
 The package [```examples```](src/examples/) provides more examples of repositories that were created using the fluent API.
 
 ## Miscellaneous
-See issues on git for further enhancements of this API.
+See the Palladio-Jira for further improvements to this API:
+* https://jira.palladio-simulator.com/browse/COMMONS-30
