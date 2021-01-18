@@ -3,8 +3,12 @@ package systemModel.factory;
 
 import systemModel.apiControlFlowInterfaces.ISystem;
 import systemModel.structure.AssemblyContextCreator;
+import systemModel.structure.OperationProvidedRoleCreator;
+import systemModel.structure.OperationRequiredRoleCreator;
 import systemModel.structure.SystemCreator;
-import systemModel.structure.assemblyConnector.AssemblyConnectorCreator;
+import systemModel.structure.connector.assemblyConnector.AssemblyConnectorCreator;
+import systemModel.structure.connector.delegationConnector.ProvidedDelegationConnectorCreator;
+import systemModel.structure.connector.delegationConnector.RequiredDelegationConnectorCreator;
 
 public class FluentSystemFactory {
 	private SystemCreator systemCreator;
@@ -20,5 +24,21 @@ public class FluentSystemFactory {
 	
 	public AssemblyConnectorCreator newAssemblyConnector() {
 		return new AssemblyConnectorCreator(systemCreator);
+	}
+	
+	public OperationRequiredRoleCreator newOperationRequiredRole() {
+		return new OperationRequiredRoleCreator(systemCreator);
+	}
+	
+	public RequiredDelegationConnectorCreator newRequiredDelegationConnectorCreator() {
+		return new RequiredDelegationConnectorCreator(systemCreator);
+	}
+	
+	public OperationProvidedRoleCreator newOperationProvidedRole() {
+		return new OperationProvidedRoleCreator(systemCreator);
+	}
+
+	public ProvidedDelegationConnectorCreator newProvidedDelegationConnectorCreator() {
+		return new ProvidedDelegationConnectorCreator(systemCreator);
 	}
 }

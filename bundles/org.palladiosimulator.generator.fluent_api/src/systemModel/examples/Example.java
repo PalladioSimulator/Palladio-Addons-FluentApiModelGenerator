@@ -19,7 +19,7 @@ import org.palladiosimulator.pcm.repository.RepositoryComponent;
 import org.palladiosimulator.pcm.repository.RepositoryPackage;
 import org.palladiosimulator.pcm.system.System;
 
-
+import componentModel.repositoryStructure.components.seff.CollectionIteratorActionCreator;
 import systemModel.factory.FluentSystemFactory;
 
 public class Example {
@@ -41,9 +41,29 @@ public class Example {
 				.withAssemblyConnector(create.newAssemblyConnector()
 						.withName("connector")
 						.withRequiringAssemblyContext("basic component context 1")
-						.withOpeartionRequiredRole("basic component requires interface")
+						.withOperationRequiredRole("basic component requires interface")
 						.withProvidingAssemblyContext("basic component context 2")
-						.withOpeartionRequiredRole("basic component provides interface")
+						.withOperationProvidedRole("basic component provides interface")
+						.build())
+				.withOperationRequiredRole(create.newOperationRequiredRole()
+						.withName("system required role")
+						.withRequiredInterfaceByName("interface")
+						.build())
+				.withRequiredDelegationConnector(create.newRequiredDelegationConnectorCreator()
+						.withName("required delegation")
+						.withOuterRequiredRoleByName("system required role")
+						.withRequiringContextByName("basic component context 2")
+						.withOperationRequiredRoleByName("basic component requires interface")
+						.build())
+				.withOperationProvidedRole(create.newOperationProvidedRole()
+						.withName("system provided role")
+						.withProvidedInterfaceByName("interface")
+						.build())
+				.withProvidedDelegationConnector(create.newProvidedDelegationConnectorCreator()
+						.withName("provided delegation")
+						.withOuterProvidedRoleByName("system provided role")
+						.withProvidingContextByName("basic component context 1")
+						.withOperationProvidedRoleByName("basic component provides interface")
 						.build())
 				.createSystemNow();
 		saveSystem(system, "./", "basicExample.system", true);

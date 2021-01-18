@@ -8,6 +8,10 @@ import javax.management.remote.JMXConnectorServer;
 import org.palladiosimulator.pcm.core.composition.AssemblyConnector;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.composition.Connector;
+import org.palladiosimulator.pcm.core.composition.ProvidedDelegationConnector;
+import org.palladiosimulator.pcm.core.composition.RequiredDelegationConnector;
+import org.palladiosimulator.pcm.repository.OperationProvidedRole;
+import org.palladiosimulator.pcm.repository.OperationRequiredRole;
 import org.palladiosimulator.pcm.repository.Repository;
 import org.palladiosimulator.pcm.system.System;
 import org.palladiosimulator.pcm.system.SystemFactory;
@@ -20,6 +24,8 @@ public class SystemCreator extends SystemEntity implements ISystem {
 	private List<AssemblyContext> assemblyContexts = new ArrayList<>();
 	private List<Repository> repositories = new ArrayList<>();
 	private List<Connector> connectors = new ArrayList<>();
+	private List<OperationRequiredRole> systemRequiredRoles = new ArrayList<>();
+	private List<OperationProvidedRole> systemProvidedRoles = new ArrayList<>();
 
 	@Override
 	public SystemCreator withName(String name) {
@@ -34,6 +40,9 @@ public class SystemCreator extends SystemEntity implements ISystem {
 		}
 		system.getAssemblyContexts__ComposedStructure().addAll(getAssemblyContexts());
 		system.getConnectors__ComposedStructure().addAll(connectors);
+		system.getRequiredRoles_InterfaceRequiringEntity().addAll(systemRequiredRoles);
+		system.getProvidedRoles_InterfaceProvidingEntity().addAll(systemProvidedRoles);
+		//TODO: validate
 		return system;
 	}
 
@@ -60,6 +69,30 @@ public class SystemCreator extends SystemEntity implements ISystem {
 		return this;
 	}
 
+	@Override
+	public ISystemAddition withOperationRequiredRole(OperationRequiredRole role) {
+		this.systemRequiredRoles.add(role);
+		return this;
+	}
+
+	@Override
+	public ISystemAddition withRequiredDelegationConnector(RequiredDelegationConnector connector) {
+		this.connectors.add(connector);
+		return this;
+	}
+	
+	@Override
+	public ISystemAddition withOperationProvidedRole(OperationProvidedRole role) {
+		this.systemProvidedRoles.add(role);
+		return this;
+	}
+	
+	@Override
+	public ISystemAddition withProvidedDelegationConnector(ProvidedDelegationConnector connector) {
+		this.connectors.add(connector);
+		return this;
+	}
+
 	public List<Repository> getRepositories() {
 		return repositories;
 	}
@@ -68,4 +101,11 @@ public class SystemCreator extends SystemEntity implements ISystem {
 		return assemblyContexts;
 	}
 	
+	public List<OperationRequiredRole> getSystemRequiredRoles() {
+		return systemRequiredRoles;
+	}
+
+	public List<OperationProvidedRole> getSystemProvidedRoles() {
+		return systemProvidedRoles;
+	}
 }

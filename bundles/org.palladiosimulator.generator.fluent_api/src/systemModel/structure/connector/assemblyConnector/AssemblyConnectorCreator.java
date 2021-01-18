@@ -1,4 +1,4 @@
-package systemModel.structure.assemblyConnector;
+package systemModel.structure.connector.assemblyConnector;
 
 import org.palladiosimulator.pcm.core.composition.AssemblyConnector;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
@@ -20,10 +20,10 @@ public class AssemblyConnectorCreator extends SystemEntity{
 		this.system = systemCreator;
 	}
 
-	public OperationRequiredRoleCreator withRequiringAssemblyContext(String name) {
+	public OperationRequiredRoleSelector withRequiringAssemblyContext(String name) {
 		var context = this.system.getAssemblyContexts().stream().filter(x -> x.getEntityName().equals(name)).findFirst().get();
 		var creator = this;
-		return new OperationRequiredRoleCreator(new IContextRequiredRoleCombinator() {
+		return new OperationRequiredRoleSelector(new IContextRequiredRoleCombinator() {
 			
 			@Override
 			public AssemblyConnectorCreator CombineContextAndRequiredRole(AssemblyContext reqContext, OperationRequiredRole role) {
@@ -34,10 +34,10 @@ public class AssemblyConnectorCreator extends SystemEntity{
 		}, context);
 	}
 	
-	public OperationProvidedRoleCreator withProvidingAssemblyContext(String name) {
+	public OperationProvidedRoleSelector withProvidingAssemblyContext(String name) {
 		var context = this.system.getAssemblyContexts().stream().filter(x -> x.getEntityName().equals(name)).findFirst().get();
 		var creator = this;
-		return new OperationProvidedRoleCreator(new IContextProvidedRoleCombinator() {
+		return new OperationProvidedRoleSelector(new IContextProvidedRoleCombinator() {
 			
 			@Override
 			public AssemblyConnectorCreator CombineContextAndProvidedRole(AssemblyContext provContext, OperationProvidedRole role) {
