@@ -69,6 +69,18 @@ public class Example {
 						.withName("event channel")
 						.withEventGroupByName("event group")
 						.build())
+				.withEventChannelSinkRoleConnector(create.newEventChannelSinkConnector()
+						.withName("sink connector")
+						.withEventChannel("event channel")
+						.withAssemblyContext("basic component context 1")
+						.withSinkRole("handles event")
+						.build())
+				.withEventChannelSourceRoleConnector(create.newEventChannelSourceConnector()
+						.withName("source connector")
+						.withEventChannel("event channel")
+						.withAssemblyContext("basic component context 2")
+						.withSourceRole("emits event")
+						.build())
 				.createSystemNow();
 		saveSystem(system, "./", "basicExample.system", true);
 	}

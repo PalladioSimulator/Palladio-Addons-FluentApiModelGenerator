@@ -10,6 +10,8 @@ import systemModel.structure.SystemCreator;
 import systemModel.structure.connector.assemblyConnector.AssemblyConnectorCreator;
 import systemModel.structure.connector.delegationConnector.ProvidedDelegationConnectorCreator;
 import systemModel.structure.connector.delegationConnector.RequiredDelegationConnectorCreator;
+import systemModel.structure.connector.eventChannel.EventChannelSinkConnectorCreator;
+import systemModel.structure.connector.eventChannel.EventChannelSourceConnectorCreator;
 
 public class FluentSystemFactory {
 	private SystemCreator systemCreator;
@@ -45,5 +47,13 @@ public class FluentSystemFactory {
 	
 	public EventChannelCreator newEventChannelCreator() {
 		return new EventChannelCreator(systemCreator);
+	}
+	
+	public EventChannelSinkConnectorCreator newEventChannelSinkConnector() {
+		return new EventChannelSinkConnectorCreator(systemCreator);
+	}
+	
+	public EventChannelSourceConnectorCreator newEventChannelSourceConnector() {
+		return new EventChannelSourceConnectorCreator(systemCreator);
 	}
 }

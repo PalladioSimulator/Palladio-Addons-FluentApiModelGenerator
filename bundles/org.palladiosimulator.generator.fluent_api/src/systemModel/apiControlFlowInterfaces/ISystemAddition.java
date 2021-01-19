@@ -3,6 +3,8 @@ package systemModel.apiControlFlowInterfaces;
 import org.palladiosimulator.pcm.core.composition.AssemblyConnector;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.composition.EventChannel;
+import org.palladiosimulator.pcm.core.composition.EventChannelSinkConnector;
+import org.palladiosimulator.pcm.core.composition.EventChannelSourceConnector;
 import org.palladiosimulator.pcm.core.composition.ProvidedDelegationConnector;
 import org.palladiosimulator.pcm.core.composition.RequiredDelegationConnector;
 import org.palladiosimulator.pcm.repository.OperationProvidedRole;
@@ -20,6 +22,13 @@ public interface ISystemAddition {
 	 * @see org.palladiosimulator.pcm.system.System
 	 */
 	System createSystemNow();
+	
+	/**
+	 * Adds a repository to the system. Components from added repositories can be added to the system by name.
+	 * @param repository
+	 * @return
+	 */
+	ISystem withRepository(Repository repository);
 	
 	/**
 	 * Adds an AssemblyContext to the system.
@@ -72,11 +81,18 @@ public interface ISystemAddition {
 	ISystemAddition withEventChannel(EventChannel eventChannel);
 	
 	/**
-	 * Adds a repository to the system. Components from added repositories can be added to the system by name.
-	 * @param repository
+	 * Adds an EventChannelSinkRoleConnector to the system.
+	 * @param connector
 	 * @return
 	 */
-	ISystem withRepository(Repository repository);
+	ISystemAddition withEventChannelSinkRoleConnector(EventChannelSinkConnector connector);
+
+	/**
+	 * Adds an EventChannelSourceRoleConnector to the system.
+	 * @param connector
+	 * @return
+	 */
+	ISystemAddition withEventChannelSourceRoleConnector(EventChannelSourceConnector connector);
 
 
 

@@ -8,6 +8,8 @@ import org.palladiosimulator.pcm.core.composition.AssemblyConnector;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.composition.Connector;
 import org.palladiosimulator.pcm.core.composition.EventChannel;
+import org.palladiosimulator.pcm.core.composition.EventChannelSinkConnector;
+import org.palladiosimulator.pcm.core.composition.EventChannelSourceConnector;
 import org.palladiosimulator.pcm.core.composition.ProvidedDelegationConnector;
 import org.palladiosimulator.pcm.core.composition.RequiredDelegationConnector;
 import org.palladiosimulator.pcm.repository.OperationProvidedRole;
@@ -97,6 +99,18 @@ public class SystemCreator extends SystemEntity implements ISystem {
 	@Override
 	public ISystemAddition withEventChannel(EventChannel eventChannel) {
 		this.eventChannels.add(eventChannel);
+		return this;
+	}
+	
+	@Override
+	public ISystemAddition withEventChannelSinkRoleConnector(EventChannelSinkConnector connector) {
+		this.connectors.add(connector);
+		return this;
+	}
+	
+	@Override
+	public ISystemAddition withEventChannelSourceRoleConnector(EventChannelSourceConnector connector) {
+		this.connectors.add(connector);
 		return this;
 	}
 

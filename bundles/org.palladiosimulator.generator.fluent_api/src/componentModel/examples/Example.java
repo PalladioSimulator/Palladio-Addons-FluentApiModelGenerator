@@ -63,8 +63,8 @@ class Example {
 				.addToRepository(create.newBasicComponent().withName("basic component")
 						.provides(create.fetchOfOperationInterface("interface"), "basic component provides interface")
 						.requires(create.fetchOfOperationInterface("interface"), "basic component requires interface")
-						.emits(create.fetchOfEventGroup("event group"))
-						.handles(create.fetchOfEventGroup("event group"))
+						.emits(create.fetchOfEventGroup("event group"), "emits event")
+						.handles(create.fetchOfEventGroup("event group"), "handles event")
 						.withServiceEffectSpecification(
 								create.newSeff().onSignature(create.fetchOfSignature("signature")).withSeffBehaviour()
 										.withStartAction().followedBy().stopAction().createBehaviourNow()))
