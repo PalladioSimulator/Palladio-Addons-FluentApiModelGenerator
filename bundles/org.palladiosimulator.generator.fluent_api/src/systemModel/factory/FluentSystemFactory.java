@@ -3,6 +3,7 @@ package systemModel.factory;
 
 import systemModel.apiControlFlowInterfaces.ISystem;
 import systemModel.structure.AssemblyContextCreator;
+import systemModel.structure.EventChannelCreator;
 import systemModel.structure.OperationProvidedRoleCreator;
 import systemModel.structure.OperationRequiredRoleCreator;
 import systemModel.structure.SystemCreator;
@@ -40,5 +41,9 @@ public class FluentSystemFactory {
 
 	public ProvidedDelegationConnectorCreator newProvidedDelegationConnectorCreator() {
 		return new ProvidedDelegationConnectorCreator(systemCreator);
+	}
+	
+	public EventChannelCreator newEventChannelCreator() {
+		return new EventChannelCreator(systemCreator);
 	}
 }

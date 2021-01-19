@@ -3,11 +3,11 @@ package systemModel.structure;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.management.remote.JMXConnectorServer;
 
 import org.palladiosimulator.pcm.core.composition.AssemblyConnector;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.composition.Connector;
+import org.palladiosimulator.pcm.core.composition.EventChannel;
 import org.palladiosimulator.pcm.core.composition.ProvidedDelegationConnector;
 import org.palladiosimulator.pcm.core.composition.RequiredDelegationConnector;
 import org.palladiosimulator.pcm.repository.OperationProvidedRole;
@@ -15,7 +15,6 @@ import org.palladiosimulator.pcm.repository.OperationRequiredRole;
 import org.palladiosimulator.pcm.repository.Repository;
 import org.palladiosimulator.pcm.system.System;
 import org.palladiosimulator.pcm.system.SystemFactory;
-import org.palladiosimulator.pcm.usagemodel.OpenWorkload;
 
 import systemModel.apiControlFlowInterfaces.ISystem;
 import systemModel.apiControlFlowInterfaces.ISystemAddition;
@@ -26,6 +25,7 @@ public class SystemCreator extends SystemEntity implements ISystem {
 	private List<Connector> connectors = new ArrayList<>();
 	private List<OperationRequiredRole> systemRequiredRoles = new ArrayList<>();
 	private List<OperationProvidedRole> systemProvidedRoles = new ArrayList<>();
+	private List<EventChannel> eventChannels = new ArrayList<>();
 
 	@Override
 	public SystemCreator withName(String name) {
@@ -42,6 +42,7 @@ public class SystemCreator extends SystemEntity implements ISystem {
 		system.getConnectors__ComposedStructure().addAll(connectors);
 		system.getRequiredRoles_InterfaceRequiringEntity().addAll(systemRequiredRoles);
 		system.getProvidedRoles_InterfaceProvidingEntity().addAll(systemProvidedRoles);
+		system.getEventChannel__ComposedStructure().addAll(eventChannels);
 		//TODO: validate
 		return system;
 	}
@@ -92,6 +93,12 @@ public class SystemCreator extends SystemEntity implements ISystem {
 		this.connectors.add(connector);
 		return this;
 	}
+	
+	@Override
+	public ISystemAddition withEventChannel(EventChannel eventChannel) {
+		this.eventChannels.add(eventChannel);
+		return this;
+	}
 
 	public List<Repository> getRepositories() {
 		return repositories;
@@ -107,5 +114,9 @@ public class SystemCreator extends SystemEntity implements ISystem {
 
 	public List<OperationProvidedRole> getSystemProvidedRoles() {
 		return systemProvidedRoles;
+	}
+	
+	public List<EventChannel> getEventChannels() {
+		return eventChannels;
 	}
 }

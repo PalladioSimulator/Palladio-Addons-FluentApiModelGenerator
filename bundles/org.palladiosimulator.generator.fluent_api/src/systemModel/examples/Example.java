@@ -65,6 +65,10 @@ public class Example {
 						.withProvidingContextByName("basic component context 1")
 						.withOperationProvidedRoleByName("basic component provides interface")
 						.build())
+				.withEventChannel(create.newEventChannelCreator()
+						.withName("event channel")
+						.withEventGroupByName("event group")
+						.build())
 				.createSystemNow();
 		saveSystem(system, "./", "basicExample.system", true);
 	}

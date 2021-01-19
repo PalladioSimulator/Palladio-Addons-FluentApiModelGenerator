@@ -2,6 +2,7 @@ package systemModel.apiControlFlowInterfaces;
 
 import org.palladiosimulator.pcm.core.composition.AssemblyConnector;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
+import org.palladiosimulator.pcm.core.composition.EventChannel;
 import org.palladiosimulator.pcm.core.composition.ProvidedDelegationConnector;
 import org.palladiosimulator.pcm.core.composition.RequiredDelegationConnector;
 import org.palladiosimulator.pcm.repository.OperationProvidedRole;
@@ -62,6 +63,13 @@ public interface ISystemAddition {
 	 * @return
 	 */
 	ISystemAddition withProvidedDelegationConnector(ProvidedDelegationConnector connector);
+
+	/**
+	 * Adds an EventChannel to the system.
+	 * @param eventChannel
+	 * @return
+	 */
+	ISystemAddition withEventChannel(EventChannel eventChannel);
 	
 	/**
 	 * Adds a repository to the system. Components from added repositories can be added to the system by name.
@@ -69,6 +77,7 @@ public interface ISystemAddition {
 	 * @return
 	 */
 	ISystem withRepository(Repository repository);
+
 
 
 }
