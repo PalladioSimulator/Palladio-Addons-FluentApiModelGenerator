@@ -4,5 +4,5 @@ import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.repository.OperationProvidedRole;
 
 public interface IContextProvidedRoleCombinator {
-	public AssemblyConnectorCreator CombineContextAndProvidedRole(AssemblyContext context, OperationProvidedRole role);
+	public AssemblyConnectorCreator combineContextAndProvidedRole(AssemblyContext context, OperationProvidedRole role);
 }

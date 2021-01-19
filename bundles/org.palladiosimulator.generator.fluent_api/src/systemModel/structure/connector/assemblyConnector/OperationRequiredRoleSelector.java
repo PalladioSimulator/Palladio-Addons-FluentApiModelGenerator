@@ -14,9 +14,13 @@ public class OperationRequiredRoleSelector {
 	}
 	
 	
+	public AssemblyConnectorCreator withOperationRequiredRole(OperationRequiredRole role) {
+		return combinator.combineContextAndRequiredRole(context, role);
+	}
+	
 	public AssemblyConnectorCreator withOperationRequiredRole(String name) {
 		OperationRequiredRole role = (OperationRequiredRole) context.getEncapsulatedComponent__AssemblyContext()
 				.getRequiredRoles_InterfaceRequiringEntity().stream().filter(x -> x.getEntityName().equals(name)).findFirst().get();
-		return combinator.CombineContextAndRequiredRole(context, role);
+		return withOperationRequiredRole(role);
 	}
 }

@@ -23,7 +23,7 @@ public class ProvidedDelegationConnectorCreator extends SystemEntity {
 		return this;
 	}
 	
-	public ProvidedDelegationConnectorCreator withOuterProvidedRoleByName(String name) {
+	public ProvidedDelegationConnectorCreator withOuterProvidedRole(String name) {
 		OperationProvidedRole role = system.getSystemProvidedRoles().stream().filter(x -> x.getEntityName().equals(name)).findFirst().get();
 		return withOuterProvidedRole(role);
 	}
@@ -33,7 +33,7 @@ public class ProvidedDelegationConnectorCreator extends SystemEntity {
 		return new OperationProvidedRoleSelector(new IContextProvidedRoleCombinator() {
 			
 			@Override
-			public ProvidedDelegationConnectorCreator CombineContextAndProvidedRole(AssemblyContext context,
+			public ProvidedDelegationConnectorCreator combineContextAndProvidedRole(AssemblyContext context,
 					OperationProvidedRole role) {
 				providingAssemblyContext = context;
 				innerProvidedRole = role;
@@ -42,7 +42,7 @@ public class ProvidedDelegationConnectorCreator extends SystemEntity {
 		}, context);
 	}
 	
-	public OperationProvidedRoleSelector withProvidingContextByName(String name) {
+	public OperationProvidedRoleSelector withProvidingContext(String name) {
 		AssemblyContext context = system.getAssemblyContexts().stream().filter(x -> x.getEntityName().equals(name)).findFirst().get();
 		return withProvidingContext(context);
 	}

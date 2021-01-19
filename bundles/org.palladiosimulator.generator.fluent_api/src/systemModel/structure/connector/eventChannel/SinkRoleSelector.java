@@ -14,7 +14,7 @@ public class SinkRoleSelector {
 	}
 	
 	public EventChannelSinkConnectorCreator withSinkRole(SinkRole role) {
-		return combinator.CombineContextAndSinkRole(context, role);
+		return combinator.combineContextAndSinkRole(context, role);
 	}
 	
 	public EventChannelSinkConnectorCreator withSinkRole(String name) {

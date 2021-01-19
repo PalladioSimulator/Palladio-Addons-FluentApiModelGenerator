@@ -17,7 +17,7 @@ public class OperationProvidedRoleCreator extends SystemEntity {
 		return this;
 	}
 	
-	public OperationProvidedRoleCreator withProvidedInterfaceByName(String name) {
+	public OperationProvidedRoleCreator withProvidedInterface(String name) {
 		OperationInterface requiredInterface = (OperationInterface) this.system.getRepositories().stream()
 				.flatMap(x -> x.getInterfaces__Repository().stream())
 				.filter(i -> i.getEntityName().equals(name)).findFirst().get();

@@ -34,7 +34,7 @@ public class EventChannelSinkConnectorCreator extends SystemEntity {
 		return new SinkRoleSelector(new IContextSinkRoleCombinator() {
 			
 			@Override
-			public EventChannelSinkConnectorCreator CombineContextAndSinkRole(AssemblyContext context, SinkRole role) {
+			public EventChannelSinkConnectorCreator combineContextAndSinkRole(AssemblyContext context, SinkRole role) {
 				creator.context = context;
 				creator.role = role;
 				return creator;

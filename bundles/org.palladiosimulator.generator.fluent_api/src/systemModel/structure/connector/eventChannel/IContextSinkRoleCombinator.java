@@ -5,6 +5,6 @@ import org.palladiosimulator.pcm.repository.SinkRole;
 
 
 public interface IContextSinkRoleCombinator {
-	public EventChannelSinkConnectorCreator CombineContextAndSinkRole(AssemblyContext context, SinkRole role);
+	public EventChannelSinkConnectorCreator combineContextAndSinkRole(AssemblyContext context, SinkRole role);
 
 }

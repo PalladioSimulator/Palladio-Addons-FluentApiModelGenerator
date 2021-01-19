@@ -14,10 +14,10 @@ public class OperationProvidedRoleSelector {
 	}
 	
 	public ProvidedDelegationConnectorCreator withOpeartionProvidedRole(OperationProvidedRole role) {
-		return combinator.CombineContextAndProvidedRole(context, role);
+		return combinator.combineContextAndProvidedRole(context, role);
 	}
 	
-	public ProvidedDelegationConnectorCreator withOperationProvidedRoleByName(String name) {
+	public ProvidedDelegationConnectorCreator withOperationProvidedRole(String name) {
 		OperationProvidedRole role = (OperationProvidedRole) context.getEncapsulatedComponent__AssemblyContext()
 				.getProvidedRoles_InterfaceProvidingEntity().stream().filter(x -> x.getEntityName().equals(name)).findFirst().get();
 		return withOpeartionProvidedRole(role);

@@ -17,7 +17,7 @@ public class AssemblyContextCreator extends SystemEntity {
 		return this;
 	}
 	
-	public AssemblyContextCreator withEncapsulatedComponentByName(String name) {
+	public AssemblyContextCreator withEncapsulatedComponent(String name) {
 		var component = this.system.getRepositories().stream().flatMap(x -> x.getComponents__Repository()
 				.stream()).filter(x -> x.getEntityName().equals(name)).findFirst().get();
 		return withEncapsulatedComponent(component);

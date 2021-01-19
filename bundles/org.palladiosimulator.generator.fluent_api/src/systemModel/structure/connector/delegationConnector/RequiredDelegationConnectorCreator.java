@@ -23,7 +23,7 @@ public class RequiredDelegationConnectorCreator extends SystemEntity {
 		return this;
 	}
 	
-	public RequiredDelegationConnectorCreator withOuterRequiredRoleByName(String name) {
+	public RequiredDelegationConnectorCreator withOuterRequiredRole(String name) {
 		OperationRequiredRole role = system.getSystemRequiredRoles().stream().filter(x -> x.getEntityName().equals(name)).findFirst().get();
 		return withOuterRequiredRole(role);
 	}
@@ -33,7 +33,7 @@ public class RequiredDelegationConnectorCreator extends SystemEntity {
 		return new OperationRequiredRoleSelector(new IContextRequiredRoleCombinator() {
 			
 			@Override
-			public RequiredDelegationConnectorCreator CombineContextAndRequiredRole(AssemblyContext context,
+			public RequiredDelegationConnectorCreator combineContextAndRequiredRole(AssemblyContext context,
 					OperationRequiredRole role) {
 				requringAssemblyContext = context;
 				innerRequiredRole = role;
@@ -42,7 +42,7 @@ public class RequiredDelegationConnectorCreator extends SystemEntity {
 		}, context);
 	}
 	
-	public OperationRequiredRoleSelector withRequiringContextByName(String name) {
+	public OperationRequiredRoleSelector withRequiringContext(String name) {
 		AssemblyContext context = system.getAssemblyContexts().stream().filter(x -> x.getEntityName().equals(name)).findFirst().get();
 		return withRequiringContext(context);
 	}

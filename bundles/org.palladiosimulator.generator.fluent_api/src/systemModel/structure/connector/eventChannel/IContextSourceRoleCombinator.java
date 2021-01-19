@@ -5,6 +5,6 @@ import org.palladiosimulator.pcm.repository.SourceRole;
 
 
 public interface IContextSourceRoleCombinator {
-	public EventChannelSourceConnectorCreator CombineContextAndSourceRole(AssemblyContext context, SourceRole role);
+	public EventChannelSourceConnectorCreator combineContextAndSourceRole(AssemblyContext context, SourceRole role);
 
 }

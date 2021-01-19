@@ -17,7 +17,7 @@ public class EventChannelCreator extends SystemEntity {
 		return this;
 	}
 	
-	public EventChannelCreator withEventGroupByName(String name) {
+	public EventChannelCreator withEventGroup(String name) {
 		EventGroup group = (EventGroup) system.getRepositories().stream()
 				.flatMap(x -> x.getInterfaces__Repository().stream())
 				.filter(x -> x.getEntityName().equals(name)).findFirst().get();

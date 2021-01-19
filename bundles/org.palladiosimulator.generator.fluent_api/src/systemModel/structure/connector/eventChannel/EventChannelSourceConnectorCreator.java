@@ -34,7 +34,7 @@ public class EventChannelSourceConnectorCreator extends SystemEntity {
 		return new SourceRoleSelector(new IContextSourceRoleCombinator() {
 			
 			@Override
-			public EventChannelSourceConnectorCreator CombineContextAndSourceRole(AssemblyContext context, SourceRole role) {
+			public EventChannelSourceConnectorCreator combineContextAndSourceRole(AssemblyContext context, SourceRole role) {
 				creator.context = context;
 				creator.role = role;
 				return creator;

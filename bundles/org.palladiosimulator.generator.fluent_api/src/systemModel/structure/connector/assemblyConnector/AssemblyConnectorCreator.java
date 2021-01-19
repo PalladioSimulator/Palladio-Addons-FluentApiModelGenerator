@@ -20,13 +20,12 @@ public class AssemblyConnectorCreator extends SystemEntity{
 		this.system = systemCreator;
 	}
 
-	public OperationRequiredRoleSelector withRequiringAssemblyContext(String name) {
-		var context = this.system.getAssemblyContexts().stream().filter(x -> x.getEntityName().equals(name)).findFirst().get();
+	public OperationRequiredRoleSelector withRequiringAssemblyContext(AssemblyContext context) {
 		var creator = this;
 		return new OperationRequiredRoleSelector(new IContextRequiredRoleCombinator() {
 			
 			@Override
-			public AssemblyConnectorCreator CombineContextAndRequiredRole(AssemblyContext reqContext, OperationRequiredRole role) {
+			public AssemblyConnectorCreator combineContextAndRequiredRole(AssemblyContext reqContext, OperationRequiredRole role) {
 				requiringContext = reqContext;
 				requiredRole = role;
 				return creator;
@@ -34,18 +33,27 @@ public class AssemblyConnectorCreator extends SystemEntity{
 		}, context);
 	}
 	
-	public OperationProvidedRoleSelector withProvidingAssemblyContext(String name) {
+	public OperationRequiredRoleSelector withRequiringAssemblyContext(String name) {
 		var context = this.system.getAssemblyContexts().stream().filter(x -> x.getEntityName().equals(name)).findFirst().get();
+		return withRequiringAssemblyContext(context);
+	}
+	
+	public OperationProvidedRoleSelector withProvidingAssemblyContext(AssemblyContext context) {
 		var creator = this;
 		return new OperationProvidedRoleSelector(new IContextProvidedRoleCombinator() {
 			
 			@Override
-			public AssemblyConnectorCreator CombineContextAndProvidedRole(AssemblyContext provContext, OperationProvidedRole role) {
+			public AssemblyConnectorCreator combineContextAndProvidedRole(AssemblyContext provContext, OperationProvidedRole role) {
 				providingContext = provContext;
 				providedRole = role;
 				return creator;
 			}
 		}, context);
+	}
+
+	public OperationProvidedRoleSelector withProvidingAssemblyContext(String name) {
+		var context = this.system.getAssemblyContexts().stream().filter(x -> x.getEntityName().equals(name)).findFirst().get();
+		return withProvidingAssemblyContext(context);
 	}
 
 	@Override

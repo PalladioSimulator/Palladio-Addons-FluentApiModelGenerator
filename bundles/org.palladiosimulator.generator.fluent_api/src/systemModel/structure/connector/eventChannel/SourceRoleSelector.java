@@ -14,7 +14,7 @@ public class SourceRoleSelector {
 	}
 	
 	public EventChannelSourceConnectorCreator withSourceRole(SourceRole role) {
-		return combinator.CombineContextAndSourceRole(context, role);
+		return combinator.combineContextAndSourceRole(context, role);
 	}
 	
 	public EventChannelSourceConnectorCreator withSourceRole(String name) {

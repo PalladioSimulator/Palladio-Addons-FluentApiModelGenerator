@@ -14,10 +14,10 @@ public class OperationRequiredRoleSelector {
 	}
 	
 	public RequiredDelegationConnectorCreator withOpeartionRequiredRole(OperationRequiredRole role) {
-		return combinator.CombineContextAndRequiredRole(context, role);
+		return combinator.combineContextAndRequiredRole(context, role);
 	}
 	
-	public RequiredDelegationConnectorCreator withOperationRequiredRoleByName(String name) {
+	public RequiredDelegationConnectorCreator withOperationRequiredRole(String name) {
 		OperationRequiredRole role = (OperationRequiredRole) context.getEncapsulatedComponent__AssemblyContext()
 				.getRequiredRoles_InterfaceRequiringEntity().stream().filter(x -> x.getEntityName().equals(name)).findFirst().get();
 		return withOpeartionRequiredRole(role);

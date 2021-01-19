@@ -13,9 +13,13 @@ public class OperationProvidedRoleSelector {
 	}
 	
 	
+	public AssemblyConnectorCreator withOperationProvidedRole(OperationProvidedRole role) {
+		return combinator.combineContextAndProvidedRole(context, role);
+	}
+
 	public AssemblyConnectorCreator withOperationProvidedRole(String name) {
 		OperationProvidedRole role = (OperationProvidedRole) context.getEncapsulatedComponent__AssemblyContext()
 				.getProvidedRoles_InterfaceProvidingEntity().stream().filter(x -> x.getEntityName().equals(name)).findFirst().get();
-		return combinator.CombineContextAndProvidedRole(context, role);
+		return withOperationProvidedRole(role);
 	}
 }
