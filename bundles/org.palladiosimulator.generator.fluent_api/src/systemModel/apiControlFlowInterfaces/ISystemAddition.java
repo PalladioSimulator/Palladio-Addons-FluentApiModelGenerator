@@ -7,9 +7,13 @@ import org.palladiosimulator.pcm.core.composition.EventChannelSinkConnector;
 import org.palladiosimulator.pcm.core.composition.EventChannelSourceConnector;
 import org.palladiosimulator.pcm.core.composition.ProvidedDelegationConnector;
 import org.palladiosimulator.pcm.core.composition.RequiredDelegationConnector;
+import org.palladiosimulator.pcm.core.composition.SinkDelegationConnector;
+import org.palladiosimulator.pcm.core.composition.SourceDelegationConnector;
 import org.palladiosimulator.pcm.repository.OperationProvidedRole;
 import org.palladiosimulator.pcm.repository.OperationRequiredRole;
 import org.palladiosimulator.pcm.repository.Repository;
+import org.palladiosimulator.pcm.repository.SinkRole;
+import org.palladiosimulator.pcm.repository.SourceRole;
 import org.palladiosimulator.pcm.system.System;
 
 public interface ISystemAddition {
@@ -94,6 +98,32 @@ public interface ISystemAddition {
 	 */
 	ISystemAddition withEventChannelSourceRoleConnector(EventChannelSourceConnector connector);
 
-
+	/**
+	 * Adds a SinkRole to the system
+	 * @param role
+	 * @return
+	 */
+	ISystemAddition withSinkRole(SinkRole role);
+	
+	/**
+	 * Adds a SinkDelegationConnector to the system
+	 * @param connector
+	 * @return
+	 */
+	ISystemAddition withSinkDelegationConnector(SinkDelegationConnector connector);
+	
+	/**
+	 * Adds a SourceRole to the system
+	 * @param role
+	 * @return
+	 */
+	ISystemAddition withSourceRole(SourceRole role);
+	
+	/**
+	 * Adds a SourceDelegationConnector to the system
+	 * @param connector
+	 * @return
+	 */
+	ISystemAddition withSourceDelegationConnector(SourceDelegationConnector connector);
 
 }

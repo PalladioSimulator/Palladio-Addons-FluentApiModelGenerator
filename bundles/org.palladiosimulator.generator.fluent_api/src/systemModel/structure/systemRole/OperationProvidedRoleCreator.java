@@ -1,8 +1,11 @@
-package systemModel.structure;
+package systemModel.structure.systemRole;
 
 import org.palladiosimulator.pcm.repository.OperationInterface;
 import org.palladiosimulator.pcm.repository.OperationProvidedRole;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
+
+import systemModel.structure.SystemCreator;
+import systemModel.structure.SystemEntity;
 
 public class OperationProvidedRoleCreator extends SystemEntity {
 	

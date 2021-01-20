@@ -4,14 +4,18 @@ package systemModel.factory;
 import systemModel.apiControlFlowInterfaces.ISystem;
 import systemModel.structure.AssemblyContextCreator;
 import systemModel.structure.EventChannelCreator;
-import systemModel.structure.OperationProvidedRoleCreator;
-import systemModel.structure.OperationRequiredRoleCreator;
 import systemModel.structure.SystemCreator;
 import systemModel.structure.connector.assemblyConnector.AssemblyConnectorCreator;
-import systemModel.structure.connector.delegationConnector.ProvidedDelegationConnectorCreator;
-import systemModel.structure.connector.delegationConnector.RequiredDelegationConnectorCreator;
 import systemModel.structure.connector.eventChannel.EventChannelSinkConnectorCreator;
 import systemModel.structure.connector.eventChannel.EventChannelSourceConnectorCreator;
+import systemModel.structure.connector.eventDelegationConnector.SinkDelegationConnectorCreator;
+import systemModel.structure.connector.eventDelegationConnector.SourceDelegationConnectorCreator;
+import systemModel.structure.connector.operationDelegationConnector.ProvidedDelegationConnectorCreator;
+import systemModel.structure.connector.operationDelegationConnector.RequiredDelegationConnectorCreator;
+import systemModel.structure.systemRole.OperationProvidedRoleCreator;
+import systemModel.structure.systemRole.OperationRequiredRoleCreator;
+import systemModel.structure.systemRole.SinkRoleCreator;
+import systemModel.structure.systemRole.SourceRoleCreator;
 
 public class FluentSystemFactory {
 	private SystemCreator systemCreator;
@@ -55,5 +59,21 @@ public class FluentSystemFactory {
 	
 	public EventChannelSourceConnectorCreator newEventChannelSourceConnector() {
 		return new EventChannelSourceConnectorCreator(systemCreator);
+	}
+	
+	public SinkRoleCreator newSinkRole() {
+		return new SinkRoleCreator(systemCreator);
+	}
+	
+	public SinkDelegationConnectorCreator newSinkDelegationConnector() {
+		return new SinkDelegationConnectorCreator(systemCreator);
+	}
+	
+	public SourceRoleCreator newSourceRole() {
+		return new SourceRoleCreator(systemCreator);
+	}
+	
+	public SourceDelegationConnectorCreator newSourceDelegationConnector() {
+		return new SourceDelegationConnectorCreator(systemCreator);
 	}
 }

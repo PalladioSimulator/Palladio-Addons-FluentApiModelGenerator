@@ -1,4 +1,4 @@
-package systemModel.structure.connector.delegationConnector;
+package systemModel.structure.connector.operationDelegationConnector;
 
 
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
