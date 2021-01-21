@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.List;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -15,11 +14,9 @@ import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceFactoryImpl;
 import org.palladiosimulator.pcm.repository.Repository;
-import org.palladiosimulator.pcm.repository.RepositoryComponent;
 import org.palladiosimulator.pcm.repository.RepositoryPackage;
 import org.palladiosimulator.pcm.system.System;
 
-import componentModel.repositoryStructure.components.seff.CollectionIteratorActionCreator;
 import systemModel.factory.FluentSystemFactory;
 
 public class Example {
@@ -100,6 +97,33 @@ public class Example {
 						.withOuterSourceRole("system source role")
 						.withAssemblyContext("basic component context 1")
 						.withSourceRole("emits event")
+						.build())
+				.withAssemblyInfrastructureConnector(create.newAssemblyInfrastructureConnector()
+						.withName("infrastructure connector")
+						.withRequiringAssemblyContext("basic component context 1")
+						.withInfrastructureRequiredRole("requres infrastructure")
+						.withProvidingAssemblyContext("basic component context 2")
+						.withInfrastructureProvidedRole("provides infrastructure")
+						.build())
+				.withInfrastructureProvidedRole(create.newInfrastructurenProvidedRole()
+						.withName("infrastructure provided role")
+						.withProvidedInterface("infrastructure interface")
+						.build())
+				.withInfrastructureRequiredRole(create.newInfrastructureRequiredRole()
+						.withName("infrastructure required role")
+						.withRequiredInterface("infrastructure interface")
+						.build())
+				.withProvidedInfrastructureDelegationConnector(create.newProvidedInfrastructureDelegationConnectorCreator()
+						.withName("infrastructure provided delegation")
+						.withOuterProvidedRole("infrastructure provided role")
+						.withProvidingContext("basic component context 1")
+						.withInfrastructureProvidedRole("provides infrastructure")
+						.build())
+				.withRequiredInfrastructureDelegationConnector(create.newRequiredInfrastructureDelegationConnectorCreator()
+						.withName("infrastructure required delegation")
+						.withOuterRequiredRole("infrastructure required role")
+						.withRequiringContext("basic component context 2")
+						.withInfrastructuRequiredRole("requres infrastructure")
 						.build())
 				.createSystemNow();
 		saveSystem(system, "./", "basicExample.system", true);

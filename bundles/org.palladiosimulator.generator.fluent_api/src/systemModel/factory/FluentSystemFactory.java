@@ -6,12 +6,17 @@ import systemModel.structure.AssemblyContextCreator;
 import systemModel.structure.EventChannelCreator;
 import systemModel.structure.SystemCreator;
 import systemModel.structure.connector.assemblyConnector.AssemblyConnectorCreator;
+import systemModel.structure.connector.assemblyInfrastructureConnector.AssemblyInfrastructureConnectorCreator;
 import systemModel.structure.connector.eventChannel.EventChannelSinkConnectorCreator;
 import systemModel.structure.connector.eventChannel.EventChannelSourceConnectorCreator;
 import systemModel.structure.connector.eventDelegationConnector.SinkDelegationConnectorCreator;
 import systemModel.structure.connector.eventDelegationConnector.SourceDelegationConnectorCreator;
+import systemModel.structure.connector.infrastructureDelegationConnector.ProvidedInfrastructureDelegationConnectorCreator;
+import systemModel.structure.connector.infrastructureDelegationConnector.RequiredInfrastructureDelegationConnectorCreator;
 import systemModel.structure.connector.operationDelegationConnector.ProvidedDelegationConnectorCreator;
 import systemModel.structure.connector.operationDelegationConnector.RequiredDelegationConnectorCreator;
+import systemModel.structure.systemRole.InfrastructureProvidedRoleCreator;
+import systemModel.structure.systemRole.InfrastructureRequiredRoleCreator;
 import systemModel.structure.systemRole.OperationProvidedRoleCreator;
 import systemModel.structure.systemRole.OperationRequiredRoleCreator;
 import systemModel.structure.systemRole.SinkRoleCreator;
@@ -75,5 +80,25 @@ public class FluentSystemFactory {
 	
 	public SourceDelegationConnectorCreator newSourceDelegationConnector() {
 		return new SourceDelegationConnectorCreator(systemCreator);
+	}
+	
+	public AssemblyInfrastructureConnectorCreator newAssemblyInfrastructureConnector() {
+		return new AssemblyInfrastructureConnectorCreator(systemCreator);
+	}
+	
+	public InfrastructureRequiredRoleCreator newInfrastructureRequiredRole() {
+		return new InfrastructureRequiredRoleCreator(systemCreator);
+	}
+	
+	public RequiredInfrastructureDelegationConnectorCreator newRequiredInfrastructureDelegationConnectorCreator() {
+		return new RequiredInfrastructureDelegationConnectorCreator(systemCreator);
+	}
+	
+	public InfrastructureProvidedRoleCreator newInfrastructurenProvidedRole() {
+		return new InfrastructureProvidedRoleCreator(systemCreator);
+	}
+
+	public ProvidedInfrastructureDelegationConnectorCreator newProvidedInfrastructureDelegationConnectorCreator() {
+		return new ProvidedInfrastructureDelegationConnectorCreator(systemCreator);
 	}
 }

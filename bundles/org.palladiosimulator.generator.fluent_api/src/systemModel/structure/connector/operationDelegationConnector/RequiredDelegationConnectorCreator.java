@@ -24,7 +24,7 @@ public class RequiredDelegationConnectorCreator extends SystemEntity {
 	}
 	
 	public RequiredDelegationConnectorCreator withOuterRequiredRole(String name) {
-		OperationRequiredRole role = system.getSystemRequiredRoles().stream().filter(x -> x.getEntityName().equals(name)).findFirst().get();
+		OperationRequiredRole role = system.getSystemOperationRequiredRoles().stream().filter(x -> x.getEntityName().equals(name)).findFirst().get();
 		return withOuterRequiredRole(role);
 	}
 	

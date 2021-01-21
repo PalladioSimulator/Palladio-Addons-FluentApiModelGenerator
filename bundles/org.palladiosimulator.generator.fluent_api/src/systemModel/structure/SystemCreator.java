@@ -6,14 +6,19 @@ import java.util.List;
 
 import org.palladiosimulator.pcm.core.composition.AssemblyConnector;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
+import org.palladiosimulator.pcm.core.composition.AssemblyInfrastructureConnector;
 import org.palladiosimulator.pcm.core.composition.Connector;
 import org.palladiosimulator.pcm.core.composition.EventChannel;
 import org.palladiosimulator.pcm.core.composition.EventChannelSinkConnector;
 import org.palladiosimulator.pcm.core.composition.EventChannelSourceConnector;
 import org.palladiosimulator.pcm.core.composition.ProvidedDelegationConnector;
+import org.palladiosimulator.pcm.core.composition.ProvidedInfrastructureDelegationConnector;
 import org.palladiosimulator.pcm.core.composition.RequiredDelegationConnector;
+import org.palladiosimulator.pcm.core.composition.RequiredInfrastructureDelegationConnector;
 import org.palladiosimulator.pcm.core.composition.SinkDelegationConnector;
 import org.palladiosimulator.pcm.core.composition.SourceDelegationConnector;
+import org.palladiosimulator.pcm.repository.InfrastructureProvidedRole;
+import org.palladiosimulator.pcm.repository.InfrastructureRequiredRole;
 import org.palladiosimulator.pcm.repository.OperationProvidedRole;
 import org.palladiosimulator.pcm.repository.OperationRequiredRole;
 import org.palladiosimulator.pcm.repository.Repository;
@@ -29,8 +34,10 @@ public class SystemCreator extends SystemEntity implements ISystem {
 	private List<AssemblyContext> assemblyContexts = new ArrayList<>();
 	private List<Repository> repositories = new ArrayList<>();
 	private List<Connector> connectors = new ArrayList<>();
-	private List<OperationRequiredRole> systemRequiredRoles = new ArrayList<>();
-	private List<OperationProvidedRole> systemProvidedRoles = new ArrayList<>();
+	private List<OperationRequiredRole> systemOperationRequiredRoles = new ArrayList<>();
+	private List<OperationProvidedRole> systemOperationProvidedRoles = new ArrayList<>();
+	private List<InfrastructureRequiredRole> systemInfrastructureRequiredRoles = new ArrayList<>();
+	private List<InfrastructureProvidedRole> systemInfrastructureProvidedRoles = new ArrayList<>();
 	private List<SinkRole> systemSinkRoles = new ArrayList<>();
 	private List<SourceRole> systemSourceRoles = new ArrayList<>();
 	private List<EventChannel> eventChannels = new ArrayList<>();
@@ -48,10 +55,12 @@ public class SystemCreator extends SystemEntity implements ISystem {
 		}
 		system.getAssemblyContexts__ComposedStructure().addAll(getAssemblyContexts());
 		system.getConnectors__ComposedStructure().addAll(connectors);
-		system.getRequiredRoles_InterfaceRequiringEntity().addAll(systemRequiredRoles);
-		system.getProvidedRoles_InterfaceProvidingEntity().addAll(systemProvidedRoles);
+		system.getRequiredRoles_InterfaceRequiringEntity().addAll(systemOperationRequiredRoles);
+		system.getProvidedRoles_InterfaceProvidingEntity().addAll(systemOperationProvidedRoles);
 		system.getRequiredRoles_InterfaceRequiringEntity().addAll(systemSourceRoles);
 		system.getProvidedRoles_InterfaceProvidingEntity().addAll(systemSinkRoles);
+		system.getRequiredRoles_InterfaceRequiringEntity().addAll(systemInfrastructureRequiredRoles);
+		system.getProvidedRoles_InterfaceProvidingEntity().addAll(systemInfrastructureProvidedRoles);
 		system.getEventChannel__ComposedStructure().addAll(eventChannels);
 		//TODO: validate
 		return system;
@@ -82,7 +91,7 @@ public class SystemCreator extends SystemEntity implements ISystem {
 
 	@Override
 	public ISystemAddition withOperationRequiredRole(OperationRequiredRole role) {
-		this.systemRequiredRoles.add(role);
+		this.systemOperationRequiredRoles.add(role);
 		return this;
 	}
 
@@ -94,7 +103,7 @@ public class SystemCreator extends SystemEntity implements ISystem {
 	
 	@Override
 	public ISystemAddition withOperationProvidedRole(OperationProvidedRole role) {
-		this.systemProvidedRoles.add(role);
+		this.systemOperationProvidedRoles.add(role);
 		return this;
 	}
 	
@@ -146,6 +155,38 @@ public class SystemCreator extends SystemEntity implements ISystem {
 		return this;
 	}
 
+	@Override
+	public ISystemAddition withAssemblyInfrastructureConnector(AssemblyInfrastructureConnector connector) {
+		this.connectors.add(connector);
+		return this;
+	}
+
+	@Override
+	public ISystemAddition withInfrastructureRequiredRole(InfrastructureRequiredRole role) {
+		this.systemInfrastructureRequiredRoles.add(role);
+		return this;
+	}
+
+	@Override
+	public ISystemAddition withRequiredInfrastructureDelegationConnector(
+			RequiredInfrastructureDelegationConnector connector) {
+		this.connectors.add(connector);
+		return this;
+	}
+
+	@Override
+	public ISystemAddition withInfrastructureProvidedRole(InfrastructureProvidedRole role) {
+		this.systemInfrastructureProvidedRoles.add(role);
+		return this;
+	}
+
+	@Override
+	public ISystemAddition withProvidedInfrastructureDelegationConnector(
+			ProvidedInfrastructureDelegationConnector connector) {
+		this.connectors.add(connector);
+		return this;
+	}
+
 	public List<Repository> getRepositories() {
 		return repositories;
 	}
@@ -154,16 +195,24 @@ public class SystemCreator extends SystemEntity implements ISystem {
 		return assemblyContexts;
 	}
 	
-	public List<OperationRequiredRole> getSystemRequiredRoles() {
-		return systemRequiredRoles;
+	public List<OperationRequiredRole> getSystemOperationRequiredRoles() {
+		return systemOperationRequiredRoles;
 	}
 
-	public List<OperationProvidedRole> getSystemProvidedRoles() {
-		return systemProvidedRoles;
+	public List<OperationProvidedRole> getSystemOperationProvidedRoles() {
+		return systemOperationProvidedRoles;
 	}
 	
 	public List<SinkRole> getSystemSinkRoles() {
 		return systemSinkRoles;
+	}
+	
+	public List<InfrastructureRequiredRole> getSystemInfrastructureRequiredRoles() {
+		return systemInfrastructureRequiredRoles;
+	}
+	
+	public List<InfrastructureProvidedRole> getSystemInfrastructureProvidedRoles() {
+		return systemInfrastructureProvidedRoles;
 	}
 	
 	public List<SourceRole> getSystemSourceRoles() {

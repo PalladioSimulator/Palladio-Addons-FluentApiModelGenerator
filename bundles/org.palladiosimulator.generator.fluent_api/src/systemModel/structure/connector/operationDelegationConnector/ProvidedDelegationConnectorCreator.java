@@ -24,7 +24,7 @@ public class ProvidedDelegationConnectorCreator extends SystemEntity {
 	}
 	
 	public ProvidedDelegationConnectorCreator withOuterProvidedRole(String name) {
-		OperationProvidedRole role = system.getSystemProvidedRoles().stream().filter(x -> x.getEntityName().equals(name)).findFirst().get();
+		OperationProvidedRole role = system.getSystemOperationProvidedRoles().stream().filter(x -> x.getEntityName().equals(name)).findFirst().get();
 		return withOuterProvidedRole(role);
 	}
 	

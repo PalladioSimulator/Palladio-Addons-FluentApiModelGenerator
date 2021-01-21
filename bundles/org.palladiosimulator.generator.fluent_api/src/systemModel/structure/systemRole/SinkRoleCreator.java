@@ -3,7 +3,6 @@ package systemModel.structure.systemRole;
 import org.palladiosimulator.pcm.repository.EventGroup;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
 import org.palladiosimulator.pcm.repository.SinkRole;
-import org.palladiosimulator.pcm.repository.SourceRole;
 
 import systemModel.structure.SystemCreator;
 import systemModel.structure.SystemEntity;
