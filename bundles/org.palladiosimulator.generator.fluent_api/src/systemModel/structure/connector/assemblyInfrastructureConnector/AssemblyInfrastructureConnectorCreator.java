@@ -1,18 +1,15 @@
 package systemModel.structure.connector.assemblyInfrastructureConnector;
 
-import org.palladiosimulator.pcm.core.composition.AssemblyConnector;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.composition.AssemblyInfrastructureConnector;
 import org.palladiosimulator.pcm.core.composition.CompositionFactory;
 import org.palladiosimulator.pcm.repository.InfrastructureProvidedRole;
 import org.palladiosimulator.pcm.repository.InfrastructureRequiredRole;
-import org.palladiosimulator.pcm.repository.OperationProvidedRole;
-import org.palladiosimulator.pcm.repository.OperationRequiredRole;
 
 import systemModel.structure.SystemCreator;
-import systemModel.structure.SystemEntity;
+import systemModel.structure.connector.AbstractConnectorCreator;
 
-public class AssemblyInfrastructureConnectorCreator extends SystemEntity{
+public class AssemblyInfrastructureConnectorCreator extends AbstractConnectorCreator{
 	
 	private AssemblyContext requiringContext;
 	private InfrastructureRequiredRole requiredRole;

@@ -7,9 +7,9 @@ import org.palladiosimulator.pcm.core.composition.EventChannelSinkConnector;
 import org.palladiosimulator.pcm.repository.SinkRole;
 
 import systemModel.structure.SystemCreator;
-import systemModel.structure.SystemEntity;
+import systemModel.structure.connector.AbstractConnectorCreator;
 
-public class EventChannelSinkConnectorCreator extends SystemEntity {
+public class EventChannelSinkConnectorCreator extends AbstractConnectorCreator {
 	private EventChannel eventChannel;
 	private AssemblyContext context;
 	private SinkRole role;

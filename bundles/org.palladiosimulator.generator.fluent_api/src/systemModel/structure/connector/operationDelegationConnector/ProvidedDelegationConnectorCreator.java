@@ -6,9 +6,9 @@ import org.palladiosimulator.pcm.core.composition.ProvidedDelegationConnector;
 import org.palladiosimulator.pcm.repository.OperationProvidedRole;
 
 import systemModel.structure.SystemCreator;
-import systemModel.structure.SystemEntity;
+import systemModel.structure.connector.AbstractConnectorCreator;
 
-public class ProvidedDelegationConnectorCreator extends SystemEntity {
+public class ProvidedDelegationConnectorCreator extends AbstractConnectorCreator {
 	private OperationProvidedRole outerProvidedRole;
 	private OperationProvidedRole innerProvidedRole;
 	private AssemblyContext providingAssemblyContext;

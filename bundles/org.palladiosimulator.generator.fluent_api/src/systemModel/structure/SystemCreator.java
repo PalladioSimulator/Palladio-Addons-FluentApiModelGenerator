@@ -4,19 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-import org.palladiosimulator.pcm.core.composition.AssemblyConnector;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
-import org.palladiosimulator.pcm.core.composition.AssemblyInfrastructureConnector;
 import org.palladiosimulator.pcm.core.composition.Connector;
 import org.palladiosimulator.pcm.core.composition.EventChannel;
-import org.palladiosimulator.pcm.core.composition.EventChannelSinkConnector;
-import org.palladiosimulator.pcm.core.composition.EventChannelSourceConnector;
-import org.palladiosimulator.pcm.core.composition.ProvidedDelegationConnector;
-import org.palladiosimulator.pcm.core.composition.ProvidedInfrastructureDelegationConnector;
-import org.palladiosimulator.pcm.core.composition.RequiredDelegationConnector;
-import org.palladiosimulator.pcm.core.composition.RequiredInfrastructureDelegationConnector;
-import org.palladiosimulator.pcm.core.composition.SinkDelegationConnector;
-import org.palladiosimulator.pcm.core.composition.SourceDelegationConnector;
 import org.palladiosimulator.pcm.repository.InfrastructureProvidedRole;
 import org.palladiosimulator.pcm.repository.InfrastructureRequiredRole;
 import org.palladiosimulator.pcm.repository.OperationProvidedRole;
@@ -29,6 +19,13 @@ import org.palladiosimulator.pcm.system.SystemFactory;
 
 import systemModel.apiControlFlowInterfaces.ISystem;
 import systemModel.apiControlFlowInterfaces.ISystemAddition;
+import systemModel.structure.connector.AbstractConnectorCreator;
+import systemModel.structure.systemRole.InfrastructureProvidedRoleCreator;
+import systemModel.structure.systemRole.InfrastructureRequiredRoleCreator;
+import systemModel.structure.systemRole.OperationProvidedRoleCreator;
+import systemModel.structure.systemRole.OperationRequiredRoleCreator;
+import systemModel.structure.systemRole.SinkRoleCreator;
+import systemModel.structure.systemRole.SourceRoleCreator;
 
 public class SystemCreator extends SystemEntity implements ISystem {
 	private List<AssemblyContext> assemblyContexts = new ArrayList<>();
@@ -72,8 +69,8 @@ public class SystemCreator extends SystemEntity implements ISystem {
 	}
 
 	@Override
-	public ISystem withAssembyContext(AssemblyContext context) {
-		this.assemblyContexts.add(context);
+	public ISystemAddition addToSystem(AssemblyContextCreator context) {
+		this.assemblyContexts.add(context.build());
 		return this;
 	}
 
@@ -84,106 +81,50 @@ public class SystemCreator extends SystemEntity implements ISystem {
 	}
 
 	@Override
-	public ISystemAddition withAssemblyConnector(AssemblyConnector connector) {
-		this.connectors.add(connector);
+	public ISystemAddition addToSystem(AbstractConnectorCreator connector) {
+		this.connectors.add(connector.build());
 		return this;
 	}
 
 	@Override
-	public ISystemAddition withOperationRequiredRole(OperationRequiredRole role) {
-		this.systemOperationRequiredRoles.add(role);
-		return this;
-	}
-
-	@Override
-	public ISystemAddition withRequiredDelegationConnector(RequiredDelegationConnector connector) {
-		this.connectors.add(connector);
+	public ISystemAddition addToSystem(OperationRequiredRoleCreator role) {
+		this.systemOperationRequiredRoles.add(role.build());
 		return this;
 	}
 	
 	@Override
-	public ISystemAddition withOperationProvidedRole(OperationProvidedRole role) {
-		this.systemOperationProvidedRoles.add(role);
+	public ISystemAddition addToSystem(OperationProvidedRoleCreator role) {
+		this.systemOperationProvidedRoles.add(role.build());
 		return this;
 	}
 	
 	@Override
-	public ISystemAddition withProvidedDelegationConnector(ProvidedDelegationConnector connector) {
-		this.connectors.add(connector);
-		return this;
-	}
-	
-	@Override
-	public ISystemAddition withEventChannel(EventChannel eventChannel) {
-		this.eventChannels.add(eventChannel);
-		return this;
-	}
-	
-	@Override
-	public ISystemAddition withEventChannelSinkRoleConnector(EventChannelSinkConnector connector) {
-		this.connectors.add(connector);
-		return this;
-	}
-	
-	@Override
-	public ISystemAddition withEventChannelSourceRoleConnector(EventChannelSourceConnector connector) {
-		this.connectors.add(connector);
+	public ISystemAddition addToSystem(EventChannelCreator eventChannel) {
+		this.eventChannels.add(eventChannel.build());
 		return this;
 	}
 
 	@Override
-	public ISystemAddition withSinkRole(SinkRole role) {
-		this.systemSinkRoles.add(role);
+	public ISystemAddition addToSystem(SinkRoleCreator role) {
+		this.systemSinkRoles.add(role.build());
 		return this;
 	}
 
 	@Override
-	public ISystemAddition withSinkDelegationConnector(SinkDelegationConnector connector) {
-		this.connectors.add(connector);
+	public ISystemAddition addToSystem(SourceRoleCreator role) {
+		this.systemSourceRoles.add(role.build());
 		return this;
 	}
 
 	@Override
-	public ISystemAddition withSourceRole(SourceRole role) {
-		this.systemSourceRoles.add(role);
+	public ISystemAddition addToSystem(InfrastructureRequiredRoleCreator role) {
+		this.systemInfrastructureRequiredRoles.add(role.build());
 		return this;
 	}
 
 	@Override
-	public ISystemAddition withSourceDelegationConnector(SourceDelegationConnector connector) {
-		this.connectors.add(connector);
-		return this;
-	}
-
-	@Override
-	public ISystemAddition withAssemblyInfrastructureConnector(AssemblyInfrastructureConnector connector) {
-		this.connectors.add(connector);
-		return this;
-	}
-
-	@Override
-	public ISystemAddition withInfrastructureRequiredRole(InfrastructureRequiredRole role) {
-		this.systemInfrastructureRequiredRoles.add(role);
-		return this;
-	}
-
-	@Override
-	public ISystemAddition withRequiredInfrastructureDelegationConnector(
-			RequiredInfrastructureDelegationConnector connector) {
-		this.connectors.add(connector);
-		return this;
-	}
-
-	@Override
-	public ISystemAddition withInfrastructureProvidedRole(InfrastructureProvidedRole role) {
-		this.systemInfrastructureProvidedRoles.add(role);
-		return this;
-	}
-
-	@Override
-	public ISystemAddition withProvidedInfrastructureDelegationConnector(
-			ProvidedInfrastructureDelegationConnector connector) {
-		this.connectors.add(connector);
+	public ISystemAddition addToSystem(InfrastructureProvidedRoleCreator role) {
+		this.systemInfrastructureProvidedRoles.add(role.build());
 		return this;
 	}
 

@@ -7,9 +7,9 @@ import org.palladiosimulator.pcm.core.composition.EventChannelSourceConnector;
 import org.palladiosimulator.pcm.repository.SourceRole;
 
 import systemModel.structure.SystemCreator;
-import systemModel.structure.SystemEntity;
+import systemModel.structure.connector.AbstractConnectorCreator;
 
-public class EventChannelSourceConnectorCreator extends SystemEntity {
+public class EventChannelSourceConnectorCreator extends AbstractConnectorCreator {
 	private EventChannel eventChannel;
 	private AssemblyContext context;
 	private SourceRole role;

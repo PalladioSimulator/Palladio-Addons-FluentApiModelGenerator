@@ -7,9 +7,9 @@ import org.palladiosimulator.pcm.repository.OperationProvidedRole;
 import org.palladiosimulator.pcm.repository.OperationRequiredRole;
 
 import systemModel.structure.SystemCreator;
-import systemModel.structure.SystemEntity;
+import systemModel.structure.connector.AbstractConnectorCreator;
 
-public class AssemblyConnectorCreator extends SystemEntity{
+public class AssemblyConnectorCreator extends AbstractConnectorCreator{
 	
 	private AssemblyContext requiringContext;
 	private OperationRequiredRole requiredRole;

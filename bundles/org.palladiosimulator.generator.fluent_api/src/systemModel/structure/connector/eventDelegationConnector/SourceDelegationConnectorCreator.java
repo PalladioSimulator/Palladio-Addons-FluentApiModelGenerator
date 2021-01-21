@@ -6,9 +6,9 @@ import org.palladiosimulator.pcm.core.composition.SourceDelegationConnector;
 import org.palladiosimulator.pcm.repository.SourceRole;
 
 import systemModel.structure.SystemCreator;
-import systemModel.structure.SystemEntity;
+import systemModel.structure.connector.AbstractConnectorCreator;
 
-public class SourceDelegationConnectorCreator extends SystemEntity {
+public class SourceDelegationConnectorCreator extends AbstractConnectorCreator {
 	private SourceRole outerRole;
 	private SourceRole innerRole;
 	private AssemblyContext assemblyContext;

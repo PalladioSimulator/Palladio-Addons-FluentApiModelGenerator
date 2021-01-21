@@ -6,9 +6,9 @@ import org.palladiosimulator.pcm.core.composition.SinkDelegationConnector;
 import org.palladiosimulator.pcm.repository.SinkRole;
 
 import systemModel.structure.SystemCreator;
-import systemModel.structure.SystemEntity;
+import systemModel.structure.connector.AbstractConnectorCreator;
 
-public class SinkDelegationConnectorCreator extends SystemEntity {
+public class SinkDelegationConnectorCreator extends AbstractConnectorCreator {
 	private SinkRole outerRole;
 	private SinkRole innerRole;
 	private AssemblyContext assemblyContext;

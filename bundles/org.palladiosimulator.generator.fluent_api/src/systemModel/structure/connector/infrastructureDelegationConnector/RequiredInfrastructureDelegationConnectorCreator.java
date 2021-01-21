@@ -6,9 +6,9 @@ import org.palladiosimulator.pcm.core.composition.RequiredInfrastructureDelegati
 import org.palladiosimulator.pcm.repository.InfrastructureRequiredRole;
 
 import systemModel.structure.SystemCreator;
-import systemModel.structure.SystemEntity;
+import systemModel.structure.connector.AbstractConnectorCreator;
 
-public class RequiredInfrastructureDelegationConnectorCreator extends SystemEntity {
+public class RequiredInfrastructureDelegationConnectorCreator extends AbstractConnectorCreator {
 	private InfrastructureRequiredRole outerRequiredRole;
 	private InfrastructureRequiredRole innerRequiredRole;
 	private AssemblyContext requringAssemblyContext;
