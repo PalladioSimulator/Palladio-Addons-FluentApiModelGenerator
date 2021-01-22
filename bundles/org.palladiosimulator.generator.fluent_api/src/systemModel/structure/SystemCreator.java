@@ -7,6 +7,7 @@ import java.util.List;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.composition.Connector;
 import org.palladiosimulator.pcm.core.composition.EventChannel;
+import org.palladiosimulator.pcm.qosannotations.QoSAnnotations;
 import org.palladiosimulator.pcm.repository.InfrastructureProvidedRole;
 import org.palladiosimulator.pcm.repository.InfrastructureRequiredRole;
 import org.palladiosimulator.pcm.repository.OperationProvidedRole;
@@ -20,6 +21,7 @@ import org.palladiosimulator.pcm.system.SystemFactory;
 import systemModel.apiControlFlowInterfaces.ISystem;
 import systemModel.apiControlFlowInterfaces.ISystemAddition;
 import systemModel.structure.connector.AbstractConnectorCreator;
+import systemModel.structure.qosAnnotations.QoSAnnotationsCreator;
 import systemModel.structure.systemRole.InfrastructureProvidedRoleCreator;
 import systemModel.structure.systemRole.InfrastructureRequiredRoleCreator;
 import systemModel.structure.systemRole.OperationProvidedRoleCreator;
@@ -38,6 +40,7 @@ public class SystemCreator extends SystemEntity implements ISystem {
 	private List<SinkRole> systemSinkRoles = new ArrayList<>();
 	private List<SourceRole> systemSourceRoles = new ArrayList<>();
 	private List<EventChannel> eventChannels = new ArrayList<>();
+	private List<QoSAnnotations> qoSAnnotations = new ArrayList<>();
 
 	@Override
 	public SystemCreator withName(String name) {
@@ -59,6 +62,7 @@ public class SystemCreator extends SystemEntity implements ISystem {
 		system.getRequiredRoles_InterfaceRequiringEntity().addAll(systemInfrastructureRequiredRoles);
 		system.getProvidedRoles_InterfaceProvidingEntity().addAll(systemInfrastructureProvidedRoles);
 		system.getEventChannel__ComposedStructure().addAll(eventChannels);
+		system.getQosAnnotations_System().addAll(qoSAnnotations);
 		//TODO: validate
 		return system;
 	}
@@ -125,6 +129,12 @@ public class SystemCreator extends SystemEntity implements ISystem {
 	@Override
 	public ISystemAddition addToSystem(InfrastructureProvidedRoleCreator role) {
 		this.systemInfrastructureProvidedRoles.add(role.build());
+		return this;
+	}
+
+	@Override
+	public ISystemAddition addToSystem(QoSAnnotationsCreator annotations) {
+		this.qoSAnnotations.add(annotations.build());
 		return this;
 	}
 

@@ -108,6 +108,7 @@ public class Example {
 						.withOuterRequiredRole("infrastructure required role")
 						.withRequiringContext("basic component context 2")
 						.withInfrastructuRequiredRole("requres infrastructure"))
+				.addToSystem(create.newQoSAnnotations().withName("annotations"))
 				.createSystemNow();
 		saveSystem(system, "./", "basicExample.system", true);
 	}

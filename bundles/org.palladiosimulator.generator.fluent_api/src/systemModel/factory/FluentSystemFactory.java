@@ -15,6 +15,7 @@ import systemModel.structure.connector.infrastructureDelegationConnector.Provide
 import systemModel.structure.connector.infrastructureDelegationConnector.RequiredInfrastructureDelegationConnectorCreator;
 import systemModel.structure.connector.operationDelegationConnector.ProvidedDelegationConnectorCreator;
 import systemModel.structure.connector.operationDelegationConnector.RequiredDelegationConnectorCreator;
+import systemModel.structure.qosAnnotations.QoSAnnotationsCreator;
 import systemModel.structure.systemRole.InfrastructureProvidedRoleCreator;
 import systemModel.structure.systemRole.InfrastructureRequiredRoleCreator;
 import systemModel.structure.systemRole.OperationProvidedRoleCreator;
@@ -100,5 +101,9 @@ public class FluentSystemFactory {
 
 	public ProvidedInfrastructureDelegationConnectorCreator newProvidedInfrastructureDelegationConnectorCreator() {
 		return new ProvidedInfrastructureDelegationConnectorCreator(systemCreator);
+	}
+	
+	public QoSAnnotationsCreator newQoSAnnotations() {
+		return new QoSAnnotationsCreator(systemCreator);
 	}
 }

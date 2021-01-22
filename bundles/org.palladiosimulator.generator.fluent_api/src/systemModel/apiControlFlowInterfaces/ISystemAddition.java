@@ -6,6 +6,7 @@ import org.palladiosimulator.pcm.system.System;
 import systemModel.structure.AssemblyContextCreator;
 import systemModel.structure.EventChannelCreator;
 import systemModel.structure.connector.AbstractConnectorCreator;
+import systemModel.structure.qosAnnotations.QoSAnnotationsCreator;
 import systemModel.structure.systemRole.InfrastructureProvidedRoleCreator;
 import systemModel.structure.systemRole.InfrastructureRequiredRoleCreator;
 import systemModel.structure.systemRole.OperationProvidedRoleCreator;
@@ -88,5 +89,12 @@ public interface ISystemAddition {
 	 * @return
 	 */
 	ISystemAddition addToSystem(InfrastructureProvidedRoleCreator role);
+	
+	/**
+	 * Adds QoS annotations to the system.
+	 * @param annotations
+	 * @return
+	 */
+	ISystemAddition addToSystem(QoSAnnotationsCreator annotations);
 
 }
