@@ -21,6 +21,15 @@ import systemModel.factory.FluentSystemFactory;
 public class Example {
 	public static void main(String[] args) {
 		basicExample();
+		invalidSystem();
+	}
+	
+	private static void invalidSystem() {
+		FluentSystemFactory create = new FluentSystemFactory();
+		create.newSystem()
+				.withRepository(RepositoryLoader.loadRepository("./miniExample.repository"))
+				.withName("invalid system")
+				.createSystemNow();
 	}
 	
 	private static void basicExample() {		

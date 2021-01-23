@@ -1,9 +1,12 @@
 package systemModel.structure;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-
+import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.composition.Connector;
 import org.palladiosimulator.pcm.core.composition.EventChannel;
@@ -21,6 +24,7 @@ import org.palladiosimulator.pcm.resourcetype.ResourceInterface;
 import org.palladiosimulator.pcm.resourcetype.ResourceRepository;
 import org.palladiosimulator.pcm.system.System;
 import org.palladiosimulator.pcm.system.SystemFactory;
+import org.palladiosimulator.pcm.system.util.SystemValidator;
 
 import systemModel.apiControlFlowInterfaces.ISystem;
 import systemModel.apiControlFlowInterfaces.ISystemAddition;
@@ -36,6 +40,7 @@ import systemModel.structure.systemRole.SinkRoleCreator;
 import systemModel.structure.systemRole.SourceRoleCreator;
 
 public class SystemCreator extends SystemEntity implements ISystem {
+	private Logger logger;
 	private ResourceRepository resources;
 	private List<AssemblyContext> assemblyContexts = new ArrayList<>();
 	private List<Repository> repositories = new ArrayList<>();
@@ -53,6 +58,9 @@ public class SystemCreator extends SystemEntity implements ISystem {
 
 	public SystemCreator(ResourceRepository resources) {
 		this.resources = resources;
+
+		this.logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+		logger.setLevel(Level.ALL);
 	}
 	
 	@Override
@@ -78,13 +86,31 @@ public class SystemCreator extends SystemEntity implements ISystem {
 		system.getQosAnnotations_System().addAll(qoSAnnotations);
 		system.getResourceRequiredRoles__ResourceInterfaceRequiringEntity().addAll(systemResourceRequiredRoles);
 		system.getResourceRequiredDelegationConnectors_ComposedStructure().addAll(resourceConnectors);
-		//TODO: validate
 		return system;
 	}
 
 	@Override
 	public System createSystemNow() {
-		return build();
+		System system =  build();
+
+		SystemValidator validator = SystemValidator.INSTANCE;
+		BasicDiagnostic diagnosticChain = new BasicDiagnostic();
+		if (!validator.validateSystem(system, diagnosticChain, new HashMap<>())) {
+			StringBuilder builder = new StringBuilder();
+			builder.append("validation failed");
+			if (this.name != null) {
+				builder.append(" for system \"");
+				builder.append(this.name);
+				builder.append("\"");
+			}
+			if (!diagnosticChain.getChildren().isEmpty()) {
+				builder.append(", reason:\n");
+				diagnosticChain.getChildren().forEach(x -> builder.append(x.toString() + "\n"));
+			}
+			logger.severe(builder.toString().trim());
+		}
+		
+		return system;
 	}
 
 	@Override
