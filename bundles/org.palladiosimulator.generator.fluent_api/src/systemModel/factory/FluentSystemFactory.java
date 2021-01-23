@@ -10,6 +10,7 @@ import systemModel.structure.AssemblyContextCreator;
 import systemModel.structure.EventChannelCreator;
 import systemModel.structure.SystemCreator;
 import systemModel.structure.connector.assemblyConnector.AssemblyConnectorCreator;
+import systemModel.structure.connector.assemblyEventConnector.AssemblyEventConnectorCreator;
 import systemModel.structure.connector.assemblyInfrastructureConnector.AssemblyInfrastructureConnectorCreator;
 import systemModel.structure.connector.eventChannel.EventChannelSinkConnectorCreator;
 import systemModel.structure.connector.eventChannel.EventChannelSourceConnectorCreator;
@@ -90,6 +91,10 @@ public class FluentSystemFactory {
 	
 	public SourceDelegationConnectorCreator newSourceDelegationConnector() {
 		return new SourceDelegationConnectorCreator(systemCreator);
+	}
+	
+	public AssemblyEventConnectorCreator newAssemblyEventConnector() {
+		return new AssemblyEventConnectorCreator(systemCreator);
 	}
 	
 	public AssemblyInfrastructureConnectorCreator newAssemblyInfrastructureConnector() {

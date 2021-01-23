@@ -121,6 +121,12 @@ public class Example {
 						.withOuterRequiredRole("cpu role")
 						.withRequiringContext("basic component context 2")
 						.withResourceRequiredRole("cpu interface"))
+				.addToSystem(create.newAssemblyEventConnector()
+						.withName("assembly event connector")
+						.withSinkAssemblyContext("basic component context 1")
+						.withSinkRole("handles event")
+						.withSourceAssemblyContext("basic component context 2")
+						.withSourceRole("emits event"))
 				.createSystemNow();
 		saveSystem(system, "./", "basicExample.system", true);
 	}
