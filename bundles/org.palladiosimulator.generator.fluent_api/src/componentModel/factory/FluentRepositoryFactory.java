@@ -106,9 +106,9 @@ public class FluentRepositoryFactory {
 	 */
 	public FluentRepositoryFactory() {
 		EcorePlugin.ExtensionProcessor.process(null);
-		primitives = RepositoryLoader.loadRepository("pathmap://PCM_MODELS/PrimitiveTypes.repository");
-		resourceTypes = RepositoryLoader.loadResourceTypeRepository("pathmap://PCM_MODELS/Palladio.resourcetype");
-		failures = RepositoryLoader.loadRepository("pathmap://PCM_MODELS/FailureTypes.repository");
+		primitives = RepositoryLoader.loadRepository(RepositoryLoader.PRIMITIVE_TYPES_PATH);
+		resourceTypes = RepositoryLoader.loadResourceTypeRepository(RepositoryLoader.RESOURCE_TYPE_PATH);
+		failures = RepositoryLoader.loadRepository(RepositoryLoader.FAILURE_TYPES_PATH);
 	}
 
 	// ---------------------- Repository ----------------------

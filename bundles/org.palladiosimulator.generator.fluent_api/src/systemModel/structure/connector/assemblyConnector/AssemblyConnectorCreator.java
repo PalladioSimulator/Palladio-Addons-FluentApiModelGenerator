@@ -21,7 +21,7 @@ public class AssemblyConnectorCreator extends AbstractConnectorCreator{
 	}
 
 	public OperationRequiredRoleSelector withRequiringAssemblyContext(AssemblyContext context) {
-		var creator = this;
+		AssemblyConnectorCreator creator = this;
 		return new OperationRequiredRoleSelector(new IContextRequiredRoleCombinator() {
 			
 			@Override
@@ -34,12 +34,12 @@ public class AssemblyConnectorCreator extends AbstractConnectorCreator{
 	}
 	
 	public OperationRequiredRoleSelector withRequiringAssemblyContext(String name) {
-		var context = this.system.getAssemblyContexts().stream().filter(x -> x.getEntityName().equals(name)).findFirst().get();
+		AssemblyContext context = this.system.getAssemblyContexts().stream().filter(x -> x.getEntityName().equals(name)).findFirst().get();
 		return withRequiringAssemblyContext(context);
 	}
 	
 	public OperationProvidedRoleSelector withProvidingAssemblyContext(AssemblyContext context) {
-		var creator = this;
+		AssemblyConnectorCreator creator = this;
 		return new OperationProvidedRoleSelector(new IContextProvidedRoleCombinator() {
 			
 			@Override
@@ -52,13 +52,13 @@ public class AssemblyConnectorCreator extends AbstractConnectorCreator{
 	}
 
 	public OperationProvidedRoleSelector withProvidingAssemblyContext(String name) {
-		var context = this.system.getAssemblyContexts().stream().filter(x -> x.getEntityName().equals(name)).findFirst().get();
+		AssemblyContext context = this.system.getAssemblyContexts().stream().filter(x -> x.getEntityName().equals(name)).findFirst().get();
 		return withProvidingAssemblyContext(context);
 	}
 
 	@Override
 	public AssemblyConnector build() {
-		var connector = CompositionFactory.eINSTANCE.createAssemblyConnector();
+		AssemblyConnector connector = CompositionFactory.eINSTANCE.createAssemblyConnector();
 		if (name != null) {
 			connector.setEntityName(name);
 		}

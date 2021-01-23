@@ -36,7 +36,7 @@ public class FluentSystemFactory {
 	
 	public ISystem newSystem() {
 		EcorePlugin.ExtensionProcessor.process(null);
-		ResourceRepository resources = RepositoryLoader.loadResourceTypeRepository("pathmap://PCM_MODELS/Palladio.resourcetype");
+		ResourceRepository resources = RepositoryLoader.loadResourceTypeRepository(RepositoryLoader.RESOURCE_TYPE_PATH);
 		systemCreator = new SystemCreator(resources);
 		return systemCreator;
 	}

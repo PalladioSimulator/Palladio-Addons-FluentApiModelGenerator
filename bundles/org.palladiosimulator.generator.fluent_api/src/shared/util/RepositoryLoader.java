@@ -13,7 +13,11 @@ import org.palladiosimulator.pcm.resourcetype.ResourceRepository;
 import org.palladiosimulator.pcm.resourcetype.ResourcetypePackage;
 
 public class RepositoryLoader {
-
+	
+	public static final String PRIMITIVE_TYPES_PATH = "pathmap://PCM_MODELS/PrimitiveTypes.repository";
+	public static final String RESOURCE_TYPE_PATH = "pathmap://PCM_MODELS/Palladio.resourcetype";
+	public static final String FAILURE_TYPES_PATH = "pathmap://PCM_MODELS/FailureTypes.repository";
+	
 	public static Repository loadRepository(String uri) {
 		RepositoryPackage.eINSTANCE.eClass();
 		// Register the XMI resource componentModel.factory for the .repository extension
