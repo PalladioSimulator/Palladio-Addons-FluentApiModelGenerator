@@ -17,6 +17,7 @@ import org.palladiosimulator.pcm.repository.Repository;
 import org.palladiosimulator.pcm.repository.RepositoryPackage;
 import org.palladiosimulator.pcm.system.System;
 
+import shared.structure.ResourceInterface;
 import systemModel.factory.FluentSystemFactory;
 
 public class Example {
@@ -109,6 +110,12 @@ public class Example {
 						.withRequiringContext("basic component context 2")
 						.withInfrastructuRequiredRole("requres infrastructure"))
 				.addToSystem(create.newQoSAnnotations().withName("annotations"))
+				.addToSystem(create.newResourceRequiredRole()
+						.withName("cpu role")
+						.withRequiredInterface(ResourceInterface.CPU))
+				.addToSystem(create.newResourceRequiredDelegationConnector()
+						.withOuterRequiredRole("cpu role")
+						.withInnerRequiredRole("cpu interface"))
 				.createSystemNow();
 		saveSystem(system, "./", "basicExample.system", true);
 	}

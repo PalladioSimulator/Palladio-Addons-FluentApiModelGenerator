@@ -28,6 +28,7 @@ import org.palladiosimulator.pcm.seff.SeffFactory;
 import componentModel.factory.FluentRepositoryFactory;
 import componentModel.repositoryStructure.internals.Primitive;
 import componentModel.repositoryStructure.internals.ProcessingResource;
+import shared.structure.ResourceInterface;
 
 class Example {
 
@@ -68,6 +69,7 @@ class Example {
 						.handles(create.fetchOfEventGroup("event group"), "handles event")
 						.providesInfrastructure(create.fetchOfInfrastructureInterface("infrastructure interface"), "provides infrastructure")
 						.requiresInfrastructure(create.fetchOfInfrastructureInterface("infrastructure interface"), "requres infrastructure")
+						.requiresResource(ResourceInterface.CPU, "cpu interface")
 						.withServiceEffectSpecification(
 								create.newSeff().onSignature(create.fetchOfSignature("signature")).withSeffBehaviour()
 										.withStartAction().followedBy().stopAction().createBehaviourNow()))

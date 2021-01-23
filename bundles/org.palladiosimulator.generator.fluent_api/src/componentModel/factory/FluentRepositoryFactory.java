@@ -1,14 +1,8 @@
 package componentModel.factory;
 
-import java.util.Map;
 import java.util.Objects;
 
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.composition.EventChannel;
 import org.palladiosimulator.pcm.core.entity.ResourceRequiredRole;
@@ -44,14 +38,12 @@ import org.palladiosimulator.pcm.repository.ProvidesComponentType;
 import org.palladiosimulator.pcm.repository.Repository;
 import org.palladiosimulator.pcm.repository.RepositoryComponent;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
-import org.palladiosimulator.pcm.repository.RepositoryPackage;
 import org.palladiosimulator.pcm.repository.RequiredRole;
 import org.palladiosimulator.pcm.repository.Signature;
 import org.palladiosimulator.pcm.repository.SinkRole;
 import org.palladiosimulator.pcm.repository.SourceRole;
 import org.palladiosimulator.pcm.resourcetype.ResourceInterface;
 import org.palladiosimulator.pcm.resourcetype.ResourceRepository;
-import org.palladiosimulator.pcm.resourcetype.ResourcetypePackage;
 import org.palladiosimulator.pcm.seff.seff_reliability.RecoveryActionBehaviour;
 import org.palladiosimulator.pcm.subsystem.SubSystem;
 
@@ -80,6 +72,7 @@ import componentModel.repositoryStructure.internals.ProcessingResource;
 import componentModel.repositoryStructure.types.CompositeDataTypeCreator;
 import componentModel.repositoryStructure.types.ExceptionTypeCreator;
 import componentModel.repositoryStructure.types.ResourceTimeoutFailureTypeCreator;
+import shared.util.RepositoryLoader;
 
 /**
  * This class provides all the methods to create a Repository and create
@@ -113,37 +106,9 @@ public class FluentRepositoryFactory {
 	 */
 	public FluentRepositoryFactory() {
 		EcorePlugin.ExtensionProcessor.process(null);
-		primitives = loadRepository("pathmap://PCM_MODELS/PrimitiveTypes.repository");
-		resourceTypes = loadResourceTypeRepository("pathmap://PCM_MODELS/Palladio.resourcetype");
-		failures = loadRepository("pathmap://PCM_MODELS/FailureTypes.repository");
-	}
-
-	private static Repository loadRepository(String uri) {
-		RepositoryPackage.eINSTANCE.eClass();
-		// Register the XMI resource componentModel.factory for the .repository extension
-		Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
-		Map<String, Object> m = reg.getExtensionToFactoryMap();
-		m.put("repository", new XMIResourceFactoryImpl());
-		// Get the resource
-		ResourceSet resSet = new ResourceSetImpl();
-		Resource resource = resSet.getResource(URI.createURI(uri), true);
-		// Get the first model element and cast it to the right type
-		Repository repository = (Repository) resource.getContents().get(0);
-		return repository;
-	}
-
-	private static ResourceRepository loadResourceTypeRepository(String uri) {
-		ResourcetypePackage.eINSTANCE.eClass();
-		// Register the XMI resource componentModel.factory for the .resourcetype extension
-		Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
-		Map<String, Object> m = reg.getExtensionToFactoryMap();
-		m.put("resourcetype", new XMIResourceFactoryImpl());
-		// Get the resource
-		ResourceSet resSet = new ResourceSetImpl();
-		Resource resource = resSet.getResource(URI.createURI(uri), true);
-		// Get the first model element and cast it to the right type
-		ResourceRepository repository = (ResourceRepository) resource.getContents().get(0);
-		return repository;
+		primitives = RepositoryLoader.loadRepository("pathmap://PCM_MODELS/PrimitiveTypes.repository");
+		resourceTypes = RepositoryLoader.loadResourceTypeRepository("pathmap://PCM_MODELS/Palladio.resourcetype");
+		failures = RepositoryLoader.loadRepository("pathmap://PCM_MODELS/FailureTypes.repository");
 	}
 
 	// ---------------------- Repository ----------------------

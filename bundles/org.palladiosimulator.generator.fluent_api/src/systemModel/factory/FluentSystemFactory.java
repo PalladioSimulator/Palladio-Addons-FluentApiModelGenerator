@@ -1,6 +1,10 @@
 package systemModel.factory;
 
 
+import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import org.palladiosimulator.pcm.resourcetype.ResourceRepository;
+
+import shared.util.RepositoryLoader;
 import systemModel.apiControlFlowInterfaces.ISystem;
 import systemModel.structure.AssemblyContextCreator;
 import systemModel.structure.EventChannelCreator;
@@ -15,11 +19,13 @@ import systemModel.structure.connector.infrastructureDelegationConnector.Provide
 import systemModel.structure.connector.infrastructureDelegationConnector.RequiredInfrastructureDelegationConnectorCreator;
 import systemModel.structure.connector.operationDelegationConnector.ProvidedDelegationConnectorCreator;
 import systemModel.structure.connector.operationDelegationConnector.RequiredDelegationConnectorCreator;
+import systemModel.structure.connector.resourceRequiredDelegationConnector.ResourceRequiredDelegationConnectorCreator;
 import systemModel.structure.qosAnnotations.QoSAnnotationsCreator;
 import systemModel.structure.systemRole.InfrastructureProvidedRoleCreator;
 import systemModel.structure.systemRole.InfrastructureRequiredRoleCreator;
 import systemModel.structure.systemRole.OperationProvidedRoleCreator;
 import systemModel.structure.systemRole.OperationRequiredRoleCreator;
+import systemModel.structure.systemRole.ResourceRequiredRoleCreator;
 import systemModel.structure.systemRole.SinkRoleCreator;
 import systemModel.structure.systemRole.SourceRoleCreator;
 
@@ -27,7 +33,9 @@ public class FluentSystemFactory {
 	private SystemCreator systemCreator;
 	
 	public ISystem newSystem() {
-		systemCreator = new SystemCreator();
+		EcorePlugin.ExtensionProcessor.process(null);
+		ResourceRepository resources = RepositoryLoader.loadResourceTypeRepository("pathmap://PCM_MODELS/Palladio.resourcetype");
+		systemCreator = new SystemCreator(resources);
 		return systemCreator;
 	}
 	
@@ -105,5 +113,13 @@ public class FluentSystemFactory {
 	
 	public QoSAnnotationsCreator newQoSAnnotations() {
 		return new QoSAnnotationsCreator(systemCreator);
+	}
+	
+	public ResourceRequiredRoleCreator newResourceRequiredRole() {
+		return new ResourceRequiredRoleCreator(systemCreator);
+	}
+	
+	public ResourceRequiredDelegationConnectorCreator newResourceRequiredDelegationConnector() {
+		return new ResourceRequiredDelegationConnectorCreator(systemCreator);
 	}
 }

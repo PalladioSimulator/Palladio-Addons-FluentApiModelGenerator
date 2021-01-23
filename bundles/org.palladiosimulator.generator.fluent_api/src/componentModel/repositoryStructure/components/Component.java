@@ -24,7 +24,7 @@ import componentModel.repositoryStructure.RepositoryEntity;
 import componentModel.repositoryStructure.interfaces.EventGroupCreator;
 import componentModel.repositoryStructure.interfaces.InfrastructureInterfaceCreator;
 import componentModel.repositoryStructure.interfaces.OperationInterfaceCreator;
-import componentModel.repositoryStructure.internals.ResourceInterface;
+import shared.structure.ResourceInterface;
 
 /**
  * This class provides the general infrastructure of a component, i.e.

@@ -7,6 +7,8 @@ import java.util.List;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.composition.Connector;
 import org.palladiosimulator.pcm.core.composition.EventChannel;
+import org.palladiosimulator.pcm.core.composition.ResourceRequiredDelegationConnector;
+import org.palladiosimulator.pcm.core.entity.ResourceRequiredRole;
 import org.palladiosimulator.pcm.qosannotations.QoSAnnotations;
 import org.palladiosimulator.pcm.repository.InfrastructureProvidedRole;
 import org.palladiosimulator.pcm.repository.InfrastructureRequiredRole;
@@ -15,21 +17,26 @@ import org.palladiosimulator.pcm.repository.OperationRequiredRole;
 import org.palladiosimulator.pcm.repository.Repository;
 import org.palladiosimulator.pcm.repository.SinkRole;
 import org.palladiosimulator.pcm.repository.SourceRole;
+import org.palladiosimulator.pcm.resourcetype.ResourceInterface;
+import org.palladiosimulator.pcm.resourcetype.ResourceRepository;
 import org.palladiosimulator.pcm.system.System;
 import org.palladiosimulator.pcm.system.SystemFactory;
 
 import systemModel.apiControlFlowInterfaces.ISystem;
 import systemModel.apiControlFlowInterfaces.ISystemAddition;
 import systemModel.structure.connector.AbstractConnectorCreator;
+import systemModel.structure.connector.resourceRequiredDelegationConnector.ResourceRequiredDelegationConnectorCreator;
 import systemModel.structure.qosAnnotations.QoSAnnotationsCreator;
 import systemModel.structure.systemRole.InfrastructureProvidedRoleCreator;
 import systemModel.structure.systemRole.InfrastructureRequiredRoleCreator;
 import systemModel.structure.systemRole.OperationProvidedRoleCreator;
 import systemModel.structure.systemRole.OperationRequiredRoleCreator;
+import systemModel.structure.systemRole.ResourceRequiredRoleCreator;
 import systemModel.structure.systemRole.SinkRoleCreator;
 import systemModel.structure.systemRole.SourceRoleCreator;
 
 public class SystemCreator extends SystemEntity implements ISystem {
+	private ResourceRepository resources;
 	private List<AssemblyContext> assemblyContexts = new ArrayList<>();
 	private List<Repository> repositories = new ArrayList<>();
 	private List<Connector> connectors = new ArrayList<>();
@@ -39,9 +46,15 @@ public class SystemCreator extends SystemEntity implements ISystem {
 	private List<InfrastructureProvidedRole> systemInfrastructureProvidedRoles = new ArrayList<>();
 	private List<SinkRole> systemSinkRoles = new ArrayList<>();
 	private List<SourceRole> systemSourceRoles = new ArrayList<>();
+	private List<ResourceRequiredRole> systemResourceRequiredRoles = new ArrayList<>();
 	private List<EventChannel> eventChannels = new ArrayList<>();
 	private List<QoSAnnotations> qoSAnnotations = new ArrayList<>();
+	private List<ResourceRequiredDelegationConnector> resourceConnectors = new ArrayList<>();
 
+	public SystemCreator(ResourceRepository resources) {
+		this.resources = resources;
+	}
+	
 	@Override
 	public SystemCreator withName(String name) {
 		return (SystemCreator) super.withName(name);
@@ -63,6 +76,8 @@ public class SystemCreator extends SystemEntity implements ISystem {
 		system.getProvidedRoles_InterfaceProvidingEntity().addAll(systemInfrastructureProvidedRoles);
 		system.getEventChannel__ComposedStructure().addAll(eventChannels);
 		system.getQosAnnotations_System().addAll(qoSAnnotations);
+		system.getResourceRequiredRoles__ResourceInterfaceRequiringEntity().addAll(systemResourceRequiredRoles);
+		system.getResourceRequiredDelegationConnectors_ComposedStructure().addAll(resourceConnectors);
 		//TODO: validate
 		return system;
 	}
@@ -137,6 +152,18 @@ public class SystemCreator extends SystemEntity implements ISystem {
 		this.qoSAnnotations.add(annotations.build());
 		return this;
 	}
+	
+	@Override
+	public ISystemAddition addToSystem(ResourceRequiredRoleCreator role) {
+		this.systemResourceRequiredRoles.add(role.build());
+		return this;
+	}
+	
+	@Override
+	public ISystemAddition addToSystem(ResourceRequiredDelegationConnectorCreator connector) {
+		this.resourceConnectors.add(connector.build());
+		return this;
+	}
 
 	public List<Repository> getRepositories() {
 		return repositories;
@@ -170,7 +197,16 @@ public class SystemCreator extends SystemEntity implements ISystem {
 		return systemSourceRoles;
 	}
 	
+	public List<ResourceRequiredRole> getSystemResourceRequiredRoles() {
+		return systemResourceRequiredRoles;
+	}
+	
 	public List<EventChannel> getEventChannels() {
 		return eventChannels;
+	}
+	
+	public ResourceInterface getResourceInterface(shared.structure.ResourceInterface resource) {
+		return resources.getResourceInterfaces__ResourceRepository().stream()
+				.filter(x -> x.getEntityName().equals(resource.resourceName)).findFirst().get();
 	}
 }

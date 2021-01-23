@@ -1,4 +1,4 @@
-package componentModel.repositoryStructure.internals;
+package shared.structure;
 
 /**
  * Represents built-in resource interfaces available in the resource repository,
@@ -10,9 +10,15 @@ public enum ResourceInterface {
 	/**
 	 * CPU resource interface
 	 */
-	CPU,
+	CPU("CpuInterface"),
 	/**
 	 * HDD resource interface
 	 */
-	HDD;
+	HDD("HddInterface");
+	
+	public final String resourceName;
+
+	ResourceInterface(String resourceName) {
+		this.resourceName = resourceName;
+	}
 }

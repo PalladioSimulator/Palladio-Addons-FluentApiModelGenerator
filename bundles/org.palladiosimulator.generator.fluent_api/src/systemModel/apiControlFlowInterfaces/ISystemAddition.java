@@ -6,11 +6,13 @@ import org.palladiosimulator.pcm.system.System;
 import systemModel.structure.AssemblyContextCreator;
 import systemModel.structure.EventChannelCreator;
 import systemModel.structure.connector.AbstractConnectorCreator;
+import systemModel.structure.connector.resourceRequiredDelegationConnector.ResourceRequiredDelegationConnectorCreator;
 import systemModel.structure.qosAnnotations.QoSAnnotationsCreator;
 import systemModel.structure.systemRole.InfrastructureProvidedRoleCreator;
 import systemModel.structure.systemRole.InfrastructureRequiredRoleCreator;
 import systemModel.structure.systemRole.OperationProvidedRoleCreator;
 import systemModel.structure.systemRole.OperationRequiredRoleCreator;
+import systemModel.structure.systemRole.ResourceRequiredRoleCreator;
 import systemModel.structure.systemRole.SinkRoleCreator;
 import systemModel.structure.systemRole.SourceRoleCreator;
 
@@ -96,5 +98,19 @@ public interface ISystemAddition {
 	 * @return
 	 */
 	ISystemAddition addToSystem(QoSAnnotationsCreator annotations);
+
+	/**
+	 * Adds a ResourceRequiredRole to the system. 
+	 * @param role
+	 * @return
+	 */
+	ISystemAddition addToSystem(ResourceRequiredRoleCreator role);
+	
+	/**
+	 * Adds a ResourceRequiredDelegationConnector to the system.
+	 * @param connector
+	 * @return
+	 */
+	ISystemAddition addToSystem(ResourceRequiredDelegationConnectorCreator connector);
 
 }

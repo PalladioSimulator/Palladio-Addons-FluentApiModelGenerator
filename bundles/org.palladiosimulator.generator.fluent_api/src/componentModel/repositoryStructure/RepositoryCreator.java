@@ -110,7 +110,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
 	private Map<ProcessingResource, ProcessingResourceType> internalProcessingResources;
 	private Map<componentModel.repositoryStructure.internals.ResourceSignature, ResourceSignature> internalResourceSignatures;
 	private Map<CommunicationLinkResource, CommunicationLinkResourceType> internalCommunicationLinkResources;
-	private Map<componentModel.repositoryStructure.internals.ResourceInterface, ResourceInterface> internalResourceInterfaces;
+	private Map<shared.structure.ResourceInterface, ResourceInterface> internalResourceInterfaces;
 	private Map<Failure, FailureType> internalFailureTypes;
 	private List<FailureType> failureTypes;
 	private List<ExceptionType> exceptionTypes;
@@ -229,10 +229,10 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
 		// Resource interfaces and signatures
 		for (ResourceInterface resourceInterface : resourceTypes.getResourceInterfaces__ResourceRepository()) {
 			if (resourceInterface.getEntityName().contentEquals("CpuInterface"))
-				this.internalResourceInterfaces.put(componentModel.repositoryStructure.internals.ResourceInterface.CPU,
+				this.internalResourceInterfaces.put(shared.structure.ResourceInterface.CPU,
 						resourceInterface);
 			else if (resourceInterface.getEntityName().contentEquals("HddInterface"))
-				this.internalResourceInterfaces.put(componentModel.repositoryStructure.internals.ResourceInterface.HDD,
+				this.internalResourceInterfaces.put(shared.structure.ResourceInterface.HDD,
 						resourceInterface);
 			else
 				System.err.println("Unexpected Resource Interface.");
@@ -577,7 +577,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
 		return internalCommunicationLinkResources.get(communicationLinkResource);
 	}
 
-	public ResourceInterface getResourceInterface(componentModel.repositoryStructure.internals.ResourceInterface resourceInterface) {
+	public ResourceInterface getResourceInterface(shared.structure.ResourceInterface resourceInterface) {
 		return internalResourceInterfaces.get(resourceInterface);
 	}
 
