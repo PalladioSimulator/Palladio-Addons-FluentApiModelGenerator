@@ -116,6 +116,11 @@ public class Example {
 				.addToSystem(create.newResourceRequiredDelegationConnector()
 						.withOuterRequiredRole("cpu role")
 						.withInnerRequiredRole("cpu interface"))
+				.addToSystem(create.newRequiredResourceDelegationConnector()
+						.withName("resource delegation")
+						.withOuterRequiredRole("cpu role")
+						.withRequiringContext("basic component context 2")
+						.withResourceRequiredRole("cpu interface"))
 				.createSystemNow();
 		saveSystem(system, "./", "basicExample.system", true);
 	}
