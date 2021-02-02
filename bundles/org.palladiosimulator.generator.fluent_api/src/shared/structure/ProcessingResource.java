@@ -1,4 +1,4 @@
-package componentModel.repositoryStructure.internals;
+package shared.structure;
 
 /**
  * Represents built-in processing resources available in the resource
@@ -11,13 +11,19 @@ public enum ProcessingResource {
 	/**
 	 * CPU processing resource
 	 */
-	CPU,
+	CPU("CPU"),
 	/**
 	 * HDD processing resource
 	 */
-	HDD,
+	HDD("HDD"),
 	/**
 	 * delay processing resource
 	 */
-	DELAY;
+	DELAY("DELAY");
+	
+	public final String resourceName;
+
+	ProcessingResource(String resourceName) {
+		this.resourceName = resourceName;
+	}
 }

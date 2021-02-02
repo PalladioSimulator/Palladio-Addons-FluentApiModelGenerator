@@ -13,8 +13,8 @@ import org.palladiosimulator.pcm.seff.SeffFactory;
 
 import componentModel.apiControlFlowInterfaces.seff.Seff;
 import componentModel.repositoryStructure.components.VariableUsageCreator;
-import componentModel.repositoryStructure.internals.ProcessingResource;
 import componentModel.repositoryStructure.internals.ResourceSignature;
+import shared.structure.ProcessingResource;
 
 /**
  * This class constructs a {@link org.palladiosimulator.pcm.seff.LoopAction

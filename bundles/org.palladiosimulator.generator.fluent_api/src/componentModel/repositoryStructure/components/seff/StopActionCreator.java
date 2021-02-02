@@ -15,8 +15,8 @@ import org.palladiosimulator.pcm.seff.seff_performance.ResourceCall;
 
 import componentModel.apiControlFlowInterfaces.seff.StopSeff;
 import componentModel.repositoryStructure.components.VariableUsageCreator;
-import componentModel.repositoryStructure.internals.ProcessingResource;
 import componentModel.repositoryStructure.internals.ResourceSignature;
+import shared.structure.ProcessingResource;
 
 /**
  * This class constructs a {@link org.palladiosimulator.pcm.seff.StopAction

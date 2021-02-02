@@ -27,7 +27,7 @@ import org.palladiosimulator.pcm.seff.SeffFactory;
 
 import componentModel.factory.FluentRepositoryFactory;
 import componentModel.repositoryStructure.internals.Primitive;
-import componentModel.repositoryStructure.internals.ProcessingResource;
+import shared.structure.ProcessingResource;
 import shared.structure.ResourceInterface;
 
 class Example {

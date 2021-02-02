@@ -7,8 +7,8 @@ import org.palladiosimulator.pcm.repository.InfrastructureSignature;
 import componentModel.repositoryStructure.components.VariableUsageCreator;
 import componentModel.repositoryStructure.components.seff.SeffCreator;
 import componentModel.repositoryStructure.components.seff.StopActionCreator;
-import componentModel.repositoryStructure.internals.ProcessingResource;
 import componentModel.repositoryStructure.internals.ResourceSignature;
+import shared.structure.ProcessingResource;
 
 public interface StopSeff {
 

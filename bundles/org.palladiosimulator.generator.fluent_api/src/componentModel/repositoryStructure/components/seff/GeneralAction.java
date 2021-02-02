@@ -17,8 +17,8 @@ import org.palladiosimulator.pcm.seff.seff_performance.ResourceCall;
 import org.palladiosimulator.pcm.seff.seff_performance.SeffPerformanceFactory;
 
 import componentModel.repositoryStructure.components.VariableUsageCreator;
-import componentModel.repositoryStructure.internals.ProcessingResource;
 import componentModel.repositoryStructure.internals.ResourceSignature;
+import shared.structure.ProcessingResource;
 
 /**
  * This class provides the implementation of the methods that add resource

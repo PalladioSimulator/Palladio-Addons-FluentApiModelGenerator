@@ -1,6 +1,7 @@
 # Palladio
 *.repository
 *.system
+*.resourceenvironment
 
 # Eclipse
 .project

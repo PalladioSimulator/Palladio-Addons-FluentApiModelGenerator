@@ -10,8 +10,8 @@ import org.palladiosimulator.pcm.seff.AcquireAction;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 
 import componentModel.repositoryStructure.components.VariableUsageCreator;
-import componentModel.repositoryStructure.internals.ProcessingResource;
 import componentModel.repositoryStructure.internals.ResourceSignature;
+import shared.structure.ProcessingResource;
 
 /**
  * This class constructs an {@link org.palladiosimulator.pcm.seff.AcquireAction

@@ -81,10 +81,10 @@ import componentModel.repositoryStructure.components.Component;
 import componentModel.repositoryStructure.internals.CommunicationLinkResource;
 import componentModel.repositoryStructure.internals.Failure;
 import componentModel.repositoryStructure.internals.Primitive;
-import componentModel.repositoryStructure.internals.ProcessingResource;
 import componentModel.repositoryStructure.types.CompositeDataTypeCreator;
 import componentModel.repositoryStructure.types.ExceptionTypeCreator;
 import componentModel.repositoryStructure.types.ResourceTimeoutFailureTypeCreator;
+import shared.structure.ProcessingResource;
 import shared.validate.IModelValidator;
 
 /**
