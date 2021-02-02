@@ -1,12 +1,8 @@
 package systemModel.structure;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.composition.Connector;
 import org.palladiosimulator.pcm.core.composition.EventChannel;
@@ -24,8 +20,8 @@ import org.palladiosimulator.pcm.resourcetype.ResourceInterface;
 import org.palladiosimulator.pcm.resourcetype.ResourceRepository;
 import org.palladiosimulator.pcm.system.System;
 import org.palladiosimulator.pcm.system.SystemFactory;
-import org.palladiosimulator.pcm.system.util.SystemValidator;
 
+import shared.validate.IModelValidator;
 import systemModel.apiControlFlowInterfaces.ISystem;
 import systemModel.apiControlFlowInterfaces.ISystemAddition;
 import systemModel.structure.connector.AbstractConnectorCreator;
@@ -40,7 +36,7 @@ import systemModel.structure.systemRole.SinkRoleCreator;
 import systemModel.structure.systemRole.SourceRoleCreator;
 
 public class SystemCreator extends SystemEntity implements ISystem {
-	private Logger logger;
+	private IModelValidator validator;
 	private ResourceRepository resources;
 	private List<AssemblyContext> assemblyContexts = new ArrayList<>();
 	private List<Repository> repositories = new ArrayList<>();
@@ -56,11 +52,9 @@ public class SystemCreator extends SystemEntity implements ISystem {
 	private List<QoSAnnotations> qoSAnnotations = new ArrayList<>();
 	private List<ResourceRequiredDelegationConnector> resourceConnectors = new ArrayList<>();
 
-	public SystemCreator(ResourceRepository resources) {
+	public SystemCreator(ResourceRepository resources, IModelValidator validator) {
 		this.resources = resources;
-
-		this.logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-		logger.setLevel(Level.ALL);
+		this.validator = validator;
 	}
 	
 	@Override
@@ -92,24 +86,7 @@ public class SystemCreator extends SystemEntity implements ISystem {
 	@Override
 	public System createSystemNow() {
 		System system =  build();
-
-		SystemValidator validator = SystemValidator.INSTANCE;
-		BasicDiagnostic diagnosticChain = new BasicDiagnostic();
-		if (!validator.validateSystem(system, diagnosticChain, new HashMap<>())) {
-			StringBuilder builder = new StringBuilder();
-			builder.append("validation failed");
-			if (this.name != null) {
-				builder.append(" for system \"");
-				builder.append(this.name);
-				builder.append("\"");
-			}
-			if (!diagnosticChain.getChildren().isEmpty()) {
-				builder.append(", reason:\n");
-				diagnosticChain.getChildren().forEach(x -> builder.append(x.toString() + "\n"));
-			}
-			logger.severe(builder.toString().trim());
-		}
-		
+		validator.validate(system, this.name);
 		return system;
 	}
 

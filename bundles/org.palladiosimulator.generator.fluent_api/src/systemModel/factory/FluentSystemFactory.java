@@ -1,10 +1,16 @@
 package systemModel.factory;
 
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.palladiosimulator.pcm.resourcetype.ResourceRepository;
+import org.palladiosimulator.pcm.system.util.SystemValidator;
 
 import shared.util.RepositoryLoader;
+import shared.validate.IModelValidator;
+import shared.validate.ModelValidator;
 import systemModel.apiControlFlowInterfaces.ISystem;
 import systemModel.structure.AssemblyContextCreator;
 import systemModel.structure.EventChannelCreator;
@@ -37,7 +43,10 @@ public class FluentSystemFactory {
 	public ISystem newSystem() {
 		EcorePlugin.ExtensionProcessor.process(null);
 		ResourceRepository resources = RepositoryLoader.loadResourceTypeRepository(RepositoryLoader.RESOURCE_TYPE_PATH);
-		systemCreator = new SystemCreator(resources);
+		Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+		logger.setLevel(Level.ALL);
+		IModelValidator validator = new ModelValidator(SystemValidator.INSTANCE, logger);
+		systemCreator = new SystemCreator(resources, validator);
 		return systemCreator;
 	}
 	

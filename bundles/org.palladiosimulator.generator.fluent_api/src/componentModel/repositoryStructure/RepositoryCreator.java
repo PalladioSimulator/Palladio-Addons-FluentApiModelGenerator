@@ -85,6 +85,7 @@ import componentModel.repositoryStructure.internals.ProcessingResource;
 import componentModel.repositoryStructure.types.CompositeDataTypeCreator;
 import componentModel.repositoryStructure.types.ExceptionTypeCreator;
 import componentModel.repositoryStructure.types.ResourceTimeoutFailureTypeCreator;
+import shared.validate.IModelValidator;
 
 /**
  * This class constructs a
@@ -99,6 +100,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
 
 	private Logger logger;
 	private String description;
+	private IModelValidator validator;
 
 	private List<Repository> imports;
 	private List<DataType> importedDataTypes;
@@ -127,7 +129,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
 	private List<PassiveResource> passiveResources;
 	private List<Signature> signatures;
 
-	public RepositoryCreator(Repository primitiveDataTypes, ResourceRepository resourceTypes, Repository failureTypes) {
+	public RepositoryCreator(Repository primitiveDataTypes, ResourceRepository resourceTypes, Repository failureTypes, Logger logger, IModelValidator validator) {
 		this.imports = new ArrayList<>();
 		this.importedDataTypes = new ArrayList<>();
 		this.importedFailureTypes = new ArrayList<>();
@@ -157,8 +159,8 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
 
 		initPredefinedDataTypesAndResources(primitiveDataTypes, resourceTypes, failureTypes);
 
-		this.logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-		logger.setLevel(Level.ALL);
+		this.logger = logger;
+		this.validator = validator;
 	}
 
 	private static Repository loadRepository(String uri) {
@@ -379,14 +381,8 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
 	@Override
 	public Repository createRepositoryNow() {
 		Repository repo = build();
-		RepositoryValidator v = new RepositoryValidator();
-		DiagnosticChain dc = new BasicDiagnostic();
+		validator.validate(repo, name);
 
-		boolean validate = v.validate(repo, dc, null);
-		if (!validate)
-			logger.severe("Repository is not valid.");
-
-		// TODO: validate tut nicht
 		return repo;
 	}
 

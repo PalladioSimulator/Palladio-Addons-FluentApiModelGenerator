@@ -1,6 +1,8 @@
 package componentModel.factory;
 
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
@@ -42,6 +44,7 @@ import org.palladiosimulator.pcm.repository.RequiredRole;
 import org.palladiosimulator.pcm.repository.Signature;
 import org.palladiosimulator.pcm.repository.SinkRole;
 import org.palladiosimulator.pcm.repository.SourceRole;
+import org.palladiosimulator.pcm.repository.util.RepositoryValidator;
 import org.palladiosimulator.pcm.resourcetype.ResourceInterface;
 import org.palladiosimulator.pcm.resourcetype.ResourceRepository;
 import org.palladiosimulator.pcm.seff.seff_reliability.RecoveryActionBehaviour;
@@ -73,6 +76,8 @@ import componentModel.repositoryStructure.types.CompositeDataTypeCreator;
 import componentModel.repositoryStructure.types.ExceptionTypeCreator;
 import componentModel.repositoryStructure.types.ResourceTimeoutFailureTypeCreator;
 import shared.util.RepositoryLoader;
+import shared.validate.IModelValidator;
+import shared.validate.ModelValidator;
 
 /**
  * This class provides all the methods to create a Repository and create
@@ -124,7 +129,12 @@ public class FluentRepositoryFactory {
 	 * @return the repository in the making
 	 */
 	public Repo newRepository() {
-		this.repo = new RepositoryCreator(primitives, resourceTypes, failures);
+		Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+		logger.setLevel(Level.ALL);
+		
+		IModelValidator validator = new ModelValidator(RepositoryValidator.INSTANCE, logger);
+		
+		this.repo = new RepositoryCreator(primitives, resourceTypes, failures, logger, validator);
 		return this.repo;
 	}
 

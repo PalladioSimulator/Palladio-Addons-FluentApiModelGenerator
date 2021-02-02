@@ -20,7 +20,7 @@ import systemModel.factory.FluentSystemFactory;
 
 public class Example {
 	public static void main(String[] args) {
-		basicExample();
+		//basicExample();
 		invalidSystem();
 	}
 	
