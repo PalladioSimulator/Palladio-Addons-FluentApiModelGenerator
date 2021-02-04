@@ -2,6 +2,7 @@
 *.repository
 *.system
 *.resourceenvironment
+*.allocation
 
 # Eclipse
 .project

@@ -12,14 +12,14 @@ import resourceEvironment.structure.LinkingResourceCreator;
 import resourceEvironment.structure.ProcessingResourceSpecificationCreator;
 import resourceEvironment.structure.ResourceContainerCreator;
 import resourceEvironment.structure.ResourceEnvironmentCreator;
-import shared.util.RepositoryLoader;
+import shared.util.ModelLoader;
 
 public class FluentResourceEnvironmentFactory {
 	private ResourceEnvironmentCreator resourceEnvironmentCreator;
 	
 	public IResourceEnvironment newResourceEnvironment() {
 		EcorePlugin.ExtensionProcessor.process(null);
-		ResourceRepository resources = RepositoryLoader.loadResourceTypeRepository(RepositoryLoader.RESOURCE_TYPE_PATH);
+		ResourceRepository resources = ModelLoader.loadResourceTypeRepository(ModelLoader.RESOURCE_TYPE_PATH);
 		Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 		logger.setLevel(Level.ALL);
 		//IModelValidator validator = new ModelValidator(SystemValidator.INSTANCE, logger);

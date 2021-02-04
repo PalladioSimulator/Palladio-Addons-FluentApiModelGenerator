@@ -75,7 +75,7 @@ import componentModel.repositoryStructure.types.ExceptionTypeCreator;
 import componentModel.repositoryStructure.types.ResourceTimeoutFailureTypeCreator;
 import shared.structure.CommunicationLinkResource;
 import shared.structure.ProcessingResource;
-import shared.util.RepositoryLoader;
+import shared.util.ModelLoader;
 import shared.validate.IModelValidator;
 import shared.validate.ModelValidator;
 
@@ -111,9 +111,9 @@ public class FluentRepositoryFactory {
 	 */
 	public FluentRepositoryFactory() {
 		EcorePlugin.ExtensionProcessor.process(null);
-		primitives = RepositoryLoader.loadRepository(RepositoryLoader.PRIMITIVE_TYPES_PATH);
-		resourceTypes = RepositoryLoader.loadResourceTypeRepository(RepositoryLoader.RESOURCE_TYPE_PATH);
-		failures = RepositoryLoader.loadRepository(RepositoryLoader.FAILURE_TYPES_PATH);
+		primitives = ModelLoader.loadRepository(ModelLoader.PRIMITIVE_TYPES_PATH);
+		resourceTypes = ModelLoader.loadResourceTypeRepository(ModelLoader.RESOURCE_TYPE_PATH);
+		failures = ModelLoader.loadRepository(ModelLoader.FAILURE_TYPES_PATH);
 	}
 
 	// ---------------------- Repository ----------------------

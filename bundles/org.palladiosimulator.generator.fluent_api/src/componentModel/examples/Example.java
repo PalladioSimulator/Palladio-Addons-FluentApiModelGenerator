@@ -1,17 +1,5 @@
 package componentModel.examples;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.emf.ecore.xmi.XMLResource;
-import org.eclipse.emf.ecore.xmi.impl.XMLResourceFactoryImpl;
 import org.palladiosimulator.pcm.parameter.VariableCharacterisationType;
 import org.palladiosimulator.pcm.repository.BasicComponent;
 import org.palladiosimulator.pcm.repository.OperationInterface;
@@ -29,6 +17,7 @@ import componentModel.factory.FluentRepositoryFactory;
 import componentModel.repositoryStructure.internals.Primitive;
 import shared.structure.ProcessingResource;
 import shared.structure.ResourceInterface;
+import shared.util.ModelSaver;
 
 class Example {
 
@@ -81,7 +70,7 @@ class Example {
 								create.fetchOfOperationRequiredRole("basic component requires interface"),
 								create.fetchOfAssemblyContext("basic component context")))
 				.createRepositoryNow();
-		saveRepository(repository, "./", "miniExample.repository", true);
+		ModelSaver.saveRepository(repository, "./", "miniExample", true);
 	}
 
 	public static void readmeExampleBackend() {
@@ -156,7 +145,7 @@ class Example {
 		repository.getComponents__Repository().add(webComponent);
 		repository.getInterfaces__Repository().add(webInterface);
 
-		saveRepository(repository, "./", "backendExample.repository", false);
+		ModelSaver.saveRepository(repository, "./", "backendExample", false);
 	}
 
 	public static void readmeExampleFluentAPI() {
@@ -184,7 +173,7 @@ class Example {
 						.requires(create.fetchOfOperationInterface("IDatabase")))
 				.createRepositoryNow();
 
-		saveRepository(repository, "./", "fluentAPIExample.repository", false);
+		ModelSaver.saveRepository(repository, "./", "fluentAPIExample", false);
 	}
 	
 	public static void presentationExample() {
@@ -197,7 +186,7 @@ class Example {
 				.createRepositoryNow();
 
 		
-		saveRepository(repository, "./", "fluentAPIExample.repository", false);
+		ModelSaver.saveRepository(repository, "./", "fluentAPIExample", false);
 	}
 
 	public static void mediaStoreExample() {
@@ -274,7 +263,7 @@ class Example {
 						.withServiceEffectSpecification(create.newSeff()))
 				.createRepositoryNow();
 
-		saveRepository(mediaStore, "./", "myMediaStore.repository", false);
+		ModelSaver.saveRepository(mediaStore, "./", "myMediaStore", false);
 	}
 
 	public static void exampleWithoutMeaning() {
@@ -335,37 +324,6 @@ class Example {
 								.withEventChannel(create.fetchOfEventGroup("haha")))
 				.createRepositoryNow();
 
-		saveRepository(repository, "./", "meaninglessExample.repository", false);
-	}
-
-	public static void saveRepository(Repository repo, String path, String name, boolean printToConsole) {
-		String outputFile = path + name;
-		String[] fileExtensions = new String[] { "repository", "xml" };
-
-		// Create File
-		ResourceSet rs = new ResourceSetImpl();
-		for (String fileext : fileExtensions)
-			rs.getResourceFactoryRegistry().getExtensionToFactoryMap().put(fileext, new XMLResourceFactoryImpl());
-
-		URI uri = URI.createFileURI(outputFile);
-		Resource resource = rs.createResource(uri);
-		((ResourceImpl) resource).setIntrinsicIDToEObjectMap(new HashMap<>());
-
-		// Put content to file resource
-		resource.getContents().add(repo);
-
-		// Save file
-		((XMLResource) resource).setEncoding("UTF-8");
-		Map<Object, Object> saveOptions = ((XMLResource) resource).getDefaultSaveOptions();
-		saveOptions.put(XMLResource.OPTION_CONFIGURATION_CACHE, Boolean.TRUE);
-		saveOptions.put(XMLResource.OPTION_USE_CACHED_LOOKUP_TABLE, new ArrayList<>());
-
-		try {
-			resource.save(saveOptions);
-			if (printToConsole)
-				((XMLResource) resource).save(System.out, ((XMLResource) resource).getDefaultSaveOptions());
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
+		ModelSaver.saveRepository(repository, "./", "meaninglessExample", false);
 	}
 }

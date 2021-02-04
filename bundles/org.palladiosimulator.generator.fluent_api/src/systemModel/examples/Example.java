@@ -1,33 +1,22 @@
 package systemModel.examples;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.emf.ecore.xmi.XMLResource;
-import org.eclipse.emf.ecore.xmi.impl.XMLResourceFactoryImpl;
 import org.palladiosimulator.pcm.system.System;
 
 import shared.structure.ResourceInterface;
-import shared.util.RepositoryLoader;
+import shared.util.ModelLoader;
+import shared.util.ModelSaver;
 import systemModel.factory.FluentSystemFactory;
 
 public class Example {
 	public static void main(String[] args) {
-		//basicExample();
-		invalidSystem();
+		basicExample();
+		//invalidSystem();
 	}
 	
 	private static void invalidSystem() {
 		FluentSystemFactory create = new FluentSystemFactory();
 		create.newSystem()
-				.withRepository(RepositoryLoader.loadRepository("./miniExample.repository"))
+				.withRepository(ModelLoader.loadRepository("./miniExample.repository"))
 				.withName("invalid system")
 				.createSystemNow();
 	}
@@ -35,7 +24,7 @@ public class Example {
 	private static void basicExample() {		
 		FluentSystemFactory create = new FluentSystemFactory();
 		System system = create.newSystem()
-				.withRepository(RepositoryLoader.loadRepository("./miniExample.repository"))
+				.withRepository(ModelLoader.loadRepository("./miniExample.repository"))
 				.withName("basicSystem")
 				.addToSystem(create.newAssemblyContext()
 						.withName("basic component context 1")
@@ -135,37 +124,6 @@ public class Example {
 						.withSourceAssemblyContext("basic component context 2")
 						.withSourceRole("emits event"))
 				.createSystemNow();
-		saveSystem(system, "./", "basicExample.system", true);
-	}
-	
-	public static void saveSystem(System system, String path, String name, boolean printToConsole) {
-		String outputFile = path + name;
-		String[] fileExtensions = new String[] { "system", "xml" };
-
-		// Create File
-		ResourceSet rs = new ResourceSetImpl();
-		for (String fileext : fileExtensions)
-			rs.getResourceFactoryRegistry().getExtensionToFactoryMap().put(fileext, new XMLResourceFactoryImpl());
-
-		URI uri = URI.createFileURI(outputFile);
-		Resource resource = rs.createResource(uri);
-		((ResourceImpl) resource).setIntrinsicIDToEObjectMap(new HashMap<>());
-
-		// Put content to file resource
-		resource.getContents().add(system);
-
-		// Save file
-		((XMLResource) resource).setEncoding("UTF-8");
-		Map<Object, Object> saveOptions = ((XMLResource) resource).getDefaultSaveOptions();
-		saveOptions.put(XMLResource.OPTION_CONFIGURATION_CACHE, Boolean.TRUE);
-		saveOptions.put(XMLResource.OPTION_USE_CACHED_LOOKUP_TABLE, new ArrayList<>());
-
-		try {
-			resource.save(saveOptions);
-			if (printToConsole)
-				((XMLResource) resource).save(java.lang.System.out, ((XMLResource) resource).getDefaultSaveOptions());
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
+		ModelSaver.saveSystem(system, "./", "basicExample", true);
 	}
 }
