@@ -68,12 +68,12 @@ import componentModel.repositoryStructure.interfaces.InfrastructureInterfaceCrea
 import componentModel.repositoryStructure.interfaces.InfrastructureSignatureCreator;
 import componentModel.repositoryStructure.interfaces.OperationInterfaceCreator;
 import componentModel.repositoryStructure.interfaces.OperationSignatureCreator;
-import componentModel.repositoryStructure.internals.CommunicationLinkResource;
 import componentModel.repositoryStructure.internals.Failure;
 import componentModel.repositoryStructure.internals.Primitive;
 import componentModel.repositoryStructure.types.CompositeDataTypeCreator;
 import componentModel.repositoryStructure.types.ExceptionTypeCreator;
 import componentModel.repositoryStructure.types.ResourceTimeoutFailureTypeCreator;
+import shared.structure.CommunicationLinkResource;
 import shared.structure.ProcessingResource;
 import shared.util.RepositoryLoader;
 import shared.validate.IModelValidator;

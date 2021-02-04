@@ -78,12 +78,12 @@ import org.palladiosimulator.pcm.subsystem.SubSystem;
 import componentModel.apiControlFlowInterfaces.Repo;
 import componentModel.apiControlFlowInterfaces.RepoAddition;
 import componentModel.repositoryStructure.components.Component;
-import componentModel.repositoryStructure.internals.CommunicationLinkResource;
 import componentModel.repositoryStructure.internals.Failure;
 import componentModel.repositoryStructure.internals.Primitive;
 import componentModel.repositoryStructure.types.CompositeDataTypeCreator;
 import componentModel.repositoryStructure.types.ExceptionTypeCreator;
 import componentModel.repositoryStructure.types.ResourceTimeoutFailureTypeCreator;
+import shared.structure.CommunicationLinkResource;
 import shared.structure.ProcessingResource;
 import shared.validate.IModelValidator;
 

@@ -2,6 +2,7 @@ package resourceEvironment.apiControlFlowInterfaces;
 
 import org.palladiosimulator.pcm.resourceenvironment.ResourceEnvironment;
 
+import resourceEvironment.structure.LinkingResourceCreator;
 import resourceEvironment.structure.ResourceContainerCreator;
 
 public interface IResourceEnvironmentAddition {
@@ -16,4 +17,6 @@ public interface IResourceEnvironmentAddition {
 	ResourceEnvironment createResourceEnvironmentNow();
 	
 	IResourceEnvironmentAddition addToResourceEnvironment(ResourceContainerCreator resourceContainer);
+	
+	IResourceEnvironmentAddition addToResourceEnvironment(LinkingResourceCreator linkingResource);
 }

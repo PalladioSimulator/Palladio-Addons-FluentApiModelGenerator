@@ -7,6 +7,8 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.palladiosimulator.pcm.resourcetype.ResourceRepository;
 
 import resourceEvironment.apiControlFlowInterfaces.IResourceEnvironment;
+import resourceEvironment.structure.HddProcessingResourceSpecificationCreator;
+import resourceEvironment.structure.LinkingResourceCreator;
 import resourceEvironment.structure.ProcessingResourceSpecificationCreator;
 import resourceEvironment.structure.ResourceContainerCreator;
 import resourceEvironment.structure.ResourceEnvironmentCreator;
@@ -31,5 +33,13 @@ public class FluentResourceEnvironmentFactory {
 	
 	public ProcessingResourceSpecificationCreator newProcessingResourceSpecification() {
 		return new ProcessingResourceSpecificationCreator(resourceEnvironmentCreator);
+	}
+
+	public HddProcessingResourceSpecificationCreator newHddProcessingResourceSpecification() {
+		return new HddProcessingResourceSpecificationCreator(resourceEnvironmentCreator);
+	}
+	
+	public LinkingResourceCreator newLinkingResource() {
+		return new LinkingResourceCreator(resourceEnvironmentCreator);
 	}
 }

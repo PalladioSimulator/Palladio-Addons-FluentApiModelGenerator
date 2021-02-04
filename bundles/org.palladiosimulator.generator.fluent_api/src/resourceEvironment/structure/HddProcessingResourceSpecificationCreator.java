@@ -66,14 +66,14 @@ public class HddProcessingResourceSpecificationCreator extends ResourceEntity {
 	public HddProcessingResourceSpecificationCreator withWriteProcessingRate(String writeProcessingRate) {
 		PCMRandomVariable randomVariable = CoreFactory.eINSTANCE.createPCMRandomVariable();
 		randomVariable.setSpecification(writeProcessingRate);
-		this.processingRateVariable = randomVariable;
+		this.writeProcessingRate = randomVariable;
 		return this;
 	}	
 	
 	public HddProcessingResourceSpecificationCreator withReadProcessingRate(String readProcessingRate) {
 		PCMRandomVariable randomVariable = CoreFactory.eINSTANCE.createPCMRandomVariable();
 		randomVariable.setSpecification(readProcessingRate);
-		this.processingRateVariable = randomVariable;
+		this.readProcessingRate = randomVariable;
 		return this;
 	}
 	

@@ -15,6 +15,7 @@ import org.eclipse.emf.ecore.xmi.impl.XMLResourceFactoryImpl;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceEnvironment;
 
 import resourceEvironment.factory.FluentResourceEnvironmentFactory;
+import shared.structure.CommunicationLinkResource;
 import shared.structure.ProcessingResource;
 import shared.structure.SchedulingPolicies;
 
@@ -40,13 +41,19 @@ public class Example {
 								))
 				.addToResourceEnvironment(create.newResourceContainer()
 						.withName("container 2")
-						.addProcessingResourceSpecification(create.newProcessingResourceSpecification()
+						.addHddProcessingResourceSpecification(create.newHddProcessingResourceSpecification()
 								.withMttf(2)
 								.withMttr(5.3)
 								.withNumberOfReplicas(1)
 								.withSchedulingPolicy(SchedulingPolicies.DELAY)
 								.withProcessingResourceType(ProcessingResource.HDD)
 								))
+				.addToResourceEnvironment(create.newLinkingResource()
+						.withName("linkin resource")
+						.withCommunicationLinkResource(CommunicationLinkResource.LAN)
+						.withFailureProbability(0.2)
+						.addLinkedResourceContainer("container 1")
+						.addLinkedResourceContainer("container 2"))
 				.createResourceEnvironmentNow();
 		saveEnvironment(environment, "./", "basicEnvironment.resourceenvironment", true);
 	}

@@ -44,6 +44,7 @@ public class ResourceContainerCreator extends ResourceEntity {
 			container.setEntityName(name);
 		}
 		container.getActiveResourceSpecifications_ResourceContainer().addAll(processingResourceSpecifications);
+		container.getActiveResourceSpecifications_ResourceContainer().addAll(hddProcessingResourceSpecifications);
 		container.getHddResourceSpecifications().addAll(hddProcessingResourceSpecifications);
 		container.getNestedResourceContainers__ResourceContainer().addAll(nestedResourceContainers);
 		return container;

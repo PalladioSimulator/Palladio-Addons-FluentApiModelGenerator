@@ -1,4 +1,4 @@
-package componentModel.repositoryStructure.internals;
+package shared.structure;
 
 /**
  * Represents built-in communication link resources available in the resource
@@ -10,5 +10,11 @@ public enum CommunicationLinkResource {
 	/**
 	 * LAN communication link resource
 	 */
-	LAN;
+	LAN("LAN");
+	
+	public final String resourceName;
+
+	CommunicationLinkResource(String resourceName) {
+		this.resourceName = resourceName;
+	}
 }
