@@ -26,6 +26,10 @@ public class Example {
 						.withName("context 2")
 						.withResourceContainer("container 2")
 						.withEventChannel("event channel"))
+				.addToAllocation(create.newAllocationContext()
+						.withName("context 3")
+						.withResourceContainer("container 2")
+						.withAssemblyContext("basic component context 2"))
 				.createAllocationNow();
 		ModelSaver.saveAllocation(allocation, "./", "basicAllocation", true);
 	}

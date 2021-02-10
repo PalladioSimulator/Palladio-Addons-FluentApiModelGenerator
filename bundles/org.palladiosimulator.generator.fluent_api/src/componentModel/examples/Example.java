@@ -2,6 +2,7 @@ package componentModel.examples;
 
 import org.palladiosimulator.pcm.parameter.VariableCharacterisationType;
 import org.palladiosimulator.pcm.repository.BasicComponent;
+import org.palladiosimulator.pcm.repository.DataType;
 import org.palladiosimulator.pcm.repository.OperationInterface;
 import org.palladiosimulator.pcm.repository.OperationProvidedRole;
 import org.palladiosimulator.pcm.repository.OperationRequiredRole;
@@ -22,13 +23,23 @@ import shared.util.ModelSaver;
 class Example {
 
 	public static void main(String[] args) {
-
+		invalidExample();
 		miniExample();
 		readmeExampleBackend();
 		readmeExampleFluentAPI();
 		mediaStoreExample();
 		//exampleWithoutMeaning();
 
+	}
+	
+	public static void invalidExample() {
+		FluentRepositoryFactory create = new FluentRepositoryFactory();
+
+		Repository repository = create.newRepository()
+				.withName("invalid")
+				.addToRepository(create.newCompleteComponentType())
+				.createRepositoryNow();
+		ModelSaver.saveRepository(repository, "./", "invalid", true);
 	}
 
 	public static void miniExample() {

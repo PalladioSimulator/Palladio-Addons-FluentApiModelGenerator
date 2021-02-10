@@ -14,11 +14,18 @@ import org.palladiosimulator.pcm.system.System;
 
 import allocationModel.apiControlFlowInterfaces.IAllocation;
 import allocationModel.apiControlFlowInterfaces.IAllocationAddition;
+import shared.validate.IModelValidator;
 
 public class AllocationCreator extends AllocationEntity implements IAllocation{
+	private IModelValidator validator;
+	
 	private List<AllocationContext> allocationContexts = new ArrayList<>();
 	private ResourceEnvironment resourceEnvironment;
 	private System system;
+	
+	public AllocationCreator(IModelValidator validator) {
+		this.validator = validator;
+	}
 
 	@Override
 	protected Allocation build() {
@@ -40,6 +47,7 @@ public class AllocationCreator extends AllocationEntity implements IAllocation{
 	@Override
 	public Allocation createAllocationNow() {
 		Allocation allocation = build();
+		this.validator.validate(allocation, this.name);
 		return allocation;
 	}
 

@@ -13,6 +13,8 @@ import resourceEvironment.structure.ProcessingResourceSpecificationCreator;
 import resourceEvironment.structure.ResourceContainerCreator;
 import resourceEvironment.structure.ResourceEnvironmentCreator;
 import shared.util.ModelLoader;
+import shared.validate.IModelValidator;
+import shared.validate.ModelValidator;
 
 public class FluentResourceEnvironmentFactory {
 	private ResourceEnvironmentCreator resourceEnvironmentCreator;
@@ -22,8 +24,8 @@ public class FluentResourceEnvironmentFactory {
 		ResourceRepository resources = ModelLoader.loadResourceTypeRepository(ModelLoader.RESOURCE_TYPE_PATH);
 		Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 		logger.setLevel(Level.ALL);
-		//IModelValidator validator = new ModelValidator(SystemValidator.INSTANCE, logger);
-		resourceEnvironmentCreator = new ResourceEnvironmentCreator(resources);
+		IModelValidator validator = new ModelValidator(logger);
+		resourceEnvironmentCreator = new ResourceEnvironmentCreator(resources, validator);
 		return resourceEnvironmentCreator;
 	}
 	

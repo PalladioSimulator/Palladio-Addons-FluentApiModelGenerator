@@ -6,7 +6,6 @@ import java.util.logging.Logger;
 
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.palladiosimulator.pcm.resourcetype.ResourceRepository;
-import org.palladiosimulator.pcm.system.util.SystemValidator;
 
 import shared.util.ModelLoader;
 import shared.validate.IModelValidator;
@@ -45,7 +44,7 @@ public class FluentSystemFactory {
 		ResourceRepository resources = ModelLoader.loadResourceTypeRepository(ModelLoader.RESOURCE_TYPE_PATH);
 		Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 		logger.setLevel(Level.ALL);
-		IModelValidator validator = new ModelValidator(SystemValidator.INSTANCE, logger);
+		IModelValidator validator = new ModelValidator(logger);
 		systemCreator = new SystemCreator(resources, validator);
 		return systemCreator;
 	}

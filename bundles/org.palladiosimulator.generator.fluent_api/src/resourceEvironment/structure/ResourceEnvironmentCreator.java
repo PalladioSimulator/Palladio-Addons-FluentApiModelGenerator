@@ -17,14 +17,18 @@ import resourceEvironment.apiControlFlowInterfaces.IResourceEnvironmentAddition;
 import shared.structure.CommunicationLinkResource;
 import shared.structure.ProcessingResource;
 import shared.structure.SchedulingPolicies;
+import shared.validate.IModelValidator;
 
 public class ResourceEnvironmentCreator extends ResourceEntity implements IResourceEnvironment {
+	private IModelValidator validator;
 	private ResourceRepository resources;
+	
 	private List<ResourceContainer> resourceContainers = new ArrayList<>();
 	private List<LinkingResource> linkingResources = new ArrayList<>();
 
-	public ResourceEnvironmentCreator(ResourceRepository resources) {
+	public ResourceEnvironmentCreator(ResourceRepository resources, IModelValidator validator) {
 		this.resources = resources;
+		this.validator = validator;
 	}
 
 	@Override
@@ -36,6 +40,7 @@ public class ResourceEnvironmentCreator extends ResourceEntity implements IResou
 	@Override
 	public ResourceEnvironment createResourceEnvironmentNow() {
 		ResourceEnvironment environment = this.build();
+		this.validator.validate(environment, this.name);
 		return environment;
 	}
 

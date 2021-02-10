@@ -44,7 +44,6 @@ import org.palladiosimulator.pcm.repository.RequiredRole;
 import org.palladiosimulator.pcm.repository.Signature;
 import org.palladiosimulator.pcm.repository.SinkRole;
 import org.palladiosimulator.pcm.repository.SourceRole;
-import org.palladiosimulator.pcm.repository.util.RepositoryValidator;
 import org.palladiosimulator.pcm.resourcetype.ResourceInterface;
 import org.palladiosimulator.pcm.resourcetype.ResourceRepository;
 import org.palladiosimulator.pcm.seff.seff_reliability.RecoveryActionBehaviour;
@@ -132,7 +131,7 @@ public class FluentRepositoryFactory {
 		Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 		logger.setLevel(Level.ALL);
 		
-		IModelValidator validator = new ModelValidator(RepositoryValidator.INSTANCE, logger);
+		IModelValidator validator = new ModelValidator(logger);
 		
 		this.repo = new RepositoryCreator(primitives, resourceTypes, failures, logger, validator);
 		return this.repo;

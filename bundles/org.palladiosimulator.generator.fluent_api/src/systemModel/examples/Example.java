@@ -10,15 +10,27 @@ import systemModel.factory.FluentSystemFactory;
 public class Example {
 	public static void main(String[] args) {
 		basicExample();
-		//invalidSystem();
+		invalidSystem();
 	}
 	
 	private static void invalidSystem() {
 		FluentSystemFactory create = new FluentSystemFactory();
-		create.newSystem()
+		System system = create.newSystem()
 				.withRepository(ModelLoader.loadRepository("./miniExample.repository"))
 				.withName("invalid system")
+				.addToSystem(create.newAssemblyContext())
+				.addToSystem(create.newAssemblyContext()
+						.withName("basic component context 1")
+						.withEncapsulatedComponent("basic component"))
+				.addToSystem(create.newOperationProvidedRole()
+						.withName("role")
+						.withProvidedInterface("interface"))
+				.addToSystem(create.newProvidedDelegationConnectorCreator()
+						.withOuterProvidedRole("role")
+						.withProvidingContext("basic component context 1")
+						.withOperationProvidedRole("basic component provides interface"))
 				.createSystemNow();
+		ModelSaver.saveSystem(system, "./", "invalid", true);
 	}
 	
 	private static void basicExample() {		
