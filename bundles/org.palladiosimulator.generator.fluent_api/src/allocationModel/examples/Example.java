@@ -9,7 +9,22 @@ import shared.util.ModelSaver;
 public class Example {
 
 	public static void main(String[] args) {
+		invalidAllocation();
 		basicAllocation();
+	}
+	
+	public static void invalidAllocation() {
+		FluentAllocationFactory create = new FluentAllocationFactory();
+		Allocation allocation = create.newSystem()
+				.withName("invalid")
+				.withSystem(ModelLoader.loadSystem("./basicExample.system"))
+				.withResourceEnvironment(ModelLoader.loadResourceEnvironment("./basicEnvironment.resourceenvironment"))
+				.addToAllocation(create.newAllocationContext()
+						.withName("context 1")
+						.withResourceContainer("container 1")
+						.withAssemblyContext("basic component context 1"))
+				.createAllocationNow();
+		ModelSaver.saveAllocation(allocation, "./", "invalidAllocation", true);
 	}
 	
 	public static void basicAllocation() {
