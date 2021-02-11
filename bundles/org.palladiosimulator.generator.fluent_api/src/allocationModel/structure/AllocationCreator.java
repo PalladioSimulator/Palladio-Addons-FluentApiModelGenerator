@@ -16,6 +16,15 @@ import allocationModel.apiControlFlowInterfaces.IAllocation;
 import allocationModel.apiControlFlowInterfaces.IAllocationAddition;
 import shared.validate.IModelValidator;
 
+/**
+ * This class constructs an {@link org.palladiosimulator.pcm.allocation.Allocation Allocation}.
+ * First, the <code>System</code> and <code>ResoruceEnvironment</code> have to be defined.
+ * Afterwards <code>AllocationContext</code>s can be added.
+ * 
+ * @author Florian Krone
+ *
+ * @see org.palladiosimulator.pcm.allocation.Allocation
+ */
 public class AllocationCreator extends AllocationEntity implements IAllocation{
 	private IModelValidator validator;
 	
@@ -69,16 +78,34 @@ public class AllocationCreator extends AllocationEntity implements IAllocation{
 		return this;
 	}
 
+	/**
+	 * Searches the defined <code>System</code> for an <code>AssemblyContext</code> with the given name. 
+	 * 
+	 * @param name
+	 * @return the <code>AssemblyContext</code> with the given name 
+	 */
 	public AssemblyContext getAssemblyContextByName(String name) {
 		return system.getAssemblyContexts__ComposedStructure().stream()
 				.filter(x -> x.getEntityName().equals(name)).findFirst().get();
 	}
-	
+
+	/**
+	 * Searches the defined <code>System</code> for an <code>EventChannel</code> with the given name. 
+	 * 
+	 * @param name
+	 * @return the <code>EventChannel</code> with the given name 
+	 */
 	public EventChannel getEventChannelByName(String name) {
 		return system.getEventChannel__ComposedStructure().stream()
 				.filter(x -> x.getEntityName().equals(name)).findFirst().get();
 	}
-	
+
+	/**
+	 * Searches the defined <code>ResourceEnvironment</code> for a <code>ResourceContainer</code> with the given name. 
+	 * 
+	 * @param name
+	 * @return the <code>ResourceContainer</code> with the given name 
+	 */
 	public ResourceContainer getResourceContainerByName(String name) {
 		return resourceEnvironment.getResourceContainer_ResourceEnvironment().stream()
 				.filter(x -> x.getEntityName().equals(name)).findFirst().get();

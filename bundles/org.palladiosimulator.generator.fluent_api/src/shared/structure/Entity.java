@@ -18,7 +18,7 @@ public abstract class Entity {
 	/**
 	 * Defines the <i>unique</i> name of this current entity. Once created entities
 	 * are referenced by this name. Only entities with a unique name can be fetched
-	 * from the repository or system.
+	 * from the model.
 	 * 
 	 * @param name
 	 * @return this current entity in the making

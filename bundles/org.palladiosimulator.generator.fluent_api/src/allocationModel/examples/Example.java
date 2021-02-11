@@ -15,21 +15,22 @@ public class Example {
 	
 	public static void invalidAllocation() {
 		FluentAllocationFactory create = new FluentAllocationFactory();
-		Allocation allocation = create.newSystem()
+		Allocation allocation = create.newAllocation()
 				.withName("invalid")
 				.withSystem(ModelLoader.loadSystem("./basicExample.system"))
 				.withResourceEnvironment(ModelLoader.loadResourceEnvironment("./basicEnvironment.resourceenvironment"))
 				.addToAllocation(create.newAllocationContext()
 						.withName("context 1")
 						.withResourceContainer("container 1")
-						.withAssemblyContext("basic component context 1"))
+						.withAssemblyContext("basic component context 1")
+						.withEventChannel("event channel"))
 				.createAllocationNow();
 		ModelSaver.saveAllocation(allocation, "./", "invalidAllocation", true);
 	}
 	
 	public static void basicAllocation() {
 		FluentAllocationFactory create = new FluentAllocationFactory();
-		Allocation allocation = create.newSystem()
+		Allocation allocation = create.newAllocation()
 				.withName("allocation")
 				.withSystem(ModelLoader.loadSystem("./basicExample.system"))
 				.withResourceEnvironment(ModelLoader.loadResourceEnvironment("./basicEnvironment.resourceenvironment"))
