@@ -1,20 +1,20 @@
 package shared.structure;
 
 /**
- * Represents built-in communication link resources available in the resource
- * repository, i.e. '<em><b>LAN</b></em>'.
- * 
+ * Represents built-in communication link resources available in the resource repository, i.e.
+ * '<em><b>LAN</b></em>'.
+ *
  * @author Louisa Lambrecht
  */
 public enum CommunicationLinkResource {
-	/**
-	 * LAN communication link resource
-	 */
-	LAN("LAN");
-	
-	public final String resourceName;
+    /**
+     * LAN communication link resource
+     */
+    LAN("LAN");
 
-	CommunicationLinkResource(String resourceName) {
-		this.resourceName = resourceName;
-	}
+    public final String resourceName;
+
+    CommunicationLinkResource(final String resourceName) {
+        this.resourceName = resourceName;
+    }
 }

@@ -1,0 +1,104 @@
+package component.repositoryStructure.components.seff;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
+import org.palladiosimulator.pcm.core.entity.ResourceRequiredRole;
+import org.palladiosimulator.pcm.reliability.InternalFailureOccurrenceDescription;
+import org.palladiosimulator.pcm.reliability.ReliabilityFactory;
+import org.palladiosimulator.pcm.reliability.SoftwareInducedFailureType;
+import org.palladiosimulator.pcm.repository.InfrastructureRequiredRole;
+import org.palladiosimulator.pcm.repository.InfrastructureSignature;
+import org.palladiosimulator.pcm.seff.InternalAction;
+import org.palladiosimulator.pcm.seff.SeffFactory;
+
+import component.repositoryStructure.components.VariableUsageCreator;
+import component.repositoryStructure.internals.ResourceSignature;
+import shared.structure.ProcessingResource;
+
+/**
+ * This class constructs a {@link org.palladiosimulator.pcm.seff.InternalAction InternalAction}. It
+ * is used to create the '<em><b>InternalAction</b></em>' object step-by-step, i.e.
+ * '<em><b>InternalActionCreator</b></em>' objects are of intermediate state.
+ *
+ * @author Louisa Lambrecht
+ * @see org.palladiosimulator.pcm.seff.InternalAction
+ */
+public class InternalActionCreator extends GeneralAction {
+
+    private final List<InternalFailureOccurrenceDescription> failures;
+
+    protected InternalActionCreator(final SeffCreator seff) {
+        this.seff = seff;
+        this.demands = new ArrayList<>();
+        this.failures = new ArrayList<>();
+        this.infrastructureCalls = new ArrayList<>();
+        this.resourceCalls = new ArrayList<>();
+    }
+
+    @Override
+    public InternalActionCreator withName(final String name) {
+        return (InternalActionCreator) super.withName(name);
+    }
+
+    /**
+     * Creates an internal failure occurrence description with the failure probability
+     * <code>failureProbability</code> of the software induced failure type <code>failureType</code>
+     * and adds it to this action's list of internal failure occurrence descriptions.
+     *
+     * @param failureProbability
+     * @param failureType
+     * @return this internal action in the making
+     * @see org.palladiosimulator.pcm.reliability.InternalFailureOccurrenceDescription
+     */
+    public InternalActionCreator withInternalFailureOccurrenceDescription(final double failureProbability,
+            final SoftwareInducedFailureType failureType) {
+        Objects.requireNonNull(failureType, "failureType must not be null");
+        final InternalFailureOccurrenceDescription failure = ReliabilityFactory.eINSTANCE
+            .createInternalFailureOccurrenceDescription();
+        failure.setFailureProbability(failureProbability);
+        failure.setSoftwareInducedFailureType__InternalFailureOccurrenceDescription(failureType);
+        this.failures.add(failure);
+        return this;
+    }
+
+    @Override
+    public InternalActionCreator withResourceDemand(final String specification_stochasticExpression,
+            final ProcessingResource processingResource) {
+        return (InternalActionCreator) super.withResourceDemand(specification_stochasticExpression, processingResource);
+    }
+
+    @Override
+    public InternalActionCreator withInfrastructureCall(final String numberOfCalls_stochasticExpression,
+            final InfrastructureSignature signature, final InfrastructureRequiredRole requiredRole,
+            final VariableUsageCreator... variableUsages) {
+        return (InternalActionCreator) super.withInfrastructureCall(numberOfCalls_stochasticExpression, signature,
+                requiredRole, variableUsages);
+    }
+
+    @Override
+    public InternalActionCreator withResourceCall(final String numberOfCalls_stochasticExpression,
+            final ResourceSignature signature, final ResourceRequiredRole requiredRole,
+            final VariableUsageCreator... variableUsages) {
+        return (InternalActionCreator) super.withResourceCall(numberOfCalls_stochasticExpression, signature,
+                requiredRole, variableUsages);
+    }
+
+    @Override
+    protected InternalAction build() {
+        final InternalAction action = SeffFactory.eINSTANCE.createInternalAction();
+        action.getInternalFailureOccurrenceDescriptions__InternalAction()
+            .addAll(this.failures);
+
+        action.getResourceDemand_Action()
+            .addAll(this.demands);
+        action.getInfrastructureCall__Action()
+            .addAll(this.infrastructureCalls);
+        action.getResourceCall__Action()
+            .addAll(this.resourceCalls);
+
+        return action;
+    }
+
+}

@@ -19,51 +19,61 @@ import org.palladiosimulator.pcm.resourceenvironment.ResourceEnvironment;
 import org.palladiosimulator.pcm.system.System;
 
 public class ModelSaver {
-	
-	public static void saveRepository(Repository repository, String path, String name, boolean printToConsole) {
-		save(repository, path, name, "repository", printToConsole);
-	}
-	
-	public static void saveSystem(System system, String path, String name, boolean printToConsole) {
-		save(system, path, name, "system", printToConsole);
-	}
-	
-	public static void saveResourceEnvironment(ResourceEnvironment resourceEnvironment, String path, String name, boolean printToConsole) {
-		save(resourceEnvironment, path, name, "resourceenvironment", printToConsole);
-	}
-	
-	public static void saveAllocation(Allocation allocation, String path, String name, boolean printToConsole) {
-		save(allocation, path, name, "allocation", printToConsole);
-	}
-	
-	private static void save(EObject model, String path, String name, String extension, boolean printToConsole) {
-		String outputFile = path + name + "." + extension;
-		String[] fileExtensions = new String[] { extension, "xml" };
 
-		// Create File
-		ResourceSet rs = new ResourceSetImpl();
-		for (String fileext : fileExtensions)
-			rs.getResourceFactoryRegistry().getExtensionToFactoryMap().put(fileext, new XMLResourceFactoryImpl());
+    public static void saveRepository(final Repository repository, final String path, final String name,
+            final boolean printToConsole) {
+        save(repository, path, name, "repository", printToConsole);
+    }
 
-		URI uri = URI.createFileURI(outputFile);
-		Resource resource = rs.createResource(uri);
-		((ResourceImpl) resource).setIntrinsicIDToEObjectMap(new HashMap<>());
+    public static void saveSystem(final System system, final String path, final String name,
+            final boolean printToConsole) {
+        save(system, path, name, "system", printToConsole);
+    }
 
-		// Put content to file resource
-		resource.getContents().add(model);
+    public static void saveResourceEnvironment(final ResourceEnvironment resourceEnvironment, final String path,
+            final String name, final boolean printToConsole) {
+        save(resourceEnvironment, path, name, "resourceenvironment", printToConsole);
+    }
 
-		// Save file
-		((XMLResource) resource).setEncoding("UTF-8");
-		Map<Object, Object> saveOptions = ((XMLResource) resource).getDefaultSaveOptions();
-		saveOptions.put(XMLResource.OPTION_CONFIGURATION_CACHE, Boolean.TRUE);
-		saveOptions.put(XMLResource.OPTION_USE_CACHED_LOOKUP_TABLE, new ArrayList<>());
+    public static void saveAllocation(final Allocation allocation, final String path, final String name,
+            final boolean printToConsole) {
+        save(allocation, path, name, "allocation", printToConsole);
+    }
 
-		try {
-			resource.save(saveOptions);
-			if (printToConsole)
-				((XMLResource) resource).save(java.lang.System.out, ((XMLResource) resource).getDefaultSaveOptions());
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-	}
+    private static void save(final EObject model, final String path, final String name, final String extension,
+            final boolean printToConsole) {
+        final String outputFile = path + name + "." + extension;
+        final String[] fileExtensions = new String[] { extension, "xml" };
+
+        // Create File
+        final ResourceSet rs = new ResourceSetImpl();
+        for (final String fileext : fileExtensions) {
+            rs.getResourceFactoryRegistry()
+                .getExtensionToFactoryMap()
+                .put(fileext, new XMLResourceFactoryImpl());
+        }
+
+        final URI uri = URI.createFileURI(outputFile);
+        final Resource resource = rs.createResource(uri);
+        ((ResourceImpl) resource).setIntrinsicIDToEObjectMap(new HashMap<>());
+
+        // Put content to file resource
+        resource.getContents()
+            .add(model);
+
+        // Save file
+        ((XMLResource) resource).setEncoding("UTF-8");
+        final Map<Object, Object> saveOptions = ((XMLResource) resource).getDefaultSaveOptions();
+        saveOptions.put(XMLResource.OPTION_CONFIGURATION_CACHE, Boolean.TRUE);
+        saveOptions.put(XMLResource.OPTION_USE_CACHED_LOOKUP_TABLE, new ArrayList<>());
+
+        try {
+            resource.save(saveOptions);
+            if (printToConsole) {
+                ((XMLResource) resource).save(java.lang.System.out, ((XMLResource) resource).getDefaultSaveOptions());
+            }
+        } catch (final IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

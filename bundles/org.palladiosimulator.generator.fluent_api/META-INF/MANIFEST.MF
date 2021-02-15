@@ -8,12 +8,12 @@ Bundle-RequiredExecutionEnvironment: JavaSE-11
 Require-Bundle: org.palladiosimulator.pcm;bundle-version="4.3.0";visibility:=reexport,
  org.palladiosimulator.pcm.resources;bundle-version="4.3.0";visibility:=reexport
 Bundle-Vendor: palladiosimulator.org
-Export-Package: componentModel.apiControlFlowInterfaces,
- componentModel.apiControlFlowInterfaces.seff,
- componentModel.factory,
- componentModel.repositoryStructure,
- componentModel.repositoryStructure.components,
- componentModel.repositoryStructure.components.seff,
- componentModel.repositoryStructure.interfaces,
- componentModel.repositoryStructure.internals,
- componentModel.repositoryStructure.types
+Export-Package: component.apiControlFlowInterfaces,
+ component.apiControlFlowInterfaces.seff,
+ component.factory,
+ component.repositoryStructure,
+ component.repositoryStructure.components,
+ component.repositoryStructure.components.seff,
+ component.repositoryStructure.interfaces,
+ component.repositoryStructure.internals,
+ component.repositoryStructure.types
