@@ -31,24 +31,24 @@ public interface StopSeff {
      * ProcessingResourceSpecification (e.g., 5 GHz CPU, 20 MByte/s hard disk).
      * </p>
      *
-     * @param specification_stochasticExpression
+     * @param specificationStochasticExpression
      * @param processingResource
      * @return this action in the making
      */
-    public StopActionCreator withResourceDemand(String specification_stochasticExpression,
+    public StopActionCreator withResourceDemand(String specificationStochasticExpression,
             ProcessingResource processingResource);
 
     /**
      * Adds an {@link org.palladiosimulator.pcm.seff.seff_performance.InfrastructureCall
      * InfrastructureCall} to this action.
      *
-     * @param numberOfCalls_stochasticExpression
+     * @param numberOfCallsStochasticExpression
      * @param signature
      * @param requiredRole
      * @param variableUsages
      * @return this stop action in the making
      */
-    public StopActionCreator withInfrastructureCall(String numberOfCalls_stochasticExpression,
+    public StopActionCreator withInfrastructureCall(String numberOfCallsStochasticExpression,
             InfrastructureSignature signature, InfrastructureRequiredRole requiredRole,
             VariableUsageCreator... variableUsages);
 
@@ -56,13 +56,13 @@ public interface StopSeff {
      * Adds a {@link org.palladiosimulator.pcm.seff.seff_performance.ResourceCall ResourceCall} to
      * this action.
      *
-     * @param numberOfCalls_stochasticExpression
+     * @param numberOfCallsStochasticExpression
      * @param signature
      * @param requiredRole
      * @param variableUsages
      * @return this stop action in the making
      */
-    public StopActionCreator withResourceCall(String numberOfCalls_stochasticExpression, ResourceSignature signature,
+    public StopActionCreator withResourceCall(String numberOfCallsStochasticExpression, ResourceSignature signature,
             ResourceRequiredRole requiredRole, VariableUsageCreator... variableUsages);
 
     /**

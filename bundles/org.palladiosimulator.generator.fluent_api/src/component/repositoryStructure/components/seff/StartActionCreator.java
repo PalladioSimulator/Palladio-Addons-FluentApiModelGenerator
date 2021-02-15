@@ -30,24 +30,24 @@ public class StartActionCreator extends GeneralAction {
     }
 
     @Override
-    public StartActionCreator withResourceDemand(final String specification_stochasticExpression,
+    public StartActionCreator withResourceDemand(final String specificationStochasticExpression,
             final ProcessingResource processingResource) {
-        return (StartActionCreator) super.withResourceDemand(specification_stochasticExpression, processingResource);
+        return (StartActionCreator) super.withResourceDemand(specificationStochasticExpression, processingResource);
     }
 
     @Override
-    public StartActionCreator withInfrastructureCall(final String numberOfCalls_stochasticExpression,
+    public StartActionCreator withInfrastructureCall(final String numberOfCallsStochasticExpression,
             final InfrastructureSignature signature, final InfrastructureRequiredRole requiredRole,
             final VariableUsageCreator... variableUsages) {
-        return (StartActionCreator) super.withInfrastructureCall(numberOfCalls_stochasticExpression, signature,
+        return (StartActionCreator) super.withInfrastructureCall(numberOfCallsStochasticExpression, signature,
                 requiredRole, variableUsages);
     }
 
     @Override
-    public StartActionCreator withResourceCall(final String numberOfCalls_stochasticExpression,
+    public StartActionCreator withResourceCall(final String numberOfCallsStochasticExpression,
             final ResourceSignature signature, final ResourceRequiredRole requiredRole,
             final VariableUsageCreator... variableUsages) {
-        return (StartActionCreator) super.withResourceCall(numberOfCalls_stochasticExpression, signature, requiredRole,
+        return (StartActionCreator) super.withResourceCall(numberOfCallsStochasticExpression, signature, requiredRole,
                 variableUsages);
     }
 

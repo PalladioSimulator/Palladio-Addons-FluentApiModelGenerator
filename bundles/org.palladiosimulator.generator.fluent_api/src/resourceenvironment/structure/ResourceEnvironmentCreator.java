@@ -73,7 +73,7 @@ public class ResourceEnvironmentCreator extends ResourceEntity implements IResou
         return this.resources.getSchedulingPolicies__ResourceRepository()
             .stream()
             .filter(x -> x.getEntityName()
-                .equals(policy.policyName))
+                .equals(policy.getPolicyName()))
             .findFirst()
             .get();
     }
@@ -82,7 +82,7 @@ public class ResourceEnvironmentCreator extends ResourceEntity implements IResou
         return (ProcessingResourceType) this.resources.getAvailableResourceTypes_ResourceRepository()
             .stream()
             .filter(x -> x.getEntityName()
-                .equals(resource.resourceName))
+                .equals(resource.getResourceName()))
             .findFirst()
             .get();
     }
@@ -91,7 +91,7 @@ public class ResourceEnvironmentCreator extends ResourceEntity implements IResou
         return (CommunicationLinkResourceType) this.resources.getAvailableResourceTypes_ResourceRepository()
             .stream()
             .filter(x -> x.getEntityName()
-                .equals(resource.resourceName))
+                .equals(resource.getResourceName()))
             .findFirst()
             .get();
     }

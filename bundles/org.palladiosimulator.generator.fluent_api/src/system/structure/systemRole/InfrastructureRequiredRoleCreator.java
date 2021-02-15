@@ -22,7 +22,7 @@ public class InfrastructureRequiredRoleCreator extends SystemEntity {
     }
 
     public InfrastructureRequiredRoleCreator withRequiredInterface(final String name) {
-        final InfrastructureInterface requiredInterface = (InfrastructureInterface) this.system.getRepositories()
+        final InfrastructureInterface infrastructureInterface = (InfrastructureInterface) this.system.getRepositories()
             .stream()
             .flatMap(x -> x.getInterfaces__Repository()
                 .stream())
@@ -30,7 +30,7 @@ public class InfrastructureRequiredRoleCreator extends SystemEntity {
                 .equals(name))
             .findFirst()
             .get();
-        return this.withRequiredInterface(requiredInterface);
+        return this.withRequiredInterface(infrastructureInterface);
     }
 
     @Override

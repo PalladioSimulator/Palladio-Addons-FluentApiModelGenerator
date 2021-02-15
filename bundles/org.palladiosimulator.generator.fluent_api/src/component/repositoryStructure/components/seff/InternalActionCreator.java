@@ -64,24 +64,24 @@ public class InternalActionCreator extends GeneralAction {
     }
 
     @Override
-    public InternalActionCreator withResourceDemand(final String specification_stochasticExpression,
+    public InternalActionCreator withResourceDemand(final String specificationStochasticExpression,
             final ProcessingResource processingResource) {
-        return (InternalActionCreator) super.withResourceDemand(specification_stochasticExpression, processingResource);
+        return (InternalActionCreator) super.withResourceDemand(specificationStochasticExpression, processingResource);
     }
 
     @Override
-    public InternalActionCreator withInfrastructureCall(final String numberOfCalls_stochasticExpression,
+    public InternalActionCreator withInfrastructureCall(final String numberOfCallsStochasticExpression,
             final InfrastructureSignature signature, final InfrastructureRequiredRole requiredRole,
             final VariableUsageCreator... variableUsages) {
-        return (InternalActionCreator) super.withInfrastructureCall(numberOfCalls_stochasticExpression, signature,
+        return (InternalActionCreator) super.withInfrastructureCall(numberOfCallsStochasticExpression, signature,
                 requiredRole, variableUsages);
     }
 
     @Override
-    public InternalActionCreator withResourceCall(final String numberOfCalls_stochasticExpression,
+    public InternalActionCreator withResourceCall(final String numberOfCallsStochasticExpression,
             final ResourceSignature signature, final ResourceRequiredRole requiredRole,
             final VariableUsageCreator... variableUsages) {
-        return (InternalActionCreator) super.withResourceCall(numberOfCalls_stochasticExpression, signature,
+        return (InternalActionCreator) super.withResourceCall(numberOfCallsStochasticExpression, signature,
                 requiredRole, variableUsages);
     }
 

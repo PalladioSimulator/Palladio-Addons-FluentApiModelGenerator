@@ -50,15 +50,15 @@ public class LoopActionCreator extends GeneralAction {
      * between the usage profile and the number of loop iterations.
      * </p>
      *
-     * @param iterationCount_stochasticExpression
+     * @param iterationCountStochasticExpression
      * @return this loop action in the making
      * @see org.palladiosimulator.pcm.seff.LoopAction
      */
-    public LoopActionCreator withIterationCount(final String iterationCount_stochasticExpression) {
-        Objects.requireNonNull(iterationCount_stochasticExpression,
+    public LoopActionCreator withIterationCount(final String iterationCountStochasticExpression) {
+        Objects.requireNonNull(iterationCountStochasticExpression,
                 "iterationCount_stochasticExpression must not be null");
         final PCMRandomVariable rand = CoreFactory.eINSTANCE.createPCMRandomVariable();
-        rand.setSpecification(iterationCount_stochasticExpression);
+        rand.setSpecification(iterationCountStochasticExpression);
         this.iterationCount = rand;
         return this;
     }
@@ -82,24 +82,24 @@ public class LoopActionCreator extends GeneralAction {
     }
 
     @Override
-    public LoopActionCreator withResourceDemand(final String specification_stochasticExpression,
+    public LoopActionCreator withResourceDemand(final String specificationStochasticExpression,
             final ProcessingResource processingResource) {
-        return (LoopActionCreator) super.withResourceDemand(specification_stochasticExpression, processingResource);
+        return (LoopActionCreator) super.withResourceDemand(specificationStochasticExpression, processingResource);
     }
 
     @Override
-    public LoopActionCreator withInfrastructureCall(final String numberOfCalls_stochasticExpression,
+    public LoopActionCreator withInfrastructureCall(final String numberOfCallsStochasticExpression,
             final InfrastructureSignature signature, final InfrastructureRequiredRole requiredRole,
             final VariableUsageCreator... variableUsages) {
-        return (LoopActionCreator) super.withInfrastructureCall(numberOfCalls_stochasticExpression, signature,
+        return (LoopActionCreator) super.withInfrastructureCall(numberOfCallsStochasticExpression, signature,
                 requiredRole, variableUsages);
     }
 
     @Override
-    public LoopActionCreator withResourceCall(final String numberOfCalls_stochasticExpression,
+    public LoopActionCreator withResourceCall(final String numberOfCallsStochasticExpression,
             final ResourceSignature signature, final ResourceRequiredRole requiredRole,
             final VariableUsageCreator... variableUsages) {
-        return (LoopActionCreator) super.withResourceCall(numberOfCalls_stochasticExpression, signature, requiredRole,
+        return (LoopActionCreator) super.withResourceCall(numberOfCallsStochasticExpression, signature, requiredRole,
                 variableUsages);
     }
 

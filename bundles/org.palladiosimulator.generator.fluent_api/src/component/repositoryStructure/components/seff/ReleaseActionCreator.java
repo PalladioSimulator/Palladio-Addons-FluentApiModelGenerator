@@ -52,24 +52,24 @@ public class ReleaseActionCreator extends GeneralAction {
     }
 
     @Override
-    public ReleaseActionCreator withResourceDemand(final String specification_stochasticExpression,
+    public ReleaseActionCreator withResourceDemand(final String specificationStochasticExpression,
             final ProcessingResource processingResource) {
-        return (ReleaseActionCreator) super.withResourceDemand(specification_stochasticExpression, processingResource);
+        return (ReleaseActionCreator) super.withResourceDemand(specificationStochasticExpression, processingResource);
     }
 
     @Override
-    public ReleaseActionCreator withInfrastructureCall(final String numberOfCalls_stochasticExpression,
+    public ReleaseActionCreator withInfrastructureCall(final String numberOfCallsStochasticExpression,
             final InfrastructureSignature signature, final InfrastructureRequiredRole requiredRole,
             final VariableUsageCreator... variableUsages) {
-        return (ReleaseActionCreator) super.withInfrastructureCall(numberOfCalls_stochasticExpression, signature,
+        return (ReleaseActionCreator) super.withInfrastructureCall(numberOfCallsStochasticExpression, signature,
                 requiredRole, variableUsages);
     }
 
     @Override
-    public ReleaseActionCreator withResourceCall(final String numberOfCalls_stochasticExpression,
+    public ReleaseActionCreator withResourceCall(final String numberOfCallsStochasticExpression,
             final ResourceSignature signature, final ResourceRequiredRole requiredRole,
             final VariableUsageCreator... variableUsages) {
-        return (ReleaseActionCreator) super.withResourceCall(numberOfCalls_stochasticExpression, signature,
+        return (ReleaseActionCreator) super.withResourceCall(numberOfCallsStochasticExpression, signature,
                 requiredRole, variableUsages);
     }
 

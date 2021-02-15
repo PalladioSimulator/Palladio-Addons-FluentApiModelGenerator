@@ -20,9 +20,13 @@ public enum ProcessingResource {
      */
     DELAY("DELAY");
 
-    public final String resourceName;
+    private final String resourceName;
 
     ProcessingResource(final String resourceName) {
         this.resourceName = resourceName;
+    }
+
+    public String getResourceName() {
+        return resourceName;
     }
 }

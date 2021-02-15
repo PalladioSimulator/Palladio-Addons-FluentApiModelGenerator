@@ -11,7 +11,7 @@ import system.structure.connector.AbstractConnectorCreator;
 
 public class EventChannelSinkConnectorCreator extends AbstractConnectorCreator {
     private EventChannel eventChannel;
-    private AssemblyContext context;
+    private AssemblyContext assemblyContext;
     private SinkRole role;
 
     public EventChannelSinkConnectorCreator(final SystemCreator systemCreator) {
@@ -40,7 +40,7 @@ public class EventChannelSinkConnectorCreator extends AbstractConnectorCreator {
             @Override
             public EventChannelSinkConnectorCreator combineContextAndSinkRole(final AssemblyContext context,
                     final SinkRole role) {
-                creator.context = context;
+                creator.assemblyContext = context;
                 creator.role = role;
                 return creator;
             }
@@ -64,7 +64,7 @@ public class EventChannelSinkConnectorCreator extends AbstractConnectorCreator {
             connector.setEntityName(this.name);
         }
         connector.setEventChannel__EventChannelSinkConnector(this.eventChannel);
-        connector.setAssemblyContext__EventChannelSinkConnector(this.context);
+        connector.setAssemblyContext__EventChannelSinkConnector(this.assemblyContext);
         connector.setSinkRole__EventChannelSinkConnector(this.role);
         return connector;
     }

@@ -286,7 +286,7 @@ public abstract class ComplexComponent extends Component {
      * @param sinkAssemblyContext
      * @param sourceRole
      * @param sourceAssemblyContext
-     * @param filterCondition_stochasticExpression
+     * @param filterConditionStochasticExpression
      * @return the component in the making
      * @see component.factory.FluentRepositoryFactory#fetchOfAssemblyContext(String)
      * @see component.factory.FluentRepositoryFactory#fetchOfSinkRole(String)
@@ -294,12 +294,12 @@ public abstract class ComplexComponent extends Component {
      */
     public ComplexComponent withAssemblyEventConnection(final SinkRole sinkRole,
             final AssemblyContext sinkAssemblyContext, final SourceRole sourceRole,
-            final AssemblyContext sourceAssemblyContext, final String filterCondition_stochasticExpression) {
+            final AssemblyContext sourceAssemblyContext, final String filterConditionStochasticExpression) {
         Objects.requireNonNull(sinkRole, "sinkRole must not be null");
         Objects.requireNonNull(sinkAssemblyContext, "sinkAssemblyContext must not be null");
         Objects.requireNonNull(sourceRole, "sourceRole must not be null");
         Objects.requireNonNull(sourceAssemblyContext, "sourceAssemblyContext must not be null");
-        Objects.requireNonNull(filterCondition_stochasticExpression,
+        Objects.requireNonNull(filterConditionStochasticExpression,
                 "filterCondition_stochasticExpression must not be null");
         final AssemblyEventConnector connector = CompositionFactory.eINSTANCE.createAssemblyEventConnector();
 
@@ -308,9 +308,9 @@ public abstract class ComplexComponent extends Component {
         connector.setSourceRole__AssemblyEventConnector(sourceRole);
         connector.setSourceAssemblyContext__AssemblyEventConnector(sourceAssemblyContext);
 
-        if (filterCondition_stochasticExpression != null) {
+        if (filterConditionStochasticExpression != null) {
             final PCMRandomVariable rand = CoreFactory.eINSTANCE.createPCMRandomVariable();
-            rand.setSpecification(filterCondition_stochasticExpression);
+            rand.setSpecification(filterConditionStochasticExpression);
             connector.setFilterCondition__AssemblyEventConnector(rand);
         }
 
@@ -329,7 +329,7 @@ public abstract class ComplexComponent extends Component {
      * @param assemblyContext
      * @param eventChannel
      * @param sinkRole
-     * @param filterCondition_stochasticExpression
+     * @param filterConditionStochasticExpression
      * @return the component in the making
      * @see component.factory.FluentRepositoryFactory#fetchOfAssemblyContext(String)
      * @see component.factory.FluentRepositoryFactory#fetchOfEventChannel(String)
@@ -337,11 +337,11 @@ public abstract class ComplexComponent extends Component {
      */
     public ComplexComponent withEventChannelSinkConnection(final AssemblyContext assemblyContext,
             final EventChannel eventChannel, final SinkRole sinkRole,
-            final String filterCondition_stochasticExpression) {
+            final String filterConditionStochasticExpression) {
         Objects.requireNonNull(assemblyContext, "assemblyContext must not be null");
         Objects.requireNonNull(eventChannel, "eventChannel must not be null");
         Objects.requireNonNull(sinkRole, "sinkRole must not be null");
-        Objects.requireNonNull(filterCondition_stochasticExpression,
+        Objects.requireNonNull(filterConditionStochasticExpression,
                 "filterCondition_stochasticExpression must not be null");
         final EventChannelSinkConnector connector = CompositionFactory.eINSTANCE.createEventChannelSinkConnector();
 
@@ -351,7 +351,7 @@ public abstract class ComplexComponent extends Component {
         connector.setEntityName(this.name);
 
         final PCMRandomVariable rand = CoreFactory.eINSTANCE.createPCMRandomVariable();
-        rand.setSpecification(filterCondition_stochasticExpression);
+        rand.setSpecification(filterConditionStochasticExpression);
         connector.setFilterCondition__EventChannelSinkConnector(rand);
 
         this.connectors.add(connector);

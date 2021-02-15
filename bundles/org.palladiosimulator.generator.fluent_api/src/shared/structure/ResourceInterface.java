@@ -16,9 +16,13 @@ public enum ResourceInterface {
      */
     HDD("HddInterface");
 
-    public final String resourceName;
+    private final String resourceName;
 
     ResourceInterface(final String resourceName) {
         this.resourceName = resourceName;
+    }
+
+    public String getResourceName() {
+        return resourceName;
     }
 }

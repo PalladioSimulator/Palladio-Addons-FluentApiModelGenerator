@@ -12,9 +12,13 @@ public enum CommunicationLinkResource {
      */
     LAN("LAN");
 
-    public final String resourceName;
+    private final String resourceName;
 
     CommunicationLinkResource(final String resourceName) {
         this.resourceName = resourceName;
+    }
+
+    public String getResourceName() {
+        return resourceName;
     }
 }

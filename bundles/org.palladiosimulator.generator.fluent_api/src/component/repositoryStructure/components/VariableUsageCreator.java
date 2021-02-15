@@ -63,7 +63,7 @@ public class VariableUsageCreator extends RepositoryEntity {
      * '<em><b>STRUCTURE</b></em>', '<em><b>NUMBER_OF_ELEMENTS</b></em>',
      * '<em><b>BYTESIZE</b></em>', '<em><b>TYPE</b></em>', '<em><b>VALUE</b></em>'.
      *
-     * @param specification_stochasticExpression
+     * @param specificationStochasticExpression
      *            value of the characterization
      * @param type
      *            of the characterization
@@ -71,15 +71,15 @@ public class VariableUsageCreator extends RepositoryEntity {
      * @see org.palladiosimulator.pcm.parameter.VariableCharacterisation
      * @see org.palladiosimulator.pcm.parameter.VariableUsage
      */
-    public VariableUsageCreator withVariableCharacterisation(final String specification_stochasticExpression,
+    public VariableUsageCreator withVariableCharacterisation(final String specificationStochasticExpression,
             final VariableCharacterisationType type) {
-        Objects.requireNonNull(specification_stochasticExpression,
+        Objects.requireNonNull(specificationStochasticExpression,
                 "specification_stochasticExpression must not be null");
         Objects.requireNonNull(type, "type must not be null");
         final VariableCharacterisation varchar = ParameterFactory.eINSTANCE.createVariableCharacterisation();
-        if (specification_stochasticExpression != null) {
+        if (specificationStochasticExpression != null) {
             final PCMRandomVariable rand = CoreFactory.eINSTANCE.createPCMRandomVariable();
-            rand.setSpecification(specification_stochasticExpression);
+            rand.setSpecification(specificationStochasticExpression);
             varchar.setSpecification_VariableCharacterisation(rand);
         }
         if (type != null) {

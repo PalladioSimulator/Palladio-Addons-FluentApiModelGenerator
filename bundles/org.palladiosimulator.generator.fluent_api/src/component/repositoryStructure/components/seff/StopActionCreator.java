@@ -49,24 +49,24 @@ public class StopActionCreator extends GeneralAction implements StopSeff {
     }
 
     @Override
-    public StopActionCreator withResourceDemand(final String specification_stochasticExpression,
+    public StopActionCreator withResourceDemand(final String specificationStochasticExpression,
             final ProcessingResource processingResource) {
-        return (StopActionCreator) super.withResourceDemand(specification_stochasticExpression, processingResource);
+        return (StopActionCreator) super.withResourceDemand(specificationStochasticExpression, processingResource);
     }
 
     @Override
-    public StopActionCreator withInfrastructureCall(final String numberOfCalls_stochasticExpression,
+    public StopActionCreator withInfrastructureCall(final String numberOfCallsStochasticExpression,
             final InfrastructureSignature signature, final InfrastructureRequiredRole requiredRole,
             final VariableUsageCreator... variableUsages) {
-        return (StopActionCreator) super.withInfrastructureCall(numberOfCalls_stochasticExpression, signature,
+        return (StopActionCreator) super.withInfrastructureCall(numberOfCallsStochasticExpression, signature,
                 requiredRole, variableUsages);
     }
 
     @Override
-    public StopActionCreator withResourceCall(final String numberOfCalls_stochasticExpression,
+    public StopActionCreator withResourceCall(final String numberOfCallsStochasticExpression,
             final ResourceSignature signature, final ResourceRequiredRole requiredRole,
             final VariableUsageCreator... variableUsages) {
-        return (StopActionCreator) super.withResourceCall(numberOfCalls_stochasticExpression, signature, requiredRole,
+        return (StopActionCreator) super.withResourceCall(numberOfCallsStochasticExpression, signature, requiredRole,
                 variableUsages);
     }
 

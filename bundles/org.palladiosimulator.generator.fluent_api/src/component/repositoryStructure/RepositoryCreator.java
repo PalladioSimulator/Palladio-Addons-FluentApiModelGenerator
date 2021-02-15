@@ -203,6 +203,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             case STRING:
                 this.internalPrimitives.put(Primitive.STRING, p);
                 break;
+            default: //just ignore everything not matching any type
             }
         }
 
@@ -1714,9 +1715,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
                 // it is assumed that split[0] = name of the repository refers to the same
                 // repository that the signature <context> comes from
             }
-        } else if (split.length == 1) {
-            ;
-        } else {
+        } else if (split.length != 1) {
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
         }

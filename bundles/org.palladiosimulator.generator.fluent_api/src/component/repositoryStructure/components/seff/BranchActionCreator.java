@@ -55,7 +55,7 @@ public class BranchActionCreator extends GeneralAction {
      * branch transition must be chosen.
      * </p>
      *
-     * @param branchCondition_stochasticExpression
+     * @param branchConditionStochasticExpression
      *            boolean expression, condition of the branch
      * @param branchActions
      *            nested resource demanding behaviour
@@ -63,9 +63,9 @@ public class BranchActionCreator extends GeneralAction {
      *            of the branch
      * @return this branch action in the making
      */
-    public BranchActionCreator withGuardedBranchTransition(final String branchCondition_stochasticExpression,
+    public BranchActionCreator withGuardedBranchTransition(final String branchConditionStochasticExpression,
             final Seff branchActions, final String name) {
-        Objects.requireNonNull(branchCondition_stochasticExpression,
+        Objects.requireNonNull(branchConditionStochasticExpression,
                 "branchCondition_stochasticExpression must not be null");
         Objects.requireNonNull(branchActions, "branchActions must not be null");
         final GuardedBranchTransition branch = SeffFactory.eINSTANCE.createGuardedBranchTransition();
@@ -87,9 +87,9 @@ public class BranchActionCreator extends GeneralAction {
             }
         }
 
-        if (branchCondition_stochasticExpression != null) {
+        if (branchConditionStochasticExpression != null) {
             final PCMRandomVariable rand = CoreFactory.eINSTANCE.createPCMRandomVariable();
-            rand.setSpecification(branchCondition_stochasticExpression);
+            rand.setSpecification(branchConditionStochasticExpression);
             branch.setBranchCondition_GuardedBranchTransition(rand);
         }
 
@@ -108,15 +108,15 @@ public class BranchActionCreator extends GeneralAction {
      * branch transition must be chosen.
      * </p>
      *
-     * @param branchCondition_stochasticExpression
+     * @param branchConditionStochasticExpression
      *            boolean expression, condition of the branch
      * @param branchActions
      *            nested resource demanding behaviour
      * @return this branch action in the making
      */
-    public BranchActionCreator withGuardedBranchTransition(final String branchCondition_stochasticExpression,
+    public BranchActionCreator withGuardedBranchTransition(final String branchConditionStochasticExpression,
             final SeffCreator branchActions) {
-        return this.withGuardedBranchTransition(branchCondition_stochasticExpression, branchActions, null);
+        return this.withGuardedBranchTransition(branchConditionStochasticExpression, branchActions, null);
     }
 
     /**
@@ -181,24 +181,24 @@ public class BranchActionCreator extends GeneralAction {
     }
 
     @Override
-    public BranchActionCreator withResourceDemand(final String specification_stochasticExpression,
+    public BranchActionCreator withResourceDemand(final String specificationStochasticExpression,
             final ProcessingResource processingResource) {
-        return (BranchActionCreator) super.withResourceDemand(specification_stochasticExpression, processingResource);
+        return (BranchActionCreator) super.withResourceDemand(specificationStochasticExpression, processingResource);
     }
 
     @Override
-    public BranchActionCreator withInfrastructureCall(final String numberOfCalls_stochasticExpression,
+    public BranchActionCreator withInfrastructureCall(final String numberOfCallsStochasticExpression,
             final InfrastructureSignature signature, final InfrastructureRequiredRole requiredRole,
             final VariableUsageCreator... variableUsages) {
-        return (BranchActionCreator) super.withInfrastructureCall(numberOfCalls_stochasticExpression, signature,
+        return (BranchActionCreator) super.withInfrastructureCall(numberOfCallsStochasticExpression, signature,
                 requiredRole, variableUsages);
     }
 
     @Override
-    public BranchActionCreator withResourceCall(final String numberOfCalls_stochasticExpression,
+    public BranchActionCreator withResourceCall(final String numberOfCallsStochasticExpression,
             final ResourceSignature signature, final ResourceRequiredRole requiredRole,
             final VariableUsageCreator... variableUsages) {
-        return (BranchActionCreator) super.withResourceCall(numberOfCalls_stochasticExpression, signature, requiredRole,
+        return (BranchActionCreator) super.withResourceCall(numberOfCallsStochasticExpression, signature, requiredRole,
                 variableUsages);
     }
 

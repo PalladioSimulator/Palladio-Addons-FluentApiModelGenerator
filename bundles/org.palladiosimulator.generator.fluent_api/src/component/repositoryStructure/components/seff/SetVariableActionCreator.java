@@ -51,25 +51,25 @@ public class SetVariableActionCreator extends GeneralAction {
     }
 
     @Override
-    public SetVariableActionCreator withResourceDemand(final String specification_stochasticExpression,
+    public SetVariableActionCreator withResourceDemand(final String specificationStochasticExpression,
             final ProcessingResource processingResource) {
-        return (SetVariableActionCreator) super.withResourceDemand(specification_stochasticExpression,
+        return (SetVariableActionCreator) super.withResourceDemand(specificationStochasticExpression,
                 processingResource);
     }
 
     @Override
-    public SetVariableActionCreator withInfrastructureCall(final String numberOfCalls_stochasticExpression,
+    public SetVariableActionCreator withInfrastructureCall(final String numberOfCallsStochasticExpression,
             final InfrastructureSignature signature, final InfrastructureRequiredRole requiredRole,
             final VariableUsageCreator... variableUsages) {
-        return (SetVariableActionCreator) super.withInfrastructureCall(numberOfCalls_stochasticExpression, signature,
+        return (SetVariableActionCreator) super.withInfrastructureCall(numberOfCallsStochasticExpression, signature,
                 requiredRole, variableUsages);
     }
 
     @Override
-    public SetVariableActionCreator withResourceCall(final String numberOfCalls_stochasticExpression,
+    public SetVariableActionCreator withResourceCall(final String numberOfCallsStochasticExpression,
             final ResourceSignature signature, final ResourceRequiredRole requiredRole,
             final VariableUsageCreator... variableUsages) {
-        return (SetVariableActionCreator) super.withResourceCall(numberOfCalls_stochasticExpression, signature,
+        return (SetVariableActionCreator) super.withResourceCall(numberOfCallsStochasticExpression, signature,
                 requiredRole, variableUsages);
     }
 

@@ -73,24 +73,24 @@ public class RecoveryActionCreator extends GeneralAction {
     }
 
     @Override
-    public RecoveryActionCreator withResourceDemand(final String specification_stochasticExpression,
+    public RecoveryActionCreator withResourceDemand(final String specificationStochasticExpression,
             final ProcessingResource processingResource) {
-        return (RecoveryActionCreator) super.withResourceDemand(specification_stochasticExpression, processingResource);
+        return (RecoveryActionCreator) super.withResourceDemand(specificationStochasticExpression, processingResource);
     }
 
     @Override
-    public RecoveryActionCreator withInfrastructureCall(final String numberOfCalls_stochasticExpression,
+    public RecoveryActionCreator withInfrastructureCall(final String numberOfCallsStochasticExpression,
             final InfrastructureSignature signature, final InfrastructureRequiredRole requiredRole,
             final VariableUsageCreator... variableUsages) {
-        return (RecoveryActionCreator) super.withInfrastructureCall(numberOfCalls_stochasticExpression, signature,
+        return (RecoveryActionCreator) super.withInfrastructureCall(numberOfCallsStochasticExpression, signature,
                 requiredRole, variableUsages);
     }
 
     @Override
-    public RecoveryActionCreator withResourceCall(final String numberOfCalls_stochasticExpression,
+    public RecoveryActionCreator withResourceCall(final String numberOfCallsStochasticExpression,
             final ResourceSignature signature, final ResourceRequiredRole requiredRole,
             final VariableUsageCreator... variableUsages) {
-        return (RecoveryActionCreator) super.withResourceCall(numberOfCalls_stochasticExpression, signature,
+        return (RecoveryActionCreator) super.withResourceCall(numberOfCallsStochasticExpression, signature,
                 requiredRole, variableUsages);
     }
 

@@ -45,13 +45,13 @@ public abstract class GeneralAction extends SeffAction {
      * ProcessingResourceSpecification (e.g., 5 GHz CPU, 20 MByte/s hard disk).
      * </p>
      *
-     * @param specification_stochasticExpression
+     * @param specificationStochasticExpression
      * @param processingResource
      * @return this action in the making
      */
-    public GeneralAction withResourceDemand(final String specification_stochasticExpression,
+    public GeneralAction withResourceDemand(final String specificationStochasticExpression,
             final ProcessingResource processingResource) {
-        Objects.requireNonNull(specification_stochasticExpression,
+        Objects.requireNonNull(specificationStochasticExpression,
                 "specification_stochasticExpression must not be null");
         Objects.requireNonNull(processingResource, "processingResource must not be null");
         final ParametricResourceDemand demand = SeffPerformanceFactory.eINSTANCE.createParametricResourceDemand();
@@ -61,7 +61,7 @@ public abstract class GeneralAction extends SeffAction {
         demand.setRequiredResource_ParametricResourceDemand(processingResourceType);
 
         final PCMRandomVariable rand = CoreFactory.eINSTANCE.createPCMRandomVariable();
-        rand.setSpecification(specification_stochasticExpression);
+        rand.setSpecification(specificationStochasticExpression);
         demand.setSpecification_ParametericResourceDemand(rand);
         this.demands.add(demand);
         return this;
@@ -71,16 +71,16 @@ public abstract class GeneralAction extends SeffAction {
      * Adds an {@link org.palladiosimulator.pcm.seff.seff_performance.InfrastructureCall
      * InfrastructureCall} to this action.
      *
-     * @param numberOfCalls_stochasticExpression
+     * @param numberOfCallsStochasticExpression
      * @param signature
      * @param requiredRole
      * @param variableUsages
      * @return this action in the making
      */
-    public GeneralAction withInfrastructureCall(final String numberOfCalls_stochasticExpression,
+    public GeneralAction withInfrastructureCall(final String numberOfCallsStochasticExpression,
             final InfrastructureSignature signature, final InfrastructureRequiredRole requiredRole,
             final VariableUsageCreator... variableUsages) {
-        Objects.requireNonNull(numberOfCalls_stochasticExpression,
+        Objects.requireNonNull(numberOfCallsStochasticExpression,
                 "numberOfCalls_stochasticExpression must not be null");
         Objects.requireNonNull(signature, "signature must not be null");
         Objects.requireNonNull(requiredRole, "requiredRole must not be null");
@@ -92,9 +92,9 @@ public abstract class GeneralAction extends SeffAction {
 
         final InfrastructureCall call = SeffPerformanceFactory.eINSTANCE.createInfrastructureCall();
 
-        if (numberOfCalls_stochasticExpression != null) {
+        if (numberOfCallsStochasticExpression != null) {
             final PCMRandomVariable rand = CoreFactory.eINSTANCE.createPCMRandomVariable();
-            rand.setSpecification(numberOfCalls_stochasticExpression);
+            rand.setSpecification(numberOfCallsStochasticExpression);
             call.setNumberOfCalls__InfrastructureCall(rand);
         }
         if (requiredRole != null) {
@@ -119,17 +119,17 @@ public abstract class GeneralAction extends SeffAction {
      * Adds a {@link org.palladiosimulator.pcm.seff.seff_performance.ResourceCall ResourceCall} to
      * this action.
      *
-     * @param numberOfCalls_stochasticExpression
+     * @param numberOfCallsStochasticExpression
      * @param signature
      * @param requiredRole
      * @param variableUsages
      * @return this action in the making
      */
-    public GeneralAction withResourceCall(final String numberOfCalls_stochasticExpression,
+    public GeneralAction withResourceCall(final String numberOfCallsStochasticExpression,
             final ResourceSignature signature, final ResourceRequiredRole requiredRole,
             final VariableUsageCreator... variableUsages) {
 
-        Objects.requireNonNull(numberOfCalls_stochasticExpression,
+        Objects.requireNonNull(numberOfCallsStochasticExpression,
                 "numberOfCalls_stochasticExpression must not be null");
         Objects.requireNonNull(signature, "signature must not be null");
         Objects.requireNonNull(requiredRole, "requiredRole must not be null");
@@ -142,7 +142,7 @@ public abstract class GeneralAction extends SeffAction {
         final ResourceCall call = SeffPerformanceFactory.eINSTANCE.createResourceCall();
 
         final PCMRandomVariable rand = CoreFactory.eINSTANCE.createPCMRandomVariable();
-        rand.setSpecification(numberOfCalls_stochasticExpression);
+        rand.setSpecification(numberOfCallsStochasticExpression);
         call.setNumberOfCalls__ResourceCall(rand);
 
         final org.palladiosimulator.pcm.resourcetype.ResourceSignature resourceSignature = this.repository

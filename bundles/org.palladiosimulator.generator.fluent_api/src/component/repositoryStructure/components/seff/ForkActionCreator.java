@@ -89,24 +89,24 @@ public class ForkActionCreator extends GeneralAction {
     }
 
     @Override
-    public ForkActionCreator withResourceDemand(final String specification_stochasticExpression,
+    public ForkActionCreator withResourceDemand(final String specificationStochasticExpression,
             final ProcessingResource processingResource) {
-        return (ForkActionCreator) super.withResourceDemand(specification_stochasticExpression, processingResource);
+        return (ForkActionCreator) super.withResourceDemand(specificationStochasticExpression, processingResource);
     }
 
     @Override
-    public ForkActionCreator withInfrastructureCall(final String numberOfCalls_stochasticExpression,
+    public ForkActionCreator withInfrastructureCall(final String numberOfCallsStochasticExpression,
             final InfrastructureSignature signature, final InfrastructureRequiredRole requiredRole,
             final VariableUsageCreator... variableUsages) {
-        return (ForkActionCreator) super.withInfrastructureCall(numberOfCalls_stochasticExpression, signature,
+        return (ForkActionCreator) super.withInfrastructureCall(numberOfCallsStochasticExpression, signature,
                 requiredRole, variableUsages);
     }
 
     @Override
-    public ForkActionCreator withResourceCall(final String numberOfCalls_stochasticExpression,
+    public ForkActionCreator withResourceCall(final String numberOfCallsStochasticExpression,
             final ResourceSignature signature, final ResourceRequiredRole requiredRole,
             final VariableUsageCreator... variableUsages) {
-        return (ForkActionCreator) super.withResourceCall(numberOfCalls_stochasticExpression, signature, requiredRole,
+        return (ForkActionCreator) super.withResourceCall(numberOfCallsStochasticExpression, signature, requiredRole,
                 variableUsages);
     }
 

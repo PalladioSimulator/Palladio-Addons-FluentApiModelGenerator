@@ -66,25 +66,25 @@ public class CollectionIteratorActionCreator extends GeneralAction {
     }
 
     @Override
-    public CollectionIteratorActionCreator withResourceDemand(final String specification_stochasticExpression,
+    public CollectionIteratorActionCreator withResourceDemand(final String specificationStochasticExpression,
             final ProcessingResource processingResource) {
-        return (CollectionIteratorActionCreator) super.withResourceDemand(specification_stochasticExpression,
+        return (CollectionIteratorActionCreator) super.withResourceDemand(specificationStochasticExpression,
                 processingResource);
     }
 
     @Override
-    public CollectionIteratorActionCreator withInfrastructureCall(final String numberOfCalls_stochasticExpression,
+    public CollectionIteratorActionCreator withInfrastructureCall(final String numberOfCallsStochasticExpression,
             final InfrastructureSignature signature, final InfrastructureRequiredRole requiredRole,
             final VariableUsageCreator... variableUsages) {
-        return (CollectionIteratorActionCreator) super.withInfrastructureCall(numberOfCalls_stochasticExpression,
+        return (CollectionIteratorActionCreator) super.withInfrastructureCall(numberOfCallsStochasticExpression,
                 signature, requiredRole, variableUsages);
     }
 
     @Override
-    public CollectionIteratorActionCreator withResourceCall(final String numberOfCalls_stochasticExpression,
+    public CollectionIteratorActionCreator withResourceCall(final String numberOfCallsStochasticExpression,
             final ResourceSignature signature, final ResourceRequiredRole requiredRole,
             final VariableUsageCreator... variableUsages) {
-        return (CollectionIteratorActionCreator) super.withResourceCall(numberOfCalls_stochasticExpression, signature,
+        return (CollectionIteratorActionCreator) super.withResourceCall(numberOfCallsStochasticExpression, signature,
                 requiredRole, variableUsages);
     }
 
@@ -105,7 +105,6 @@ public class CollectionIteratorActionCreator extends GeneralAction {
             } else {
                 action.setBodyBehaviour_Loop(build);
             }
-            ;
         }
 
         action.getInfrastructureCall__Action()

@@ -1364,7 +1364,7 @@ public class FluentRepositoryFactory {
     }
 
     /**
-     * Extracts the operation provided role referenced by <codrequired roleom the repository. If the
+     * Extracts the operation provided role referenced by <code>name</code> from the repository. If the
      * entity belongs to an imported repository, refer to it as
      * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>

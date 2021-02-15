@@ -224,7 +224,7 @@ public class SystemCreator extends SystemEntity implements ISystem {
         return this.resources.getResourceInterfaces__ResourceRepository()
             .stream()
             .filter(x -> x.getEntityName()
-                .equals(resource.resourceName))
+                .equals(resource.getResourceName()))
             .findFirst()
             .get();
     }

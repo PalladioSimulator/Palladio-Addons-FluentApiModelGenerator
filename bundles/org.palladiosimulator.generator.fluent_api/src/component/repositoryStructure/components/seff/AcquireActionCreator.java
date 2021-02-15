@@ -78,24 +78,24 @@ public class AcquireActionCreator extends GeneralAction {
     }
 
     @Override
-    public AcquireActionCreator withResourceDemand(final String specification_stochasticExpression,
+    public AcquireActionCreator withResourceDemand(final String specificationStochasticExpression,
             final ProcessingResource processingResource) {
-        return (AcquireActionCreator) super.withResourceDemand(specification_stochasticExpression, processingResource);
+        return (AcquireActionCreator) super.withResourceDemand(specificationStochasticExpression, processingResource);
     }
 
     @Override
-    public AcquireActionCreator withInfrastructureCall(final String numberOfCalls_stochasticExpression,
+    public AcquireActionCreator withInfrastructureCall(final String numberOfCallsStochasticExpression,
             final InfrastructureSignature signature, final InfrastructureRequiredRole requiredRole,
             final VariableUsageCreator... variableUsages) {
-        return (AcquireActionCreator) super.withInfrastructureCall(numberOfCalls_stochasticExpression, signature,
+        return (AcquireActionCreator) super.withInfrastructureCall(numberOfCallsStochasticExpression, signature,
                 requiredRole, variableUsages);
     }
 
     @Override
-    public AcquireActionCreator withResourceCall(final String numberOfCalls_stochasticExpression,
+    public AcquireActionCreator withResourceCall(final String numberOfCallsStochasticExpression,
             final ResourceSignature signature, final ResourceRequiredRole requiredRole,
             final VariableUsageCreator... variableUsages) {
-        return (AcquireActionCreator) super.withResourceCall(numberOfCalls_stochasticExpression, signature,
+        return (AcquireActionCreator) super.withResourceCall(numberOfCallsStochasticExpression, signature,
                 requiredRole, variableUsages);
     }
 

@@ -11,7 +11,7 @@ import system.structure.connector.AbstractConnectorCreator;
 
 public class EventChannelSourceConnectorCreator extends AbstractConnectorCreator {
     private EventChannel eventChannel;
-    private AssemblyContext context;
+    private AssemblyContext assemblyContext;
     private SourceRole role;
 
     public EventChannelSourceConnectorCreator(final SystemCreator systemCreator) {
@@ -40,7 +40,7 @@ public class EventChannelSourceConnectorCreator extends AbstractConnectorCreator
             @Override
             public EventChannelSourceConnectorCreator combineContextAndSourceRole(final AssemblyContext context,
                     final SourceRole role) {
-                creator.context = context;
+                creator.assemblyContext = context;
                 creator.role = role;
                 return creator;
             }
@@ -64,7 +64,7 @@ public class EventChannelSourceConnectorCreator extends AbstractConnectorCreator
             connector.setEntityName(this.name);
         }
         connector.setEventChannel__EventChannelSourceConnector(this.eventChannel);
-        connector.setAssemblyContext__EventChannelSourceConnector(this.context);
+        connector.setAssemblyContext__EventChannelSourceConnector(this.assemblyContext);
         connector.setSourceRole__EventChannelSourceRole(this.role);
         return connector;
     }

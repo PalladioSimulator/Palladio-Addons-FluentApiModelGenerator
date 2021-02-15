@@ -279,7 +279,7 @@ public class BasicComponentCreator extends Component {
      * represents a timeout&nbsp;failure of an acquiring action for this passive resource.
      * </p>
      *
-     * @param capacity_stochasticExpression
+     * @param capacityStochasticExpression
      *            stochastic expression as a string
      * @param failureType
      *            a resource timeout failure
@@ -290,13 +290,13 @@ public class BasicComponentCreator extends Component {
      * @see org.palladiosimulator.pcm.core.PCMRandomVariable
      * @see org.palladiosimulator.pcm.reliability.ResourceTimeoutFailureType
      */
-    public BasicComponentCreator withPassiveResource(final String capacity_stochasticExpression,
+    public BasicComponentCreator withPassiveResource(final String capacityStochasticExpression,
             final ResourceTimeoutFailureType failureType, final String name) {
-        Objects.requireNonNull(capacity_stochasticExpression, "capacity_stochasticExpression must not be null");
+        Objects.requireNonNull(capacityStochasticExpression, "capacity_stochasticExpression must not be null");
         Objects.requireNonNull(failureType, "failureType must not be null");
 
         final PCMRandomVariable randVar = CoreFactory.eINSTANCE.createPCMRandomVariable();
-        randVar.setSpecification(capacity_stochasticExpression);
+        randVar.setSpecification(capacityStochasticExpression);
 
         final PassiveResource pass = RepositoryFactory.eINSTANCE.createPassiveResource();
         pass.setCapacity_PassiveResource(randVar);
@@ -316,7 +316,7 @@ public class BasicComponentCreator extends Component {
      * represents a timeout&nbsp;failure of an acquiring action for this passive resource.
      * </p>
      *
-     * @param capacity_stochasticExpression
+     * @param capacityStochasticExpression
      *            stochastic expression as a string
      * @param failureType
      *            a resource timeout failure
@@ -325,9 +325,9 @@ public class BasicComponentCreator extends Component {
      * @see org.palladiosimulator.pcm.core.PCMRandomVariable
      * @see org.palladiosimulator.pcm.reliability.ResourceTimeoutFailureType
      */
-    public BasicComponentCreator withPassiveResource(final String capacity_stochasticExpression,
+    public BasicComponentCreator withPassiveResource(final String capacityStochasticExpression,
             final ResourceTimeoutFailureType failureType) {
-        return this.withPassiveResource(capacity_stochasticExpression, failureType, null);
+        return this.withPassiveResource(capacityStochasticExpression, failureType, null);
     }
 
     /**

@@ -234,17 +234,17 @@ public class SubSystemCreator extends ComplexComponent {
     @Override
     public SubSystemCreator withAssemblyEventConnection(final SinkRole sinkRole,
             final AssemblyContext sinkAssemblyContext, final SourceRole sourceRole,
-            final AssemblyContext sourceAssemblyContext, final String filterCondition_stochasticExpression) {
+            final AssemblyContext sourceAssemblyContext, final String filterConditionStochasticExpression) {
         return (SubSystemCreator) super.withAssemblyEventConnection(sinkRole, sinkAssemblyContext, sourceRole,
-                sourceAssemblyContext, filterCondition_stochasticExpression);
+                sourceAssemblyContext, filterConditionStochasticExpression);
     }
 
     @Override
     public SubSystemCreator withEventChannelSinkConnection(final AssemblyContext assemblyContext,
             final EventChannel eventChannel, final SinkRole sinkRole,
-            final String filterCondition_stochasticExpression) {
+            final String filterConditionStochasticExpression) {
         return (SubSystemCreator) super.withEventChannelSinkConnection(assemblyContext, eventChannel, sinkRole,
-                filterCondition_stochasticExpression);
+                filterConditionStochasticExpression);
     }
 
     @Override
