@@ -1,5 +1,7 @@
 package system.structure.connector.infrastructureDelegationConnector;
 
+import java.util.NoSuchElementException;
+
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.composition.CompositionFactory;
 import org.palladiosimulator.pcm.core.composition.RequiredInfrastructureDelegationConnector;
@@ -23,13 +25,9 @@ public class RequiredInfrastructureDelegationConnectorCreator extends AbstractCo
         return this;
     }
 
-    public RequiredInfrastructureDelegationConnectorCreator withOuterRequiredRole(final String name) {
-        final InfrastructureRequiredRole role = this.system.getSystemInfrastructureRequiredRoles()
-            .stream()
-            .filter(x -> x.getEntityName()
-                .equals(name))
-            .findFirst()
-            .get();
+    public RequiredInfrastructureDelegationConnectorCreator withOuterRequiredRole(final String name)
+            throws NoSuchElementException {
+        final InfrastructureRequiredRole role = this.system.getSystemInfrastructureRequiredRoleByName(name);
         return this.withOuterRequiredRole(role);
     }
 
@@ -48,12 +46,7 @@ public class RequiredInfrastructureDelegationConnectorCreator extends AbstractCo
     }
 
     public InfrastructureRequiredRoleSelector withRequiringContext(final String name) {
-        final AssemblyContext context = this.system.getAssemblyContexts()
-            .stream()
-            .filter(x -> x.getEntityName()
-                .equals(name))
-            .findFirst()
-            .get();
+        final AssemblyContext context = this.system.getAssemblyContextByName(name);
         return this.withRequiringContext(context);
     }
 

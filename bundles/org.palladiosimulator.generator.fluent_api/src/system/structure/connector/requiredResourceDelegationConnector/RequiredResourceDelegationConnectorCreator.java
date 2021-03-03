@@ -1,5 +1,8 @@
 package system.structure.connector.requiredResourceDelegationConnector;
 
+import java.util.NoSuchElementException;
+import java.util.Objects;
+
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.composition.CompositionFactory;
 import org.palladiosimulator.pcm.core.composition.RequiredResourceDelegationConnector;
@@ -18,21 +21,19 @@ public class RequiredResourceDelegationConnectorCreator extends AbstractConnecto
     }
 
     public RequiredResourceDelegationConnectorCreator withOuterRequiredRole(final ResourceRequiredRole role) {
+        Objects.requireNonNull(role, "The given Role must not be null.");
         this.outerRequiredRole = role;
         return this;
     }
 
-    public RequiredResourceDelegationConnectorCreator withOuterRequiredRole(final String name) {
-        final ResourceRequiredRole role = this.system.getSystemResourceRequiredRoles()
-            .stream()
-            .filter(x -> x.getEntityName()
-                .equals(name))
-            .findFirst()
-            .get();
+    public RequiredResourceDelegationConnectorCreator withOuterRequiredRole(final String name)
+            throws NoSuchElementException {
+        final ResourceRequiredRole role = this.system.getSystemResourceRequiredRoleByName(name);
         return this.withOuterRequiredRole(role);
     }
 
     public ResourceRequiredRoleSelector withRequiringContext(final AssemblyContext context) {
+        Objects.requireNonNull(context, "The given AssemblyContext must not be null.");
         final RequiredResourceDelegationConnectorCreator creator = this;
         return new ResourceRequiredRoleSelector(new IContextRequiredRoleCombinator() {
 
@@ -47,12 +48,7 @@ public class RequiredResourceDelegationConnectorCreator extends AbstractConnecto
     }
 
     public ResourceRequiredRoleSelector withRequiringContext(final String name) {
-        final AssemblyContext context = this.system.getAssemblyContexts()
-            .stream()
-            .filter(x -> x.getEntityName()
-                .equals(name))
-            .findFirst()
-            .get();
+        final AssemblyContext context = this.system.getAssemblyContextByName(name);
         return this.withRequiringContext(context);
     }
 

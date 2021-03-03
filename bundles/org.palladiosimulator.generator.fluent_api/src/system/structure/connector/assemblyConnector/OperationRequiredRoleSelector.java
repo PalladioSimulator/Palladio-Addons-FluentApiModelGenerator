@@ -1,5 +1,7 @@
 package system.structure.connector.assemblyConnector;
 
+import java.util.Objects;
+
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.repository.OperationRequiredRole;
 
@@ -14,6 +16,7 @@ public class OperationRequiredRoleSelector {
     }
 
     public AssemblyConnectorCreator withOperationRequiredRole(final OperationRequiredRole role) {
+        Objects.requireNonNull(role, "The given Role must not be null.");
         return this.combinator.combineContextAndRequiredRole(this.context, role);
     }
 

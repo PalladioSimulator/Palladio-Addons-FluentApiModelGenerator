@@ -1,5 +1,8 @@
 package system.structure.connector.resourceRequiredDelegationConnector;
 
+import java.util.NoSuchElementException;
+import java.util.Objects;
+
 import org.palladiosimulator.pcm.core.composition.CompositionFactory;
 import org.palladiosimulator.pcm.core.composition.ResourceRequiredDelegationConnector;
 import org.palladiosimulator.pcm.core.entity.ResourceRequiredRole;
@@ -17,35 +20,25 @@ public class ResourceRequiredDelegationConnectorCreator {
     }
 
     public ResourceRequiredDelegationConnectorCreator withOuterRequiredRole(final ResourceRequiredRole role) {
+        Objects.requireNonNull(role, "The given Role must not be null.");
         this.outerRequiredRole = role;
         return this;
     }
 
-    public ResourceRequiredDelegationConnectorCreator withOuterRequiredRole(final String name) {
-        final ResourceRequiredRole role = this.system.getSystemResourceRequiredRoles()
-            .stream()
-            .filter(x -> x.getEntityName()
-                .equals(name))
-            .findFirst()
-            .get();
+    public ResourceRequiredDelegationConnectorCreator withOuterRequiredRole(final String name)
+            throws NoSuchElementException {
+        final ResourceRequiredRole role = this.system.getSystemResourceRequiredRoleByName(name);
         return this.withOuterRequiredRole(role);
     }
 
     public ResourceRequiredDelegationConnectorCreator withInnerRequiredRole(final ResourceRequiredRole role) {
+        Objects.requireNonNull(role, "The given Role must not be null.");
         this.innerRequiredRole = role;
         return this;
     }
 
     public ResourceRequiredDelegationConnectorCreator withInnerRequiredRole(final String name) {
-        final ResourceRequiredRole role = this.system.getAssemblyContexts()
-            .stream()
-            .flatMap(x -> x.getEncapsulatedComponent__AssemblyContext()
-                .getResourceRequiredRoles__ResourceInterfaceRequiringEntity()
-                .stream())
-            .filter(x -> x.getEntityName()
-                .equals(name))
-            .findFirst()
-            .get();
+        final ResourceRequiredRole role = this.system.getResourceRequiredRoleByName(name);
         return this.withInnerRequiredRole(role);
     }
 

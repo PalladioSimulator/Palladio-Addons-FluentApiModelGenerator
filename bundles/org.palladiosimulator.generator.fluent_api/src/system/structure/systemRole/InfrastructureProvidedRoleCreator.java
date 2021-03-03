@@ -1,5 +1,8 @@
 package system.structure.systemRole;
 
+import java.util.NoSuchElementException;
+import java.util.Objects;
+
 import org.palladiosimulator.pcm.repository.InfrastructureInterface;
 import org.palladiosimulator.pcm.repository.InfrastructureProvidedRole;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
@@ -17,19 +20,20 @@ public class InfrastructureProvidedRoleCreator extends SystemEntity {
 
     public InfrastructureProvidedRoleCreator withProvidedInterface(
             final InfrastructureInterface infrastructureInterface) {
+        Objects.requireNonNull(infrastructureInterface, "The given Interface must not be null.");
         this.providedInterface = infrastructureInterface;
         return this;
     }
 
-    public InfrastructureProvidedRoleCreator withProvidedInterface(final String name) {
-        final InfrastructureInterface requiredInterface = (InfrastructureInterface) this.system.getRepositories()
-            .stream()
-            .flatMap(x -> x.getInterfaces__Repository()
-                .stream())
-            .filter(i -> i.getEntityName()
-                .equals(name))
-            .findFirst()
-            .get();
+    public InfrastructureProvidedRoleCreator withProvidedInterface(final String name) throws NoSuchElementException {
+        InfrastructureInterface requiredInterface;
+        try {
+            requiredInterface = (InfrastructureInterface) this.system.getInterfaceByName(name);
+        } catch (ClassCastException e) {
+            throw new NoSuchElementException(
+                    String.format("An Interface with name '%s' was found, but it was not an InfrastructureInterface. "
+                            + "Please make sure all names are unique.", name));
+        }
         return this.withProvidedInterface(requiredInterface);
     }
 

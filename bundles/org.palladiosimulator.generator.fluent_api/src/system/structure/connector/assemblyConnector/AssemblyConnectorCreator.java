@@ -1,5 +1,8 @@
 package system.structure.connector.assemblyConnector;
 
+import java.util.NoSuchElementException;
+import java.util.Objects;
+
 import org.palladiosimulator.pcm.core.composition.AssemblyConnector;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.composition.CompositionFactory;
@@ -21,6 +24,7 @@ public class AssemblyConnectorCreator extends AbstractConnectorCreator {
     }
 
     public OperationRequiredRoleSelector withRequiringAssemblyContext(final AssemblyContext context) {
+        Objects.requireNonNull(context, "The given AssemblyContext must not be null.");
         final AssemblyConnectorCreator creator = this;
         return new OperationRequiredRoleSelector(new IContextRequiredRoleCombinator() {
 
@@ -34,17 +38,13 @@ public class AssemblyConnectorCreator extends AbstractConnectorCreator {
         }, context);
     }
 
-    public OperationRequiredRoleSelector withRequiringAssemblyContext(final String name) {
-        final AssemblyContext context = this.system.getAssemblyContexts()
-            .stream()
-            .filter(x -> x.getEntityName()
-                .equals(name))
-            .findFirst()
-            .get();
+    public OperationRequiredRoleSelector withRequiringAssemblyContext(final String name) throws NoSuchElementException {
+        final AssemblyContext context = this.system.getAssemblyContextByName(name);
         return this.withRequiringAssemblyContext(context);
     }
 
     public OperationProvidedRoleSelector withProvidingAssemblyContext(final AssemblyContext context) {
+        Objects.requireNonNull(context, "The given AssemblyContext must not be null.");
         final AssemblyConnectorCreator creator = this;
         return new OperationProvidedRoleSelector(new IContextProvidedRoleCombinator() {
 
@@ -59,12 +59,7 @@ public class AssemblyConnectorCreator extends AbstractConnectorCreator {
     }
 
     public OperationProvidedRoleSelector withProvidingAssemblyContext(final String name) {
-        final AssemblyContext context = this.system.getAssemblyContexts()
-            .stream()
-            .filter(x -> x.getEntityName()
-                .equals(name))
-            .findFirst()
-            .get();
+        final AssemblyContext context = this.system.getAssemblyContextByName(name);
         return this.withProvidingAssemblyContext(context);
     }
 

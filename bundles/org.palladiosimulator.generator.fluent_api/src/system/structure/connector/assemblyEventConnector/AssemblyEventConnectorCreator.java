@@ -1,5 +1,7 @@
 package system.structure.connector.assemblyEventConnector;
 
+import java.util.Objects;
+
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.composition.AssemblyEventConnector;
 import org.palladiosimulator.pcm.core.composition.CompositionFactory;
@@ -21,6 +23,7 @@ public class AssemblyEventConnectorCreator extends AbstractConnectorCreator {
     }
 
     public SourceRoleSelector withSourceAssemblyContext(final AssemblyContext context) {
+        Objects.requireNonNull(context, "The given AssemblyContext must not be null.");
         final var creator = this;
         return new SourceRoleSelector(new IContextSourceRoleCombinator() {
 
@@ -35,16 +38,12 @@ public class AssemblyEventConnectorCreator extends AbstractConnectorCreator {
     }
 
     public SourceRoleSelector withSourceAssemblyContext(final String name) {
-        final var context = this.system.getAssemblyContexts()
-            .stream()
-            .filter(x -> x.getEntityName()
-                .equals(name))
-            .findFirst()
-            .get();
+        final var context = this.system.getAssemblyContextByName(name);
         return this.withSourceAssemblyContext(context);
     }
 
     public SinkRoleSelector withSinkAssemblyContext(final AssemblyContext context) {
+        Objects.requireNonNull(context, "The given AssemblyContext must not be null.");
         final var creator = this;
         return new SinkRoleSelector(new IContextSinkRoleCombinator() {
 
@@ -59,12 +58,7 @@ public class AssemblyEventConnectorCreator extends AbstractConnectorCreator {
     }
 
     public SinkRoleSelector withSinkAssemblyContext(final String name) {
-        final var context = this.system.getAssemblyContexts()
-            .stream()
-            .filter(x -> x.getEntityName()
-                .equals(name))
-            .findFirst()
-            .get();
+        final var context = this.system.getAssemblyContextByName(name);
         return this.withSinkAssemblyContext(context);
     }
 

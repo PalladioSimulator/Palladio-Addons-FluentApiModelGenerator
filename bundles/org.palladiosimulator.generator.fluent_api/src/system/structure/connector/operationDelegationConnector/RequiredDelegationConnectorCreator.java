@@ -1,5 +1,8 @@
 package system.structure.connector.operationDelegationConnector;
 
+import java.util.NoSuchElementException;
+import java.util.Objects;
+
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.composition.CompositionFactory;
 import org.palladiosimulator.pcm.core.composition.RequiredDelegationConnector;
@@ -18,21 +21,18 @@ public class RequiredDelegationConnectorCreator extends AbstractConnectorCreator
     }
 
     public RequiredDelegationConnectorCreator withOuterRequiredRole(final OperationRequiredRole role) {
+        Objects.requireNonNull(role, "The given Role must not be null.");
         this.outerRequiredRole = role;
         return this;
     }
 
-    public RequiredDelegationConnectorCreator withOuterRequiredRole(final String name) {
-        final OperationRequiredRole role = this.system.getSystemOperationRequiredRoles()
-            .stream()
-            .filter(x -> x.getEntityName()
-                .equals(name))
-            .findFirst()
-            .get();
+    public RequiredDelegationConnectorCreator withOuterRequiredRole(final String name) throws NoSuchElementException {
+        final OperationRequiredRole role = this.system.getSystemOperationRequiredRoleByName(name);
         return this.withOuterRequiredRole(role);
     }
 
     public OperationRequiredRoleSelector withRequiringContext(final AssemblyContext context) {
+        Objects.requireNonNull(context, "The given AssemblyContext must not be null.");
         final RequiredDelegationConnectorCreator creator = this;
         return new OperationRequiredRoleSelector(new IContextRequiredRoleCombinator() {
 
@@ -47,12 +47,7 @@ public class RequiredDelegationConnectorCreator extends AbstractConnectorCreator
     }
 
     public OperationRequiredRoleSelector withRequiringContext(final String name) {
-        final AssemblyContext context = this.system.getAssemblyContexts()
-            .stream()
-            .filter(x -> x.getEntityName()
-                .equals(name))
-            .findFirst()
-            .get();
+        final AssemblyContext context = this.system.getAssemblyContextByName(name);
         return this.withRequiringContext(context);
     }
 

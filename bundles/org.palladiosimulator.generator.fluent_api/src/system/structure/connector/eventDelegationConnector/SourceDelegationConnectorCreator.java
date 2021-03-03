@@ -1,5 +1,8 @@
 package system.structure.connector.eventDelegationConnector;
 
+import java.util.NoSuchElementException;
+import java.util.Objects;
+
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.composition.CompositionFactory;
 import org.palladiosimulator.pcm.core.composition.SourceDelegationConnector;
@@ -18,21 +21,18 @@ public class SourceDelegationConnectorCreator extends AbstractConnectorCreator {
     }
 
     public SourceDelegationConnectorCreator withOuterSourceRole(final SourceRole role) {
+        Objects.requireNonNull(role, "The given Role must not be null.");
         this.outerRole = role;
         return this;
     }
 
-    public SourceDelegationConnectorCreator withOuterSourceRole(final String name) {
-        final SourceRole role = this.system.getSystemSourceRoles()
-            .stream()
-            .filter(x -> x.getEntityName()
-                .equals(name))
-            .findFirst()
-            .get();
+    public SourceDelegationConnectorCreator withOuterSourceRole(final String name) throws NoSuchElementException {
+        final SourceRole role = this.system.getSystemSourceRoleByName(name);
         return this.withOuterSourceRole(role);
     }
 
     public SourceRoleSelector withAssemblyContext(final AssemblyContext context) {
+        Objects.requireNonNull(context, "The given AssemblyContext must not be null.");
         final SourceDelegationConnectorCreator creator = this;
         return new SourceRoleSelector(new IContextSourceRoleCombinator() {
 
@@ -47,12 +47,7 @@ public class SourceDelegationConnectorCreator extends AbstractConnectorCreator {
     }
 
     public SourceRoleSelector withAssemblyContext(final String name) {
-        final AssemblyContext context = this.system.getAssemblyContexts()
-            .stream()
-            .filter(x -> x.getEntityName()
-                .equals(name))
-            .findFirst()
-            .get();
+        final AssemblyContext context = this.system.getAssemblyContextByName(name);
         return this.withAssemblyContext(context);
     }
 

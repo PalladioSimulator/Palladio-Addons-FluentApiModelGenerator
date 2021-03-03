@@ -2,6 +2,8 @@ package system.structure;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Objects;
 
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.composition.Connector;
@@ -11,9 +13,11 @@ import org.palladiosimulator.pcm.core.entity.ResourceRequiredRole;
 import org.palladiosimulator.pcm.qosannotations.QoSAnnotations;
 import org.palladiosimulator.pcm.repository.InfrastructureProvidedRole;
 import org.palladiosimulator.pcm.repository.InfrastructureRequiredRole;
+import org.palladiosimulator.pcm.repository.Interface;
 import org.palladiosimulator.pcm.repository.OperationProvidedRole;
 import org.palladiosimulator.pcm.repository.OperationRequiredRole;
 import org.palladiosimulator.pcm.repository.Repository;
+import org.palladiosimulator.pcm.repository.RepositoryComponent;
 import org.palladiosimulator.pcm.repository.SinkRole;
 import org.palladiosimulator.pcm.repository.SourceRole;
 import org.palladiosimulator.pcm.resourcetype.ResourceInterface;
@@ -69,7 +73,7 @@ public class SystemCreator extends SystemEntity implements ISystem {
             system.setEntityName(this.name);
         }
         system.getAssemblyContexts__ComposedStructure()
-            .addAll(this.getAssemblyContexts());
+            .addAll(this.assemblyContexts);
         system.getConnectors__ComposedStructure()
             .addAll(this.connectors);
         system.getRequiredRoles_InterfaceRequiringEntity()
@@ -104,123 +108,212 @@ public class SystemCreator extends SystemEntity implements ISystem {
 
     @Override
     public ISystemAddition addToSystem(final AssemblyContextCreator context) {
+        Objects.requireNonNull(context, "The given AssemblyContext must not be null.");
         this.assemblyContexts.add(context.build());
         return this;
     }
 
     @Override
     public ISystem withRepository(final Repository repository) {
+        Objects.requireNonNull(repository, "The given Repository must not be null.");
         this.repositories.add(repository);
         return this;
     }
 
     @Override
     public ISystemAddition addToSystem(final AbstractConnectorCreator connector) {
+        Objects.requireNonNull(connector, "The given Connector must not be null.");
         this.connectors.add(connector.build());
         return this;
     }
 
     @Override
     public ISystemAddition addToSystem(final OperationRequiredRoleCreator role) {
+        Objects.requireNonNull(role, "The given Role must not be null.");
         this.systemOperationRequiredRoles.add(role.build());
         return this;
     }
 
     @Override
     public ISystemAddition addToSystem(final OperationProvidedRoleCreator role) {
+        Objects.requireNonNull(role, "The given Role must not be null.");
         this.systemOperationProvidedRoles.add(role.build());
         return this;
     }
 
     @Override
     public ISystemAddition addToSystem(final EventChannelCreator eventChannel) {
+        Objects.requireNonNull(eventChannel, "The given EventChannel must not be null.");
         this.eventChannels.add(eventChannel.build());
         return this;
     }
 
     @Override
     public ISystemAddition addToSystem(final SinkRoleCreator role) {
+        Objects.requireNonNull(role, "The given Role must not be null.");
         this.systemSinkRoles.add(role.build());
         return this;
     }
 
     @Override
     public ISystemAddition addToSystem(final SourceRoleCreator role) {
+        Objects.requireNonNull(role, "The given Role must not be null.");
         this.systemSourceRoles.add(role.build());
         return this;
     }
 
     @Override
     public ISystemAddition addToSystem(final InfrastructureRequiredRoleCreator role) {
+        Objects.requireNonNull(role, "The given Role must not be null.");
         this.systemInfrastructureRequiredRoles.add(role.build());
         return this;
     }
 
     @Override
     public ISystemAddition addToSystem(final InfrastructureProvidedRoleCreator role) {
+        Objects.requireNonNull(role, "The given Role must not be null.");
         this.systemInfrastructureProvidedRoles.add(role.build());
         return this;
     }
 
     @Override
     public ISystemAddition addToSystem(final QoSAnnotationsCreator annotations) {
+        Objects.requireNonNull(annotations, "The given QoSAnnotations must not be null.");
         this.qoSAnnotations.add(annotations.build());
         return this;
     }
 
     @Override
     public ISystemAddition addToSystem(final ResourceRequiredRoleCreator role) {
+        Objects.requireNonNull(role, "The given Role must not be null.");
         this.systemResourceRequiredRoles.add(role.build());
         return this;
     }
 
     @Override
     public ISystemAddition addToSystem(final ResourceRequiredDelegationConnectorCreator connector) {
+        Objects.requireNonNull(connector, "The given Connector must not be null.");
         this.resourceConnectors.add(connector.build());
         return this;
     }
 
-    public List<Repository> getRepositories() {
-        return this.repositories;
+    public Interface getInterfaceByName(String name) throws NoSuchElementException {
+        return this.repositories.stream()
+            .flatMap(x -> x.getInterfaces__Repository()
+                .stream())
+            .filter(i -> i.getEntityName()
+                .equals(name))
+            .findFirst()
+            .orElseThrow(
+                    () -> new NoSuchElementException(String.format("No Interface with name '%s' was found.", name)));
     }
 
-    public List<AssemblyContext> getAssemblyContexts() {
-        return this.assemblyContexts;
+    public RepositoryComponent getRepositoryComponentByName(String name) throws NoSuchElementException {
+        return this.repositories.stream()
+            .flatMap(x -> x.getComponents__Repository()
+                .stream())
+            .filter(x -> x.getEntityName()
+                .equals(name))
+            .findFirst()
+            .orElseThrow(() -> new NoSuchElementException(
+                    String.format("No RepositoryComponent with name '%s' found.", name)));
     }
 
-    public List<OperationRequiredRole> getSystemOperationRequiredRoles() {
-        return this.systemOperationRequiredRoles;
+    public AssemblyContext getAssemblyContextByName(String name) throws NoSuchElementException {
+        return this.assemblyContexts.stream()
+            .filter(x -> x.getEntityName()
+                .equals(name))
+            .findFirst()
+            .orElseThrow(
+                    () -> new NoSuchElementException(String.format("No AssemblyContext with name '%s' found", name)));
     }
 
-    public List<OperationProvidedRole> getSystemOperationProvidedRoles() {
-        return this.systemOperationProvidedRoles;
+    public ResourceRequiredRole getResourceRequiredRoleByName(String name) throws NoSuchElementException {
+        return this.assemblyContexts.stream()
+            .flatMap(x -> x.getEncapsulatedComponent__AssemblyContext()
+                .getResourceRequiredRoles__ResourceInterfaceRequiringEntity()
+                .stream())
+            .filter(x -> x.getEntityName()
+                .equals(name))
+            .findFirst()
+            .orElseThrow(() -> new NoSuchElementException(
+                    String.format("No ResourceRequiredRole with name '%s' found", name)));
     }
 
-    public List<SinkRole> getSystemSinkRoles() {
-        return this.systemSinkRoles;
+    public OperationRequiredRole getSystemOperationRequiredRoleByName(String name) throws NoSuchElementException {
+        return this.systemOperationRequiredRoles.stream()
+            .filter(x -> x.getEntityName()
+                .equals(name))
+            .findFirst()
+            .orElseThrow(() -> new NoSuchElementException(
+                    String.format("No OperationRequiredRole with name '%s' found.", name)));
     }
 
-    public List<InfrastructureRequiredRole> getSystemInfrastructureRequiredRoles() {
-        return this.systemInfrastructureRequiredRoles;
+    public OperationProvidedRole getSystemOperationProvidedRoleByName(String name) {
+        return this.systemOperationProvidedRoles.stream()
+            .filter(x -> x.getEntityName()
+                .equals(name))
+            .findFirst()
+            .orElseThrow(() -> new NoSuchElementException(
+                    String.format("No OperationProvidedRole with name '%s' found.", name)));
     }
 
-    public List<InfrastructureProvidedRole> getSystemInfrastructureProvidedRoles() {
-        return this.systemInfrastructureProvidedRoles;
+    public SinkRole getSystemSinkRoleByName(String name) throws NoSuchElementException {
+        return this.systemSinkRoles.stream()
+            .filter(x -> x.getEntityName()
+                .equals(name))
+            .findFirst()
+            .orElseThrow(() -> new NoSuchElementException(String.format("No SinkRole with name '%s' found", name)));
     }
 
-    public List<SourceRole> getSystemSourceRoles() {
-        return this.systemSourceRoles;
+    public InfrastructureRequiredRole getSystemInfrastructureRequiredRoleByName(String name)
+            throws NoSuchElementException {
+        return this.systemInfrastructureRequiredRoles.stream()
+            .filter(x -> x.getEntityName()
+                .equals(name))
+            .findFirst()
+            .orElseThrow(() -> new NoSuchElementException(
+                    String.format("No InfrastructureRequiredRole with name '%s' found.", name)));
     }
 
-    public List<ResourceRequiredRole> getSystemResourceRequiredRoles() {
-        return this.systemResourceRequiredRoles;
+    public InfrastructureProvidedRole getSystemInfrastructureProvidedRoleByName(String name)
+            throws NoSuchElementException {
+        return this.systemInfrastructureProvidedRoles.stream()
+            .filter(x -> x.getEntityName()
+                .equals(name))
+            .findFirst()
+            .orElseThrow(() -> new NoSuchElementException(
+                    String.format("No InfrastructureProvidedRole with name '%s' found.", name)));
     }
 
-    public List<EventChannel> getEventChannels() {
-        return this.eventChannels;
+    public SourceRole getSystemSourceRoleByName(String name) throws NoSuchElementException {
+        return this.systemSourceRoles.stream()
+            .filter(x -> x.getEntityName()
+                .equals(name))
+            .findFirst()
+            .orElseThrow(() -> new NoSuchElementException(String.format("No SourceRole with name '%s' found.", name)));
+    }
+
+    public ResourceRequiredRole getSystemResourceRequiredRoleByName(String name) throws NoSuchElementException {
+        return this.systemResourceRequiredRoles.stream()
+            .filter(x -> x.getEntityName()
+                .equals(name))
+            .findFirst()
+            .orElseThrow(() -> new NoSuchElementException(
+                    String.format("No ResourceRequiredRole with name '%s' found.", name)));
+    }
+
+    public EventChannel getEventChannelByName(String name) throws NoSuchElementException {
+        return this.eventChannels.stream()
+            .filter(x -> x.getEntityName()
+                .equals(name))
+            .findFirst()
+            .orElseThrow(
+                    () -> new NoSuchElementException(String.format("No EventChannel with name '%s' found.", name)));
     }
 
     public ResourceInterface getResourceInterface(final shared.structure.ResourceInterface resource) {
+        Objects.requireNonNull(resource, "The given resource must not be null.");
         return this.resources.getResourceInterfaces__ResourceRepository()
             .stream()
             .filter(x -> x.getEntityName()

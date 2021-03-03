@@ -1,5 +1,8 @@
 package system.structure.connector.eventDelegationConnector;
 
+import java.util.NoSuchElementException;
+import java.util.Objects;
+
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.composition.CompositionFactory;
 import org.palladiosimulator.pcm.core.composition.SinkDelegationConnector;
@@ -18,21 +21,18 @@ public class SinkDelegationConnectorCreator extends AbstractConnectorCreator {
     }
 
     public SinkDelegationConnectorCreator withOuterSinkRole(final SinkRole role) {
+        Objects.requireNonNull(role, "The given Role must not be null.");
         this.outerRole = role;
         return this;
     }
 
-    public SinkDelegationConnectorCreator withOuterSinkRole(final String name) {
-        final SinkRole role = this.system.getSystemSinkRoles()
-            .stream()
-            .filter(x -> x.getEntityName()
-                .equals(name))
-            .findFirst()
-            .get();
+    public SinkDelegationConnectorCreator withOuterSinkRole(final String name) throws NoSuchElementException {
+        final SinkRole role = this.system.getSystemSinkRoleByName(name);
         return this.withOuterSinkRole(role);
     }
 
     public SinkRoleSelector withAssemblyContext(final AssemblyContext context) {
+        Objects.requireNonNull(context, "The given AssemblyContext must not be null.");
         final SinkDelegationConnectorCreator creator = this;
         return new SinkRoleSelector(new IContextSinkRoleCombinator() {
 
@@ -47,12 +47,7 @@ public class SinkDelegationConnectorCreator extends AbstractConnectorCreator {
     }
 
     public SinkRoleSelector withAssemblyContext(final String name) {
-        final AssemblyContext context = this.system.getAssemblyContexts()
-            .stream()
-            .filter(x -> x.getEntityName()
-                .equals(name))
-            .findFirst()
-            .get();
+        final AssemblyContext context = this.system.getAssemblyContextByName(name);
         return this.withAssemblyContext(context);
     }
 

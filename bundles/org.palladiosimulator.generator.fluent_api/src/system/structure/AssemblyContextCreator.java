@@ -1,5 +1,7 @@
 package system.structure;
 
+import java.util.Objects;
+
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.composition.CompositionFactory;
 import org.palladiosimulator.pcm.repository.RepositoryComponent;
@@ -13,19 +15,13 @@ public class AssemblyContextCreator extends SystemEntity {
     }
 
     public AssemblyContextCreator withEncapsulatedComponent(final RepositoryComponent component) {
+        Objects.requireNonNull(component, "The given RepositoryComponent must not be null.");
         this.encapuslatedComponent = component;
         return this;
     }
 
     public AssemblyContextCreator withEncapsulatedComponent(final String name) {
-        final var component = this.system.getRepositories()
-            .stream()
-            .flatMap(x -> x.getComponents__Repository()
-                .stream())
-            .filter(x -> x.getEntityName()
-                .equals(name))
-            .findFirst()
-            .get();
+        final RepositoryComponent component = this.system.getRepositoryComponentByName(name);
         return this.withEncapsulatedComponent(component);
     }
 

@@ -1,5 +1,7 @@
 package system.structure.connector.assemblyInfrastructureConnector;
 
+import java.util.Objects;
+
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.composition.AssemblyInfrastructureConnector;
 import org.palladiosimulator.pcm.core.composition.CompositionFactory;
@@ -21,6 +23,7 @@ public class AssemblyInfrastructureConnectorCreator extends AbstractConnectorCre
     }
 
     public InfrastructureRequiredRoleSelector withRequiringAssemblyContext(final AssemblyContext context) {
+        Objects.requireNonNull(context, "The given AssemblyContext must not be null.");
         final var creator = this;
         return new InfrastructureRequiredRoleSelector(new IContextRequiredRoleCombinator() {
 
@@ -35,16 +38,12 @@ public class AssemblyInfrastructureConnectorCreator extends AbstractConnectorCre
     }
 
     public InfrastructureRequiredRoleSelector withRequiringAssemblyContext(final String name) {
-        final var context = this.system.getAssemblyContexts()
-            .stream()
-            .filter(x -> x.getEntityName()
-                .equals(name))
-            .findFirst()
-            .get();
+        final var context = this.system.getAssemblyContextByName(name);
         return this.withRequiringAssemblyContext(context);
     }
 
     public InfrastructureProvidedRoleSelector withProvidingAssemblyContext(final AssemblyContext context) {
+        Objects.requireNonNull(context, "The given AssemblyContext must not be null.");
         final var creator = this;
         return new InfrastructureProvidedRoleSelector(new IContextProvidedRoleCombinator() {
 
@@ -59,12 +58,7 @@ public class AssemblyInfrastructureConnectorCreator extends AbstractConnectorCre
     }
 
     public InfrastructureProvidedRoleSelector withProvidingAssemblyContext(final String name) {
-        final var context = this.system.getAssemblyContexts()
-            .stream()
-            .filter(x -> x.getEntityName()
-                .equals(name))
-            .findFirst()
-            .get();
+        final var context = this.system.getAssemblyContextByName(name);
         return this.withProvidingAssemblyContext(context);
     }
 

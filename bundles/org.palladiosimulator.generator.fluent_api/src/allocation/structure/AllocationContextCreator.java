@@ -39,7 +39,7 @@ public class AllocationContextCreator extends AllocationEntity {
      * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
      */
     public AllocationContextCreator withAssemblyContext(final AssemblyContext context) {
-        Objects.requireNonNull(context, "The given AssemblyContext is must be null.");
+        Objects.requireNonNull(context, "The given AssemblyContext must not be null.");
         this.assemblyContext = context;
         return this;
     }

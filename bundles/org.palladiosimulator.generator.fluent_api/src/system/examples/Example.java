@@ -9,8 +9,9 @@ import system.factory.FluentSystemFactory;
 
 public class Example {
     public static void main(final String[] args) {
-        basicExample();
-        invalidSystem();
+        // basicExample();
+        // invalidSystem();
+        castExceptionSystem();
     }
 
     private static void invalidSystem() {
@@ -31,6 +32,37 @@ public class Example {
                 .withOperationProvidedRole("basic component provides interface"))
             .createSystemNow();
         ModelSaver.saveSystem(system, "./", "invalid", true);
+    }
+
+    private static void castExceptionSystem() {
+        final FluentSystemFactory create = new FluentSystemFactory();
+        final System system = create.newSystem()
+            .withRepository(ModelLoader.loadRepository("./miniExample.repository"))
+            .withName("basicSystem")
+            .addToSystem(create.newAssemblyContext()
+                .withName("basic component context 1")
+                .withEncapsulatedComponent("basic component"))
+            .addToSystem(create.newAssemblyContext()
+                .withName("basic component context 2")
+                .withEncapsulatedComponent("basic component"))
+            .addToSystem(create.newAssemblyConnector()
+                .withName("connector")
+                .withRequiringAssemblyContext("basic component context 1")
+                .withOperationRequiredRole("basic component requires interface")
+                .withProvidingAssemblyContext("basic component context 2")
+                .withOperationProvidedRole("basic component provides interface"))
+            .addToSystem(create.newOperationRequiredRole()
+                .withName("system required role")
+                .withRequiredInterface("interface"))
+            .addToSystem(create.newSinkRole()
+                .withName("system sink role")
+                .withEventGroup("event group"))
+            .addToSystem(create.newSinkDelegationConnector()
+                .withName("sink delegation")
+                .withOuterSinkRole("system sink role1")
+                .withAssemblyContext("basic component context 2")
+                .withSinkRole("handles event"))
+            .createSystemNow();
     }
 
     private static void basicExample() {
