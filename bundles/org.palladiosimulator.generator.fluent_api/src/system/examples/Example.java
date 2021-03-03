@@ -9,16 +9,15 @@ import system.factory.FluentSystemFactory;
 
 public class Example {
     public static void main(final String[] args) {
-        // basicExample();
-        // invalidSystem();
-        castExceptionSystem();
+        basicExample();
+        invalidSystem();
     }
 
     private static void invalidSystem() {
         final FluentSystemFactory create = new FluentSystemFactory();
         final System system = create.newSystem()
-            .withRepository(ModelLoader.loadRepository("./miniExample.repository"))
             .withName("invalid system")
+            .withRepository(ModelLoader.loadRepository("./miniExample.repository"))
             .addToSystem(create.newAssemblyContext())
             .addToSystem(create.newAssemblyContext()
                 .withName("basic component context 1")
@@ -34,42 +33,11 @@ public class Example {
         ModelSaver.saveSystem(system, "./", "invalid", true);
     }
 
-    private static void castExceptionSystem() {
-        final FluentSystemFactory create = new FluentSystemFactory();
-        final System system = create.newSystem()
-            .withRepository(ModelLoader.loadRepository("./miniExample.repository"))
-            .withName("basicSystem")
-            .addToSystem(create.newAssemblyContext()
-                .withName("basic component context 1")
-                .withEncapsulatedComponent("basic component"))
-            .addToSystem(create.newAssemblyContext()
-                .withName("basic component context 2")
-                .withEncapsulatedComponent("basic component"))
-            .addToSystem(create.newAssemblyConnector()
-                .withName("connector")
-                .withRequiringAssemblyContext("basic component context 1")
-                .withOperationRequiredRole("basic component requires interface")
-                .withProvidingAssemblyContext("basic component context 2")
-                .withOperationProvidedRole("basic component provides interface"))
-            .addToSystem(create.newOperationRequiredRole()
-                .withName("system required role")
-                .withRequiredInterface("interface"))
-            .addToSystem(create.newSinkRole()
-                .withName("system sink role")
-                .withEventGroup("event group"))
-            .addToSystem(create.newSinkDelegationConnector()
-                .withName("sink delegation")
-                .withOuterSinkRole("system sink role1")
-                .withAssemblyContext("basic component context 2")
-                .withSinkRole("handles event"))
-            .createSystemNow();
-    }
-
     private static void basicExample() {
         final FluentSystemFactory create = new FluentSystemFactory();
         final System system = create.newSystem()
-            .withRepository(ModelLoader.loadRepository("./miniExample.repository"))
             .withName("basicSystem")
+            .withRepository(ModelLoader.loadRepository("./miniExample.repository"))
             .addToSystem(create.newAssemblyContext()
                 .withName("basic component context 1")
                 .withEncapsulatedComponent("basic component"))
@@ -133,18 +101,18 @@ public class Example {
                 .withInfrastructureRequiredRole("requres infrastructure")
                 .withProvidingAssemblyContext("basic component context 2")
                 .withInfrastructureProvidedRole("provides infrastructure"))
-            .addToSystem(create.newInfrastructurenProvidedRole()
+            .addToSystem(create.newInfrastructureProvidedRole()
                 .withName("infrastructure provided role")
                 .withProvidedInterface("infrastructure interface"))
             .addToSystem(create.newInfrastructureRequiredRole()
                 .withName("infrastructure required role")
                 .withRequiredInterface("infrastructure interface"))
-            .addToSystem(create.newProvidedInfrastructureDelegationConnectorCreator()
+            .addToSystem(create.newProvidedInfrastructureDelegationConnector()
                 .withName("infrastructure provided delegation")
                 .withOuterProvidedRole("infrastructure provided role")
                 .withProvidingContext("basic component context 1")
                 .withInfrastructureProvidedRole("provides infrastructure"))
-            .addToSystem(create.newRequiredInfrastructureDelegationConnectorCreator()
+            .addToSystem(create.newRequiredInfrastructureDelegationConnector()
                 .withName("infrastructure required delegation")
                 .withOuterRequiredRole("infrastructure required role")
                 .withRequiringContext("basic component context 2")

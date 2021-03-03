@@ -13,7 +13,7 @@ import shared.validate.ModelValidator;
 
 /**
  * This class provides all the methods to create an
- * {@link org.palladiosimulator.pcm.allocation.Allocation Allocation} and create Entities that are
+ * {@link org.palladiosimulator.pcm.allocation.Allocation Allocation} and create entities that are
  * added to this Allocation. Characteristics of the entities are specified by method chaining.<br>
  * <p>
  * Start creating an allocation like this:<br>

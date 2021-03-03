@@ -19,7 +19,7 @@ import system.structure.systemRole.SourceRoleCreator;
 public interface ISystemAddition {
 
     /**
-     * Turns this system-in-the-making into a Palladio-'<em><b>System</b></em>' object.
+     * Completes the system creation.
      *
      * @return the final system object
      * @see org.palladiosimulator.pcm.system.System
@@ -31,97 +31,143 @@ public interface ISystemAddition {
      * system by name.
      *
      * @param repository
-     * @return
+     * @return this system
+     * @see org.palladiosimulator.pcm.repository.Repository
      */
-    ISystem withRepository(Repository repository);
+    ISystemAddition withRepository(Repository repository);
 
     /**
-     * Adds an AssemblyContext to the system.
+     * Adds an {@link org.palladiosimulator.pcm.core.composition.AssemblyContext AssemblyContext} to
+     * the system. The creator will be turned into the finished AssemblyContext.
      *
      * @param context
-     * @return
+     * @return this system
+     * 
+     * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
      */
     ISystemAddition addToSystem(AssemblyContextCreator context);
 
+    /**
+     * Adds a {@link org.palladiosimulator.pcm.core.composition.Connector Connector} to the system.
+     * The creator will be turned into the finished connector.
+     * 
+     * @param connector
+     * @return this system
+     * 
+     * @see org.palladiosimulator.pcm.core.composition.Connector
+     */
     ISystemAddition addToSystem(AbstractConnectorCreator connector);
 
     /**
-     * Adds an OperationRequiredRole to the system.
+     * Adds an {@link org.palladiosimulator.pcm.repository.OperationRequiredRole
+     * OperationRequiredRole} to the system. The creator will be turned into the finished connector.
      *
      * @param role
-     * @return
+     * @return this system
+     * 
+     * @see org.palladiosimulator.pcm.repository.OperationRequiredRole
      */
     ISystemAddition addToSystem(OperationRequiredRoleCreator role);
 
     /**
-     * Adds an OperationProvidedRole to the system.
+     * Adds an {@link org.palladiosimulator.pcm.repository.OperationProvidedRole
+     * OperationProvidedRole} to the system. The creator will be turned into the finished connector.
      *
      * @param role
-     * @return
+     * @return this system
+     * 
+     * @see org.palladiosimulator.pcm.repository.OperationProvidedRole
      */
     ISystemAddition addToSystem(OperationProvidedRoleCreator role);
 
     /**
-     * Adds an EventChannel to the system.
+     * Adds an {@link org.palladiosimulator.pcm.core.composition.EventChannel EventChannel} to the
+     * system. The creator will be turned into the finished connector.
      *
      * @param eventChannel
-     * @return
+     * @return this system
+     * 
+     * @see org.palladiosimulator.pcm.core.composition.EventChannel
      */
     ISystemAddition addToSystem(EventChannelCreator eventChannel);
 
     /**
-     * Adds a SinkRole to the system
+     * Adds a {@link org.palladiosimulator.pcm.repository.SinkRole SinkRole} to the system. The
+     * creator will be turned into the finished connector.
      *
      * @param role
-     * @return
+     * @return this system
+     * 
+     * @see org.palladiosimulator.pcm.repository.SinkRole
      */
     ISystemAddition addToSystem(SinkRoleCreator role);
 
     /**
-     * Adds a SourceRole to the system
+     * Adds a {@link org.palladiosimulator.pcm.repository.SourceRole SourceRole} to the system. The
+     * creator will be turned into the finished connector.
      *
      * @param role
-     * @return
+     * @return this system
+     * 
+     * @see org.palladiosimulator.pcm.repository.
      */
     ISystemAddition addToSystem(SourceRoleCreator role);
 
     /**
-     * Adds an InfrastructureRequiredRole to the system.
+     * Adds an {@link org.palladiosimulator.pcm.repository.InfrastructureRequiredRole
+     * InfrastructureRequiredRole} to the system. The creator will be turned into the finished
+     * connector.
      *
      * @param role
-     * @return
+     * @return this system
+     * 
+     * @see org.palladiosimulator.pcm.repository.InfrastructureRequiredRole
      */
     ISystemAddition addToSystem(InfrastructureRequiredRoleCreator role);
 
     /**
-     * Adds an InfrastructureProvidedRole to the system.
+     * Adds an {@link org.palladiosimulator.pcm.repository.InfrastructureProvidedRole
+     * InfrastructureProvidedRole} to the system. The creator will be turned into the finished
+     * connector.
      *
      * @param role
-     * @return
+     * @return this system
+     * 
+     * @see org.palladiosimulator.pcm.repository.InfrastructureProvidedRole
      */
     ISystemAddition addToSystem(InfrastructureProvidedRoleCreator role);
 
     /**
-     * Adds QoS annotations to the system.
+     * Adds {@link org.palladiosimulator.pcm.qosannotations.QoSAnnotations QoSAnnotations} to the
+     * system. The creator will be turned into the finished connector.
      *
      * @param annotations
-     * @return
+     * @return this system
+     * 
+     * @see org.palladiosimulator.pcm.qosannotations.QoSAnnotations
      */
     ISystemAddition addToSystem(QoSAnnotationsCreator annotations);
 
     /**
-     * Adds a ResourceRequiredRole to the system.
+     * Adds a {@link org.palladiosimulator.pcm.core.entity.ResourceRequiredRole
+     * ResourceRequiredRole} to the system. The creator will be turned into the finished connector.
      *
      * @param role
-     * @return
+     * @return this system
+     * 
+     * @see org.palladiosimulator.pcm.core.entity.ResourceRequiredRole
      */
     ISystemAddition addToSystem(ResourceRequiredRoleCreator role);
 
     /**
-     * Adds a ResourceRequiredDelegationConnector to the system.
+     * Adds a {@link org.palladiosimulator.pcm.core.composition.ResourceRequiredDelegationConnector
+     * ResourceRequiredDelegationConnector} to the system. The creator will be turned into the
+     * finished connector.
      *
      * @param connector
-     * @return
+     * @return this system
+     * 
+     * @see org.palladiosimulator.pcm.core.composition.ResourceRequiredDelegationConnector
      */
     ISystemAddition addToSystem(ResourceRequiredDelegationConnectorCreator connector);
 

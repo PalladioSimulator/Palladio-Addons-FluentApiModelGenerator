@@ -19,7 +19,7 @@ import shared.validate.ModelValidator;
 /**
  * This class provides all the methods to create a
  * {@link org.palladiosimulator.pcm.resourceenvironment.ResourceEnvironment ResourceEnvironment} and
- * create Entities that are added to this ResourceEnvironment. Characteristics of the entities are
+ * create entities that are added to this ResourceEnvironment. Characteristics of the entities are
  * specified by method chaining.<br>
  * <p>
  * Start creating a ResourceEnvironment like this:<br>
