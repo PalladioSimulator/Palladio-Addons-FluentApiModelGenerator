@@ -55,8 +55,8 @@ public abstract class ComplexComponent extends Component {
      * adds it to the component.
      * <p>
      * An existing {@link org.palladiosimulator.pcm.repository.RepositoryComponent
-     * RepositoryComponent} can be fetched from the repository using the component.factory,
-     * i.e. <code>create.fetchOfComponent(name)</code>.
+     * RepositoryComponent} can be fetched from the repository using the component.factory, i.e.
+     * <code>create.fetchOfComponent(name)</code>.
      * </p>
      *
      * @param encapsulatedComponent
@@ -94,8 +94,8 @@ public abstract class ComplexComponent extends Component {
      * and optionally many <code>configParameterUsages</code> and adds it to the component.
      * <p>
      * An existing {@link org.palladiosimulator.pcm.repository.RepositoryComponent
-     * RepositoryComponent} can be fetched from the repository using the component.factory,
-     * i.e. <code>create.fetchOfComponent(name)</code>.
+     * RepositoryComponent} can be fetched from the repository using the component.factory, i.e.
+     * <code>create.fetchOfComponent(name)</code>.
      * </p>
      *
      * @param encapsulatedComponent
@@ -592,8 +592,8 @@ public abstract class ComplexComponent extends Component {
      * {@link org.palladiosimulator.pcm.core.composition.ResourceRequiredDelegationConnector
      * ResourceRequiredDelegationConnector} and adds it to the component.
      * <p>
-     * Existing required roles can be fetched from the repository using the component.factory,
-     * i.e. <code>create.fetchOfResourceRequiredRole(name)</code>.
+     * Existing required roles can be fetched from the repository using the component.factory, i.e.
+     * <code>create.fetchOfResourceRequiredRole(name)</code>.
      * </p>
      *
      * @param innerRequiredRole

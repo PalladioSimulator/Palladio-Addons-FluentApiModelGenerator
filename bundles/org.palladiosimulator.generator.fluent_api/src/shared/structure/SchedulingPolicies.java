@@ -1,7 +1,25 @@
 package shared.structure;
 
+/**
+ * Represents the built in scheduling policies, i.e. '<em><b>Process Sharing</b></em>,
+ * '<em><b>FCFS</b></em>, '<em><b>Delay</b></em>.
+ * 
+ * @author Florian Krone
+ *
+ */
 public enum SchedulingPolicies {
-    PROCESS_SHARING("Processor Sharing"), FIRST_COME_FIRST_SERVE("First-Come-First-Serve"), DELAY("Delay");
+    /**
+     * Process sharing scheduling policy
+     */
+    PROCESS_SHARING("Processor Sharing"),
+    /**
+     * First come first serve scheduling policy
+     */
+    FIRST_COME_FIRST_SERVE("First-Come-First-Serve"),
+    /**
+     * Delay scheduling policy
+     */
+    DELAY("Delay");
 
     private final String policyName;
 
@@ -9,6 +27,11 @@ public enum SchedulingPolicies {
         this.policyName = policyName;
     }
 
+    /**
+     * Gets the name of the policy
+     * 
+     * @return the name
+     */
     public String getPolicyName() {
         return policyName;
     }

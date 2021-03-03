@@ -48,8 +48,8 @@ public class OperationSignatureCreator extends RepositoryEntity {
     /**
      * Defines the <code>returnType</code> of the operation signature.
      * <p>
-     * An existing data type can be fetched from the repository using the component.factory,
-     * i.e. <code>create.fetchOfDataType(name)</code>.
+     * An existing data type can be fetched from the repository using the component.factory, i.e.
+     * <code>create.fetchOfDataType(name)</code>.
      * </p>
      *
      * @param returnType
@@ -65,8 +65,8 @@ public class OperationSignatureCreator extends RepositoryEntity {
     /**
      * Defines the <code>returnType</code> of the operation signature.
      * <p>
-     * A {@link component.repositoryStructure.internals.Primitive Primitive} data type can have
-     * the values '<em><b>boolean</b></em>', '<em><b>integer</b></em>', '<em><b>string</b></em>',
+     * A {@link component.repositoryStructure.internals.Primitive Primitive} data type can have the
+     * values '<em><b>boolean</b></em>', '<em><b>integer</b></em>', '<em><b>string</b></em>',
      * '<em><b>double</b></em>', '<em><b>long</b></em>', '<em><b>char</b></em>',
      * '<em><b>byte</b></em>'.
      * </p>
@@ -90,8 +90,8 @@ public class OperationSignatureCreator extends RepositoryEntity {
      * for parameters, e.g. <code>ParameterModifier.IN</code>.
      * </p>
      * <p>
-     * A {@link component.repositoryStructure.internals.Primitive Primitive} data type can have
-     * the values '<em><b>boolean</b></em>', '<em><b>integer</b></em>', '<em><b>string</b></em>',
+     * A {@link component.repositoryStructure.internals.Primitive Primitive} data type can have the
+     * values '<em><b>boolean</b></em>', '<em><b>integer</b></em>', '<em><b>string</b></em>',
      * '<em><b>double</b></em>', '<em><b>long</b></em>', '<em><b>char</b></em>',
      * '<em><b>byte</b></em>'.
      * </p>
@@ -121,8 +121,8 @@ public class OperationSignatureCreator extends RepositoryEntity {
      * for parameters, e.g. <code>ParameterModifier.IN</code>.
      * </p>
      * <p>
-     * An existing data type can be fetched from the repository using the component.factory,
-     * i.e. <code>create.fetchOfDataType(name)</code>.
+     * An existing data type can be fetched from the repository using the component.factory, i.e.
+     * <code>create.fetchOfDataType(name)</code>.
      * </p>
      *
      * @param name
@@ -173,8 +173,8 @@ public class OperationSignatureCreator extends RepositoryEntity {
     /**
      * Adds the <code>failureType</code> to the operation signature's list of possible failures.
      * <p>
-     * A {@link component.repositoryStructure.internals.Failure Failure} type can have the
-     * values '<em><b>HARDWARE_CPU</b></em>', '<em><b>HARDWARE_HDD</b></em>',
+     * A {@link component.repositoryStructure.internals.Failure Failure} type can have the values
+     * '<em><b>HARDWARE_CPU</b></em>', '<em><b>HARDWARE_HDD</b></em>',
      * '<em><b>HARDWARE_DELAY</b></em>', '<em><b>NETWORK_LAN</b></em>', '<em><b>SOFTWARE</b></em>'.
      * </p>
      *
@@ -190,8 +190,8 @@ public class OperationSignatureCreator extends RepositoryEntity {
     /**
      * Adds the <code>exceptionType</code> to the operation signature's list of possible exceptions.
      * <p>
-     * An existing exception type can be fetched from the repository using the
-     * component.factory, i.e. <code>create.fetchOfExceptionType(name)</code>.
+     * An existing exception type can be fetched from the repository using the component.factory,
+     * i.e. <code>create.fetchOfExceptionType(name)</code>.
      * </p>
      *
      * @param exceptionType

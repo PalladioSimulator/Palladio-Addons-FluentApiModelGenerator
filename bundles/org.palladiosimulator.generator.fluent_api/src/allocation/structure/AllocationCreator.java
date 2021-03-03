@@ -2,6 +2,7 @@ package allocation.structure;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.pcm.allocation.AllocationContext;
@@ -63,18 +64,21 @@ public class AllocationCreator extends AllocationEntity implements IAllocation {
 
     @Override
     public IAllocationAddition withResourceEnvironment(final ResourceEnvironment environment) {
+        Objects.requireNonNull(environment, "The given ResourceEnvironment must not be null");
         this.resourceEnvironment = environment;
         return this;
     }
 
     @Override
     public IAllocationAddition withSystem(final System system) {
+        Objects.requireNonNull(system, "The given System must not be null");
         this.system = system;
         return this;
     }
 
     @Override
     public IAllocationAddition addToAllocation(final AllocationContextCreator allocationContext) {
+        Objects.requireNonNull(allocationContext, "The given AllocationContext must not be null");
         this.allocationContexts.add(allocationContext.build());
         return this;
     }
@@ -85,14 +89,16 @@ public class AllocationCreator extends AllocationEntity implements IAllocation {
      *
      * @param name
      * @return the <code>AssemblyContext</code> with the given name
+     * @throws IllegalArgumentException
+     *             Thrown if no AssemblyContext with the given name exists
      */
-    public AssemblyContext getAssemblyContextByName(final String name) {
+    public AssemblyContext getAssemblyContextByName(final String name) throws IllegalArgumentException {
         return this.system.getAssemblyContexts__ComposedStructure()
             .stream()
             .filter(x -> x.getEntityName()
                 .equals(name))
             .findFirst()
-            .get();
+            .orElseThrow(() -> new IllegalArgumentException("No AssemblyContext with name " + name + " found."));
     }
 
     /**
@@ -101,14 +107,16 @@ public class AllocationCreator extends AllocationEntity implements IAllocation {
      *
      * @param name
      * @return the <code>EventChannel</code> with the given name
+     * @throws IllegalArgumentException
+     *             Thrown if no EventChannel with the given name exists
      */
-    public EventChannel getEventChannelByName(final String name) {
+    public EventChannel getEventChannelByName(final String name) throws IllegalArgumentException {
         return this.system.getEventChannel__ComposedStructure()
             .stream()
             .filter(x -> x.getEntityName()
                 .equals(name))
             .findFirst()
-            .get();
+            .orElseThrow(() -> new IllegalArgumentException("No EventChannel with name " + name + " found."));
     }
 
     /**
@@ -117,13 +125,15 @@ public class AllocationCreator extends AllocationEntity implements IAllocation {
      *
      * @param name
      * @return the <code>ResourceContainer</code> with the given name
+     * @throws IllegalArgumentException
+     *             Thrown if no ResourceContainer with the given name exists
      */
-    public ResourceContainer getResourceContainerByName(final String name) {
+    public ResourceContainer getResourceContainerByName(final String name) throws IllegalArgumentException {
         return this.resourceEnvironment.getResourceContainer_ResourceEnvironment()
             .stream()
             .filter(x -> x.getEntityName()
                 .equals(name))
             .findFirst()
-            .get();
+            .orElseThrow(() -> new IllegalArgumentException("No ResourceContainer with name " + name + " found."));
     }
 }

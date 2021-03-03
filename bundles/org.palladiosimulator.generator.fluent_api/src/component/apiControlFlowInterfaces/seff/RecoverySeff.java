@@ -19,11 +19,10 @@ public interface RecoverySeff {
 
     /**
      * Specifies the body behaviour of this RecoverActionBehaviour. Every body behaviour starts with
-     * a {@link component.apiControlFlowInterfaces.seff.StartSeff#withStartAction() start
-     * action} followed by an arbitrary amount of other
-     * {@link org.palladiosimulator.pcm.seff.AbstractAction actions}. The body behaviour always ends
-     * with a stop action and a finishing call on the method
-     * {@link component.apiControlFlowInterfaces.seff.StopSeff#createBehaviourNow()
+     * a {@link component.apiControlFlowInterfaces.seff.StartSeff#withStartAction() start action}
+     * followed by an arbitrary amount of other {@link org.palladiosimulator.pcm.seff.AbstractAction
+     * actions}. The body behaviour always ends with a stop action and a finishing call on the
+     * method {@link component.apiControlFlowInterfaces.seff.StopSeff#createBehaviourNow()
      * createBehaviourNow()}.
      *
      * @return this recovery behaviour's starting body behaviour

@@ -13,7 +13,6 @@ import org.eclipse.emf.cdo.CDOObject;
 public abstract class Entity {
 
     protected String name;
-//	protected String id;
 
     /**
      * Defines the <i>unique</i> name of this current entity. Once created entities are referenced
@@ -28,11 +27,11 @@ public abstract class Entity {
         return this;
     }
 
-//	public RepositoryEntity withId(String id) {
-//		this.id = id;
-//		return this;
-//	}
-
+    /**
+     * Turns the entity in the making into the finished entity.
+     * 
+     * @return the finished entity
+     */
     protected abstract CDOObject build();
 
 }

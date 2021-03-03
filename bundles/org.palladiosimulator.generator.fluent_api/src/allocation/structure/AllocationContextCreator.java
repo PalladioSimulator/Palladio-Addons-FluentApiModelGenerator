@@ -1,5 +1,7 @@
 package allocation.structure;
 
+import java.util.Objects;
+
 import org.palladiosimulator.pcm.allocation.AllocationContext;
 import org.palladiosimulator.pcm.allocation.AllocationFactory;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
@@ -37,6 +39,7 @@ public class AllocationContextCreator extends AllocationEntity {
      * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
      */
     public AllocationContextCreator withAssemblyContext(final AssemblyContext context) {
+        Objects.requireNonNull(context, "The given AssemblyContext is must be null.");
         this.assemblyContext = context;
         return this;
     }
@@ -52,8 +55,10 @@ public class AllocationContextCreator extends AllocationEntity {
      * @return this <code>AllocationContext</code>
      *
      * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
+     * @throws IllegalArgumentException
+     *             Thrown if no AssemblyContext with the given name exists
      */
-    public AllocationContextCreator withAssemblyContext(final String name) {
+    public AllocationContextCreator withAssemblyContext(final String name) throws IllegalArgumentException {
         return this.withAssemblyContext(this.allocationCreator.getAssemblyContextByName(name));
     }
 
@@ -68,6 +73,7 @@ public class AllocationContextCreator extends AllocationEntity {
      * @see org.palladiosimulator.pcm.core.composition.EventChannel
      */
     public AllocationContextCreator withEventChannel(final EventChannel channel) {
+        Objects.requireNonNull(channel, "The given EventChannel must not be null");
         this.eventChannel = channel;
         return this;
     }
@@ -82,8 +88,10 @@ public class AllocationContextCreator extends AllocationEntity {
      * @return this <code>AllocationContext</code>
      *
      * @see org.palladiosimulator.pcm.core.composition.EventChannel
+     * @throws IllegalArgumentException
+     *             Thrown if no EventChannel with the given name exists
      */
-    public AllocationContextCreator withEventChannel(final String name) {
+    public AllocationContextCreator withEventChannel(final String name) throws IllegalArgumentException {
         return this.withEventChannel(this.allocationCreator.getEventChannelByName(name));
     }
 
@@ -99,6 +107,7 @@ public class AllocationContextCreator extends AllocationEntity {
      * @see org.palladiosimulator.pcm.resourceenvironment.ResourceContainer
      */
     public AllocationContextCreator withResourceContainer(final ResourceContainer container) {
+        Objects.requireNonNull(container, "The given ResourceContainer must not be null");
         this.resourceContainer = container;
         return this;
     }
@@ -114,8 +123,10 @@ public class AllocationContextCreator extends AllocationEntity {
      * @return this <code>AllocationContext</code>
      *
      * @see org.palladiosimulator.pcm.resourceenvironment.ResourceContainer
+     * @throws IllegalArgumentException
+     *             Thrown if no ResourceContainer with the given name exists
      */
-    public AllocationContextCreator withResourceContainer(final String name) {
+    public AllocationContextCreator withResourceContainer(final String name) throws IllegalArgumentException {
         return this.withResourceContainer(this.allocationCreator.getResourceContainerByName(name));
     }
 

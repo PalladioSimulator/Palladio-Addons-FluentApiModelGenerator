@@ -18,6 +18,11 @@ public enum CommunicationLinkResource {
         this.resourceName = resourceName;
     }
 
+    /**
+     * Gets the name of the resource
+     * 
+     * @return the name
+     */
     public String getResourceName() {
         return resourceName;
     }

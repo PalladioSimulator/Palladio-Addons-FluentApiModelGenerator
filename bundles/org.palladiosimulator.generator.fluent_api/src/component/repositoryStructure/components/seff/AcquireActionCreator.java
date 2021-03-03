@@ -95,8 +95,8 @@ public class AcquireActionCreator extends GeneralAction {
     public AcquireActionCreator withResourceCall(final String numberOfCallsStochasticExpression,
             final ResourceSignature signature, final ResourceRequiredRole requiredRole,
             final VariableUsageCreator... variableUsages) {
-        return (AcquireActionCreator) super.withResourceCall(numberOfCallsStochasticExpression, signature,
-                requiredRole, variableUsages);
+        return (AcquireActionCreator) super.withResourceCall(numberOfCallsStochasticExpression, signature, requiredRole,
+                variableUsages);
     }
 
     @Override

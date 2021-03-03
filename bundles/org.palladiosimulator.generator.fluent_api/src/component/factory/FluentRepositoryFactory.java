@@ -144,8 +144,7 @@ public class FluentRepositoryFactory {
      * </p>
      * <p>
      * Basic components offer the characteristics
-     * {@link component.repositoryStructure.components.BasicComponentCreator#withName(String)
-     * name},
+     * {@link component.repositoryStructure.components.BasicComponentCreator#withName(String) name},
      * {@link component.repositoryStructure.components.BasicComponentCreator#ofType(org.palladiosimulator.pcm.repository.ComponentType)
      * type},
      * {@link component.repositoryStructure.components.BasicComponentCreator#withServiceEffectSpecification(Seff)
@@ -266,8 +265,7 @@ public class FluentRepositoryFactory {
      * </p>
      * <p>
      * Subsystems offer the characteristics
-     * {@link component.repositoryStructure.components.SubSystemCreator#withName(String)
-     * name}.<br>
+     * {@link component.repositoryStructure.components.SubSystemCreator#withName(String) name}.<br>
      * The possible roles to other interfaces are
      * {@link component.repositoryStructure.components.SubSystemCreator#provides(OperationInterface, String)
      * providing interfaces},
@@ -286,8 +284,8 @@ public class FluentRepositoryFactory {
      * Composite component/subsystem specific connections with other components/interfaces are
      * {@link component.repositoryStructure.components.SubSystemCreator#withAssemblyContext(RepositoryComponent, String, org.palladiosimulator.pcm.parameter.VariableUsage...)
      * assembly context},
-     * {@link component.repositoryStructure.components.SubSystemCreator#withEventChannel()
-     * event channel},
+     * {@link component.repositoryStructure.components.SubSystemCreator#withEventChannel() event
+     * channel},
      * {@link component.repositoryStructure.components.SubSystemCreator#withAssemblyConnection(OperationProvidedRole, AssemblyContext, OperationRequiredRole, AssemblyContext)
      * assembly connection},
      * {@link component.repositoryStructure.components.SubSystemCreator#withAssemblyEventConnection(SinkRole, AssemblyContext, SourceRole, AssemblyContext, String)
@@ -454,9 +452,8 @@ public class FluentRepositoryFactory {
      * </p>
      * <p>
      * Event groups are defined by their
-     * {@link component.repositoryStructure.interfaces.EventGroupCreator#withName(String)
-     * name}, their
-     * {@link component.repositoryStructure.interfaces.EventGroupCreator#conforms(Interface)
+     * {@link component.repositoryStructure.interfaces.EventGroupCreator#withName(String) name},
+     * their {@link component.repositoryStructure.interfaces.EventGroupCreator#conforms(Interface)
      * parental interfaces (conformity)}, their
      * {@link component.repositoryStructure.interfaces.EventGroupCreator#withEventType() event
      * types} and the corresponding
@@ -654,16 +651,15 @@ public class FluentRepositoryFactory {
      * </p>
      *
      * <p>
-     * Use the methods
-     * {@link component.apiControlFlowInterfaces.seff.Seff#onSignature(Signature)
+     * Use the methods {@link component.apiControlFlowInterfaces.seff.Seff#onSignature(Signature)
      * onSignature(Signature)},
      * {@link component.apiControlFlowInterfaces.seff.Seff#withSeffTypeID(String)
      * withSeffTypeID(String)} and
      * {@link component.apiControlFlowInterfaces.seff.Seff#withInternalBehaviour(InternalSeff)
      * withInternalBehaviour(InternalSeff)} to define the seff.<br>
      * In the end use the method
-     * {@link component.apiControlFlowInterfaces.seff.Seff#withSeffBehaviour()
-     * withSeffBehaviour()} to specify its step-wise behaviour.
+     * {@link component.apiControlFlowInterfaces.seff.Seff#withSeffBehaviour() withSeffBehaviour()}
+     * to specify its step-wise behaviour.
      *
      * @return the SEFF in the making
      * @see org.palladiosimulator.pcm.repository.Signature
@@ -685,8 +681,7 @@ public class FluentRepositoryFactory {
      * </p>
      *
      * <p>
-     * Use the method
-     * {@link component.apiControlFlowInterfaces.seff.InternalSeff#withStartAction()
+     * Use the method {@link component.apiControlFlowInterfaces.seff.InternalSeff#withStartAction()
      * withStartAction()} to specify its step-wise behaviour.
      *
      * @return the internal behaviour in the making
@@ -1364,8 +1359,8 @@ public class FluentRepositoryFactory {
     }
 
     /**
-     * Extracts the operation provided role referenced by <code>name</code> from the repository. If the
-     * entity belongs to an imported repository, refer to it as
+     * Extracts the operation provided role referenced by <code>name</code> from the repository. If
+     * the entity belongs to an imported repository, refer to it as
      * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
      * This method throws a RuntimeException if no operation provided role is present under the

@@ -104,8 +104,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
     private final List<DataType> dataTypes;
     private final Map<Primitive, PrimitiveDataType> internalPrimitives;
     private final Map<ProcessingResource, ProcessingResourceType> internalProcessingResources;
-    private final Map<component.repositoryStructure.internals.ResourceSignature, ResourceSignature> 
-    internalResourceSignatures;
+    private final Map<component.repositoryStructure.internals.ResourceSignature, ResourceSignature> internalResourceSignatures;
     private final Map<CommunicationLinkResource, CommunicationLinkResourceType> internalCommunicationLinkResources;
     private final Map<shared.structure.ResourceInterface, ResourceInterface> internalResourceInterfaces;
     private final Map<Failure, FailureType> internalFailureTypes;
@@ -203,7 +202,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             case STRING:
                 this.internalPrimitives.put(Primitive.STRING, p);
                 break;
-            default: //just ignore everything not matching any type
+            default: // just ignore everything not matching any type
             }
         }
 
@@ -249,12 +248,12 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
                         .put(component.repositoryStructure.internals.ResourceSignature.PROCESS, s);
                 } else if (s.getEntityName()
                     .contentEquals("read")) {
-                    this.internalResourceSignatures
-                        .put(component.repositoryStructure.internals.ResourceSignature.READ, s);
+                    this.internalResourceSignatures.put(component.repositoryStructure.internals.ResourceSignature.READ,
+                            s);
                 } else if (s.getEntityName()
                     .contentEquals("write")) {
-                    this.internalResourceSignatures
-                        .put(component.repositoryStructure.internals.ResourceSignature.WRITE, s);
+                    this.internalResourceSignatures.put(component.repositoryStructure.internals.ResourceSignature.WRITE,
+                            s);
                 } else {
                     System.err.println("Unexpected Resource Signature.");
                 }
