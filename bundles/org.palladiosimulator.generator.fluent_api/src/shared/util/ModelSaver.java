@@ -18,23 +18,86 @@ import org.palladiosimulator.pcm.repository.Repository;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceEnvironment;
 import org.palladiosimulator.pcm.system.System;
 
+/**
+ * This utility class contains functions to save Repositories, ResourceTypeReopsitories, Systems,
+ * ResourceEnvironemnts and Allocations.
+ * 
+ * @author Florian Krone
+ *
+ * @see org.palladiosimulator.pcm.repository.Repository
+ * @see org.palladiosimulator.pcm.system.System
+ * @see org.palladiosimulator.pcm.resourceenvironment.ResourceEnvironment
+ * @see org.palladiosimulator.pcm.allocation.Allocation
+ */
 public class ModelSaver {
 
+    /**
+     * Saves a Repository to the specified location.
+     * 
+     * @param repository
+     * @param path
+     *            the path to the target file
+     * @param name
+     *            the name of the target file without a file extension
+     * @param printToConsole
+     *            prints the xml representation of the model to the console if set to true
+     * 
+     * @see org.palladiosimulator.pcm.repository.Repository
+     */
     public static void saveRepository(final Repository repository, final String path, final String name,
             final boolean printToConsole) {
         save(repository, path, name, "repository", printToConsole);
     }
 
+    /**
+     * Saves a System to the specified location.
+     * 
+     * @param system
+     * @param path
+     *            the path to the target file
+     * @param name
+     *            the name of the target file without a file extension
+     * @param printToConsole
+     *            prints the xml representation of the model to the console if set to true
+     * 
+     * @see org.palladiosimulator.pcm.system.System
+     */
     public static void saveSystem(final System system, final String path, final String name,
             final boolean printToConsole) {
         save(system, path, name, "system", printToConsole);
     }
 
+    /**
+     * Saves a ResourceEnvironment to the specified location.
+     * 
+     * @param resourceEnvironment
+     * @param path
+     *            the path to the target file
+     * @param name
+     *            the name of the target file without a file extension
+     * @param printToConsole
+     *            prints the xml representation of the model to the console if set to true
+     * 
+     * @see org.palladiosimulator.pcm.resourceenvironment.ResourceEnvironment
+     */
     public static void saveResourceEnvironment(final ResourceEnvironment resourceEnvironment, final String path,
             final String name, final boolean printToConsole) {
         save(resourceEnvironment, path, name, "resourceenvironment", printToConsole);
     }
 
+    /**
+     * Saves an Allocation to the specified location.
+     * 
+     * @param allocation
+     * @param path
+     *            the path to the target file
+     * @param name
+     *            the name of the target file without a file extension
+     * @param printToConsole
+     *            prints the xml representation of the model to the console if set to true
+     * 
+     * @see org.palladiosimulator.pcm.allocation.Allocation
+     */
     public static void saveAllocation(final Allocation allocation, final String path, final String name,
             final boolean printToConsole) {
         save(allocation, path, name, "allocation", printToConsole);

@@ -14,6 +14,18 @@ public class ModelValidator implements IModelValidator {
         this.logger = logger;
     }
 
+    /**
+     * Validates an EObject using a Diagnostician. If the validation is not ok, the result is
+     * printed to the console. A name can be specified to enhance the console output.
+     * 
+     * @param eObject
+     *            the object to validate
+     * @param name
+     *            the name of the object
+     * @return true if the validation was ok, false otherwise.
+     * 
+     * @see org.eclipse.emf.ecore.util.Diagnostician
+     */
     @Override
     public boolean validate(final EObject eObject, final String name) {
         final Diagnostic diagnostic = Diagnostician.INSTANCE.validate(eObject);

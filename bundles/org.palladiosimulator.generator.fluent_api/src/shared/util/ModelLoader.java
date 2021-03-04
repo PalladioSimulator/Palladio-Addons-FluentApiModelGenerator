@@ -8,32 +8,89 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
+import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.pcm.repository.Repository;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceEnvironment;
 import org.palladiosimulator.pcm.resourcetype.ResourceRepository;
 import org.palladiosimulator.pcm.resourcetype.ResourcetypePackage;
 import org.palladiosimulator.pcm.system.System;
 
+/**
+ * This utility class contains functions to load Repositories, ResourceTypeReopsitories, Systems,
+ * ResourceEnvironemnts and Allocations.
+ * 
+ * @author Florian Krone
+ *
+ * @see org.palladiosimulator.pcm.repository.Repository
+ * @see org.palladiosimulator.pcm.resourcetype.ResourceRepository
+ * @see org.palladiosimulator.pcm.system.System
+ * @see org.palladiosimulator.pcm.resourceenvironment.ResourceEnvironment
+ * @see org.palladiosimulator.pcm.allocation.Allocation
+ */
 public class ModelLoader {
 
     public static final String PRIMITIVE_TYPES_PATH = "pathmap://PCM_MODELS/PrimitiveTypes.repository";
     public static final String RESOURCE_TYPE_PATH = "pathmap://PCM_MODELS/Palladio.resourcetype";
     public static final String FAILURE_TYPES_PATH = "pathmap://PCM_MODELS/FailureTypes.repository";
 
+    /**
+     * Loads a repository from the specified path.
+     * 
+     * @param uri
+     * @return the repository
+     * 
+     * @see org.palladiosimulator.pcm.repository.Repository
+     */
     public static Repository loadRepository(final String uri) {
         return (Repository) load(uri, "repository");
     }
 
+    /**
+     * Loads a ResourceRepository from the specified path.
+     * 
+     * @param uri
+     * @return the resource repository
+     * 
+     * @see org.palladiosimulator.pcm.resourcetype.ResourceRepository
+     */
     public static ResourceRepository loadResourceTypeRepository(final String uri) {
         return (ResourceRepository) load(uri, "resourcetype");
     }
 
+    /**
+     * Loads a System from the specified path.
+     * 
+     * @param uri
+     * @return the system
+     * 
+     * @see org.palladiosimulator.pcm.system.System
+     */
     public static System loadSystem(final String uri) {
         return (System) load(uri, "system");
     }
 
+    /**
+     * Loads a ResourceEnvironment from the specified path.
+     * 
+     * @param uri
+     * @return the resource environment
+     * 
+     * @see org.palladiosimulator.pcm.resourceenvironment.ResourceEnvironment
+     */
     public static ResourceEnvironment loadResourceEnvironment(final String uri) {
         return (ResourceEnvironment) load(uri, "resourceenvironment");
+    }
+
+    /**
+     * Loads an Allocation form the specified path.
+     * 
+     * @param uri
+     * @return the allocation
+     * 
+     * @see org.palladiosimulator.pcm.allocation.Allocation
+     */
+    public static Allocation loadAllocation(final String uri) {
+        return (Allocation) load(uri, "allocation");
     }
 
     private static EObject load(final String uri, final String type) {
