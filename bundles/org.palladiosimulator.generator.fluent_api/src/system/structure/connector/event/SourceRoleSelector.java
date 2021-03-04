@@ -13,8 +13,7 @@ public class SourceRoleSelector<T> {
     private final IContextRoleCombinator<SourceRole, T> combinator;
     private final AssemblyContext context;
 
-    public SourceRoleSelector(final IContextRoleCombinator<SourceRole, T> combinator,
-            final AssemblyContext context) {
+    public SourceRoleSelector(final IContextRoleCombinator<SourceRole, T> combinator, final AssemblyContext context) {
         this.combinator = combinator;
         this.context = context;
     }

@@ -13,21 +13,18 @@ public class InfrastructureProvidedRoleSelector<T> {
     private final IContextRoleCombinator<InfrastructureProvidedRole, T> combinator;
     private final AssemblyContext context;
 
-    public InfrastructureProvidedRoleSelector(
-            final IContextRoleCombinator<InfrastructureProvidedRole, T> combinator,
+    public InfrastructureProvidedRoleSelector(final IContextRoleCombinator<InfrastructureProvidedRole, T> combinator,
             final AssemblyContext context) {
         this.combinator = combinator;
         this.context = context;
     }
 
-    public T withInfrastructureProvidedRole(
-            final InfrastructureProvidedRole role) {
+    public T withInfrastructureProvidedRole(final InfrastructureProvidedRole role) {
         Objects.requireNonNull(role, "The given Role must not be null.");
         return this.combinator.combineContextAndRole(this.context, role);
     }
 
-    public T withInfrastructureProvidedRole(final String name)
-            throws NoSuchElementException {
+    public T withInfrastructureProvidedRole(final String name) throws NoSuchElementException {
         final ProvidedRole role = this.context.getEncapsulatedComponent__AssemblyContext()
             .getProvidedRoles_InterfaceProvidingEntity()
             .stream()

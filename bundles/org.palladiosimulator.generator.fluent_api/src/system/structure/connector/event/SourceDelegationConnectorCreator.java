@@ -34,7 +34,6 @@ public class SourceDelegationConnectorCreator extends AbstractConnectorCreator {
 
     public SourceRoleSelector<SourceDelegationConnectorCreator> withAssemblyContext(final AssemblyContext context) {
         Objects.requireNonNull(context, "The given AssemblyContext must not be null.");
-        final SourceDelegationConnectorCreator creator = this;
         return new SourceRoleSelector<SourceDelegationConnectorCreator>(
                 new IContextRoleCombinator<SourceRole, SourceDelegationConnectorCreator>() {
 
@@ -43,7 +42,7 @@ public class SourceDelegationConnectorCreator extends AbstractConnectorCreator {
                             final SourceRole role) {
                         SourceDelegationConnectorCreator.this.assemblyContext = context;
                         SourceDelegationConnectorCreator.this.innerRole = role;
-                        return creator;
+                        return SourceDelegationConnectorCreator.this;
                     }
                 }, context);
     }

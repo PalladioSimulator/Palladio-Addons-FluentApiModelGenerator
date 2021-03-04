@@ -25,7 +25,6 @@ public class AssemblyEventConnectorCreator extends AbstractConnectorCreator {
 
     public SourceRoleSelector<AssemblyEventConnectorCreator> withSourceAssemblyContext(final AssemblyContext context) {
         Objects.requireNonNull(context, "The given AssemblyContext must not be null.");
-        final var creator = this;
         return new SourceRoleSelector<AssemblyEventConnectorCreator>(
                 new IContextRoleCombinator<SourceRole, AssemblyEventConnectorCreator>() {
 
@@ -34,19 +33,18 @@ public class AssemblyEventConnectorCreator extends AbstractConnectorCreator {
                             final SourceRole role) {
                         AssemblyEventConnectorCreator.this.sourceContext = context;
                         AssemblyEventConnectorCreator.this.sourceRole = role;
-                        return creator;
+                        return AssemblyEventConnectorCreator.this;
                     }
                 }, context);
     }
 
     public SourceRoleSelector<AssemblyEventConnectorCreator> withSourceAssemblyContext(final String name) {
-        final var context = this.system.getAssemblyContextByName(name);
+        final AssemblyContext context = this.system.getAssemblyContextByName(name);
         return this.withSourceAssemblyContext(context);
     }
 
     public SinkRoleSelector<AssemblyEventConnectorCreator> withSinkAssemblyContext(final AssemblyContext context) {
         Objects.requireNonNull(context, "The given AssemblyContext must not be null.");
-        final var creator = this;
         return new SinkRoleSelector<AssemblyEventConnectorCreator>(
                 new IContextRoleCombinator<SinkRole, AssemblyEventConnectorCreator>() {
 
@@ -55,13 +53,13 @@ public class AssemblyEventConnectorCreator extends AbstractConnectorCreator {
                             final SinkRole role) {
                         AssemblyEventConnectorCreator.this.sinkContext = context;
                         AssemblyEventConnectorCreator.this.sinkRole = role;
-                        return creator;
+                        return AssemblyEventConnectorCreator.this;
                     }
                 }, context);
     }
 
     public SinkRoleSelector<AssemblyEventConnectorCreator> withSinkAssemblyContext(final String name) {
-        final var context = this.system.getAssemblyContextByName(name);
+        final AssemblyContext context = this.system.getAssemblyContextByName(name);
         return this.withSinkAssemblyContext(context);
     }
 

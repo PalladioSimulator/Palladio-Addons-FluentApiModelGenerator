@@ -36,16 +36,15 @@ public class EventChannelSinkConnectorCreator extends AbstractConnectorCreator {
     public SinkRoleSelector<EventChannelSinkConnectorCreator> withAssemblyContext(
             final AssemblyContext assemblyContext) {
         Objects.requireNonNull(assemblyContext, "The given AssemblyContext must not be null.");
-        final EventChannelSinkConnectorCreator creator = this;
         return new SinkRoleSelector<EventChannelSinkConnectorCreator>(
                 new IContextRoleCombinator<SinkRole, EventChannelSinkConnectorCreator>() {
 
                     @Override
                     public EventChannelSinkConnectorCreator combineContextAndRole(final AssemblyContext context,
                             final SinkRole role) {
-                        creator.assemblyContext = context;
-                        creator.role = role;
-                        return creator;
+                        EventChannelSinkConnectorCreator.this.assemblyContext = context;
+                        EventChannelSinkConnectorCreator.this.role = role;
+                        return EventChannelSinkConnectorCreator.this;
                     }
                 }, assemblyContext);
     }

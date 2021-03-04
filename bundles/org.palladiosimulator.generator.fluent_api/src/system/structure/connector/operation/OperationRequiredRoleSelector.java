@@ -13,7 +13,8 @@ import system.structure.connector.IContextRoleCombinator;
  * 
  * @author Florian Krone
  *
- * @param <T> The ConnectorCreator, creating this selector.
+ * @param <T>
+ *            The ConnectorCreator, creating this selector.
  */
 public class OperationRequiredRoleSelector<T> {
     private final IContextRoleCombinator<OperationRequiredRole, T> combinator;

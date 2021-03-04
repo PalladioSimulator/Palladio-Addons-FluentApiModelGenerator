@@ -34,7 +34,6 @@ public class SinkDelegationConnectorCreator extends AbstractConnectorCreator {
 
     public SinkRoleSelector<SinkDelegationConnectorCreator> withAssemblyContext(final AssemblyContext context) {
         Objects.requireNonNull(context, "The given AssemblyContext must not be null.");
-        final SinkDelegationConnectorCreator creator = this;
         return new SinkRoleSelector<SinkDelegationConnectorCreator>(
                 new IContextRoleCombinator<SinkRole, SinkDelegationConnectorCreator>() {
 
@@ -43,7 +42,7 @@ public class SinkDelegationConnectorCreator extends AbstractConnectorCreator {
                             final SinkRole role) {
                         SinkDelegationConnectorCreator.this.assemblyContext = context;
                         SinkDelegationConnectorCreator.this.innerRole = role;
-                        return creator;
+                        return SinkDelegationConnectorCreator.this;
                     }
                 }, context);
     }

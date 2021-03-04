@@ -35,7 +35,6 @@ public class RequiredDelegationConnectorCreator extends AbstractConnectorCreator
     public OperationRequiredRoleSelector<RequiredDelegationConnectorCreator> withRequiringContext(
             final AssemblyContext context) {
         Objects.requireNonNull(context, "The given AssemblyContext must not be null.");
-        final RequiredDelegationConnectorCreator creator = this;
         return new OperationRequiredRoleSelector<RequiredDelegationConnectorCreator>(
                 new IContextRoleCombinator<OperationRequiredRole, RequiredDelegationConnectorCreator>() {
 
@@ -44,7 +43,7 @@ public class RequiredDelegationConnectorCreator extends AbstractConnectorCreator
                             final OperationRequiredRole role) {
                         RequiredDelegationConnectorCreator.this.requringAssemblyContext = context;
                         RequiredDelegationConnectorCreator.this.innerRequiredRole = role;
-                        return creator;
+                        return RequiredDelegationConnectorCreator.this;
                     }
                 }, context);
     }

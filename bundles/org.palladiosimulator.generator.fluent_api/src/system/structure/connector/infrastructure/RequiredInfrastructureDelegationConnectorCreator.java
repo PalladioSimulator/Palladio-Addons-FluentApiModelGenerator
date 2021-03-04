@@ -34,7 +34,6 @@ public class RequiredInfrastructureDelegationConnectorCreator extends AbstractCo
 
     public InfrastructureRequiredRoleSelector<RequiredInfrastructureDelegationConnectorCreator> withRequiringContext(
             final AssemblyContext context) {
-        final RequiredInfrastructureDelegationConnectorCreator creator = this;
         return new InfrastructureRequiredRoleSelector<RequiredInfrastructureDelegationConnectorCreator>(
                 new IContextRoleCombinator<InfrastructureRequiredRole, RequiredInfrastructureDelegationConnectorCreator>() {
 
@@ -43,7 +42,7 @@ public class RequiredInfrastructureDelegationConnectorCreator extends AbstractCo
                             final AssemblyContext context, final InfrastructureRequiredRole role) {
                         RequiredInfrastructureDelegationConnectorCreator.this.requringAssemblyContext = context;
                         RequiredInfrastructureDelegationConnectorCreator.this.innerRequiredRole = role;
-                        return creator;
+                        return RequiredInfrastructureDelegationConnectorCreator.this;
                     }
                 }, context);
     }

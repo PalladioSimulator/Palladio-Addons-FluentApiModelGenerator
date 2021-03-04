@@ -35,7 +35,6 @@ public class RequiredResourceDelegationConnectorCreator extends AbstractConnecto
 
     public ResourceRequiredRoleSelector withRequiringContext(final AssemblyContext context) {
         Objects.requireNonNull(context, "The given AssemblyContext must not be null.");
-        final RequiredResourceDelegationConnectorCreator creator = this;
         return new ResourceRequiredRoleSelector(
                 new IContextRoleCombinator<ResourceRequiredRole, RequiredResourceDelegationConnectorCreator>() {
 
@@ -44,7 +43,7 @@ public class RequiredResourceDelegationConnectorCreator extends AbstractConnecto
                             final AssemblyContext context, final ResourceRequiredRole role) {
                         RequiredResourceDelegationConnectorCreator.this.requringAssemblyContext = context;
                         RequiredResourceDelegationConnectorCreator.this.innerRequiredRole = role;
-                        return creator;
+                        return RequiredResourceDelegationConnectorCreator.this;
                     }
                 }, context);
     }

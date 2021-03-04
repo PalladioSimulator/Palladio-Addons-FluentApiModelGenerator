@@ -13,8 +13,7 @@ public class SinkRoleSelector<T> {
     private final IContextRoleCombinator<SinkRole, T> combinator;
     private final AssemblyContext context;
 
-    public SinkRoleSelector(final IContextRoleCombinator<SinkRole, T> combinator,
-            final AssemblyContext context) {
+    public SinkRoleSelector(final IContextRoleCombinator<SinkRole, T> combinator, final AssemblyContext context) {
         this.combinator = combinator;
         this.context = context;
     }

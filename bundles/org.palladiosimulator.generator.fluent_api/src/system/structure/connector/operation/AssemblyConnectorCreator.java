@@ -44,7 +44,6 @@ public class AssemblyConnectorCreator extends AbstractConnectorCreator {
     public OperationRequiredRoleSelector<AssemblyConnectorCreator> withRequiringAssemblyContext(
             final AssemblyContext context) {
         Objects.requireNonNull(context, "The given AssemblyContext must not be null.");
-        final AssemblyConnectorCreator creator = this;
         return new OperationRequiredRoleSelector<AssemblyConnectorCreator>(
                 new IContextRoleCombinator<OperationRequiredRole, AssemblyConnectorCreator>() {
 
@@ -53,7 +52,7 @@ public class AssemblyConnectorCreator extends AbstractConnectorCreator {
                             final OperationRequiredRole role) {
                         AssemblyConnectorCreator.this.requiringContext = reqContext;
                         AssemblyConnectorCreator.this.requiredRole = role;
-                        return creator;
+                        return AssemblyConnectorCreator.this;
                     }
                 }, context);
     }
@@ -89,7 +88,6 @@ public class AssemblyConnectorCreator extends AbstractConnectorCreator {
     public OperationProvidedRoleSelector<AssemblyConnectorCreator> withProvidingAssemblyContext(
             final AssemblyContext context) {
         Objects.requireNonNull(context, "The given AssemblyContext must not be null.");
-        final AssemblyConnectorCreator creator = this;
         return new OperationProvidedRoleSelector<AssemblyConnectorCreator>(
                 new IContextRoleCombinator<OperationProvidedRole, AssemblyConnectorCreator>() {
 
@@ -98,7 +96,7 @@ public class AssemblyConnectorCreator extends AbstractConnectorCreator {
                             final OperationProvidedRole role) {
                         AssemblyConnectorCreator.this.providingContext = provContext;
                         AssemblyConnectorCreator.this.providedRole = role;
-                        return creator;
+                        return AssemblyConnectorCreator.this;
                     }
                 }, context);
     }

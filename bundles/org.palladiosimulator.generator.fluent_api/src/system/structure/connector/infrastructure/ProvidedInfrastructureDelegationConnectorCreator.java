@@ -32,8 +32,8 @@ public class ProvidedInfrastructureDelegationConnectorCreator extends AbstractCo
         return this.withOuterProvidedRole(role);
     }
 
-    public InfrastructureProvidedRoleSelector<ProvidedInfrastructureDelegationConnectorCreator> withProvidingContext(final AssemblyContext context) {
-        final ProvidedInfrastructureDelegationConnectorCreator creator = this;
+    public InfrastructureProvidedRoleSelector<ProvidedInfrastructureDelegationConnectorCreator> withProvidingContext(
+            final AssemblyContext context) {
         return new InfrastructureProvidedRoleSelector<ProvidedInfrastructureDelegationConnectorCreator>(
                 new IContextRoleCombinator<InfrastructureProvidedRole, ProvidedInfrastructureDelegationConnectorCreator>() {
 
@@ -42,12 +42,13 @@ public class ProvidedInfrastructureDelegationConnectorCreator extends AbstractCo
                             final AssemblyContext context, final InfrastructureProvidedRole role) {
                         ProvidedInfrastructureDelegationConnectorCreator.this.providingAssemblyContext = context;
                         ProvidedInfrastructureDelegationConnectorCreator.this.innerProvidedRole = role;
-                        return creator;
+                        return ProvidedInfrastructureDelegationConnectorCreator.this;
                     }
                 }, context);
     }
 
-    public InfrastructureProvidedRoleSelector<ProvidedInfrastructureDelegationConnectorCreator> withProvidingContext(final String name) {
+    public InfrastructureProvidedRoleSelector<ProvidedInfrastructureDelegationConnectorCreator> withProvidingContext(
+            final String name) {
         final AssemblyContext context = this.system.getAssemblyContextByName(name);
         return this.withProvidingContext(context);
     }
