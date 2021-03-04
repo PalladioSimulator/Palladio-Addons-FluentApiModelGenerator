@@ -116,7 +116,7 @@ public class Example {
                 .withName("infrastructure required delegation")
                 .withOuterRequiredRole("infrastructure required role")
                 .withRequiringContext("basic component context 2")
-                .withInfrastructuRequiredRole("requres infrastructure"))
+                .withInfrastructureRequiredRole("requres infrastructure"))
             .addToSystem(create.newQoSAnnotations()
                 .withName("annotations"))
             .addToSystem(create.newResourceRequiredRole()

@@ -29,7 +29,7 @@ import shared.validate.IModelValidator;
 import system.apiControlFlowInterfaces.ISystem;
 import system.apiControlFlowInterfaces.ISystemAddition;
 import system.structure.connector.AbstractConnectorCreator;
-import system.structure.connector.resourceRequiredDelegationConnector.ResourceRequiredDelegationConnectorCreator;
+import system.structure.connector.resource.ResourceRequiredDelegationConnectorCreator;
 import system.structure.qosAnnotations.QoSAnnotationsCreator;
 import system.structure.systemRole.InfrastructureProvidedRoleCreator;
 import system.structure.systemRole.InfrastructureRequiredRoleCreator;

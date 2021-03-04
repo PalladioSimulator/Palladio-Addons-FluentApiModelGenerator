@@ -6,7 +6,7 @@ import org.palladiosimulator.pcm.system.System;
 import system.structure.AssemblyContextCreator;
 import system.structure.EventChannelCreator;
 import system.structure.connector.AbstractConnectorCreator;
-import system.structure.connector.resourceRequiredDelegationConnector.ResourceRequiredDelegationConnectorCreator;
+import system.structure.connector.resource.ResourceRequiredDelegationConnectorCreator;
 import system.structure.qosAnnotations.QoSAnnotationsCreator;
 import system.structure.systemRole.InfrastructureProvidedRoleCreator;
 import system.structure.systemRole.InfrastructureRequiredRoleCreator;
