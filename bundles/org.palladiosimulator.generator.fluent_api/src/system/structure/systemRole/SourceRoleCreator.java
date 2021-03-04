@@ -10,6 +10,13 @@ import org.palladiosimulator.pcm.repository.SourceRole;
 import system.structure.SystemCreator;
 import system.structure.SystemEntity;
 
+/**
+ * This class constructs an {@link org.palladiosimulator.pcm.repository.SourceRole SourceRole}.
+ *
+ * @author Florian Krone
+ *
+ * @see org.palladiosimulator.pcm.repository.SourceRole
+ */
 public class SourceRoleCreator extends SystemEntity {
     private EventGroup eventGroup;
 
@@ -17,12 +24,33 @@ public class SourceRoleCreator extends SystemEntity {
         this.system = systemCreator;
     }
 
+    /**
+     * Defines the {@link org.palladiosimulator.pcm.repository.EventGroup EventGroup} this role
+     * requires.
+     * 
+     * @param eventGroup
+     * @return this role creator
+     * 
+     * @see org.palladiosimulator.pcm.repository.EventGroup
+     */
     public SourceRoleCreator withEventGroup(final EventGroup eventGroup) {
         Objects.requireNonNull(eventGroup, "The given EventGroup must not be null.");
         this.eventGroup = eventGroup;
         return this;
     }
 
+    /**
+     * Defines the {@link org.palladiosimulator.pcm.repository.EventGroup EventGroup} this role
+     * requires. Searches the repositories added to the system for an interface that matches the
+     * given name.
+     * 
+     * @param name
+     * @return this role creator
+     * @throws NoSuchElementException
+     *             Thrown if no element matches the given name.
+     * 
+     * @see org.palladiosimulator.pcm.repository.EventGroup
+     */
     public SourceRoleCreator withEventGroup(final String name) throws NoSuchElementException {
         EventGroup group;
         try {

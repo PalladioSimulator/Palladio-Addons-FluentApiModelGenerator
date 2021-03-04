@@ -9,6 +9,14 @@ import org.palladiosimulator.pcm.repository.SourceRole;
 
 import system.structure.connector.IContextRoleCombinator;
 
+/**
+ * This class ensures, that a Role is only selected after an AssemblyContext.
+ * 
+ * @author Florian Krone
+ *
+ * @param <T>
+ *            The ConnectorCreator, creating this selector.
+ */
 public class SourceRoleSelector<T> {
     private final IContextRoleCombinator<SourceRole, T> combinator;
     private final AssemblyContext context;
@@ -18,11 +26,34 @@ public class SourceRoleSelector<T> {
         this.context = context;
     }
 
+    /**
+     * Defines the {@link org.palladiosimulator.pcm.repository.SourceRole SourceRole} required by
+     * the {@link org.palladiosimulator.pcm.core.composition.AssemblyContext AssemblyContext}.
+     * 
+     * @param role
+     * @return the assembly connector
+     * 
+     * @see org.palladiosimulator.pcm.repository.SourceRole
+     * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
+     */
     public T withSourceRole(final SourceRole role) {
         Objects.requireNonNull(role, "The given Role must not be null.");
         return this.combinator.combineContextAndRole(this.context, role);
     }
 
+    /**
+     * Defines the {@link org.palladiosimulator.pcm.repository.SourceRole SourceRole} required by
+     * the {@link org.palladiosimulator.pcm.core.composition.AssemblyContext AssemblyContext}. The
+     * required roles of the context are searched for a role matching the given name.
+     * 
+     * @param name
+     * @return the assembly connector
+     * @throws NoSuchElementException
+     *             Thrown if no role matches the given name.
+     * 
+     * @see org.palladiosimulator.pcm.repository.SourceRole
+     * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
+     */
     public T withSourceRole(final String name) throws NoSuchElementException {
         final RequiredRole role = this.context.getEncapsulatedComponent__AssemblyContext()
             .getRequiredRoles_InterfaceRequiringEntity()

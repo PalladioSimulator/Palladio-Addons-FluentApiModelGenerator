@@ -11,6 +11,15 @@ import system.structure.SystemCreator;
 import system.structure.connector.AbstractConnectorCreator;
 import system.structure.connector.IContextRoleCombinator;
 
+/**
+ * This class constructs a
+ * {@link org.palladiosimulator.pcm.core.composition.ProvidedInfrastructureDelegationConnector
+ * ProvidedInfrastructureDelegationConnector}.
+ *
+ * @author Florian Krone
+ *
+ * @see org.palladiosimulator.pcm.core.composition.ProvidedInfrastructureDelegationConnector
+ */
 public class ProvidedInfrastructureDelegationConnectorCreator extends AbstractConnectorCreator {
     private InfrastructureProvidedRole outerProvidedRole;
     private InfrastructureProvidedRole innerProvidedRole;
@@ -20,18 +29,49 @@ public class ProvidedInfrastructureDelegationConnectorCreator extends AbstractCo
         this.system = systemCreator;
     }
 
+    /**
+     * Defines the {@link org.palladiosimulator.pcm.repository.InfrastructureProvidedRole
+     * InfrastructureProvidedRole} of the system, delegated to an AssemblyContext.
+     * 
+     * @param role
+     * @return this connector
+     * 
+     * @see org.palladiosimulator.pcm.repository.InfrastructureProvidedRole
+     */
     public ProvidedInfrastructureDelegationConnectorCreator withOuterProvidedRole(
             final InfrastructureProvidedRole role) {
         this.outerProvidedRole = role;
         return this;
     }
 
+    /**
+     * Defines the {@link org.palladiosimulator.pcm.repository.InfrastructureProvidedRole
+     * InfrastructureProvidedRole} of the system, delegated to an AssemblyContext. The provided
+     * roles added to the system are searched for one that matches the given name.
+     * 
+     * @param role
+     * @return this connector
+     * @throws NoSuchElementException
+     *             Thrown if no element matches the given name.
+     * 
+     * @see org.palladiosimulator.pcm.repository.InfrastructureProvidedRole
+     */
     public ProvidedInfrastructureDelegationConnectorCreator withOuterProvidedRole(final String name)
             throws NoSuchElementException {
         final InfrastructureProvidedRole role = this.system.getSystemInfrastructureProvidedRoleByName(name);
         return this.withOuterProvidedRole(role);
     }
 
+    /**
+     * Defines the {@link org.palladiosimulator.pcm.core.composition.AssemblyContext
+     * AssemblyContext} with the provided role.
+     * 
+     * @param context
+     * @return this connector
+     * 
+     * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
+     * @see org.palladiosimulator.pcm.repository.InfrastructureProvidedRole
+     */
     public InfrastructureProvidedRoleSelector<ProvidedInfrastructureDelegationConnectorCreator> withProvidingContext(
             final AssemblyContext context) {
         return new InfrastructureProvidedRoleSelector<ProvidedInfrastructureDelegationConnectorCreator>(
@@ -47,6 +87,20 @@ public class ProvidedInfrastructureDelegationConnectorCreator extends AbstractCo
                 }, context);
     }
 
+    /**
+     * Defines the {@link org.palladiosimulator.pcm.core.composition.AssemblyContext
+     * AssemblyContext} with the provided role. The assembly contexts added to the system are
+     * searched for one that matches the given name.
+     * 
+     * @param name
+     * @return this connector
+     * 
+     * @throws NoSuchElementException
+     *             Thrown if no element matches the given name.
+     * 
+     * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
+     * @see org.palladiosimulator.pcm.repository.InfrastructureProvidedRole
+     */
     public InfrastructureProvidedRoleSelector<ProvidedInfrastructureDelegationConnectorCreator> withProvidingContext(
             final String name) {
         final AssemblyContext context = this.system.getAssemblyContextByName(name);

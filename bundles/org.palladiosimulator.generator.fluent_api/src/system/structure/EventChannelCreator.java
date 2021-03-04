@@ -7,6 +7,14 @@ import org.palladiosimulator.pcm.core.composition.CompositionFactory;
 import org.palladiosimulator.pcm.core.composition.EventChannel;
 import org.palladiosimulator.pcm.repository.EventGroup;
 
+/**
+ * This class constructs an {@link org.palladiosimulator.pcm.core.composition.EventChannel
+ * EventChannel}.
+ *
+ * @author Florian Krone
+ *
+ * @see org.palladiosimulator.pcm.core.composition.EventChannel
+ */
 public class EventChannelCreator extends SystemEntity {
     private EventGroup eventGroup;
 
@@ -14,12 +22,33 @@ public class EventChannelCreator extends SystemEntity {
         this.system = systemCreator;
     }
 
+    /**
+     * Defines the {@link org.palladiosimulator.pcm.repository.EventGroup EventGroup} of this event
+     * channel.
+     * 
+     * @param component
+     * @return this event group
+     * 
+     * @see org.palladiosimulator.pcm.repository.EventGroup
+     */
     public EventChannelCreator withEventGroup(final EventGroup eventGroup) {
         Objects.requireNonNull(eventGroup, "The given EventGroup must not be null.");
         this.eventGroup = eventGroup;
         return this;
     }
 
+    /**
+     * Defines the {@link org.palladiosimulator.pcm.repository.EventGroup EventGroup} of this event
+     * channel. The repositories added to the system are searched for an event group that matches
+     * the given name.
+     * 
+     * @param component
+     * @return this event group
+     * @throws NoSuchElementException
+     *             Thrown if no element matches the given name
+     * 
+     * @see org.palladiosimulator.pcm.repository.EventGroup
+     */
     public EventChannelCreator withEventGroup(final String name) throws NoSuchElementException {
         EventGroup group;
         try {

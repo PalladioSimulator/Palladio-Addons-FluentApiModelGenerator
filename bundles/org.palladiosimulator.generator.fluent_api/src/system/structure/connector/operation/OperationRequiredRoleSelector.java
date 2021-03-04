@@ -35,7 +35,6 @@ public class OperationRequiredRoleSelector<T> {
      * @return the assembly connector
      * 
      * @see org.palladiosimulator.pcm.repository.OperationRequiredRole
-     * @see org.palladiosimulator.pcm.core.composition.AssemblyConnector
      * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
      */
     public T withOperationRequiredRole(final OperationRequiredRole role) {
@@ -55,7 +54,6 @@ public class OperationRequiredRoleSelector<T> {
      *             Thrown if no role matches the given name.
      * 
      * @see org.palladiosimulator.pcm.repository.OperationRequiredRole
-     * @see org.palladiosimulator.pcm.core.composition.AssemblyConnector
      * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
      */
     public T withOperationRequiredRole(final String name) {

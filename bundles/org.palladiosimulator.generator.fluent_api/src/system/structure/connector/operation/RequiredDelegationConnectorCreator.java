@@ -12,6 +12,15 @@ import system.structure.SystemCreator;
 import system.structure.connector.AbstractConnectorCreator;
 import system.structure.connector.IContextRoleCombinator;
 
+/**
+ * This class constructs a
+ * {@link org.palladiosimulator.pcm.core.composition.RequiredDelegationConnector
+ * RequiredDelegationConnector}.
+ *
+ * @author Florian Krone
+ *
+ * @see org.palladiosimulator.pcm.core.composition.RequiredDelegationConnector
+ */
 public class RequiredDelegationConnectorCreator extends AbstractConnectorCreator {
     private OperationRequiredRole outerRequiredRole;
     private OperationRequiredRole innerRequiredRole;
@@ -21,17 +30,48 @@ public class RequiredDelegationConnectorCreator extends AbstractConnectorCreator
         this.system = systemCreator;
     }
 
+    /**
+     * Defines the {@link org.palladiosimulator.pcm.repository.OperationRequiredRole
+     * OperationRequiredRole} of the system, delegated to an AssemblyContext.
+     * 
+     * @param role
+     * @return this connector
+     * 
+     * @see org.palladiosimulator.pcm.repository.OperationRequiredRole
+     */
     public RequiredDelegationConnectorCreator withOuterRequiredRole(final OperationRequiredRole role) {
         Objects.requireNonNull(role, "The given Role must not be null.");
         this.outerRequiredRole = role;
         return this;
     }
 
+    /**
+     * Defines the {@link org.palladiosimulator.pcm.repository.OperationRequiredRole
+     * OperationRequiredRole} of the system, delegated to an AssemblyContext. The required roles
+     * added to the system are searched for one that matches the given name.
+     * 
+     * @param role
+     * @return this connector
+     * @throws NoSuchElementException
+     *             Thrown if no element matches the given name.
+     * 
+     * @see org.palladiosimulator.pcm.repository.OperationRequiredRole
+     */
     public RequiredDelegationConnectorCreator withOuterRequiredRole(final String name) throws NoSuchElementException {
         final OperationRequiredRole role = this.system.getSystemOperationRequiredRoleByName(name);
         return this.withOuterRequiredRole(role);
     }
 
+    /**
+     * Defines the {@link org.palladiosimulator.pcm.core.composition.AssemblyContext
+     * AssemblyContext} with the required role.
+     * 
+     * @param context
+     * @return this connector
+     * 
+     * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
+     * @see org.palladiosimulator.pcm.repository.OperationRequiredRole
+     */
     public OperationRequiredRoleSelector<RequiredDelegationConnectorCreator> withRequiringContext(
             final AssemblyContext context) {
         Objects.requireNonNull(context, "The given AssemblyContext must not be null.");
@@ -48,6 +88,20 @@ public class RequiredDelegationConnectorCreator extends AbstractConnectorCreator
                 }, context);
     }
 
+    /**
+     * Defines the {@link org.palladiosimulator.pcm.core.composition.AssemblyContext
+     * AssemblyContext} with the required role. The assembly contexts added to the system are
+     * searched for one that matches the given name.
+     * 
+     * @param name
+     * @return this connector
+     * 
+     * @throws NoSuchElementException
+     *             Thrown if no element matches the given name.
+     * 
+     * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
+     * @see org.palladiosimulator.pcm.repository.OperationRequiredRole
+     */
     public OperationRequiredRoleSelector<RequiredDelegationConnectorCreator> withRequiringContext(final String name) {
         final AssemblyContext context = this.system.getAssemblyContextByName(name);
         return this.withRequiringContext(context);

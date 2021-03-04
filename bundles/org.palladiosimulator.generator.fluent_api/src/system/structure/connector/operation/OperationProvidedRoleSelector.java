@@ -36,7 +36,6 @@ public class OperationProvidedRoleSelector<T> {
      * @return the assembly connector
      * 
      * @see org.palladiosimulator.pcm.repository.OperationProvidedRole
-     * @see org.palladiosimulator.pcm.core.composition.AssemblyConnector
      * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
      */
     public T withOperationProvidedRole(final OperationProvidedRole role) {
@@ -56,7 +55,6 @@ public class OperationProvidedRoleSelector<T> {
      *             Thrown if no role matches the given name.
      * 
      * @see org.palladiosimulator.pcm.repository.OperationProvidedRole
-     * @see org.palladiosimulator.pcm.core.composition.AssemblyConnector
      * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
      */
     public T withOperationProvidedRole(final String name) throws NoSuchElementException {

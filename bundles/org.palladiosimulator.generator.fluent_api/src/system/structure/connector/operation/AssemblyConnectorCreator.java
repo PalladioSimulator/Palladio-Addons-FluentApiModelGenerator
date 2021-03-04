@@ -59,8 +59,8 @@ public class AssemblyConnectorCreator extends AbstractConnectorCreator {
 
     /**
      * Defines the {@link org.palladiosimulator.pcm.core.composition.AssemblyContext
-     * AssemblyContext} that requires the role. The repositories added to the system are searched
-     * for a context that matches the given name.
+     * AssemblyContext} that requires the role. The assembly contexts added to the system are
+     * searched for one that matches the given name.
      * 
      * @param name
      * @return this assembly connector
@@ -103,8 +103,8 @@ public class AssemblyConnectorCreator extends AbstractConnectorCreator {
 
     /**
      * Defines the {@link org.palladiosimulator.pcm.core.composition.AssemblyContext
-     * AssemblyContext} that provides the role. The repositories added to the system are searched
-     * for a context that matches the given name.
+     * AssemblyContext} that provides the role. The assembly contexts added to the system are
+     * searched for one that matches the given name.
      * 
      * @param name
      * @return this assembly connector

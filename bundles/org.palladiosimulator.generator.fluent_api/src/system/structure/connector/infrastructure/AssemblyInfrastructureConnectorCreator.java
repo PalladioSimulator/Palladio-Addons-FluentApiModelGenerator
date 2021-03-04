@@ -1,5 +1,6 @@
 package system.structure.connector.infrastructure;
 
+import java.util.NoSuchElementException;
 import java.util.Objects;
 
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
@@ -12,6 +13,15 @@ import system.structure.SystemCreator;
 import system.structure.connector.AbstractConnectorCreator;
 import system.structure.connector.IContextRoleCombinator;
 
+/**
+ * This class constructs an
+ * {@link org.palladiosimulator.pcm.core.composition.AssemblyInfrastructureConnector
+ * AssemblyInfrastructureConnector}.
+ *
+ * @author Florian Krone
+ *
+ * @see org.palladiosimulator.pcm.core.composition.AssemblyInfrastructureConnector
+ */
 public class AssemblyInfrastructureConnectorCreator extends AbstractConnectorCreator {
 
     private AssemblyContext requiringContext;
@@ -23,6 +33,16 @@ public class AssemblyInfrastructureConnectorCreator extends AbstractConnectorCre
         this.system = systemCreator;
     }
 
+    /**
+     * Defines the {@link org.palladiosimulator.pcm.core.composition.AssemblyContext
+     * AssemblyContext} with the required role.
+     * 
+     * @param context
+     * @return this connector
+     * 
+     * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
+     * @see org.palladiosimulator.pcm.repository.InfrastructureRequiredRole
+     */
     public InfrastructureRequiredRoleSelector<AssemblyInfrastructureConnectorCreator> withRequiringAssemblyContext(
             final AssemblyContext context) {
         Objects.requireNonNull(context, "The given AssemblyContext must not be null.");
@@ -39,12 +59,36 @@ public class AssemblyInfrastructureConnectorCreator extends AbstractConnectorCre
                 }, context);
     }
 
+    /**
+     * Defines the {@link org.palladiosimulator.pcm.core.composition.AssemblyContext
+     * AssemblyContext} with the required role. The assembly contexts added to the system are
+     * searched for one that matches the given name.
+     * 
+     * @param name
+     * @return this connector
+     * 
+     * @throws NoSuchElementException
+     *             Thrown if no element matches the given name.
+     * 
+     * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
+     * @see org.palladiosimulator.pcm.repository.InfrastructureRequiredRole
+     */
     public InfrastructureRequiredRoleSelector<AssemblyInfrastructureConnectorCreator> withRequiringAssemblyContext(
             final String name) {
         final AssemblyContext context = this.system.getAssemblyContextByName(name);
         return this.withRequiringAssemblyContext(context);
     }
 
+    /**
+     * Defines the {@link org.palladiosimulator.pcm.core.composition.AssemblyContext
+     * AssemblyContext} with the provided role.
+     * 
+     * @param context
+     * @return this connector
+     * 
+     * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
+     * @see org.palladiosimulator.pcm.repository.InfrastructureProvidedRole
+     */
     public InfrastructureProvidedRoleSelector<AssemblyInfrastructureConnectorCreator> withProvidingAssemblyContext(
             final AssemblyContext context) {
         Objects.requireNonNull(context, "The given AssemblyContext must not be null.");
@@ -62,6 +106,20 @@ public class AssemblyInfrastructureConnectorCreator extends AbstractConnectorCre
                 }, context);
     }
 
+    /**
+     * Defines the {@link org.palladiosimulator.pcm.core.composition.AssemblyContext
+     * AssemblyContext} with the provided role. The assembly contexts added to the system are
+     * searched for one that matches the given name.
+     * 
+     * @param name
+     * @return this connector
+     * 
+     * @throws NoSuchElementException
+     *             Thrown if no element matches the given name.
+     * 
+     * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
+     * @see org.palladiosimulator.pcm.repository.InfrastructureProvidedRole
+     */
     public InfrastructureProvidedRoleSelector<AssemblyInfrastructureConnectorCreator> withProvidingAssemblyContext(
             final String name) {
         final AssemblyContext context = this.system.getAssemblyContextByName(name);

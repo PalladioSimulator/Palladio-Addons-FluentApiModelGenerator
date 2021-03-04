@@ -10,6 +10,14 @@ import org.palladiosimulator.pcm.repository.RepositoryFactory;
 import system.structure.SystemCreator;
 import system.structure.SystemEntity;
 
+/**
+ * This class constructs an {@link org.palladiosimulator.pcm.repository.OperationRequiredRole
+ * OperationRequiredRole}.
+ *
+ * @author Florian Krone
+ *
+ * @see org.palladiosimulator.pcm.repository.OperationRequiredRole
+ */
 public class OperationRequiredRoleCreator extends SystemEntity {
 
     private OperationInterface requiredInterface;
@@ -18,12 +26,33 @@ public class OperationRequiredRoleCreator extends SystemEntity {
         this.system = systemCreator;
     }
 
+    /**
+     * Defines the {@link org.palladiosimulator.pcm.repository.OperationInterface
+     * OperationInterface} this role requires.
+     * 
+     * @param operationInterface
+     * @return this role creator
+     * 
+     * @see org.palladiosimulator.pcm.repository.OperationInterface
+     */
     public OperationRequiredRoleCreator withRequiredInterface(final OperationInterface operationInterface) {
         Objects.requireNonNull(operationInterface, "The given Interface must not be null.");
         this.requiredInterface = operationInterface;
         return this;
     }
 
+    /**
+     * Defines the {@link org.palladiosimulator.pcm.repository.OperationInterface
+     * OperationInterface} this role requires. Searches the repositories added to the system for an
+     * interface that matches the given name.
+     * 
+     * @param name
+     * @return this role creator
+     * @throws NoSuchElementException
+     *             Thrown if no element matches the given name.
+     * 
+     * @see org.palladiosimulator.pcm.repository.OperationInterface
+     */
     public OperationRequiredRoleCreator withRequiredInterface(final String name) throws NoSuchElementException {
         OperationInterface operationInterface;
         try {

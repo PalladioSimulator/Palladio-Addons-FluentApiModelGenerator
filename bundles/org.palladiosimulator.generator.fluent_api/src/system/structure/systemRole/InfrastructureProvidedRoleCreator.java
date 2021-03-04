@@ -10,6 +10,14 @@ import org.palladiosimulator.pcm.repository.RepositoryFactory;
 import system.structure.SystemCreator;
 import system.structure.SystemEntity;
 
+/**
+ * This class constructs an {@link org.palladiosimulator.pcm.repository.InfrastructureProvidedRole
+ * InfrastructureProvidedRole}.
+ *
+ * @author Florian Krone
+ *
+ * @see org.palladiosimulator.pcm.repository.InfrastructureProvidedRole
+ */
 public class InfrastructureProvidedRoleCreator extends SystemEntity {
 
     private InfrastructureInterface providedInterface;
@@ -18,6 +26,15 @@ public class InfrastructureProvidedRoleCreator extends SystemEntity {
         this.system = systemCreator;
     }
 
+    /**
+     * Defines the {@link org.palladiosimulator.pcm.repository.InfrastructureInterface
+     * InfrastructureInterface} this role provides.
+     * 
+     * @param infrastructureInterface
+     * @return this role creator
+     * 
+     * @see org.palladiosimulator.pcm.repository.InfrastructureInterface
+     */
     public InfrastructureProvidedRoleCreator withProvidedInterface(
             final InfrastructureInterface infrastructureInterface) {
         Objects.requireNonNull(infrastructureInterface, "The given Interface must not be null.");
@@ -25,6 +42,18 @@ public class InfrastructureProvidedRoleCreator extends SystemEntity {
         return this;
     }
 
+    /**
+     * Defines the {@link org.palladiosimulator.pcm.repository.InfrastructureInterface
+     * InfrastructureInterface} this role provides. Searches the repositories added to the system
+     * for an interface that matches the given name.
+     * 
+     * @param name
+     * @return this role creator
+     * @throws NoSuchElementException
+     *             Thrown if no element matches the given name.
+     * 
+     * @see org.palladiosimulator.pcm.repository.InfrastructureInterface
+     */
     public InfrastructureProvidedRoleCreator withProvidedInterface(final String name) throws NoSuchElementException {
         InfrastructureInterface requiredInterface;
         try {
