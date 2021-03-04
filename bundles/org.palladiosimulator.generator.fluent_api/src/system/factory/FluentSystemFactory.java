@@ -5,7 +5,6 @@ import java.util.logging.Logger;
 
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.palladiosimulator.pcm.resourcetype.ResourceRepository;
-import org.palladiosimulator.pcm.system.System;
 
 import shared.util.ModelLoader;
 import shared.validate.IModelValidator;

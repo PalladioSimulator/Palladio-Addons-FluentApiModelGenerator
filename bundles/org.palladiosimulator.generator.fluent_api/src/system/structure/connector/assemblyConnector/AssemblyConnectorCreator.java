@@ -12,6 +12,14 @@ import org.palladiosimulator.pcm.repository.OperationRequiredRole;
 import system.structure.SystemCreator;
 import system.structure.connector.AbstractConnectorCreator;
 
+/**
+ * This class constructs an {@link org.palladiosimulator.pcm.core.composition.AssemblyConnector
+ * AssemblyConnector}.
+ *
+ * @author Florian Krone
+ *
+ * @see org.palladiosimulator.pcm.core.composition.AssemblyConnector
+ */
 public class AssemblyConnectorCreator extends AbstractConnectorCreator {
 
     private AssemblyContext requiringContext;
@@ -23,6 +31,13 @@ public class AssemblyConnectorCreator extends AbstractConnectorCreator {
         this.system = systemCreator;
     }
 
+    /**
+     * Defines the {@link org.palladiosimulator.pcm.core.composition.AssemblyContext AssemblyContext} that requires the role.
+     * @param context
+     * @return this assembly connector
+     * 
+     * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
+     */
     public OperationRequiredRoleSelector withRequiringAssemblyContext(final AssemblyContext context) {
         Objects.requireNonNull(context, "The given AssemblyContext must not be null.");
         final AssemblyConnectorCreator creator = this;
@@ -38,11 +53,28 @@ public class AssemblyConnectorCreator extends AbstractConnectorCreator {
         }, context);
     }
 
+    /**
+     * Defines the {@link org.palladiosimulator.pcm.core.composition.AssemblyContext AssemblyContext} that requires the role.
+     * The repositories added to the system are searched for a context that matches the given name.
+     * @param name
+     * @return this assembly connector
+     * 
+     * @throws NoSuchElementException Thrown if no element matches the given name.
+     * 
+     * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
+     */
     public OperationRequiredRoleSelector withRequiringAssemblyContext(final String name) throws NoSuchElementException {
         final AssemblyContext context = this.system.getAssemblyContextByName(name);
         return this.withRequiringAssemblyContext(context);
     }
 
+    /**
+     * Defines the {@link org.palladiosimulator.pcm.core.composition.AssemblyContext AssemblyContext} that provides the role.
+     * @param context
+     * @return this assembly connector
+     * 
+     * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
+     */
     public OperationProvidedRoleSelector withProvidingAssemblyContext(final AssemblyContext context) {
         Objects.requireNonNull(context, "The given AssemblyContext must not be null.");
         final AssemblyConnectorCreator creator = this;
@@ -58,7 +90,16 @@ public class AssemblyConnectorCreator extends AbstractConnectorCreator {
         }, context);
     }
 
-    public OperationProvidedRoleSelector withProvidingAssemblyContext(final String name) {
+    /**
+     * Defines the {@link org.palladiosimulator.pcm.core.composition.AssemblyContext AssemblyContext} that provides the role.
+     * The repositories added to the system are searched for a context that matches the given name.
+     * @param name
+     * @return this assembly connector
+     * 
+     * @throws NoSuchElementException Thrown if no element matches the given name.
+     * 
+     */
+    public OperationProvidedRoleSelector withProvidingAssemblyContext(final String name) throws NoSuchElementException {
         final AssemblyContext context = this.system.getAssemblyContextByName(name);
         return this.withProvidingAssemblyContext(context);
     }
