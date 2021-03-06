@@ -36,17 +36,14 @@ public class ModelSaver {
      * 
      * @param repository
      * @param path
-     *            the path to the target file
-     * @param name
-     *            the name of the target file without a file extension
+     *            the path to the target file including the name without the file extension
      * @param printToConsole
      *            prints the xml representation of the model to the console if set to true
      * 
      * @see org.palladiosimulator.pcm.repository.Repository
      */
-    public static void saveRepository(final Repository repository, final String path, final String name,
-            final boolean printToConsole) {
-        save(repository, path, name, "repository", printToConsole);
+    public static void saveRepository(final Repository repository, final String path, final boolean printToConsole) {
+        save(repository, path, "repository", printToConsole);
     }
 
     /**
@@ -54,17 +51,14 @@ public class ModelSaver {
      * 
      * @param system
      * @param path
-     *            the path to the target file
-     * @param name
-     *            the name of the target file without a file extension
+     *            the path to the target file including the name without the file extension
      * @param printToConsole
      *            prints the xml representation of the model to the console if set to true
      * 
      * @see org.palladiosimulator.pcm.system.System
      */
-    public static void saveSystem(final System system, final String path, final String name,
-            final boolean printToConsole) {
-        save(system, path, name, "system", printToConsole);
+    public static void saveSystem(final System system, final String path, final boolean printToConsole) {
+        save(system, path, "system", printToConsole);
     }
 
     /**
@@ -72,17 +66,15 @@ public class ModelSaver {
      * 
      * @param resourceEnvironment
      * @param path
-     *            the path to the target file
-     * @param name
-     *            the name of the target file without a file extension
+     *            the path to the target file including the name without the file extension
      * @param printToConsole
      *            prints the xml representation of the model to the console if set to true
      * 
      * @see org.palladiosimulator.pcm.resourceenvironment.ResourceEnvironment
      */
     public static void saveResourceEnvironment(final ResourceEnvironment resourceEnvironment, final String path,
-            final String name, final boolean printToConsole) {
-        save(resourceEnvironment, path, name, "resourceenvironment", printToConsole);
+            final boolean printToConsole) {
+        save(resourceEnvironment, path, "resourceenvironment", printToConsole);
     }
 
     /**
@@ -90,22 +82,19 @@ public class ModelSaver {
      * 
      * @param allocation
      * @param path
-     *            the path to the target file
-     * @param name
-     *            the name of the target file without a file extension
+     *            the path to the target file including the name without the file extension
      * @param printToConsole
      *            prints the xml representation of the model to the console if set to true
      * 
      * @see org.palladiosimulator.pcm.allocation.Allocation
      */
-    public static void saveAllocation(final Allocation allocation, final String path, final String name,
-            final boolean printToConsole) {
-        save(allocation, path, name, "allocation", printToConsole);
+    public static void saveAllocation(final Allocation allocation, final String path, final boolean printToConsole) {
+        save(allocation, path, "allocation", printToConsole);
     }
 
-    private static void save(final EObject model, final String path, final String name, final String extension,
+    private static void save(final EObject model, final String path, final String extension,
             final boolean printToConsole) {
-        final String outputFile = path + name + "." + extension;
+        final String outputFile = path + "." + extension;
         final String[] fileExtensions = new String[] { extension, "xml" };
 
         // Create File

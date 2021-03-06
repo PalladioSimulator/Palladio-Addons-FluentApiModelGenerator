@@ -47,6 +47,6 @@ public class Example {
                 .withLatency("10ms")
                 .withThroughput("3"))
             .createResourceEnvironmentNow();
-        ModelSaver.saveResourceEnvironment(environment, "./", "basicEnvironment", true);
+        ModelSaver.saveResourceEnvironment(environment, "./basicEnvironment", true);
     }
 }

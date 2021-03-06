@@ -25,7 +25,7 @@ public class Example {
                 .withAssemblyContext("basic component context 1")
                 .withEventChannel("event channel"))
             .createAllocationNow();
-        ModelSaver.saveAllocation(allocation, "./", "invalidAllocation", true);
+        ModelSaver.saveAllocation(allocation, "./invalidAllocation", true);
     }
 
     public static void basicAllocation() {
@@ -47,6 +47,6 @@ public class Example {
                 .withResourceContainer("container 2")
                 .withAssemblyContext("basic component context 2"))
             .createAllocationNow();
-        ModelSaver.saveAllocation(allocation, "./", "basicAllocation", true);
+        ModelSaver.saveAllocation(allocation, "./basicAllocation", true);
     }
 }

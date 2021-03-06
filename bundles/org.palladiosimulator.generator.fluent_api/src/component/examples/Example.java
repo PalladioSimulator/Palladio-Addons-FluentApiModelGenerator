@@ -27,7 +27,7 @@ class Example {
         readmeExampleBackend();
         readmeExampleFluentAPI();
         mediaStoreExample();
-        // exampleWithoutMeaning();
+        exampleWithoutMeaning();
 
     }
 
@@ -38,7 +38,7 @@ class Example {
             .withName("invalid")
             .addToRepository(create.newCompleteComponentType())
             .createRepositoryNow();
-        ModelSaver.saveRepository(repository, "./", "invalid", true);
+        ModelSaver.saveRepository(repository, "./invalid", true);
     }
 
     public static void miniExample() {
@@ -92,7 +92,7 @@ class Example {
                         create.fetchOfOperationRequiredRole("basic component requires interface"),
                         create.fetchOfAssemblyContext("basic component context")))
             .createRepositoryNow();
-        ModelSaver.saveRepository(repository, "./", "miniExample", true);
+        ModelSaver.saveRepository(repository, "./miniExample", true);
     }
 
     public static void readmeExampleBackend() {
@@ -174,7 +174,7 @@ class Example {
         repository.getInterfaces__Repository()
             .add(webInterface);
 
-        ModelSaver.saveRepository(repository, "./", "backendExample", false);
+        ModelSaver.saveRepository(repository, "./backendExample", false);
     }
 
     public static void readmeExampleFluentAPI() {
@@ -209,7 +209,7 @@ class Example {
                 .requires(create.fetchOfOperationInterface("IDatabase")))
             .createRepositoryNow();
 
-        ModelSaver.saveRepository(repository, "./", "fluentAPIExample", false);
+        ModelSaver.saveRepository(repository, "./fluentAPIExample", false);
     }
 
     public static void presentationExample() {
@@ -221,7 +221,7 @@ class Example {
                 .withName("Database"))
             .createRepositoryNow();
 
-        ModelSaver.saveRepository(repository, "./", "fluentAPIExample", false);
+        ModelSaver.saveRepository(repository, "./fluentAPIExample", false);
     }
 
     public static void mediaStoreExample() {
@@ -317,7 +317,7 @@ class Example {
                 .withServiceEffectSpecification(create.newSeff()))
             .createRepositoryNow();
 
-        ModelSaver.saveRepository(mediaStore, "./", "myMediaStore", false);
+        ModelSaver.saveRepository(mediaStore, "./myMediaStore", false);
     }
 
     public static void exampleWithoutMeaning() {
@@ -395,6 +395,6 @@ class Example {
                 .withEventChannel(create.fetchOfEventGroup("haha")))
             .createRepositoryNow();
 
-        ModelSaver.saveRepository(repository, "./", "meaninglessExample", false);
+        ModelSaver.saveRepository(repository, "./meaninglessExample", false);
     }
 }
