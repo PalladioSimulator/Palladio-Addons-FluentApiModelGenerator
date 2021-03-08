@@ -19,7 +19,7 @@ System system = create.newSystem()
 This creates and empty system. However, this is not a valid system, as each system has to provide at least one role. The next step is to add a repository to the system:
 ```java
 System system = create.newSystem()
-    .withRepository(ModelLoader.loadRepository("*.repository file"))
+    .addRepository(ModelLoader.loadRepository("*.repository file"))
 ```
 While this step is not necessary, it eases the creation of a system. The entities of repositories added to the system like this can be referenced with their name when creating system entities. Otherwise pointers to them would be required.
 

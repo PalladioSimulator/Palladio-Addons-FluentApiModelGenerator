@@ -17,7 +17,7 @@ public class Example {
         final FluentSystemFactory create = new FluentSystemFactory();
         final System system = create.newSystem()
             .withName("invalid system")
-            .withRepository(ModelLoader.loadRepository("./miniExample.repository"))
+            .addRepository(ModelLoader.loadRepository("./miniExample.repository"))
             .addToSystem(create.newAssemblyContext())
             .addToSystem(create.newAssemblyContext()
                 .withName("basic component context 1")
@@ -37,7 +37,7 @@ public class Example {
         final FluentSystemFactory create = new FluentSystemFactory();
         final System system = create.newSystem()
             .withName("basicSystem")
-            .withRepository(ModelLoader.loadRepository("./miniExample.repository"))
+            .addRepository(ModelLoader.loadRepository("./miniExample.repository"))
             .addToSystem(create.newAssemblyContext()
                 .withName("basic component context 1")
                 .withEncapsulatedComponent("basic component"))

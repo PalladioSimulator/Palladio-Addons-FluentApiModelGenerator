@@ -34,7 +34,7 @@ public interface ISystemAddition {
      * @return this system
      * @see org.palladiosimulator.pcm.repository.Repository
      */
-    ISystemAddition withRepository(Repository repository);
+    ISystemAddition addRepository(Repository repository);
 
     /**
      * Adds an {@link org.palladiosimulator.pcm.core.composition.AssemblyContext AssemblyContext} to

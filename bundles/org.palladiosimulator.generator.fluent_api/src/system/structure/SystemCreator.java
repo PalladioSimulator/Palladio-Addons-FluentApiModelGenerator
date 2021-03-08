@@ -121,7 +121,7 @@ public class SystemCreator extends SystemEntity implements ISystem {
     }
 
     @Override
-    public ISystem withRepository(final Repository repository) {
+    public ISystem addRepository(final Repository repository) {
         Objects.requireNonNull(repository, "The given Repository must not be null.");
         this.repositories.add(repository);
         return this;
