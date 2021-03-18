@@ -65,3 +65,5 @@ Allocation allocation = create.newAllocation()
         .withResourceContainer("resource container"))
     .createAllocationNow();
 ```
+
+The package [```allocation.examples```](../bundles/org.palladiosimulator.generator.fluent_api/src/allocation/examples) provides more examples of allocations that were created using the fluent API.

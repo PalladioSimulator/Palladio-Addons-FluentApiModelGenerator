@@ -184,3 +184,5 @@ System system = create.newSystem()
 ```
 
 The created system looks like this: ![PCM System Model: Simplified Media Store](pcm_system_media_store.png "PCM System Model: Simplified Media Store")
+
+The package [```system.examples```](../bundles/org.palladiosimulator.generator.fluent_api/src/system/examples) provides more examples of systems that were created using the fluent API.

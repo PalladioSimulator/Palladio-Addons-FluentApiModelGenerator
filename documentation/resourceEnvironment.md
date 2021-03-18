@@ -31,8 +31,8 @@ Resource containers hold resources or nested resources containers. In the alloca
 create.newResourceContainer()
     .withName("resource container")
     .addProcessingResourceSpecification(/*create a ProcessingResourceSpecification using the factory*/)
-    .addHddProcessingResourceSpecification(/*create a HddProcessingResourceSpecification using the fluent api*/)
-    .addNestedResourceContainer(/*create another resource container using the fluent api*/)
+    .addHddProcessingResourceSpecification(/*create a HddProcessingResourceSpecification using the factory*/)
+    .addNestedResourceContainer(/*create another resource container using the factory*/)
 ```
 
 ## Processing Resource Specifications
@@ -100,3 +100,5 @@ ResourceEnvironment resourceEnvironment = create.newResourceEnvironment()
 ```
 
 The graphical representation of the model looks like this: ![PCM Resource Environment: Simplified Media Store](pcm_resources_media_store.png "PCM  Resource Environment: Simplified Media Store")
+
+The package [```resourceenvironment.example```](../bundles/org.palladiosimulator.generator.fluent_api/src/resourceenvironment/example) provides more examples of resourceenvironments that were created using the fluent API.
