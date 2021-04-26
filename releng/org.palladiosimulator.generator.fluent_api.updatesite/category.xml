@@ -4,6 +4,9 @@
     <feature id="org.palladiosimulator.generator.fluent_api.feature">
         <category name="org.palladiosimulator.addons.category" />
     </feature>
+    <feature id="org.palladiosimulator.generator.fluent_api.feature.source">
+      <category name="org.palladiosimulator.addons.source.category"/>
+   </feature>
 
     <!-- category definitions -->
     <category-def name="org.palladiosimulator.corefeatures.category"
