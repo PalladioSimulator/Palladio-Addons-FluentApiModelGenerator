@@ -1,5 +1,7 @@
 package apiControlFlowInterfaces;
 
+import org.palladiosimulator.pcm.repository.Repository;
+
 public interface Repo extends RepoAddition {
 
 	/**
@@ -27,5 +29,14 @@ public interface Repo extends RepoAddition {
 	 * @return this repository
 	 */
 	Repo withImportedResource(String path);
+	
+   /**
+     * Provides the entities in the fetching methods of a alread loaded repository
+     * by calling on the entities with the name of the repository leading.
+     * 
+     * @param repository loaded repository to be copied
+     * @return this repository
+     */
+    Repo withImportedResource(Repository repository);
 
 }
