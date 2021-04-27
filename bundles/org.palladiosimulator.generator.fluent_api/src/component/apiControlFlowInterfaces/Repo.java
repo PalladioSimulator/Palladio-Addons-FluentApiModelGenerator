@@ -1,5 +1,8 @@
 package component.apiControlFlowInterfaces;
 
+import org.eclipse.emf.common.util.URI;
+import org.palladiosimulator.pcm.repository.Repository;
+
 public interface Repo extends RepoAddition {
 
     /**
@@ -28,4 +31,22 @@ public interface Repo extends RepoAddition {
      */
     Repo withImportedResource(String path);
 
+    /**
+     * Loads the repository located in <code>uri</code> as a Resource and provides
+     * its entities in the fetching methods by calling on the entities with the name
+     * of the repository leading.
+     *
+     * @param uri to the import repository
+     * @return this repository
+     */
+    Repo withImportedResource(URI uri);
+
+    /**
+     * Provides the entities in the fetching methods of a already loaded repository
+     * by calling on the entities with the name of the repository leading.
+     *
+     * @param repository loaded repository to be copied
+     * @return this repository
+     */
+    Repo withImportedResource(Repository repository);
 }
