@@ -11,9 +11,10 @@ import component.repositoryStructure.internals.ResourceSignature;
 import shared.structure.ProcessingResource;
 
 /**
- * This class constructs a {@link org.palladiosimulator.pcm.seff.StartAction StartAction}. It is
- * used to create the '<em><b>StartAction</b></em>' object step-by-step, i.e.
- * '<em><b>StartActionCreator</b></em>' objects are of intermediate state.
+ * This class constructs a {@link org.palladiosimulator.pcm.seff.StartAction
+ * StartAction}. It is used to create the '<em><b>StartAction</b></em>' object
+ * step-by-step, i.e. '<em><b>StartActionCreator</b></em>' objects are of
+ * intermediate state.
  *
  * @author Louisa Lambrecht
  * @see org.palladiosimulator.pcm.seff.StartAction
@@ -54,12 +55,9 @@ public class StartActionCreator extends GeneralAction {
     @Override
     protected StartAction build() {
         final StartAction action = SeffFactory.eINSTANCE.createStartAction();
-        action.getInfrastructureCall__Action()
-            .addAll(this.infrastructureCalls);
-        action.getResourceCall__Action()
-            .addAll(this.resourceCalls);
-        action.getResourceDemand_Action()
-            .addAll(this.demands);
+        action.getInfrastructureCall__Action().addAll(this.infrastructureCalls);
+        action.getResourceCall__Action().addAll(this.resourceCalls);
+        action.getResourceDemand_Action().addAll(this.demands);
         return action;
     }
 

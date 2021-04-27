@@ -18,9 +18,11 @@ import component.repositoryStructure.internals.ResourceSignature;
 import shared.structure.ProcessingResource;
 
 /**
- * This class constructs a {@link org.palladiosimulator.pcm.seff.InternalCallAction
- * InternalCallAction}. It is used to create the '<em><b>InternalCallAction</b></em>' object
- * step-by-step, i.e. '<em><b>InternalCallActionCreator</b></em>' objects are of intermediate state.
+ * This class constructs a
+ * {@link org.palladiosimulator.pcm.seff.InternalCallAction InternalCallAction}.
+ * It is used to create the '<em><b>InternalCallAction</b></em>' object
+ * step-by-step, i.e. '<em><b>InternalCallActionCreator</b></em>' objects are of
+ * intermediate state.
  *
  * @author Louisa Lambrecht
  * @see org.palladiosimulator.pcm.seff.InternalCallAction
@@ -44,7 +46,8 @@ public class InternalCallActionCreator extends GeneralAction {
     }
 
     /**
-     * Adds the <code>variableUsage</code> to this action's list of input variable usages.
+     * Adds the <code>variableUsage</code> to this action's list of input variable
+     * usages.
      *
      * @param variableUsage
      * @return this internal call action in the making
@@ -101,15 +104,11 @@ public class InternalCallActionCreator extends GeneralAction {
             action.setCalledResourceDemandingInternalBehaviour(internal);
         }
 
-        action.getInputVariableUsages__CallAction()
-            .addAll(this.inputVariableUsages);
+        action.getInputVariableUsages__CallAction().addAll(this.inputVariableUsages);
 
-        action.getResourceDemand_Action()
-            .addAll(this.demands);
-        action.getInfrastructureCall__Action()
-            .addAll(this.infrastructureCalls);
-        action.getResourceCall__Action()
-            .addAll(this.resourceCalls);
+        action.getResourceDemand_Action().addAll(this.demands);
+        action.getInfrastructureCall__Action().addAll(this.infrastructureCalls);
+        action.getResourceCall__Action().addAll(this.resourceCalls);
 
         return action;
     }

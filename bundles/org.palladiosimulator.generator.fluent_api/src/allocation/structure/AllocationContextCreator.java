@@ -9,14 +9,17 @@ import org.palladiosimulator.pcm.core.composition.EventChannel;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 
 /**
- * This class constructs an {@link org.palladiosimulator.pcm.allocation.AllocationContext
- * AllocationContext}. Either an {@link org.palladiosimulator.pcm.core.composition.AssemblyContext
- * AssemblyContext} or an {@link org.palladiosimulator.pcm.core.composition.EventChannel
- * EventChannel} is allocated to a
- * {@link org.palladiosimulator.pcm.resourceenvironment.ResourceContainer ResourceContainer}.
+ * This class constructs an
+ * {@link org.palladiosimulator.pcm.allocation.AllocationContext
+ * AllocationContext}. Either an
+ * {@link org.palladiosimulator.pcm.core.composition.AssemblyContext
+ * AssemblyContext} or an
+ * {@link org.palladiosimulator.pcm.core.composition.EventChannel EventChannel}
+ * is allocated to a
+ * {@link org.palladiosimulator.pcm.resourceenvironment.ResourceContainer
+ * ResourceContainer}.
  *
  * @author Florian Krone
- *
  * @see org.palladiosimulator.pcm.allocation.AllocationContext
  */
 public class AllocationContextCreator extends AllocationEntity {
@@ -31,11 +34,11 @@ public class AllocationContextCreator extends AllocationEntity {
     /**
      * Defines the {@link org.palladiosimulator.pcm.core.composition.AssemblyContext
      * AssemblyContext} that is allocated to the
-     * {@link org.palladiosimulator.pcm.resourceenvironment.ResourceContainer ResourceContainer}.
+     * {@link org.palladiosimulator.pcm.resourceenvironment.ResourceContainer
+     * ResourceContainer}.
      *
      * @param context
      * @return this <code>AllocationContext</code>
-     *
      * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
      */
     public AllocationContextCreator withAssemblyContext(final AssemblyContext context) {
@@ -47,29 +50,28 @@ public class AllocationContextCreator extends AllocationEntity {
     /**
      * Defines the {@link org.palladiosimulator.pcm.core.composition.AssemblyContext
      * AssemblyContext} that is allocated to the
-     * {@link org.palladiosimulator.pcm.resourceenvironment.ResourceContainer ResourceContainer}.
-     * The <code>System</code> used for the allocation is searched for an
-     * <code>AssemblyContext</code> with the given name.
+     * {@link org.palladiosimulator.pcm.resourceenvironment.ResourceContainer
+     * ResourceContainer}. The <code>System</code> used for the allocation is
+     * searched for an <code>AssemblyContext</code> with the given name.
      *
      * @param name
      * @return this <code>AllocationContext</code>
-     *
      * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
-     * @throws IllegalArgumentException
-     *             Thrown if no AssemblyContext with the given name exists
+     * @throws IllegalArgumentException Thrown if no AssemblyContext with the given
+     *                                  name exists
      */
     public AllocationContextCreator withAssemblyContext(final String name) throws IllegalArgumentException {
         return this.withAssemblyContext(this.allocationCreator.getAssemblyContextByName(name));
     }
 
     /**
-     * Defines the {@link org.palladiosimulator.pcm.core.composition.EventChannel EventChannel} that
-     * is allocated to the {@link org.palladiosimulator.pcm.resourceenvironment.ResourceContainer
+     * Defines the {@link org.palladiosimulator.pcm.core.composition.EventChannel
+     * EventChannel} that is allocated to the
+     * {@link org.palladiosimulator.pcm.resourceenvironment.ResourceContainer
      * ResourceContainer}.
      *
      * @param context
      * @return this <code>AllocationContext</code>
-     *
      * @see org.palladiosimulator.pcm.core.composition.EventChannel
      */
     public AllocationContextCreator withEventChannel(final EventChannel channel) {
@@ -79,31 +81,33 @@ public class AllocationContextCreator extends AllocationEntity {
     }
 
     /**
-     * Defines the {@link org.palladiosimulator.pcm.core.composition.EventChannel EventChannel} that
-     * is allocated to the {@link org.palladiosimulator.pcm.resourceenvironment.ResourceContainer
-     * ResourceContainer}. The <code>System</code> used for the allocation is searched for an
-     * <code>EventChannel</code> with the given name.
+     * Defines the {@link org.palladiosimulator.pcm.core.composition.EventChannel
+     * EventChannel} that is allocated to the
+     * {@link org.palladiosimulator.pcm.resourceenvironment.ResourceContainer
+     * ResourceContainer}. The <code>System</code> used for the allocation is
+     * searched for an <code>EventChannel</code> with the given name.
      *
      * @param name
      * @return this <code>AllocationContext</code>
-     *
      * @see org.palladiosimulator.pcm.core.composition.EventChannel
-     * @throws IllegalArgumentException
-     *             Thrown if no EventChannel with the given name exists
+     * @throws IllegalArgumentException Thrown if no EventChannel with the given
+     *                                  name exists
      */
     public AllocationContextCreator withEventChannel(final String name) throws IllegalArgumentException {
         return this.withEventChannel(this.allocationCreator.getEventChannelByName(name));
     }
 
     /**
-     * Defines the {@link org.palladiosimulator.pcm.resourceenvironment.ResourceContainer
-     * ResourceContainer}, the {@link org.palladiosimulator.pcm.core.composition.AssemblyContext
-     * AssemblyContext} or {@link org.palladiosimulator.pcm.core.composition.EventChannel
-     * EventChannel} is allocated to.
+     * Defines the
+     * {@link org.palladiosimulator.pcm.resourceenvironment.ResourceContainer
+     * ResourceContainer}, the
+     * {@link org.palladiosimulator.pcm.core.composition.AssemblyContext
+     * AssemblyContext} or
+     * {@link org.palladiosimulator.pcm.core.composition.EventChannel EventChannel}
+     * is allocated to.
      *
      * @param container
      * @return this <code>AllocationContext</code>
-     *
      * @see org.palladiosimulator.pcm.resourceenvironment.ResourceContainer
      */
     public AllocationContextCreator withResourceContainer(final ResourceContainer container) {
@@ -113,18 +117,20 @@ public class AllocationContextCreator extends AllocationEntity {
     }
 
     /**
-     * Defines the {@link org.palladiosimulator.pcm.resourceenvironment.ResourceContainer
-     * ResourceContainer}, the {@link org.palladiosimulator.pcm.core.composition.AssemblyContext
-     * AssemblyContext} or {@link org.palladiosimulator.pcm.core.composition.EventChannel
-     * EventChannel} is allocated to. The <code>ResourceEnvironment</code> used for the allocation
+     * Defines the
+     * {@link org.palladiosimulator.pcm.resourceenvironment.ResourceContainer
+     * ResourceContainer}, the
+     * {@link org.palladiosimulator.pcm.core.composition.AssemblyContext
+     * AssemblyContext} or
+     * {@link org.palladiosimulator.pcm.core.composition.EventChannel EventChannel}
+     * is allocated to. The <code>ResourceEnvironment</code> used for the allocation
      * is searched for a <code>ResourceContainer</code> with the given name.
      *
      * @param container
      * @return this <code>AllocationContext</code>
-     *
      * @see org.palladiosimulator.pcm.resourceenvironment.ResourceContainer
-     * @throws IllegalArgumentException
-     *             Thrown if no ResourceContainer with the given name exists
+     * @throws IllegalArgumentException Thrown if no ResourceContainer with the
+     *                                  given name exists
      */
     public AllocationContextCreator withResourceContainer(final String name) throws IllegalArgumentException {
         return this.withResourceContainer(this.allocationCreator.getResourceContainerByName(name));

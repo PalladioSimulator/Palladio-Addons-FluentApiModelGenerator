@@ -17,9 +17,10 @@ import component.repositoryStructure.internals.ResourceSignature;
 import shared.structure.ProcessingResource;
 
 /**
- * This class constructs a {@link org.palladiosimulator.pcm.seff.LoopAction LoopAction}. It is used
- * to create the '<em><b>LoopAction</b></em>' object step-by-step, i.e.
- * '<em><b>LoopActionCreator</b></em>' objects are of intermediate state.
+ * This class constructs a {@link org.palladiosimulator.pcm.seff.LoopAction
+ * LoopAction}. It is used to create the '<em><b>LoopAction</b></em>' object
+ * step-by-step, i.e. '<em><b>LoopActionCreator</b></em>' objects are of
+ * intermediate state.
  *
  * @author Louisa Lambrecht
  * @see org.palladiosimulator.pcm.seff.LoopAction
@@ -39,15 +40,17 @@ public class LoopActionCreator extends GeneralAction {
     }
 
     /**
-     * Specifies the number of repetitions the inner ResourceDemandingBehaviour is executed.
+     * Specifies the number of repetitions the inner ResourceDemandingBehaviour is
+     * executed.
      * <p>
-     * The number of repetitions is specified by a random variable evaluating to integer or an
-     * IntPMF. The number of iterations specified by the random variable always needs to be bounded,
-     * i.e., the probabilities in an IntPMF for iteration numbers above a certain threshold must be
-     * zero. Otherwise, it would be possible that certain requests do not terminate, which would
-     * complicate performance analyses. The stochastic expression defining the iteration random
-     * variable may include references to input or component parameters to model dependencies
-     * between the usage profile and the number of loop iterations.
+     * The number of repetitions is specified by a random variable evaluating to
+     * integer or an IntPMF. The number of iterations specified by the random
+     * variable always needs to be bounded, i.e., the probabilities in an IntPMF for
+     * iteration numbers above a certain threshold must be zero. Otherwise, it would
+     * be possible that certain requests do not terminate, which would complicate
+     * performance analyses. The stochastic expression defining the iteration random
+     * variable may include references to input or component parameters to model
+     * dependencies between the usage profile and the number of loop iterations.
      * </p>
      *
      * @param iterationCountStochasticExpression
@@ -66,10 +69,11 @@ public class LoopActionCreator extends GeneralAction {
     /**
      * Specifies the inner ResourceDemandingBehaviour representing the loop body.
      * <p>
-     * Notice, that loop actions should only be modeled if the loop body contains either external
-     * service calls or resource demands directed at special resources. Otherwise, control flow
-     * loops in component behaviour should be abstracted by subsuming them in InternalAction, which
-     * combine a number of instructions.
+     * Notice, that loop actions should only be modeled if the loop body contains
+     * either external service calls or resource demands directed at special
+     * resources. Otherwise, control flow loops in component behaviour should be
+     * abstracted by subsuming them in InternalAction, which combine a number of
+     * instructions.
      * </p>
      *
      * @param loopBody
@@ -111,20 +115,16 @@ public class LoopActionCreator extends GeneralAction {
         if (this.loopBody != null) {
             final ResourceDemandingSEFF build = this.loopBody.buildRDSeff();
             if (build.getDescribedService__SEFF() == null && build.getSeffTypeID() == null
-                    && build.getResourceDemandingInternalBehaviours()
-                        .isEmpty()) {
+                    && build.getResourceDemandingInternalBehaviours().isEmpty()) {
                 action.setBodyBehaviour_Loop(this.loopBody.buildBehaviour());
             } else {
                 action.setBodyBehaviour_Loop(build);
             }
         }
 
-        action.getInfrastructureCall__Action()
-            .addAll(this.infrastructureCalls);
-        action.getResourceCall__Action()
-            .addAll(this.resourceCalls);
-        action.getResourceDemand_Action()
-            .addAll(this.demands);
+        action.getInfrastructureCall__Action().addAll(this.infrastructureCalls);
+        action.getResourceCall__Action().addAll(this.resourceCalls);
+        action.getResourceDemand_Action().addAll(this.demands);
 
         return action;
     }

@@ -83,7 +83,8 @@ import shared.structure.ProcessingResource;
 import shared.validate.IModelValidator;
 
 /**
- * This class constructs a {@link org.palladiosimulator.pcm.repository.Repository Repository}. It is
+ * This class constructs a
+ * {@link org.palladiosimulator.pcm.repository.Repository Repository}. It is
  * used to create the '<em><b>Repository</b></em>' object step-by-step, i.e.
  * '<em><b>RepositoryCreator</b></em>' objects are of intermediate state.
  *
@@ -213,14 +214,11 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         for (final ResourceType resourceType : resourceTypes.getAvailableResourceTypes_ResourceRepository()) {
             if (resourceType instanceof ProcessingResourceType) {
                 final ProcessingResourceType p = (ProcessingResourceType) resourceType;
-                if (p.getEntityName()
-                        .contentEquals("CPU")) {
+                if (p.getEntityName().contentEquals("CPU")) {
                     this.internalProcessingResources.put(ProcessingResource.CPU, p);
-                } else if (p.getEntityName()
-                        .contentEquals("HDD")) {
+                } else if (p.getEntityName().contentEquals("HDD")) {
                     this.internalProcessingResources.put(ProcessingResource.HDD, p);
-                } else if (p.getEntityName()
-                        .contentEquals("DELAY")) {
+                } else if (p.getEntityName().contentEquals("DELAY")) {
                     this.internalProcessingResources.put(ProcessingResource.DELAY, p);
                 } else {
                     System.err.println("Unexpected Processing Resource Type.");
@@ -234,27 +232,22 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
 
         // Resource interfaces and signatures
         for (final ResourceInterface resourceInterface : resourceTypes.getResourceInterfaces__ResourceRepository()) {
-            if (resourceInterface.getEntityName()
-                    .contentEquals("CpuInterface")) {
+            if (resourceInterface.getEntityName().contentEquals("CpuInterface")) {
                 this.internalResourceInterfaces.put(shared.structure.ResourceInterface.CPU, resourceInterface);
-            } else if (resourceInterface.getEntityName()
-                    .contentEquals("HddInterface")) {
+            } else if (resourceInterface.getEntityName().contentEquals("HddInterface")) {
                 this.internalResourceInterfaces.put(shared.structure.ResourceInterface.HDD, resourceInterface);
             } else {
                 System.err.println("Unexpected Resource Interface.");
             }
 
             for (final ResourceSignature s : resourceInterface.getResourceSignatures__ResourceInterface()) {
-                if (s.getEntityName()
-                        .contentEquals("process")) {
+                if (s.getEntityName().contentEquals("process")) {
                     this.internalResourceSignatures
-                    .put(component.repositoryStructure.internals.ResourceSignature.PROCESS, s);
-                } else if (s.getEntityName()
-                        .contentEquals("read")) {
+                            .put(component.repositoryStructure.internals.ResourceSignature.PROCESS, s);
+                } else if (s.getEntityName().contentEquals("read")) {
                     this.internalResourceSignatures.put(component.repositoryStructure.internals.ResourceSignature.READ,
                             s);
-                } else if (s.getEntityName()
-                        .contentEquals("write")) {
+                } else if (s.getEntityName().contentEquals("write")) {
                     this.internalResourceSignatures.put(component.repositoryStructure.internals.ResourceSignature.WRITE,
                             s);
                 } else {
@@ -272,19 +265,13 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
                     && !this.internalFailureTypes.containsKey(Failure.NETWORK_LAN)) {
                 this.internalFailureTypes.put(Failure.NETWORK_LAN, f);
             } else if (f instanceof HardwareInducedFailureType) {
-                if (f.getEntityName()
-                        .toLowerCase()
-                        .contentEquals("hardwareinducedfailure (cpu)")
+                if (f.getEntityName().toLowerCase().contentEquals("hardwareinducedfailure (cpu)")
                         && !this.internalFailureTypes.containsKey(Failure.HARDWARE_CPU)) {
                     this.internalFailureTypes.put(Failure.HARDWARE_CPU, f);
-                } else if (f.getEntityName()
-                        .toLowerCase()
-                        .contentEquals("hardwareinducedfailure (hdd)")
+                } else if (f.getEntityName().toLowerCase().contentEquals("hardwareinducedfailure (hdd)")
                         && !this.internalFailureTypes.containsKey(Failure.HARDWARE_HDD)) {
                     this.internalFailureTypes.put(Failure.HARDWARE_HDD, f);
-                } else if (f.getEntityName()
-                        .toLowerCase()
-                        .contentEquals("hardwareinducedfailure (delay)")
+                } else if (f.getEntityName().toLowerCase().contentEquals("hardwareinducedfailure (delay)")
                         && !this.internalFailureTypes.containsKey(Failure.HARDWARE_DELAY)) {
                     this.internalFailureTypes.put(Failure.HARDWARE_DELAY, f);
                 } else {
@@ -301,10 +288,10 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         return (RepositoryCreator) super.withName(name);
     }
 
-    //	@Override
-    //	public RepositoryCreator withId(String id) {
-    //		return (RepositoryCreator) super.withId(id);
-    //	}
+    // @Override
+    // public RepositoryCreator withId(String id) {
+    // return (RepositoryCreator) super.withId(id);
+    // }
 
     @Override
     public RepositoryCreator withDescription(final String description) {
@@ -409,18 +396,15 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         if (this.name != null) {
             repo.setEntityName(this.name);
         }
-        //		if (id != null)
-        //			repo.setId(id);
+        // if (id != null)
+        // repo.setId(id);
         if (this.description != null) {
             repo.setRepositoryDescription(this.description);
         }
 
-        repo.getDataTypes__Repository()
-        .addAll(this.dataTypes);
-        repo.getInterfaces__Repository()
-        .addAll(this.interfaces);
-        repo.getComponents__Repository()
-        .addAll(this.components);
+        repo.getDataTypes__Repository().addAll(this.dataTypes);
+        repo.getInterfaces__Repository().addAll(this.interfaces);
+        repo.getComponents__Repository().addAll(this.components);
 
         return repo;
     }
@@ -435,8 +419,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
 
     private Repository getRepositoryByName(final String name) {
         final List<Repository> collect = this.imports.stream()
-                .filter(r -> r.getEntityName() != null && r.getEntityName()
-                .contentEquals(name))
+                .filter(r -> r.getEntityName() != null && r.getEntityName().contentEquals(name))
                 .collect(Collectors.toList());
         if (collect.isEmpty()) {
             return null;
@@ -448,7 +431,8 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
     }
 
     // ------------- getter -------------
-    // TODO: getter and add Methoden should not be visible for the user -> module-info.java
+    // TODO: getter and add Methoden should not be visible for the user ->
+    // module-info.java
 
     // I didn't put much thought into where it actually makes sense to fetch
     // something from an imported resource. It probably doesn't make sense e.g. for
@@ -482,16 +466,11 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             if (r == null) {
                 throw new RuntimeException("Repository '" + split[0] + "' could not be found");
             }
-            collect = r.getDataTypes__Repository()
-                    .stream()
-                    .filter(d -> d instanceof CompositeDataType)
-                    .map(d -> (CompositeDataType) d)
-                    .collect(Collectors.toList());
+            collect = r.getDataTypes__Repository().stream().filter(d -> d instanceof CompositeDataType)
+                    .map(d -> (CompositeDataType) d).collect(Collectors.toList());
         } else if (split.length == 1) {
-            collect = this.dataTypes.stream()
-                    .filter(d -> d instanceof CompositeDataType)
-                    .map(d -> (CompositeDataType) d)
-                    .collect(Collectors.toList());
+            collect = this.dataTypes.stream().filter(d -> d instanceof CompositeDataType)
+                    .map(d -> (CompositeDataType) d).collect(Collectors.toList());
         } else {
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
@@ -501,8 +480,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
 
     private CompositeDataType getCompositeDataTypeFromList(final String name, final List<CompositeDataType> dataTypes) {
         final List<CompositeDataType> collect = dataTypes.stream()
-                .filter(c -> c.getEntityName() != null && c.getEntityName()
-                .contentEquals(name))
+                .filter(c -> c.getEntityName() != null && c.getEntityName().contentEquals(name))
                 .collect(Collectors.toList());
         if (collect.isEmpty()) {
             return null;
@@ -532,17 +510,13 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
 
     private DataType getDataTypeFromList(final String name, final List<DataType> dataTypes) {
         final List<DataType> collect = new ArrayList<>();
-        final List<CollectionDataType> collectColl = dataTypes.stream()
-                .filter(d -> d instanceof CollectionDataType)
+        final List<CollectionDataType> collectColl = dataTypes.stream().filter(d -> d instanceof CollectionDataType)
                 .map(d -> (CollectionDataType) d)
-                .filter(d -> d.getEntityName() != null && d.getEntityName()
-                .contentEquals(name))
+                .filter(d -> d.getEntityName() != null && d.getEntityName().contentEquals(name))
                 .collect(Collectors.toList());
-        final List<CompositeDataType> collectComp = dataTypes.stream()
-                .filter(d -> d instanceof CompositeDataType)
+        final List<CompositeDataType> collectComp = dataTypes.stream().filter(d -> d instanceof CompositeDataType)
                 .map(d -> (CompositeDataType) d)
-                .filter(d -> d.getEntityName() != null && d.getEntityName()
-                .contentEquals(name))
+                .filter(d -> d.getEntityName() != null && d.getEntityName().contentEquals(name))
                 .collect(Collectors.toList());
         collect.addAll(collectColl);
         collect.addAll(collectComp);
@@ -579,13 +553,10 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
 
     private FailureType getFailureTypeFromList(final String name, final List<FailureType> failureTypes) {
         final List<FailureType> collect = failureTypes.stream()
-                .filter(c -> c.getEntityName() != null && c.getEntityName()
-                .contentEquals(name))
+                .filter(c -> c.getEntityName() != null && c.getEntityName().contentEquals(name))
                 .collect(Collectors.toList());
-        final List<FailureType> collect2 = this.internalFailureTypes.values()
-                .stream()
-                .filter(c -> c.getEntityName() != null && c.getEntityName()
-                .contentEquals(name))
+        final List<FailureType> collect2 = this.internalFailureTypes.values().stream()
+                .filter(c -> c.getEntityName() != null && c.getEntityName().contentEquals(name))
                 .collect(Collectors.toList());
         collect.addAll(collect2);
         if (collect.isEmpty()) {
@@ -606,16 +577,11 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             if (r == null) {
                 throw new RuntimeException("Repository '" + split[0] + "' could not be found");
             }
-            collect = r.getFailureTypes__Repository()
-                    .stream()
-                    .filter(d -> d instanceof ResourceTimeoutFailureType)
-                    .map(d -> (ResourceTimeoutFailureType) d)
-                    .collect(Collectors.toList());
+            collect = r.getFailureTypes__Repository().stream().filter(d -> d instanceof ResourceTimeoutFailureType)
+                    .map(d -> (ResourceTimeoutFailureType) d).collect(Collectors.toList());
         } else if (split.length == 1) {
-            collect = this.failureTypes.stream()
-                    .filter(d -> d instanceof ResourceTimeoutFailureType)
-                    .map(d -> (ResourceTimeoutFailureType) d)
-                    .collect(Collectors.toList());
+            collect = this.failureTypes.stream().filter(d -> d instanceof ResourceTimeoutFailureType)
+                    .map(d -> (ResourceTimeoutFailureType) d).collect(Collectors.toList());
         } else {
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
@@ -626,8 +592,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
     private ResourceTimeoutFailureType getResourceTimeoutFailureTypeFromList(final String name,
             final List<ResourceTimeoutFailureType> failureTypes) {
         final List<ResourceTimeoutFailureType> collect = failureTypes.stream()
-                .filter(b -> b.getEntityName() != null && b.getEntityName()
-                .contentEquals(name))
+                .filter(b -> b.getEntityName() != null && b.getEntityName().contentEquals(name))
                 .collect(Collectors.toList());
         if (collect.isEmpty()) {
             return null;
@@ -640,8 +605,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
 
     public ExceptionType getExceptionType(final String name) {
         final List<ExceptionType> collect = this.exceptionTypes.stream()
-                .filter(c -> c.getExceptionName() != null && c.getExceptionName()
-                .contentEquals(name))
+                .filter(c -> c.getExceptionName() != null && c.getExceptionName().contentEquals(name))
                 .collect(Collectors.toList());
         if (collect.isEmpty()) {
             return null;
@@ -691,8 +655,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
 
     private RepositoryComponent getComponentFromList(final String name, final List<RepositoryComponent> components) {
         final List<RepositoryComponent> collect = components.stream()
-                .filter(c -> c.getEntityName() != null && c.getEntityName()
-                .contentEquals(name))
+                .filter(c -> c.getEntityName() != null && c.getEntityName().contentEquals(name))
                 .collect(Collectors.toList());
         if (collect.isEmpty()) {
             return null;
@@ -712,15 +675,10 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             if (r == null) {
                 throw new RuntimeException("Repository '" + split[0] + "' could not be found");
             }
-            collect = r.getComponents__Repository()
-                    .stream()
-                    .filter(d -> d instanceof BasicComponent)
-                    .map(d -> (BasicComponent) d)
-                    .collect(Collectors.toList());
+            collect = r.getComponents__Repository().stream().filter(d -> d instanceof BasicComponent)
+                    .map(d -> (BasicComponent) d).collect(Collectors.toList());
         } else if (split.length == 1) {
-            collect = this.components.stream()
-                    .filter(d -> d instanceof BasicComponent)
-                    .map(d -> (BasicComponent) d)
+            collect = this.components.stream().filter(d -> d instanceof BasicComponent).map(d -> (BasicComponent) d)
                     .collect(Collectors.toList());
         } else {
             throw new IllegalArgumentException(
@@ -731,8 +689,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
 
     private BasicComponent getBasicComponentFromList(final String name, final List<BasicComponent> components) {
         final List<BasicComponent> collect = components.stream()
-                .filter(c -> c.getEntityName() != null && c.getEntityName()
-                .contentEquals(name))
+                .filter(c -> c.getEntityName() != null && c.getEntityName().contentEquals(name))
                 .collect(Collectors.toList());
         if (collect.isEmpty()) {
             return null;
@@ -752,16 +709,11 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             if (r == null) {
                 throw new RuntimeException("Repository '" + split[0] + "' could not be found");
             }
-            collect = r.getComponents__Repository()
-                    .stream()
-                    .filter(d -> d instanceof CompositeComponent)
-                    .map(d -> (CompositeComponent) d)
-                    .collect(Collectors.toList());
+            collect = r.getComponents__Repository().stream().filter(d -> d instanceof CompositeComponent)
+                    .map(d -> (CompositeComponent) d).collect(Collectors.toList());
         } else if (split.length == 1) {
-            collect = this.components.stream()
-                    .filter(d -> d instanceof CompositeComponent)
-                    .map(d -> (CompositeComponent) d)
-                    .collect(Collectors.toList());
+            collect = this.components.stream().filter(d -> d instanceof CompositeComponent)
+                    .map(d -> (CompositeComponent) d).collect(Collectors.toList());
         } else {
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
@@ -772,8 +724,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
     private CompositeComponent getCompositeComponentFromList(final String name,
             final List<CompositeComponent> components) {
         final List<CompositeComponent> collect = components.stream()
-                .filter(c -> c.getEntityName() != null && c.getEntityName()
-                .contentEquals(name))
+                .filter(c -> c.getEntityName() != null && c.getEntityName().contentEquals(name))
                 .collect(Collectors.toList());
         if (collect.isEmpty()) {
             return null;
@@ -793,15 +744,10 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             if (r == null) {
                 throw new RuntimeException("Repository '" + split[0] + "' could not be found");
             }
-            collect = r.getComponents__Repository()
-                    .stream()
-                    .filter(d -> d instanceof SubSystem)
-                    .map(d -> (SubSystem) d)
+            collect = r.getComponents__Repository().stream().filter(d -> d instanceof SubSystem).map(d -> (SubSystem) d)
                     .collect(Collectors.toList());
         } else if (split.length == 1) {
-            collect = this.components.stream()
-                    .filter(d -> d instanceof SubSystem)
-                    .map(d -> (SubSystem) d)
+            collect = this.components.stream().filter(d -> d instanceof SubSystem).map(d -> (SubSystem) d)
                     .collect(Collectors.toList());
         } else {
             throw new IllegalArgumentException(
@@ -812,8 +758,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
 
     private SubSystem getSubsystemFromList(final String name, final List<SubSystem> components) {
         final List<SubSystem> collect = components.stream()
-                .filter(c -> c.getEntityName() != null && c.getEntityName()
-                .contentEquals(name))
+                .filter(c -> c.getEntityName() != null && c.getEntityName().contentEquals(name))
                 .collect(Collectors.toList());
         if (collect.isEmpty()) {
             return null;
@@ -833,16 +778,11 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             if (r == null) {
                 throw new RuntimeException("Repository '" + split[0] + "' could not be found");
             }
-            collect = r.getComponents__Repository()
-                    .stream()
-                    .filter(d -> d instanceof CompleteComponentType)
-                    .map(d -> (CompleteComponentType) d)
-                    .collect(Collectors.toList());
+            collect = r.getComponents__Repository().stream().filter(d -> d instanceof CompleteComponentType)
+                    .map(d -> (CompleteComponentType) d).collect(Collectors.toList());
         } else if (split.length == 1) {
-            collect = this.components.stream()
-                    .filter(d -> d instanceof CompleteComponentType)
-                    .map(d -> (CompleteComponentType) d)
-                    .collect(Collectors.toList());
+            collect = this.components.stream().filter(d -> d instanceof CompleteComponentType)
+                    .map(d -> (CompleteComponentType) d).collect(Collectors.toList());
         } else {
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
@@ -853,8 +793,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
     private CompleteComponentType getCompleteComponentTypeFromList(final String name,
             final List<CompleteComponentType> components) {
         final List<CompleteComponentType> collect = components.stream()
-                .filter(c -> c.getEntityName() != null && c.getEntityName()
-                .contentEquals(name))
+                .filter(c -> c.getEntityName() != null && c.getEntityName().contentEquals(name))
                 .collect(Collectors.toList());
         if (collect.isEmpty()) {
             return null;
@@ -874,16 +813,11 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             if (r == null) {
                 throw new RuntimeException("Repository '" + split[0] + "' could not be found");
             }
-            collect = r.getComponents__Repository()
-                    .stream()
-                    .filter(d -> d instanceof ProvidesComponentType)
-                    .map(d -> (ProvidesComponentType) d)
-                    .collect(Collectors.toList());
+            collect = r.getComponents__Repository().stream().filter(d -> d instanceof ProvidesComponentType)
+                    .map(d -> (ProvidesComponentType) d).collect(Collectors.toList());
         } else if (split.length == 1) {
-            collect = this.components.stream()
-                    .filter(d -> d instanceof ProvidesComponentType)
-                    .map(d -> (ProvidesComponentType) d)
-                    .collect(Collectors.toList());
+            collect = this.components.stream().filter(d -> d instanceof ProvidesComponentType)
+                    .map(d -> (ProvidesComponentType) d).collect(Collectors.toList());
         } else {
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
@@ -894,8 +828,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
     private ProvidesComponentType getProvidesComponentTypeFromList(final String name,
             final List<ProvidesComponentType> components) {
         final List<ProvidesComponentType> collect = components.stream()
-                .filter(c -> c.getEntityName() != null && c.getEntityName()
-                .contentEquals(name))
+                .filter(c -> c.getEntityName() != null && c.getEntityName().contentEquals(name))
                 .collect(Collectors.toList());
         if (collect.isEmpty()) {
             return null;
@@ -927,8 +860,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
 
     private Interface getInterfaceFromList(final String name, final List<Interface> interfaces) {
         final List<Interface> collect = interfaces.stream()
-                .filter(i -> i.getEntityName() != null && i.getEntityName()
-                .contentEquals(name))
+                .filter(i -> i.getEntityName() != null && i.getEntityName().contentEquals(name))
                 .collect(Collectors.toList());
         if (collect.isEmpty()) {
             return null;
@@ -948,16 +880,11 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             if (r == null) {
                 throw new RuntimeException("Repository '" + split[0] + "' could not be found");
             }
-            collect = r.getInterfaces__Repository()
-                    .stream()
-                    .filter(d -> d instanceof OperationInterface)
-                    .map(d -> (OperationInterface) d)
-                    .collect(Collectors.toList());
+            collect = r.getInterfaces__Repository().stream().filter(d -> d instanceof OperationInterface)
+                    .map(d -> (OperationInterface) d).collect(Collectors.toList());
         } else if (split.length == 1) {
-            collect = this.interfaces.stream()
-                    .filter(d -> d instanceof OperationInterface)
-                    .map(d -> (OperationInterface) d)
-                    .collect(Collectors.toList());
+            collect = this.interfaces.stream().filter(d -> d instanceof OperationInterface)
+                    .map(d -> (OperationInterface) d).collect(Collectors.toList());
         } else {
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
@@ -968,8 +895,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
     private OperationInterface getOperationInterfaceFromList(final String name,
             final List<OperationInterface> interfaces) {
         final List<OperationInterface> collect = interfaces.stream()
-                .filter(i -> i.getEntityName() != null && i.getEntityName()
-                .contentEquals(name))
+                .filter(i -> i.getEntityName() != null && i.getEntityName().contentEquals(name))
                 .collect(Collectors.toList());
         if (collect.isEmpty()) {
             return null;
@@ -989,16 +915,11 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             if (r == null) {
                 throw new RuntimeException("Repository '" + split[0] + "' could not be found");
             }
-            collect = r.getInterfaces__Repository()
-                    .stream()
-                    .filter(d -> d instanceof InfrastructureInterface)
-                    .map(d -> (InfrastructureInterface) d)
-                    .collect(Collectors.toList());
+            collect = r.getInterfaces__Repository().stream().filter(d -> d instanceof InfrastructureInterface)
+                    .map(d -> (InfrastructureInterface) d).collect(Collectors.toList());
         } else if (split.length == 1) {
-            collect = this.interfaces.stream()
-                    .filter(d -> d instanceof InfrastructureInterface)
-                    .map(d -> (InfrastructureInterface) d)
-                    .collect(Collectors.toList());
+            collect = this.interfaces.stream().filter(d -> d instanceof InfrastructureInterface)
+                    .map(d -> (InfrastructureInterface) d).collect(Collectors.toList());
         } else {
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
@@ -1009,8 +930,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
     private InfrastructureInterface getInfrastructureInterfaceFromList(final String name,
             final List<InfrastructureInterface> interfaces) {
         final List<InfrastructureInterface> collect = interfaces.stream()
-                .filter(i -> i.getEntityName() != null && i.getEntityName()
-                .contentEquals(name))
+                .filter(i -> i.getEntityName() != null && i.getEntityName().contentEquals(name))
                 .collect(Collectors.toList());
         if (collect.isEmpty()) {
             return null;
@@ -1030,15 +950,10 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             if (r == null) {
                 throw new RuntimeException("Repository '" + split[0] + "' could not be found");
             }
-            collect = r.getInterfaces__Repository()
-                    .stream()
-                    .filter(d -> d instanceof EventGroup)
-                    .map(d -> (EventGroup) d)
-                    .collect(Collectors.toList());
+            collect = r.getInterfaces__Repository().stream().filter(d -> d instanceof EventGroup)
+                    .map(d -> (EventGroup) d).collect(Collectors.toList());
         } else if (split.length == 1) {
-            collect = this.interfaces.stream()
-                    .filter(d -> d instanceof EventGroup)
-                    .map(d -> (EventGroup) d)
+            collect = this.interfaces.stream().filter(d -> d instanceof EventGroup).map(d -> (EventGroup) d)
                     .collect(Collectors.toList());
         } else {
             throw new IllegalArgumentException(
@@ -1049,8 +964,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
 
     private EventGroup getEventGroupFromList(final String name, final List<EventGroup> interfaces) {
         final List<EventGroup> collect = interfaces.stream()
-                .filter(i -> i.getEntityName() != null && i.getEntityName()
-                .contentEquals(name))
+                .filter(i -> i.getEntityName() != null && i.getEntityName().contentEquals(name))
                 .collect(Collectors.toList());
         if (collect.isEmpty()) {
             return null;
@@ -1084,8 +998,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
 
     private ProvidedRole getProvidedRoleFromList(final String name, final List<ProvidedRole> providedRoles) {
         final List<ProvidedRole> collect = providedRoles.stream()
-                .filter(r -> r.getEntityName() != null && r.getEntityName()
-                .contentEquals(name))
+                .filter(r -> r.getEntityName() != null && r.getEntityName().contentEquals(name))
                 .collect(Collectors.toList());
         if (collect.isEmpty()) {
             return null;
@@ -1106,17 +1019,13 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
                 throw new RuntimeException("Repository '" + split[0] + "' could not be found");
             }
             for (final RepositoryComponent c : r.getComponents__Repository()) {
-                collect.addAll(c.getProvidedRoles_InterfaceProvidingEntity()
-                        .stream()
-                        .filter(p -> p instanceof OperationProvidedRole)
-                        .map(p -> (OperationProvidedRole) p)
+                collect.addAll(c.getProvidedRoles_InterfaceProvidingEntity().stream()
+                        .filter(p -> p instanceof OperationProvidedRole).map(p -> (OperationProvidedRole) p)
                         .collect(Collectors.toList()));
             }
         } else if (split.length == 1) {
-            collect = this.providedRoles.stream()
-                    .filter(r -> r instanceof OperationProvidedRole)
-                    .map(r -> (OperationProvidedRole) r)
-                    .collect(Collectors.toList());
+            collect = this.providedRoles.stream().filter(r -> r instanceof OperationProvidedRole)
+                    .map(r -> (OperationProvidedRole) r).collect(Collectors.toList());
         } else {
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
@@ -1127,8 +1036,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
     private OperationProvidedRole getOperationProvidedRoleFromList(final String name,
             final List<OperationProvidedRole> providedRoles) {
         final List<OperationProvidedRole> collect = providedRoles.stream()
-                .filter(r -> r.getEntityName() != null && r.getEntityName()
-                .contentEquals(name))
+                .filter(r -> r.getEntityName() != null && r.getEntityName().contentEquals(name))
                 .collect(Collectors.toList());
         if (collect.isEmpty()) {
             return null;
@@ -1149,17 +1057,13 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
                 throw new RuntimeException("Repository '" + split[0] + "' could not be found");
             }
             for (final RepositoryComponent c : r.getComponents__Repository()) {
-                collect.addAll(c.getProvidedRoles_InterfaceProvidingEntity()
-                        .stream()
-                        .filter(p -> p instanceof InfrastructureProvidedRole)
-                        .map(p -> (InfrastructureProvidedRole) p)
+                collect.addAll(c.getProvidedRoles_InterfaceProvidingEntity().stream()
+                        .filter(p -> p instanceof InfrastructureProvidedRole).map(p -> (InfrastructureProvidedRole) p)
                         .collect(Collectors.toList()));
             }
         } else if (split.length == 1) {
-            collect = this.providedRoles.stream()
-                    .filter(r -> r instanceof InfrastructureProvidedRole)
-                    .map(r -> (InfrastructureProvidedRole) r)
-                    .collect(Collectors.toList());
+            collect = this.providedRoles.stream().filter(r -> r instanceof InfrastructureProvidedRole)
+                    .map(r -> (InfrastructureProvidedRole) r).collect(Collectors.toList());
         } else {
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
@@ -1170,8 +1074,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
     private InfrastructureProvidedRole getInfrastructureProvidedRoleFromList(final String name,
             final List<InfrastructureProvidedRole> providedRoles) {
         final List<InfrastructureProvidedRole> collect = providedRoles.stream()
-                .filter(r -> r.getEntityName() != null && r.getEntityName()
-                .contentEquals(name))
+                .filter(r -> r.getEntityName() != null && r.getEntityName().contentEquals(name))
                 .collect(Collectors.toList());
         if (collect.isEmpty()) {
             return null;
@@ -1192,16 +1095,11 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
                 throw new RuntimeException("Repository '" + split[0] + "' could not be found");
             }
             for (final RepositoryComponent c : r.getComponents__Repository()) {
-                collect.addAll(c.getProvidedRoles_InterfaceProvidingEntity()
-                        .stream()
-                        .filter(p -> p instanceof SinkRole)
-                        .map(p -> (SinkRole) p)
-                        .collect(Collectors.toList()));
+                collect.addAll(c.getProvidedRoles_InterfaceProvidingEntity().stream().filter(p -> p instanceof SinkRole)
+                        .map(p -> (SinkRole) p).collect(Collectors.toList()));
             }
         } else if (split.length == 1) {
-            collect = this.providedRoles.stream()
-                    .filter(r -> r instanceof SinkRole)
-                    .map(r -> (SinkRole) r)
+            collect = this.providedRoles.stream().filter(r -> r instanceof SinkRole).map(r -> (SinkRole) r)
                     .collect(Collectors.toList());
         } else {
             throw new IllegalArgumentException(
@@ -1212,8 +1110,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
 
     private SinkRole getSinkRoleFromList(final String name, final List<SinkRole> providedRoles) {
         final List<SinkRole> collect = providedRoles.stream()
-                .filter(r -> r.getEntityName() != null && r.getEntityName()
-                .contentEquals(name))
+                .filter(r -> r.getEntityName() != null && r.getEntityName().contentEquals(name))
                 .collect(Collectors.toList());
         if (collect.isEmpty()) {
             return null;
@@ -1247,8 +1144,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
 
     private RequiredRole getRequiredRoleFromList(final String name, final List<RequiredRole> requiredRoles) {
         final List<RequiredRole> collect = requiredRoles.stream()
-                .filter(r -> r.getEntityName() != null && r.getEntityName()
-                .contentEquals(name))
+                .filter(r -> r.getEntityName() != null && r.getEntityName().contentEquals(name))
                 .collect(Collectors.toList());
         if (collect.isEmpty()) {
             return null;
@@ -1269,17 +1165,13 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
                 throw new RuntimeException("Repository '" + split[0] + "' could not be found");
             }
             for (final RepositoryComponent c : r.getComponents__Repository()) {
-                collect.addAll(c.getRequiredRoles_InterfaceRequiringEntity()
-                        .stream()
-                        .filter(p -> p instanceof OperationRequiredRole)
-                        .map(p -> (OperationRequiredRole) p)
+                collect.addAll(c.getRequiredRoles_InterfaceRequiringEntity().stream()
+                        .filter(p -> p instanceof OperationRequiredRole).map(p -> (OperationRequiredRole) p)
                         .collect(Collectors.toList()));
             }
         } else if (split.length == 1) {
-            collect = this.requiredRoles.stream()
-                    .filter(r -> r instanceof OperationRequiredRole)
-                    .map(r -> (OperationRequiredRole) r)
-                    .collect(Collectors.toList());
+            collect = this.requiredRoles.stream().filter(r -> r instanceof OperationRequiredRole)
+                    .map(r -> (OperationRequiredRole) r).collect(Collectors.toList());
         } else {
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
@@ -1290,8 +1182,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
     private OperationRequiredRole getOperationRequiredRoleFromList(final String name,
             final List<OperationRequiredRole> requiredRoles) {
         final List<OperationRequiredRole> collect = requiredRoles.stream()
-                .filter(r -> r.getEntityName() != null && r.getEntityName()
-                .contentEquals(name))
+                .filter(r -> r.getEntityName() != null && r.getEntityName().contentEquals(name))
                 .collect(Collectors.toList());
         if (collect.isEmpty()) {
             return null;
@@ -1312,17 +1203,13 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
                 throw new RuntimeException("Repository '" + split[0] + "' could not be found");
             }
             for (final RepositoryComponent c : r.getComponents__Repository()) {
-                collect.addAll(c.getRequiredRoles_InterfaceRequiringEntity()
-                        .stream()
-                        .filter(p -> p instanceof InfrastructureRequiredRole)
-                        .map(p -> (InfrastructureRequiredRole) p)
+                collect.addAll(c.getRequiredRoles_InterfaceRequiringEntity().stream()
+                        .filter(p -> p instanceof InfrastructureRequiredRole).map(p -> (InfrastructureRequiredRole) p)
                         .collect(Collectors.toList()));
             }
         } else if (split.length == 1) {
-            collect = this.requiredRoles.stream()
-                    .filter(r -> r instanceof InfrastructureRequiredRole)
-                    .map(r -> (InfrastructureRequiredRole) r)
-                    .collect(Collectors.toList());
+            collect = this.requiredRoles.stream().filter(r -> r instanceof InfrastructureRequiredRole)
+                    .map(r -> (InfrastructureRequiredRole) r).collect(Collectors.toList());
         } else {
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
@@ -1333,8 +1220,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
     private InfrastructureRequiredRole getInfrastructureRequiredRoleFromList(final String name,
             final List<InfrastructureRequiredRole> requiredRoles) {
         final List<InfrastructureRequiredRole> collect = requiredRoles.stream()
-                .filter(r -> r.getEntityName() != null && r.getEntityName()
-                .contentEquals(name))
+                .filter(r -> r.getEntityName() != null && r.getEntityName().contentEquals(name))
                 .collect(Collectors.toList());
         if (collect.isEmpty()) {
             return null;
@@ -1355,16 +1241,11 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
                 throw new RuntimeException("Repository '" + split[0] + "' could not be found");
             }
             for (final RepositoryComponent c : r.getComponents__Repository()) {
-                collect.addAll(c.getRequiredRoles_InterfaceRequiringEntity()
-                        .stream()
-                        .filter(p -> p instanceof SourceRole)
-                        .map(p -> (SourceRole) p)
-                        .collect(Collectors.toList()));
+                collect.addAll(c.getRequiredRoles_InterfaceRequiringEntity().stream()
+                        .filter(p -> p instanceof SourceRole).map(p -> (SourceRole) p).collect(Collectors.toList()));
             }
         } else if (split.length == 1) {
-            collect = this.requiredRoles.stream()
-                    .filter(r -> r instanceof SourceRole)
-                    .map(r -> (SourceRole) r)
+            collect = this.requiredRoles.stream().filter(r -> r instanceof SourceRole).map(r -> (SourceRole) r)
                     .collect(Collectors.toList());
         } else {
             throw new IllegalArgumentException(
@@ -1375,8 +1256,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
 
     private SourceRole getSourceRoleFromList(final String name, final List<SourceRole> requiredRoles) {
         final List<SourceRole> collect = requiredRoles.stream()
-                .filter(r -> r.getEntityName() != null && r.getEntityName()
-                .contentEquals(name))
+                .filter(r -> r.getEntityName() != null && r.getEntityName().contentEquals(name))
                 .collect(Collectors.toList());
         if (collect.isEmpty()) {
             return null;
@@ -1411,8 +1291,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
     private ResourceRequiredRole getResourceRequiredRoleFromList(final String name,
             final List<ResourceRequiredRole> resourceRequiredRoles) {
         final List<ResourceRequiredRole> collect = resourceRequiredRoles.stream()
-                .filter(r -> r.getEntityName() != null && r.getEntityName()
-                .contentEquals(name))
+                .filter(r -> r.getEntityName() != null && r.getEntityName().contentEquals(name))
                 .collect(Collectors.toList());
         if (collect.isEmpty()) {
             return null;
@@ -1456,8 +1335,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
 
     private Signature getSignatureFromList(final String name, final List<Signature> signatures) {
         final List<Signature> collect = signatures.stream()
-                .filter(c -> c.getEntityName() != null && c.getEntityName()
-                .contentEquals(name))
+                .filter(c -> c.getEntityName() != null && c.getEntityName().contentEquals(name))
                 .collect(Collectors.toList());
         if (collect.isEmpty()) {
             return null;
@@ -1485,10 +1363,8 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
                 }
             }
         } else if (split.length == 1) {
-            collect = this.signatures.stream()
-                    .filter(i -> i instanceof OperationSignature)
-                    .map(i -> (OperationSignature) i)
-                    .collect(Collectors.toList());
+            collect = this.signatures.stream().filter(i -> i instanceof OperationSignature)
+                    .map(i -> (OperationSignature) i).collect(Collectors.toList());
         } else {
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
@@ -1499,8 +1375,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
     private OperationSignature getOperationSignatureFromList(final String name,
             final List<OperationSignature> signatures) {
         final List<OperationSignature> collect = signatures.stream()
-                .filter(c -> c.getEntityName() != null && c.getEntityName()
-                .contentEquals(name))
+                .filter(c -> c.getEntityName() != null && c.getEntityName().contentEquals(name))
                 .collect(Collectors.toList());
         if (collect.isEmpty()) {
             return null;
@@ -1528,10 +1403,8 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
                 }
             }
         } else if (split.length == 1) {
-            collect = this.signatures.stream()
-                    .filter(i -> i instanceof InfrastructureSignature)
-                    .map(i -> (InfrastructureSignature) i)
-                    .collect(Collectors.toList());
+            collect = this.signatures.stream().filter(i -> i instanceof InfrastructureSignature)
+                    .map(i -> (InfrastructureSignature) i).collect(Collectors.toList());
         } else {
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
@@ -1542,8 +1415,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
     private InfrastructureSignature getInfrastructureSignatureFromList(final String name,
             final List<InfrastructureSignature> signatures) {
         final List<InfrastructureSignature> collect = signatures.stream()
-                .filter(c -> c.getEntityName() != null && c.getEntityName()
-                .contentEquals(name))
+                .filter(c -> c.getEntityName() != null && c.getEntityName().contentEquals(name))
                 .collect(Collectors.toList());
         if (collect.isEmpty()) {
             return null;
@@ -1571,9 +1443,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
                 }
             }
         } else if (split.length == 1) {
-            collect = this.signatures.stream()
-                    .filter(i -> i instanceof EventType)
-                    .map(i -> (EventType) i)
+            collect = this.signatures.stream().filter(i -> i instanceof EventType).map(i -> (EventType) i)
                     .collect(Collectors.toList());
         } else {
             throw new IllegalArgumentException(
@@ -1584,8 +1454,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
 
     private EventType getEventTypeFromList(final String name, final List<EventType> signatures) {
         final List<EventType> collect = signatures.stream()
-                .filter(c -> c.getEntityName() != null && c.getEntityName()
-                .contentEquals(name))
+                .filter(c -> c.getEntityName() != null && c.getEntityName().contentEquals(name))
                 .collect(Collectors.toList());
         if (collect.isEmpty()) {
             return null;
@@ -1624,8 +1493,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
     private AssemblyContext getAssemblyContextFromList(final String name,
             final List<AssemblyContext> assemblyContexts) {
         final List<AssemblyContext> collect = assemblyContexts.stream()
-                .filter(a -> a.getEntityName() != null && a.getEntityName()
-                .contentEquals(name))
+                .filter(a -> a.getEntityName() != null && a.getEntityName().contentEquals(name))
                 .collect(Collectors.toList());
         if (collect.isEmpty()) {
             return null;
@@ -1663,8 +1531,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
 
     private EventChannel getEventChannelFromList(final String name, final List<EventChannel> eventChannels) {
         final List<EventChannel> collect = eventChannels.stream()
-                .filter(a -> a.getEntityName() != null && a.getEntityName()
-                .contentEquals(name))
+                .filter(a -> a.getEntityName() != null && a.getEntityName().contentEquals(name))
                 .collect(Collectors.toList());
         if (collect.isEmpty()) {
             return null;
@@ -1713,8 +1580,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
 
     private Parameter getParameterFromList(final String name, final List<Parameter> parameters) {
         final List<Parameter> collect = parameters.stream()
-                .filter(p -> p.getParameterName() != null && p.getParameterName()
-                .contentEquals(name))
+                .filter(p -> p.getParameterName() != null && p.getParameterName().contentEquals(name))
                 .collect(Collectors.toList());
         if (collect.isEmpty()) {
             return null;
@@ -1780,8 +1646,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
     private PassiveResource getPassiveResourceFromList(final String name,
             final List<PassiveResource> passiveResources) {
         final List<PassiveResource> collect = passiveResources.stream()
-                .filter(b -> b.getEntityName() != null && b.getEntityName()
-                .contentEquals(name))
+                .filter(b -> b.getEntityName() != null && b.getEntityName().contentEquals(name))
                 .collect(Collectors.toList());
         if (collect.isEmpty()) {
             return null;
@@ -1810,10 +1675,8 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
                     for (final ServiceEffectSpecification s : seffs) {
                         if (s instanceof ResourceDemandingSEFF) {
                             final ResourceDemandingSEFF rseff = (ResourceDemandingSEFF) s;
-                            final List<RecoveryAction> recoveryActions = rseff.getSteps_Behaviour()
-                                    .stream()
-                                    .filter(step -> step instanceof RecoveryAction)
-                                    .map(step -> (RecoveryAction) step)
+                            final List<RecoveryAction> recoveryActions = rseff.getSteps_Behaviour().stream()
+                                    .filter(step -> step instanceof RecoveryAction).map(step -> (RecoveryAction) step)
                                     .collect(Collectors.toList());
                             for (final RecoveryAction a : recoveryActions) {
                                 set.addAll(a.getRecoveryActionBehaviours__RecoveryAction());
@@ -1835,8 +1698,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
     private RecoveryActionBehaviour getRecoveryActionBehaviourFromList(final String name,
             final List<RecoveryActionBehaviour> behaviours) {
         final List<RecoveryActionBehaviour> collect = behaviours.stream()
-                .filter(b -> b.getEntityName() != null && b.getEntityName()
-                .contentEquals(name))
+                .filter(b -> b.getEntityName() != null && b.getEntityName().contentEquals(name))
                 .collect(Collectors.toList());
         if (collect.isEmpty()) {
             return null;

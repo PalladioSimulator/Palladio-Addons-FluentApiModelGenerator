@@ -19,7 +19,6 @@ import system.structure.connector.IContextRoleCombinator;
  * AssemblyInfrastructureConnector}.
  *
  * @author Florian Krone
- *
  * @see org.palladiosimulator.pcm.core.composition.AssemblyInfrastructureConnector
  */
 public class AssemblyInfrastructureConnectorCreator extends AbstractConnectorCreator {
@@ -36,10 +35,9 @@ public class AssemblyInfrastructureConnectorCreator extends AbstractConnectorCre
     /**
      * Defines the {@link org.palladiosimulator.pcm.core.composition.AssemblyContext
      * AssemblyContext} with the required role.
-     * 
+     *
      * @param context
      * @return this connector
-     * 
      * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
      * @see org.palladiosimulator.pcm.repository.InfrastructureRequiredRole
      */
@@ -61,15 +59,12 @@ public class AssemblyInfrastructureConnectorCreator extends AbstractConnectorCre
 
     /**
      * Defines the {@link org.palladiosimulator.pcm.core.composition.AssemblyContext
-     * AssemblyContext} with the required role. The assembly contexts added to the system are
-     * searched for one that matches the given name.
-     * 
+     * AssemblyContext} with the required role. The assembly contexts added to the
+     * system are searched for one that matches the given name.
+     *
      * @param name
      * @return this connector
-     * 
-     * @throws NoSuchElementException
-     *             Thrown if no element matches the given name.
-     * 
+     * @throws NoSuchElementException Thrown if no element matches the given name.
      * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
      * @see org.palladiosimulator.pcm.repository.InfrastructureRequiredRole
      */
@@ -82,10 +77,9 @@ public class AssemblyInfrastructureConnectorCreator extends AbstractConnectorCre
     /**
      * Defines the {@link org.palladiosimulator.pcm.core.composition.AssemblyContext
      * AssemblyContext} with the provided role.
-     * 
+     *
      * @param context
      * @return this connector
-     * 
      * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
      * @see org.palladiosimulator.pcm.repository.InfrastructureProvidedRole
      */
@@ -108,15 +102,12 @@ public class AssemblyInfrastructureConnectorCreator extends AbstractConnectorCre
 
     /**
      * Defines the {@link org.palladiosimulator.pcm.core.composition.AssemblyContext
-     * AssemblyContext} with the provided role. The assembly contexts added to the system are
-     * searched for one that matches the given name.
-     * 
+     * AssemblyContext} with the provided role. The assembly contexts added to the
+     * system are searched for one that matches the given name.
+     *
      * @param name
      * @return this connector
-     * 
-     * @throws NoSuchElementException
-     *             Thrown if no element matches the given name.
-     * 
+     * @throws NoSuchElementException Thrown if no element matches the given name.
      * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
      * @see org.palladiosimulator.pcm.repository.InfrastructureProvidedRole
      */

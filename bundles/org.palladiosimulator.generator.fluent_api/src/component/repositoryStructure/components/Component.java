@@ -27,13 +27,12 @@ import component.repositoryStructure.interfaces.OperationInterfaceCreator;
 import shared.structure.ResourceInterface;
 
 /**
- * This class provides the general infrastructure of a component, i.e. BasicComponent
- * CompositeComponent, SubSystem, CompleteComponentTypea and ProvidesComponentType. It provides the
- * implementation of the methods for creating role connections (ProvidedRole, RequiredRole,
- * ResourceRequiredRole).
+ * This class provides the general infrastructure of a component, i.e.
+ * BasicComponent CompositeComponent, SubSystem, CompleteComponentTypea and
+ * ProvidesComponentType. It provides the implementation of the methods for
+ * creating role connections (ProvidedRole, RequiredRole, ResourceRequiredRole).
  *
  * @author Louisa Lambrecht
- *
  */
 public abstract class Component extends RepositoryEntity {
 
@@ -49,8 +48,8 @@ public abstract class Component extends RepositoryEntity {
     /**
      * Creates an {@link org.palladiosimulator.pcm.repository.OperationProvidedRole
      * OperationProvidedRole} connection between the component and the
-     * {@link org.palladiosimulator.pcm.repository.OperationInterface OperationInterface}
-     * <code>interfce</code> and adds it to the component.
+     * {@link org.palladiosimulator.pcm.repository.OperationInterface
+     * OperationInterface} <code>interfce</code> and adds it to the component.
      * <p>
      * Create a new operation interface by using the component.factory, i.e.
      * <code>create.newOperationInterface()</code>.
@@ -67,11 +66,12 @@ public abstract class Component extends RepositoryEntity {
 
     /**
      * Creates an {@link org.palladiosimulator.pcm.repository.OperationProvidedRole
-     * OperationProvidedRole} connection with the name <code>name</code> between the component and
-     * the {@link org.palladiosimulator.pcm.repository.OperationInterface OperationInterface}
-     * <code>interfce</code> and adds it to the component. Setting the <code>name</code> is
-     * important for referencing if the role is used in a connector of a composite component and/or
-     * subsystem later on.
+     * OperationProvidedRole} connection with the name <code>name</code> between the
+     * component and the
+     * {@link org.palladiosimulator.pcm.repository.OperationInterface
+     * OperationInterface} <code>interfce</code> and adds it to the component.
+     * Setting the <code>name</code> is important for referencing if the role is
+     * used in a connector of a composite component and/or subsystem later on.
      * <p>
      * Create a new operation interface by using the component.factory, i.e.
      * <code>create.newOperationInterface()</code>.
@@ -92,11 +92,12 @@ public abstract class Component extends RepositoryEntity {
     /**
      * Creates an {@link org.palladiosimulator.pcm.repository.OperationProvidedRole
      * OperationProvidedRole} connection between the component and the
-     * {@link org.palladiosimulator.pcm.repository.OperationInterface OperationInterface}
-     * <code>interfce</code> and adds it to the component.
+     * {@link org.palladiosimulator.pcm.repository.OperationInterface
+     * OperationInterface} <code>interfce</code> and adds it to the component.
      * <p>
-     * An existing <code>interfce</code> can be fetched from the repository using the
-     * component.factory, i.e. <code>create.fetchOfOperationInterface(name)</code>.
+     * An existing <code>interfce</code> can be fetched from the repository using
+     * the component.factory, i.e.
+     * <code>create.fetchOfOperationInterface(name)</code>.
      * </p>
      *
      * @param interfce
@@ -110,14 +111,16 @@ public abstract class Component extends RepositoryEntity {
 
     /**
      * Creates an {@link org.palladiosimulator.pcm.repository.OperationProvidedRole
-     * OperationProvidedRole} connection with the name <code>name</code> between the component and
-     * the {@link org.palladiosimulator.pcm.repository.OperationInterface OperationInterface}
-     * <code>interfce</code> and adds it to the component. Setting the <code>name</code> is
-     * important for referencing if the role is used in a connector of a composite component and/or
-     * subsystem later on.
+     * OperationProvidedRole} connection with the name <code>name</code> between the
+     * component and the
+     * {@link org.palladiosimulator.pcm.repository.OperationInterface
+     * OperationInterface} <code>interfce</code> and adds it to the component.
+     * Setting the <code>name</code> is important for referencing if the role is
+     * used in a connector of a composite component and/or subsystem later on.
      * <p>
-     * An existing <code>interfce</code> can be fetched from the repository using the
-     * component.factory, i.e. <code>create.fetchOfOperationInterface(name)</code>.
+     * An existing <code>interfce</code> can be fetched from the repository using
+     * the component.factory, i.e.
+     * <code>create.fetchOfOperationInterface(name)</code>.
      * </p>
      *
      * @param interfce
@@ -139,10 +142,11 @@ public abstract class Component extends RepositoryEntity {
 
     // provides infrastructure interface
     /**
-     * Creates an {@link org.palladiosimulator.pcm.repository.InfrastructureProvidedRole
+     * Creates an
+     * {@link org.palladiosimulator.pcm.repository.InfrastructureProvidedRole
      * InfrastructureProvidedRole} connection between the component and the
-     * {@link org.palladiosimulator.pcm.repository.InfrastructureInterface InfrastructureInterface}
-     * <code>interfce</code> and adds it to the component.
+     * {@link org.palladiosimulator.pcm.repository.InfrastructureInterface
+     * InfrastructureInterface} <code>interfce</code> and adds it to the component.
      * <p>
      * Create a new infrastructure interface by using the component.factory, i.e.
      * <code>create.newInfrastructureInterface()</code>.
@@ -158,12 +162,14 @@ public abstract class Component extends RepositoryEntity {
     }
 
     /**
-     * Creates an {@link org.palladiosimulator.pcm.repository.InfrastructureProvidedRole
-     * InfrastructureProvidedRole} connection with the name <code>name</code> between the component
-     * and the {@link org.palladiosimulator.pcm.repository.InfrastructureInterface
-     * InfrastructureInterface} <code>interfce</code> and adds it to the component. Setting the
-     * <code>name</code> is important for referencing if the role is used in a connector of a
-     * composite component and/or subsystem later on.
+     * Creates an
+     * {@link org.palladiosimulator.pcm.repository.InfrastructureProvidedRole
+     * InfrastructureProvidedRole} connection with the name <code>name</code>
+     * between the component and the
+     * {@link org.palladiosimulator.pcm.repository.InfrastructureInterface
+     * InfrastructureInterface} <code>interfce</code> and adds it to the component.
+     * Setting the <code>name</code> is important for referencing if the role is
+     * used in a connector of a composite component and/or subsystem later on.
      * <p>
      * Create a new infrastructure interface by using the component.factory, i.e.
      * <code>create.newInfrastructureInterface()</code>.
@@ -182,13 +188,15 @@ public abstract class Component extends RepositoryEntity {
     }
 
     /**
-     * Creates an {@link org.palladiosimulator.pcm.repository.InfrastructureProvidedRole
+     * Creates an
+     * {@link org.palladiosimulator.pcm.repository.InfrastructureProvidedRole
      * InfrastructureProvidedRole} connection between the component and the
-     * {@link org.palladiosimulator.pcm.repository.InfrastructureInterface InfrastructureInterface}
-     * <code>interfce</code> and adds it to the component.
+     * {@link org.palladiosimulator.pcm.repository.InfrastructureInterface
+     * InfrastructureInterface} <code>interfce</code> and adds it to the component.
      * <p>
-     * An existing <code>interfce</code> can be fetched from the repository using the
-     * component.factory, i.e. <code>create.fetchOfInfrastructureInterface(name)</code>.
+     * An existing <code>interfce</code> can be fetched from the repository using
+     * the component.factory, i.e.
+     * <code>create.fetchOfInfrastructureInterface(name)</code>.
      * </p>
      *
      * @param interfce
@@ -201,15 +209,18 @@ public abstract class Component extends RepositoryEntity {
     }
 
     /**
-     * Creates an {@link org.palladiosimulator.pcm.repository.InfrastructureProvidedRole
-     * InfrastructureProvidedRole} connection with the name <code>name</code> between the component
-     * and the {@link org.palladiosimulator.pcm.repository.InfrastructureInterface
-     * InfrastructureInterface} <code>interfce</code> and adds it to the component. Setting the
-     * <code>name</code> is important for referencing if the role is used in a connector of a
-     * composite component and/or subsystem later on.
+     * Creates an
+     * {@link org.palladiosimulator.pcm.repository.InfrastructureProvidedRole
+     * InfrastructureProvidedRole} connection with the name <code>name</code>
+     * between the component and the
+     * {@link org.palladiosimulator.pcm.repository.InfrastructureInterface
+     * InfrastructureInterface} <code>interfce</code> and adds it to the component.
+     * Setting the <code>name</code> is important for referencing if the role is
+     * used in a connector of a composite component and/or subsystem later on.
      * <p>
-     * An existing <code>interfce</code> can be fetched from the repository using the
-     * component.factory, i.e. <code>create.fetchOfInfrastructureInterface(name)</code>.
+     * An existing <code>interfce</code> can be fetched from the repository using
+     * the component.factory, i.e.
+     * <code>create.fetchOfInfrastructureInterface(name)</code>.
      * </p>
      *
      * @param interfce
@@ -231,8 +242,9 @@ public abstract class Component extends RepositoryEntity {
 
     // handles event group (sink role)
     /**
-     * Creates a {@link org.palladiosimulator.pcm.repository.SinkRole SinkRole} connection between
-     * the component and the {@link org.palladiosimulator.pcm.repository.EventGroup EventGroup}
+     * Creates a {@link org.palladiosimulator.pcm.repository.SinkRole SinkRole}
+     * connection between the component and the
+     * {@link org.palladiosimulator.pcm.repository.EventGroup EventGroup}
      * <code>eventGroup</code> and adds it to the component.
      * <p>
      * Create a new event group by using the component.factory, i.e.
@@ -249,11 +261,12 @@ public abstract class Component extends RepositoryEntity {
     }
 
     /**
-     * Creates a {@link org.palladiosimulator.pcm.repository.SinkRole SinkRole} connection with the
-     * name <code>name</code> between the component and the
-     * {@link org.palladiosimulator.pcm.repository.EventGroup EventGroup} <code>eventGroup</code>
-     * and adds it to the component. Setting the <code>name</code> is important for referencing if
-     * the role is used in a connector of a composite component and/or subsystem later on.
+     * Creates a {@link org.palladiosimulator.pcm.repository.SinkRole SinkRole}
+     * connection with the name <code>name</code> between the component and the
+     * {@link org.palladiosimulator.pcm.repository.EventGroup EventGroup}
+     * <code>eventGroup</code> and adds it to the component. Setting the
+     * <code>name</code> is important for referencing if the role is used in a
+     * connector of a composite component and/or subsystem later on.
      * <p>
      * Create a new event group by using the component.factory, i.e.
      * <code>create.newEventGroup()</code>.
@@ -272,12 +285,13 @@ public abstract class Component extends RepositoryEntity {
     }
 
     /**
-     * Creates a {@link org.palladiosimulator.pcm.repository.SinkRole SinkRole} connection between
-     * the component and the {@link org.palladiosimulator.pcm.repository.EventGroup EventGroup}
+     * Creates a {@link org.palladiosimulator.pcm.repository.SinkRole SinkRole}
+     * connection between the component and the
+     * {@link org.palladiosimulator.pcm.repository.EventGroup EventGroup}
      * <code>eventGroup</code> and adds it to the component.
      * <p>
-     * An existing <code>eventGroup</code> can be fetched from the repository using the
-     * component.factory, i.e. <code>create.fetchOfEventGroup(name)</code>.
+     * An existing <code>eventGroup</code> can be fetched from the repository using
+     * the component.factory, i.e. <code>create.fetchOfEventGroup(name)</code>.
      * </p>
      *
      * @param eventGroup
@@ -290,14 +304,15 @@ public abstract class Component extends RepositoryEntity {
     }
 
     /**
-     * Creates a {@link org.palladiosimulator.pcm.repository.SinkRole SinkRole} connection with the
-     * name <code>name</code> between the component and the
-     * {@link org.palladiosimulator.pcm.repository.EventGroup EventGroup} <code>eventGroup</code>
-     * and adds it to the component. Setting the <code>name</code> is important for referencing if
-     * the role is used in a connector of a composite component and/or subsystem later on.
+     * Creates a {@link org.palladiosimulator.pcm.repository.SinkRole SinkRole}
+     * connection with the name <code>name</code> between the component and the
+     * {@link org.palladiosimulator.pcm.repository.EventGroup EventGroup}
+     * <code>eventGroup</code> and adds it to the component. Setting the
+     * <code>name</code> is important for referencing if the role is used in a
+     * connector of a composite component and/or subsystem later on.
      * <p>
-     * An existing <code>eventGroup</code> can be fetched from the repository using the
-     * component.factory, i.e. <code>create.fetchOfEventGroup(name)</code>.
+     * An existing <code>eventGroup</code> can be fetched from the repository using
+     * the component.factory, i.e. <code>create.fetchOfEventGroup(name)</code>.
      * </p>
      *
      * @param eventGroup
@@ -322,8 +337,8 @@ public abstract class Component extends RepositoryEntity {
     /**
      * Creates an {@link org.palladiosimulator.pcm.repository.OperationRequiredRole
      * OperationRequiredRole} connection between the component and the
-     * {@link org.palladiosimulator.pcm.repository.OperationInterface OperationInterface}
-     * <code>interfce</code> and adds it to the component.
+     * {@link org.palladiosimulator.pcm.repository.OperationInterface
+     * OperationInterface} <code>interfce</code> and adds it to the component.
      * <p>
      * Create a new operation interface by using the component.factory, i.e.
      * <code>create.newOperationInterface()</code>.
@@ -340,11 +355,12 @@ public abstract class Component extends RepositoryEntity {
 
     /**
      * Creates an {@link org.palladiosimulator.pcm.repository.OperationRequiredRole
-     * OperationRequiredRole} connection with the name <code>name</code> between the component and
-     * the {@link org.palladiosimulator.pcm.repository.OperationInterface OperationInterface}
-     * <code>interfce</code> and adds it to the component. Setting the <code>name</code> is
-     * important for referencing if the role is used in a connector of a composite component and/or
-     * subsystem later on.
+     * OperationRequiredRole} connection with the name <code>name</code> between the
+     * component and the
+     * {@link org.palladiosimulator.pcm.repository.OperationInterface
+     * OperationInterface} <code>interfce</code> and adds it to the component.
+     * Setting the <code>name</code> is important for referencing if the role is
+     * used in a connector of a composite component and/or subsystem later on.
      * <p>
      * Create a new operation interface by using the component.factory, i.e.
      * <code>create.newOperationInterface()</code>.
@@ -365,11 +381,12 @@ public abstract class Component extends RepositoryEntity {
     /**
      * Creates an {@link org.palladiosimulator.pcm.repository.OperationRequiredRole
      * OperationRequiredRole} connection between the component and the
-     * {@link org.palladiosimulator.pcm.repository.OperationInterface OperationInterface}
-     * <code>interfce</code> and adds it to the component.
+     * {@link org.palladiosimulator.pcm.repository.OperationInterface
+     * OperationInterface} <code>interfce</code> and adds it to the component.
      * <p>
-     * An existing <code>interfce</code> can be fetched from the repository using the
-     * component.factory, i.e. <code>create.fetchOfOperationInterface(name)</code>.
+     * An existing <code>interfce</code> can be fetched from the repository using
+     * the component.factory, i.e.
+     * <code>create.fetchOfOperationInterface(name)</code>.
      * </p>
      *
      * @param interfce
@@ -383,14 +400,16 @@ public abstract class Component extends RepositoryEntity {
 
     /**
      * Creates an {@link org.palladiosimulator.pcm.repository.OperationRequiredRole
-     * OperationRequiredRole} connection with the name <code>name</code> between the component and
-     * the {@link org.palladiosimulator.pcm.repository.OperationInterface OperationInterface}
-     * <code>interfce</code> and adds it to the component. Setting the <code>name</code> is
-     * important for referencing if the role is used in a connector of a composite component and/or
-     * subsystem later on.
+     * OperationRequiredRole} connection with the name <code>name</code> between the
+     * component and the
+     * {@link org.palladiosimulator.pcm.repository.OperationInterface
+     * OperationInterface} <code>interfce</code> and adds it to the component.
+     * Setting the <code>name</code> is important for referencing if the role is
+     * used in a connector of a composite component and/or subsystem later on.
      * <p>
-     * An existing <code>interfce</code> can be fetched from the repository using the
-     * component.factory, i.e. <code>create.fetchOfOperationInterface(name)</code>.
+     * An existing <code>interfce</code> can be fetched from the repository using
+     * the component.factory, i.e.
+     * <code>create.fetchOfOperationInterface(name)</code>.
      * </p>
      *
      * @param interfce
@@ -412,10 +431,11 @@ public abstract class Component extends RepositoryEntity {
 
     // require infrastructure interface
     /**
-     * Creates an {@link org.palladiosimulator.pcm.repository.InfrastructureRequiredRole
+     * Creates an
+     * {@link org.palladiosimulator.pcm.repository.InfrastructureRequiredRole
      * InfrastructureRequiredRole} connection between the component and the
-     * {@link org.palladiosimulator.pcm.repository.InfrastructureInterface InfrastructureInterface}
-     * <code>interfce</code> and adds it to the component.
+     * {@link org.palladiosimulator.pcm.repository.InfrastructureInterface
+     * InfrastructureInterface} <code>interfce</code> and adds it to the component.
      * <p>
      * Create a new infrastructure interface by using the component.factory, i.e.
      * <code>create.newInfrastructureInterface()</code>.
@@ -431,12 +451,14 @@ public abstract class Component extends RepositoryEntity {
     }
 
     /**
-     * Creates an {@link org.palladiosimulator.pcm.repository.InfrastructureRequiredRole
-     * InfrastructureRequiredRole} connection with the name <code>name</code> between the component
-     * and the {@link org.palladiosimulator.pcm.repository.InfrastructureInterface
-     * InfrastructureInterface} <code>interfce</code> and adds it to the component. Setting the
-     * <code>name</code> is important for referencing if the role is used in a connector of a
-     * composite component and/or subsystem later on.
+     * Creates an
+     * {@link org.palladiosimulator.pcm.repository.InfrastructureRequiredRole
+     * InfrastructureRequiredRole} connection with the name <code>name</code>
+     * between the component and the
+     * {@link org.palladiosimulator.pcm.repository.InfrastructureInterface
+     * InfrastructureInterface} <code>interfce</code> and adds it to the component.
+     * Setting the <code>name</code> is important for referencing if the role is
+     * used in a connector of a composite component and/or subsystem later on.
      * <p>
      * Create a new infrastructure interface by using the component.factory, i.e.
      * <code>create.newInfrastructureInterface()</code>.
@@ -455,13 +477,15 @@ public abstract class Component extends RepositoryEntity {
     }
 
     /**
-     * Creates an {@link org.palladiosimulator.pcm.repository.InfrastructureRequiredRole
+     * Creates an
+     * {@link org.palladiosimulator.pcm.repository.InfrastructureRequiredRole
      * InfrastructureRequiredRole} connection between the component and the
-     * {@link org.palladiosimulator.pcm.repository.InfrastructureInterface InfrastructureInterface}
-     * <code>interfce</code> and adds it to the component.
+     * {@link org.palladiosimulator.pcm.repository.InfrastructureInterface
+     * InfrastructureInterface} <code>interfce</code> and adds it to the component.
      * <p>
-     * An existing <code>interfce</code> can be fetched from the repository using the
-     * component.factory, i.e. <code>create.fetchOfInfrastructureInterface(name)</code>.
+     * An existing <code>interfce</code> can be fetched from the repository using
+     * the component.factory, i.e.
+     * <code>create.fetchOfInfrastructureInterface(name)</code>.
      * </p>
      *
      * @param interfce
@@ -474,15 +498,18 @@ public abstract class Component extends RepositoryEntity {
     }
 
     /**
-     * Creates an {@link org.palladiosimulator.pcm.repository.InfrastructureRequiredRole
-     * InfrastructureRequiredRole} connection with the name <code>name</code> between the component
-     * and the {@link org.palladiosimulator.pcm.repository.InfrastructureInterface
-     * InfrastructureInterface} <code>interfce</code> and adds it to the component. Setting the
-     * <code>name</code> is important for referencing if the role is used in a connector of a
-     * composite component and/or subsystem later on.
+     * Creates an
+     * {@link org.palladiosimulator.pcm.repository.InfrastructureRequiredRole
+     * InfrastructureRequiredRole} connection with the name <code>name</code>
+     * between the component and the
+     * {@link org.palladiosimulator.pcm.repository.InfrastructureInterface
+     * InfrastructureInterface} <code>interfce</code> and adds it to the component.
+     * Setting the <code>name</code> is important for referencing if the role is
+     * used in a connector of a composite component and/or subsystem later on.
      * <p>
-     * An existing <code>interfce</code> can be fetched from the repository using the
-     * component.factory, i.e. <code>create.fetchOfInfrastructureInterface(name)</code>.
+     * An existing <code>interfce</code> can be fetched from the repository using
+     * the component.factory, i.e.
+     * <code>create.fetchOfInfrastructureInterface(name)</code>.
      * </p>
      *
      * @param interfce
@@ -504,9 +531,10 @@ public abstract class Component extends RepositoryEntity {
 
     // emits event group (source role)
     /**
-     * Creates a {@link org.palladiosimulator.pcm.repository.SourceRole SourceRole} connection
-     * between the component and the {@link org.palladiosimulator.pcm.repository.EventGroup
-     * EventGroup} <code>eventGroup</code> and adds it to the component.
+     * Creates a {@link org.palladiosimulator.pcm.repository.SourceRole SourceRole}
+     * connection between the component and the
+     * {@link org.palladiosimulator.pcm.repository.EventGroup EventGroup}
+     * <code>eventGroup</code> and adds it to the component.
      * <p>
      * Create a new event group by using the component.factory, i.e.
      * <code>create.newEventGroup()</code>.
@@ -522,11 +550,12 @@ public abstract class Component extends RepositoryEntity {
     }
 
     /**
-     * Creates a {@link org.palladiosimulator.pcm.repository.SourceRole SourceRole} connection with
-     * the name <code>name</code> between the component and the
-     * {@link org.palladiosimulator.pcm.repository.EventGroup EventGroup} <code>eventGroup</code>
-     * and adds it to the component. Setting the <code>name</code> is important for referencing if
-     * the role is used in a connector of a composite component and/or subsystem later on.
+     * Creates a {@link org.palladiosimulator.pcm.repository.SourceRole SourceRole}
+     * connection with the name <code>name</code> between the component and the
+     * {@link org.palladiosimulator.pcm.repository.EventGroup EventGroup}
+     * <code>eventGroup</code> and adds it to the component. Setting the
+     * <code>name</code> is important for referencing if the role is used in a
+     * connector of a composite component and/or subsystem later on.
      * <p>
      * Create a new event group by using the component.factory, i.e.
      * <code>create.newEventGroup()</code>.
@@ -545,12 +574,13 @@ public abstract class Component extends RepositoryEntity {
     }
 
     /**
-     * Creates a {@link org.palladiosimulator.pcm.repository.SourceRole SourceRole} connection
-     * between the component and the {@link org.palladiosimulator.pcm.repository.EventGroup
-     * EventGroup} <code>eventGroup</code> and adds it to the component.
+     * Creates a {@link org.palladiosimulator.pcm.repository.SourceRole SourceRole}
+     * connection between the component and the
+     * {@link org.palladiosimulator.pcm.repository.EventGroup EventGroup}
+     * <code>eventGroup</code> and adds it to the component.
      * <p>
-     * An existing <code>eventGroup</code> can be fetched from the repository using the
-     * component.factory, i.e. <code>create.fetchOfEventGroup(name)</code>.
+     * An existing <code>eventGroup</code> can be fetched from the repository using
+     * the component.factory, i.e. <code>create.fetchOfEventGroup(name)</code>.
      * </p>
      *
      * @param eventGroup
@@ -563,14 +593,15 @@ public abstract class Component extends RepositoryEntity {
     }
 
     /**
-     * Creates a {@link org.palladiosimulator.pcm.repository.SourceRole SourceRole} connection with
-     * the name <code>name</code> between the component and the
-     * {@link org.palladiosimulator.pcm.repository.EventGroup EventGroup} <code>eventGroup</code>
-     * and adds it to the component. Setting the <code>name</code> is important for referencing if
-     * the role is used in a connector of a composite component and/or subsystem later on.
+     * Creates a {@link org.palladiosimulator.pcm.repository.SourceRole SourceRole}
+     * connection with the name <code>name</code> between the component and the
+     * {@link org.palladiosimulator.pcm.repository.EventGroup EventGroup}
+     * <code>eventGroup</code> and adds it to the component. Setting the
+     * <code>name</code> is important for referencing if the role is used in a
+     * connector of a composite component and/or subsystem later on.
      * <p>
-     * An existing <code>eventGroup</code> can be fetched from the repository using the
-     * component.factory, i.e. <code>create.fetchOfEventGroup(name)</code>.
+     * An existing <code>eventGroup</code> can be fetched from the repository using
+     * the component.factory, i.e. <code>create.fetchOfEventGroup(name)</code>.
      * </p>
      *
      * @param eventGroup
@@ -593,11 +624,13 @@ public abstract class Component extends RepositoryEntity {
     /**
      * Creates a {@link org.palladiosimulator.pcm.core.entity.ResourceRequiredRole
      * ResourceRequiredRole} connection between the component and the
-     * {@link org.palladiosimulator.pcm.resourcetype.ResourceInterface ResourceInterface}
-     * <code>resourceInterface</code> and adds it to the component.
+     * {@link org.palladiosimulator.pcm.resourcetype.ResourceInterface
+     * ResourceInterface} <code>resourceInterface</code> and adds it to the
+     * component.
      * <p>
-     * An existing <code>resourceInterface</code> can be fetched from the repository using the
-     * component.factory, i.e. <code>create.fetchOfResourceInterface(name)</code>.
+     * An existing <code>resourceInterface</code> can be fetched from the repository
+     * using the component.factory, i.e.
+     * <code>create.fetchOfResourceInterface(name)</code>.
      * </p>
      *
      * @param resourceInterface
@@ -612,14 +645,17 @@ public abstract class Component extends RepositoryEntity {
 
     /**
      * Creates a {@link org.palladiosimulator.pcm.core.entity.ResourceRequiredRole
-     * ResourceRequiredRole} connection with the name <code>name</code> between the component and
-     * the {@link org.palladiosimulator.pcm.resourcetype.ResourceInterface ResourceInterface}
-     * <code>resourceInterface</code> and adds it to the component. Setting the <code>name</code> is
-     * important for referencing if the role is used in a connector of a composite component and/or
-     * subsystem later on.
+     * ResourceRequiredRole} connection with the name <code>name</code> between the
+     * component and the
+     * {@link org.palladiosimulator.pcm.resourcetype.ResourceInterface
+     * ResourceInterface} <code>resourceInterface</code> and adds it to the
+     * component. Setting the <code>name</code> is important for referencing if the
+     * role is used in a connector of a composite component and/or subsystem later
+     * on.
      * <p>
-     * An existing <code>resourceInterface</code> can be fetched from the repository using the
-     * component.factory, i.e. <code>create.fetchOfResourceInterface(name)</code>.
+     * An existing <code>resourceInterface</code> can be fetched from the repository
+     * using the component.factory, i.e.
+     * <code>create.fetchOfResourceInterface(name)</code>.
      * </p>
      *
      * @param resourceInterface
@@ -634,7 +670,7 @@ public abstract class Component extends RepositoryEntity {
             rrr.setEntityName(name);
         }
         final org.palladiosimulator.pcm.resourcetype.ResourceInterface resInt = this.repository
-            .getResourceInterface(resourceInterface);
+                .getResourceInterface(resourceInterface);
         rrr.setRequiredResourceInterface__ResourceRequiredRole(resInt);
         this.resourceRequiredRoles.add(rrr);
         this.repository.addResourceRequiredRole(rrr);

@@ -18,9 +18,10 @@ import shared.validate.ModelValidator;
 
 /**
  * This class provides all the methods to create a
- * {@link org.palladiosimulator.pcm.resourceenvironment.ResourceEnvironment ResourceEnvironment} and
- * create entities that are added to this ResourceEnvironment. Characteristics of the entities are
- * specified by method chaining.<br>
+ * {@link org.palladiosimulator.pcm.resourceenvironment.ResourceEnvironment
+ * ResourceEnvironment} and create entities that are added to this
+ * ResourceEnvironment. Characteristics of the entities are specified by method
+ * chaining.<br>
  * <p>
  * Start creating a ResourceEnvironment like this:<br>
  * <code>
@@ -33,7 +34,6 @@ import shared.validate.ModelValidator;
  * </p>
  *
  * @author Florian Krone
- *
  */
 public class FluentResourceEnvironmentFactory {
     private ResourceEnvironmentCreator resourceEnvironmentCreator;
@@ -42,9 +42,8 @@ public class FluentResourceEnvironmentFactory {
      * Start the creation of a
      * {@link org.palladiosimulator.pcm.resourceenvironment.ResourceEnvironment
      * ResourceEnvironment}.
-     * 
+     *
      * @return the <code>ResourceEnvironemt</code> in the making
-     * 
      * @see org.palladiosimulator.pcm.resourceenvironment.ResourceEnvironment
      */
     public IResourceEnvironment newResourceEnvironment() {
@@ -59,10 +58,10 @@ public class FluentResourceEnvironmentFactory {
 
     /**
      * Start the creation of a
-     * {@link org.palladiosimulator.pcm.resourceenvironment.ResourceContainer ResourceContainer}.
-     * 
+     * {@link org.palladiosimulator.pcm.resourceenvironment.ResourceContainer
+     * ResourceContainer}.
+     *
      * @return the <code>ResourceContainer</code> in the making
-     * 
      * @see org.palladiosimulator.pcm.resourceenvironment.ResourceContainer
      */
     public ResourceContainerCreator newResourceContainer() {
@@ -73,9 +72,8 @@ public class FluentResourceEnvironmentFactory {
      * Start the creation of a
      * {@link org.palladiosimulator.pcm.resourceenvironment.ProcessingResourceSpecification
      * ProcessingResourceSpecification}.
-     * 
+     *
      * @return the <code>ProcessingResourceSpecification</code> in the making
-     * 
      * @see org.palladiosimulator.pcm.resourceenvironment.ProcessingResourceSpecification
      */
     public ProcessingResourceSpecificationCreator newProcessingResourceSpecification() {
@@ -86,9 +84,8 @@ public class FluentResourceEnvironmentFactory {
      * Start the creation of a
      * {@link org.palladiosimulator.pcm.resourceenvironment.HDDProcessingResourceSpecification
      * HDDProcessingResourceSpecification}.
-     * 
+     *
      * @return the <code>HDDProcessingResourceSpecification</code> in the making
-     * 
      * @see org.palladiosimulator.pcm.resourceenvironment.HDDProcessingResourceSpecification
      */
     public HddProcessingResourceSpecificationCreator newHddProcessingResourceSpecification() {
@@ -96,11 +93,11 @@ public class FluentResourceEnvironmentFactory {
     }
 
     /**
-     * Start the creation of a {@link org.palladiosimulator.pcm.resourceenvironment.LinkingResource
+     * Start the creation of a
+     * {@link org.palladiosimulator.pcm.resourceenvironment.LinkingResource
      * LinkingResource}.
-     * 
+     *
      * @return the <code>LinkingResource</code> in the making
-     * 
      * @see org.palladiosimulator.pcm.resourceenvironment.LinkingResource
      */
     public LinkingResourceCreator newLinkingResource() {

@@ -18,9 +18,10 @@ import component.repositoryStructure.internals.ResourceSignature;
 import shared.structure.ProcessingResource;
 
 /**
- * This class constructs a {@link org.palladiosimulator.pcm.seff.RecoveryAction RecoveryAction}. It
- * is used to create the '<em><b>RecoveryAction</b></em>' object step-by-step, i.e.
- * '<em><b>RecoveryActionCreator</b></em>' objects are of intermediate state.
+ * This class constructs a {@link org.palladiosimulator.pcm.seff.RecoveryAction
+ * RecoveryAction}. It is used to create the '<em><b>RecoveryAction</b></em>'
+ * object step-by-step, i.e. '<em><b>RecoveryActionCreator</b></em>' objects are
+ * of intermediate state.
  *
  * @author Louisa Lambrecht
  * @see org.palladiosimulator.pcm.seff.RecoveryAction
@@ -57,8 +58,8 @@ public class RecoveryActionCreator extends GeneralAction {
     }
 
     /**
-     * Adds the <code>recoveryActionBehaviour</code> to this action's list of alternate recovery
-     * behaviours.
+     * Adds the <code>recoveryActionBehaviour</code> to this action's list of
+     * alternate recovery behaviours.
      *
      * @param recoveryActionBehaviour
      * @return this recovery action in the making
@@ -104,15 +105,11 @@ public class RecoveryActionCreator extends GeneralAction {
             action.setPrimaryBehaviour__RecoveryAction(this.primary);
         }
 
-        action.getRecoveryActionBehaviours__RecoveryAction()
-            .addAll(this.otherBehaviours);
+        action.getRecoveryActionBehaviours__RecoveryAction().addAll(this.otherBehaviours);
 
-        action.getInfrastructureCall__Action()
-            .addAll(this.infrastructureCalls);
-        action.getResourceCall__Action()
-            .addAll(this.resourceCalls);
-        action.getResourceDemand_Action()
-            .addAll(this.demands);
+        action.getInfrastructureCall__Action().addAll(this.infrastructureCalls);
+        action.getResourceCall__Action().addAll(this.resourceCalls);
+        action.getResourceDemand_Action().addAll(this.demands);
 
         return action;
     }

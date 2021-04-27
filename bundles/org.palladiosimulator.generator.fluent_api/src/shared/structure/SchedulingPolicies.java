@@ -1,11 +1,10 @@
 package shared.structure;
 
 /**
- * Represents the built in scheduling policies, i.e. '<em><b>Process Sharing</b></em>,
- * '<em><b>FCFS</b></em>, '<em><b>Delay</b></em>.
- * 
- * @author Florian Krone
+ * Represents the built in scheduling policies, i.e. '<em><b>Process
+ * Sharing</b></em>, '<em><b>FCFS</b></em>, '<em><b>Delay</b></em>.
  *
+ * @author Florian Krone
  */
 public enum SchedulingPolicies {
     /**
@@ -29,7 +28,7 @@ public enum SchedulingPolicies {
 
     /**
      * Gets the name of the policy
-     * 
+     *
      * @return the name
      */
     public String getPolicyName() {

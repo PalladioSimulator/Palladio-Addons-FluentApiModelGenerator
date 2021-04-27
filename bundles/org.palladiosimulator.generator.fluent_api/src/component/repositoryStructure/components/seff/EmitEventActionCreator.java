@@ -13,9 +13,11 @@ import org.palladiosimulator.pcm.seff.SeffFactory;
 import component.repositoryStructure.components.VariableUsageCreator;
 
 /**
- * This class constructs an {@link org.palladiosimulator.pcm.seff.EmitEventAction EmitEventAction}.
- * It is used to create the '<em><b>EmitEventAction</b></em>' object step-by-step, i.e.
- * '<em><b>EmitEventActionCreator</b></em>' objects are of intermediate state.
+ * This class constructs an
+ * {@link org.palladiosimulator.pcm.seff.EmitEventAction EmitEventAction}. It is
+ * used to create the '<em><b>EmitEventAction</b></em>' object step-by-step,
+ * i.e. '<em><b>EmitEventActionCreator</b></em>' objects are of intermediate
+ * state.
  *
  * @author Louisa Lambrecht
  * @see org.palladiosimulator.pcm.seff.EmitEventAction
@@ -39,8 +41,8 @@ public class EmitEventActionCreator extends SeffAction {
     /**
      * Specifies the <code>eventType</code> that is emitted by this action.
      * <p>
-     * An existing <code>eventType</code> can be fetched from the repository using the
-     * component.factory, i.e. <code>create.fetchOfEventType(name)</code>.
+     * An existing <code>eventType</code> can be fetched from the repository using
+     * the component.factory, i.e. <code>create.fetchOfEventType(name)</code>.
      * </p>
      *
      * @param eventType
@@ -56,8 +58,8 @@ public class EmitEventActionCreator extends SeffAction {
     /**
      * Specifies the <code>sourceRole</code> that is triggered by this action.
      * <p>
-     * An existing <code>sourceRole</code> can be fetched from the repository using the
-     * component.factory, i.e. <code>create.fetchOfSourceRole(name)</code>.
+     * An existing <code>sourceRole</code> can be fetched from the repository using
+     * the component.factory, i.e. <code>create.fetchOfSourceRole(name)</code>.
      * </p>
      *
      * @param sourceRole
@@ -71,7 +73,8 @@ public class EmitEventActionCreator extends SeffAction {
     }
 
     /**
-     * Adds the <code>variableUsage</code> to this action's list of input variable usages.
+     * Adds the <code>variableUsage</code> to this action's list of input variable
+     * usages.
      *
      * @param variableUsage
      * @return this emit event action in the making
@@ -92,8 +95,7 @@ public class EmitEventActionCreator extends SeffAction {
         if (this.requiredRole != null) {
             action.setSourceRole__EmitEventAction(this.requiredRole);
         }
-        action.getInputVariableUsages__CallAction()
-            .addAll(this.inputVariableUsages);
+        action.getInputVariableUsages__CallAction().addAll(this.inputVariableUsages);
         return action;
     }
 }

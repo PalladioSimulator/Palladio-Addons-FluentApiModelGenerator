@@ -13,8 +13,9 @@ import shared.validate.ModelValidator;
 
 /**
  * This class provides all the methods to create an
- * {@link org.palladiosimulator.pcm.allocation.Allocation Allocation} and create entities that are
- * added to this Allocation. Characteristics of the entities are specified by method chaining.<br>
+ * {@link org.palladiosimulator.pcm.allocation.Allocation Allocation} and create
+ * entities that are added to this Allocation. Characteristics of the entities
+ * are specified by method chaining.<br>
  * <p>
  * Start creating an allocation like this:<br>
  * <code>
@@ -27,16 +28,15 @@ import shared.validate.ModelValidator;
  * </p>
  *
  * @author Florian Krone
- *
  */
 public class FluentAllocationFactory {
     private AllocationCreator allocationCreator;
 
     /**
-     * Start the creation of an {@link org.palladiosimulator.pcm.allocation.Allocation Allocation}.
+     * Start the creation of an
+     * {@link org.palladiosimulator.pcm.allocation.Allocation Allocation}.
      *
      * @return the <code>Allocation</code> in the making
-     *
      * @see org.palladiosimulator.pcm.allocation.Allocation
      */
     public IAllocation newAllocation() {
@@ -49,11 +49,11 @@ public class FluentAllocationFactory {
     }
 
     /**
-     * Start the creation of an {@link org.palladiosimulator.pcm.allocation.AllocationContext
+     * Start the creation of an
+     * {@link org.palladiosimulator.pcm.allocation.AllocationContext
      * AllocationContext}.
      *
      * @return the <code>AllocationContext</code> in the making
-     *
      * @see org.palladiosimulator.pcm.allocation.AllocationContext
      */
     public AllocationContextCreator newAllocationContext() {

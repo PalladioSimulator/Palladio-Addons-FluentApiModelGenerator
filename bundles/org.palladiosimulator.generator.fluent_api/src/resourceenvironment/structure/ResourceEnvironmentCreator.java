@@ -21,11 +21,11 @@ import shared.structure.SchedulingPolicies;
 import shared.validate.IModelValidator;
 
 /**
- * This class constructs a {@link org.palladiosimulator.pcm.resourceenvironment.ResourceEnvironment
+ * This class constructs a
+ * {@link org.palladiosimulator.pcm.resourceenvironment.ResourceEnvironment
  * ResourceEnvironment}.
  *
  * @author Florian Krone
- *
  * @see org.palladiosimulator.pcm.resourceenvironment.ResourceEnvironment
  */
 public class ResourceEnvironmentCreator extends ResourceEntity implements IResourceEnvironment {
@@ -59,10 +59,8 @@ public class ResourceEnvironmentCreator extends ResourceEntity implements IResou
         if (this.name != null) {
             environment.setEntityName(this.name);
         }
-        environment.getResourceContainer_ResourceEnvironment()
-            .addAll(this.resourceContainers);
-        environment.getLinkingResources__ResourceEnvironment()
-            .addAll(this.linkingResources);
+        environment.getResourceContainer_ResourceEnvironment().addAll(this.resourceContainers);
+        environment.getLinkingResources__ResourceEnvironment().addAll(this.linkingResources);
         return environment;
     }
 
@@ -81,70 +79,58 @@ public class ResourceEnvironmentCreator extends ResourceEntity implements IResou
     }
 
     /**
-     * Fetches the {@link org.palladiosimulator.pcm.resourcetype.SchedulingPolicy SchedulingPolicy}
-     * matching the given policy.
-     * 
+     * Fetches the {@link org.palladiosimulator.pcm.resourcetype.SchedulingPolicy
+     * SchedulingPolicy} matching the given policy.
+     *
      * @param policy
      * @return the matching <code>SchedulingPolicy</code>
      */
     public SchedulingPolicy getSchedulingPolicy(final SchedulingPolicies policy) {
         Objects.requireNonNull(policy, "The given SchedulingPolicy must not be null");
-        return this.resources.getSchedulingPolicies__ResourceRepository()
-            .stream()
-            .filter(x -> x.getEntityName()
-                .equals(policy.getPolicyName()))
-            .findFirst()
-            .get();
+        return this.resources.getSchedulingPolicies__ResourceRepository().stream()
+                .filter(x -> x.getEntityName().equals(policy.getPolicyName())).findFirst().get();
     }
 
     /**
-     * Fetches the {@link org.palladiosimulator.pcm.resourcetype.ProcessingResourceType
+     * Fetches the
+     * {@link org.palladiosimulator.pcm.resourcetype.ProcessingResourceType
      * ProcessingResourceType} matching the given resource.
-     * 
+     *
      * @param resource
      * @return the matching <code>ProcessingResourceType</code>
      */
     public ProcessingResourceType getProcessingResource(final ProcessingResource resource) {
         Objects.requireNonNull(resource, "The given ProcessignResource must not be null");
-        return (ProcessingResourceType) this.resources.getAvailableResourceTypes_ResourceRepository()
-            .stream()
-            .filter(x -> x.getEntityName()
-                .equals(resource.getResourceName()))
-            .findFirst()
-            .get();
+        return (ProcessingResourceType) this.resources.getAvailableResourceTypes_ResourceRepository().stream()
+                .filter(x -> x.getEntityName().equals(resource.getResourceName())).findFirst().get();
     }
 
     /**
-     * Fetches the {@link org.palladiosimulator.pcm.resourcetype.CommunicationLinkResourceType
+     * Fetches the
+     * {@link org.palladiosimulator.pcm.resourcetype.CommunicationLinkResourceType
      * CommunicationLinkResourceType} matching the given resource.
-     * 
+     *
      * @param resource
      * @return the matching <code>CommunicationLinkResourceType</code>
      */
     public CommunicationLinkResourceType getCommunicationLinkResource(final CommunicationLinkResource resource) {
         Objects.requireNonNull(resource, "The given CommunicationLinkResource must not be null");
-        return (CommunicationLinkResourceType) this.resources.getAvailableResourceTypes_ResourceRepository()
-            .stream()
-            .filter(x -> x.getEntityName()
-                .equals(resource.getResourceName()))
-            .findFirst()
-            .get();
+        return (CommunicationLinkResourceType) this.resources.getAvailableResourceTypes_ResourceRepository().stream()
+                .filter(x -> x.getEntityName().equals(resource.getResourceName())).findFirst().get();
     }
 
     /**
-     * Fetches the {@link org.palladiosimulator.pcm.resourceenvironment.ResourceContainer
+     * Fetches the
+     * {@link org.palladiosimulator.pcm.resourceenvironment.ResourceContainer
      * ResourceContaienr} with the given name.
-     * 
+     *
      * @param name
      * @return the <code>ResourceContainer</code>
-     * @throws IllegalArgumentException
-     *             Thrown if no <code>ResourceContainer</code> has the given name.
+     * @throws IllegalArgumentException Thrown if no <code>ResourceContainer</code>
+     *                                  has the given name.
      */
     public ResourceContainer getResourceContainerByName(String name) throws IllegalArgumentException {
-        return this.resourceContainers.stream()
-            .filter(x -> x.getEntityName()
-                .equals(name))
-            .findFirst()
-            .orElseThrow(() -> new IllegalArgumentException("No ResourceContainer with name " + name + " found"));
+        return this.resourceContainers.stream().filter(x -> x.getEntityName().equals(name)).findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("No ResourceContainer with name " + name + " found"));
     }
 }

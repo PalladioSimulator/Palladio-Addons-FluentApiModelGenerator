@@ -21,14 +21,17 @@ public interface StopSeff {
     public StopActionCreator withName(String name);
 
     /**
-     * Adds a {@link org.palladiosimulator.pcm.seff.seff_performance.ParametricResourceDemand
+     * Adds a
+     * {@link org.palladiosimulator.pcm.seff.seff_performance.ParametricResourceDemand
      * ParametricResourceDemand} to this action.
      * <p>
-     * Parametric Resource Demand specifies the amount of processing requested from a certain type
-     * of resource in a parameterized way. It assigns the demand specified as a Random-Variable
-     * (<code>specification_stochasticExpression</code>) to an abstract ProcessingResourceType
-     * <code>processingResource</code>(e.g., CPU, hard disk) instead of a concrete
-     * ProcessingResourceSpecification (e.g., 5 GHz CPU, 20 MByte/s hard disk).
+     * Parametric Resource Demand specifies the amount of processing requested from
+     * a certain type of resource in a parameterized way. It assigns the demand
+     * specified as a Random-Variable
+     * (<code>specification_stochasticExpression</code>) to an abstract
+     * ProcessingResourceType <code>processingResource</code>(e.g., CPU, hard disk)
+     * instead of a concrete ProcessingResourceSpecification (e.g., 5 GHz CPU, 20
+     * MByte/s hard disk).
      * </p>
      *
      * @param specificationStochasticExpression
@@ -39,7 +42,8 @@ public interface StopSeff {
             ProcessingResource processingResource);
 
     /**
-     * Adds an {@link org.palladiosimulator.pcm.seff.seff_performance.InfrastructureCall
+     * Adds an
+     * {@link org.palladiosimulator.pcm.seff.seff_performance.InfrastructureCall
      * InfrastructureCall} to this action.
      *
      * @param numberOfCallsStochasticExpression
@@ -53,8 +57,8 @@ public interface StopSeff {
             VariableUsageCreator... variableUsages);
 
     /**
-     * Adds a {@link org.palladiosimulator.pcm.seff.seff_performance.ResourceCall ResourceCall} to
-     * this action.
+     * Adds a {@link org.palladiosimulator.pcm.seff.seff_performance.ResourceCall
+     * ResourceCall} to this action.
      *
      * @param numberOfCallsStochasticExpression
      * @param signature
@@ -66,9 +70,10 @@ public interface StopSeff {
             ResourceRequiredRole requiredRole, VariableUsageCreator... variableUsages);
 
     /**
-     * The body behaviour always ends with a stop action and a finishing call on this method. It
-     * turns the stop-action-in-the-making into a '<em><b>StopAction</b></em>' and adds it to the
-     * SEFF'S/behaviour's stepwise body behaviour
+     * The body behaviour always ends with a stop action and a finishing call on
+     * this method. It turns the stop-action-in-the-making into a
+     * '<em><b>StopAction</b></em>' and adds it to the SEFF'S/behaviour's stepwise
+     * body behaviour
      *
      * @return the SEFF/behaviour
      */

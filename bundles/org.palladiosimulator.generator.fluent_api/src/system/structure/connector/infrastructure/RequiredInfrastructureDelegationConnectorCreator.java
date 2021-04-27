@@ -17,7 +17,6 @@ import system.structure.connector.IContextRoleCombinator;
  * RequiredInfrastructureDelegationConnector}.
  *
  * @author Florian Krone
- *
  * @see org.palladiosimulator.pcm.core.composition.RequiredInfrastructureDelegationConnector
  */
 public class RequiredInfrastructureDelegationConnectorCreator extends AbstractConnectorCreator {
@@ -30,12 +29,12 @@ public class RequiredInfrastructureDelegationConnectorCreator extends AbstractCo
     }
 
     /**
-     * Defines the {@link org.palladiosimulator.pcm.repository.InfrastructureRequiredRole
+     * Defines the
+     * {@link org.palladiosimulator.pcm.repository.InfrastructureRequiredRole
      * InfrastructureRequiredRole} of the system, delegated to an AssemblyContext.
-     * 
+     *
      * @param role
      * @return this connector
-     * 
      * @see org.palladiosimulator.pcm.repository.InfrastructureRequiredRole
      */
     public RequiredInfrastructureDelegationConnectorCreator withOuterRequiredRole(
@@ -45,15 +44,15 @@ public class RequiredInfrastructureDelegationConnectorCreator extends AbstractCo
     }
 
     /**
-     * Defines the {@link org.palladiosimulator.pcm.repository.InfrastructureRequiredRole
-     * InfrastructureRequiredRole} of the system, delegated to an AssemblyContext. The required
-     * roles added to the system are searched for one that matches the given name.
-     * 
+     * Defines the
+     * {@link org.palladiosimulator.pcm.repository.InfrastructureRequiredRole
+     * InfrastructureRequiredRole} of the system, delegated to an AssemblyContext.
+     * The required roles added to the system are searched for one that matches the
+     * given name.
+     *
      * @param role
      * @return this connector
-     * @throws NoSuchElementException
-     *             Thrown if no element matches the given name.
-     * 
+     * @throws NoSuchElementException Thrown if no element matches the given name.
      * @see org.palladiosimulator.pcm.repository.InfrastructureRequiredRole
      */
     public RequiredInfrastructureDelegationConnectorCreator withOuterRequiredRole(final String name)
@@ -65,10 +64,9 @@ public class RequiredInfrastructureDelegationConnectorCreator extends AbstractCo
     /**
      * Defines the {@link org.palladiosimulator.pcm.core.composition.AssemblyContext
      * AssemblyContext} with the required role.
-     * 
+     *
      * @param context
      * @return this connector
-     * 
      * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
      * @see org.palladiosimulator.pcm.repository.InfrastructureRequiredRole
      */
@@ -89,15 +87,12 @@ public class RequiredInfrastructureDelegationConnectorCreator extends AbstractCo
 
     /**
      * Defines the {@link org.palladiosimulator.pcm.core.composition.AssemblyContext
-     * AssemblyContext} with the required role. The assembly contexts added to the system are
-     * searched for one that matches the given name.
-     * 
+     * AssemblyContext} with the required role. The assembly contexts added to the
+     * system are searched for one that matches the given name.
+     *
      * @param name
      * @return this connector
-     * 
-     * @throws NoSuchElementException
-     *             Thrown if no element matches the given name.
-     * 
+     * @throws NoSuchElementException Thrown if no element matches the given name.
      * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
      * @see org.palladiosimulator.pcm.repository.InfrastructureRequiredRole
      */
@@ -110,7 +105,7 @@ public class RequiredInfrastructureDelegationConnectorCreator extends AbstractCo
     @Override
     public RequiredInfrastructureDelegationConnector build() {
         final RequiredInfrastructureDelegationConnector connector = CompositionFactory.eINSTANCE
-            .createRequiredInfrastructureDelegationConnector();
+                .createRequiredInfrastructureDelegationConnector();
         if (this.name != null) {
             connector.setEntityName(this.name);
         }

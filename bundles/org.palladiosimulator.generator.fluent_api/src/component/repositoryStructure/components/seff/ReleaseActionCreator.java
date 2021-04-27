@@ -14,9 +14,10 @@ import component.repositoryStructure.internals.ResourceSignature;
 import shared.structure.ProcessingResource;
 
 /**
- * This class constructs a {@link org.palladiosimulator.pcm.seff.ReleaseAction ReleaseAction}. It is
- * used to create the '<em><b>ReleaseAction</b></em>' object step-by-step, i.e.
- * '<em><b>ReleaseActionCreator</b></em>' objects are of intermediate state.
+ * This class constructs a {@link org.palladiosimulator.pcm.seff.ReleaseAction
+ * ReleaseAction}. It is used to create the '<em><b>ReleaseAction</b></em>'
+ * object step-by-step, i.e. '<em><b>ReleaseActionCreator</b></em>' objects are
+ * of intermediate state.
  *
  * @author Louisa Lambrecht
  * @see org.palladiosimulator.pcm.seff.ReleaseAction
@@ -37,8 +38,9 @@ public class ReleaseActionCreator extends GeneralAction {
     /**
      * Specifies the passive resource of this release action.
      * <p>
-     * An existing <code>passiveResource</code> can be fetched from the repository using the
-     * component.factory, i.e. <code>create.fetchOfPassiveResource(name)</code>.
+     * An existing <code>passiveResource</code> can be fetched from the repository
+     * using the component.factory, i.e.
+     * <code>create.fetchOfPassiveResource(name)</code>.
      * </p>
      *
      * @param passiveResource
@@ -80,12 +82,9 @@ public class ReleaseActionCreator extends GeneralAction {
             action.setPassiveResource_ReleaseAction(this.passiveResource);
         }
 
-        action.getInfrastructureCall__Action()
-            .addAll(this.infrastructureCalls);
-        action.getResourceCall__Action()
-            .addAll(this.resourceCalls);
-        action.getResourceDemand_Action()
-            .addAll(this.demands);
+        action.getInfrastructureCall__Action().addAll(this.infrastructureCalls);
+        action.getResourceCall__Action().addAll(this.resourceCalls);
+        action.getResourceDemand_Action().addAll(this.demands);
 
         return action;
     }

@@ -18,9 +18,10 @@ import component.repositoryStructure.internals.ResourceSignature;
 import shared.structure.ProcessingResource;
 
 /**
- * This class constructs a {@link org.palladiosimulator.pcm.seff.InternalAction InternalAction}. It
- * is used to create the '<em><b>InternalAction</b></em>' object step-by-step, i.e.
- * '<em><b>InternalActionCreator</b></em>' objects are of intermediate state.
+ * This class constructs a {@link org.palladiosimulator.pcm.seff.InternalAction
+ * InternalAction}. It is used to create the '<em><b>InternalAction</b></em>'
+ * object step-by-step, i.e. '<em><b>InternalActionCreator</b></em>' objects are
+ * of intermediate state.
  *
  * @author Louisa Lambrecht
  * @see org.palladiosimulator.pcm.seff.InternalAction
@@ -43,9 +44,10 @@ public class InternalActionCreator extends GeneralAction {
     }
 
     /**
-     * Creates an internal failure occurrence description with the failure probability
-     * <code>failureProbability</code> of the software induced failure type <code>failureType</code>
-     * and adds it to this action's list of internal failure occurrence descriptions.
+     * Creates an internal failure occurrence description with the failure
+     * probability <code>failureProbability</code> of the software induced failure
+     * type <code>failureType</code> and adds it to this action's list of internal
+     * failure occurrence descriptions.
      *
      * @param failureProbability
      * @param failureType
@@ -56,7 +58,7 @@ public class InternalActionCreator extends GeneralAction {
             final SoftwareInducedFailureType failureType) {
         Objects.requireNonNull(failureType, "failureType must not be null");
         final InternalFailureOccurrenceDescription failure = ReliabilityFactory.eINSTANCE
-            .createInternalFailureOccurrenceDescription();
+                .createInternalFailureOccurrenceDescription();
         failure.setFailureProbability(failureProbability);
         failure.setSoftwareInducedFailureType__InternalFailureOccurrenceDescription(failureType);
         this.failures.add(failure);
@@ -88,15 +90,11 @@ public class InternalActionCreator extends GeneralAction {
     @Override
     protected InternalAction build() {
         final InternalAction action = SeffFactory.eINSTANCE.createInternalAction();
-        action.getInternalFailureOccurrenceDescriptions__InternalAction()
-            .addAll(this.failures);
+        action.getInternalFailureOccurrenceDescriptions__InternalAction().addAll(this.failures);
 
-        action.getResourceDemand_Action()
-            .addAll(this.demands);
-        action.getInfrastructureCall__Action()
-            .addAll(this.infrastructureCalls);
-        action.getResourceCall__Action()
-            .addAll(this.resourceCalls);
+        action.getResourceDemand_Action().addAll(this.demands);
+        action.getInfrastructureCall__Action().addAll(this.infrastructureCalls);
+        action.getResourceCall__Action().addAll(this.resourceCalls);
 
         return action;
     }

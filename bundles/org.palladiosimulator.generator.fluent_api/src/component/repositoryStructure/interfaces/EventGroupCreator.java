@@ -12,8 +12,9 @@ import org.palladiosimulator.pcm.repository.RepositoryFactory;
 import component.repositoryStructure.RepositoryCreator;
 
 /**
- * This class constructs an {@link org.palladiosimulator.pcm.repository.EventGroup EventGroup}. It
- * is used to create the '<em><b>EventGroup</b></em>' object step-by-step, i.e.
+ * This class constructs an
+ * {@link org.palladiosimulator.pcm.repository.EventGroup EventGroup}. It is
+ * used to create the '<em><b>EventGroup</b></em>' object step-by-step, i.e.
  * '<em><b>EventGroupCreator</b></em>' objects are of intermediate state.
  *
  * @author Louisa Lambrecht
@@ -33,10 +34,10 @@ public class EventGroupCreator extends Interface {
         return (EventGroupCreator) super.withName(name);
     }
 
-//	@Override
-//	public EventGroupCreator withId(String id) {
-//		return (EventGroupCreator) super.withId(id);
-//	}
+    // @Override
+    // public EventGroupCreator withId(String id) {
+    // return (EventGroupCreator) super.withId(id);
+    // }
 
     // parent Interfaces
     @Override
@@ -51,8 +52,8 @@ public class EventGroupCreator extends Interface {
     }
 
     /**
-     * Adds the <code>eventType</code> to this event group's list of event types. The
-     * <code>eventType</code> can be created using the component.factory, i.e.
+     * Adds the <code>eventType</code> to this event group's list of event types.
+     * The <code>eventType</code> can be created using the component.factory, i.e.
      * <code>create.newEventType()</code>.
      *
      * @param eventType
@@ -72,17 +73,14 @@ public class EventGroupCreator extends Interface {
 
         if (this.name != null) {
             eventGroup.setEntityName(this.name);
-//		if (id != null)
-//			eventGroup.setId(id);
+            // if (id != null)
+            // eventGroup.setId(id);
         }
 
-        eventGroup.getParentInterfaces__Interface()
-            .addAll(this.parentInterfaces);
-        eventGroup.getRequiredCharacterisations()
-            .addAll(this.requiredCharacterisations);
+        eventGroup.getParentInterfaces__Interface().addAll(this.parentInterfaces);
+        eventGroup.getRequiredCharacterisations().addAll(this.requiredCharacterisations);
 
-        eventGroup.getEventTypes__EventGroup()
-            .addAll(this.eventTypes);
+        eventGroup.getEventTypes__EventGroup().addAll(this.eventTypes);
 
         return eventGroup;
     }

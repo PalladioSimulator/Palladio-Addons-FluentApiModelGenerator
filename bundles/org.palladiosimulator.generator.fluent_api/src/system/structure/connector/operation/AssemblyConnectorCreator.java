@@ -14,11 +14,11 @@ import system.structure.connector.AbstractConnectorCreator;
 import system.structure.connector.IContextRoleCombinator;
 
 /**
- * This class constructs an {@link org.palladiosimulator.pcm.core.composition.AssemblyConnector
+ * This class constructs an
+ * {@link org.palladiosimulator.pcm.core.composition.AssemblyConnector
  * AssemblyConnector}.
  *
  * @author Florian Krone
- *
  * @see org.palladiosimulator.pcm.core.composition.AssemblyConnector
  */
 public class AssemblyConnectorCreator extends AbstractConnectorCreator {
@@ -35,10 +35,9 @@ public class AssemblyConnectorCreator extends AbstractConnectorCreator {
     /**
      * Defines the {@link org.palladiosimulator.pcm.core.composition.AssemblyContext
      * AssemblyContext} that requires the role.
-     * 
+     *
      * @param context
      * @return this assembly connector
-     * 
      * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
      */
     public OperationRequiredRoleSelector<AssemblyConnectorCreator> withRequiringAssemblyContext(
@@ -59,15 +58,12 @@ public class AssemblyConnectorCreator extends AbstractConnectorCreator {
 
     /**
      * Defines the {@link org.palladiosimulator.pcm.core.composition.AssemblyContext
-     * AssemblyContext} that requires the role. The assembly contexts added to the system are
-     * searched for one that matches the given name.
-     * 
+     * AssemblyContext} that requires the role. The assembly contexts added to the
+     * system are searched for one that matches the given name.
+     *
      * @param name
      * @return this assembly connector
-     * 
-     * @throws NoSuchElementException
-     *             Thrown if no element matches the given name.
-     * 
+     * @throws NoSuchElementException Thrown if no element matches the given name.
      * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
      */
     public OperationRequiredRoleSelector<AssemblyConnectorCreator> withRequiringAssemblyContext(final String name)
@@ -79,10 +75,9 @@ public class AssemblyConnectorCreator extends AbstractConnectorCreator {
     /**
      * Defines the {@link org.palladiosimulator.pcm.core.composition.AssemblyContext
      * AssemblyContext} that provides the role.
-     * 
+     *
      * @param context
      * @return this assembly connector
-     * 
      * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
      */
     public OperationProvidedRoleSelector<AssemblyConnectorCreator> withProvidingAssemblyContext(
@@ -103,15 +98,12 @@ public class AssemblyConnectorCreator extends AbstractConnectorCreator {
 
     /**
      * Defines the {@link org.palladiosimulator.pcm.core.composition.AssemblyContext
-     * AssemblyContext} that provides the role. The assembly contexts added to the system are
-     * searched for one that matches the given name.
-     * 
+     * AssemblyContext} that provides the role. The assembly contexts added to the
+     * system are searched for one that matches the given name.
+     *
      * @param name
      * @return this assembly connector
-     * 
-     * @throws NoSuchElementException
-     *             Thrown if no element matches the given name.
-     * 
+     * @throws NoSuchElementException Thrown if no element matches the given name.
      */
     public OperationProvidedRoleSelector<AssemblyConnectorCreator> withProvidingAssemblyContext(final String name)
             throws NoSuchElementException {

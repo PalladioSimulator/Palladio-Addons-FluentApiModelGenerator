@@ -2,8 +2,9 @@ package component.repositoryStructure.internals;
 
 /**
  * Represents built-in failure types available in the repository, i.e.
- * '<em><b>HARDWARE_CPU</b></em>', '<em><b>HARDWARE_HDD</b></em>', '<em><b>HARDWARE_DELAY</b></em>',
- * '<em><b>NETWORK_LAN</b></em>', '<em><b>SOFTWARE</b></em>'.
+ * '<em><b>HARDWARE_CPU</b></em>', '<em><b>HARDWARE_HDD</b></em>',
+ * '<em><b>HARDWARE_DELAY</b></em>', '<em><b>NETWORK_LAN</b></em>',
+ * '<em><b>SOFTWARE</b></em>'.
  *
  * @author Louisa Lambrecht
  */

@@ -23,9 +23,10 @@ import component.repositoryStructure.interfaces.OperationInterfaceCreator;
 import shared.structure.ResourceInterface;
 
 /**
- * This class constructs a {@link org.palladiosimulator.pcm.subsystem.SubSystem SubSystem}. It is
- * used to create the '<em><b>SubSystem</b></em>' object step-by-step, i.e.
- * '<em><b>SubSystemCreator</b></em>' objects are of intermediate state.
+ * This class constructs a {@link org.palladiosimulator.pcm.subsystem.SubSystem
+ * SubSystem}. It is used to create the '<em><b>SubSystem</b></em>' object
+ * step-by-step, i.e. '<em><b>SubSystemCreator</b></em>' objects are of
+ * intermediate state.
  *
  * @author Louisa Lambrecht
  * @see org.palladiosimulator.pcm.subsystem.SubSystem
@@ -41,10 +42,10 @@ public class SubSystemCreator extends ComplexComponent {
         return (SubSystemCreator) super.withName(name);
     }
 
-//	@Override
-//	public SubSystemCreator withId(String id) {
-//		return (SubSystemCreator) super.withId(id);
-//	}
+    // @Override
+    // public SubSystemCreator withId(String id) {
+    // return (SubSystemCreator) super.withId(id);
+    // }
 
     // ------------ providing roles ------------
     // provides operation interface
@@ -306,25 +307,19 @@ public class SubSystemCreator extends ComplexComponent {
         final SubSystem subSystem = SubsystemFactory.eINSTANCE.createSubSystem();
         if (this.name != null) {
             subSystem.setEntityName(this.name);
-//		if (this.id != null)
-//			subSystem.setId(this.id);
+            // if (this.id != null)
+            // subSystem.setId(this.id);
         }
 
-        subSystem.getProvidedRoles_InterfaceProvidingEntity()
-            .addAll(this.providedRoles);
-        subSystem.getRequiredRoles_InterfaceRequiringEntity()
-            .addAll(this.requiredRoles);
-        subSystem.getResourceRequiredRoles__ResourceInterfaceRequiringEntity()
-            .addAll(this.resourceRequiredRoles);
+        subSystem.getProvidedRoles_InterfaceProvidingEntity().addAll(this.providedRoles);
+        subSystem.getRequiredRoles_InterfaceRequiringEntity().addAll(this.requiredRoles);
+        subSystem.getResourceRequiredRoles__ResourceInterfaceRequiringEntity().addAll(this.resourceRequiredRoles);
 
-        subSystem.getAssemblyContexts__ComposedStructure()
-            .addAll(this.assemblyContexts);
-        subSystem.getConnectors__ComposedStructure()
-            .addAll(this.connectors);
-        subSystem.getEventChannel__ComposedStructure()
-            .addAll(this.eventChannels);
+        subSystem.getAssemblyContexts__ComposedStructure().addAll(this.assemblyContexts);
+        subSystem.getConnectors__ComposedStructure().addAll(this.connectors);
+        subSystem.getEventChannel__ComposedStructure().addAll(this.eventChannels);
         subSystem.getResourceRequiredDelegationConnectors_ComposedStructure()
-            .addAll(this.resourceRequiredDelegationConnectors);
+                .addAll(this.resourceRequiredDelegationConnectors);
 
         return subSystem;
     }

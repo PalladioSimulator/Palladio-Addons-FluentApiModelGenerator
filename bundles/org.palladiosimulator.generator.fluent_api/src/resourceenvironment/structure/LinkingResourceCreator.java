@@ -15,11 +15,11 @@ import org.palladiosimulator.pcm.resourcetype.CommunicationLinkResourceType;
 import shared.structure.CommunicationLinkResource;
 
 /**
- * This class constructs a {@link org.palladiosimulator.pcm.resourceenvironment.LinkingResource
+ * This class constructs a
+ * {@link org.palladiosimulator.pcm.resourceenvironment.LinkingResource
  * LinkingResource}.
- * 
- * @author Florian Krone
  *
+ * @author Florian Krone
  * @see org.palladiosimulator.pcm.resourceenvironment.LinkingResource
  */
 public class LinkingResourceCreator extends ResourceEntity {
@@ -36,11 +36,11 @@ public class LinkingResourceCreator extends ResourceEntity {
 
     /**
      * Defines the failure probability of the
-     * {@link org.palladiosimulator.pcm.resourceenvironment.LinkingResource LinkingResource}.
-     * 
+     * {@link org.palladiosimulator.pcm.resourceenvironment.LinkingResource
+     * LinkingResource}.
+     *
      * @param failureProbability
      * @return this <code>LinkingResource</code>
-     * 
      * @see org.palladiosimulator.pcm.resourceenvironment.LinkingResource
      */
     public LinkingResourceCreator withFailureProbability(final double failureProbability) {
@@ -50,11 +50,11 @@ public class LinkingResourceCreator extends ResourceEntity {
 
     /**
      * Defines the communication link resource of the
-     * {@link org.palladiosimulator.pcm.resourceenvironment.LinkingResource LinkingResource}.
-     * 
+     * {@link org.palladiosimulator.pcm.resourceenvironment.LinkingResource
+     * LinkingResource}.
+     *
      * @param resource
      * @return this <code>LinkingResource</code>
-     * 
      * @see org.palladiosimulator.pcm.resourceenvironment.LinkingResource
      */
     public LinkingResourceCreator withCommunicationLinkResource(final CommunicationLinkResource resource) {
@@ -64,11 +64,11 @@ public class LinkingResourceCreator extends ResourceEntity {
 
     /**
      * Adds a resource container to the
-     * {@link org.palladiosimulator.pcm.resourceenvironment.LinkingResource LinkingResource}.
-     * 
+     * {@link org.palladiosimulator.pcm.resourceenvironment.LinkingResource
+     * LinkingResource}.
+     *
      * @param container
      * @return this <code>LinkingResource</code>
-     * 
      * @see org.palladiosimulator.pcm.resourceenvironment.LinkingResource
      * @see org.palladiosimulator.pcm.resourceenvironment.ResourceContainer
      */
@@ -80,14 +80,14 @@ public class LinkingResourceCreator extends ResourceEntity {
 
     /**
      * Adds a resource container to the
-     * {@link org.palladiosimulator.pcm.resourceenvironment.LinkingResource LinkingResource}. The
-     * <code>ResourceEnvironment</code> is searched for a <code>ResourceContainer</code> with he
-     * given name.
-     * 
+     * {@link org.palladiosimulator.pcm.resourceenvironment.LinkingResource
+     * LinkingResource}. The <code>ResourceEnvironment</code> is searched for a
+     * <code>ResourceContainer</code> with he given name.
+     *
      * @param name
      * @return this <code>LinkingResource</code>
-     * @throws IllegalArgumentException
-     *             Throw if no <code>ResourceContainer</code> with the given name exists.
+     * @throws IllegalArgumentException Throw if no <code>ResourceContainer</code>
+     *                                  with the given name exists.
      */
     public LinkingResourceCreator addLinkedResourceContainer(final String name) throws IllegalArgumentException {
         final ResourceContainer container = this.resourceCreator.getResourceContainerByName(name);
@@ -97,11 +97,11 @@ public class LinkingResourceCreator extends ResourceEntity {
 
     /**
      * Defines the latency of the
-     * {@link org.palladiosimulator.pcm.resourceenvironment.LinkingResource LinkingResource}.
-     * 
+     * {@link org.palladiosimulator.pcm.resourceenvironment.LinkingResource
+     * LinkingResource}.
+     *
      * @param latency
      * @return this <code>LinkingResource</code>
-     * 
      * @see org.palladiosimulator.pcm.resourceenvironment.LinkingResource
      */
     public LinkingResourceCreator withLatency(final String latency) {
@@ -113,11 +113,11 @@ public class LinkingResourceCreator extends ResourceEntity {
 
     /**
      * Defines the throughput of the
-     * {@link org.palladiosimulator.pcm.resourceenvironment.LinkingResource LinkingResource}.
-     * 
+     * {@link org.palladiosimulator.pcm.resourceenvironment.LinkingResource
+     * LinkingResource}.
+     *
      * @param throughput
      * @return this <code>LinkingResource</code>
-     * 
      * @see org.palladiosimulator.pcm.resourceenvironment.LinkingResource
      */
     public LinkingResourceCreator withThroughput(final String throughput) {
@@ -135,9 +135,9 @@ public class LinkingResourceCreator extends ResourceEntity {
     @Override
     public LinkingResource build() {
         final CommunicationLinkResourceSpecification resourceSpecification = ResourceenvironmentFactory.eINSTANCE
-            .createCommunicationLinkResourceSpecification();
+                .createCommunicationLinkResourceSpecification();
         resourceSpecification
-            .setCommunicationLinkResourceType_CommunicationLinkResourceSpecification(this.resourceType);
+                .setCommunicationLinkResourceType_CommunicationLinkResourceSpecification(this.resourceType);
         resourceSpecification.setFailureProbability(this.failureProbability);
         resourceSpecification.setLatency_CommunicationLinkResourceSpecification(this.latencyVariable);
         resourceSpecification.setThroughput_CommunicationLinkResourceSpecification(this.throughputVariable);
@@ -146,8 +146,7 @@ public class LinkingResourceCreator extends ResourceEntity {
             resource.setEntityName(this.name);
         }
         resource.setCommunicationLinkResourceSpecifications_LinkingResource(resourceSpecification);
-        resource.getConnectedResourceContainers_LinkingResource()
-            .addAll(this.linkedContainers);
+        resource.getConnectedResourceContainers_LinkingResource().addAll(this.linkedContainers);
         return resource;
     }
 

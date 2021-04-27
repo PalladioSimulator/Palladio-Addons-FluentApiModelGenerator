@@ -19,9 +19,10 @@ import component.repositoryStructure.internals.Failure;
 import component.repositoryStructure.internals.Primitive;
 
 /**
- * This class constructs a {@link org.palladiosimulator.pcm.repository.EventType EventType}. It is
- * used to create the '<em><b>EventType</b></em>' object step-by-step, i.e.
- * '<em><b>EventTypeCreator</b></em>' objects are of intermediate state.
+ * This class constructs a {@link org.palladiosimulator.pcm.repository.EventType
+ * EventType}. It is used to create the '<em><b>EventType</b></em>' object
+ * step-by-step, i.e. '<em><b>EventTypeCreator</b></em>' objects are of
+ * intermediate state.
  *
  * @author Louisa Lambrecht
  * @see org.palladiosimulator.pcm.repository.EventType
@@ -42,25 +43,26 @@ public class EventTypeCreator extends RepositoryEntity {
     }
 
     /**
-     * Creates a {@link org.palladiosimulator.pcm.repository.Parameter Parameter} and adds it to the
-     * event type's ordered list of parameters.
+     * Creates a {@link org.palladiosimulator.pcm.repository.Parameter Parameter}
+     * and adds it to the event type's ordered list of parameters.
      * <p>
-     * Each parameter is a tuple of a <code>name</code> and a <code>dataType</code> (which is unique
-     * across the parameters). Optionally, the <code>modifier</code>s '<em><b>in</b></em>',
-     * '<em><b>out</b></em>', and '<em><b>inout</b></em>' (with its OMG IDL semantics) can be used
-     * for parameters, e.g. <code>ParameterModifier.IN</code>.
+     * Each parameter is a tuple of a <code>name</code> and a <code>dataType</code>
+     * (which is unique across the parameters). Optionally, the
+     * <code>modifier</code>s '<em><b>in</b></em>', '<em><b>out</b></em>', and
+     * '<em><b>inout</b></em>' (with its OMG IDL semantics) can be used for
+     * parameters, e.g. <code>ParameterModifier.IN</code>.
      * </p>
      * <p>
-     * A {@link component.repositoryStructure.internals.Primitive Primitive} data type can have the
-     * values '<em><b>boolean</b></em>', '<em><b>integer</b></em>', '<em><b>string</b></em>',
+     * A {@link component.repositoryStructure.internals.Primitive Primitive} data
+     * type can have the values '<em><b>boolean</b></em>',
+     * '<em><b>integer</b></em>', '<em><b>string</b></em>',
      * '<em><b>double</b></em>', '<em><b>long</b></em>', '<em><b>char</b></em>',
      * '<em><b>byte</b></em>'.
      * </p>
      *
      * @param name
      * @param dataType
-     * @param modifier
-     *            may be null
+     * @param modifier may be null
      * @return this event type in the making
      * @see org.palladiosimulator.pcm.repository.ParameterModifier
      */
@@ -73,23 +75,23 @@ public class EventTypeCreator extends RepositoryEntity {
     }
 
     /**
-     * Creates a {@link org.palladiosimulator.pcm.repository.Parameter Parameter} and adds it to the
-     * event type's ordered list of parameters.
+     * Creates a {@link org.palladiosimulator.pcm.repository.Parameter Parameter}
+     * and adds it to the event type's ordered list of parameters.
      * <p>
-     * Each parameter is a tuple of a <code>name</code> and a <code>dataType</code> (which is unique
-     * across the parameters). Optionally, the <code>modifier</code>s '<em><b>in</b></em>',
-     * '<em><b>out</b></em>', and '<em><b>inout</b></em>' (with its OMG IDL semantics) can be used
-     * for parameters, e.g. <code>ParameterModifier.IN</code>.
+     * Each parameter is a tuple of a <code>name</code> and a <code>dataType</code>
+     * (which is unique across the parameters). Optionally, the
+     * <code>modifier</code>s '<em><b>in</b></em>', '<em><b>out</b></em>', and
+     * '<em><b>inout</b></em>' (with its OMG IDL semantics) can be used for
+     * parameters, e.g. <code>ParameterModifier.IN</code>.
      * </p>
      * <p>
-     * An existing data type can be fetched from the repository using the component.factory, i.e.
-     * <code>create.fetchOfDataType(name)</code>.
+     * An existing data type can be fetched from the repository using the
+     * component.factory, i.e. <code>create.fetchOfDataType(name)</code>.
      * </p>
      *
      * @param name
      * @param dataType
-     * @param modifier
-     *            may be null
+     * @param modifier may be null
      * @return this event type in the making
      * @see component.factory.FluentRepositoryFactory#fetchOfDataType(String)
      * @see org.palladiosimulator.pcm.repository.ParameterModifier
@@ -115,10 +117,11 @@ public class EventTypeCreator extends RepositoryEntity {
     }
 
     /**
-     * Adds the <code>failureType</code> to the event type's list of possible failures.
+     * Adds the <code>failureType</code> to the event type's list of possible
+     * failures.
      * <p>
-     * Failure types can be fetched from the repository using the component.factory, i.e.
-     * <code>create.fetchOfFailureType(name)</code>.
+     * Failure types can be fetched from the repository using the component.factory,
+     * i.e. <code>create.fetchOfFailureType(name)</code>.
      * </p>
      *
      * @param failureType
@@ -132,11 +135,13 @@ public class EventTypeCreator extends RepositoryEntity {
     }
 
     /**
-     * Adds the <code>failureType</code> to the event type's list of possible failures.
+     * Adds the <code>failureType</code> to the event type's list of possible
+     * failures.
      * <p>
-     * A {@link component.repositoryStructure.internals.Failure Failure} type can have the values
-     * '<em><b>HARDWARE_CPU</b></em>', '<em><b>HARDWARE_HDD</b></em>',
-     * '<em><b>HARDWARE_DELAY</b></em>', '<em><b>NETWORK_LAN</b></em>', '<em><b>SOFTWARE</b></em>'.
+     * A {@link component.repositoryStructure.internals.Failure Failure} type can
+     * have the values '<em><b>HARDWARE_CPU</b></em>',
+     * '<em><b>HARDWARE_HDD</b></em>', '<em><b>HARDWARE_DELAY</b></em>',
+     * '<em><b>NETWORK_LAN</b></em>', '<em><b>SOFTWARE</b></em>'.
      * </p>
      *
      * @param failureType
@@ -149,10 +154,11 @@ public class EventTypeCreator extends RepositoryEntity {
     }
 
     /**
-     * Adds the <code>exceptionType</code> to the event type's list of possible exceptions.
+     * Adds the <code>exceptionType</code> to the event type's list of possible
+     * exceptions.
      * <p>
-     * An existing exception type can be fetched from the repository using the component.factory,
-     * i.e. <code>create.fetchOfExceptionType(name)</code>.
+     * An existing exception type can be fetched from the repository using the
+     * component.factory, i.e. <code>create.fetchOfExceptionType(name)</code>.
      * </p>
      *
      * @param exceptionType
@@ -174,10 +180,8 @@ public class EventTypeCreator extends RepositoryEntity {
         if (this.parameter != null) {
             et.setParameter__EventType(this.parameter);
         }
-        et.getFailureType()
-            .addAll(this.failureTypes);
-        et.getExceptions__Signature()
-            .addAll(this.exceptionTypes);
+        et.getFailureType().addAll(this.failureTypes);
+        et.getExceptions__Signature().addAll(this.exceptionTypes);
 
         return et;
     }

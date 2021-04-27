@@ -16,9 +16,11 @@ import component.repositoryStructure.internals.ResourceSignature;
 import shared.structure.ProcessingResource;
 
 /**
- * This class constructs a {@link org.palladiosimulator.pcm.seff.SetVariableAction
- * SetVariableAction}. It is used to create the '<em><b>SetVariableAction</b></em>' object
- * step-by-step, i.e. '<em><b>SetVariableActionCreator</b></em>' objects are of intermediate state.
+ * This class constructs a
+ * {@link org.palladiosimulator.pcm.seff.SetVariableAction SetVariableAction}.
+ * It is used to create the '<em><b>SetVariableAction</b></em>' object
+ * step-by-step, i.e. '<em><b>SetVariableActionCreator</b></em>' objects are of
+ * intermediate state.
  *
  * @author Louisa Lambrecht
  * @see org.palladiosimulator.pcm.seff.SetVariableAction
@@ -38,7 +40,8 @@ public class SetVariableActionCreator extends GeneralAction {
     }
 
     /**
-     * Adds the <code>variableUsage</code> to this action's list of local variable usages.
+     * Adds the <code>variableUsage</code> to this action's list of local variable
+     * usages.
      *
      * @param variableUsage
      * @return this set variable action in the making
@@ -81,15 +84,11 @@ public class SetVariableActionCreator extends GeneralAction {
             action.getEntityName();
         }
 
-        action.getLocalVariableUsages_SetVariableAction()
-            .addAll(this.localVariableUsages);
+        action.getLocalVariableUsages_SetVariableAction().addAll(this.localVariableUsages);
 
-        action.getInfrastructureCall__Action()
-            .addAll(this.infrastructureCalls);
-        action.getResourceCall__Action()
-            .addAll(this.resourceCalls);
-        action.getResourceDemand_Action()
-            .addAll(this.demands);
+        action.getInfrastructureCall__Action().addAll(this.infrastructureCalls);
+        action.getResourceCall__Action().addAll(this.resourceCalls);
+        action.getResourceDemand_Action().addAll(this.demands);
         return action;
     }
 }

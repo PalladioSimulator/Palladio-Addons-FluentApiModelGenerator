@@ -12,9 +12,12 @@ import org.palladiosimulator.pcm.repository.RepositoryFactory;
 import component.repositoryStructure.RepositoryCreator;
 
 /**
- * This class constructs an {@link org.palladiosimulator.pcm.repository.OperationInterface
- * OperationInterface}. It is used to create the '<em><b>OperationInterface</b></em>' object
- * step-by-step, i.e. '<em><b>OperationInterfaceCreator</b></em>' objects are of intermediate state.
+ * This class constructs an
+ * {@link org.palladiosimulator.pcm.repository.OperationInterface
+ * OperationInterface}. It is used to create the
+ * '<em><b>OperationInterface</b></em>' object step-by-step, i.e.
+ * '<em><b>OperationInterfaceCreator</b></em>' objects are of intermediate
+ * state.
  *
  * @author Louisa Lambrecht
  * @see org.palladiosimulator.pcm.repository.OperationInterface
@@ -33,10 +36,10 @@ public class OperationInterfaceCreator extends Interface {
         return (OperationInterfaceCreator) super.withName(name);
     }
 
-//	@Override
-//	public OperationInterfaceCreator withId(String id) {
-//		return (OperationInterfaceCreator) super.withId(id);
-//	}
+    // @Override
+    // public OperationInterfaceCreator withId(String id) {
+    // return (OperationInterfaceCreator) super.withId(id);
+    // }
 
     // parent Interfaces
     @Override
@@ -71,17 +74,14 @@ public class OperationInterfaceCreator extends Interface {
         final OperationInterface interfce = RepositoryFactory.eINSTANCE.createOperationInterface();
         if (this.name != null) {
             interfce.setEntityName(this.name);
-//		if (id != null)
-//			interfce.setId(id);
+            // if (id != null)
+            // interfce.setId(id);
         }
 
-        interfce.getParentInterfaces__Interface()
-            .addAll(this.parentInterfaces);
-        interfce.getRequiredCharacterisations()
-            .addAll(this.requiredCharacterisations);
+        interfce.getParentInterfaces__Interface().addAll(this.parentInterfaces);
+        interfce.getRequiredCharacterisations().addAll(this.requiredCharacterisations);
 
-        interfce.getSignatures__OperationInterface()
-            .addAll(this.signatures);
+        interfce.getSignatures__OperationInterface().addAll(this.signatures);
 
         return interfce;
     }

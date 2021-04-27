@@ -14,13 +14,13 @@ import component.repositoryStructure.internals.ResourceSignature;
 import shared.structure.ProcessingResource;
 
 /**
- * This class constructs an {@link org.palladiosimulator.pcm.seff.AcquireAction AcquireAction}. It
- * is used to create the '<em><b>AcquireAction</b></em>' object step-by-step, i.e.
- * '<em><b>AcquireActionCreator</b></em>' objects are of intermediate state.
+ * This class constructs an {@link org.palladiosimulator.pcm.seff.AcquireAction
+ * AcquireAction}. It is used to create the '<em><b>AcquireAction</b></em>'
+ * object step-by-step, i.e. '<em><b>AcquireActionCreator</b></em>' objects are
+ * of intermediate state.
  *
  * @author Louisa Lambrecht
  * @see org.palladiosimulator.pcm.seff.AcquireAction
- *
  */
 public class AcquireActionCreator extends GeneralAction {
 
@@ -40,8 +40,8 @@ public class AcquireActionCreator extends GeneralAction {
     /**
      * Specifies the passive resource of this acquire action.
      * <p>
-     * An existing <code>passiveResource</code> can be fetched from the repository using the
-     * factory, i.e. <code>create.fetchOfPassiveResource(name)</code>.
+     * An existing <code>passiveResource</code> can be fetched from the repository
+     * using the factory, i.e. <code>create.fetchOfPassiveResource(name)</code>.
      * </p>
      *
      * @param passiveResource
@@ -112,12 +112,9 @@ public class AcquireActionCreator extends GeneralAction {
             action.setTimeout(this.isTimeout);
         }
 
-        action.getInfrastructureCall__Action()
-            .addAll(this.infrastructureCalls);
-        action.getResourceCall__Action()
-            .addAll(this.resourceCalls);
-        action.getResourceDemand_Action()
-            .addAll(this.demands);
+        action.getInfrastructureCall__Action().addAll(this.infrastructureCalls);
+        action.getResourceCall__Action().addAll(this.resourceCalls);
+        action.getResourceDemand_Action().addAll(this.demands);
 
         return action;
     }

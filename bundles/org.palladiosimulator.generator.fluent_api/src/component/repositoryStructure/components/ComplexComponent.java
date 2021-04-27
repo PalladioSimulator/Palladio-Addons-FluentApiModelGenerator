@@ -35,12 +35,11 @@ import org.palladiosimulator.pcm.repository.SinkRole;
 import org.palladiosimulator.pcm.repository.SourceRole;
 
 /**
- * This class provides the general infrastructure of a compositional component, i.e.
- * CompositeComponent and SubSystem. It provides the implementation of the methods for creating
- * assembly contexts, connectors and event channels.
+ * This class provides the general infrastructure of a compositional component,
+ * i.e. CompositeComponent and SubSystem. It provides the implementation of the
+ * methods for creating assembly contexts, connectors and event channels.
  *
  * @author Louisa Lambrecht
- *
  */
 public abstract class ComplexComponent extends Component {
 
@@ -50,13 +49,13 @@ public abstract class ComplexComponent extends Component {
     protected List<ResourceRequiredDelegationConnector> resourceRequiredDelegationConnectors = new ArrayList<>();
 
     /**
-     * Creates an {@link org.palladiosimulator.pcm.core.composition.AssemblyContext AssemblyContext}
-     * with the name <code>name</code> and optionally many <code>configParameterUsages</code> and
-     * adds it to the component.
+     * Creates an {@link org.palladiosimulator.pcm.core.composition.AssemblyContext
+     * AssemblyContext} with the name <code>name</code> and optionally many
+     * <code>configParameterUsages</code> and adds it to the component.
      * <p>
      * An existing {@link org.palladiosimulator.pcm.repository.RepositoryComponent
-     * RepositoryComponent} can be fetched from the repository using the component.factory, i.e.
-     * <code>create.fetchOfComponent(name)</code>.
+     * RepositoryComponent} can be fetched from the repository using the
+     * component.factory, i.e. <code>create.fetchOfComponent(name)</code>.
      * </p>
      *
      * @param encapsulatedComponent
@@ -79,23 +78,21 @@ public abstract class ComplexComponent extends Component {
             ac.setEntityName(name);
         }
         ac.setEncapsulatedComponent__AssemblyContext(encapsulatedComponent);
-        Arrays.asList(configParameterUsages)
-            .stream()
-            .map(v -> v.build())
-            .forEach(v -> ac.getConfigParameterUsages__AssemblyContext()
-                .add(v));
+        Arrays.asList(configParameterUsages).stream().map(v -> v.build())
+                .forEach(v -> ac.getConfigParameterUsages__AssemblyContext().add(v));
         this.assemblyContexts.add(ac);
         this.repository.addAssemblyContext(ac);
         return this;
     }
 
     /**
-     * Creates an {@link org.palladiosimulator.pcm.core.composition.AssemblyContext AssemblyContext}
-     * and optionally many <code>configParameterUsages</code> and adds it to the component.
+     * Creates an {@link org.palladiosimulator.pcm.core.composition.AssemblyContext
+     * AssemblyContext} and optionally many <code>configParameterUsages</code> and
+     * adds it to the component.
      * <p>
      * An existing {@link org.palladiosimulator.pcm.repository.RepositoryComponent
-     * RepositoryComponent} can be fetched from the repository using the component.factory, i.e.
-     * <code>create.fetchOfComponent(name)</code>.
+     * RepositoryComponent} can be fetched from the repository using the
+     * component.factory, i.e. <code>create.fetchOfComponent(name)</code>.
      * </p>
      *
      * @param encapsulatedComponent
@@ -110,11 +107,12 @@ public abstract class ComplexComponent extends Component {
     }
 
     /**
-     * Creates a new {@link org.palladiosimulator.pcm.core.composition.EventChannel EventChannel}
-     * with name <code>name</code>.
+     * Creates a new {@link org.palladiosimulator.pcm.core.composition.EventChannel
+     * EventChannel} with name <code>name</code>.
      * <p>
-     * Event channels consist of an {@link org.palladiosimulator.pcm.repository.EventGroup
-     * EventGroup} and arbitrarily many
+     * Event channels consist of an
+     * {@link org.palladiosimulator.pcm.repository.EventGroup EventGroup} and
+     * arbitrarily many
      * {@link org.palladiosimulator.pcm.core.composition.EventChannelSinkConnector
      * EventChannelSinkConnector}s and
      * {@link org.palladiosimulator.pcm.core.composition.EventChannelSinkConnector
@@ -138,15 +136,17 @@ public abstract class ComplexComponent extends Component {
     }
 
     /**
-     * Creates a new {@link org.palladiosimulator.pcm.core.composition.EventChannel EventChannel}.
+     * Creates a new {@link org.palladiosimulator.pcm.core.composition.EventChannel
+     * EventChannel}.
      * <p>
-     * Event channels consist of an {@link org.palladiosimulator.pcm.repository.EventGroup
-     * EventGroup} and arbitrarily many
+     * Event channels consist of an
+     * {@link org.palladiosimulator.pcm.repository.EventGroup EventGroup} and
+     * arbitrarily many
      * {@link org.palladiosimulator.pcm.core.composition.EventChannelSinkConnector
      * EventChannelSinkConnector}s and
      * {@link org.palladiosimulator.pcm.core.composition.EventChannelSinkConnector
-     * EventChannelSinkConnector}s that are added when creating the connectors. However, that
-     * required the specification of a name for the event channel.
+     * EventChannelSinkConnector}s that are added when creating the connectors.
+     * However, that required the specification of a name for the event channel.
      * </p>
      *
      * @param eventGroup
@@ -159,17 +159,19 @@ public abstract class ComplexComponent extends Component {
 
     // ------------ operation role connectors ------------
     /**
-     * Creates an {@link org.palladiosimulator.pcm.core.composition.AssemblyConnector
+     * Creates an
+     * {@link org.palladiosimulator.pcm.core.composition.AssemblyConnector
      * AssemblyConnector} and adds it to the component.
      * <p>
-     * An AssemblyConnector is a bidirectional link of two assembly contexts. Intuitively, an
-     * AssemblyConnector connects a provided and a required interface of two different components.
-     * AssemblyContext must refer to the tuple (Role, AssemblyContext) in order to uniquely identify
-     * which component roles communicate with each other.
+     * An AssemblyConnector is a bidirectional link of two assembly contexts.
+     * Intuitively, an AssemblyConnector connects a provided and a required
+     * interface of two different components. AssemblyContext must refer to the
+     * tuple (Role, AssemblyContext) in order to uniquely identify which component
+     * roles communicate with each other.
      * </p>
      * <p>
-     * Existing roles and assembly contexts can be fetched from the repository using the
-     * component.factory.
+     * Existing roles and assembly contexts can be fetched from the repository using
+     * the component.factory.
      * </p>
      *
      * @param providedRole
@@ -200,15 +202,16 @@ public abstract class ComplexComponent extends Component {
     }
 
     /**
-     * Creates a {@link org.palladiosimulator.pcm.core.composition.ProvidedDelegationConnector
+     * Creates a
+     * {@link org.palladiosimulator.pcm.core.composition.ProvidedDelegationConnector
      * ProvidedDelegationConnector} and adds it to the component.
      * <p>
-     * A ProvidedDelegationConnector delegates incoming calls of provided roles to inner provided
-     * roles of encapsulated assembly contexts.
+     * A ProvidedDelegationConnector delegates incoming calls of provided roles to
+     * inner provided roles of encapsulated assembly contexts.
      * </p>
      * <p>
-     * Existing roles and assembly contexts can be fetched from the repository using the
-     * component.factory.
+     * Existing roles and assembly contexts can be fetched from the repository using
+     * the component.factory.
      * </p>
      *
      * @param assemblyContext
@@ -234,15 +237,16 @@ public abstract class ComplexComponent extends Component {
     }
 
     /**
-     * Creates a {@link org.palladiosimulator.pcm.core.composition.RequiredDelegationConnector
+     * Creates a
+     * {@link org.palladiosimulator.pcm.core.composition.RequiredDelegationConnector
      * RequiredDelegationConnector} and adds it to the component.
      * <p>
-     * A RequiredDelegationConnector delegates required roles of encapsulated assembly contexts to
-     * outer required roles .
+     * A RequiredDelegationConnector delegates required roles of encapsulated
+     * assembly contexts to outer required roles .
      * </p>
      * <p>
-     * Existing roles and assembly contexts can be fetched from the repository using the
-     * component.factory.
+     * Existing roles and assembly contexts can be fetched from the repository using
+     * the component.factory.
      * </p>
      *
      * @param assemblyContext
@@ -269,17 +273,19 @@ public abstract class ComplexComponent extends Component {
 
     // ------------ event channel role connectors ------------
     /**
-     * Creates an {@link org.palladiosimulator.pcm.core.composition.AssemblyEventConnector
+     * Creates an
+     * {@link org.palladiosimulator.pcm.core.composition.AssemblyEventConnector
      * AssemblyEventConnector} and adds it to the component.
      * <p>
-     * An AssemblyConnector is a bidirectional link of two assembly contexts. Intuitively, an
-     * AssemblyEventConnector connects a sink and a source. AssemblyContext must refer to the tuple
-     * (Role,AssemblyContext) in order to uniquely identify which component sink and source roles
-     * communicate with each other.
+     * An AssemblyConnector is a bidirectional link of two assembly contexts.
+     * Intuitively, an AssemblyEventConnector connects a sink and a source.
+     * AssemblyContext must refer to the tuple (Role,AssemblyContext) in order to
+     * uniquely identify which component sink and source roles communicate with each
+     * other.
      * </p>
      * <p>
-     * Existing roles and assembly contexts can be fetched from the repository using the
-     * component.factory.
+     * Existing roles and assembly contexts can be fetched from the repository using
+     * the component.factory.
      * </p>
      *
      * @param sinkRole
@@ -319,11 +325,12 @@ public abstract class ComplexComponent extends Component {
     }
 
     /**
-     * Creates an {@link org.palladiosimulator.pcm.core.composition.EventChannelSinkConnector
+     * Creates an
+     * {@link org.palladiosimulator.pcm.core.composition.EventChannelSinkConnector
      * EventChannelSinkConnector} and adds it to the component.
      * <p>
-     * Existing roles, assembly contexts and event channels can be fetched from the repository using
-     * the component.factory.
+     * Existing roles, assembly contexts and event channels can be fetched from the
+     * repository using the component.factory.
      * </p>
      *
      * @param assemblyContext
@@ -359,11 +366,12 @@ public abstract class ComplexComponent extends Component {
     }
 
     /**
-     * Creates an {@link org.palladiosimulator.pcm.core.composition.EventChannelSourceConnector
+     * Creates an
+     * {@link org.palladiosimulator.pcm.core.composition.EventChannelSourceConnector
      * EventChannelSourceConnector} and adds it to the component.
      * <p>
-     * Existing roles, assembly contexts and event channels can be fetched from the repository using
-     * the component.factory.
+     * Existing roles, assembly contexts and event channels can be fetched from the
+     * repository using the component.factory.
      * </p>
      *
      * @param assemblyContext
@@ -391,15 +399,16 @@ public abstract class ComplexComponent extends Component {
     }
 
     /**
-     * Creates a {@link org.palladiosimulator.pcm.core.composition.SinkDelegationConnector
+     * Creates a
+     * {@link org.palladiosimulator.pcm.core.composition.SinkDelegationConnector
      * SinkDelegationConnector} and adds it to the component.
      * <p>
-     * A SinkDelegationConnector delegates an incoming event to the encapsulated assembly contexts
-     * to inner sink roles.
+     * A SinkDelegationConnector delegates an incoming event to the encapsulated
+     * assembly contexts to inner sink roles.
      * </p>
      * <p>
-     * Existing roles and assembly contexts can be fetched from the repository using the
-     * component.factory.
+     * Existing roles and assembly contexts can be fetched from the repository using
+     * the component.factory.
      * </p>
      *
      * @param assemblyContext
@@ -425,15 +434,17 @@ public abstract class ComplexComponent extends Component {
     }
 
     /**
-     * Creates a {@link org.palladiosimulator.pcm.core.composition.SourceDelegationConnector
+     * Creates a
+     * {@link org.palladiosimulator.pcm.core.composition.SourceDelegationConnector
      * SourceDelegationConnector} and adds it to the component.
      * <p>
-     * A SourceDelegationConnector delegates outgoing events of encapsulated assembly contexts to an
-     * external souce role of the enclosing assembly context.
+     * A SourceDelegationConnector delegates outgoing events of encapsulated
+     * assembly contexts to an external souce role of the enclosing assembly
+     * context.
      * </p>
      * <p>
-     * Existing roles and assembly contexts can be fetched from the repository using the
-     * component.factory.
+     * Existing roles and assembly contexts can be fetched from the repository using
+     * the component.factory.
      * </p>
      *
      * @param assemblyContext
@@ -460,11 +471,12 @@ public abstract class ComplexComponent extends Component {
 
     // ------------ infrastructure role connectors ------------
     /**
-     * Creates an {@link org.palladiosimulator.pcm.core.composition.AssemblyInfrastructureConnector
+     * Creates an
+     * {@link org.palladiosimulator.pcm.core.composition.AssemblyInfrastructureConnector
      * AssemblyInfrastructureConnector} and adds it to the component.
      * <p>
-     * Existing roles and assembly contexts can be fetched from the repository using the
-     * component.factory.
+     * Existing roles and assembly contexts can be fetched from the repository using
+     * the component.factory.
      * </p>
      *
      * @param providedRole
@@ -484,7 +496,7 @@ public abstract class ComplexComponent extends Component {
         Objects.requireNonNull(requiredRole, "requiredRole must not be null");
         Objects.requireNonNull(requiringAssemblyContext, "requiringAssemblyContext must not be null");
         final AssemblyInfrastructureConnector connector = CompositionFactory.eINSTANCE
-            .createAssemblyInfrastructureConnector();
+                .createAssemblyInfrastructureConnector();
 
         connector.setProvidedRole__AssemblyInfrastructureConnector(providedRole);
         connector.setProvidingAssemblyContext__AssemblyInfrastructureConnector(providingAssemblyContext);
@@ -500,8 +512,8 @@ public abstract class ComplexComponent extends Component {
      * {@link org.palladiosimulator.pcm.core.composition.ProvidedInfrastructureDelegationConnector
      * ProvidedInfrastructureDelegationConnector} and adds it to the component.
      * <p>
-     * Existing roles and assembly contexts can be fetched from the repository using the
-     * component.factory.
+     * Existing roles and assembly contexts can be fetched from the repository using
+     * the component.factory.
      * </p>
      *
      * @param assemblyContext
@@ -517,7 +529,7 @@ public abstract class ComplexComponent extends Component {
         Objects.requireNonNull(innerProvidedRole, "innerProvidedRole must not be null");
         Objects.requireNonNull(outerProvidedRole, "outerProvidedRole must not be null");
         final ProvidedInfrastructureDelegationConnector connector = CompositionFactory.eINSTANCE
-            .createProvidedInfrastructureDelegationConnector();
+                .createProvidedInfrastructureDelegationConnector();
         connector.setAssemblyContext__ProvidedInfrastructureDelegationConnector(assemblyContext);
         connector.setInnerProvidedRole__ProvidedInfrastructureDelegationConnector(innerProvidedRole);
         connector.setOuterProvidedRole__ProvidedInfrastructureDelegationConnector(outerProvidedRole);
@@ -531,8 +543,8 @@ public abstract class ComplexComponent extends Component {
      * {@link org.palladiosimulator.pcm.core.composition.RequiredInfrastructureDelegationConnector
      * RequiredInfrastructureDelegationConnector} and adds it to the component.
      * <p>
-     * Existing roles and assembly contexts can be fetched from the repository using the
-     * component.factory.
+     * Existing roles and assembly contexts can be fetched from the repository using
+     * the component.factory.
      * </p>
      *
      * @param assemblyContext
@@ -548,7 +560,7 @@ public abstract class ComplexComponent extends Component {
         Objects.requireNonNull(innerRequiredRole, "innerRequiredRole must not be null");
         Objects.requireNonNull(outerRequiredRole, "outerRequiredRole must not be null");
         final RequiredInfrastructureDelegationConnector connector = CompositionFactory.eINSTANCE
-            .createRequiredInfrastructureDelegationConnector();
+                .createRequiredInfrastructureDelegationConnector();
         connector.setAssemblyContext__RequiredInfrastructureDelegationConnector(assemblyContext);
         connector.setInnerRequiredRole__RequiredInfrastructureDelegationConnector(innerRequiredRole);
         connector.setOuterRequiredRole__RequiredInfrastructureDelegationConnector(outerRequiredRole);
@@ -562,8 +574,8 @@ public abstract class ComplexComponent extends Component {
      * {@link org.palladiosimulator.pcm.core.composition.RequiredResourceDelegationConnector
      * RequiredResourceDelegationConnector} and adds it to the component.
      * <p>
-     * Existing roles and assembly contexts can be fetched from the repository using the
-     * component.factory.
+     * Existing roles and assembly contexts can be fetched from the repository using
+     * the component.factory.
      * </p>
      *
      * @param assemblyContext
@@ -579,7 +591,7 @@ public abstract class ComplexComponent extends Component {
         Objects.requireNonNull(innerRequiredRole, "innerRequiredRole must not be null");
         Objects.requireNonNull(outerRequiredRole, "outerRequiredRole must not be null");
         final RequiredResourceDelegationConnector connector = CompositionFactory.eINSTANCE
-            .createRequiredResourceDelegationConnector();
+                .createRequiredResourceDelegationConnector();
         connector.setAssemblyContext__RequiredResourceDelegationConnector(assemblyContext);
         connector.setInnerRequiredRole__RequiredResourceDelegationConnector(innerRequiredRole);
         connector.setOuterRequiredRole__RequiredResourceDelegationConnector(outerRequiredRole);
@@ -592,7 +604,8 @@ public abstract class ComplexComponent extends Component {
      * {@link org.palladiosimulator.pcm.core.composition.ResourceRequiredDelegationConnector
      * ResourceRequiredDelegationConnector} and adds it to the component.
      * <p>
-     * Existing required roles can be fetched from the repository using the component.factory, i.e.
+     * Existing required roles can be fetched from the repository using the
+     * component.factory, i.e.
      * <code>create.fetchOfResourceRequiredRole(name)</code>.
      * </p>
      *
@@ -606,7 +619,7 @@ public abstract class ComplexComponent extends Component {
         Objects.requireNonNull(innerRequiredRole, "innerRequiredRole must not be null");
         Objects.requireNonNull(outerRequiredRole, "outerRequiredRole must not be null");
         final ResourceRequiredDelegationConnector connector = CompositionFactory.eINSTANCE
-            .createResourceRequiredDelegationConnector();
+                .createResourceRequiredDelegationConnector();
         connector.setInnerResourceRequiredRole_ResourceRequiredDelegationConnector(innerRequiredRole);
         connector.setOuterResourceRequiredRole_ResourceRequiredDelegationConnector(outerRequiredRole);
 

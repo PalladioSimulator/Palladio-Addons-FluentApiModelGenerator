@@ -14,9 +14,11 @@ import org.palladiosimulator.pcm.seff.SeffFactory;
 import component.repositoryStructure.components.VariableUsageCreator;
 
 /**
- * This class constructs an {@link org.palladiosimulator.pcm.seff.ExternalCallAction
- * ExternalCallAction}. It is used to create the '<em><b>ExternalCallAction</b></em>' object
- * step-by-step, i.e. '<em><b>ExternalCallActionCreator</b></em>' objects are of intermediate state.
+ * This class constructs an
+ * {@link org.palladiosimulator.pcm.seff.ExternalCallAction ExternalCallAction}.
+ * It is used to create the '<em><b>ExternalCallAction</b></em>' object
+ * step-by-step, i.e. '<em><b>ExternalCallActionCreator</b></em>' objects are of
+ * intermediate state.
  *
  * @author Louisa Lambrecht
  * @see org.palladiosimulator.pcm.seff.ExternalCallAction
@@ -54,10 +56,12 @@ public class ExternalCallActionCreator extends SeffAction {
     }
 
     /**
-     * Specifies the <code>signature</code> of the service that is called on by this action.
+     * Specifies the <code>signature</code> of the service that is called on by this
+     * action.
      * <p>
-     * An existing <code>signature</code> can be fetched from the repository using the
-     * component.factory, i.e. <code>create.fetchOfOperationSignature(name)</code>.
+     * An existing <code>signature</code> can be fetched from the repository using
+     * the component.factory, i.e.
+     * <code>create.fetchOfOperationSignature(name)</code>.
      * </p>
      *
      * @param signature
@@ -71,11 +75,12 @@ public class ExternalCallActionCreator extends SeffAction {
     }
 
     /**
-     * Specifies the <code>requiredRole</code> corresponding to the service that is called on by
-     * this action.
+     * Specifies the <code>requiredRole</code> corresponding to the service that is
+     * called on by this action.
      * <p>
-     * An existing <code>requiredRole</code> can be fetched from the repository using the
-     * component.factory, i.e. <code>create.fetchOfOperationRequiredRole(name)</code>.
+     * An existing <code>requiredRole</code> can be fetched from the repository
+     * using the component.factory, i.e.
+     * <code>create.fetchOfOperationRequiredRole(name)</code>.
      * </p>
      *
      * @param requiredRole
@@ -89,7 +94,8 @@ public class ExternalCallActionCreator extends SeffAction {
     }
 
     /**
-     * Adds the <code>variableUsage</code> to this action's list of input variable usages.
+     * Adds the <code>variableUsage</code> to this action's list of input variable
+     * usages.
      *
      * @param variableUsage
      * @return this external call action in the making
@@ -102,7 +108,8 @@ public class ExternalCallActionCreator extends SeffAction {
     }
 
     /**
-     * Adds the <code>variableUsage</code> to this action's list of return variable usages.
+     * Adds the <code>variableUsage</code> to this action's list of return variable
+     * usages.
      *
      * @param variableUsage
      * @return this external call action in the making
@@ -115,7 +122,8 @@ public class ExternalCallActionCreator extends SeffAction {
     }
 
     /**
-     * Adds the failure type <code>failure</code> to this action's list of failure types.
+     * Adds the failure type <code>failure</code> to this action's list of failure
+     * types.
      * <p>
      * An existing <code>failure</code> can be fetched from the repository using the
      * component.factory, e.g. <code>create.fetchOfFailureType(name)</code>.
@@ -144,12 +152,9 @@ public class ExternalCallActionCreator extends SeffAction {
         if (this.requiredRole != null) {
             action.setRole_ExternalService(this.requiredRole);
         }
-        action.getInputVariableUsages__CallAction()
-            .addAll(this.inputVariableUsages);
-        action.getReturnVariableUsage__CallReturnAction()
-            .addAll(this.returnVariableUsages);
-        action.getFailureTypes_FailureHandlingEntity()
-            .addAll(this.failures);
+        action.getInputVariableUsages__CallAction().addAll(this.inputVariableUsages);
+        action.getReturnVariableUsage__CallReturnAction().addAll(this.returnVariableUsages);
+        action.getFailureTypes_FailureHandlingEntity().addAll(this.failures);
 
         return action;
     }

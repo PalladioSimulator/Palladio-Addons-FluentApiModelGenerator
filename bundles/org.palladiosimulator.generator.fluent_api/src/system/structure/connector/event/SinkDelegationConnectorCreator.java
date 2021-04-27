@@ -13,11 +13,11 @@ import system.structure.connector.AbstractConnectorCreator;
 import system.structure.connector.IContextRoleCombinator;
 
 /**
- * This class constructs a {@link org.palladiosimulator.pcm.core.composition.SinkDelegationConnector
+ * This class constructs a
+ * {@link org.palladiosimulator.pcm.core.composition.SinkDelegationConnector
  * SinkDelegationConnector}.
  *
  * @author Florian Krone
- *
  * @see org.palladiosimulator.pcm.core.composition.SinkDelegationConnector
  */
 public class SinkDelegationConnectorCreator extends AbstractConnectorCreator {
@@ -30,12 +30,11 @@ public class SinkDelegationConnectorCreator extends AbstractConnectorCreator {
     }
 
     /**
-     * Defines the {@link org.palladiosimulator.pcm.repository.SinkRole SinkRole} of the system,
-     * delegated to an AssemblyContext.
-     * 
+     * Defines the {@link org.palladiosimulator.pcm.repository.SinkRole SinkRole} of
+     * the system, delegated to an AssemblyContext.
+     *
      * @param role
      * @return this connector
-     * 
      * @see org.palladiosimulator.pcm.repository.SinkRole
      */
     public SinkDelegationConnectorCreator withOuterSinkRole(final SinkRole role) {
@@ -45,15 +44,13 @@ public class SinkDelegationConnectorCreator extends AbstractConnectorCreator {
     }
 
     /**
-     * Defines the {@link org.palladiosimulator.pcm.repository.SinkRole SinkRole} of the system,
-     * delegated to an AssemblyContext. The sink roles added to the system are searched for one that
-     * matches the given name.
-     * 
+     * Defines the {@link org.palladiosimulator.pcm.repository.SinkRole SinkRole} of
+     * the system, delegated to an AssemblyContext. The sink roles added to the
+     * system are searched for one that matches the given name.
+     *
      * @param role
      * @return this connector
-     * @throws NoSuchElementException
-     *             Thrown if no element matches the given name.
-     * 
+     * @throws NoSuchElementException Thrown if no element matches the given name.
      * @see org.palladiosimulator.pcm.repository.SinkRole
      */
     public SinkDelegationConnectorCreator withOuterSinkRole(final String name) throws NoSuchElementException {
@@ -64,10 +61,9 @@ public class SinkDelegationConnectorCreator extends AbstractConnectorCreator {
     /**
      * Defines the {@link org.palladiosimulator.pcm.core.composition.AssemblyContext
      * AssemblyContext} with the sink role.
-     * 
+     *
      * @param context
      * @return this connector
-     * 
      * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
      * @see org.palladiosimulator.pcm.repository.SinkRole
      */
@@ -88,15 +84,12 @@ public class SinkDelegationConnectorCreator extends AbstractConnectorCreator {
 
     /**
      * Defines the {@link org.palladiosimulator.pcm.core.composition.AssemblyContext
-     * AssemblyContext} with the sink role. The assembly contexts added to the system are searched
-     * for one that matches the given name.
-     * 
+     * AssemblyContext} with the sink role. The assembly contexts added to the
+     * system are searched for one that matches the given name.
+     *
      * @param name
      * @return this connector
-     * 
-     * @throws NoSuchElementException
-     *             Thrown if no element matches the given name.
-     * 
+     * @throws NoSuchElementException Thrown if no element matches the given name.
      * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
      * @see org.palladiosimulator.pcm.repository.SinkRole
      */

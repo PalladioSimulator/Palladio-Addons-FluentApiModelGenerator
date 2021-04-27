@@ -36,9 +36,10 @@ import system.structure.systemRole.SinkRoleCreator;
 import system.structure.systemRole.SourceRoleCreator;
 
 /**
- * This class provides all the methods to create a {@link org.palladiosimulator.pcm.system.System
- * System} and create entities that are added to this System. Characteristics of the entities are
- * specified by method chaining.<br>
+ * This class provides all the methods to create a
+ * {@link org.palladiosimulator.pcm.system.System System} and create entities
+ * that are added to this System. Characteristics of the entities are specified
+ * by method chaining.<br>
  * <p>
  * Start creating a system like this:<br>
  * <code>
@@ -51,16 +52,15 @@ import system.structure.systemRole.SourceRoleCreator;
  * </p>
  *
  * @author Florian Krone
- *
  */
 public class FluentSystemFactory {
     private SystemCreator systemCreator;
 
     /**
-     * Start the creation of a {@link org.palladiosimulator.pcm.system.System System}.
+     * Start the creation of a {@link org.palladiosimulator.pcm.system.System
+     * System}.
      *
      * @return the <code>System</code> in the making
-     *
      * @see org.palladiosimulator.pcm.system.System
      */
     public ISystem newSystem() {
@@ -74,11 +74,11 @@ public class FluentSystemFactory {
     }
 
     /**
-     * Start the creation of a {@link org.palladiosimulator.pcm.core.composition.AssemblyContext
+     * Start the creation of a
+     * {@link org.palladiosimulator.pcm.core.composition.AssemblyContext
      * AssemblyContext}.
      *
      * @return the <code>AssemblyContext</code> in the making
-     *
      * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
      */
     public AssemblyContextCreator newAssemblyContext() {
@@ -86,11 +86,11 @@ public class FluentSystemFactory {
     }
 
     /**
-     * Start the creation of a {@link org.palladiosimulator.pcm.core.composition.AssemblyConnector
+     * Start the creation of a
+     * {@link org.palladiosimulator.pcm.core.composition.AssemblyConnector
      * AssemblyConnector}.
      *
      * @return the <code>AssemblyConnector</code> in the making
-     *
      * @see org.palladiosimulator.pcm.core.composition.AssemblyConnector
      */
     public AssemblyConnectorCreator newAssemblyConnector() {
@@ -98,11 +98,11 @@ public class FluentSystemFactory {
     }
 
     /**
-     * Start the creation of a {@link org.palladiosimulator.pcm.repository.OperationRequiredRole
+     * Start the creation of a
+     * {@link org.palladiosimulator.pcm.repository.OperationRequiredRole
      * OperationRequiredRole}.
      *
      * @return the <code>OperationRequiredRole</code> in the making
-     *
      * @see org.palladiosimulator.pcm.repository.OperationRequiredRole
      */
     public OperationRequiredRoleCreator newOperationRequiredRole() {
@@ -115,7 +115,6 @@ public class FluentSystemFactory {
      * RequiredDelegationConnector}.
      *
      * @return the <code>RequiredDelegationConnector</code> in the making
-     *
      * @see org.palladiosimulator.pcm.core.composition.RequiredDelegationConnector
      */
     public RequiredDelegationConnectorCreator newRequiredDelegationConnectorCreator() {
@@ -123,11 +122,11 @@ public class FluentSystemFactory {
     }
 
     /**
-     * Start the creation of a {@link org.palladiosimulator.pcm.repository.OperationProvidedRole
+     * Start the creation of a
+     * {@link org.palladiosimulator.pcm.repository.OperationProvidedRole
      * OperationProvidedRole}.
      *
      * @return the <code>OperationProvidedRole</code> in the making
-     *
      * @see org.palladiosimulator.pcm.repository.OperationProvidedRole
      */
     public OperationProvidedRoleCreator newOperationProvidedRole() {
@@ -140,7 +139,6 @@ public class FluentSystemFactory {
      * ProvidedDelegationConnector}.
      *
      * @return the <code>ProvidedDelegationConnector</code> in the making
-     *
      * @see org.palladiosimulator.pcm.core.composition.ProvidedDelegationConnector
      */
     public ProvidedDelegationConnectorCreator newProvidedDelegationConnectorCreator() {
@@ -148,11 +146,10 @@ public class FluentSystemFactory {
     }
 
     /**
-     * Start the creation of a {@link org.palladiosimulator.pcm.core.composition.EventChannel
-     * EventChannel}.
+     * Start the creation of a
+     * {@link org.palladiosimulator.pcm.core.composition.EventChannel EventChannel}.
      *
      * @return the <code>EventChannel</code> in the making
-     *
      * @see org.palladiosimulator.pcm.core.composition.EventChannel
      */
     public EventChannelCreator newEventChannelCreator() {
@@ -165,7 +162,6 @@ public class FluentSystemFactory {
      * EventChannelSinkConnector}.
      *
      * @return the <code>EventChannelSinkConnector</code> in the making
-     *
      * @see org.palladiosimulator.pcm.core.composition.EventChannelSinkConnector
      */
     public EventChannelSinkConnectorCreator newEventChannelSinkConnector() {
@@ -178,7 +174,6 @@ public class FluentSystemFactory {
      * EventChannelSourceConnector}.
      *
      * @return the <code>EventChannelSourceConnector</code> in the making
-     *
      * @see org.palladiosimulator.pcm.core.composition.EventChannelSourceConnector
      */
     public EventChannelSourceConnectorCreator newEventChannelSourceConnector() {
@@ -186,10 +181,10 @@ public class FluentSystemFactory {
     }
 
     /**
-     * Start the creation of a {@link org.palladiosimulator.pcm.repository.SinkRole SinkRole}.
+     * Start the creation of a {@link org.palladiosimulator.pcm.repository.SinkRole
+     * SinkRole}.
      *
      * @return the <code>SinkRole</code> in the making
-     *
      * @see org.palladiosimulator.pcm.repository.SinkRole
      */
     public SinkRoleCreator newSinkRole() {
@@ -202,7 +197,6 @@ public class FluentSystemFactory {
      * SinkDelegationConnector}.
      *
      * @return the <code>SinkDelegationConnector</code> in the making
-     *
      * @see org.palladiosimulator.pcm.core.composition.SinkDelegationConnector
      */
     public SinkDelegationConnectorCreator newSinkDelegationConnector() {
@@ -210,10 +204,10 @@ public class FluentSystemFactory {
     }
 
     /**
-     * Start the creation of a {@link org.palladiosimulator.pcm.repository.SourceRole SourceRole}.
+     * Start the creation of a
+     * {@link org.palladiosimulator.pcm.repository.SourceRole SourceRole}.
      *
      * @return the <code>SourceRole</code> in the making
-     *
      * @see org.palladiosimulator.pcm.repository.SourceRole
      */
     public SourceRoleCreator newSourceRole() {
@@ -226,7 +220,6 @@ public class FluentSystemFactory {
      * SourceDelegationConnector}.
      *
      * @return the <code>SourceDelegationConnector</code> in the making
-     *
      * @see org.palladiosimulator.pcm.core.composition.SourceDelegationConnector
      */
     public SourceDelegationConnectorCreator newSourceDelegationConnector() {
@@ -239,7 +232,6 @@ public class FluentSystemFactory {
      * AssemblyEventConnector}.
      *
      * @return the <code>AssemblyEventConnector</code> in the making
-     *
      * @see org.palladiosimulator.pcm.core.composition.AssemblyEventConnector
      */
     public AssemblyEventConnectorCreator newAssemblyEventConnector() {
@@ -252,7 +244,6 @@ public class FluentSystemFactory {
      * AssemblyInfrastructureConnector}.
      *
      * @return the <code>AssemblyInfrastructureConnector</code> in the making
-     *
      * @see org.palladiosimulator.pcm.core.composition.AssemblyInfrastructureConnector
      */
     public AssemblyInfrastructureConnectorCreator newAssemblyInfrastructureConnector() {
@@ -265,7 +256,6 @@ public class FluentSystemFactory {
      * InfrastructureRequiredRole}.
      *
      * @return the <code>InfrastructureRequiredRole</code> in the making
-     *
      * @see org.palladiosimulator.pcm.repository.InfrastructureRequiredRole
      */
     public InfrastructureRequiredRoleCreator newInfrastructureRequiredRole() {
@@ -277,8 +267,8 @@ public class FluentSystemFactory {
      * {@link org.palladiosimulator.pcm.core.composition.RequiredInfrastructureDelegationConnector
      * RequiredInfrastructureDelegationConnector}.
      *
-     * @return the <code>RequiredInfrastructureDelegationConnector</code> in the making
-     *
+     * @return the <code>RequiredInfrastructureDelegationConnector</code> in the
+     *         making
      * @see org.palladiosimulator.pcm.core.composition.RequiredInfrastructureDelegationConnector
      */
     public RequiredInfrastructureDelegationConnectorCreator newRequiredInfrastructureDelegationConnector() {
@@ -291,7 +281,6 @@ public class FluentSystemFactory {
      * InfrastructureProvidedRole}.
      *
      * @return the <code>InfrastructureProvidedRole</code> in the making
-     *
      * @see org.palladiosimulator.pcm.repository.InfrastructureProvidedRole
      */
     public InfrastructureProvidedRoleCreator newInfrastructureProvidedRole() {
@@ -303,8 +292,8 @@ public class FluentSystemFactory {
      * {@link org.palladiosimulator.pcm.core.composition.ProvidedInfrastructureDelegationConnector
      * ProvidedInfrastructureDelegationConnector}.
      *
-     * @return the <code>ProvidedInfrastructureDelegationConnector</code> in the making
-     *
+     * @return the <code>ProvidedInfrastructureDelegationConnector</code> in the
+     *         making
      * @see org.palladiosimulator.pcm.core.composition.ProvidedInfrastructureDelegationConnector
      */
     public ProvidedInfrastructureDelegationConnectorCreator newProvidedInfrastructureDelegationConnector() {
@@ -312,11 +301,11 @@ public class FluentSystemFactory {
     }
 
     /**
-     * Start the creation of {@link org.palladiosimulator.pcm.qosannotations.QoSAnnotations
+     * Start the creation of
+     * {@link org.palladiosimulator.pcm.qosannotations.QoSAnnotations
      * QoSAnnotations}.
      *
      * @return the <code>QoSAnnotations</code> in the making
-     *
      * @see org.palladiosimulator.pcm.qosannotations.QoSAnnotations
      */
     public QoSAnnotationsCreator newQoSAnnotations() {
@@ -324,11 +313,11 @@ public class FluentSystemFactory {
     }
 
     /**
-     * Start the creation of a {@link org.palladiosimulator.pcm.core.entity.ResourceRequiredRole
+     * Start the creation of a
+     * {@link org.palladiosimulator.pcm.core.entity.ResourceRequiredRole
      * ResourceRequiredRole}.
      *
      * @return the <code>ResourceRequiredRole</code> in the making
-     *
      * @see org.palladiosimulator.pcm.core.entity.ResourceRequiredRole
      */
     public ResourceRequiredRoleCreator newResourceRequiredRole() {
@@ -341,7 +330,6 @@ public class FluentSystemFactory {
      * ResourceRequiredDelegationConnector}.
      *
      * @return the <code>ResourceRequiredDelegationConnector</code> in the making
-     *
      * @see org.palladiosimulator.pcm.core.composition.ResourceRequiredDelegationConnector
      */
     public ResourceRequiredDelegationConnectorCreator newResourceRequiredDelegationConnector() {
@@ -354,7 +342,6 @@ public class FluentSystemFactory {
      * RequiredResourceDelegationConnector}.
      *
      * @return the <code>RequiredResourceDelegationConnector</code> in the making
-     *
      * @see org.palladiosimulator.pcm.core.composition.RequiredResourceDelegationConnector
      */
     public RequiredResourceDelegationConnectorCreator newRequiredResourceDelegationConnector() {

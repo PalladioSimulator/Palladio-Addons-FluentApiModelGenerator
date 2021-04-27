@@ -8,11 +8,13 @@ import component.repositoryStructure.RepositoryCreator;
 import component.repositoryStructure.RepositoryEntity;
 
 /**
- * This class constructs a {@link org.palladiosimulator.pcm.reliability.ResourceTimeoutFailureType
+ * This class constructs a
+ * {@link org.palladiosimulator.pcm.reliability.ResourceTimeoutFailureType
  * ResourceTimeoutFailureType}. It is used to create the
- * '<em><b>ResourceTimeoutFailureType</b></em>' object and prevent the usage of the creating method
- * in the factory at a later point. '<em><b>ResourceTimeoutFailureTypeCreator</b></em>' objects are
- * of intermediate state.
+ * '<em><b>ResourceTimeoutFailureType</b></em>' object and prevent the usage of
+ * the creating method in the factory at a later point.
+ * '<em><b>ResourceTimeoutFailureTypeCreator</b></em>' objects are of
+ * intermediate state.
  *
  * @author Louisa Lambrecht
  * @see org.palladiosimulator.pcm.reliability.ResourceTimeoutFailureType

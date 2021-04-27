@@ -16,10 +16,12 @@ import component.repositoryStructure.internals.ResourceSignature;
 import shared.structure.ProcessingResource;
 
 /**
- * This class constructs a {@link org.palladiosimulator.pcm.seff.CollectionIteratorAction
- * CollectionIteratorAction}. It is used to create the '<em><b>CollectionIteratorAction</b></em>'
- * object step-by-step, i.e. '<em><b>CollectionIteratorActionCreator</b></em>' objects are of
- * intermediate state.
+ * This class constructs a
+ * {@link org.palladiosimulator.pcm.seff.CollectionIteratorAction
+ * CollectionIteratorAction}. It is used to create the
+ * '<em><b>CollectionIteratorAction</b></em>' object step-by-step, i.e.
+ * '<em><b>CollectionIteratorActionCreator</b></em>' objects are of intermediate
+ * state.
  *
  * @author Louisa Lambrecht
  * @see org.palladiosimulator.pcm.seff.CollectionIteratorAction
@@ -39,8 +41,8 @@ public class CollectionIteratorActionCreator extends GeneralAction {
     }
 
     /**
-     * Defines the parameter that holds the collection which is iterated over, i.e. the parameter is
-     * of type CollectionDataType.
+     * Defines the parameter that holds the collection which is iterated over, i.e.
+     * the parameter is of type CollectionDataType.
      *
      * @param parameter
      * @return this collection iterator action in the making
@@ -52,11 +54,10 @@ public class CollectionIteratorActionCreator extends GeneralAction {
     }
 
     /**
-     * Defines the inner resource demanding behaviour that is executed for each element of a
-     * collection.
+     * Defines the inner resource demanding behaviour that is executed for each
+     * element of a collection.
      *
-     * @param loopBody
-     *            a nested resource demanding behaviour (seff)
+     * @param loopBody a nested resource demanding behaviour (seff)
      * @return this collection iterator action in the making
      */
     public CollectionIteratorActionCreator withLoopBody(final Seff loopBody) {
@@ -99,20 +100,16 @@ public class CollectionIteratorActionCreator extends GeneralAction {
         if (this.loopBody != null) {
             final ResourceDemandingSEFF build = this.loopBody.buildRDSeff();
             if (build.getDescribedService__SEFF() == null && build.getSeffTypeID() == null
-                    && build.getResourceDemandingInternalBehaviours()
-                        .isEmpty()) {
+                    && build.getResourceDemandingInternalBehaviours().isEmpty()) {
                 action.setBodyBehaviour_Loop(this.loopBody.buildBehaviour());
             } else {
                 action.setBodyBehaviour_Loop(build);
             }
         }
 
-        action.getInfrastructureCall__Action()
-            .addAll(this.infrastructureCalls);
-        action.getResourceCall__Action()
-            .addAll(this.resourceCalls);
-        action.getResourceDemand_Action()
-            .addAll(this.demands);
+        action.getInfrastructureCall__Action().addAll(this.infrastructureCalls);
+        action.getResourceCall__Action().addAll(this.resourceCalls);
+        action.getResourceDemand_Action().addAll(this.demands);
 
         return action;
 

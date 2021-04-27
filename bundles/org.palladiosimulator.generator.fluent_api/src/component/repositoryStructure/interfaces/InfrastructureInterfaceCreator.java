@@ -12,10 +12,12 @@ import org.palladiosimulator.pcm.repository.RepositoryFactory;
 import component.repositoryStructure.RepositoryCreator;
 
 /**
- * This class constructs an {@link org.palladiosimulator.pcm.repository.InfrastructureInterface
- * InfrastructureInterface}. It is used to create the '<em><b>InfrastructureInterface</b></em>'
- * object step-by-step, i.e. '<em><b>InfrastructureInterfaceCreator</b></em>' objects are of
- * intermediate state.
+ * This class constructs an
+ * {@link org.palladiosimulator.pcm.repository.InfrastructureInterface
+ * InfrastructureInterface}. It is used to create the
+ * '<em><b>InfrastructureInterface</b></em>' object step-by-step, i.e.
+ * '<em><b>InfrastructureInterfaceCreator</b></em>' objects are of intermediate
+ * state.
  *
  * @author Louisa Lambrecht
  * @see org.palladiosimulator.pcm.repository.InfrastructureInterface
@@ -34,10 +36,10 @@ public class InfrastructureInterfaceCreator extends Interface {
         return (InfrastructureInterfaceCreator) super.withName(name);
     }
 
-//	@Override
-//	public InfrastructureInterfaceCreator withId(String id) {
-//		return (InfrastructureInterfaceCreator) super.withId(id);
-//	}
+    // @Override
+    // public InfrastructureInterfaceCreator withId(String id) {
+    // return (InfrastructureInterfaceCreator) super.withId(id);
+    // }
 
     // parent Interfaces
     @Override
@@ -73,17 +75,14 @@ public class InfrastructureInterfaceCreator extends Interface {
 
         if (this.name != null) {
             interfce.setEntityName(this.name);
-//		if (id != null)
-//			interfce.setId(id);
+            // if (id != null)
+            // interfce.setId(id);
         }
 
-        interfce.getInfrastructureSignatures__InfrastructureInterface()
-            .addAll(this.signatures);
+        interfce.getInfrastructureSignatures__InfrastructureInterface().addAll(this.signatures);
 
-        interfce.getParentInterfaces__Interface()
-            .addAll(this.parentInterfaces);
-        interfce.getRequiredCharacterisations()
-            .addAll(this.requiredCharacterisations);
+        interfce.getParentInterfaces__Interface().addAll(this.parentInterfaces);
+        interfce.getRequiredCharacterisations().addAll(this.requiredCharacterisations);
 
         return interfce;
     }

@@ -26,9 +26,11 @@ import component.repositoryStructure.interfaces.OperationInterfaceCreator;
 import shared.structure.ResourceInterface;
 
 /**
- * This class constructs a {@link org.palladiosimulator.pcm.repository.BasicComponent
- * BasicComponent}. It is used to create the '<em><b>BasicComponent</b></em>' object step-by-step,
- * i.e. '<em><b>BasicComponentCreator</b></em>' objects are of intermediate state.
+ * This class constructs a
+ * {@link org.palladiosimulator.pcm.repository.BasicComponent BasicComponent}.
+ * It is used to create the '<em><b>BasicComponent</b></em>' object
+ * step-by-step, i.e. '<em><b>BasicComponentCreator</b></em>' objects are of
+ * intermediate state.
  *
  * @author Louisa Lambrecht
  * @see org.palladiosimulator.pcm.repository.BasicComponent
@@ -55,10 +57,10 @@ public class BasicComponentCreator extends Component {
         return (BasicComponentCreator) super.withName(name);
     }
 
-//	@Override
-//	public BasicComponentCreator withId(String id) {
-//		return (BasicComponentCreator) super.withId(id);
-//	}
+    // @Override
+    // public BasicComponentCreator withId(String id) {
+    // return (BasicComponentCreator) super.withId(id);
+    // }
 
     /**
      * Sets the type of the basic component.<br>
@@ -219,16 +221,16 @@ public class BasicComponentCreator extends Component {
     // ------------ other listing characteristics ------------
     // parent complete component types
     /**
-     * Creates a conforming (parental) connection to the <code>completeComponentType</code> and adds
-     * it to the basic component.
+     * Creates a conforming (parental) connection to the
+     * <code>completeComponentType</code> and adds it to the basic component.
      * <p>
-     * Complete (Component) types abstract from the realization of components. They only contain
-     * provided and required roles omitting the components’ internal structure, i.e., the service
-     * effect specifications or assemblies.
+     * Complete (Component) types abstract from the realization of components. They
+     * only contain provided and required roles omitting the components’ internal
+     * structure, i.e., the service effect specifications or assemblies.
      * </p>
      * <p>
-     * The <code>completeComponentType</code> can be created using the component.factory, i.e.
-     * <code>create.newCompleteComponentType()</code>.
+     * The <code>completeComponentType</code> can be created using the
+     * component.factory, i.e. <code>create.newCompleteComponentType()</code>.
      * </p>
      *
      * @param completeComponentType
@@ -245,16 +247,17 @@ public class BasicComponentCreator extends Component {
     }
 
     /**
-     * Creates a conforming (parental) connection to the <code>completeComponentType</code> and adds
-     * it to the basic component.
+     * Creates a conforming (parental) connection to the
+     * <code>completeComponentType</code> and adds it to the basic component.
      * <p>
-     * Complete (Component) types abstract from the realization of components. They only contain
-     * provided and required roles omitting the components’ internal structure, i.e., the service
-     * effect specifications or assemblies.
+     * Complete (Component) types abstract from the realization of components. They
+     * only contain provided and required roles omitting the components’ internal
+     * structure, i.e., the service effect specifications or assemblies.
      * </p>
      * <p>
-     * An existing <code>completeComponentType</code> can be fetched from the repository using the
-     * component.factory, i.e. <code>create.fetchOfCompleteComponentType(name)</code>.
+     * An existing <code>completeComponentType</code> can be fetched from the
+     * repository using the component.factory, i.e.
+     * <code>create.fetchOfCompleteComponentType(name)</code>.
      * </p>
      *
      * @param completeComponentType
@@ -270,21 +273,19 @@ public class BasicComponentCreator extends Component {
     }
 
     /**
-     * Adds a passive resource (e.g. a semaphore) with name <code>name</code> to the basic
-     * component.
+     * Adds a passive resource (e.g. a semaphore) with name <code>name</code> to the
+     * basic component.
      * <p>
-     * The stochastic expression in <code>capacity_stochasticExpression</code> belongs to a
-     * {@link org.palladiosimulator.pcm.core.PCMRandomVariable PCMRandomVariable} and describes the
-     * capacity of the passive resource. The given <code>failureType</code> is the failure type that
-     * represents a timeout&nbsp;failure of an acquiring action for this passive resource.
+     * The stochastic expression in <code>capacity_stochasticExpression</code>
+     * belongs to a {@link org.palladiosimulator.pcm.core.PCMRandomVariable
+     * PCMRandomVariable} and describes the capacity of the passive resource. The
+     * given <code>failureType</code> is the failure type that represents a
+     * timeout&nbsp;failure of an acquiring action for this passive resource.
      * </p>
      *
-     * @param capacityStochasticExpression
-     *            stochastic expression as a string
-     * @param failureType
-     *            a resource timeout failure
-     * @param name
-     *            unique name of the passive resource
+     * @param capacityStochasticExpression stochastic expression as a string
+     * @param failureType                  a resource timeout failure
+     * @param name                         unique name of the passive resource
      * @return the basic component in the making
      * @see org.palladiosimulator.pcm.repository.PassiveResource
      * @see org.palladiosimulator.pcm.core.PCMRandomVariable
@@ -310,16 +311,15 @@ public class BasicComponentCreator extends Component {
     /**
      * Adds a passive resource (e.g. a semaphore) to the basic component.
      * <p>
-     * The stochastic expression in <code>capacity_stochasticExpression</code> belongs to a
-     * {@link org.palladiosimulator.pcm.core.PCMRandomVariable PCMRandomVariable} and describes the
-     * capacity of the passive resource. The given <code>failureType</code> is the failure type that
-     * represents a timeout&nbsp;failure of an acquiring action for this passive resource.
+     * The stochastic expression in <code>capacity_stochasticExpression</code>
+     * belongs to a {@link org.palladiosimulator.pcm.core.PCMRandomVariable
+     * PCMRandomVariable} and describes the capacity of the passive resource. The
+     * given <code>failureType</code> is the failure type that represents a
+     * timeout&nbsp;failure of an acquiring action for this passive resource.
      * </p>
      *
-     * @param capacityStochasticExpression
-     *            stochastic expression as a string
-     * @param failureType
-     *            a resource timeout failure
+     * @param capacityStochasticExpression stochastic expression as a string
+     * @param failureType                  a resource timeout failure
      * @return the basic component in the making
      * @see org.palladiosimulator.pcm.repository.PassiveResource
      * @see org.palladiosimulator.pcm.core.PCMRandomVariable
@@ -333,12 +333,14 @@ public class BasicComponentCreator extends Component {
     /**
      * Adds a service effect specification (SEFF) to the basic component.
      * <p>
-     * Service Effect Specification Models the effect of invoking a specific service of a basic
-     * component. Therefore, it references a signature from an Interface, for which the component
-     * takes a ProvidedRole, to identify the described service.
+     * Service Effect Specification Models the effect of invoking a specific service
+     * of a basic component. Therefore, it references a signature from an Interface,
+     * for which the component takes a ProvidedRole, to identify the described
+     * service.
      * </p>
      * <p>
-     * Create a new SEFF by using the component.factory, i.e. <code>create.newSeff()</code>.
+     * Create a new SEFF by using the component.factory, i.e.
+     * <code>create.newSeff()</code>.
      * </p>
      *
      * @param seff
@@ -355,23 +357,20 @@ public class BasicComponentCreator extends Component {
     }
 
     /**
-     * Adds a {@link org.palladiosimulator.pcm.parameter.VariableUsage VariableUsage} to the basic
-     * component.
-     *
+     * Adds a {@link org.palladiosimulator.pcm.parameter.VariableUsage
+     * VariableUsage} to the basic component.
      * <p>
-     * Variable usages are used to characterize variables like input and output variables or
-     * component parameters. They contain the specification of the variable as
-     * VariableCharacterisation and also refer to the name of the characterized variable in its
-     * namedReference association.
+     * Variable usages are used to characterize variables like input and output
+     * variables or component parameters. They contain the specification of the
+     * variable as VariableCharacterisation and also refer to the name of the
+     * characterized variable in its namedReference association.
      * </p>
-     *
      * <p>
      * Create a new variable usage by using the component.factory, i.e.
      * <code>create.newVariableUsage()</code>.
      * </p>
      *
-     * @param variableUsage
-     *            in the making
+     * @param variableUsage in the making
      * @return the basic component in the making
      * @see component.factory.FluentRepositoryFactory#newVariableUsage()
      * @see org.palladiosimulator.pcm.parameter.VariableUsage
@@ -388,28 +387,21 @@ public class BasicComponentCreator extends Component {
         if (this.name != null) {
             basicComponent.setEntityName(this.name);
         }
-//		if (id != null)
-//			basicComponent.setId(id);
+        // if (id != null)
+        // basicComponent.setId(id);
         if (this.type != null) {
             basicComponent.setComponentType(this.type);
         }
 
-        basicComponent.getProvidedRoles_InterfaceProvidingEntity()
-            .addAll(this.providedRoles);
-        basicComponent.getRequiredRoles_InterfaceRequiringEntity()
-            .addAll(this.requiredRoles);
-        basicComponent.getResourceRequiredRoles__ResourceInterfaceRequiringEntity()
-            .addAll(this.resourceRequiredRoles);
+        basicComponent.getProvidedRoles_InterfaceProvidingEntity().addAll(this.providedRoles);
+        basicComponent.getRequiredRoles_InterfaceRequiringEntity().addAll(this.requiredRoles);
+        basicComponent.getResourceRequiredRoles__ResourceInterfaceRequiringEntity().addAll(this.resourceRequiredRoles);
 
-        basicComponent.getParentCompleteComponentTypes()
-            .addAll(this.conformsCompleteTypes);
-        basicComponent.getComponentParameterUsage_ImplementationComponentType()
-            .addAll(this.componentParameterUsages);
+        basicComponent.getParentCompleteComponentTypes().addAll(this.conformsCompleteTypes);
+        basicComponent.getComponentParameterUsage_ImplementationComponentType().addAll(this.componentParameterUsages);
 
-        basicComponent.getPassiveResource_BasicComponent()
-            .addAll(this.passiveResources);
-        basicComponent.getServiceEffectSpecifications__BasicComponent()
-            .addAll(this.seffs);
+        basicComponent.getPassiveResource_BasicComponent().addAll(this.passiveResources);
+        basicComponent.getServiceEffectSpecifications__BasicComponent().addAll(this.seffs);
 
         return basicComponent;
     }

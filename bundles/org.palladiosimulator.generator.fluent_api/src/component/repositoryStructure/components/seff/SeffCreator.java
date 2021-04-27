@@ -27,15 +27,20 @@ import component.repositoryStructure.RepositoryEntity;
 import component.repositoryStructure.internals.Failure;
 
 /**
- * This class constructs a {@link org.palladiosimulator.pcm.seff.ServiceEffectSpecification
- * ServiceEffectSpecification} / {@link org.palladiosimulator.pcm.seff.ResourceDemandingSEFF
- * ResourceDemandingSEFF} / {@link org.palladiosimulator.pcm.seff.ResourceDemandingBehaviour
+ * This class constructs a
+ * {@link org.palladiosimulator.pcm.seff.ServiceEffectSpecification
+ * ServiceEffectSpecification} /
+ * {@link org.palladiosimulator.pcm.seff.ResourceDemandingSEFF
+ * ResourceDemandingSEFF} /
+ * {@link org.palladiosimulator.pcm.seff.ResourceDemandingBehaviour
  * ResourceDemandingBehaviour} /
  * {@link org.palladiosimulator.pcm.seff.ResourceDemandingInternalBehaviour
- * ResourceDemandingInternalBehaviour} / {@link org.palladiosimulator.pcm.seff.ForkedBehaviour
- * ForkedBehaviour} / {@link org.palladiosimulator.pcm.seff.RecoveryActionBehaviour
- * RecoveryActionBehaviour}. It is used to create the behaviour objects step-by-step, i.e.
- * '<em><b>SeffCreator</b></em>' objects are of intermediate state.
+ * ResourceDemandingInternalBehaviour} /
+ * {@link org.palladiosimulator.pcm.seff.ForkedBehaviour ForkedBehaviour} /
+ * {@link org.palladiosimulator.pcm.seff.RecoveryActionBehaviour
+ * RecoveryActionBehaviour}. It is used to create the behaviour objects
+ * step-by-step, i.e. '<em><b>SeffCreator</b></em>' objects are of intermediate
+ * state.
  *
  * @author Louisa Lambrecht
  * @see org.palladiosimulator.pcm.seff.ServiceEffectSpecification
@@ -208,13 +213,10 @@ public class SeffCreator extends RepositoryEntity implements Seff, ActionSeff, S
             seff.setSeffTypeID(this.seffTypeID);
         }
 
-        seff.getSteps_Behaviour()
-            .addAll(this.steps);
+        seff.getSteps_Behaviour().addAll(this.steps);
 
-        seff.getResourceDemandingInternalBehaviours()
-            .addAll(this.internalBehaviours.stream()
-                .map(b -> b.buildInternalBehaviour())
-                .collect(Collectors.toList()));
+        seff.getResourceDemandingInternalBehaviours().addAll(
+                this.internalBehaviours.stream().map(b -> b.buildInternalBehaviour()).collect(Collectors.toList()));
         return seff;
 
     }
@@ -222,43 +224,37 @@ public class SeffCreator extends RepositoryEntity implements Seff, ActionSeff, S
     @Override
     public ResourceDemandingBehaviour buildBehaviour() {
         final ResourceDemandingBehaviour behaviour = SeffFactory.eINSTANCE.createResourceDemandingBehaviour();
-        behaviour.getSteps_Behaviour()
-            .addAll(this.steps);
+        behaviour.getSteps_Behaviour().addAll(this.steps);
         return behaviour;
     }
 
     @Override
     public ResourceDemandingInternalBehaviour buildInternalBehaviour() {
         final ResourceDemandingInternalBehaviour internal = SeffFactory.eINSTANCE
-            .createResourceDemandingInternalBehaviour();
-        internal.getSteps_Behaviour()
-            .addAll(this.steps);
+                .createResourceDemandingInternalBehaviour();
+        internal.getSteps_Behaviour().addAll(this.steps);
         return internal;
     }
 
     @Override
     public ForkedBehaviour buildForkedBehaviour() {
         final ForkedBehaviour fork = SeffFactory.eINSTANCE.createForkedBehaviour();
-        fork.getSteps_Behaviour()
-            .addAll(this.steps);
+        fork.getSteps_Behaviour().addAll(this.steps);
         return fork;
     }
 
     @Override
     public RecoveryActionBehaviour buildRecoveryBehaviour() {
         final RecoveryActionBehaviour recovActionBehaviour = SeffReliabilityFactory.eINSTANCE
-            .createRecoveryActionBehaviour();
+                .createRecoveryActionBehaviour();
 
         if (this.name != null) {
             recovActionBehaviour.setEntityName(this.name);
         }
 
-        recovActionBehaviour.getSteps_Behaviour()
-            .addAll(this.steps);
-        recovActionBehaviour.getFailureHandlingAlternatives__RecoveryActionBehaviour()
-            .addAll(this.alternatives);
-        recovActionBehaviour.getFailureTypes_FailureHandlingEntity()
-            .addAll(this.failures);
+        recovActionBehaviour.getSteps_Behaviour().addAll(this.steps);
+        recovActionBehaviour.getFailureHandlingAlternatives__RecoveryActionBehaviour().addAll(this.alternatives);
+        recovActionBehaviour.getFailureTypes_FailureHandlingEntity().addAll(this.failures);
 
         return recovActionBehaviour;
     }

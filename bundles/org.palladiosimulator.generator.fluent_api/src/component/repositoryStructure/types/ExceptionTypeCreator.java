@@ -9,9 +9,11 @@ import component.repositoryStructure.RepositoryCreator;
 import component.repositoryStructure.RepositoryEntity;
 
 /**
- * This class constructs an {@link org.palladiosimulator.pcm.repository.ExceptionType
- * ExceptionType}. It is used to create the '<em><b>ExceptionType</b></em>' object step-by-step,
- * i.e. '<em><b>ExceptionTypeCreator</b></em>' objects are of intermediate state.
+ * This class constructs an
+ * {@link org.palladiosimulator.pcm.repository.ExceptionType ExceptionType}. It
+ * is used to create the '<em><b>ExceptionType</b></em>' object step-by-step,
+ * i.e. '<em><b>ExceptionTypeCreator</b></em>' objects are of intermediate
+ * state.
  *
  * @author Louisa Lambrecht
  * @see org.palladiosimulator.pcm.repository.ExceptionType

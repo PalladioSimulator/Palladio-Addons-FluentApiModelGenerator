@@ -19,9 +19,10 @@ import component.repositoryStructure.internals.ResourceSignature;
 import shared.structure.ProcessingResource;
 
 /**
- * This class constructs a {@link org.palladiosimulator.pcm.seff.ForkAction BranchAction}. It is
- * used to create the '<em><b>ForkAction</b></em>' object step-by-step, i.e.
- * '<em><b>ForkActionCreator</b></em>' objects are of intermediate state.
+ * This class constructs a {@link org.palladiosimulator.pcm.seff.ForkAction
+ * BranchAction}. It is used to create the '<em><b>ForkAction</b></em>' object
+ * step-by-step, i.e. '<em><b>ForkActionCreator</b></em>' objects are of
+ * intermediate state.
  *
  * @author Louisa Lambrecht
  * @see org.palladiosimulator.pcm.seff.ForkAction
@@ -45,8 +46,8 @@ public class ForkActionCreator extends GeneralAction {
     }
 
     /**
-     * Adds the <code>variableUsage</code> to this action's list of output parameter usages at the
-     * synchronization point.
+     * Adds the <code>variableUsage</code> to this action's list of output parameter
+     * usages at the synchronization point.
      *
      * @param variableUsage
      * @return this fork action in the making
@@ -59,8 +60,8 @@ public class ForkActionCreator extends GeneralAction {
     }
 
     /**
-     * Adds the <code>forkedBehaviour</code> to this action's list of synchronous forked behaviours
-     * at the synchronization point.
+     * Adds the <code>forkedBehaviour</code> to this action's list of synchronous
+     * forked behaviours at the synchronization point.
      *
      * @param forkedBehaviour
      * @return this fork action in the making
@@ -74,8 +75,8 @@ public class ForkActionCreator extends GeneralAction {
     }
 
     /**
-     * Adds the <code>forkedBehaviour</code> to this action's list of asynchronous forked
-     * behaviours.
+     * Adds the <code>forkedBehaviour</code> to this action's list of asynchronous
+     * forked behaviours.
      *
      * @param forkedBehaviour
      * @return this fork action in the making
@@ -113,22 +114,16 @@ public class ForkActionCreator extends GeneralAction {
     @Override
     protected ForkAction build() {
         final ForkAction action = SeffFactory.eINSTANCE.createForkAction();
-        action.getAsynchronousForkedBehaviours_ForkAction()
-            .addAll(this.asynchronousForkedBehaviours);
+        action.getAsynchronousForkedBehaviours_ForkAction().addAll(this.asynchronousForkedBehaviours);
 
         final SynchronisationPoint synch = SeffFactory.eINSTANCE.createSynchronisationPoint();
-        synch.getOutputParameterUsage_SynchronisationPoint()
-            .addAll(this.variableUsages);
-        synch.getSynchronousForkedBehaviours_SynchronisationPoint()
-            .addAll(this.synchronousForkedBehaviours);
+        synch.getOutputParameterUsage_SynchronisationPoint().addAll(this.variableUsages);
+        synch.getSynchronousForkedBehaviours_SynchronisationPoint().addAll(this.synchronousForkedBehaviours);
         action.setSynchronisingBehaviours_ForkAction(synch);
 
-        action.getInfrastructureCall__Action()
-            .addAll(this.infrastructureCalls);
-        action.getResourceCall__Action()
-            .addAll(this.resourceCalls);
-        action.getResourceDemand_Action()
-            .addAll(this.demands);
+        action.getInfrastructureCall__Action().addAll(this.infrastructureCalls);
+        action.getResourceCall__Action().addAll(this.resourceCalls);
+        action.getResourceDemand_Action().addAll(this.demands);
 
         return action;
     }

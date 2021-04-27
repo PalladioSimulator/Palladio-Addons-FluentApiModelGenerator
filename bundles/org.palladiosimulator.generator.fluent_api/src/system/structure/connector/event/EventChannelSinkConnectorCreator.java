@@ -19,7 +19,6 @@ import system.structure.connector.IContextRoleCombinator;
  * EventChannelSinkConnector}.
  *
  * @author Florian Krone
- *
  * @see org.palladiosimulator.pcm.core.composition.EventChannelSinkConnector
  */
 public class EventChannelSinkConnectorCreator extends AbstractConnectorCreator {
@@ -32,12 +31,11 @@ public class EventChannelSinkConnectorCreator extends AbstractConnectorCreator {
     }
 
     /**
-     * Defines the {@link org.palladiosimulator.pcm.core.composition.EventChannel EventChannel} the
-     * sink role is connected to.
-     * 
+     * Defines the {@link org.palladiosimulator.pcm.core.composition.EventChannel
+     * EventChannel} the sink role is connected to.
+     *
      * @param eventChannel
      * @return this connector
-     * 
      * @see org.palladiosimulator.pcm.core.composition.EventChannel
      * @see org.palladiosimulator.pcm.repository.SinkRole
      */
@@ -48,15 +46,13 @@ public class EventChannelSinkConnectorCreator extends AbstractConnectorCreator {
     }
 
     /**
-     * Defines the {@link org.palladiosimulator.pcm.core.composition.EventChannel EventChannel} the
-     * sink role is connected to. The event channels added to the system are searched for one that
-     * matches the given name.
-     * 
+     * Defines the {@link org.palladiosimulator.pcm.core.composition.EventChannel
+     * EventChannel} the sink role is connected to. The event channels added to the
+     * system are searched for one that matches the given name.
+     *
      * @param name
      * @return this connector
-     * @throws NoSuchElementException
-     *             Thrown if no element matches the given name
-     * 
+     * @throws NoSuchElementException Thrown if no element matches the given name
      * @see org.palladiosimulator.pcm.core.composition.EventChannel
      * @see org.palladiosimulator.pcm.repository.SinkRole
      */
@@ -68,10 +64,9 @@ public class EventChannelSinkConnectorCreator extends AbstractConnectorCreator {
     /**
      * Defines the {@link org.palladiosimulator.pcm.core.composition.AssemblyContext
      * AssemblyContext} with the sink role.
-     * 
+     *
      * @param context
      * @return this connector
-     * 
      * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
      * @see org.palladiosimulator.pcm.repository.SinkRole
      */
@@ -93,15 +88,12 @@ public class EventChannelSinkConnectorCreator extends AbstractConnectorCreator {
 
     /**
      * Defines the {@link org.palladiosimulator.pcm.core.composition.AssemblyContext
-     * AssemblyContext} with the sink role. The assembly contexts added to the system are searched
-     * for one that matches the given name.
-     * 
+     * AssemblyContext} with the sink role. The assembly contexts added to the
+     * system are searched for one that matches the given name.
+     *
      * @param name
      * @return this connector
-     * 
-     * @throws NoSuchElementException
-     *             Thrown if no element matches the given name.
-     * 
+     * @throws NoSuchElementException Thrown if no element matches the given name.
      * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
      * @see org.palladiosimulator.pcm.repository.SinkRole
      */

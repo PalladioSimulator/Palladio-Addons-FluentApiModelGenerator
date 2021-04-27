@@ -16,11 +16,10 @@ import org.palladiosimulator.pcm.resourcetype.ResourcetypePackage;
 import org.palladiosimulator.pcm.system.System;
 
 /**
- * This utility class contains functions to load Repositories, ResourceTypeReopsitories, Systems,
- * ResourceEnvironemnts and Allocations.
- * 
- * @author Florian Krone
+ * This utility class contains functions to load Repositories,
+ * ResourceTypeReopsitories, Systems, ResourceEnvironemnts and Allocations.
  *
+ * @author Florian Krone
  * @see org.palladiosimulator.pcm.repository.Repository
  * @see org.palladiosimulator.pcm.resourcetype.ResourceRepository
  * @see org.palladiosimulator.pcm.system.System
@@ -35,10 +34,9 @@ public class ModelLoader {
 
     /**
      * Loads a repository from the specified path.
-     * 
+     *
      * @param uri
      * @return the repository
-     * 
      * @see org.palladiosimulator.pcm.repository.Repository
      */
     public static Repository loadRepository(final String uri) {
@@ -47,10 +45,9 @@ public class ModelLoader {
 
     /**
      * Loads a ResourceRepository from the specified path.
-     * 
+     *
      * @param uri
      * @return the resource repository
-     * 
      * @see org.palladiosimulator.pcm.resourcetype.ResourceRepository
      */
     public static ResourceRepository loadResourceTypeRepository(final String uri) {
@@ -59,10 +56,9 @@ public class ModelLoader {
 
     /**
      * Loads a System from the specified path.
-     * 
+     *
      * @param uri
      * @return the system
-     * 
      * @see org.palladiosimulator.pcm.system.System
      */
     public static System loadSystem(final String uri) {
@@ -71,10 +67,9 @@ public class ModelLoader {
 
     /**
      * Loads a ResourceEnvironment from the specified path.
-     * 
+     *
      * @param uri
      * @return the resource environment
-     * 
      * @see org.palladiosimulator.pcm.resourceenvironment.ResourceEnvironment
      */
     public static ResourceEnvironment loadResourceEnvironment(final String uri) {
@@ -83,10 +78,9 @@ public class ModelLoader {
 
     /**
      * Loads an Allocation form the specified path.
-     * 
+     *
      * @param uri
      * @return the allocation
-     * 
      * @see org.palladiosimulator.pcm.allocation.Allocation
      */
     public static Allocation loadAllocation(final String uri) {
@@ -103,7 +97,6 @@ public class ModelLoader {
         final ResourceSet resSet = new ResourceSetImpl();
         final Resource resource = resSet.getResource(URI.createURI(uri), true);
         // Get the first model element
-        return resource.getContents()
-            .get(0);
+        return resource.getContents().get(0);
     }
 }

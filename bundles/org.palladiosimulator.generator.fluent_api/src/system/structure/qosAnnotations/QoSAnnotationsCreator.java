@@ -12,11 +12,11 @@ import system.structure.SystemCreator;
 import system.structure.SystemEntity;
 
 /**
- * This class constructs {@link org.palladiosimulator.pcm.qosannotations.QoSAnnotations
+ * This class constructs
+ * {@link org.palladiosimulator.pcm.qosannotations.QoSAnnotations
  * QoSAnnotations}.
  *
  * @author Florian Krone
- *
  * @see org.palladiosimulator.pcm.qosannotations.QoSAnnotations
  */
 public class QoSAnnotationsCreator extends SystemEntity {
@@ -30,10 +30,9 @@ public class QoSAnnotationsCreator extends SystemEntity {
     /**
      * Adds a {@link org.palladiosimulator.pcm.qosannotations.SpecifiedQoSAnnotation
      * SpecifiedQoSAnnotation}.
-     * 
+     *
      * @param annotation
      * @return this annotations creator
-     * 
      * @see org.palladiosimulator.pcm.qosannotations.SpecifiedQoSAnnotation
      */
     public QoSAnnotationsCreator addQoSAnnotation(final SpecifiedQoSAnnotation annotation) {
@@ -42,12 +41,12 @@ public class QoSAnnotationsCreator extends SystemEntity {
     }
 
     /**
-     * Adds a collection of {@link org.palladiosimulator.pcm.qosannotations.SpecifiedQoSAnnotation
+     * Adds a collection of
+     * {@link org.palladiosimulator.pcm.qosannotations.SpecifiedQoSAnnotation
      * SpecifiedQoSAnnotation}s.
-     * 
+     *
      * @param annotation
      * @return this annotations creator
-     * 
      * @see org.palladiosimulator.pcm.qosannotations.SpecifiedQoSAnnotation
      */
     public QoSAnnotationsCreator addQoSAnnotations(final Collection<SpecifiedQoSAnnotation> annotations) {
@@ -56,12 +55,12 @@ public class QoSAnnotationsCreator extends SystemEntity {
     }
 
     /**
-     * Adds a {@link org.palladiosimulator.pcm.qosannotations.SpecifiedOutputParameterAbstraction
+     * Adds a
+     * {@link org.palladiosimulator.pcm.qosannotations.SpecifiedOutputParameterAbstraction
      * SpecifiedOutputParameterAbstraction}.
-     * 
+     *
      * @param annotation
      * @return this annotations creator
-     * 
      * @see org.palladiosimulator.pcm.qosannotations.SpecifiedOutputParameterAbstraction
      */
     public QoSAnnotationsCreator addOutputParameterAbstraction(
@@ -74,10 +73,9 @@ public class QoSAnnotationsCreator extends SystemEntity {
      * Adds a collection of
      * {@link org.palladiosimulator.pcm.qosannotations.SpecifiedOutputParameterAbstraction
      * SpecifiedOutputParameterAbstraction}s.
-     * 
+     *
      * @param annotation
      * @return this annotations creator
-     * 
      * @see org.palladiosimulator.pcm.qosannotations.SpecifiedOutputParameterAbstraction
      */
     public QoSAnnotationsCreator addOutputParameterAbstractions(
@@ -92,10 +90,8 @@ public class QoSAnnotationsCreator extends SystemEntity {
         if (this.name != null) {
             annotations.setEntityName(this.name);
         }
-        annotations.getSpecifiedOutputParameterAbstractions_QoSAnnotations()
-            .addAll(this.outputParameterAbstractions);
-        annotations.getSpecifiedQoSAnnotations_QoSAnnotations()
-            .addAll(this.qoSAnnotations);
+        annotations.getSpecifiedOutputParameterAbstractions_QoSAnnotations().addAll(this.outputParameterAbstractions);
+        annotations.getSpecifiedQoSAnnotations_QoSAnnotations().addAll(this.qoSAnnotations);
         return annotations;
     }
 

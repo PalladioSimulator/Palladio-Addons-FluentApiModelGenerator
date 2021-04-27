@@ -15,9 +15,11 @@ import component.repositoryStructure.RepositoryEntity;
 import component.repositoryStructure.internals.Primitive;
 
 /**
- * This class constructs a {@link org.palladiosimulator.pcm.repository.CompositeDataType
- * CompositeDataType}. It is used to create the '<em><b>CompositeDataType</b></em>' object
- * step-by-step, i.e. '<em><b>CompositeDataTypeCreator</b></em>' objects are of intermediate state.
+ * This class constructs a
+ * {@link org.palladiosimulator.pcm.repository.CompositeDataType
+ * CompositeDataType}. It is used to create the
+ * '<em><b>CompositeDataType</b></em>' object step-by-step, i.e.
+ * '<em><b>CompositeDataTypeCreator</b></em>' objects are of intermediate state.
  *
  * @author Louisa Lambrecht
  * @see org.palladiosimulator.pcm.repository.CompositeDataType
@@ -39,17 +41,15 @@ public class CompositeDataTypeCreator extends RepositoryEntity {
     }
 
     /**
-     * Adds an inner data type to a composite data type with name <code>name</code> and of type
-     * <code>primitive</code>.
+     * Adds an inner data type to a composite data type with name <code>name</code>
+     * and of type <code>primitive</code>.
      * <p>
      * This corresponds to the declaration of fields in a Java class. For example
      * <code>.withInnerDeclaration("age", Primitive.INTEGER)</code> conforms with
      * <code>public int age;</code>.
      *
-     * @param name
-     *            for the inner data type
-     * @param primitive
-     *            inner data type
+     * @param name      for the inner data type
+     * @param primitive inner data type
      * @return this composite data type in the making
      * @see org.palladiosimulator.pcm.repository.CompositeDataType
      */
@@ -65,8 +65,8 @@ public class CompositeDataTypeCreator extends RepositoryEntity {
     }
 
     /**
-     * Adds an inner data type to a composite data type with name <code>name</code> and of type
-     * <code>dataType</code>.
+     * Adds an inner data type to a composite data type with name <code>name</code>
+     * and of type <code>dataType</code>.
      * <p>
      * This corresponds to the declaration of fields in a Java class. For example
      * <code>.withInnerDeclaration("age", Primitive.INTEGER)</code> conforms with
@@ -75,10 +75,8 @@ public class CompositeDataTypeCreator extends RepositoryEntity {
      * {@link component.factory.FluentRepositoryFactory#fetchOfDataType(String)
      * fetchOfDataType(String)}.
      *
-     * @param name
-     *            for the inner data type
-     * @param dataType
-     *            inner data type
+     * @param name     for the inner data type
+     * @param dataType inner data type
      * @return this composite data type in the making
      * @see component.factory.FluentRepositoryFactory#fetchOfDataType(String)
      * @see org.palladiosimulator.pcm.repository.CompositeDataType
@@ -94,10 +92,12 @@ public class CompositeDataTypeCreator extends RepositoryEntity {
     }
 
     /**
-     * Adds <code>parent</code> to the list of parents this composite data type inherits from.
+     * Adds <code>parent</code> to the list of parents this composite data type
+     * inherits from.
      * <p>
      * An existing composite data type can be fetched from the repository using the
-     * component.factory, i.e. <code>create.fetchOfCompleteComponentType(name)</code>.
+     * component.factory, i.e.
+     * <code>create.fetchOfCompleteComponentType(name)</code>.
      * </p>
      *
      * @param parent
@@ -116,10 +116,8 @@ public class CompositeDataTypeCreator extends RepositoryEntity {
         final CompositeDataType comp = RepositoryFactory.eINSTANCE.createCompositeDataType();
         comp.setEntityName(this.name);
 
-        comp.getParentType_CompositeDataType()
-            .addAll(this.parents);
-        comp.getInnerDeclaration_CompositeDataType()
-            .addAll(this.innerDeclarations);
+        comp.getParentType_CompositeDataType().addAll(this.parents);
+        comp.getInnerDeclaration_CompositeDataType().addAll(this.innerDeclarations);
 
         return comp;
     }

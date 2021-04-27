@@ -11,11 +11,11 @@ import system.structure.SystemCreator;
 import system.structure.SystemEntity;
 
 /**
- * This class constructs an {@link org.palladiosimulator.pcm.repository.InfrastructureProvidedRole
+ * This class constructs an
+ * {@link org.palladiosimulator.pcm.repository.InfrastructureProvidedRole
  * InfrastructureProvidedRole}.
  *
  * @author Florian Krone
- *
  * @see org.palladiosimulator.pcm.repository.InfrastructureProvidedRole
  */
 public class InfrastructureProvidedRoleCreator extends SystemEntity {
@@ -27,12 +27,12 @@ public class InfrastructureProvidedRoleCreator extends SystemEntity {
     }
 
     /**
-     * Defines the {@link org.palladiosimulator.pcm.repository.InfrastructureInterface
+     * Defines the
+     * {@link org.palladiosimulator.pcm.repository.InfrastructureInterface
      * InfrastructureInterface} this role provides.
-     * 
+     *
      * @param infrastructureInterface
      * @return this role creator
-     * 
      * @see org.palladiosimulator.pcm.repository.InfrastructureInterface
      */
     public InfrastructureProvidedRoleCreator withProvidedInterface(
@@ -43,15 +43,14 @@ public class InfrastructureProvidedRoleCreator extends SystemEntity {
     }
 
     /**
-     * Defines the {@link org.palladiosimulator.pcm.repository.InfrastructureInterface
-     * InfrastructureInterface} this role provides. Searches the repositories added to the system
-     * for an interface that matches the given name.
-     * 
+     * Defines the
+     * {@link org.palladiosimulator.pcm.repository.InfrastructureInterface
+     * InfrastructureInterface} this role provides. Searches the repositories added
+     * to the system for an interface that matches the given name.
+     *
      * @param name
      * @return this role creator
-     * @throws NoSuchElementException
-     *             Thrown if no element matches the given name.
-     * 
+     * @throws NoSuchElementException Thrown if no element matches the given name.
      * @see org.palladiosimulator.pcm.repository.InfrastructureInterface
      */
     public InfrastructureProvidedRoleCreator withProvidedInterface(final String name) throws NoSuchElementException {

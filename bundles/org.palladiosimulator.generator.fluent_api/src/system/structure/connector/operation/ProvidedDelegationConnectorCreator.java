@@ -18,7 +18,6 @@ import system.structure.connector.IContextRoleCombinator;
  * ProvidedDelegationConnector}.
  *
  * @author Florian Krone
- *
  * @see org.palladiosimulator.pcm.core.composition.ProvidedDelegationConnector
  */
 public class ProvidedDelegationConnectorCreator extends AbstractConnectorCreator {
@@ -33,10 +32,9 @@ public class ProvidedDelegationConnectorCreator extends AbstractConnectorCreator
     /**
      * Defines the {@link org.palladiosimulator.pcm.repository.OperationProvidedRole
      * OperationProvidedRole} of the system, delegated to an AssemblyContext.
-     * 
+     *
      * @param role
      * @return this connector
-     * 
      * @see org.palladiosimulator.pcm.repository.OperationProvidedRole
      */
     public ProvidedDelegationConnectorCreator withOuterProvidedRole(final OperationProvidedRole role) {
@@ -47,14 +45,13 @@ public class ProvidedDelegationConnectorCreator extends AbstractConnectorCreator
 
     /**
      * Defines the {@link org.palladiosimulator.pcm.repository.OperationProvidedRole
-     * OperationProvidedRole} of the system, delegated to an AssemblyContext. The provided roles
-     * added to the system are searched for one that matches the given name.
-     * 
+     * OperationProvidedRole} of the system, delegated to an AssemblyContext. The
+     * provided roles added to the system are searched for one that matches the
+     * given name.
+     *
      * @param role
      * @return this connector
-     * @throws NoSuchElementException
-     *             Thrown if no element matches the given name.
-     * 
+     * @throws NoSuchElementException Thrown if no element matches the given name.
      * @see org.palladiosimulator.pcm.repository.OperationProvidedRole
      */
     public ProvidedDelegationConnectorCreator withOuterProvidedRole(final String name) throws NoSuchElementException {
@@ -65,10 +62,9 @@ public class ProvidedDelegationConnectorCreator extends AbstractConnectorCreator
     /**
      * Defines the {@link org.palladiosimulator.pcm.core.composition.AssemblyContext
      * AssemblyContext} with the provided role.
-     * 
+     *
      * @param context
      * @return this connector
-     * 
      * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
      * @see org.palladiosimulator.pcm.repository.OperationProvidedRole
      */
@@ -90,15 +86,12 @@ public class ProvidedDelegationConnectorCreator extends AbstractConnectorCreator
 
     /**
      * Defines the {@link org.palladiosimulator.pcm.core.composition.AssemblyContext
-     * AssemblyContext} with the provided role. The assembly contexts added to the system are
-     * searched for one that matches the given name.
-     * 
+     * AssemblyContext} with the provided role. The assembly contexts added to the
+     * system are searched for one that matches the given name.
+     *
      * @param name
      * @return this connector
-     * 
-     * @throws NoSuchElementException
-     *             Thrown if no element matches the given name.
-     * 
+     * @throws NoSuchElementException Thrown if no element matches the given name.
      * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
      * @see org.palladiosimulator.pcm.repository.OperationProvidedRole
      */

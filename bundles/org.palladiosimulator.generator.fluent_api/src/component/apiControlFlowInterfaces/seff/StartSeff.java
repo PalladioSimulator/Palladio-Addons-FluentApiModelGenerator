@@ -3,11 +3,10 @@ package component.apiControlFlowInterfaces.seff;
 import component.repositoryStructure.components.seff.StartActionCreator;
 
 /**
- * This interface is merely used for control flow purposes making sure that a body behaviour always
- * starts with a start action.
+ * This interface is merely used for control flow purposes making sure that a
+ * body behaviour always starts with a start action.
  *
  * @author Louisa Lambrecht
- *
  */
 public interface StartSeff {
 

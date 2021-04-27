@@ -19,9 +19,12 @@ import component.repositoryStructure.internals.Failure;
 import component.repositoryStructure.internals.Primitive;
 
 /**
- * This class constructs a {@link org.palladiosimulator.pcm.repository.OperationSignature
- * OperationSignature}. It is used to create the '<em><b>OperationSignature</b></em>' object
- * step-by-step, i.e. '<em><b>OperationSignatureCreator</b></em>' objects are of intermediate state.
+ * This class constructs a
+ * {@link org.palladiosimulator.pcm.repository.OperationSignature
+ * OperationSignature}. It is used to create the
+ * '<em><b>OperationSignature</b></em>' object step-by-step, i.e.
+ * '<em><b>OperationSignatureCreator</b></em>' objects are of intermediate
+ * state.
  *
  * @author Louisa Lambrecht
  * @see org.palladiosimulator.pcm.repository.OperationSignature
@@ -48,8 +51,8 @@ public class OperationSignatureCreator extends RepositoryEntity {
     /**
      * Defines the <code>returnType</code> of the operation signature.
      * <p>
-     * An existing data type can be fetched from the repository using the component.factory, i.e.
-     * <code>create.fetchOfDataType(name)</code>.
+     * An existing data type can be fetched from the repository using the
+     * component.factory, i.e. <code>create.fetchOfDataType(name)</code>.
      * </p>
      *
      * @param returnType
@@ -65,8 +68,9 @@ public class OperationSignatureCreator extends RepositoryEntity {
     /**
      * Defines the <code>returnType</code> of the operation signature.
      * <p>
-     * A {@link component.repositoryStructure.internals.Primitive Primitive} data type can have the
-     * values '<em><b>boolean</b></em>', '<em><b>integer</b></em>', '<em><b>string</b></em>',
+     * A {@link component.repositoryStructure.internals.Primitive Primitive} data
+     * type can have the values '<em><b>boolean</b></em>',
+     * '<em><b>integer</b></em>', '<em><b>string</b></em>',
      * '<em><b>double</b></em>', '<em><b>long</b></em>', '<em><b>char</b></em>',
      * '<em><b>byte</b></em>'.
      * </p>
@@ -81,25 +85,26 @@ public class OperationSignatureCreator extends RepositoryEntity {
     }
 
     /**
-     * Creates a {@link org.palladiosimulator.pcm.repository.Parameter Parameter} and adds it to the
-     * signature's ordered list of parameters.
+     * Creates a {@link org.palladiosimulator.pcm.repository.Parameter Parameter}
+     * and adds it to the signature's ordered list of parameters.
      * <p>
-     * Each parameter is a tuple of a <code>name</code> and a <code>dataType</code> (which is unique
-     * across the parameters). Optionally, the <code>modifier</code>s '<em><b>in</b></em>',
-     * '<em><b>out</b></em>', and '<em><b>inout</b></em>' (with its OMG IDL semantics) can be used
-     * for parameters, e.g. <code>ParameterModifier.IN</code>.
+     * Each parameter is a tuple of a <code>name</code> and a <code>dataType</code>
+     * (which is unique across the parameters). Optionally, the
+     * <code>modifier</code>s '<em><b>in</b></em>', '<em><b>out</b></em>', and
+     * '<em><b>inout</b></em>' (with its OMG IDL semantics) can be used for
+     * parameters, e.g. <code>ParameterModifier.IN</code>.
      * </p>
      * <p>
-     * A {@link component.repositoryStructure.internals.Primitive Primitive} data type can have the
-     * values '<em><b>boolean</b></em>', '<em><b>integer</b></em>', '<em><b>string</b></em>',
+     * A {@link component.repositoryStructure.internals.Primitive Primitive} data
+     * type can have the values '<em><b>boolean</b></em>',
+     * '<em><b>integer</b></em>', '<em><b>string</b></em>',
      * '<em><b>double</b></em>', '<em><b>long</b></em>', '<em><b>char</b></em>',
      * '<em><b>byte</b></em>'.
      * </p>
      *
      * @param name
      * @param dataType
-     * @param modifier
-     *            may be null
+     * @param modifier may be null
      * @return this operation signature in the making
      * @see org.palladiosimulator.pcm.repository.ParameterModifier
      */
@@ -112,23 +117,23 @@ public class OperationSignatureCreator extends RepositoryEntity {
     }
 
     /**
-     * Creates a {@link org.palladiosimulator.pcm.repository.Parameter Parameter} and adds it to the
-     * signature's ordered list of parameters.
+     * Creates a {@link org.palladiosimulator.pcm.repository.Parameter Parameter}
+     * and adds it to the signature's ordered list of parameters.
      * <p>
-     * Each parameter is a tuple of a <code>name</code> and a <code>dataType</code> (which is unique
-     * across the parameters). Optionally, the <code>modifier</code>s '<em><b>in</b></em>',
-     * '<em><b>out</b></em>', and '<em><b>inout</b></em>' (with its OMG IDL semantics) can be used
-     * for parameters, e.g. <code>ParameterModifier.IN</code>.
+     * Each parameter is a tuple of a <code>name</code> and a <code>dataType</code>
+     * (which is unique across the parameters). Optionally, the
+     * <code>modifier</code>s '<em><b>in</b></em>', '<em><b>out</b></em>', and
+     * '<em><b>inout</b></em>' (with its OMG IDL semantics) can be used for
+     * parameters, e.g. <code>ParameterModifier.IN</code>.
      * </p>
      * <p>
-     * An existing data type can be fetched from the repository using the component.factory, i.e.
-     * <code>create.fetchOfDataType(name)</code>.
+     * An existing data type can be fetched from the repository using the
+     * component.factory, i.e. <code>create.fetchOfDataType(name)</code>.
      * </p>
      *
      * @param name
      * @param dataType
-     * @param modifier
-     *            may be null
+     * @param modifier may be null
      * @return this operation signature in the making
      * @see component.factory.FluentRepositoryFactory#fetchOfDataType(String)
      * @see org.palladiosimulator.pcm.repository.ParameterModifier
@@ -154,10 +159,11 @@ public class OperationSignatureCreator extends RepositoryEntity {
     }
 
     /**
-     * Adds the <code>failureType</code> to the operation signature's list of possible failures.
+     * Adds the <code>failureType</code> to the operation signature's list of
+     * possible failures.
      * <p>
-     * Failure types can be fetched from the repository using the component.factory, i.e.
-     * <code>create.fetchOfFailureType(name)</code>.
+     * Failure types can be fetched from the repository using the component.factory,
+     * i.e. <code>create.fetchOfFailureType(name)</code>.
      * </p>
      *
      * @param failureType
@@ -171,11 +177,13 @@ public class OperationSignatureCreator extends RepositoryEntity {
     }
 
     /**
-     * Adds the <code>failureType</code> to the operation signature's list of possible failures.
+     * Adds the <code>failureType</code> to the operation signature's list of
+     * possible failures.
      * <p>
-     * A {@link component.repositoryStructure.internals.Failure Failure} type can have the values
-     * '<em><b>HARDWARE_CPU</b></em>', '<em><b>HARDWARE_HDD</b></em>',
-     * '<em><b>HARDWARE_DELAY</b></em>', '<em><b>NETWORK_LAN</b></em>', '<em><b>SOFTWARE</b></em>'.
+     * A {@link component.repositoryStructure.internals.Failure Failure} type can
+     * have the values '<em><b>HARDWARE_CPU</b></em>',
+     * '<em><b>HARDWARE_HDD</b></em>', '<em><b>HARDWARE_DELAY</b></em>',
+     * '<em><b>NETWORK_LAN</b></em>', '<em><b>SOFTWARE</b></em>'.
      * </p>
      *
      * @param failureType
@@ -188,10 +196,11 @@ public class OperationSignatureCreator extends RepositoryEntity {
     }
 
     /**
-     * Adds the <code>exceptionType</code> to the operation signature's list of possible exceptions.
+     * Adds the <code>exceptionType</code> to the operation signature's list of
+     * possible exceptions.
      * <p>
-     * An existing exception type can be fetched from the repository using the component.factory,
-     * i.e. <code>create.fetchOfExceptionType(name)</code>.
+     * An existing exception type can be fetched from the repository using the
+     * component.factory, i.e. <code>create.fetchOfExceptionType(name)</code>.
      * </p>
      *
      * @param exceptionType
@@ -213,12 +222,9 @@ public class OperationSignatureCreator extends RepositoryEntity {
             ops.setEntityName(this.name);
         }
         ops.setReturnType__OperationSignature(this.returnType);
-        ops.getParameters__OperationSignature()
-            .addAll(this.ownedParameters);
-        ops.getFailureType()
-            .addAll(this.failureTypes);
-        ops.getExceptions__Signature()
-            .addAll(this.exceptionTypes);
+        ops.getParameters__OperationSignature().addAll(this.ownedParameters);
+        ops.getFailureType().addAll(this.failureTypes);
+        ops.getExceptions__Signature().addAll(this.exceptionTypes);
 
         return ops;
     }

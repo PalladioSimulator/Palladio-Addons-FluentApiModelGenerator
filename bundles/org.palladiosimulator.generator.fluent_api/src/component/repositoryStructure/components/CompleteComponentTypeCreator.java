@@ -18,9 +18,11 @@ import component.repositoryStructure.interfaces.OperationInterfaceCreator;
 import shared.structure.ResourceInterface;
 
 /**
- * This class constructs a {@link org.palladiosimulator.pcm.repository.CompleteComponentType
- * CompleteComponentType}. It is used to create the '<em><b>CompleteComponentType</b></em>' object
- * step-by-step, i.e. '<em><b>CompleteComponentTypeCreator</b></em>' objects are of intermediate
+ * This class constructs a
+ * {@link org.palladiosimulator.pcm.repository.CompleteComponentType
+ * CompleteComponentType}. It is used to create the
+ * '<em><b>CompleteComponentType</b></em>' object step-by-step, i.e.
+ * '<em><b>CompleteComponentTypeCreator</b></em>' objects are of intermediate
  * state.
  *
  * @author Louisa Lambrecht
@@ -40,10 +42,10 @@ public class CompleteComponentTypeCreator extends Component {
         return (CompleteComponentTypeCreator) super.withName(name);
     }
 
-//	@Override
-//	public CompleteComponentTypeCreator withId(String id) {
-//		return (CompleteComponentTypeCreator) super.withId(id);
-//	}
+    // @Override
+    // public CompleteComponentTypeCreator withId(String id) {
+    // return (CompleteComponentTypeCreator) super.withId(id);
+    // }
 
     // ------------ providing roles ------------
     // provides operation interface
@@ -190,16 +192,18 @@ public class CompleteComponentTypeCreator extends Component {
 
     // ------------ type roles ------------
     /**
-     * Creates a conforming (parental) connection to the <code>providesComponentType</code> and adds
-     * it to the complete component type.
+     * Creates a conforming (parental) connection to the
+     * <code>providesComponentType</code> and adds it to the complete component
+     * type.
      * <p>
-     * Provided (Component) Types abstract a component to its provided interfaces, leaving its
-     * requirements and implementation details open. So, provided types subsume components which
-     * offer the same functionality, but with different implementations.
+     * Provided (Component) Types abstract a component to its provided interfaces,
+     * leaving its requirements and implementation details open. So, provided types
+     * subsume components which offer the same functionality, but with different
+     * implementations.
      * </p>
      * <p>
-     * The <code>providesComponentType</code> can be created using the component.factory, i.e.
-     * <code>create.newProvidesComponentType()</code>.
+     * The <code>providesComponentType</code> can be created using the
+     * component.factory, i.e. <code>create.newProvidesComponentType()</code>.
      * </p>
      *
      * @param providesComponentType
@@ -216,16 +220,19 @@ public class CompleteComponentTypeCreator extends Component {
     }
 
     /**
-     * Creates a conforming (parental) connection to the <code>providesComponentType</code> and adds
-     * it to the complete component type.
+     * Creates a conforming (parental) connection to the
+     * <code>providesComponentType</code> and adds it to the complete component
+     * type.
      * <p>
-     * Provided (Component) Types abstract a component to its provided interfaces, leaving its
-     * requirements and implementation details open. So, provided types subsume components which
-     * offer the same functionality, but with different implementations.
+     * Provided (Component) Types abstract a component to its provided interfaces,
+     * leaving its requirements and implementation details open. So, provided types
+     * subsume components which offer the same functionality, but with different
+     * implementations.
      * </p>
      * <p>
-     * An existing <code>providesComponentType</code> can be fetched from the repository using the
-     * component.factory, i.e. <code>create.fetchOfProvidesComponentType(name)</code>.
+     * An existing <code>providesComponentType</code> can be fetched from the
+     * repository using the component.factory, i.e.
+     * <code>create.fetchOfProvidesComponentType(name)</code>.
      * </p>
      *
      * @param providesComponentType
@@ -245,18 +252,14 @@ public class CompleteComponentTypeCreator extends Component {
         final CompleteComponentType cct = RepositoryFactory.eINSTANCE.createCompleteComponentType();
         if (this.name != null) {
             cct.setEntityName(this.name);
-//		if (id != null)
-//			cct.setId(id);
+            // if (id != null)
+            // cct.setId(id);
         }
 
-        cct.getProvidedRoles_InterfaceProvidingEntity()
-            .addAll(this.providedRoles);
-        cct.getRequiredRoles_InterfaceRequiringEntity()
-            .addAll(this.requiredRoles);
-        cct.getResourceRequiredRoles__ResourceInterfaceRequiringEntity()
-            .addAll(this.resourceRequiredRoles);
-        cct.getParentProvidesComponentTypes()
-            .addAll(this.conformsProvidedTypes);
+        cct.getProvidedRoles_InterfaceProvidingEntity().addAll(this.providedRoles);
+        cct.getRequiredRoles_InterfaceRequiringEntity().addAll(this.requiredRoles);
+        cct.getResourceRequiredRoles__ResourceInterfaceRequiringEntity().addAll(this.resourceRequiredRoles);
+        cct.getParentProvidesComponentTypes().addAll(this.conformsProvidedTypes);
 
         return cct;
     }

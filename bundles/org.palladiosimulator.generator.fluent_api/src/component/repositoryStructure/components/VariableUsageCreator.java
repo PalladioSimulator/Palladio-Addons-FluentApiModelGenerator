@@ -21,9 +21,11 @@ import de.uka.ipd.sdq.stoex.StoexFactory;
 import de.uka.ipd.sdq.stoex.VariableReference;
 
 /**
- * This class constructs a {@link org.palladiosimulator.pcm.parameter.VariableUsage VariableUsage}.
- * It is used to create the '<em><b>VariableUsage</b></em>' object step-by-step, i.e.
- * '<em><b>VariableUsageCreator</b></em>' objects are of intermediate state.
+ * This class constructs a
+ * {@link org.palladiosimulator.pcm.parameter.VariableUsage VariableUsage}. It
+ * is used to create the '<em><b>VariableUsage</b></em>' object step-by-step,
+ * i.e. '<em><b>VariableUsageCreator</b></em>' objects are of intermediate
+ * state.
  *
  * @author Louisa Lambrecht
  * @see org.palladiosimulator.pcm.parameter.VariableUsage
@@ -46,27 +48,25 @@ public class VariableUsageCreator extends RepositoryEntity {
     /**
      * Creates a {@link org.palladiosimulator.pcm.parameter.VariableCharacterisation
      * VariableCharacterisation} and adds it to the '<em><b>VariableUsage</b></em>'.
-     *
      * <p>
-     * Variable characterizations store performance critical meta-information on a variable. For
-     * example, if a variable's value is used in a long running loop, the value of the variable is
-     * performance critical. <br>
+     * Variable characterizations store performance critical meta-information on a
+     * variable. For example, if a variable's value is used in a long running loop,
+     * the value of the variable is performance critical. <br>
      * Variable characterizations contain a <code>type</code>
      * ({@link org.palladiosimulator.pcm.parameter.VariableCharacterisationType
-     * VariableCharacterisationType}), which tells what kind of meta-information is stored and a
-     * {@link org.palladiosimulator.pcm.core.PCMRandomVariable PCMRandomVariable} for storing the
-     * value of the characterization.
+     * VariableCharacterisationType}), which tells what kind of meta-information is
+     * stored and a {@link org.palladiosimulator.pcm.core.PCMRandomVariable
+     * PCMRandomVariable} for storing the value of the characterization.
      * </p>
      * <p>
-     * The stochastic Expression <code>specification_stochasticExpression</code> specifies the value
-     * of the characterization as a PCMRandomVariable. Possible values for the <code>type</code> are
-     * '<em><b>STRUCTURE</b></em>', '<em><b>NUMBER_OF_ELEMENTS</b></em>',
-     * '<em><b>BYTESIZE</b></em>', '<em><b>TYPE</b></em>', '<em><b>VALUE</b></em>'.
+     * The stochastic Expression <code>specification_stochasticExpression</code>
+     * specifies the value of the characterization as a PCMRandomVariable. Possible
+     * values for the <code>type</code> are '<em><b>STRUCTURE</b></em>',
+     * '<em><b>NUMBER_OF_ELEMENTS</b></em>', '<em><b>BYTESIZE</b></em>',
+     * '<em><b>TYPE</b></em>', '<em><b>VALUE</b></em>'.
      *
-     * @param specificationStochasticExpression
-     *            value of the characterization
-     * @param type
-     *            of the characterization
+     * @param specificationStochasticExpression value of the characterization
+     * @param type                              of the characterization
      * @return the variable usage in the making
      * @see org.palladiosimulator.pcm.parameter.VariableCharacterisation
      * @see org.palladiosimulator.pcm.parameter.VariableUsage
@@ -91,18 +91,18 @@ public class VariableUsageCreator extends RepositoryEntity {
     }
 
     /**
-     * Creates a {@link de.uka.ipd.sdq.stoex.VariableReference VariableReference} and adds it to the
-     * '<em><b>VariableUsage</b></em>'. A variable usage can have either a variable reference or a
-     * namespace reference that can contain inner references.
+     * Creates a {@link de.uka.ipd.sdq.stoex.VariableReference VariableReference}
+     * and adds it to the '<em><b>VariableUsage</b></em>'. A variable usage can have
+     * either a variable reference or a namespace reference that can contain inner
+     * references.
      * <p>
-     * The <code>reference</code> refers to the name of the characterized variable as a
-     * namedReference association.<br>
-     * Note that it was an explicit design decision to refer to variable names instead of the actual
-     * variables (i.e., by referring to Parameter class).
+     * The <code>reference</code> refers to the name of the characterized variable
+     * as a namedReference association.<br>
+     * Note that it was an explicit design decision to refer to variable names
+     * instead of the actual variables (i.e., by referring to Parameter class).
      * <p>
      *
-     * @param reference
-     *            the name of the characterized variable
+     * @param reference the name of the characterized variable
      * @return the variable usage in the making
      * @see de.uka.ipd.sdq.stoex.AbstractNamedReference
      */
@@ -115,23 +115,23 @@ public class VariableUsageCreator extends RepositoryEntity {
     }
 
     /**
-     * Creates a {@link de.uka.ipd.sdq.stoex.NamespaceReference NamespaceReference} and adds it to
-     * the '<em><b>VariableUsage</b></em>'. A variable usage can have either a variable reference or
-     * a namespace reference that can contain inner references.
+     * Creates a {@link de.uka.ipd.sdq.stoex.NamespaceReference NamespaceReference}
+     * and adds it to the '<em><b>VariableUsage</b></em>'. A variable usage can have
+     * either a variable reference or a namespace reference that can contain inner
+     * references.
      * <p>
-     * The <code>reference</code> refers to the namespace of the characterized variable. The
-     * <code>innerReferences</code> are optional further namespace references, though the last
-     * innerRefernce will always be a {@link de.uka.ipd.sdq.stoex.VariableReference
-     * VariableReference}. Combined they act as a namedReference association.<br>
-     * Note that it was an explicit design decision to refer to variable names instead of the actual
-     * variables (i.e., by referring to Parameter class).
+     * The <code>reference</code> refers to the namespace of the characterized
+     * variable. The <code>innerReferences</code> are optional further namespace
+     * references, though the last innerRefernce will always be a
+     * {@link de.uka.ipd.sdq.stoex.VariableReference VariableReference}. Combined
+     * they act as a namedReference association.<br>
+     * Note that it was an explicit design decision to refer to variable names
+     * instead of the actual variables (i.e., by referring to Parameter class).
      * <p>
      *
-     * @param reference
-     *            namespace reference of the characterized variable
-     * @param innerReferences
-     *            further namespace references and a variable reference of the characterized
-     *            variable
+     * @param reference       namespace reference of the characterized variable
+     * @param innerReferences further namespace references and a variable reference
+     *                        of the characterized variable
      * @return the variable usage in the making
      * @see de.uka.ipd.sdq.stoex.AbstractNamedReference
      */
@@ -181,8 +181,7 @@ public class VariableUsageCreator extends RepositoryEntity {
             varUsage.setNamedReference__VariableUsage(this.reference);
         }
 
-        varUsage.getVariableCharacterisation_VariableUsage()
-            .addAll(this.variableCharacterisations);
+        varUsage.getVariableCharacterisation_VariableUsage().addAll(this.variableCharacterisations);
 
         return varUsage;
     }

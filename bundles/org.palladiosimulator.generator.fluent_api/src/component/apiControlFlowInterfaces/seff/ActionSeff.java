@@ -17,11 +17,12 @@ public interface ActionSeff {
     /**
      * Creates a {@link org.palladiosimulator.pcm.seff.AcquireAction AcquireAction}.
      * <p>
-     * In an RDSEFF, component developers can specify an AcquireAction, which references a passive
-     * resource types. Once analysis tools execute this action, they decrease the amount of items
-     * available from the referenced passive resource type by one, if at least one item is
-     * available. If none item is available, because other, concurrently executed requests have
-     * acquired all of them, analysis tools enqueue the current request (first-come-first-serve
+     * In an RDSEFF, component developers can specify an AcquireAction, which
+     * references a passive resource types. Once analysis tools execute this action,
+     * they decrease the amount of items available from the referenced passive
+     * resource type by one, if at least one item is available. If none item is
+     * available, because other, concurrently executed requests have acquired all of
+     * them, analysis tools enqueue the current request (first-come-first-serve
      * scheduling policy) and block it's further execution.
      * </p>
      * <p>
@@ -53,19 +54,20 @@ public interface ActionSeff {
     /**
      * Creates a {@link org.palladiosimulator.pcm.seff.BranchAction BranchAction}.
      * <p>
-     * The BranchAction splits the RDSEFF control flow with an XOR-semantic, meaning that the
-     * control flow continues on exactly one of its attached AbstractBranchTransitions. The RDSEFF
-     * supports two different kinds of branch transitions, GuardedBranchTransitions, and
-     * ProbabilisticBranchTransitions. RDSEFFs do not allow to use both kinds of transitions on a
-     * single BranchAction.
+     * The BranchAction splits the RDSEFF control flow with an XOR-semantic, meaning
+     * that the control flow continues on exactly one of its attached
+     * AbstractBranchTransitions. The RDSEFF supports two different kinds of branch
+     * transitions, GuardedBranchTransitions, and ProbabilisticBranchTransitions.
+     * RDSEFFs do not allow to use both kinds of transitions on a single
+     * BranchAction.
      * </p>
      * <p>
      * Offers the specifying methods
      * {@link component.repositoryStructure.components.seff.BranchActionCreator#withGuardedBranchTransition(String, component.repositoryStructure.components.seff.SeffCreator, String)
      * withGuardedBranchTransition(String, SeffCreator, String)} and
      * {@link component.repositoryStructure.components.seff.BranchActionCreator#withProbabilisticBranchTransition(Double, component.repositoryStructure.components.seff.SeffCreator, String)
-     * withProbabilisticBranchTransition(Double, SeffCreator, String)}. Do not use both methods
-     * within the same branch action.
+     * withProbabilisticBranchTransition(Double, SeffCreator, String)}. Do not use
+     * both methods within the same branch action.
      * </p>
      *
      * @return the branch action in the making
@@ -116,11 +118,13 @@ public interface ActionSeff {
     public CollectionIteratorActionCreator collectionIteratorAction();
 
     /**
-     * Creates a {@link org.palladiosimulator.pcm.seff.EmitEventAction EmitEventAction}.
+     * Creates a {@link org.palladiosimulator.pcm.seff.EmitEventAction
+     * EmitEventAction}.
      * <p>
-     * EmitEventAction specifies when a component emits an event during its processing. The
-     * EmitEventAction defines which type of events are emitted, their characteristics and the
-     * SourceRole that triggered. Each EmitEventAction is limited to one type of events.
+     * EmitEventAction specifies when a component emits an event during its
+     * processing. The EmitEventAction defines which type of events are emitted,
+     * their characteristics and the SourceRole that triggered. Each EmitEventAction
+     * is limited to one type of events.
      * </p>
      * <p>
      * Offers the specifying methods
@@ -149,20 +153,24 @@ public interface ActionSeff {
     public EmitEventActionCreator emitEventAction();
 
     /**
-     * Creates an {@link org.palladiosimulator.pcm.seff.ExternalCallAction ExternalCallAction}.
+     * Creates an {@link org.palladiosimulator.pcm.seff.ExternalCallAction
+     * ExternalCallAction}.
      * <p>
-     * ExternalCallAction models the invocation of a service specified in a required interface.
-     * Therefore, it references a Role, from which the providing component can be derived, and a
-     * Signature to specify the called service. ExternalCallActions do not have resource demands by
-     * themselves. Component developers need to specify the resource demand of the called service in
-     * the RDSEFF of that service.<br>
-     * ExternalCallActions may contain two sets of VariableUsages specifying input parameter
-     * characterisations and output parameter characterisations respectively. VariableUsages for
-     * input parameters may only reference IN or INOUT parameters of the call's referenced
-     * signature. The random variable characterisation inside such a VariableUsage may be constants,
-     * probability distribution functions, or include a stochastic expression involving for example
-     * arithmetic operations. The latter models a dependency between the current service's own input
-     * parameters and the input parameters of the required service.
+     * ExternalCallAction models the invocation of a service specified in a required
+     * interface. Therefore, it references a Role, from which the providing
+     * component can be derived, and a Signature to specify the called service.
+     * ExternalCallActions do not have resource demands by themselves. Component
+     * developers need to specify the resource demand of the called service in the
+     * RDSEFF of that service.<br>
+     * ExternalCallActions may contain two sets of VariableUsages specifying input
+     * parameter characterisations and output parameter characterisations
+     * respectively. VariableUsages for input parameters may only reference IN or
+     * INOUT parameters of the call's referenced signature. The random variable
+     * characterisation inside such a VariableUsage may be constants, probability
+     * distribution functions, or include a stochastic expression involving for
+     * example arithmetic operations. The latter models a dependency between the
+     * current service's own input parameters and the input parameters of the
+     * required service.
      * </p>
      * <p>
      * Offers the specifying methods
@@ -189,9 +197,9 @@ public interface ActionSeff {
     /**
      * Creates a {@link org.palladiosimulator.pcm.seff.ForkAction ForkAction}.
      * <p>
-     * Fork Action Splits the RDSEFF control flow with an AND-semantic, meaning that it invokes
-     * several ForkedBehaviours concurrently. ForkActions allow both asynchronously and
-     * synchronously forked behaviours.
+     * Fork Action Splits the RDSEFF control flow with an AND-semantic, meaning that
+     * it invokes several ForkedBehaviours concurrently. ForkActions allow both
+     * asynchronously and synchronously forked behaviours.
      * </p>
      * <p>
      * Offers the specifying methods
@@ -220,16 +228,18 @@ public interface ActionSeff {
     public ForkActionCreator forkAction();
 
     /**
-     * Creates a {@link org.palladiosimulator.pcm.seff.InternalAction InternalAction}.
+     * Creates a {@link org.palladiosimulator.pcm.seff.InternalAction
+     * InternalAction}.
      * <p>
-     * Internal Action Combines the execution of a number of internal computations by a component
-     * service in a single model entity. It models calculations inside a component service, which do
-     * not include calls to required services.
+     * Internal Action Combines the execution of a number of internal computations
+     * by a component service in a single model entity. It models calculations
+     * inside a component service, which do not include calls to required services.
      * </p>
      * <p>
      * Offers the specifying method
      * {@link component.repositoryStructure.components.seff.InternalActionCreator#withInternalFailureOccurrenceDescription(Double, org.palladiosimulator.pcm.reliability.SoftwareInducedFailureType)
-     * withInternalFailureOccurrenceDescription(Double, SoftwareInducedFailureType)}.
+     * withInternalFailureOccurrenceDescription(Double,
+     * SoftwareInducedFailureType)}.
      * </p>
      *
      * @return the internal action in the making
@@ -249,7 +259,8 @@ public interface ActionSeff {
     public InternalActionCreator internalAction();
 
     /**
-     * Creates a {@link org.palladiosimulator.pcm.seff.InternalCallAction InternalCallAction}.
+     * Creates a {@link org.palladiosimulator.pcm.seff.InternalCallAction
+     * InternalCallAction}.
      * <p>
      * A "SubSEFF"-Action: Realizes an internal method call within a SEFF.
      * </p>
@@ -280,8 +291,9 @@ public interface ActionSeff {
     /**
      * Creates a {@link org.palladiosimulator.pcm.seff.LoopAction LoopAction}.
      * <p>
-     * Models the repeated execution of its inner ResourceDemandingBehaviour for the loop body. The
-     * number of repetitions is specified by a random variable evaluating to integer or an IntPMF.
+     * Models the repeated execution of its inner ResourceDemandingBehaviour for the
+     * loop body. The number of repetitions is specified by a random variable
+     * evaluating to integer or an IntPMF.
      * </p>
      * <p>
      * Offers the specifying methods
@@ -308,12 +320,14 @@ public interface ActionSeff {
     public LoopActionCreator loopAction();
 
     /**
-     * Creates a {@link org.palladiosimulator.pcm.seff.RecoveryAction RecoveryAction}.
+     * Creates a {@link org.palladiosimulator.pcm.seff.RecoveryAction
+     * RecoveryAction}.
      * <p>
-     * Recover block actions are a generic failure handling technique. A recovery block consists of
-     * a a primary algorithm and one or more alternatives that can be used in case of failure. If
-     * the primary algorithm fails, the next alternative is chosen. Here the alternatives also
-     * support failure types. Alternatives may specify which kind of failures they can handle.
+     * Recover block actions are a generic failure handling technique. A recovery
+     * block consists of a a primary algorithm and one or more alternatives that can
+     * be used in case of failure. If the primary algorithm fails, the next
+     * alternative is chosen. Here the alternatives also support failure types.
+     * Alternatives may specify which kind of failures they can handle.
      * </p>
      * <p>
      * Offers the specifying methods
@@ -342,10 +356,11 @@ public interface ActionSeff {
     /**
      * Creates a {@link org.palladiosimulator.pcm.seff.ReleaseAction ReleaseAction}.
      * <p>
-     * The ReleaseAction increases the number of available item for the given passive resource type,
-     * before the current request can continue. It should be to execute by one of the other
-     * concurrent requests. Acquisition and release of passive resources happen instantaneously and
-     * do not consume any time except for waiting delays before actual acquisition.
+     * The ReleaseAction increases the number of available item for the given
+     * passive resource type, before the current request can continue. It should be
+     * to execute by one of the other concurrent requests. Acquisition and release
+     * of passive resources happen instantaneously and do not consume any time
+     * except for waiting delays before actual acquisition.
      * </p>
      * <p>
      * Offers the specifying method
@@ -370,8 +385,9 @@ public interface ActionSeff {
     public ReleaseActionCreator releaseAction();
 
     /**
-     * Creates a {@link org.palladiosimulator.pcm.seff.SetVariableAction SetVariableAction}.
-     * Requires that the service this SEFF is describing has a return type and sets its value.
+     * Creates a {@link org.palladiosimulator.pcm.seff.SetVariableAction
+     * SetVariableAction}. Requires that the service this SEFF is describing has a
+     * return type and sets its value.
      * <p>
      * Offers the specifying method
      * {@link component.repositoryStructure.components.seff.SetVariableActionCreator#withLocalVariableUsage(component.repositoryStructure.components.VariableUsageCreator)
@@ -400,7 +416,8 @@ public interface ActionSeff {
      * StopActions end a scenario behaviour and contain only a predecessor.
      * </p>
      * <p>
-     * Call on {@link component.apiControlFlowInterfaces.seff.StopSeff#createBehaviourNow()
+     * Call on
+     * {@link component.apiControlFlowInterfaces.seff.StopSeff#createBehaviourNow()
      * createBehaviourNow()} to finish the SEFF/behaviour creation.
      * </p>
      *

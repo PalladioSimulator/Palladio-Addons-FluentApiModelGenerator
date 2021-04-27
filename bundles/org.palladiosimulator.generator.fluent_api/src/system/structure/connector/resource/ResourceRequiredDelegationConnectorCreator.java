@@ -15,7 +15,6 @@ import system.structure.SystemCreator;
  * ResourceRequiredDelegationConnector}.
  *
  * @author Florian Krone
- *
  * @see org.palladiosimulator.pcm.core.composition.ResourceRequiredDelegationConnector
  */
 public class ResourceRequiredDelegationConnectorCreator {
@@ -31,10 +30,9 @@ public class ResourceRequiredDelegationConnectorCreator {
     /**
      * Defines the {@link org.palladiosimulator.pcm.core.entity.ResourceRequiredRole
      * ResourceRequiredRole} of the system, delegated to an AssemblyContext.
-     * 
+     *
      * @param role
      * @return this connector
-     * 
      * @see org.palladiosimulator.pcm.core.entity.ResourceRequiredRole
      */
     public ResourceRequiredDelegationConnectorCreator withOuterRequiredRole(final ResourceRequiredRole role) {
@@ -45,14 +43,13 @@ public class ResourceRequiredDelegationConnectorCreator {
 
     /**
      * Defines the {@link org.palladiosimulator.pcm.core.entity.ResourceRequiredRole
-     * ResourceRequiredRole} of the system, delegated to an AssemblyContext. The required roles
-     * added to the system are searched for one that matches the given name.
-     * 
+     * ResourceRequiredRole} of the system, delegated to an AssemblyContext. The
+     * required roles added to the system are searched for one that matches the
+     * given name.
+     *
      * @param role
      * @return this connector
-     * @throws NoSuchElementException
-     *             Thrown if no element matches the given name.
-     * 
+     * @throws NoSuchElementException Thrown if no element matches the given name.
      * @see org.palladiosimulator.pcm.core.entity.ResourceRequiredRole
      */
     public ResourceRequiredDelegationConnectorCreator withOuterRequiredRole(final String name)
@@ -64,10 +61,9 @@ public class ResourceRequiredDelegationConnectorCreator {
     /**
      * Defines the {@link org.palladiosimulator.pcm.core.entity.ResourceRequiredRole
      * ResourceRequiredRole} required by an assembly context.
-     * 
+     *
      * @param role
      * @return this connector
-     * 
      * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
      * @see org.palladiosimulator.pcm.core.entity.ResourceRequiredRole
      */
@@ -79,14 +75,13 @@ public class ResourceRequiredDelegationConnectorCreator {
 
     /**
      * Defines the {@link org.palladiosimulator.pcm.core.entity.ResourceRequiredRole
-     * ResourceRequiredRole} required by an assembly context. All assembly contexts added to the
-     * system are searched for a resource required role that matches the given name.
-     * 
+     * ResourceRequiredRole} required by an assembly context. All assembly contexts
+     * added to the system are searched for a resource required role that matches
+     * the given name.
+     *
      * @param role
      * @return this connector
-     * @throws NoSuchElementException
-     *             Thrown if no element matches the given name.
-     * 
+     * @throws NoSuchElementException Thrown if no element matches the given name.
      * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
      * @see org.palladiosimulator.pcm.core.entity.ResourceRequiredRole
      */
@@ -97,7 +92,7 @@ public class ResourceRequiredDelegationConnectorCreator {
 
     public ResourceRequiredDelegationConnector build() {
         final ResourceRequiredDelegationConnector connector = CompositionFactory.eINSTANCE
-            .createResourceRequiredDelegationConnector();
+                .createResourceRequiredDelegationConnector();
         connector.setOuterResourceRequiredRole_ResourceRequiredDelegationConnector(this.outerRequiredRole);
         connector.setInnerResourceRequiredRole_ResourceRequiredDelegationConnector(this.innerRequiredRole);
         return connector;

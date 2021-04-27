@@ -16,9 +16,8 @@ import shared.structure.SchedulingPolicies;
  * This class constructs a
  * {@link org.palladiosimulator.pcm.resourceenvironment.HDDProcessingResourceSpecification
  * HddProcessingResourceSpecification}.
- * 
- * @author Florian Krone
  *
+ * @author Florian Krone
  * @see org.palladiosimulator.pcm.resourceenvironment.HDDProcessingResourceSpecification
  */
 public class HddProcessingResourceSpecificationCreator {
@@ -41,10 +40,9 @@ public class HddProcessingResourceSpecificationCreator {
      * Defines the Mttr of the
      * {@link org.palladiosimulator.pcm.resourceenvironment.HDDProcessingResourceSpecification
      * HDDProcessingResourceSpecification}.
-     * 
+     *
      * @param mttr
      * @return this <code>HddProcessingResourceSpecification</code>
-     * 
      * @see org.palladiosimulator.pcm.resourceenvironment.HDDProcessingResourceSpecification
      * @see org.palladiosimulator.pcm.resourceenvironment.ProcessingResourceSpecification
      */
@@ -57,10 +55,9 @@ public class HddProcessingResourceSpecificationCreator {
      * Defines the Mttf of the
      * {@link org.palladiosimulator.pcm.resourceenvironment.HDDProcessingResourceSpecification
      * HDDProcessingResourceSpecification}.
-     * 
+     *
      * @param mttf
      * @return this <code>HddProcessingResourceSpecification</code>
-     * 
      * @see org.palladiosimulator.pcm.resourceenvironment.HDDProcessingResourceSpecification
      * @see org.palladiosimulator.pcm.resourceenvironment.ProcessingResourceSpecification
      */
@@ -73,10 +70,9 @@ public class HddProcessingResourceSpecificationCreator {
      * Defines the number of replicas of the
      * {@link org.palladiosimulator.pcm.resourceenvironment.HDDProcessingResourceSpecification
      * HDDProcessingResourceSpecification}.
-     * 
+     *
      * @param numberOfReplicas
      * @return this <code>HddProcessingResourceSpecification</code>
-     * 
      * @see org.palladiosimulator.pcm.resourceenvironment.HDDProcessingResourceSpecification
      * @see org.palladiosimulator.pcm.resourceenvironment.ProcessingResourceSpecification
      */
@@ -89,10 +85,10 @@ public class HddProcessingResourceSpecificationCreator {
      * Sets the
      * {@link org.palladiosimulator.pcm.resourceenvironment.HDDProcessingResourceSpecification
      * HDDProcessingResourceSpecification} to be required by the
-     * {@link org.palladiosimulator.pcm.resourceenvironment.ResourceContainer ResourceContainer}.
-     * 
+     * {@link org.palladiosimulator.pcm.resourceenvironment.ResourceContainer
+     * ResourceContainer}.
+     *
      * @return this <code>HddProcessingResourceSpecification</code>
-     * 
      * @see org.palladiosimulator.pcm.resourceenvironment.HDDProcessingResourceSpecification
      * @see org.palladiosimulator.pcm.resourceenvironment.ProcessingResourceSpecification
      */
@@ -105,10 +101,9 @@ public class HddProcessingResourceSpecificationCreator {
      * Defines the scheduling policy of the
      * {@link org.palladiosimulator.pcm.resourceenvironment.HDDProcessingResourceSpecification
      * HDDProcessingResourceSpecification}.
-     * 
+     *
      * @param policy
      * @return this <code>HddProcessingResourceSpecification</code>
-     * 
      * @see org.palladiosimulator.pcm.resourceenvironment.HDDProcessingResourceSpecification
      * @see org.palladiosimulator.pcm.resourceenvironment.ProcessingResourceSpecification
      */
@@ -121,10 +116,9 @@ public class HddProcessingResourceSpecificationCreator {
      * Defines the processing resource of the
      * {@link org.palladiosimulator.pcm.resourceenvironment.HDDProcessingResourceSpecification
      * HDDProcessingResourceSpecification}.
-     * 
+     *
      * @param resource
      * @return this <code>HddProcessingResourceSpecification</code>
-     * 
      * @see org.palladiosimulator.pcm.resourceenvironment.HDDProcessingResourceSpecification
      * @see org.palladiosimulator.pcm.resourceenvironment.ProcessingResourceSpecification
      */
@@ -137,10 +131,9 @@ public class HddProcessingResourceSpecificationCreator {
      * Defines the processing rate of the
      * {@link org.palladiosimulator.pcm.resourceenvironment.HDDProcessingResourceSpecification
      * HDDProcessingResourceSpecification}.
-     * 
+     *
      * @param processingRate
      * @return this <code>HddProcessingResourceSpecification</code>
-     * 
      * @see org.palladiosimulator.pcm.resourceenvironment.HDDProcessingResourceSpecification
      * @see org.palladiosimulator.pcm.resourceenvironment.ProcessingResourceSpecification
      */
@@ -156,10 +149,9 @@ public class HddProcessingResourceSpecificationCreator {
      * Defines the write processing rate of the
      * {@link org.palladiosimulator.pcm.resourceenvironment.HDDProcessingResourceSpecification
      * HDDProcessingResourceSpecification}.
-     * 
+     *
      * @param writeProcessingRate
      * @return this <code>HddProcessingResourceSpecification</code>
-     * 
      * @see org.palladiosimulator.pcm.resourceenvironment.HDDProcessingResourceSpecification
      */
     public HddProcessingResourceSpecificationCreator withWriteProcessingRate(final String writeProcessingRate) {
@@ -174,10 +166,9 @@ public class HddProcessingResourceSpecificationCreator {
      * Defines the read processing rate of the
      * {@link org.palladiosimulator.pcm.resourceenvironment.HDDProcessingResourceSpecification
      * HDDProcessingResourceSpecification}.
-     * 
+     *
      * @param readProcessingRate
      * @return this <code>HddProcessingResourceSpecification</code>
-     * 
      * @see org.palladiosimulator.pcm.resourceenvironment.HDDProcessingResourceSpecification
      */
     public HddProcessingResourceSpecificationCreator withReadProcessingRate(final String readProcessingRate) {
@@ -192,12 +183,12 @@ public class HddProcessingResourceSpecificationCreator {
      * Turns the HDDProcessingResourceSpecification in the making into a finished
      * {@link org.palladiosimulator.pcm.resourceenvironment.HDDProcessingResourceSpecification
      * HDDProcessingResourceSpecification}.
-     * 
+     *
      * @return the finished HDDProcessingResourceSpecification
      */
     public HDDProcessingResourceSpecification build() {
         final HDDProcessingResourceSpecification prs = ResourceenvironmentFactory.eINSTANCE
-            .createHDDProcessingResourceSpecification();
+                .createHDDProcessingResourceSpecification();
         prs.setMTTR(this.mttr);
         prs.setMTTF(this.mttf);
         prs.setNumberOfReplicas(this.numberOfReplicas);

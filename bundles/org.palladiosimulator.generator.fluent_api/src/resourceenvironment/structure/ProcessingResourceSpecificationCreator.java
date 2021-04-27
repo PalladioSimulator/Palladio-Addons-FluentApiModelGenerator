@@ -16,9 +16,8 @@ import shared.structure.SchedulingPolicies;
  * This class constructs a
  * {@link org.palladiosimulator.pcm.resourceenvironment.ProcessingResourceSpecification
  * ProcessingResourceSpecification}.
- * 
- * @author Florian Krone
  *
+ * @author Florian Krone
  * @see org.palladiosimulator.pcm.resourceenvironment.ProcessingResourceSpecification
  */
 public class ProcessingResourceSpecificationCreator {
@@ -39,10 +38,9 @@ public class ProcessingResourceSpecificationCreator {
      * Defines the Mttr of the
      * {@link org.palladiosimulator.pcm.resourceenvironment.ProcessingResourceSpecification
      * ProcessingResourceSpecification}.
-     * 
+     *
      * @param mttr
      * @return this <code>ProcessingResourceSpecification</code>
-     * 
      * @see org.palladiosimulator.pcm.resourceenvironment.ProcessingResourceSpecification
      */
     public ProcessingResourceSpecificationCreator withMttr(final double mttr) {
@@ -54,10 +52,9 @@ public class ProcessingResourceSpecificationCreator {
      * Defines the Mttf of the
      * {@link org.palladiosimulator.pcm.resourceenvironment.ProcessingResourceSpecification
      * ProcessingResourceSpecification}.
-     * 
+     *
      * @param mttf
      * @return this <code>ProcessingResourceSpecification</code>
-     * 
      * @see org.palladiosimulator.pcm.resourceenvironment.ProcessingResourceSpecification
      */
     public ProcessingResourceSpecificationCreator withMttf(final double mttf) {
@@ -69,10 +66,9 @@ public class ProcessingResourceSpecificationCreator {
      * Defines the number of replicas of the
      * {@link org.palladiosimulator.pcm.resourceenvironment.ProcessingResourceSpecification
      * ProcessingResourceSpecification}.
-     * 
+     *
      * @param numberOfReplicas
      * @return this <code>ProcessingResourceSpecification</code>
-     * 
      * @see org.palladiosimulator.pcm.resourceenvironment.ProcessingResourceSpecification
      */
     public ProcessingResourceSpecificationCreator withNumberOfReplicas(final int numberOfReplicas) {
@@ -81,12 +77,13 @@ public class ProcessingResourceSpecificationCreator {
     }
 
     /**
-     * Sets the {@link org.palladiosimulator.pcm.resourceenvironment.ProcessingResourceSpecification
+     * Sets the
+     * {@link org.palladiosimulator.pcm.resourceenvironment.ProcessingResourceSpecification
      * ProcessingResourceSpecification} to be required by the
-     * {@link org.palladiosimulator.pcm.resourceenvironment.ResourceContainer ResourceContainer}.
-     * 
+     * {@link org.palladiosimulator.pcm.resourceenvironment.ResourceContainer
+     * ResourceContainer}.
+     *
      * @return this <code>ProcessingResourceSpecification</code>
-     * 
      * @see org.palladiosimulator.pcm.resourceenvironment.ProcessingResourceSpecification
      */
     public ProcessingResourceSpecificationCreator isRequiredByContainer() {
@@ -98,10 +95,9 @@ public class ProcessingResourceSpecificationCreator {
      * Defines the scheduling policy of the
      * {@link org.palladiosimulator.pcm.resourceenvironment.ProcessingResourceSpecification
      * ProcessingResourceSpecification}.
-     * 
+     *
      * @param policy
      * @return this <code>ProcessingResourceSpecification</code>
-     * 
      * @see org.palladiosimulator.pcm.resourceenvironment.ProcessingResourceSpecification
      */
     public ProcessingResourceSpecificationCreator withSchedulingPolicy(final SchedulingPolicies policy) {
@@ -113,10 +109,9 @@ public class ProcessingResourceSpecificationCreator {
      * Defines the processing resource of the
      * {@link org.palladiosimulator.pcm.resourceenvironment.ProcessingResourceSpecification
      * ProcessingResourceSpecification}.
-     * 
+     *
      * @param resource
      * @return this <code>ProcessingResourceSpecification</code>
-     * 
      * @see org.palladiosimulator.pcm.resourceenvironment.ProcessingResourceSpecification
      */
     public ProcessingResourceSpecificationCreator withProcessingResourceType(final ProcessingResource resource) {
@@ -128,10 +123,9 @@ public class ProcessingResourceSpecificationCreator {
      * Defines the processing rate of the
      * {@link org.palladiosimulator.pcm.resourceenvironment.ProcessingResourceSpecification
      * ProcessingResourceSpecification}.
-     * 
+     *
      * @param processingRate
      * @return this <code>ProcessingResourceSpecification</code>
-     * 
      * @see org.palladiosimulator.pcm.resourceenvironment.ProcessingResourceSpecification
      */
     public ProcessingResourceSpecificationCreator withProcessingRate(final String processingRate) {
@@ -146,12 +140,12 @@ public class ProcessingResourceSpecificationCreator {
      * Turns the ProcessingResourceSpecification in the making into a finished
      * {@link org.palladiosimulator.pcm.resourceenvironment.ProcessingResourceSpecification
      * ProcessingResourceSpecification}.
-     * 
+     *
      * @return the finished ProcessingResourceSpecification
      */
     public ProcessingResourceSpecification build() {
         final ProcessingResourceSpecification prs = ResourceenvironmentFactory.eINSTANCE
-            .createProcessingResourceSpecification();
+                .createProcessingResourceSpecification();
         prs.setMTTR(this.mttr);
         prs.setMTTF(this.mttf);
         prs.setNumberOfReplicas(this.numberOfReplicas);
