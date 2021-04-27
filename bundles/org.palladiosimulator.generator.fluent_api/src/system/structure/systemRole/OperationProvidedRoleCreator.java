@@ -54,7 +54,7 @@ public class OperationProvidedRoleCreator extends SystemEntity {
         OperationInterface requiredInterface;
         try {
             requiredInterface = (OperationInterface) this.system.getInterfaceByName(name);
-        } catch (ClassCastException e) {
+        } catch (final ClassCastException e) {
             throw new NoSuchElementException(
                     String.format("An Interface with name '%s' was found, but it was not an OperationInterface. "
                             + "Please make sure all names are unique.", name));

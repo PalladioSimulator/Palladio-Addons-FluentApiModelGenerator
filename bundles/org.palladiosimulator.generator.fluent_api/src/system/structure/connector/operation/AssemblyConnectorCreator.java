@@ -11,7 +11,6 @@ import org.palladiosimulator.pcm.repository.OperationRequiredRole;
 
 import system.structure.SystemCreator;
 import system.structure.connector.AbstractConnectorCreator;
-import system.structure.connector.IContextRoleCombinator;
 
 /**
  * This class constructs an
@@ -43,17 +42,12 @@ public class AssemblyConnectorCreator extends AbstractConnectorCreator {
     public OperationRequiredRoleSelector<AssemblyConnectorCreator> withRequiringAssemblyContext(
             final AssemblyContext context) {
         Objects.requireNonNull(context, "The given AssemblyContext must not be null.");
-        return new OperationRequiredRoleSelector<AssemblyConnectorCreator>(
-                new IContextRoleCombinator<OperationRequiredRole, AssemblyConnectorCreator>() {
-
-                    @Override
-                    public AssemblyConnectorCreator combineContextAndRole(final AssemblyContext reqContext,
-                            final OperationRequiredRole role) {
-                        AssemblyConnectorCreator.this.requiringContext = reqContext;
-                        AssemblyConnectorCreator.this.requiredRole = role;
-                        return AssemblyConnectorCreator.this;
-                    }
-                }, context);
+        return new OperationRequiredRoleSelector<>(
+                (reqContext, role) -> {
+                  AssemblyConnectorCreator.this.requiringContext = reqContext;
+                  AssemblyConnectorCreator.this.requiredRole = role;
+                  return AssemblyConnectorCreator.this;
+               }, context);
     }
 
     /**
@@ -83,17 +77,12 @@ public class AssemblyConnectorCreator extends AbstractConnectorCreator {
     public OperationProvidedRoleSelector<AssemblyConnectorCreator> withProvidingAssemblyContext(
             final AssemblyContext context) {
         Objects.requireNonNull(context, "The given AssemblyContext must not be null.");
-        return new OperationProvidedRoleSelector<AssemblyConnectorCreator>(
-                new IContextRoleCombinator<OperationProvidedRole, AssemblyConnectorCreator>() {
-
-                    @Override
-                    public AssemblyConnectorCreator combineContextAndRole(final AssemblyContext provContext,
-                            final OperationProvidedRole role) {
-                        AssemblyConnectorCreator.this.providingContext = provContext;
-                        AssemblyConnectorCreator.this.providedRole = role;
-                        return AssemblyConnectorCreator.this;
-                    }
-                }, context);
+        return new OperationProvidedRoleSelector<>(
+                (provContext, role) -> {
+                  AssemblyConnectorCreator.this.providingContext = provContext;
+                  AssemblyConnectorCreator.this.providedRole = role;
+                  return AssemblyConnectorCreator.this;
+               }, context);
     }
 
     /**

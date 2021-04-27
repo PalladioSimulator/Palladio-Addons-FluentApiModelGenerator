@@ -13,7 +13,7 @@ public interface InternalSeff {
      *
      * @return the start action in the making
      */
-    public StartActionCreator withStartAction();
+    StartActionCreator withStartAction();
 
     ResourceDemandingInternalBehaviour buildInternalBehaviour();
 

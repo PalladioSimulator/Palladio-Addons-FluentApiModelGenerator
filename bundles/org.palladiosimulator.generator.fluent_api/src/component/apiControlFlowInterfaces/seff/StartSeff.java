@@ -15,6 +15,6 @@ public interface StartSeff {
      *
      * @return the start action in the making
      */
-    public StartActionCreator withStartAction();
+    StartActionCreator withStartAction();
 
 }

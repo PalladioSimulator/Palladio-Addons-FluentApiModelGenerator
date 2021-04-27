@@ -11,7 +11,6 @@ import org.palladiosimulator.pcm.repository.InfrastructureRequiredRole;
 
 import system.structure.SystemCreator;
 import system.structure.connector.AbstractConnectorCreator;
-import system.structure.connector.IContextRoleCombinator;
 
 /**
  * This class constructs an
@@ -44,17 +43,12 @@ public class AssemblyInfrastructureConnectorCreator extends AbstractConnectorCre
     public InfrastructureRequiredRoleSelector<AssemblyInfrastructureConnectorCreator> withRequiringAssemblyContext(
             final AssemblyContext context) {
         Objects.requireNonNull(context, "The given AssemblyContext must not be null.");
-        return new InfrastructureRequiredRoleSelector<AssemblyInfrastructureConnectorCreator>(
-                new IContextRoleCombinator<InfrastructureRequiredRole, AssemblyInfrastructureConnectorCreator>() {
-
-                    @Override
-                    public AssemblyInfrastructureConnectorCreator combineContextAndRole(
-                            final AssemblyContext reqContext, final InfrastructureRequiredRole role) {
-                        AssemblyInfrastructureConnectorCreator.this.requiringContext = reqContext;
-                        AssemblyInfrastructureConnectorCreator.this.requiredRole = role;
-                        return AssemblyInfrastructureConnectorCreator.this;
-                    }
-                }, context);
+        return new InfrastructureRequiredRoleSelector<>(
+                (reqContext, role) -> {
+                  AssemblyInfrastructureConnectorCreator.this.requiringContext = reqContext;
+                  AssemblyInfrastructureConnectorCreator.this.requiredRole = role;
+                  return AssemblyInfrastructureConnectorCreator.this;
+               }, context);
     }
 
     /**
@@ -87,17 +81,12 @@ public class AssemblyInfrastructureConnectorCreator extends AbstractConnectorCre
             final AssemblyContext context) {
         Objects.requireNonNull(context, "The given AssemblyContext must not be null.");
         final var creator = this;
-        return new InfrastructureProvidedRoleSelector<AssemblyInfrastructureConnectorCreator>(
-                new IContextRoleCombinator<InfrastructureProvidedRole, AssemblyInfrastructureConnectorCreator>() {
-
-                    @Override
-                    public AssemblyInfrastructureConnectorCreator combineContextAndRole(
-                            final AssemblyContext provContext, final InfrastructureProvidedRole role) {
-                        AssemblyInfrastructureConnectorCreator.this.providingContext = provContext;
-                        AssemblyInfrastructureConnectorCreator.this.providedRole = role;
-                        return creator;
-                    }
-                }, context);
+        return new InfrastructureProvidedRoleSelector<>(
+                (provContext, role) -> {
+                  AssemblyInfrastructureConnectorCreator.this.providingContext = provContext;
+                  AssemblyInfrastructureConnectorCreator.this.providedRole = role;
+                  return creator;
+               }, context);
     }
 
     /**

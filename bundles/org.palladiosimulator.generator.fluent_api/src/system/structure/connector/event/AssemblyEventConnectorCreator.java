@@ -11,7 +11,6 @@ import org.palladiosimulator.pcm.repository.SourceRole;
 
 import system.structure.SystemCreator;
 import system.structure.connector.AbstractConnectorCreator;
-import system.structure.connector.IContextRoleCombinator;
 
 /**
  * This class constructs an
@@ -43,17 +42,12 @@ public class AssemblyEventConnectorCreator extends AbstractConnectorCreator {
      */
     public SourceRoleSelector<AssemblyEventConnectorCreator> withSourceAssemblyContext(final AssemblyContext context) {
         Objects.requireNonNull(context, "The given AssemblyContext must not be null.");
-        return new SourceRoleSelector<AssemblyEventConnectorCreator>(
-                new IContextRoleCombinator<SourceRole, AssemblyEventConnectorCreator>() {
-
-                    @Override
-                    public AssemblyEventConnectorCreator combineContextAndRole(final AssemblyContext context,
-                            final SourceRole role) {
-                        AssemblyEventConnectorCreator.this.sourceContext = context;
-                        AssemblyEventConnectorCreator.this.sourceRole = role;
-                        return AssemblyEventConnectorCreator.this;
-                    }
-                }, context);
+        return new SourceRoleSelector<>(
+                (context1, role) -> {
+                  AssemblyEventConnectorCreator.this.sourceContext = context1;
+                  AssemblyEventConnectorCreator.this.sourceRole = role;
+                  return AssemblyEventConnectorCreator.this;
+               }, context);
     }
 
     /**
@@ -84,17 +78,12 @@ public class AssemblyEventConnectorCreator extends AbstractConnectorCreator {
      */
     public SinkRoleSelector<AssemblyEventConnectorCreator> withSinkAssemblyContext(final AssemblyContext context) {
         Objects.requireNonNull(context, "The given AssemblyContext must not be null.");
-        return new SinkRoleSelector<AssemblyEventConnectorCreator>(
-                new IContextRoleCombinator<SinkRole, AssemblyEventConnectorCreator>() {
-
-                    @Override
-                    public AssemblyEventConnectorCreator combineContextAndRole(final AssemblyContext context,
-                            final SinkRole role) {
-                        AssemblyEventConnectorCreator.this.sinkContext = context;
-                        AssemblyEventConnectorCreator.this.sinkRole = role;
-                        return AssemblyEventConnectorCreator.this;
-                    }
-                }, context);
+        return new SinkRoleSelector<>(
+                (context1, role) -> {
+                  AssemblyEventConnectorCreator.this.sinkContext = context1;
+                  AssemblyEventConnectorCreator.this.sinkRole = role;
+                  return AssemblyEventConnectorCreator.this;
+               }, context);
     }
 
     /**

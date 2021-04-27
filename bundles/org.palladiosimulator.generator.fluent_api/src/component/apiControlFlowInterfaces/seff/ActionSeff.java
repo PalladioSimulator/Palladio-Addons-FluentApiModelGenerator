@@ -49,7 +49,7 @@ public interface ActionSeff {
      *      org.palladiosimulator.pcm.repository.InfrastructureRequiredRole,
      *      component.repositoryStructure.components.VariableUsageCreator...)
      */
-    public AcquireActionCreator acquireAction();
+    AcquireActionCreator acquireAction();
 
     /**
      * Creates a {@link org.palladiosimulator.pcm.seff.BranchAction BranchAction}.
@@ -84,7 +84,7 @@ public interface ActionSeff {
      *      org.palladiosimulator.pcm.repository.InfrastructureRequiredRole,
      *      component.repositoryStructure.components.VariableUsageCreator...)
      */
-    public BranchActionCreator branchAction();
+    BranchActionCreator branchAction();
 
     /**
      * Creates a {@link org.palladiosimulator.pcm.seff.CollectionIteratorAction
@@ -115,7 +115,7 @@ public interface ActionSeff {
      *      org.palladiosimulator.pcm.repository.InfrastructureRequiredRole,
      *      component.repositoryStructure.components.VariableUsageCreator...)
      */
-    public CollectionIteratorActionCreator collectionIteratorAction();
+    CollectionIteratorActionCreator collectionIteratorAction();
 
     /**
      * Creates a {@link org.palladiosimulator.pcm.seff.EmitEventAction
@@ -150,7 +150,7 @@ public interface ActionSeff {
      *      org.palladiosimulator.pcm.repository.InfrastructureRequiredRole,
      *      component.repositoryStructure.components.VariableUsageCreator...)
      */
-    public EmitEventActionCreator emitEventAction();
+    EmitEventActionCreator emitEventAction();
 
     /**
      * Creates an {@link org.palladiosimulator.pcm.seff.ExternalCallAction
@@ -192,7 +192,7 @@ public interface ActionSeff {
      * @see component.repositoryStructure.components.seff.ExternalCallActionCreator#withName(String)
      * @see component.repositoryStructure.components.seff.ExternalCallActionCreator#followedBy()
      */
-    public ExternalCallActionCreator externalCallAction();
+    ExternalCallActionCreator externalCallAction();
 
     /**
      * Creates a {@link org.palladiosimulator.pcm.seff.ForkAction ForkAction}.
@@ -225,7 +225,7 @@ public interface ActionSeff {
      *      org.palladiosimulator.pcm.repository.InfrastructureRequiredRole,
      *      component.repositoryStructure.components.VariableUsageCreator...)
      */
-    public ForkActionCreator forkAction();
+    ForkActionCreator forkAction();
 
     /**
      * Creates a {@link org.palladiosimulator.pcm.seff.InternalAction
@@ -256,7 +256,7 @@ public interface ActionSeff {
      *      org.palladiosimulator.pcm.repository.InfrastructureRequiredRole,
      *      component.repositoryStructure.components.VariableUsageCreator...)
      */
-    public InternalActionCreator internalAction();
+    InternalActionCreator internalAction();
 
     /**
      * Creates a {@link org.palladiosimulator.pcm.seff.InternalCallAction
@@ -286,7 +286,7 @@ public interface ActionSeff {
      *      org.palladiosimulator.pcm.repository.InfrastructureRequiredRole,
      *      component.repositoryStructure.components.VariableUsageCreator...)
      */
-    public InternalCallActionCreator internalCallAction();
+    InternalCallActionCreator internalCallAction();
 
     /**
      * Creates a {@link org.palladiosimulator.pcm.seff.LoopAction LoopAction}.
@@ -317,7 +317,7 @@ public interface ActionSeff {
      *      org.palladiosimulator.pcm.repository.InfrastructureRequiredRole,
      *      component.repositoryStructure.components.VariableUsageCreator...)
      */
-    public LoopActionCreator loopAction();
+    LoopActionCreator loopAction();
 
     /**
      * Creates a {@link org.palladiosimulator.pcm.seff.RecoveryAction
@@ -351,7 +351,7 @@ public interface ActionSeff {
      *      org.palladiosimulator.pcm.repository.InfrastructureRequiredRole,
      *      component.repositoryStructure.components.VariableUsageCreator...)
      */
-    public RecoveryActionCreator recoveryAction();
+    RecoveryActionCreator recoveryAction();
 
     /**
      * Creates a {@link org.palladiosimulator.pcm.seff.ReleaseAction ReleaseAction}.
@@ -382,7 +382,7 @@ public interface ActionSeff {
      *      org.palladiosimulator.pcm.repository.InfrastructureRequiredRole,
      *      component.repositoryStructure.components.VariableUsageCreator...)
      */
-    public ReleaseActionCreator releaseAction();
+    ReleaseActionCreator releaseAction();
 
     /**
      * Creates a {@link org.palladiosimulator.pcm.seff.SetVariableAction
@@ -408,7 +408,7 @@ public interface ActionSeff {
      *      org.palladiosimulator.pcm.repository.InfrastructureRequiredRole,
      *      component.repositoryStructure.components.VariableUsageCreator...)
      */
-    public SetVariableActionCreator setVariableAction();
+    SetVariableActionCreator setVariableAction();
 
     /**
      * Creates a {@link org.palladiosimulator.pcm.seff.StopAction StopAction}.
@@ -434,5 +434,5 @@ public interface ActionSeff {
      *      org.palladiosimulator.pcm.repository.InfrastructureRequiredRole,
      *      component.repositoryStructure.components.VariableUsageCreator...)
      */
-    public StopSeff stopAction();
+    StopSeff stopAction();
 }

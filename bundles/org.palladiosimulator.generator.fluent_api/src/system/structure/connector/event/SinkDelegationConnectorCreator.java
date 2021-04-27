@@ -10,7 +10,6 @@ import org.palladiosimulator.pcm.repository.SinkRole;
 
 import system.structure.SystemCreator;
 import system.structure.connector.AbstractConnectorCreator;
-import system.structure.connector.IContextRoleCombinator;
 
 /**
  * This class constructs a
@@ -69,17 +68,12 @@ public class SinkDelegationConnectorCreator extends AbstractConnectorCreator {
      */
     public SinkRoleSelector<SinkDelegationConnectorCreator> withAssemblyContext(final AssemblyContext context) {
         Objects.requireNonNull(context, "The given AssemblyContext must not be null.");
-        return new SinkRoleSelector<SinkDelegationConnectorCreator>(
-                new IContextRoleCombinator<SinkRole, SinkDelegationConnectorCreator>() {
-
-                    @Override
-                    public SinkDelegationConnectorCreator combineContextAndRole(final AssemblyContext context,
-                            final SinkRole role) {
-                        SinkDelegationConnectorCreator.this.assemblyContext = context;
-                        SinkDelegationConnectorCreator.this.innerRole = role;
-                        return SinkDelegationConnectorCreator.this;
-                    }
-                }, context);
+        return new SinkRoleSelector<>(
+                (context1, role) -> {
+                  SinkDelegationConnectorCreator.this.assemblyContext = context1;
+                  SinkDelegationConnectorCreator.this.innerRole = role;
+                  return SinkDelegationConnectorCreator.this;
+               }, context);
     }
 
     /**

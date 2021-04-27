@@ -9,7 +9,6 @@ import org.palladiosimulator.pcm.repository.InfrastructureRequiredRole;
 
 import system.structure.SystemCreator;
 import system.structure.connector.AbstractConnectorCreator;
-import system.structure.connector.IContextRoleCombinator;
 
 /**
  * This class constructs a
@@ -72,17 +71,12 @@ public class RequiredInfrastructureDelegationConnectorCreator extends AbstractCo
      */
     public InfrastructureRequiredRoleSelector<RequiredInfrastructureDelegationConnectorCreator> withRequiringContext(
             final AssemblyContext context) {
-        return new InfrastructureRequiredRoleSelector<RequiredInfrastructureDelegationConnectorCreator>(
-                new IContextRoleCombinator<InfrastructureRequiredRole, RequiredInfrastructureDelegationConnectorCreator>() {
-
-                    @Override
-                    public RequiredInfrastructureDelegationConnectorCreator combineContextAndRole(
-                            final AssemblyContext context, final InfrastructureRequiredRole role) {
-                        RequiredInfrastructureDelegationConnectorCreator.this.requringAssemblyContext = context;
-                        RequiredInfrastructureDelegationConnectorCreator.this.innerRequiredRole = role;
-                        return RequiredInfrastructureDelegationConnectorCreator.this;
-                    }
-                }, context);
+        return new InfrastructureRequiredRoleSelector<>(
+                (context1, role) -> {
+                  RequiredInfrastructureDelegationConnectorCreator.this.requringAssemblyContext = context1;
+                  RequiredInfrastructureDelegationConnectorCreator.this.innerRequiredRole = role;
+                  return RequiredInfrastructureDelegationConnectorCreator.this;
+               }, context);
     }
 
     /**

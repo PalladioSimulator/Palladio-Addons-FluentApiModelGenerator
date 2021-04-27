@@ -14,8 +14,8 @@ public class SimplifiedMediaStore {
     }
 
     public static void simplifiedMediaStoreResourceEnvironment() {
-        FluentResourceEnvironmentFactory create = new FluentResourceEnvironmentFactory();
-        ResourceEnvironment resourceEnvironment = create.newResourceEnvironment()
+        final FluentResourceEnvironmentFactory create = new FluentResourceEnvironmentFactory();
+        final ResourceEnvironment resourceEnvironment = create.newResourceEnvironment()
                 .withName("SimplifiedMediaStore ResourceEnvironment")
                 .addToResourceEnvironment(create.newResourceContainer().withName("resource container")
                         .addProcessingResourceSpecification(create.newProcessingResourceSpecification()

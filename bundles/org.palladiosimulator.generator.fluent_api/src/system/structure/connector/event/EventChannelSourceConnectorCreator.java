@@ -11,7 +11,6 @@ import org.palladiosimulator.pcm.repository.SourceRole;
 
 import system.structure.SystemCreator;
 import system.structure.connector.AbstractConnectorCreator;
-import system.structure.connector.IContextRoleCombinator;
 
 /**
  * This class constructs an
@@ -73,17 +72,12 @@ public class EventChannelSourceConnectorCreator extends AbstractConnectorCreator
     public SourceRoleSelector<EventChannelSourceConnectorCreator> withAssemblyContext(
             final AssemblyContext assemblyContext) {
         Objects.requireNonNull(assemblyContext, "The given AssemblyContext must not be null.");
-        return new SourceRoleSelector<EventChannelSourceConnectorCreator>(
-                new IContextRoleCombinator<SourceRole, EventChannelSourceConnectorCreator>() {
-
-                    @Override
-                    public EventChannelSourceConnectorCreator combineContextAndRole(final AssemblyContext context,
-                            final SourceRole role) {
-                        EventChannelSourceConnectorCreator.this.assemblyContext = context;
-                        EventChannelSourceConnectorCreator.this.role = role;
-                        return EventChannelSourceConnectorCreator.this;
-                    }
-                }, assemblyContext);
+        return new SourceRoleSelector<>(
+                (context, role) -> {
+                  EventChannelSourceConnectorCreator.this.assemblyContext = context;
+                  EventChannelSourceConnectorCreator.this.role = role;
+                  return EventChannelSourceConnectorCreator.this;
+               }, assemblyContext);
     }
 
     /**

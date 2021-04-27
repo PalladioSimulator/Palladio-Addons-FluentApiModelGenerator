@@ -11,7 +11,6 @@ import org.palladiosimulator.pcm.repository.SinkRole;
 
 import system.structure.SystemCreator;
 import system.structure.connector.AbstractConnectorCreator;
-import system.structure.connector.IContextRoleCombinator;
 
 /**
  * This class constructs an
@@ -73,17 +72,12 @@ public class EventChannelSinkConnectorCreator extends AbstractConnectorCreator {
     public SinkRoleSelector<EventChannelSinkConnectorCreator> withAssemblyContext(
             final AssemblyContext assemblyContext) {
         Objects.requireNonNull(assemblyContext, "The given AssemblyContext must not be null.");
-        return new SinkRoleSelector<EventChannelSinkConnectorCreator>(
-                new IContextRoleCombinator<SinkRole, EventChannelSinkConnectorCreator>() {
-
-                    @Override
-                    public EventChannelSinkConnectorCreator combineContextAndRole(final AssemblyContext context,
-                            final SinkRole role) {
-                        EventChannelSinkConnectorCreator.this.assemblyContext = context;
-                        EventChannelSinkConnectorCreator.this.role = role;
-                        return EventChannelSinkConnectorCreator.this;
-                    }
-                }, assemblyContext);
+        return new SinkRoleSelector<>(
+                (context, role) -> {
+                  EventChannelSinkConnectorCreator.this.assemblyContext = context;
+                  EventChannelSinkConnectorCreator.this.role = role;
+                  return EventChannelSinkConnectorCreator.this;
+               }, assemblyContext);
     }
 
     /**

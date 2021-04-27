@@ -15,7 +15,7 @@ public interface RecoverySeff {
      * @param name
      * @return this recovery behaviour in the making
      */
-    public RecoverySeff withName(String name);
+    RecoverySeff withName(String name);
 
     /**
      * Specifies the body behaviour of this RecoverActionBehaviour. Every body
@@ -29,7 +29,7 @@ public interface RecoverySeff {
      *
      * @return this recovery behaviour's starting body behaviour
      */
-    public StartSeff withSeffBehaviour();
+    StartSeff withSeffBehaviour();
 
     /**
      * Adds the failure type <code>failure</code> to this recovery behaviour's
@@ -50,7 +50,7 @@ public interface RecoverySeff {
      * @return this recovery behaviour in the making
      * @see component.factory.FluentRepositoryFactory#fetchOfFailureType(String)
      */
-    public RecoverySeff withFailureType(Failure failure);
+    RecoverySeff withFailureType(Failure failure);
 
     /**
      * Adds the failure type <code>failure</code> to this recovery behaviour's
@@ -70,7 +70,7 @@ public interface RecoverySeff {
      * @return this recovery behaviour in the making
      * @see component.factory.FluentRepositoryFactory#fetchOfFailureType(String)
      */
-    public RecoverySeff withFailureType(FailureType failureType);
+    RecoverySeff withFailureType(FailureType failureType);
 
     /**
      * Adds an alternative recovery behaviour to this recovery behaviour.
@@ -95,7 +95,7 @@ public interface RecoverySeff {
      * @return this recovery behaviour in the making
      * @see component.factory.FluentRepositoryFactory#fetchOfRecoveryActionBehaviour(String)
      */
-    public RecoverySeff withAlternativeRecoveryBehaviour(RecoveryActionBehaviour recoveryBehaviour);
+    RecoverySeff withAlternativeRecoveryBehaviour(RecoveryActionBehaviour recoveryBehaviour);
 
     RecoveryActionBehaviour buildRecoveryBehaviour();
 }

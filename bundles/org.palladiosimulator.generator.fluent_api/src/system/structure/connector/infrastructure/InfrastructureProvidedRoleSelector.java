@@ -63,7 +63,7 @@ public class InfrastructureProvidedRoleSelector<T> {
                         String.format("No InfrastructureProvidedRole with name '%s' found.", name)));
         try {
             return this.withInfrastructureProvidedRole((InfrastructureProvidedRole) role);
-        } catch (ClassCastException e) {
+        } catch (final ClassCastException e) {
             throw new NoSuchElementException(
                     String.format("A Role with name '%s' was found, but it was not an InfrastructureProvidedRole. "
                             + "Please make sure all names are unique.", name));

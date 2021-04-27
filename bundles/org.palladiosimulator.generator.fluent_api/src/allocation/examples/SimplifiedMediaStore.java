@@ -13,8 +13,8 @@ public class SimplifiedMediaStore {
     }
 
     public static void simplifiedMediaStoreAllocation() {
-        FluentAllocationFactory create = new FluentAllocationFactory();
-        Allocation allocation = create.newAllocation().withName("SimplifiedMediaStore Allocation")
+        final FluentAllocationFactory create = new FluentAllocationFactory();
+        final Allocation allocation = create.newAllocation().withName("SimplifiedMediaStore Allocation")
                 .withSystem(ModelLoader.loadSystem("./simplifiedMediaStore.system"))
                 .withResourceEnvironment(
                         ModelLoader.loadResourceEnvironment("./simplifiedMediaStore.resourceenvironment"))

@@ -10,7 +10,6 @@ import org.palladiosimulator.pcm.repository.SourceRole;
 
 import system.structure.SystemCreator;
 import system.structure.connector.AbstractConnectorCreator;
-import system.structure.connector.IContextRoleCombinator;
 
 /**
  * This class constructs a
@@ -69,17 +68,12 @@ public class SourceDelegationConnectorCreator extends AbstractConnectorCreator {
      */
     public SourceRoleSelector<SourceDelegationConnectorCreator> withAssemblyContext(final AssemblyContext context) {
         Objects.requireNonNull(context, "The given AssemblyContext must not be null.");
-        return new SourceRoleSelector<SourceDelegationConnectorCreator>(
-                new IContextRoleCombinator<SourceRole, SourceDelegationConnectorCreator>() {
-
-                    @Override
-                    public SourceDelegationConnectorCreator combineContextAndRole(final AssemblyContext context,
-                            final SourceRole role) {
-                        SourceDelegationConnectorCreator.this.assemblyContext = context;
-                        SourceDelegationConnectorCreator.this.innerRole = role;
-                        return SourceDelegationConnectorCreator.this;
-                    }
-                }, context);
+        return new SourceRoleSelector<>(
+                (context1, role) -> {
+                  SourceDelegationConnectorCreator.this.assemblyContext = context1;
+                  SourceDelegationConnectorCreator.this.innerRole = role;
+                  return SourceDelegationConnectorCreator.this;
+               }, context);
     }
 
     /**

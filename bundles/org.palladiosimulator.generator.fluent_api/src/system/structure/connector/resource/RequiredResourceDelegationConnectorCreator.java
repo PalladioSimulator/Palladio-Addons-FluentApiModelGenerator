@@ -10,7 +10,6 @@ import org.palladiosimulator.pcm.core.entity.ResourceRequiredRole;
 
 import system.structure.SystemCreator;
 import system.structure.connector.AbstractConnectorCreator;
-import system.structure.connector.IContextRoleCombinator;
 
 /**
  * This class constructs a
@@ -72,16 +71,11 @@ public class RequiredResourceDelegationConnectorCreator extends AbstractConnecto
     public ResourceRequiredRoleSelector withRequiringContext(final AssemblyContext context) {
         Objects.requireNonNull(context, "The given AssemblyContext must not be null.");
         return new ResourceRequiredRoleSelector(
-                new IContextRoleCombinator<ResourceRequiredRole, RequiredResourceDelegationConnectorCreator>() {
-
-                    @Override
-                    public RequiredResourceDelegationConnectorCreator combineContextAndRole(
-                            final AssemblyContext context, final ResourceRequiredRole role) {
-                        RequiredResourceDelegationConnectorCreator.this.requringAssemblyContext = context;
-                        RequiredResourceDelegationConnectorCreator.this.innerRequiredRole = role;
-                        return RequiredResourceDelegationConnectorCreator.this;
-                    }
-                }, context);
+                (context1, role) -> {
+                  RequiredResourceDelegationConnectorCreator.this.requringAssemblyContext = context1;
+                  RequiredResourceDelegationConnectorCreator.this.innerRequiredRole = role;
+                  return RequiredResourceDelegationConnectorCreator.this;
+               }, context);
     }
 
     /**

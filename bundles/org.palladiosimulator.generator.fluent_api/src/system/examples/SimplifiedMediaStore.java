@@ -13,8 +13,8 @@ public class SimplifiedMediaStore {
     }
 
     public static void simplifiedMediaStoreSystem() {
-        FluentSystemFactory create = new FluentSystemFactory();
-        System system = create.newSystem().withName("SimplifiedMediaStore System")
+        final FluentSystemFactory create = new FluentSystemFactory();
+        final System system = create.newSystem().withName("SimplifiedMediaStore System")
                 .addRepository(ModelLoader.loadRepository("./simplifiedMediaStore.repository"))
                 .addToSystem(
                         create.newAssemblyContext().withName("AudioDB Component").withEncapsulatedComponent("AudioDB"))

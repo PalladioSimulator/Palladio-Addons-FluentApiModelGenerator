@@ -12,8 +12,8 @@ public class SimplifiedMediaStore {
     }
 
     public static void simplifiedMediaStoreRepository() {
-        FluentRepositoryFactory create = new FluentRepositoryFactory();
-        Repository repo = create.newRepository().withName("SimplifiedMediaStore Repository")
+        final FluentRepositoryFactory create = new FluentRepositoryFactory();
+        final Repository repo = create.newRepository().withName("SimplifiedMediaStore Repository")
                 .addToRepository(create.newOperationInterface().withName("IAudioDB"))
                 .addToRepository(create.newOperationInterface().withName("ISound"))
                 .addToRepository(create.newOperationInterface().withName("MediaStoreInterface"))

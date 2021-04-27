@@ -137,17 +137,17 @@ public class VariableUsageCreator extends RepositoryEntity {
      */
     public VariableUsageCreator withNamespaceReference(final String reference, final String... innerReferences) {
         Objects.requireNonNull(reference, "reference must not be null");
-        if (innerReferences != null && innerReferences.length > 0) {
+        if ((innerReferences != null) && (innerReferences.length > 0)) {
             for (final String element : innerReferences) {
                 Objects.requireNonNull(element, "inner references must not be null");
             }
         }
 
-        if (innerReferences != null && innerReferences.length > 0) {
+        if ((innerReferences != null) && (innerReferences.length > 0)) {
             final String string = innerReferences[innerReferences.length - 1];
             final VariableReference variableReference = StoexFactory.eINSTANCE.createVariableReference();
             variableReference.setReferenceName(string);
-            final List<String> asList = new LinkedList<String>(Arrays.asList(innerReferences));
+            final List<String> asList = new LinkedList<>(Arrays.asList(innerReferences));
             asList.remove(asList.size() - 1);
             asList.add(0, reference);
             this.reference = this.rec(variableReference, asList);

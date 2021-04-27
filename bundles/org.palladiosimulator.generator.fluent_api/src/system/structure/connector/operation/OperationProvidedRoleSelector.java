@@ -61,7 +61,7 @@ public class OperationProvidedRoleSelector<T> {
                         String.format("No OperationProvidedRole with name '%s' found.", name)));
         try {
             return this.withOperationProvidedRole((OperationProvidedRole) role);
-        } catch (ClassCastException e) {
+        } catch (final ClassCastException e) {
             throw new NoSuchElementException(
                     String.format("A Role with name '%s' was found, but it was not an OperationProvidedRole. "
                             + "Please make sure all names are unique.", name));

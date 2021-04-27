@@ -57,7 +57,7 @@ public class InfrastructureRequiredRoleCreator extends SystemEntity {
         InfrastructureInterface infrastructureInterface;
         try {
             infrastructureInterface = (InfrastructureInterface) this.system.getInterfaceByName(name);
-        } catch (ClassCastException e) {
+        } catch (final ClassCastException e) {
             throw new NoSuchElementException(
                     String.format("An Interface with name '%s' was found, but it was not an InfrastructureInterface. "
                             + "Please make sure all names are unique.", name));

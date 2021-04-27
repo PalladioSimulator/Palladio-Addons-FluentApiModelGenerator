@@ -67,7 +67,7 @@ public abstract class ComplexComponent extends Component {
     public ComplexComponent withAssemblyContext(final RepositoryComponent encapsulatedComponent, final String name,
             final VariableUsageCreator... configParameterUsages) {
         Objects.requireNonNull(encapsulatedComponent, "encapsulatedComponent must not be null");
-        if (configParameterUsages != null && configParameterUsages.length > 0) {
+        if ((configParameterUsages != null) && (configParameterUsages.length > 0)) {
             for (final VariableUsageCreator configParameterUsage : configParameterUsages) {
                 Objects.requireNonNull(configParameterUsage, "config parameter usages must not be null");
             }
@@ -78,7 +78,7 @@ public abstract class ComplexComponent extends Component {
             ac.setEntityName(name);
         }
         ac.setEncapsulatedComponent__AssemblyContext(encapsulatedComponent);
-        Arrays.asList(configParameterUsages).stream().map(v -> v.build())
+        Arrays.asList(configParameterUsages).stream().map(VariableUsageCreator::build)
                 .forEach(v -> ac.getConfigParameterUsages__AssemblyContext().add(v));
         this.assemblyContexts.add(ac);
         this.repository.addAssemblyContext(ac);

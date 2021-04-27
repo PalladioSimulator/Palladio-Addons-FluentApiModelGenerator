@@ -99,7 +99,7 @@ public class CollectionIteratorActionCreator extends GeneralAction {
 
         if (this.loopBody != null) {
             final ResourceDemandingSEFF build = this.loopBody.buildRDSeff();
-            if (build.getDescribedService__SEFF() == null && build.getSeffTypeID() == null
+            if ((build.getDescribedService__SEFF() == null) && (build.getSeffTypeID() == null)
                     && build.getResourceDemandingInternalBehaviours().isEmpty()) {
                 action.setBodyBehaviour_Loop(this.loopBody.buildBehaviour());
             } else {

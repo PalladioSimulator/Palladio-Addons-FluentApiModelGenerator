@@ -60,7 +60,7 @@ public class SinkRoleSelector<T> {
                         () -> new NoSuchElementException(String.format("No SinkRole with name '%s' found.", name)));
         try {
             return this.withSinkRole((SinkRole) role);
-        } catch (ClassCastException e) {
+        } catch (final ClassCastException e) {
             throw new NoSuchElementException(
                     String.format("A Role with name '%s' was found, but it was not a SinkRole. "
                             + "Please make sure all names are unique.", name));

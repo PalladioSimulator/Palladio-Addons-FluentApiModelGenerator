@@ -18,7 +18,7 @@ public interface StopSeff {
      * @param name
      * @return this stop action
      */
-    public StopActionCreator withName(String name);
+    StopActionCreator withName(String name);
 
     /**
      * Adds a
@@ -38,7 +38,7 @@ public interface StopSeff {
      * @param processingResource
      * @return this action in the making
      */
-    public StopActionCreator withResourceDemand(String specificationStochasticExpression,
+    StopActionCreator withResourceDemand(String specificationStochasticExpression,
             ProcessingResource processingResource);
 
     /**
@@ -52,7 +52,7 @@ public interface StopSeff {
      * @param variableUsages
      * @return this stop action in the making
      */
-    public StopActionCreator withInfrastructureCall(String numberOfCallsStochasticExpression,
+    StopActionCreator withInfrastructureCall(String numberOfCallsStochasticExpression,
             InfrastructureSignature signature, InfrastructureRequiredRole requiredRole,
             VariableUsageCreator... variableUsages);
 
@@ -66,7 +66,7 @@ public interface StopSeff {
      * @param variableUsages
      * @return this stop action in the making
      */
-    public StopActionCreator withResourceCall(String numberOfCallsStochasticExpression, ResourceSignature signature,
+    StopActionCreator withResourceCall(String numberOfCallsStochasticExpression, ResourceSignature signature,
             ResourceRequiredRole requiredRole, VariableUsageCreator... variableUsages);
 
     /**
@@ -77,6 +77,6 @@ public interface StopSeff {
      *
      * @return the SEFF/behaviour
      */
-    public SeffCreator createBehaviourNow();
+    SeffCreator createBehaviourNow();
 
 }

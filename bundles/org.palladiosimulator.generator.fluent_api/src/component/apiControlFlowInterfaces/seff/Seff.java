@@ -18,7 +18,7 @@ public interface Seff {
      * @return this SEFF in the making
      * @see factory.FluentRepositoryFactory#fetchOfSignature(String)
      */
-    public Seff onSignature(Signature signature);
+    Seff onSignature(Signature signature);
 
     /**
      * Defines the SEFF Type ID. Default=1.
@@ -27,7 +27,7 @@ public interface Seff {
      * @return this SEFF in the making
      * @see org.palladiosimulator.pcm.seff.ServiceEffectSpecification#getSeffTypeID
      */
-    public Seff withSeffTypeID(String seffTypeID);
+    Seff withSeffTypeID(String seffTypeID);
 
     /**
      * Adds <code>internalBehaviour</code> to this SEFF's internal behaviours.
@@ -41,7 +41,7 @@ public interface Seff {
      * @return this SEFF in the making
      * @see org.palladiosimulator.pcm.seff.ResourceDemandingInternalBehaviour
      */
-    public Seff withInternalBehaviour(InternalSeff internalBehaviour);
+    Seff withInternalBehaviour(InternalSeff internalBehaviour);
 
     /**
      * Specifies the body behaviour of this SEFF. Every body behaviour starts with a
@@ -54,7 +54,7 @@ public interface Seff {
      *
      * @return this SEFF's starting body behaviour
      */
-    public StartSeff withSeffBehaviour();
+    StartSeff withSeffBehaviour();
 
     ServiceEffectSpecification build();
 

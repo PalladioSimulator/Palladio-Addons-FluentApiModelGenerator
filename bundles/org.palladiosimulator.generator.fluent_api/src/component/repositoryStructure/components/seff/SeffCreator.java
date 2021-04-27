@@ -215,8 +215,8 @@ public class SeffCreator extends RepositoryEntity implements Seff, ActionSeff, S
 
         seff.getSteps_Behaviour().addAll(this.steps);
 
-        seff.getResourceDemandingInternalBehaviours().addAll(
-                this.internalBehaviours.stream().map(b -> b.buildInternalBehaviour()).collect(Collectors.toList()));
+        seff.getResourceDemandingInternalBehaviours().addAll(this.internalBehaviours.stream()
+                .map(InternalSeff::buildInternalBehaviour).collect(Collectors.toList()));
         return seff;
 
     }
