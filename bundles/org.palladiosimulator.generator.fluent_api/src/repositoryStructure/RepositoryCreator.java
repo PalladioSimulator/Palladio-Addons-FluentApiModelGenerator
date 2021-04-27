@@ -294,17 +294,24 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 	public Repo withImportedResource(String path) {
 		Objects.requireNonNull(path, "path must not be null");
 
-		if (!path.substring(path.length() - 12, path.length() - 1).contentEquals(".repository"))
+		if (!path.endsWith(".repository"))
 			throw new IllegalArgumentException("The specified path must lead to a .repository file");
 
 		Repository imported = loadRepository(path);
-		this.imports.add(imported);
-		this.importedDataTypes.addAll(imported.getDataTypes__Repository());
-		this.importedFailureTypes.addAll(imported.getFailureTypes__Repository());
-		this.importedComponents.addAll(imported.getComponents__Repository());
-		this.importedInterfaces.addAll(imported.getInterfaces__Repository());
-		return this;
+		
+		return withImportedResource(imported);
 	}
+	
+    @Override
+    public Repo withImportedResource(Repository repository) {
+        Objects.requireNonNull(repository, "repository must not be null");
+        this.imports.add(repository);
+        this.importedDataTypes.addAll(repository.getDataTypes__Repository());
+        this.importedFailureTypes.addAll(repository.getFailureTypes__Repository());
+        this.importedComponents.addAll(repository.getComponents__Repository());
+        this.importedInterfaces.addAll(repository.getInterfaces__Repository());
+        return this;
+    }
 
 	@Override
 	public RepoAddition addToRepository(CollectionDataType collectionDataType) {
