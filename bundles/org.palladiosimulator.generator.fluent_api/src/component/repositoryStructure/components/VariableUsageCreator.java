@@ -77,14 +77,10 @@ public class VariableUsageCreator extends RepositoryEntity {
                 "specification_stochasticExpression must not be null");
         Objects.requireNonNull(type, "type must not be null");
         final VariableCharacterisation varchar = ParameterFactory.eINSTANCE.createVariableCharacterisation();
-        if (specificationStochasticExpression != null) {
-            final PCMRandomVariable rand = CoreFactory.eINSTANCE.createPCMRandomVariable();
-            rand.setSpecification(specificationStochasticExpression);
-            varchar.setSpecification_VariableCharacterisation(rand);
-        }
-        if (type != null) {
-            varchar.setType(type);
-        }
+        final PCMRandomVariable rand = CoreFactory.eINSTANCE.createPCMRandomVariable();
+        rand.setSpecification(specificationStochasticExpression);
+        varchar.setSpecification_VariableCharacterisation(rand);
+        varchar.setType(type);
         variableCharacterisations.add(varchar);
 
         return this;

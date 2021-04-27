@@ -101,12 +101,10 @@ public class EventTypeCreator extends RepositoryEntity {
         Objects.requireNonNull(name, "name must not be null");
         Objects.requireNonNull(dataType, "dataType must not be null");
         final Parameter param = RepositoryFactory.eINSTANCE.createParameter();
-        if (name != null) {
-            param.setParameterName(name);
-        }
-        if (dataType != null) {
-            param.setDataType__Parameter(dataType);
-        }
+
+        param.setParameterName(name);
+        param.setDataType__Parameter(dataType);
+
         if (modifier != null) {
             param.setModifier__Parameter(modifier);
         }

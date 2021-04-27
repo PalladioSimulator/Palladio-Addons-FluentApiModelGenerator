@@ -75,23 +75,19 @@ public class BranchActionCreator extends GeneralAction {
             branch.setEntityName(name);
         }
 
-        if (branchActions != null) {
-            final ResourceDemandingSEFF build = branchActions.buildRDSeff();
-            if ((build.getDescribedService__SEFF() == null) && (build.getSeffTypeID() == null)
-                    && build.getResourceDemandingInternalBehaviours().isEmpty()) {
-                final ResourceDemandingBehaviour branchBody = branchActions.buildBehaviour();
-                branch.setBranchBehaviour_BranchTransition(branchBody);
-            } else {
-                final ResourceDemandingSEFF branchBody = branchActions.buildRDSeff();
-                branch.setBranchBehaviour_BranchTransition(branchBody);
-            }
+        final ResourceDemandingSEFF build = branchActions.buildRDSeff();
+        if ((build.getDescribedService__SEFF() == null) && (build.getSeffTypeID() == null)
+                && build.getResourceDemandingInternalBehaviours().isEmpty()) {
+            final ResourceDemandingBehaviour branchBody = branchActions.buildBehaviour();
+            branch.setBranchBehaviour_BranchTransition(branchBody);
+        } else {
+            final ResourceDemandingSEFF branchBody = branchActions.buildRDSeff();
+            branch.setBranchBehaviour_BranchTransition(branchBody);
         }
 
-        if (branchConditionStochasticExpression != null) {
-            final PCMRandomVariable rand = CoreFactory.eINSTANCE.createPCMRandomVariable();
-            rand.setSpecification(branchConditionStochasticExpression);
-            branch.setBranchCondition_GuardedBranchTransition(rand);
-        }
+        final PCMRandomVariable rand = CoreFactory.eINSTANCE.createPCMRandomVariable();
+        rand.setSpecification(branchConditionStochasticExpression);
+        branch.setBranchCondition_GuardedBranchTransition(rand);
 
         branches.add(branch);
         return this;
@@ -145,14 +141,12 @@ public class BranchActionCreator extends GeneralAction {
             branch.setEntityName(name);
         }
 
-        if (branchActions != null) {
-            final ResourceDemandingSEFF build = branchActions.buildRDSeff();
-            if ((build.getDescribedService__SEFF() == null) && (build.getSeffTypeID() == null)
-                    && build.getResourceDemandingInternalBehaviours().isEmpty()) {
-                branch.setBranchBehaviour_BranchTransition(branchActions.buildBehaviour());
-            } else {
-                branch.setBranchBehaviour_BranchTransition(build);
-            }
+        final ResourceDemandingSEFF build = branchActions.buildRDSeff();
+        if ((build.getDescribedService__SEFF() == null) && (build.getSeffTypeID() == null)
+                && build.getResourceDemandingInternalBehaviours().isEmpty()) {
+            branch.setBranchBehaviour_BranchTransition(branchActions.buildBehaviour());
+        } else {
+            branch.setBranchBehaviour_BranchTransition(build);
         }
 
         branch.setBranchProbability(branchProbability);

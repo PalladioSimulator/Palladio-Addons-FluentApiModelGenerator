@@ -78,6 +78,7 @@ import component.repositoryStructure.internals.Primitive;
 import component.repositoryStructure.types.CompositeDataTypeCreator;
 import component.repositoryStructure.types.ExceptionTypeCreator;
 import component.repositoryStructure.types.ResourceTimeoutFailureTypeCreator;
+import exceptions.NoSuchElementException;
 import shared.structure.CommunicationLinkResource;
 import shared.structure.ProcessingResource;
 import shared.validate.IModelValidator;
@@ -442,7 +443,14 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         return internalPrimitives.get(primitive);
     }
 
-    public PrimitiveDataType getPrimitiveDataType(String name) {
+    /**
+     * TODO
+     * 
+     * @param name
+     * @return
+     * @throws NoSuchElementException Thrown if no role matches the given name.
+     */
+    public PrimitiveDataType getPrimitiveDataType(String name) throws NoSuchElementException {
         try {
             if ("int".equalsIgnoreCase(name)) {
                 name = "integer";
@@ -453,7 +461,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             final Primitive valueOf = Primitive.valueOf(name.toUpperCase());
             return internalPrimitives.get(valueOf);
         } catch (final IllegalArgumentException e) {
-            return null;
+            throw new NoSuchElementException(String.format("A primitive data type name '%s' was nou found.", name), e);
         }
     }
 

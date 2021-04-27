@@ -1,6 +1,5 @@
 package system.structure.connector.resource;
 
-import java.util.NoSuchElementException;
 import java.util.Objects;
 
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
@@ -8,6 +7,7 @@ import org.palladiosimulator.pcm.core.composition.CompositionFactory;
 import org.palladiosimulator.pcm.core.composition.RequiredResourceDelegationConnector;
 import org.palladiosimulator.pcm.core.entity.ResourceRequiredRole;
 
+import exceptions.NoSuchElementException;
 import system.structure.SystemCreator;
 import system.structure.connector.AbstractConnectorCreator;
 

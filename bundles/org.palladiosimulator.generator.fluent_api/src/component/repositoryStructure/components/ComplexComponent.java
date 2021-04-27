@@ -66,8 +66,10 @@ public abstract class ComplexComponent extends Component {
      */
     public ComplexComponent withAssemblyContext(final RepositoryComponent encapsulatedComponent, final String name,
             final VariableUsageCreator... configParameterUsages) {
+        // Null checks
         Objects.requireNonNull(encapsulatedComponent, "encapsulatedComponent must not be null");
-        if ((configParameterUsages != null) && (configParameterUsages.length > 0)) {
+        Objects.requireNonNull(configParameterUsages, "config parameter usages must not be null");
+        if (configParameterUsages.length > 0) {
             for (final VariableUsageCreator configParameterUsage : configParameterUsages) {
                 Objects.requireNonNull(configParameterUsage, "config parameter usages must not be null");
             }
@@ -82,6 +84,7 @@ public abstract class ComplexComponent extends Component {
                 .forEach(v -> ac.getConfigParameterUsages__AssemblyContext().add(v));
         assemblyContexts.add(ac);
         repository.addAssemblyContext(ac);
+
         return this;
     }
 
@@ -314,11 +317,9 @@ public abstract class ComplexComponent extends Component {
         connector.setSourceRole__AssemblyEventConnector(sourceRole);
         connector.setSourceAssemblyContext__AssemblyEventConnector(sourceAssemblyContext);
 
-        if (filterConditionStochasticExpression != null) {
-            final PCMRandomVariable rand = CoreFactory.eINSTANCE.createPCMRandomVariable();
-            rand.setSpecification(filterConditionStochasticExpression);
-            connector.setFilterCondition__AssemblyEventConnector(rand);
-        }
+        final PCMRandomVariable rand = CoreFactory.eINSTANCE.createPCMRandomVariable();
+        rand.setSpecification(filterConditionStochasticExpression);
+        connector.setFilterCondition__AssemblyEventConnector(rand);
 
         connectors.add(connector);
         return this;

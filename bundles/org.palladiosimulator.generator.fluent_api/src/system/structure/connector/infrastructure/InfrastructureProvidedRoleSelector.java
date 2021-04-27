@@ -1,12 +1,12 @@
 package system.structure.connector.infrastructure;
 
-import java.util.NoSuchElementException;
 import java.util.Objects;
 
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.repository.InfrastructureProvidedRole;
 import org.palladiosimulator.pcm.repository.ProvidedRole;
 
+import exceptions.NoSuchElementException;
 import system.structure.connector.IContextRoleCombinator;
 
 /**
@@ -66,7 +66,8 @@ public class InfrastructureProvidedRoleSelector<T> {
         } catch (final ClassCastException e) {
             throw new NoSuchElementException(
                     String.format("A Role with name '%s' was found, but it was not an InfrastructureProvidedRole. "
-                            + "Please make sure all names are unique.", name));
+                            + "Please make sure all names are unique.%n%s", name),
+                    e);
         }
     }
 }

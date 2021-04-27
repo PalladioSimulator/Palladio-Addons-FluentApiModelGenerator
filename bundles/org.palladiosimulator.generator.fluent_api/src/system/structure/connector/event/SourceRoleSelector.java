@@ -1,12 +1,12 @@
 package system.structure.connector.event;
 
-import java.util.NoSuchElementException;
 import java.util.Objects;
 
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.repository.RequiredRole;
 import org.palladiosimulator.pcm.repository.SourceRole;
 
+import exceptions.NoSuchElementException;
 import system.structure.connector.IContextRoleCombinator;
 
 /**
@@ -63,7 +63,8 @@ public class SourceRoleSelector<T> {
         } catch (final ClassCastException e) {
             throw new NoSuchElementException(
                     String.format("A Role with name '%s' was found, but it was not a SourceRole. "
-                            + "Please make sure all names are unique.", name));
+                            + "Please make sure all names are unique.%n%s", name),
+                    e);
         }
     }
 }

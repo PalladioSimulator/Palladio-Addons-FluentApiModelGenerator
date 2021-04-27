@@ -531,7 +531,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.CollectionDataType
      * @see org.palladiosimulator.pcm.repository.DataType
      */
-    public CollectionDataType newCollectionDataType(final String name,
+    public static CollectionDataType newCollectionDataType(final String name,
             final org.palladiosimulator.pcm.repository.DataType dataType) {
         Objects.requireNonNull(name, "name must not be null");
         final CollectionDataType coll = RepositoryFactory.eINSTANCE.createCollectionDataType();
@@ -622,7 +622,7 @@ public class FluentRepositoryFactory {
      * @return the software induced failure type
      * @see org.palladiosimulator.pcm.reliability.SoftwareInducedFailureType
      */
-    public SoftwareInducedFailureType newSoftwareInducedFailureType(final String name) {
+    public static SoftwareInducedFailureType newSoftwareInducedFailureType(final String name) {
         Objects.requireNonNull(name, "name must not be null");
         final SoftwareInducedFailureType s = ReliabilityFactory.eINSTANCE.createSoftwareInducedFailureType();
         s.setEntityName(name);

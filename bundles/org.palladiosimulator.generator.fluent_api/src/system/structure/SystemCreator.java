@@ -2,7 +2,6 @@ package system.structure;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Objects;
 
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
@@ -25,6 +24,7 @@ import org.palladiosimulator.pcm.resourcetype.ResourceRepository;
 import org.palladiosimulator.pcm.system.System;
 import org.palladiosimulator.pcm.system.SystemFactory;
 
+import exceptions.NoSuchElementException;
 import shared.validate.IModelValidator;
 import system.apiControlFlowInterfaces.ISystem;
 import system.apiControlFlowInterfaces.ISystemAddition;

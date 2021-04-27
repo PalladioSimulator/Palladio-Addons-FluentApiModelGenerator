@@ -1,11 +1,12 @@
 package system.structure;
 
-import java.util.NoSuchElementException;
 import java.util.Objects;
 
 import org.palladiosimulator.pcm.core.composition.CompositionFactory;
 import org.palladiosimulator.pcm.core.composition.EventChannel;
 import org.palladiosimulator.pcm.repository.EventGroup;
+
+import exceptions.NoSuchElementException;
 
 /**
  * This class constructs an
@@ -50,9 +51,9 @@ public class EventChannelCreator extends SystemEntity {
         try {
             group = (EventGroup) system.getInterfaceByName(name);
         } catch (final ClassCastException e) {
-            throw new NoSuchElementException(
-                    String.format("An Interface with name '%s' was found, but it was not an EventGroup. "
-                            + "Please make sure all names are unique.", name));
+            throw new NoSuchElementException(String.format(
+                    "An Interface with name '%s' was found, but it was not an EventGroup. Please make sure all names are unique.",
+                    name), e);
         }
         return this.withEventGroup(group);
     }

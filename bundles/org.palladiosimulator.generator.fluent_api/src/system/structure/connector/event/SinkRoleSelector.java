@@ -1,12 +1,12 @@
 package system.structure.connector.event;
 
-import java.util.NoSuchElementException;
 import java.util.Objects;
 
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.repository.ProvidedRole;
 import org.palladiosimulator.pcm.repository.SinkRole;
 
+import exceptions.NoSuchElementException;
 import system.structure.connector.IContextRoleCombinator;
 
 /**
@@ -63,7 +63,8 @@ public class SinkRoleSelector<T> {
         } catch (final ClassCastException e) {
             throw new NoSuchElementException(
                     String.format("A Role with name '%s' was found, but it was not a SinkRole. "
-                            + "Please make sure all names are unique.", name));
+                            + "Please make sure all names are unique.%n%s", name),
+                    e);
         }
     }
 }

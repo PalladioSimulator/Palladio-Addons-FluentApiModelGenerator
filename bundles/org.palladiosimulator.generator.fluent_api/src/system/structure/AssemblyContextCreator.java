@@ -1,11 +1,12 @@
 package system.structure;
 
-import java.util.NoSuchElementException;
 import java.util.Objects;
 
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.composition.CompositionFactory;
 import org.palladiosimulator.pcm.repository.RepositoryComponent;
+
+import exceptions.NoSuchElementException;
 
 /**
  * This class constructs an

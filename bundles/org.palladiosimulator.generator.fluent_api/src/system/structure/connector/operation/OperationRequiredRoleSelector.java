@@ -1,11 +1,11 @@
 package system.structure.connector.operation;
 
-import java.util.NoSuchElementException;
 import java.util.Objects;
 
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.repository.OperationRequiredRole;
 
+import exceptions.NoSuchElementException;
 import system.structure.connector.IContextRoleCombinator;
 
 /**

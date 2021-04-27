@@ -86,7 +86,8 @@ public abstract class GeneralAction extends SeffAction {
                 "numberOfCalls_stochasticExpression must not be null");
         Objects.requireNonNull(signature, "signature must not be null");
         Objects.requireNonNull(requiredRole, "requiredRole must not be null");
-        if ((variableUsages != null) && (variableUsages.length > 0)) {
+        Objects.requireNonNull(variableUsages, "variable usages must not be null");
+        if (variableUsages.length > 0) {
             for (final VariableUsageCreator variableUsage : variableUsages) {
                 Objects.requireNonNull(variableUsage, "variable usages must not be null");
             }
@@ -94,18 +95,12 @@ public abstract class GeneralAction extends SeffAction {
 
         final InfrastructureCall call = SeffPerformanceFactory.eINSTANCE.createInfrastructureCall();
 
-        if (numberOfCallsStochasticExpression != null) {
-            final PCMRandomVariable rand = CoreFactory.eINSTANCE.createPCMRandomVariable();
-            rand.setSpecification(numberOfCallsStochasticExpression);
-            call.setNumberOfCalls__InfrastructureCall(rand);
-        }
-        if (requiredRole != null) {
-            call.setRequiredRole__InfrastructureCall(requiredRole);
-        }
-        if (signature != null) {
-            call.setSignature__InfrastructureCall(signature);
-        }
-        if ((variableUsages != null) && (variableUsages.length != 0)) {
+        final PCMRandomVariable rand = CoreFactory.eINSTANCE.createPCMRandomVariable();
+        rand.setSpecification(numberOfCallsStochasticExpression);
+        call.setNumberOfCalls__InfrastructureCall(rand);
+        call.setRequiredRole__InfrastructureCall(requiredRole);
+        call.setSignature__InfrastructureCall(signature);
+        if (variableUsages.length > 0) {
             Arrays.asList(variableUsages).stream().map(VariableUsageCreator::build)
                     .forEach(v -> call.getInputVariableUsages__CallAction().add(v));
         }
