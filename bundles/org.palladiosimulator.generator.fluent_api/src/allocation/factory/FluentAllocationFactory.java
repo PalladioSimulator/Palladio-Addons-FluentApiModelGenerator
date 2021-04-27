@@ -44,8 +44,8 @@ public class FluentAllocationFactory {
         final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
         logger.setLevel(Level.ALL);
         final IModelValidator validator = new ModelValidator(logger);
-        this.allocationCreator = new AllocationCreator(validator);
-        return this.allocationCreator;
+        allocationCreator = new AllocationCreator(validator);
+        return allocationCreator;
     }
 
     /**
@@ -57,6 +57,6 @@ public class FluentAllocationFactory {
      * @see org.palladiosimulator.pcm.allocation.AllocationContext
      */
     public AllocationContextCreator newAllocationContext() {
-        return new AllocationContextCreator(this.allocationCreator);
+        return new AllocationContextCreator(allocationCreator);
     }
 }

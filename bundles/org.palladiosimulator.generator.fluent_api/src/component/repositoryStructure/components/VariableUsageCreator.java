@@ -36,8 +36,8 @@ public class VariableUsageCreator extends RepositoryEntity {
     private final List<VariableCharacterisation> variableCharacterisations;
 
     public VariableUsageCreator(final RepositoryCreator repo) {
-        this.repository = repo;
-        this.variableCharacterisations = new ArrayList<>();
+        repository = repo;
+        variableCharacterisations = new ArrayList<>();
     }
 
     @Override
@@ -85,7 +85,7 @@ public class VariableUsageCreator extends RepositoryEntity {
         if (type != null) {
             varchar.setType(type);
         }
-        this.variableCharacterisations.add(varchar);
+        variableCharacterisations.add(varchar);
 
         return this;
     }
@@ -150,7 +150,7 @@ public class VariableUsageCreator extends RepositoryEntity {
             final List<String> asList = new LinkedList<>(Arrays.asList(innerReferences));
             asList.remove(asList.size() - 1);
             asList.add(0, reference);
-            this.reference = this.rec(variableReference, asList);
+            this.reference = rec(variableReference, asList);
         } else {
             final NamespaceReference namespaceReference = StoexFactory.eINSTANCE.createNamespaceReference();
             namespaceReference.setReferenceName(reference);
@@ -169,7 +169,7 @@ public class VariableUsageCreator extends RepositoryEntity {
         namespaceReference.setReferenceName(string);
         namespaceReference.setInnerReference_NamespaceReference(ref);
         refs.remove(refs.size() - 1);
-        return this.rec(namespaceReference, refs);
+        return rec(namespaceReference, refs);
 
     }
 
@@ -177,11 +177,11 @@ public class VariableUsageCreator extends RepositoryEntity {
     public VariableUsage build() {
         final VariableUsage varUsage = ParameterFactory.eINSTANCE.createVariableUsage();
 
-        if (this.reference != null) {
-            varUsage.setNamedReference__VariableUsage(this.reference);
+        if (reference != null) {
+            varUsage.setNamedReference__VariableUsage(reference);
         }
 
-        varUsage.getVariableCharacterisation_VariableUsage().addAll(this.variableCharacterisations);
+        varUsage.getVariableCharacterisation_VariableUsage().addAll(variableCharacterisations);
 
         return varUsage;
     }

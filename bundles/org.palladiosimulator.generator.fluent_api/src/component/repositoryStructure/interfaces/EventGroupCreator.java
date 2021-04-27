@@ -25,8 +25,8 @@ public class EventGroupCreator extends Interface {
     private final List<EventType> eventTypes;
 
     public EventGroupCreator(final RepositoryCreator repo) {
-        this.repository = repo;
-        this.eventTypes = new ArrayList<>();
+        repository = repo;
+        eventTypes = new ArrayList<>();
     }
 
     @Override
@@ -62,8 +62,8 @@ public class EventGroupCreator extends Interface {
      */
     public EventGroupCreator withEventType(final EventTypeCreator eventType) {
         final EventType build = eventType.build();
-        this.repository.addSignature(build);
-        this.eventTypes.add(build);
+        repository.addSignature(build);
+        eventTypes.add(build);
         return this;
     }
 
@@ -71,22 +71,22 @@ public class EventGroupCreator extends Interface {
     public EventGroup build() {
         final EventGroup eventGroup = RepositoryFactory.eINSTANCE.createEventGroup();
 
-        if (this.name != null) {
-            eventGroup.setEntityName(this.name);
+        if (name != null) {
+            eventGroup.setEntityName(name);
             // if (id != null)
             // eventGroup.setId(id);
         }
 
-        eventGroup.getParentInterfaces__Interface().addAll(this.parentInterfaces);
-        eventGroup.getRequiredCharacterisations().addAll(this.requiredCharacterisations);
+        eventGroup.getParentInterfaces__Interface().addAll(parentInterfaces);
+        eventGroup.getRequiredCharacterisations().addAll(requiredCharacterisations);
 
-        eventGroup.getEventTypes__EventGroup().addAll(this.eventTypes);
+        eventGroup.getEventTypes__EventGroup().addAll(eventTypes);
 
         return eventGroup;
     }
 
     protected void addEventType(final EventType eventType) {
-        this.eventTypes.add(eventType);
+        eventTypes.add(eventType);
     }
 
 }

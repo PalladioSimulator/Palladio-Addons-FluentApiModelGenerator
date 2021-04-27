@@ -23,7 +23,7 @@ public class InfrastructureProvidedRoleCreator extends SystemEntity {
     private InfrastructureInterface providedInterface;
 
     public InfrastructureProvidedRoleCreator(final SystemCreator systemCreator) {
-        this.system = systemCreator;
+        system = systemCreator;
     }
 
     /**
@@ -38,7 +38,7 @@ public class InfrastructureProvidedRoleCreator extends SystemEntity {
     public InfrastructureProvidedRoleCreator withProvidedInterface(
             final InfrastructureInterface infrastructureInterface) {
         Objects.requireNonNull(infrastructureInterface, "The given Interface must not be null.");
-        this.providedInterface = infrastructureInterface;
+        providedInterface = infrastructureInterface;
         return this;
     }
 
@@ -56,7 +56,7 @@ public class InfrastructureProvidedRoleCreator extends SystemEntity {
     public InfrastructureProvidedRoleCreator withProvidedInterface(final String name) throws NoSuchElementException {
         InfrastructureInterface requiredInterface;
         try {
-            requiredInterface = (InfrastructureInterface) this.system.getInterfaceByName(name);
+            requiredInterface = (InfrastructureInterface) system.getInterfaceByName(name);
         } catch (final ClassCastException e) {
             throw new NoSuchElementException(
                     String.format("An Interface with name '%s' was found, but it was not an InfrastructureInterface. "
@@ -68,10 +68,10 @@ public class InfrastructureProvidedRoleCreator extends SystemEntity {
     @Override
     public InfrastructureProvidedRole build() {
         final InfrastructureProvidedRole role = RepositoryFactory.eINSTANCE.createInfrastructureProvidedRole();
-        if (this.name != null) {
-            role.setEntityName(this.name);
+        if (name != null) {
+            role.setEntityName(name);
         }
-        role.setProvidedInterface__InfrastructureProvidedRole(this.providedInterface);
+        role.setProvidedInterface__InfrastructureProvidedRole(providedInterface);
         return role;
     }
 

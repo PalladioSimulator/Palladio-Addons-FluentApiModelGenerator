@@ -42,7 +42,7 @@ public class ResourceContainerCreator extends ResourceEntity {
             final ProcessingResourceSpecificationCreator processingResourceSpecification) {
         Objects.requireNonNull(processingResourceSpecification,
                 "The given ProcessingResourceSpecification must not be null");
-        this.processingResourceSpecifications.add(processingResourceSpecification.build());
+        processingResourceSpecifications.add(processingResourceSpecification.build());
         return this;
     }
 
@@ -62,7 +62,7 @@ public class ResourceContainerCreator extends ResourceEntity {
             final HddProcessingResourceSpecificationCreator hddProcessingResourceSpecification) {
         Objects.requireNonNull(hddProcessingResourceSpecification,
                 "The given HddProcessingResourceSpecification must not be null");
-        this.hddProcessingResourceSpecifications.add(hddProcessingResourceSpecification.build());
+        hddProcessingResourceSpecifications.add(hddProcessingResourceSpecification.build());
         return this;
     }
 
@@ -77,7 +77,7 @@ public class ResourceContainerCreator extends ResourceEntity {
      */
     public ResourceContainerCreator addNestedResourceContainer(final ResourceContainerCreator resourceContainer) {
         Objects.requireNonNull(resourceContainer, "The given ResourceContainer must not be null");
-        this.nestedResourceContainers.add(resourceContainer.build());
+        nestedResourceContainers.add(resourceContainer.build());
         return this;
     }
 
@@ -89,13 +89,13 @@ public class ResourceContainerCreator extends ResourceEntity {
     @Override
     protected ResourceContainer build() {
         final ResourceContainer container = ResourceenvironmentFactory.eINSTANCE.createResourceContainer();
-        if (this.name != null) {
-            container.setEntityName(this.name);
+        if (name != null) {
+            container.setEntityName(name);
         }
-        container.getActiveResourceSpecifications_ResourceContainer().addAll(this.processingResourceSpecifications);
-        container.getActiveResourceSpecifications_ResourceContainer().addAll(this.hddProcessingResourceSpecifications);
-        container.getHddResourceSpecifications().addAll(this.hddProcessingResourceSpecifications);
-        container.getNestedResourceContainers__ResourceContainer().addAll(this.nestedResourceContainers);
+        container.getActiveResourceSpecifications_ResourceContainer().addAll(processingResourceSpecifications);
+        container.getActiveResourceSpecifications_ResourceContainer().addAll(hddProcessingResourceSpecifications);
+        container.getHddResourceSpecifications().addAll(hddProcessingResourceSpecifications);
+        container.getNestedResourceContainers__ResourceContainer().addAll(nestedResourceContainers);
         return container;
     }
 }

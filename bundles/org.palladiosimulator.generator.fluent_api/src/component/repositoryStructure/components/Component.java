@@ -85,7 +85,7 @@ public abstract class Component extends RepositoryEntity {
     public Component provides(final OperationInterfaceCreator interfce, final String name) {
         Objects.requireNonNull(interfce, "interfce must not be null");
         final OperationInterface i = interfce.build();
-        this.repository.addInterface(i);
+        repository.addInterface(i);
         return this.provides(i, name);
     }
 
@@ -135,8 +135,8 @@ public abstract class Component extends RepositoryEntity {
             providedRole.setEntityName(name);
         }
         providedRole.setProvidedInterface__OperationProvidedRole(interfce);
-        this.providedRoles.add(providedRole);
-        this.repository.addProvidedRole(providedRole);
+        providedRoles.add(providedRole);
+        repository.addProvidedRole(providedRole);
         return this;
     }
 
@@ -183,7 +183,7 @@ public abstract class Component extends RepositoryEntity {
     public Component providesInfrastructure(final InfrastructureInterfaceCreator interfce, final String name) {
         Objects.requireNonNull(interfce, "interfce must not be null");
         final InfrastructureInterface i = interfce.build();
-        this.repository.addInterface(i);
+        repository.addInterface(i);
         return this.providesInfrastructure(i, name);
     }
 
@@ -235,8 +235,8 @@ public abstract class Component extends RepositoryEntity {
             providedRole.setEntityName(name);
         }
         providedRole.setProvidedInterface__InfrastructureProvidedRole(interfce);
-        this.providedRoles.add(providedRole);
-        this.repository.addProvidedRole(providedRole);
+        providedRoles.add(providedRole);
+        repository.addProvidedRole(providedRole);
         return this;
     }
 
@@ -280,7 +280,7 @@ public abstract class Component extends RepositoryEntity {
     public Component handles(final EventGroupCreator eventGroup, final String name) {
         Objects.requireNonNull(eventGroup, "eventGroup must not be null");
         final EventGroup eg = eventGroup.build();
-        this.repository.addInterface(eg);
+        repository.addInterface(eg);
         return this.handles(eg, name);
     }
 
@@ -327,8 +327,8 @@ public abstract class Component extends RepositoryEntity {
             providedRole.setEntityName(name);
         }
         providedRole.setEventGroup__SinkRole(eventGroup);
-        this.providedRoles.add(providedRole);
-        this.repository.addProvidedRole(providedRole);
+        providedRoles.add(providedRole);
+        repository.addProvidedRole(providedRole);
         return this;
     }
 
@@ -374,7 +374,7 @@ public abstract class Component extends RepositoryEntity {
     public Component requires(final OperationInterfaceCreator interfce, final String name) {
         Objects.requireNonNull(interfce, "interfce must not be null");
         final OperationInterface i = interfce.build();
-        this.repository.addInterface(i);
+        repository.addInterface(i);
         return this.requires(i, name);
     }
 
@@ -424,8 +424,8 @@ public abstract class Component extends RepositoryEntity {
             requiredRole.setEntityName(name);
         }
         requiredRole.setRequiredInterface__OperationRequiredRole(interfce);
-        this.requiredRoles.add(requiredRole);
-        this.repository.addRequiredRole(requiredRole);
+        requiredRoles.add(requiredRole);
+        repository.addRequiredRole(requiredRole);
         return this;
     }
 
@@ -472,7 +472,7 @@ public abstract class Component extends RepositoryEntity {
     public Component requiresInfrastructure(final InfrastructureInterfaceCreator interfce, final String name) {
         Objects.requireNonNull(interfce, "interfce must not be null");
         final InfrastructureInterface i = interfce.build();
-        this.repository.addInterface(i);
+        repository.addInterface(i);
         return this.requiresInfrastructure(i, name);
     }
 
@@ -524,8 +524,8 @@ public abstract class Component extends RepositoryEntity {
             requiredRole.setEntityName(name);
         }
         requiredRole.setRequiredInterface__InfrastructureRequiredRole(interfce);
-        this.requiredRoles.add(requiredRole);
-        this.repository.addRequiredRole(requiredRole);
+        requiredRoles.add(requiredRole);
+        repository.addRequiredRole(requiredRole);
         return this;
     }
 
@@ -569,7 +569,7 @@ public abstract class Component extends RepositoryEntity {
     public Component emits(final EventGroupCreator eventGroup, final String name) {
         Objects.requireNonNull(eventGroup, "eventGroup must not be null");
         final EventGroup eg = eventGroup.build();
-        this.repository.addInterface(eg);
+        repository.addInterface(eg);
         return this.emits(eg, name);
     }
 
@@ -616,8 +616,8 @@ public abstract class Component extends RepositoryEntity {
             requiredRole.setEntityName(name);
         }
         requiredRole.setEventGroup__SourceRole(eventGroup);
-        this.requiredRoles.add(requiredRole);
-        this.repository.addRequiredRole(requiredRole);
+        requiredRoles.add(requiredRole);
+        repository.addRequiredRole(requiredRole);
         return this;
     }
 
@@ -669,11 +669,11 @@ public abstract class Component extends RepositoryEntity {
         if (name != null) {
             rrr.setEntityName(name);
         }
-        final org.palladiosimulator.pcm.resourcetype.ResourceInterface resInt = this.repository
+        final org.palladiosimulator.pcm.resourcetype.ResourceInterface resInt = repository
                 .getResourceInterface(resourceInterface);
         rrr.setRequiredResourceInterface__ResourceRequiredRole(resInt);
-        this.resourceRequiredRoles.add(rrr);
-        this.repository.addResourceRequiredRole(rrr);
+        resourceRequiredRoles.add(rrr);
+        repository.addResourceRequiredRole(rrr);
         return this;
     }
 }

@@ -25,7 +25,7 @@ public class ProvidedDelegationConnectorCreator extends AbstractConnectorCreator
     private AssemblyContext providingAssemblyContext;
 
     public ProvidedDelegationConnectorCreator(final SystemCreator systemCreator) {
-        this.system = systemCreator;
+        system = systemCreator;
     }
 
     /**
@@ -38,7 +38,7 @@ public class ProvidedDelegationConnectorCreator extends AbstractConnectorCreator
      */
     public ProvidedDelegationConnectorCreator withOuterProvidedRole(final OperationProvidedRole role) {
         Objects.requireNonNull(role, "The given Role must not be null.");
-        this.outerProvidedRole = role;
+        outerProvidedRole = role;
         return this;
     }
 
@@ -54,7 +54,7 @@ public class ProvidedDelegationConnectorCreator extends AbstractConnectorCreator
      * @see org.palladiosimulator.pcm.repository.OperationProvidedRole
      */
     public ProvidedDelegationConnectorCreator withOuterProvidedRole(final String name) throws NoSuchElementException {
-        final OperationProvidedRole role = this.system.getSystemOperationProvidedRoleByName(name);
+        final OperationProvidedRole role = system.getSystemOperationProvidedRoleByName(name);
         return this.withOuterProvidedRole(role);
     }
 
@@ -70,12 +70,11 @@ public class ProvidedDelegationConnectorCreator extends AbstractConnectorCreator
     public OperationProvidedRoleSelector<ProvidedDelegationConnectorCreator> withProvidingContext(
             final AssemblyContext context) {
         Objects.requireNonNull(context, "The given AssemblyContext must not be null.");
-        return new OperationProvidedRoleSelector<>(
-                (context1, role) -> {
-                  ProvidedDelegationConnectorCreator.this.providingAssemblyContext = context1;
-                  ProvidedDelegationConnectorCreator.this.innerProvidedRole = role;
-                  return ProvidedDelegationConnectorCreator.this;
-               }, context);
+        return new OperationProvidedRoleSelector<>((context1, role) -> {
+            ProvidedDelegationConnectorCreator.this.providingAssemblyContext = context1;
+            ProvidedDelegationConnectorCreator.this.innerProvidedRole = role;
+            return ProvidedDelegationConnectorCreator.this;
+        }, context);
     }
 
     /**
@@ -90,19 +89,19 @@ public class ProvidedDelegationConnectorCreator extends AbstractConnectorCreator
      * @see org.palladiosimulator.pcm.repository.OperationProvidedRole
      */
     public OperationProvidedRoleSelector<ProvidedDelegationConnectorCreator> withProvidingContext(final String name) {
-        final AssemblyContext context = this.system.getAssemblyContextByName(name);
+        final AssemblyContext context = system.getAssemblyContextByName(name);
         return this.withProvidingContext(context);
     }
 
     @Override
     public ProvidedDelegationConnector build() {
         final ProvidedDelegationConnector connector = CompositionFactory.eINSTANCE.createProvidedDelegationConnector();
-        if (this.name != null) {
-            connector.setEntityName(this.name);
+        if (name != null) {
+            connector.setEntityName(name);
         }
-        connector.setAssemblyContext_ProvidedDelegationConnector(this.providingAssemblyContext);
-        connector.setOuterProvidedRole_ProvidedDelegationConnector(this.outerProvidedRole);
-        connector.setInnerProvidedRole_ProvidedDelegationConnector(this.innerProvidedRole);
+        connector.setAssemblyContext_ProvidedDelegationConnector(providingAssemblyContext);
+        connector.setOuterProvidedRole_ProvidedDelegationConnector(outerProvidedRole);
+        connector.setInnerProvidedRole_ProvidedDelegationConnector(innerProvidedRole);
         return connector;
     }
 

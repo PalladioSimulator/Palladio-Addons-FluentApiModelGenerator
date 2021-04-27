@@ -44,11 +44,11 @@ public class BasicComponentCreator extends Component {
     private final List<VariableUsage> componentParameterUsages;
 
     public BasicComponentCreator(final RepositoryCreator repo) {
-        this.repository = repo;
-        this.conformsCompleteTypes = new ArrayList<>();
-        this.passiveResources = new ArrayList<>();
-        this.seffs = new ArrayList<>();
-        this.componentParameterUsages = new ArrayList<>();
+        repository = repo;
+        conformsCompleteTypes = new ArrayList<>();
+        passiveResources = new ArrayList<>();
+        seffs = new ArrayList<>();
+        componentParameterUsages = new ArrayList<>();
 
     }
 
@@ -242,7 +242,7 @@ public class BasicComponentCreator extends Component {
     public BasicComponentCreator conforms(final CompleteComponentTypeCreator completeComponentType) {
         Objects.requireNonNull(completeComponentType, "completeComponentType must not be null");
         final CompleteComponentType cct = completeComponentType.build();
-        this.repository.addComponent(cct);
+        repository.addComponent(cct);
         return this.conforms(cct);
     }
 
@@ -268,7 +268,7 @@ public class BasicComponentCreator extends Component {
      */
     public BasicComponentCreator conforms(final CompleteComponentType completeComponentType) {
         Objects.requireNonNull(completeComponentType, "completeComponentType must not be null");
-        this.conformsCompleteTypes.add(completeComponentType);
+        conformsCompleteTypes.add(completeComponentType);
         return this;
     }
 
@@ -303,8 +303,8 @@ public class BasicComponentCreator extends Component {
         pass.setCapacity_PassiveResource(randVar);
         pass.setResourceTimeoutFailureType__PassiveResource(failureType);
         pass.setEntityName(name);
-        this.repository.addPassiveResource(pass);
-        this.passiveResources.add(pass);
+        repository.addPassiveResource(pass);
+        passiveResources.add(pass);
         return this;
     }
 
@@ -352,7 +352,7 @@ public class BasicComponentCreator extends Component {
     public BasicComponentCreator withServiceEffectSpecification(final Seff seff) {
         Objects.requireNonNull(seff, "seff must not be null");
         final ServiceEffectSpecification sEfF = seff.build();
-        this.seffs.add(sEfF);
+        seffs.add(sEfF);
         return this;
     }
 
@@ -377,37 +377,37 @@ public class BasicComponentCreator extends Component {
      */
     public BasicComponentCreator withVariableUsage(final VariableUsageCreator variableUsage) {
         Objects.requireNonNull(variableUsage, "variableUsage must not be null");
-        this.componentParameterUsages.add(variableUsage.build());
+        componentParameterUsages.add(variableUsage.build());
         return this;
     }
 
     @Override
     public BasicComponent build() {
         final BasicComponent basicComponent = RepositoryFactory.eINSTANCE.createBasicComponent();
-        if (this.name != null) {
-            basicComponent.setEntityName(this.name);
+        if (name != null) {
+            basicComponent.setEntityName(name);
         }
         // if (id != null)
         // basicComponent.setId(id);
-        if (this.type != null) {
-            basicComponent.setComponentType(this.type);
+        if (type != null) {
+            basicComponent.setComponentType(type);
         }
 
-        basicComponent.getProvidedRoles_InterfaceProvidingEntity().addAll(this.providedRoles);
-        basicComponent.getRequiredRoles_InterfaceRequiringEntity().addAll(this.requiredRoles);
-        basicComponent.getResourceRequiredRoles__ResourceInterfaceRequiringEntity().addAll(this.resourceRequiredRoles);
+        basicComponent.getProvidedRoles_InterfaceProvidingEntity().addAll(providedRoles);
+        basicComponent.getRequiredRoles_InterfaceRequiringEntity().addAll(requiredRoles);
+        basicComponent.getResourceRequiredRoles__ResourceInterfaceRequiringEntity().addAll(resourceRequiredRoles);
 
-        basicComponent.getParentCompleteComponentTypes().addAll(this.conformsCompleteTypes);
-        basicComponent.getComponentParameterUsage_ImplementationComponentType().addAll(this.componentParameterUsages);
+        basicComponent.getParentCompleteComponentTypes().addAll(conformsCompleteTypes);
+        basicComponent.getComponentParameterUsage_ImplementationComponentType().addAll(componentParameterUsages);
 
-        basicComponent.getPassiveResource_BasicComponent().addAll(this.passiveResources);
-        basicComponent.getServiceEffectSpecifications__BasicComponent().addAll(this.seffs);
+        basicComponent.getPassiveResource_BasicComponent().addAll(passiveResources);
+        basicComponent.getServiceEffectSpecifications__BasicComponent().addAll(seffs);
 
         return basicComponent;
     }
 
     protected void addVariableUsage(final VariableUsage varUsage) {
-        this.componentParameterUsages.add(varUsage);
+        componentParameterUsages.add(varUsage);
     }
 
 }

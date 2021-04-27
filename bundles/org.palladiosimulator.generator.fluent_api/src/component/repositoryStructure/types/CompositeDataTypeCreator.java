@@ -30,9 +30,9 @@ public class CompositeDataTypeCreator extends RepositoryEntity {
     private final List<InnerDeclaration> innerDeclarations;
 
     public CompositeDataTypeCreator(final RepositoryCreator repo) {
-        this.repository = repo;
-        this.parents = new ArrayList<>();
-        this.innerDeclarations = new ArrayList<>();
+        repository = repo;
+        parents = new ArrayList<>();
+        innerDeclarations = new ArrayList<>();
     }
 
     @Override
@@ -58,9 +58,9 @@ public class CompositeDataTypeCreator extends RepositoryEntity {
         Objects.requireNonNull(primitive, "primitive must not be null");
         final InnerDeclaration inner = RepositoryFactory.eINSTANCE.createInnerDeclaration();
         inner.setEntityName(name);
-        final PrimitiveDataType p = this.repository.getPrimitiveDataType(primitive);
+        final PrimitiveDataType p = repository.getPrimitiveDataType(primitive);
         inner.setDatatype_InnerDeclaration(p);
-        this.innerDeclarations.add(inner);
+        innerDeclarations.add(inner);
         return this;
     }
 
@@ -87,7 +87,7 @@ public class CompositeDataTypeCreator extends RepositoryEntity {
         final InnerDeclaration inner = RepositoryFactory.eINSTANCE.createInnerDeclaration();
         inner.setEntityName(name);
         inner.setDatatype_InnerDeclaration(dataType);
-        this.innerDeclarations.add(inner);
+        innerDeclarations.add(inner);
         return this;
     }
 
@@ -107,17 +107,17 @@ public class CompositeDataTypeCreator extends RepositoryEntity {
      */
     public CompositeDataTypeCreator withParentCompositeDataType(final CompositeDataType parent) {
         Objects.requireNonNull(parent, "parent must not be null");
-        this.parents.add(parent);
+        parents.add(parent);
         return this;
     }
 
     @Override
     public CompositeDataType build() {
         final CompositeDataType comp = RepositoryFactory.eINSTANCE.createCompositeDataType();
-        comp.setEntityName(this.name);
+        comp.setEntityName(name);
 
-        comp.getParentType_CompositeDataType().addAll(this.parents);
-        comp.getInnerDeclaration_CompositeDataType().addAll(this.innerDeclarations);
+        comp.getParentType_CompositeDataType().addAll(parents);
+        comp.getInnerDeclaration_CompositeDataType().addAll(innerDeclarations);
 
         return comp;
     }

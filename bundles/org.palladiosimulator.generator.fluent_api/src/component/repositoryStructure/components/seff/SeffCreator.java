@@ -61,11 +61,11 @@ public class SeffCreator extends RepositoryEntity implements Seff, ActionSeff, S
     private final List<RecoveryActionBehaviour> alternatives;
 
     public SeffCreator(final RepositoryCreator repo) {
-        this.repository = repo;
-        this.steps = new ArrayList<>();
-        this.internalBehaviours = new ArrayList<>();
-        this.failures = new ArrayList<>();
-        this.alternatives = new ArrayList<>();
+        repository = repo;
+        steps = new ArrayList<>();
+        internalBehaviours = new ArrayList<>();
+        failures = new ArrayList<>();
+        alternatives = new ArrayList<>();
     }
 
     // ------------ action methods ------------
@@ -139,7 +139,7 @@ public class SeffCreator extends RepositoryEntity implements Seff, ActionSeff, S
 
     @Override
     public RecoveryActionCreator recoveryAction() {
-        return new RecoveryActionCreator(this, this.repository);
+        return new RecoveryActionCreator(this, repository);
     }
 
     // ------------ seff methods ------------
@@ -165,7 +165,7 @@ public class SeffCreator extends RepositoryEntity implements Seff, ActionSeff, S
     @Override
     public SeffCreator withInternalBehaviour(final InternalSeff internalBehaviour) {
         Objects.requireNonNull(internalBehaviour, "internalBehaviour must not be null");
-        this.internalBehaviours.add(internalBehaviour);
+        internalBehaviours.add(internalBehaviour);
         return this;
     }
 
@@ -177,21 +177,21 @@ public class SeffCreator extends RepositoryEntity implements Seff, ActionSeff, S
     @Override
     public SeffCreator withFailureType(final Failure failure) {
         Objects.requireNonNull(failure, "failure must not be null");
-        final FailureType f = this.repository.getFailureType(failure);
+        final FailureType f = repository.getFailureType(failure);
         return this.withFailureType(f);
     }
 
     @Override
     public SeffCreator withFailureType(final FailureType failureType) {
         Objects.requireNonNull(failureType, "failureType must not be null");
-        this.failures.add(failureType);
+        failures.add(failureType);
         return this;
     }
 
     @Override
     public SeffCreator withAlternativeRecoveryBehaviour(final RecoveryActionBehaviour recoveryBehaviour) {
         Objects.requireNonNull(recoveryBehaviour, "recoveryBehaviour must not be null");
-        this.alternatives.add(recoveryBehaviour);
+        alternatives.add(recoveryBehaviour);
         return this;
     }
 
@@ -199,24 +199,24 @@ public class SeffCreator extends RepositoryEntity implements Seff, ActionSeff, S
     @Override
     public ServiceEffectSpecification build() {
         // -> ResourceDemandingSEFF (rdsf) = seff
-        return this.buildRDSeff();
+        return buildRDSeff();
     }
 
     @Override
     public ResourceDemandingSEFF buildRDSeff() {
         final ResourceDemandingSEFF seff = SeffFactory.eINSTANCE.createResourceDemandingSEFF();
 
-        if (this.signature != null) {
-            seff.setDescribedService__SEFF(this.signature);
+        if (signature != null) {
+            seff.setDescribedService__SEFF(signature);
         }
-        if (this.seffTypeID != null) {
-            seff.setSeffTypeID(this.seffTypeID);
+        if (seffTypeID != null) {
+            seff.setSeffTypeID(seffTypeID);
         }
 
-        seff.getSteps_Behaviour().addAll(this.steps);
+        seff.getSteps_Behaviour().addAll(steps);
 
-        seff.getResourceDemandingInternalBehaviours().addAll(this.internalBehaviours.stream()
-                .map(InternalSeff::buildInternalBehaviour).collect(Collectors.toList()));
+        seff.getResourceDemandingInternalBehaviours().addAll(
+                internalBehaviours.stream().map(InternalSeff::buildInternalBehaviour).collect(Collectors.toList()));
         return seff;
 
     }
@@ -224,7 +224,7 @@ public class SeffCreator extends RepositoryEntity implements Seff, ActionSeff, S
     @Override
     public ResourceDemandingBehaviour buildBehaviour() {
         final ResourceDemandingBehaviour behaviour = SeffFactory.eINSTANCE.createResourceDemandingBehaviour();
-        behaviour.getSteps_Behaviour().addAll(this.steps);
+        behaviour.getSteps_Behaviour().addAll(steps);
         return behaviour;
     }
 
@@ -232,14 +232,14 @@ public class SeffCreator extends RepositoryEntity implements Seff, ActionSeff, S
     public ResourceDemandingInternalBehaviour buildInternalBehaviour() {
         final ResourceDemandingInternalBehaviour internal = SeffFactory.eINSTANCE
                 .createResourceDemandingInternalBehaviour();
-        internal.getSteps_Behaviour().addAll(this.steps);
+        internal.getSteps_Behaviour().addAll(steps);
         return internal;
     }
 
     @Override
     public ForkedBehaviour buildForkedBehaviour() {
         final ForkedBehaviour fork = SeffFactory.eINSTANCE.createForkedBehaviour();
-        fork.getSteps_Behaviour().addAll(this.steps);
+        fork.getSteps_Behaviour().addAll(steps);
         return fork;
     }
 
@@ -248,25 +248,25 @@ public class SeffCreator extends RepositoryEntity implements Seff, ActionSeff, S
         final RecoveryActionBehaviour recovActionBehaviour = SeffReliabilityFactory.eINSTANCE
                 .createRecoveryActionBehaviour();
 
-        if (this.name != null) {
-            recovActionBehaviour.setEntityName(this.name);
+        if (name != null) {
+            recovActionBehaviour.setEntityName(name);
         }
 
-        recovActionBehaviour.getSteps_Behaviour().addAll(this.steps);
-        recovActionBehaviour.getFailureHandlingAlternatives__RecoveryActionBehaviour().addAll(this.alternatives);
-        recovActionBehaviour.getFailureTypes_FailureHandlingEntity().addAll(this.failures);
+        recovActionBehaviour.getSteps_Behaviour().addAll(steps);
+        recovActionBehaviour.getFailureHandlingAlternatives__RecoveryActionBehaviour().addAll(alternatives);
+        recovActionBehaviour.getFailureTypes_FailureHandlingEntity().addAll(failures);
 
         return recovActionBehaviour;
     }
 
     // ------------ getter + setter ------------
     protected void setNext(final AbstractAction action) {
-        if (this.current != null) {
-            this.current.setSuccessor_AbstractAction(action);
-            action.setPredecessor_AbstractAction(this.current);
+        if (current != null) {
+            current.setSuccessor_AbstractAction(action);
+            action.setPredecessor_AbstractAction(current);
         }
-        this.current = action;
-        this.steps.add(action);
+        current = action;
+        steps.add(action);
     }
 
 }

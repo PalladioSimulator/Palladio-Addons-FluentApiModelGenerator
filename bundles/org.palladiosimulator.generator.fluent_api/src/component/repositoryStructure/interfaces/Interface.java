@@ -43,7 +43,7 @@ public abstract class Interface extends RepositoryEntity {
      */
     public Interface conforms(final org.palladiosimulator.pcm.repository.Interface parentInterface) {
         Objects.requireNonNull(parentInterface, "parentInterface must not be null");
-        this.parentInterfaces.add(parentInterface);
+        parentInterfaces.add(parentInterface);
         return this;
     }
 
@@ -80,7 +80,7 @@ public abstract class Interface extends RepositoryEntity {
         final RequiredCharacterisation reqChar = RepositoryFactory.eINSTANCE.createRequiredCharacterisation();
         reqChar.setParameter(parameter);
         reqChar.setType(type);
-        this.requiredCharacterisations.add(reqChar);
+        requiredCharacterisations.add(reqChar);
         return this;
     }
 

@@ -76,119 +76,119 @@ public class SystemCreator extends SystemEntity implements ISystem {
     @Override
     protected System build() {
         final System system = SystemFactory.eINSTANCE.createSystem();
-        if (this.name != null) {
-            system.setEntityName(this.name);
+        if (name != null) {
+            system.setEntityName(name);
         }
-        system.getAssemblyContexts__ComposedStructure().addAll(this.assemblyContexts);
-        system.getConnectors__ComposedStructure().addAll(this.connectors);
-        system.getRequiredRoles_InterfaceRequiringEntity().addAll(this.systemOperationRequiredRoles);
-        system.getProvidedRoles_InterfaceProvidingEntity().addAll(this.systemOperationProvidedRoles);
-        system.getRequiredRoles_InterfaceRequiringEntity().addAll(this.systemSourceRoles);
-        system.getProvidedRoles_InterfaceProvidingEntity().addAll(this.systemSinkRoles);
-        system.getRequiredRoles_InterfaceRequiringEntity().addAll(this.systemInfrastructureRequiredRoles);
-        system.getProvidedRoles_InterfaceProvidingEntity().addAll(this.systemInfrastructureProvidedRoles);
-        system.getEventChannel__ComposedStructure().addAll(this.eventChannels);
-        system.getQosAnnotations_System().addAll(this.qoSAnnotations);
-        system.getResourceRequiredRoles__ResourceInterfaceRequiringEntity().addAll(this.systemResourceRequiredRoles);
-        system.getResourceRequiredDelegationConnectors_ComposedStructure().addAll(this.resourceConnectors);
+        system.getAssemblyContexts__ComposedStructure().addAll(assemblyContexts);
+        system.getConnectors__ComposedStructure().addAll(connectors);
+        system.getRequiredRoles_InterfaceRequiringEntity().addAll(systemOperationRequiredRoles);
+        system.getProvidedRoles_InterfaceProvidingEntity().addAll(systemOperationProvidedRoles);
+        system.getRequiredRoles_InterfaceRequiringEntity().addAll(systemSourceRoles);
+        system.getProvidedRoles_InterfaceProvidingEntity().addAll(systemSinkRoles);
+        system.getRequiredRoles_InterfaceRequiringEntity().addAll(systemInfrastructureRequiredRoles);
+        system.getProvidedRoles_InterfaceProvidingEntity().addAll(systemInfrastructureProvidedRoles);
+        system.getEventChannel__ComposedStructure().addAll(eventChannels);
+        system.getQosAnnotations_System().addAll(qoSAnnotations);
+        system.getResourceRequiredRoles__ResourceInterfaceRequiringEntity().addAll(systemResourceRequiredRoles);
+        system.getResourceRequiredDelegationConnectors_ComposedStructure().addAll(resourceConnectors);
         return system;
     }
 
     @Override
     public System createSystemNow() {
-        final System system = this.build();
-        this.validator.validate(system, this.name);
+        final System system = build();
+        validator.validate(system, name);
         return system;
     }
 
     @Override
     public ISystemAddition addToSystem(final AssemblyContextCreator context) {
         Objects.requireNonNull(context, "The given AssemblyContext must not be null.");
-        this.assemblyContexts.add(context.build());
+        assemblyContexts.add(context.build());
         return this;
     }
 
     @Override
     public ISystem addRepository(final Repository repository) {
         Objects.requireNonNull(repository, "The given Repository must not be null.");
-        this.repositories.add(repository);
+        repositories.add(repository);
         return this;
     }
 
     @Override
     public ISystemAddition addToSystem(final AbstractConnectorCreator connector) {
         Objects.requireNonNull(connector, "The given Connector must not be null.");
-        this.connectors.add(connector.build());
+        connectors.add(connector.build());
         return this;
     }
 
     @Override
     public ISystemAddition addToSystem(final OperationRequiredRoleCreator role) {
         Objects.requireNonNull(role, "The given Role must not be null.");
-        this.systemOperationRequiredRoles.add(role.build());
+        systemOperationRequiredRoles.add(role.build());
         return this;
     }
 
     @Override
     public ISystemAddition addToSystem(final OperationProvidedRoleCreator role) {
         Objects.requireNonNull(role, "The given Role must not be null.");
-        this.systemOperationProvidedRoles.add(role.build());
+        systemOperationProvidedRoles.add(role.build());
         return this;
     }
 
     @Override
     public ISystemAddition addToSystem(final EventChannelCreator eventChannel) {
         Objects.requireNonNull(eventChannel, "The given EventChannel must not be null.");
-        this.eventChannels.add(eventChannel.build());
+        eventChannels.add(eventChannel.build());
         return this;
     }
 
     @Override
     public ISystemAddition addToSystem(final SinkRoleCreator role) {
         Objects.requireNonNull(role, "The given Role must not be null.");
-        this.systemSinkRoles.add(role.build());
+        systemSinkRoles.add(role.build());
         return this;
     }
 
     @Override
     public ISystemAddition addToSystem(final SourceRoleCreator role) {
         Objects.requireNonNull(role, "The given Role must not be null.");
-        this.systemSourceRoles.add(role.build());
+        systemSourceRoles.add(role.build());
         return this;
     }
 
     @Override
     public ISystemAddition addToSystem(final InfrastructureRequiredRoleCreator role) {
         Objects.requireNonNull(role, "The given Role must not be null.");
-        this.systemInfrastructureRequiredRoles.add(role.build());
+        systemInfrastructureRequiredRoles.add(role.build());
         return this;
     }
 
     @Override
     public ISystemAddition addToSystem(final InfrastructureProvidedRoleCreator role) {
         Objects.requireNonNull(role, "The given Role must not be null.");
-        this.systemInfrastructureProvidedRoles.add(role.build());
+        systemInfrastructureProvidedRoles.add(role.build());
         return this;
     }
 
     @Override
     public ISystemAddition addToSystem(final QoSAnnotationsCreator annotations) {
         Objects.requireNonNull(annotations, "The given QoSAnnotations must not be null.");
-        this.qoSAnnotations.add(annotations.build());
+        qoSAnnotations.add(annotations.build());
         return this;
     }
 
     @Override
     public ISystemAddition addToSystem(final ResourceRequiredRoleCreator role) {
         Objects.requireNonNull(role, "The given Role must not be null.");
-        this.systemResourceRequiredRoles.add(role.build());
+        systemResourceRequiredRoles.add(role.build());
         return this;
     }
 
     @Override
     public ISystemAddition addToSystem(final ResourceRequiredDelegationConnectorCreator connector) {
         Objects.requireNonNull(connector, "The given Connector must not be null.");
-        this.resourceConnectors.add(connector.build());
+        resourceConnectors.add(connector.build());
         return this;
     }
 
@@ -203,7 +203,7 @@ public class SystemCreator extends SystemEntity implements ISystem {
      * @see org.palladiosimulator.pcm.repository.Interface
      */
     public Interface getInterfaceByName(String name) throws NoSuchElementException {
-        return this.repositories.stream().flatMap(x -> x.getInterfaces__Repository().stream())
+        return repositories.stream().flatMap(x -> x.getInterfaces__Repository().stream())
                 .filter(i -> i.getEntityName().equals(name)).findFirst().orElseThrow(() -> new NoSuchElementException(
                         String.format("No Interface with name '%s' was found.", name)));
     }
@@ -219,7 +219,7 @@ public class SystemCreator extends SystemEntity implements ISystem {
      * @see org.palladiosimulator.pcm.repository.RepositoryComponent
      */
     public RepositoryComponent getRepositoryComponentByName(String name) throws NoSuchElementException {
-        return this.repositories.stream().flatMap(x -> x.getComponents__Repository().stream())
+        return repositories.stream().flatMap(x -> x.getComponents__Repository().stream())
                 .filter(x -> x.getEntityName().equals(name)).findFirst().orElseThrow(() -> new NoSuchElementException(
                         String.format("No RepositoryComponent with name '%s' found.", name)));
     }
@@ -235,7 +235,7 @@ public class SystemCreator extends SystemEntity implements ISystem {
      * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
      */
     public AssemblyContext getAssemblyContextByName(String name) throws NoSuchElementException {
-        return this.assemblyContexts.stream().filter(x -> x.getEntityName().equals(name)).findFirst().orElseThrow(
+        return assemblyContexts.stream().filter(x -> x.getEntityName().equals(name)).findFirst().orElseThrow(
                 () -> new NoSuchElementException(String.format("No AssemblyContext with name '%s' found", name)));
     }
 
@@ -251,7 +251,7 @@ public class SystemCreator extends SystemEntity implements ISystem {
      * @see org.palladiosimulator.pcm.core.entity.ResourceRequiredRole
      */
     public ResourceRequiredRole getResourceRequiredRoleByName(String name) throws NoSuchElementException {
-        return this.assemblyContexts.stream()
+        return assemblyContexts.stream()
                 .flatMap(x -> x.getEncapsulatedComponent__AssemblyContext()
                         .getResourceRequiredRoles__ResourceInterfaceRequiringEntity().stream())
                 .filter(x -> x.getEntityName().equals(name)).findFirst().orElseThrow(() -> new NoSuchElementException(
@@ -270,7 +270,7 @@ public class SystemCreator extends SystemEntity implements ISystem {
      * @see org.palladiosimulator.pcm.repository.OperationRequiredRole
      */
     public OperationRequiredRole getSystemOperationRequiredRoleByName(String name) throws NoSuchElementException {
-        return this.systemOperationRequiredRoles.stream().filter(x -> x.getEntityName().equals(name)).findFirst()
+        return systemOperationRequiredRoles.stream().filter(x -> x.getEntityName().equals(name)).findFirst()
                 .orElseThrow(() -> new NoSuchElementException(
                         String.format("No OperationRequiredRole with name '%s' found.", name)));
     }
@@ -287,7 +287,7 @@ public class SystemCreator extends SystemEntity implements ISystem {
      * @see org.palladiosimulator.pcm.repository.OperationProvidedRole
      */
     public OperationProvidedRole getSystemOperationProvidedRoleByName(String name) {
-        return this.systemOperationProvidedRoles.stream().filter(x -> x.getEntityName().equals(name)).findFirst()
+        return systemOperationProvidedRoles.stream().filter(x -> x.getEntityName().equals(name)).findFirst()
                 .orElseThrow(() -> new NoSuchElementException(
                         String.format("No OperationProvidedRole with name '%s' found.", name)));
     }
@@ -302,7 +302,7 @@ public class SystemCreator extends SystemEntity implements ISystem {
      * @see org.palladiosimulator.pcm.repository.SinkRole
      */
     public SinkRole getSystemSinkRoleByName(String name) throws NoSuchElementException {
-        return this.systemSinkRoles.stream().filter(x -> x.getEntityName().equals(name)).findFirst()
+        return systemSinkRoles.stream().filter(x -> x.getEntityName().equals(name)).findFirst()
                 .orElseThrow(() -> new NoSuchElementException(String.format("No SinkRole with name '%s' found", name)));
     }
 
@@ -319,7 +319,7 @@ public class SystemCreator extends SystemEntity implements ISystem {
      */
     public InfrastructureRequiredRole getSystemInfrastructureRequiredRoleByName(String name)
             throws NoSuchElementException {
-        return this.systemInfrastructureRequiredRoles.stream().filter(x -> x.getEntityName().equals(name)).findFirst()
+        return systemInfrastructureRequiredRoles.stream().filter(x -> x.getEntityName().equals(name)).findFirst()
                 .orElseThrow(() -> new NoSuchElementException(
                         String.format("No InfrastructureRequiredRole with name '%s' found.", name)));
     }
@@ -337,7 +337,7 @@ public class SystemCreator extends SystemEntity implements ISystem {
      */
     public InfrastructureProvidedRole getSystemInfrastructureProvidedRoleByName(String name)
             throws NoSuchElementException {
-        return this.systemInfrastructureProvidedRoles.stream().filter(x -> x.getEntityName().equals(name)).findFirst()
+        return systemInfrastructureProvidedRoles.stream().filter(x -> x.getEntityName().equals(name)).findFirst()
                 .orElseThrow(() -> new NoSuchElementException(
                         String.format("No InfrastructureProvidedRole with name '%s' found.", name)));
     }
@@ -352,7 +352,7 @@ public class SystemCreator extends SystemEntity implements ISystem {
      * @see org.palladiosimulator.pcm.repository.SourceRole
      */
     public SourceRole getSystemSourceRoleByName(String name) throws NoSuchElementException {
-        return this.systemSourceRoles.stream().filter(x -> x.getEntityName().equals(name)).findFirst().orElseThrow(
+        return systemSourceRoles.stream().filter(x -> x.getEntityName().equals(name)).findFirst().orElseThrow(
                 () -> new NoSuchElementException(String.format("No SourceRole with name '%s' found.", name)));
     }
 
@@ -368,9 +368,8 @@ public class SystemCreator extends SystemEntity implements ISystem {
      * @see org.palladiosimulator.pcm.core.entity.ResourceRequiredRole
      */
     public ResourceRequiredRole getSystemResourceRequiredRoleByName(String name) throws NoSuchElementException {
-        return this.systemResourceRequiredRoles.stream().filter(x -> x.getEntityName().equals(name)).findFirst()
-                .orElseThrow(() -> new NoSuchElementException(
-                        String.format("No ResourceRequiredRole with name '%s' found.", name)));
+        return systemResourceRequiredRoles.stream().filter(x -> x.getEntityName().equals(name)).findFirst().orElseThrow(
+                () -> new NoSuchElementException(String.format("No ResourceRequiredRole with name '%s' found.", name)));
     }
 
     /**
@@ -383,7 +382,7 @@ public class SystemCreator extends SystemEntity implements ISystem {
      * @see org.palladiosimulator.pcm.repository.EventChannel
      */
     public EventChannel getEventChannelByName(String name) throws NoSuchElementException {
-        return this.eventChannels.stream().filter(x -> x.getEntityName().equals(name)).findFirst().orElseThrow(
+        return eventChannels.stream().filter(x -> x.getEntityName().equals(name)).findFirst().orElseThrow(
                 () -> new NoSuchElementException(String.format("No EventChannel with name '%s' found.", name)));
     }
 
@@ -397,7 +396,7 @@ public class SystemCreator extends SystemEntity implements ISystem {
      */
     public ResourceInterface getResourceInterface(final shared.structure.ResourceInterface resource) {
         Objects.requireNonNull(resource, "The given resource must not be null.");
-        return this.resources.getResourceInterfaces__ResourceRepository().stream()
+        return resources.getResourceInterfaces__ResourceRepository().stream()
                 .filter(x -> x.getEntityName().equals(resource.getResourceName())).findFirst().get();
     }
 }

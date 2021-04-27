@@ -23,13 +23,13 @@ public class ResourceTimeoutFailureTypeCreator extends RepositoryEntity {
 
     public ResourceTimeoutFailureTypeCreator(final String name, final RepositoryCreator repo) {
         this.name = name;
-        this.repository = repo;
+        repository = repo;
     }
 
     @Override
     public FailureType build() {
         final ResourceTimeoutFailureType timeout = ReliabilityFactory.eINSTANCE.createResourceTimeoutFailureType();
-        timeout.setEntityName(this.name);
+        timeout.setEntityName(name);
         return timeout;
     }
 

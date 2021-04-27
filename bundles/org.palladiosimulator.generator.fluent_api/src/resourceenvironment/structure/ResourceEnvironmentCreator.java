@@ -48,33 +48,33 @@ public class ResourceEnvironmentCreator extends ResourceEntity implements IResou
 
     @Override
     public ResourceEnvironment createResourceEnvironmentNow() {
-        final ResourceEnvironment environment = this.build();
-        this.validator.validate(environment, this.name);
+        final ResourceEnvironment environment = build();
+        validator.validate(environment, name);
         return environment;
     }
 
     @Override
     protected ResourceEnvironment build() {
         final ResourceEnvironment environment = ResourceenvironmentFactory.eINSTANCE.createResourceEnvironment();
-        if (this.name != null) {
-            environment.setEntityName(this.name);
+        if (name != null) {
+            environment.setEntityName(name);
         }
-        environment.getResourceContainer_ResourceEnvironment().addAll(this.resourceContainers);
-        environment.getLinkingResources__ResourceEnvironment().addAll(this.linkingResources);
+        environment.getResourceContainer_ResourceEnvironment().addAll(resourceContainers);
+        environment.getLinkingResources__ResourceEnvironment().addAll(linkingResources);
         return environment;
     }
 
     @Override
     public IResourceEnvironmentAddition addToResourceEnvironment(final ResourceContainerCreator resourceContainer) {
         Objects.requireNonNull(resourceContainer, "The given ResourceContainer must not be null");
-        this.resourceContainers.add(resourceContainer.build());
+        resourceContainers.add(resourceContainer.build());
         return this;
     }
 
     @Override
     public IResourceEnvironmentAddition addToResourceEnvironment(final LinkingResourceCreator linkingResource) {
         Objects.requireNonNull(linkingResource, "The given LinkingResource must not be null");
-        this.linkingResources.add(linkingResource.build());
+        linkingResources.add(linkingResource.build());
         return this;
     }
 
@@ -87,7 +87,7 @@ public class ResourceEnvironmentCreator extends ResourceEntity implements IResou
      */
     public SchedulingPolicy getSchedulingPolicy(final SchedulingPolicies policy) {
         Objects.requireNonNull(policy, "The given SchedulingPolicy must not be null");
-        return this.resources.getSchedulingPolicies__ResourceRepository().stream()
+        return resources.getSchedulingPolicies__ResourceRepository().stream()
                 .filter(x -> x.getEntityName().equals(policy.getPolicyName())).findFirst().get();
     }
 
@@ -101,7 +101,7 @@ public class ResourceEnvironmentCreator extends ResourceEntity implements IResou
      */
     public ProcessingResourceType getProcessingResource(final ProcessingResource resource) {
         Objects.requireNonNull(resource, "The given ProcessignResource must not be null");
-        return (ProcessingResourceType) this.resources.getAvailableResourceTypes_ResourceRepository().stream()
+        return (ProcessingResourceType) resources.getAvailableResourceTypes_ResourceRepository().stream()
                 .filter(x -> x.getEntityName().equals(resource.getResourceName())).findFirst().get();
     }
 
@@ -115,7 +115,7 @@ public class ResourceEnvironmentCreator extends ResourceEntity implements IResou
      */
     public CommunicationLinkResourceType getCommunicationLinkResource(final CommunicationLinkResource resource) {
         Objects.requireNonNull(resource, "The given CommunicationLinkResource must not be null");
-        return (CommunicationLinkResourceType) this.resources.getAvailableResourceTypes_ResourceRepository().stream()
+        return (CommunicationLinkResourceType) resources.getAvailableResourceTypes_ResourceRepository().stream()
                 .filter(x -> x.getEntityName().equals(resource.getResourceName())).findFirst().get();
     }
 
@@ -130,7 +130,7 @@ public class ResourceEnvironmentCreator extends ResourceEntity implements IResou
      *                                  has the given name.
      */
     public ResourceContainer getResourceContainerByName(String name) throws IllegalArgumentException {
-        return this.resourceContainers.stream().filter(x -> x.getEntityName().equals(name)).findFirst()
+        return resourceContainers.stream().filter(x -> x.getEntityName().equals(name)).findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("No ResourceContainer with name " + name + " found"));
     }
 }

@@ -43,7 +43,7 @@ public class AllocationContextCreator extends AllocationEntity {
      */
     public AllocationContextCreator withAssemblyContext(final AssemblyContext context) {
         Objects.requireNonNull(context, "The given AssemblyContext must not be null.");
-        this.assemblyContext = context;
+        assemblyContext = context;
         return this;
     }
 
@@ -61,7 +61,7 @@ public class AllocationContextCreator extends AllocationEntity {
      *                                  name exists
      */
     public AllocationContextCreator withAssemblyContext(final String name) throws IllegalArgumentException {
-        return this.withAssemblyContext(this.allocationCreator.getAssemblyContextByName(name));
+        return this.withAssemblyContext(allocationCreator.getAssemblyContextByName(name));
     }
 
     /**
@@ -76,7 +76,7 @@ public class AllocationContextCreator extends AllocationEntity {
      */
     public AllocationContextCreator withEventChannel(final EventChannel channel) {
         Objects.requireNonNull(channel, "The given EventChannel must not be null");
-        this.eventChannel = channel;
+        eventChannel = channel;
         return this;
     }
 
@@ -94,7 +94,7 @@ public class AllocationContextCreator extends AllocationEntity {
      *                                  name exists
      */
     public AllocationContextCreator withEventChannel(final String name) throws IllegalArgumentException {
-        return this.withEventChannel(this.allocationCreator.getEventChannelByName(name));
+        return this.withEventChannel(allocationCreator.getEventChannelByName(name));
     }
 
     /**
@@ -112,7 +112,7 @@ public class AllocationContextCreator extends AllocationEntity {
      */
     public AllocationContextCreator withResourceContainer(final ResourceContainer container) {
         Objects.requireNonNull(container, "The given ResourceContainer must not be null");
-        this.resourceContainer = container;
+        resourceContainer = container;
         return this;
     }
 
@@ -133,18 +133,18 @@ public class AllocationContextCreator extends AllocationEntity {
      *                                  given name exists
      */
     public AllocationContextCreator withResourceContainer(final String name) throws IllegalArgumentException {
-        return this.withResourceContainer(this.allocationCreator.getResourceContainerByName(name));
+        return this.withResourceContainer(allocationCreator.getResourceContainerByName(name));
     }
 
     @Override
     protected AllocationContext build() {
         final AllocationContext context = AllocationFactory.eINSTANCE.createAllocationContext();
-        if (this.name != null) {
-            context.setEntityName(this.name);
+        if (name != null) {
+            context.setEntityName(name);
         }
-        context.setAssemblyContext_AllocationContext(this.assemblyContext);
-        context.setEventChannel__AllocationContext(this.eventChannel);
-        context.setResourceContainer_AllocationContext(this.resourceContainer);
+        context.setAssemblyContext_AllocationContext(assemblyContext);
+        context.setEventChannel__AllocationContext(eventChannel);
+        context.setResourceContainer_AllocationContext(resourceContainer);
         return context;
     }
 

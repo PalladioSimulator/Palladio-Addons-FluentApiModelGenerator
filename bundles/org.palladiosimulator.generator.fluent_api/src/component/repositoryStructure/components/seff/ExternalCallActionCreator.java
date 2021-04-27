@@ -34,9 +34,9 @@ public class ExternalCallActionCreator extends SeffAction {
 
     protected ExternalCallActionCreator(final SeffCreator seff) {
         this.seff = seff;
-        this.inputVariableUsages = new ArrayList<>();
-        this.returnVariableUsages = new ArrayList<>();
-        this.failures = new ArrayList<>();
+        inputVariableUsages = new ArrayList<>();
+        returnVariableUsages = new ArrayList<>();
+        failures = new ArrayList<>();
     }
 
     @Override
@@ -103,7 +103,7 @@ public class ExternalCallActionCreator extends SeffAction {
      */
     public ExternalCallActionCreator withInputVariableUsage(final VariableUsageCreator variableUsage) {
         Objects.requireNonNull(variableUsage, "variableUsage must not be null");
-        this.inputVariableUsages.add(variableUsage.build());
+        inputVariableUsages.add(variableUsage.build());
         return this;
     }
 
@@ -117,7 +117,7 @@ public class ExternalCallActionCreator extends SeffAction {
      */
     public ExternalCallActionCreator withReturnVariableUsage(final VariableUsageCreator variableUsage) {
         Objects.requireNonNull(variableUsage, "variableUsage must not be null");
-        this.returnVariableUsages.add(variableUsage.build());
+        returnVariableUsages.add(variableUsage.build());
         return this;
     }
 
@@ -136,25 +136,25 @@ public class ExternalCallActionCreator extends SeffAction {
      */
     public ExternalCallActionCreator withFailureType(final FailureType failure) {
         Objects.requireNonNull(failure, "failure must not be null");
-        this.failures.add(failure);
+        failures.add(failure);
         return this;
     }
 
     @Override
     protected ExternalCallAction build() {
         final ExternalCallAction action = SeffFactory.eINSTANCE.createExternalCallAction();
-        if (this.retryCount != null) {
-            action.setRetryCount(this.retryCount);
+        if (retryCount != null) {
+            action.setRetryCount(retryCount);
         }
-        if (this.signature != null) {
-            action.setCalledService_ExternalService(this.signature);
+        if (signature != null) {
+            action.setCalledService_ExternalService(signature);
         }
-        if (this.requiredRole != null) {
-            action.setRole_ExternalService(this.requiredRole);
+        if (requiredRole != null) {
+            action.setRole_ExternalService(requiredRole);
         }
-        action.getInputVariableUsages__CallAction().addAll(this.inputVariableUsages);
-        action.getReturnVariableUsage__CallReturnAction().addAll(this.returnVariableUsages);
-        action.getFailureTypes_FailureHandlingEntity().addAll(this.failures);
+        action.getInputVariableUsages__CallAction().addAll(inputVariableUsages);
+        action.getReturnVariableUsage__CallReturnAction().addAll(returnVariableUsages);
+        action.getFailureTypes_FailureHandlingEntity().addAll(failures);
 
         return action;
     }

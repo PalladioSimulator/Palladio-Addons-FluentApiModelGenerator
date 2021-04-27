@@ -37,7 +37,7 @@ public class ResourceRequiredRoleSelector {
      */
     public RequiredResourceDelegationConnectorCreator withResourceRequiredRole(final ResourceRequiredRole role) {
         Objects.requireNonNull(role, "The given Role must not be null.");
-        return this.combinator.combineContextAndRole(this.context, role);
+        return combinator.combineContextAndRole(context, role);
     }
 
     /**
@@ -55,7 +55,7 @@ public class ResourceRequiredRoleSelector {
      */
     public RequiredResourceDelegationConnectorCreator withResourceRequiredRole(final String name)
             throws NoSuchElementException {
-        final ResourceRequiredRole role = this.context.getEncapsulatedComponent__AssemblyContext()
+        final ResourceRequiredRole role = context.getEncapsulatedComponent__AssemblyContext()
                 .getResourceRequiredRoles__ResourceInterfaceRequiringEntity().stream()
                 .filter(x -> x.getEntityName().equals(name)).findFirst().orElseThrow(() -> new NoSuchElementException(
                         String.format("No ResourceRequiredRole with name '%s' found.", name)));

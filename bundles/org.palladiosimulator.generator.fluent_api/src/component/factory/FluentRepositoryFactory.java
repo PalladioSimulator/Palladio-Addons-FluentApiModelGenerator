@@ -108,9 +108,9 @@ public class FluentRepositoryFactory {
      */
     public FluentRepositoryFactory() {
         EcorePlugin.ExtensionProcessor.process(null);
-        this.primitives = ModelLoader.loadRepository(ModelLoader.PRIMITIVE_TYPES_PATH);
-        this.resourceTypes = ModelLoader.loadResourceTypeRepository(ModelLoader.RESOURCE_TYPE_PATH);
-        this.failures = ModelLoader.loadRepository(ModelLoader.FAILURE_TYPES_PATH);
+        primitives = ModelLoader.loadRepository(ModelLoader.PRIMITIVE_TYPES_PATH);
+        resourceTypes = ModelLoader.loadResourceTypeRepository(ModelLoader.RESOURCE_TYPE_PATH);
+        failures = ModelLoader.loadRepository(ModelLoader.FAILURE_TYPES_PATH);
     }
 
     // ---------------------- Repository ----------------------
@@ -130,8 +130,8 @@ public class FluentRepositoryFactory {
 
         final IModelValidator validator = new ModelValidator(logger);
 
-        this.repo = new RepositoryCreator(this.primitives, this.resourceTypes, this.failures, logger, validator);
-        return this.repo;
+        repo = new RepositoryCreator(primitives, resourceTypes, failures, logger, validator);
+        return repo;
     }
 
     // ---------------------- Components ----------------------
@@ -177,7 +177,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.BasicComponent
      */
     public BasicComponentCreator newBasicComponent() {
-        final BasicComponentCreator basicComponent = new BasicComponentCreator(this.repo);
+        final BasicComponentCreator basicComponent = new BasicComponentCreator(repo);
         return basicComponent;
     }
 
@@ -253,7 +253,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.CompositeComponent
      */
     public CompositeComponentCreator newCompositeComponent() {
-        final CompositeComponentCreator compositeComponent = new CompositeComponentCreator(this.repo);
+        final CompositeComponentCreator compositeComponent = new CompositeComponentCreator(repo);
         return compositeComponent;
     }
 
@@ -321,7 +321,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.subsystem.SubSystem
      */
     public SubSystemCreator newSubSystem() {
-        final SubSystemCreator subSystem = new SubSystemCreator(this.repo);
+        final SubSystemCreator subSystem = new SubSystemCreator(repo);
         return subSystem;
     }
 
@@ -358,7 +358,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.CompleteComponentType
      */
     public CompleteComponentTypeCreator newCompleteComponentType() {
-        final CompleteComponentTypeCreator cct = new CompleteComponentTypeCreator(this.repo);
+        final CompleteComponentTypeCreator cct = new CompleteComponentTypeCreator(repo);
         return cct;
     }
 
@@ -394,7 +394,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.ProvidesComponentType
      */
     public ProvidesComponentTypeCreator newProvidesComponentType() {
-        final ProvidesComponentTypeCreator pct = new ProvidesComponentTypeCreator(this.repo);
+        final ProvidesComponentTypeCreator pct = new ProvidesComponentTypeCreator(repo);
         return pct;
     }
 
@@ -422,7 +422,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.OperationInterface
      */
     public OperationInterfaceCreator newOperationInterface() {
-        final OperationInterfaceCreator operationInterface = new OperationInterfaceCreator(this.repo);
+        final OperationInterfaceCreator operationInterface = new OperationInterfaceCreator(repo);
         return operationInterface;
     }
 
@@ -444,7 +444,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.InfrastructureInterface
      */
     public InfrastructureInterfaceCreator newInfrastructureInterface() {
-        final InfrastructureInterfaceCreator infrastructureInterface = new InfrastructureInterfaceCreator(this.repo);
+        final InfrastructureInterfaceCreator infrastructureInterface = new InfrastructureInterfaceCreator(repo);
         return infrastructureInterface;
     }
 
@@ -471,7 +471,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.EventGroup
      */
     public EventGroupCreator newEventGroup() {
-        final EventGroupCreator eventGroup = new EventGroupCreator(this.repo);
+        final EventGroupCreator eventGroup = new EventGroupCreator(repo);
         return eventGroup;
     }
 
@@ -499,7 +499,7 @@ public class FluentRepositoryFactory {
      */
     public CollectionDataType newCollectionDataType(final String name, final Primitive primitive) {
         Objects.requireNonNull(name, "name must not be null");
-        final PrimitiveDataType p = this.repo.getPrimitiveDataType(primitive);
+        final PrimitiveDataType p = repo.getPrimitiveDataType(primitive);
 
         final CollectionDataType coll = RepositoryFactory.eINSTANCE.createCollectionDataType();
         coll.setEntityName(name);
@@ -563,7 +563,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.CompositeDataType
      */
     public CompositeDataTypeCreator newCompositeDataType() {
-        return new CompositeDataTypeCreator(this.repo);
+        return new CompositeDataTypeCreator(repo);
     }
 
     /**
@@ -580,8 +580,7 @@ public class FluentRepositoryFactory {
         Objects.requireNonNull(name, "name must not be null");
         final HardwareInducedFailureType h = ReliabilityFactory.eINSTANCE.createHardwareInducedFailureType();
         h.setEntityName(name);
-        h.setProcessingResourceType__HardwareInducedFailureType(
-                this.repo.getProcessingResourceType(processingResource));
+        h.setProcessingResourceType__HardwareInducedFailureType(repo.getProcessingResourceType(processingResource));
         return h;
     }
 
@@ -600,7 +599,7 @@ public class FluentRepositoryFactory {
         final NetworkInducedFailureType n = ReliabilityFactory.eINSTANCE.createNetworkInducedFailureType();
         n.setEntityName(name);
         n.setCommunicationLinkResourceType__NetworkInducedFailureType(
-                this.repo.getCommunicationLinkResource(communicationLinkResource));
+                repo.getCommunicationLinkResource(communicationLinkResource));
         return n;
     }
 
@@ -613,7 +612,7 @@ public class FluentRepositoryFactory {
      */
     public ResourceTimeoutFailureTypeCreator newResourceTimeoutFailureType(final String name) {
         Objects.requireNonNull(name, "name must not be null");
-        return new ResourceTimeoutFailureTypeCreator(name, this.repo);
+        return new ResourceTimeoutFailureTypeCreator(name, repo);
     }
 
     /**
@@ -631,7 +630,7 @@ public class FluentRepositoryFactory {
     }
 
     public ExceptionTypeCreator newExceptionType() {
-        return new ExceptionTypeCreator(this.repo);
+        return new ExceptionTypeCreator(repo);
     }
 
     // ---------------------- Component Related Stuff ----------------------
@@ -667,7 +666,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.seff.ResourceDemandingInternalBehaviour
      */
     public Seff newSeff() {
-        return new SeffCreator(this.repo);
+        return new SeffCreator(repo);
     }
 
     /**
@@ -691,7 +690,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.seff.ForkedBehaviour
      */
     public InternalSeff newInternalBehaviour() {
-        return new SeffCreator(this.repo);
+        return new SeffCreator(repo);
     }
 
     /**
@@ -732,7 +731,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.seff.seff_reliability.RecoveryActionBehaviour
      */
     public RecoverySeff newRecoveryBehaviour() {
-        return new SeffCreator(this.repo);
+        return new SeffCreator(repo);
     }
 
     /**
@@ -786,7 +785,7 @@ public class FluentRepositoryFactory {
      * @see component.repositoryStructure.interfaces.OperationSignatureCreator#createSignature()
      */
     public OperationSignatureCreator newOperationSignature() {
-        return new OperationSignatureCreator(this.repo);
+        return new OperationSignatureCreator(repo);
     }
 
     /**
@@ -842,7 +841,7 @@ public class FluentRepositoryFactory {
      * @see component.repositoryStructure.interfaces.InfrastructureSignatureCreator#createSignature()
      */
     public InfrastructureSignatureCreator newInfrastructureSignature() {
-        return new InfrastructureSignatureCreator(this.repo);
+        return new InfrastructureSignatureCreator(repo);
     }
 
     /**
@@ -898,7 +897,7 @@ public class FluentRepositoryFactory {
      * @see component.repositoryStructure.interfaces.EventTypeCreator#createEventType()
      */
     public EventTypeCreator newEventType() {
-        return new EventTypeCreator(this.repo);
+        return new EventTypeCreator(repo);
     }
 
     /**
@@ -929,7 +928,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.parameter.VariableUsage
      */
     public VariableUsageCreator newVariableUsage() {
-        return new VariableUsageCreator(this.repo);
+        return new VariableUsageCreator(repo);
     }
 
     // ---------------------- Fetching methods ----------------------
@@ -952,7 +951,7 @@ public class FluentRepositoryFactory {
      */
     public CompositeDataType fetchOfCompositeDataType(final String name) {
         Objects.requireNonNull(name, "name must not be null");
-        final CompositeDataType dataType = this.repo.getCompositeDataType(name);
+        final CompositeDataType dataType = repo.getCompositeDataType(name);
         if (dataType == null) {
             throw new RuntimeException("Composite data type '" + name + "' could not be found");
         }
@@ -969,7 +968,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.PrimitiveDataType
      */
     public DataType fetchOfDataType(final Primitive primitive) {
-        final PrimitiveDataType p = this.repo.getPrimitiveDataType(primitive);
+        final PrimitiveDataType p = repo.getPrimitiveDataType(primitive);
         if (p == null) {
             throw new RuntimeException("Primitive data Type '" + primitive + "' could not be found");
         }
@@ -996,9 +995,9 @@ public class FluentRepositoryFactory {
      */
     public DataType fetchOfDataType(final String name) {
         Objects.requireNonNull(name, "name must not be null");
-        DataType dataType = this.repo.getDataType(name);
+        DataType dataType = repo.getDataType(name);
         if (dataType == null) {
-            dataType = this.repo.getPrimitiveDataType(name);
+            dataType = repo.getPrimitiveDataType(name);
         }
         if (dataType == null) {
             throw new RuntimeException("Datatype '" + name + "' could not be found");
@@ -1024,7 +1023,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.reliability.ResourceTimeoutFailureType
      */
     public ResourceTimeoutFailureType fetchOfResourceTimeoutFailureType(final String name) {
-        final ResourceTimeoutFailureType failureType = this.repo.getResourceTimeoutFailureType(name);
+        final ResourceTimeoutFailureType failureType = repo.getResourceTimeoutFailureType(name);
         if (failureType == null) {
             throw new RuntimeException("Failure Type '" + name + "' could not be found");
         }
@@ -1047,7 +1046,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.reliability.FailureType
      */
     public FailureType fetchOfFailureType(final Failure failure) {
-        final FailureType f = this.repo.getFailureType(failure);
+        final FailureType f = repo.getFailureType(failure);
         if (f == null) {
             throw new RuntimeException("Failure Type '" + failure + "' could not be found");
         }
@@ -1071,7 +1070,7 @@ public class FluentRepositoryFactory {
      */
     public FailureType fetchOfFailureType(final String name) {
         Objects.requireNonNull(name, "name must not be null");
-        final FailureType f = this.repo.getFailureType(name);
+        final FailureType f = repo.getFailureType(name);
         if (f == null) {
             throw new RuntimeException("Failure Type '" + name + "' could not be found");
         }
@@ -1094,7 +1093,7 @@ public class FluentRepositoryFactory {
      */
     public ExceptionType fetchOfExceptionType(final String name) {
         Objects.requireNonNull(name, "name must not be null");
-        final ExceptionType e = this.repo.getExceptionType(name);
+        final ExceptionType e = repo.getExceptionType(name);
         if (e == null) {
             throw new RuntimeException("Failure Type '" + name + "' could not be found");
         }
@@ -1119,7 +1118,7 @@ public class FluentRepositoryFactory {
      */
     public RepositoryComponent fetchOfComponent(final String name) {
         Objects.requireNonNull(name, "name must not be null");
-        final RepositoryComponent component = this.repo.getComponent(name);
+        final RepositoryComponent component = repo.getComponent(name);
         if (component == null) {
             throw new RuntimeException("Component '" + name + "' could not be found");
         }
@@ -1144,7 +1143,7 @@ public class FluentRepositoryFactory {
      */
     public BasicComponent fetchOfBasicComponent(final String name) {
         Objects.requireNonNull(name, "name must not be null");
-        final BasicComponent component = this.repo.getBasicComponent(name);
+        final BasicComponent component = repo.getBasicComponent(name);
         if (component == null) {
             throw new RuntimeException("BasicComponent '" + name + "' could not be found");
         }
@@ -1169,7 +1168,7 @@ public class FluentRepositoryFactory {
      */
     public CompositeComponent fetchOfCompositeComponent(final String name) {
         Objects.requireNonNull(name, "name must not be null");
-        final CompositeComponent component = this.repo.getCompositeComponent(name);
+        final CompositeComponent component = repo.getCompositeComponent(name);
         if (component == null) {
             throw new RuntimeException("CompositeComponent '" + name + "' could not be found");
         }
@@ -1194,7 +1193,7 @@ public class FluentRepositoryFactory {
      */
     public SubSystem fetchOfSubSystem(final String name) {
         Objects.requireNonNull(name, "name must not be null");
-        final SubSystem component = this.repo.getSubsystem(name);
+        final SubSystem component = repo.getSubsystem(name);
         if (component == null) {
             throw new RuntimeException("Subsystem '" + name + "' could not be found");
         }
@@ -1220,7 +1219,7 @@ public class FluentRepositoryFactory {
      */
     public CompleteComponentType fetchOfCompleteComponentType(final String name) {
         Objects.requireNonNull(name, "name must not be null");
-        final CompleteComponentType component = this.repo.getCompleteComponentType(name);
+        final CompleteComponentType component = repo.getCompleteComponentType(name);
         if (component == null) {
             throw new RuntimeException("CompleteComponentType '" + name + "' could not be found");
         }
@@ -1246,7 +1245,7 @@ public class FluentRepositoryFactory {
      */
     public ProvidesComponentType fetchOfProvidesComponentType(final String name) {
         Objects.requireNonNull(name, "name must not be null");
-        final ProvidesComponentType component = this.repo.getProvidesComponentType(name);
+        final ProvidesComponentType component = repo.getProvidesComponentType(name);
         if (component == null) {
             throw new RuntimeException("ProvidesComponentType '" + name + "' could not be found");
         }
@@ -1271,7 +1270,7 @@ public class FluentRepositoryFactory {
      */
     public Interface fetchOfInterface(final String name) {
         Objects.requireNonNull(name, "name must not be null");
-        final Interface interfce = this.repo.getInterface(name);
+        final Interface interfce = repo.getInterface(name);
         if (interfce == null) {
             throw new RuntimeException("Interface '" + name + "' could not be found");
         }
@@ -1296,7 +1295,7 @@ public class FluentRepositoryFactory {
      */
     public OperationInterface fetchOfOperationInterface(final String name) {
         Objects.requireNonNull(name, "name must not be null");
-        final OperationInterface interfce = this.repo.getOperationInterface(name);
+        final OperationInterface interfce = repo.getOperationInterface(name);
         if (interfce == null) {
             throw new RuntimeException("OperationInterface '" + name + "' could not be found");
         }
@@ -1322,7 +1321,7 @@ public class FluentRepositoryFactory {
      */
     public InfrastructureInterface fetchOfInfrastructureInterface(final String name) {
         Objects.requireNonNull(name, "name must not be null");
-        final InfrastructureInterface interfce = this.repo.getInfrastructureInterface(name);
+        final InfrastructureInterface interfce = repo.getInfrastructureInterface(name);
         if (interfce == null) {
             throw new RuntimeException("InfrastructureInterface '" + name + "' could not be found");
         }
@@ -1347,7 +1346,7 @@ public class FluentRepositoryFactory {
      */
     public EventGroup fetchOfEventGroup(final String name) {
         Objects.requireNonNull(name, "name must not be null");
-        final EventGroup interfce = this.repo.getEventGroup(name);
+        final EventGroup interfce = repo.getEventGroup(name);
         if (interfce == null) {
             throw new RuntimeException("EventGroup '" + name + "' could not be found");
         }
@@ -1371,7 +1370,7 @@ public class FluentRepositoryFactory {
      */
     public ProvidedRole fetchOfProvidedRole(final String name) {
         Objects.requireNonNull(name, "name must not be null");
-        final ProvidedRole provRole = this.repo.getProvidedRole(name);
+        final ProvidedRole provRole = repo.getProvidedRole(name);
         if (provRole == null) {
             throw new RuntimeException("ProvidedRole '" + name + "' could not be found");
         }
@@ -1396,7 +1395,7 @@ public class FluentRepositoryFactory {
      */
     public OperationProvidedRole fetchOfOperationProvidedRole(final String name) {
         Objects.requireNonNull(name, "name must not be null");
-        final OperationProvidedRole provRole = this.repo.getOperationProvidedRole(name);
+        final OperationProvidedRole provRole = repo.getOperationProvidedRole(name);
         if (provRole == null) {
             throw new RuntimeException("ProvidedRole '" + name + "' could not be found");
         }
@@ -1421,7 +1420,7 @@ public class FluentRepositoryFactory {
      */
     public InfrastructureProvidedRole fetchOfInfrastructureProvidedRole(final String name) {
         Objects.requireNonNull(name, "name must not be null");
-        final InfrastructureProvidedRole provRole = this.repo.getInfrastructureProvidedRole(name);
+        final InfrastructureProvidedRole provRole = repo.getInfrastructureProvidedRole(name);
         if (provRole == null) {
             throw new RuntimeException("ProvidedRole '" + name + "' could not be found");
         }
@@ -1445,7 +1444,7 @@ public class FluentRepositoryFactory {
      */
     public SinkRole fetchOfSinkRole(final String name) {
         Objects.requireNonNull(name, "name must not be null");
-        final SinkRole provRole = this.repo.getSinkRole(name);
+        final SinkRole provRole = repo.getSinkRole(name);
         if (provRole == null) {
             throw new RuntimeException("SinkRole '" + name + "' could not be found");
         }
@@ -1469,7 +1468,7 @@ public class FluentRepositoryFactory {
      */
     public RequiredRole fetchOfRequiredRole(final String name) {
         Objects.requireNonNull(name, "name must not be null");
-        final RequiredRole reqRole = this.repo.getRequiredRole(name);
+        final RequiredRole reqRole = repo.getRequiredRole(name);
         if (reqRole == null) {
             throw new RuntimeException("RequiredRole '" + name + "' could not be found");
         }
@@ -1494,7 +1493,7 @@ public class FluentRepositoryFactory {
      */
     public OperationRequiredRole fetchOfOperationRequiredRole(final String name) {
         Objects.requireNonNull(name, "name must not be null");
-        final OperationRequiredRole reqRole = this.repo.getOperationRequiredRole(name);
+        final OperationRequiredRole reqRole = repo.getOperationRequiredRole(name);
         if (reqRole == null) {
             throw new RuntimeException("RequiredRole '" + name + "' could not be found");
         }
@@ -1519,7 +1518,7 @@ public class FluentRepositoryFactory {
      */
     public InfrastructureRequiredRole fetchOfInfrastructureRequiredRole(final String name) {
         Objects.requireNonNull(name, "name must not be null");
-        final InfrastructureRequiredRole reqRole = this.repo.getInfrastructureRequiredRole(name);
+        final InfrastructureRequiredRole reqRole = repo.getInfrastructureRequiredRole(name);
         if (reqRole == null) {
             throw new RuntimeException("RequiredRole '" + name + "' could not be found");
         }
@@ -1543,7 +1542,7 @@ public class FluentRepositoryFactory {
      */
     public SourceRole fetchOfSourceRole(final String name) {
         Objects.requireNonNull(name, "name must not be null");
-        final SourceRole reqRole = this.repo.getSourceRole(name);
+        final SourceRole reqRole = repo.getSourceRole(name);
         if (reqRole == null) {
             throw new RuntimeException("SourceRole '" + name + "' could not be found");
         }
@@ -1567,7 +1566,7 @@ public class FluentRepositoryFactory {
      */
     public ResourceRequiredRole fetchOfResourceRequiredRole(final String name) {
         Objects.requireNonNull(name, "name must not be null");
-        final ResourceRequiredRole reqRole = this.repo.getResourceRequiredRole(name);
+        final ResourceRequiredRole reqRole = repo.getResourceRequiredRole(name);
         if (reqRole == null) {
             throw new RuntimeException("ResourceRequiredRole '" + name + "' could not be found");
         }
@@ -1591,7 +1590,7 @@ public class FluentRepositoryFactory {
      */
     public Signature fetchOfSignature(final String name) {
         Objects.requireNonNull(name, "name must not be null");
-        final Signature signature = this.repo.getSignature(name);
+        final Signature signature = repo.getSignature(name);
         if (signature == null) {
             throw new RuntimeException("Signature '" + name + "' could not be found");
         }
@@ -1615,7 +1614,7 @@ public class FluentRepositoryFactory {
      */
     public OperationSignature fetchOfOperationSignature(final String name) {
         Objects.requireNonNull(name, "name must not be null");
-        final OperationSignature signature = this.repo.getOperationSignature(name);
+        final OperationSignature signature = repo.getOperationSignature(name);
         if (signature == null) {
             throw new RuntimeException("Operation signature '" + name + "' could not be found");
         }
@@ -1640,7 +1639,7 @@ public class FluentRepositoryFactory {
      */
     public InfrastructureSignature fetchOfInfrastructureSignature(final String name) {
         Objects.requireNonNull(name, "name must not be null");
-        final InfrastructureSignature signature = this.repo.getInfrastructureSignature(name);
+        final InfrastructureSignature signature = repo.getInfrastructureSignature(name);
         if (signature == null) {
             throw new RuntimeException("Operation signature '" + name + "' could not be found");
         }
@@ -1664,7 +1663,7 @@ public class FluentRepositoryFactory {
      */
     public EventType fetchOfEventType(final String name) {
         Objects.requireNonNull(name, "name must not be null");
-        final EventType eventType = this.repo.getEventType(name);
+        final EventType eventType = repo.getEventType(name);
         if (eventType == null) {
             throw new RuntimeException("EventType '" + name + "' could not be found");
         }
@@ -1688,7 +1687,7 @@ public class FluentRepositoryFactory {
      */
     public AssemblyContext fetchOfAssemblyContext(final String name) {
         Objects.requireNonNull(name, "name must not be null");
-        final AssemblyContext assContext = this.repo.getAssemblyContext(name);
+        final AssemblyContext assContext = repo.getAssemblyContext(name);
         if (assContext == null) {
             throw new RuntimeException("Assembly context '" + name + "' could not be found");
         }
@@ -1712,7 +1711,7 @@ public class FluentRepositoryFactory {
      */
     public EventChannel fetchOfEventChannel(final String name) {
         Objects.requireNonNull(name, "name must not be null");
-        final EventChannel eventChannel = this.repo.getEventChannel(name);
+        final EventChannel eventChannel = repo.getEventChannel(name);
         if (eventChannel == null) {
             throw new RuntimeException("Event Channel '" + name + "' could not be found");
         }
@@ -1736,7 +1735,7 @@ public class FluentRepositoryFactory {
      */
     public Parameter fetchOfParameter(final String name) {
         Objects.requireNonNull(name, "name must not be null");
-        final Parameter p = this.repo.getParameter(name);
+        final Parameter p = repo.getParameter(name);
         if (p == null) {
             throw new RuntimeException("Parameter '" + name + "' could not be found");
         }
@@ -1762,7 +1761,7 @@ public class FluentRepositoryFactory {
      */
     public Parameter fetchOfParameter(final String name, final Signature context) {
         Objects.requireNonNull(name, "name must not be null");
-        final Parameter p = this.repo.getParameter(name, context);
+        final Parameter p = repo.getParameter(name, context);
         if (p == null) {
             throw new RuntimeException("Parameter '" + name + "' could not be found");
         }
@@ -1786,7 +1785,7 @@ public class FluentRepositoryFactory {
      */
     public PassiveResource fetchOfPassiveResource(final String name) {
         Objects.requireNonNull(name, "name must not be null");
-        final PassiveResource r = this.repo.getPassiveResource(name);
+        final PassiveResource r = repo.getPassiveResource(name);
         if (r == null) {
             throw new RuntimeException("Passive Resource '" + name + "' could not be found");
         }
@@ -1811,7 +1810,7 @@ public class FluentRepositoryFactory {
      */
     public RecoveryActionBehaviour fetchOfRecoveryActionBehaviour(final String name) {
         Objects.requireNonNull(name, "name must not be null");
-        final RecoveryActionBehaviour r = this.repo.getRecoveryActionBehaviour(name);
+        final RecoveryActionBehaviour r = repo.getRecoveryActionBehaviour(name);
         if (r == null) {
             throw new RuntimeException("Recovery action behaviour '" + name + "' could not be found");
         }

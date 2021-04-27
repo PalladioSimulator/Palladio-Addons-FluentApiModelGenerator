@@ -28,7 +28,7 @@ public class AssemblyEventConnectorCreator extends AbstractConnectorCreator {
     private SinkRole sinkRole;
 
     public AssemblyEventConnectorCreator(final SystemCreator systemCreator) {
-        this.system = systemCreator;
+        system = systemCreator;
     }
 
     /**
@@ -42,12 +42,11 @@ public class AssemblyEventConnectorCreator extends AbstractConnectorCreator {
      */
     public SourceRoleSelector<AssemblyEventConnectorCreator> withSourceAssemblyContext(final AssemblyContext context) {
         Objects.requireNonNull(context, "The given AssemblyContext must not be null.");
-        return new SourceRoleSelector<>(
-                (context1, role) -> {
-                  AssemblyEventConnectorCreator.this.sourceContext = context1;
-                  AssemblyEventConnectorCreator.this.sourceRole = role;
-                  return AssemblyEventConnectorCreator.this;
-               }, context);
+        return new SourceRoleSelector<>((context1, role) -> {
+            AssemblyEventConnectorCreator.this.sourceContext = context1;
+            AssemblyEventConnectorCreator.this.sourceRole = role;
+            return AssemblyEventConnectorCreator.this;
+        }, context);
     }
 
     /**
@@ -63,7 +62,7 @@ public class AssemblyEventConnectorCreator extends AbstractConnectorCreator {
      */
     public SourceRoleSelector<AssemblyEventConnectorCreator> withSourceAssemblyContext(final String name)
             throws NoSuchElementException {
-        final AssemblyContext context = this.system.getAssemblyContextByName(name);
+        final AssemblyContext context = system.getAssemblyContextByName(name);
         return this.withSourceAssemblyContext(context);
     }
 
@@ -78,12 +77,11 @@ public class AssemblyEventConnectorCreator extends AbstractConnectorCreator {
      */
     public SinkRoleSelector<AssemblyEventConnectorCreator> withSinkAssemblyContext(final AssemblyContext context) {
         Objects.requireNonNull(context, "The given AssemblyContext must not be null.");
-        return new SinkRoleSelector<>(
-                (context1, role) -> {
-                  AssemblyEventConnectorCreator.this.sinkContext = context1;
-                  AssemblyEventConnectorCreator.this.sinkRole = role;
-                  return AssemblyEventConnectorCreator.this;
-               }, context);
+        return new SinkRoleSelector<>((context1, role) -> {
+            AssemblyEventConnectorCreator.this.sinkContext = context1;
+            AssemblyEventConnectorCreator.this.sinkRole = role;
+            return AssemblyEventConnectorCreator.this;
+        }, context);
     }
 
     /**
@@ -98,20 +96,20 @@ public class AssemblyEventConnectorCreator extends AbstractConnectorCreator {
      * @see org.palladiosimulator.pcm.repository.SinkRole
      */
     public SinkRoleSelector<AssemblyEventConnectorCreator> withSinkAssemblyContext(final String name) {
-        final AssemblyContext context = this.system.getAssemblyContextByName(name);
+        final AssemblyContext context = system.getAssemblyContextByName(name);
         return this.withSinkAssemblyContext(context);
     }
 
     @Override
     public AssemblyEventConnector build() {
         final AssemblyEventConnector connector = CompositionFactory.eINSTANCE.createAssemblyEventConnector();
-        if (this.name != null) {
-            connector.setEntityName(this.name);
+        if (name != null) {
+            connector.setEntityName(name);
         }
-        connector.setSourceAssemblyContext__AssemblyEventConnector(this.sourceContext);
-        connector.setSourceRole__AssemblyEventConnector(this.sourceRole);
-        connector.setSinkAssemblyContext__AssemblyEventConnector(this.sinkContext);
-        connector.setSinkRole__AssemblyEventConnector(this.sinkRole);
+        connector.setSourceAssemblyContext__AssemblyEventConnector(sourceContext);
+        connector.setSourceRole__AssemblyEventConnector(sourceRole);
+        connector.setSinkAssemblyContext__AssemblyEventConnector(sinkContext);
+        connector.setSinkRole__AssemblyEventConnector(sinkRole);
         return connector;
     }
 

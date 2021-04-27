@@ -23,7 +23,7 @@ public class OperationRequiredRoleCreator extends SystemEntity {
     private OperationInterface requiredInterface;
 
     public OperationRequiredRoleCreator(final SystemCreator systemCreator) {
-        this.system = systemCreator;
+        system = systemCreator;
     }
 
     /**
@@ -36,7 +36,7 @@ public class OperationRequiredRoleCreator extends SystemEntity {
      */
     public OperationRequiredRoleCreator withRequiredInterface(final OperationInterface operationInterface) {
         Objects.requireNonNull(operationInterface, "The given Interface must not be null.");
-        this.requiredInterface = operationInterface;
+        requiredInterface = operationInterface;
         return this;
     }
 
@@ -53,7 +53,7 @@ public class OperationRequiredRoleCreator extends SystemEntity {
     public OperationRequiredRoleCreator withRequiredInterface(final String name) throws NoSuchElementException {
         OperationInterface operationInterface;
         try {
-            operationInterface = (OperationInterface) this.system.getInterfaceByName(name);
+            operationInterface = (OperationInterface) system.getInterfaceByName(name);
         } catch (final ClassCastException e) {
             throw new NoSuchElementException(
                     String.format("An Interface with name '%s' was found, but it was not an OperationInterface. "
@@ -65,10 +65,10 @@ public class OperationRequiredRoleCreator extends SystemEntity {
     @Override
     public OperationRequiredRole build() {
         final OperationRequiredRole role = RepositoryFactory.eINSTANCE.createOperationRequiredRole();
-        if (this.name != null) {
-            role.setEntityName(this.name);
+        if (name != null) {
+            role.setEntityName(name);
         }
-        role.setRequiredInterface__OperationRequiredRole(this.requiredInterface);
+        role.setRequiredInterface__OperationRequiredRole(requiredInterface);
         return role;
     }
 

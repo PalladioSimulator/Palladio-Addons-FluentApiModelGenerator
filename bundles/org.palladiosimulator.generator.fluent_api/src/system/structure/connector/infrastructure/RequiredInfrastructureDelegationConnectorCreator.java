@@ -24,7 +24,7 @@ public class RequiredInfrastructureDelegationConnectorCreator extends AbstractCo
     private AssemblyContext requringAssemblyContext;
 
     public RequiredInfrastructureDelegationConnectorCreator(final SystemCreator systemCreator) {
-        this.system = systemCreator;
+        system = systemCreator;
     }
 
     /**
@@ -38,7 +38,7 @@ public class RequiredInfrastructureDelegationConnectorCreator extends AbstractCo
      */
     public RequiredInfrastructureDelegationConnectorCreator withOuterRequiredRole(
             final InfrastructureRequiredRole role) {
-        this.outerRequiredRole = role;
+        outerRequiredRole = role;
         return this;
     }
 
@@ -56,7 +56,7 @@ public class RequiredInfrastructureDelegationConnectorCreator extends AbstractCo
      */
     public RequiredInfrastructureDelegationConnectorCreator withOuterRequiredRole(final String name)
             throws NoSuchElementException {
-        final InfrastructureRequiredRole role = this.system.getSystemInfrastructureRequiredRoleByName(name);
+        final InfrastructureRequiredRole role = system.getSystemInfrastructureRequiredRoleByName(name);
         return this.withOuterRequiredRole(role);
     }
 
@@ -71,12 +71,11 @@ public class RequiredInfrastructureDelegationConnectorCreator extends AbstractCo
      */
     public InfrastructureRequiredRoleSelector<RequiredInfrastructureDelegationConnectorCreator> withRequiringContext(
             final AssemblyContext context) {
-        return new InfrastructureRequiredRoleSelector<>(
-                (context1, role) -> {
-                  RequiredInfrastructureDelegationConnectorCreator.this.requringAssemblyContext = context1;
-                  RequiredInfrastructureDelegationConnectorCreator.this.innerRequiredRole = role;
-                  return RequiredInfrastructureDelegationConnectorCreator.this;
-               }, context);
+        return new InfrastructureRequiredRoleSelector<>((context1, role) -> {
+            RequiredInfrastructureDelegationConnectorCreator.this.requringAssemblyContext = context1;
+            RequiredInfrastructureDelegationConnectorCreator.this.innerRequiredRole = role;
+            return RequiredInfrastructureDelegationConnectorCreator.this;
+        }, context);
     }
 
     /**
@@ -92,7 +91,7 @@ public class RequiredInfrastructureDelegationConnectorCreator extends AbstractCo
      */
     public InfrastructureRequiredRoleSelector<RequiredInfrastructureDelegationConnectorCreator> withRequiringContext(
             final String name) {
-        final AssemblyContext context = this.system.getAssemblyContextByName(name);
+        final AssemblyContext context = system.getAssemblyContextByName(name);
         return this.withRequiringContext(context);
     }
 
@@ -100,12 +99,12 @@ public class RequiredInfrastructureDelegationConnectorCreator extends AbstractCo
     public RequiredInfrastructureDelegationConnector build() {
         final RequiredInfrastructureDelegationConnector connector = CompositionFactory.eINSTANCE
                 .createRequiredInfrastructureDelegationConnector();
-        if (this.name != null) {
-            connector.setEntityName(this.name);
+        if (name != null) {
+            connector.setEntityName(name);
         }
-        connector.setAssemblyContext__RequiredInfrastructureDelegationConnector(this.requringAssemblyContext);
-        connector.setOuterRequiredRole__RequiredInfrastructureDelegationConnector(this.outerRequiredRole);
-        connector.setInnerRequiredRole__RequiredInfrastructureDelegationConnector(this.innerRequiredRole);
+        connector.setAssemblyContext__RequiredInfrastructureDelegationConnector(requringAssemblyContext);
+        connector.setOuterRequiredRole__RequiredInfrastructureDelegationConnector(outerRequiredRole);
+        connector.setInnerRequiredRole__RequiredInfrastructureDelegationConnector(innerRequiredRole);
         return connector;
     }
 

@@ -52,8 +52,8 @@ public class FluentResourceEnvironmentFactory {
         final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
         logger.setLevel(Level.ALL);
         final IModelValidator validator = new ModelValidator(logger);
-        this.resourceEnvironmentCreator = new ResourceEnvironmentCreator(resources, validator);
-        return this.resourceEnvironmentCreator;
+        resourceEnvironmentCreator = new ResourceEnvironmentCreator(resources, validator);
+        return resourceEnvironmentCreator;
     }
 
     /**
@@ -65,7 +65,7 @@ public class FluentResourceEnvironmentFactory {
      * @see org.palladiosimulator.pcm.resourceenvironment.ResourceContainer
      */
     public ResourceContainerCreator newResourceContainer() {
-        return new ResourceContainerCreator(this.resourceEnvironmentCreator);
+        return new ResourceContainerCreator(resourceEnvironmentCreator);
     }
 
     /**
@@ -77,7 +77,7 @@ public class FluentResourceEnvironmentFactory {
      * @see org.palladiosimulator.pcm.resourceenvironment.ProcessingResourceSpecification
      */
     public ProcessingResourceSpecificationCreator newProcessingResourceSpecification() {
-        return new ProcessingResourceSpecificationCreator(this.resourceEnvironmentCreator);
+        return new ProcessingResourceSpecificationCreator(resourceEnvironmentCreator);
     }
 
     /**
@@ -89,7 +89,7 @@ public class FluentResourceEnvironmentFactory {
      * @see org.palladiosimulator.pcm.resourceenvironment.HDDProcessingResourceSpecification
      */
     public HddProcessingResourceSpecificationCreator newHddProcessingResourceSpecification() {
-        return new HddProcessingResourceSpecificationCreator(this.resourceEnvironmentCreator);
+        return new HddProcessingResourceSpecificationCreator(resourceEnvironmentCreator);
     }
 
     /**
@@ -101,6 +101,6 @@ public class FluentResourceEnvironmentFactory {
      * @see org.palladiosimulator.pcm.resourceenvironment.LinkingResource
      */
     public LinkingResourceCreator newLinkingResource() {
-        return new LinkingResourceCreator(this.resourceEnvironmentCreator);
+        return new LinkingResourceCreator(resourceEnvironmentCreator);
     }
 }

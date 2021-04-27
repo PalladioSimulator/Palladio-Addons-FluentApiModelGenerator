@@ -31,19 +31,19 @@ public class ModelValidator implements IModelValidator {
         case Diagnostic.OK:
             return true;
         case Diagnostic.INFO:
-            this.logResult(diagnostic, name, Level.INFO);
+            logResult(diagnostic, name, Level.INFO);
             return true;
         case Diagnostic.WARNING:
-            this.logResult(diagnostic, name, Level.WARNING);
+            logResult(diagnostic, name, Level.WARNING);
             return false;
         case Diagnostic.ERROR:
-            this.logResult(diagnostic, name, Level.SEVERE);
+            logResult(diagnostic, name, Level.SEVERE);
             return false;
         case Diagnostic.CANCEL:
-            this.logger.severe("Validation was canceled");
+            logger.severe("Validation was canceled");
             return false;
         default:
-            this.logger.severe("Validation returned unexpected result");
+            logger.severe("Validation returned unexpected result");
             return false;
         }
     }
@@ -59,6 +59,6 @@ public class ModelValidator implements IModelValidator {
         }
         builder.append(":\n");
         diagnostic.getChildren().forEach(x -> builder.append(x.toString() + "\n"));
-        this.logger.log(logLevel, builder.toString().trim());
+        logger.log(logLevel, builder.toString().trim());
     }
 }

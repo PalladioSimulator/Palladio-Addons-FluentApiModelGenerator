@@ -47,9 +47,9 @@ public class CompositeComponentCreator extends ComplexComponent {
     private final List<VariableUsage> componentParameterUsages;
 
     public CompositeComponentCreator(final RepositoryCreator repo) {
-        this.repository = repo;
-        this.conformsCompleteTypes = new ArrayList<>();
-        this.componentParameterUsages = new ArrayList<>();
+        repository = repo;
+        conformsCompleteTypes = new ArrayList<>();
+        componentParameterUsages = new ArrayList<>();
     }
 
     @Override
@@ -242,7 +242,7 @@ public class CompositeComponentCreator extends ComplexComponent {
     public CompositeComponentCreator conforms(final CompleteComponentTypeCreator completeComponentType) {
         Objects.requireNonNull(completeComponentType, "completeComponentType must not be null");
         final CompleteComponentType cct = completeComponentType.build();
-        this.repository.addComponent(cct);
+        repository.addComponent(cct);
         return this.conforms(cct);
     }
 
@@ -268,7 +268,7 @@ public class CompositeComponentCreator extends ComplexComponent {
      */
     public CompositeComponentCreator conforms(final CompleteComponentType completeComponentType) {
         Objects.requireNonNull(completeComponentType, "completeComponentType must not be null");
-        this.conformsCompleteTypes.add(completeComponentType);
+        conformsCompleteTypes.add(completeComponentType);
         return this;
     }
 
@@ -293,7 +293,7 @@ public class CompositeComponentCreator extends ComplexComponent {
      */
     public CompositeComponentCreator withVariableUsage(final VariableUsageCreator variableUsage) {
         Objects.requireNonNull(variableUsage, "variableUsage must not be null");
-        this.componentParameterUsages.add(variableUsage.build());
+        componentParameterUsages.add(variableUsage.build());
         return this;
     }
 
@@ -421,29 +421,27 @@ public class CompositeComponentCreator extends ComplexComponent {
     @Override
     public RepositoryComponent build() {
         final CompositeComponent compositeComponent = RepositoryFactory.eINSTANCE.createCompositeComponent();
-        if (this.name != null) {
-            compositeComponent.setEntityName(this.name);
+        if (name != null) {
+            compositeComponent.setEntityName(name);
         }
         // if (id != null)
         // compositeComponent.setId(id);
-        if (this.type != null) {
-            compositeComponent.setComponentType(this.type);
+        if (type != null) {
+            compositeComponent.setComponentType(type);
         }
 
-        compositeComponent.getProvidedRoles_InterfaceProvidingEntity().addAll(this.providedRoles);
-        compositeComponent.getRequiredRoles_InterfaceRequiringEntity().addAll(this.requiredRoles);
-        compositeComponent.getResourceRequiredRoles__ResourceInterfaceRequiringEntity()
-                .addAll(this.resourceRequiredRoles);
+        compositeComponent.getProvidedRoles_InterfaceProvidingEntity().addAll(providedRoles);
+        compositeComponent.getRequiredRoles_InterfaceRequiringEntity().addAll(requiredRoles);
+        compositeComponent.getResourceRequiredRoles__ResourceInterfaceRequiringEntity().addAll(resourceRequiredRoles);
 
-        compositeComponent.getParentCompleteComponentTypes().addAll(this.conformsCompleteTypes);
-        compositeComponent.getComponentParameterUsage_ImplementationComponentType()
-                .addAll(this.componentParameterUsages);
+        compositeComponent.getParentCompleteComponentTypes().addAll(conformsCompleteTypes);
+        compositeComponent.getComponentParameterUsage_ImplementationComponentType().addAll(componentParameterUsages);
 
-        compositeComponent.getAssemblyContexts__ComposedStructure().addAll(this.assemblyContexts);
-        compositeComponent.getConnectors__ComposedStructure().addAll(this.connectors);
-        compositeComponent.getEventChannel__ComposedStructure().addAll(this.eventChannels);
+        compositeComponent.getAssemblyContexts__ComposedStructure().addAll(assemblyContexts);
+        compositeComponent.getConnectors__ComposedStructure().addAll(connectors);
+        compositeComponent.getEventChannel__ComposedStructure().addAll(eventChannels);
         compositeComponent.getResourceRequiredDelegationConnectors_ComposedStructure()
-                .addAll(this.resourceRequiredDelegationConnectors);
+                .addAll(resourceRequiredDelegationConnectors);
 
         return compositeComponent;
     }

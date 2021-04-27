@@ -27,8 +27,8 @@ public class InfrastructureInterfaceCreator extends Interface {
     private final List<InfrastructureSignature> signatures;
 
     public InfrastructureInterfaceCreator(final RepositoryCreator repo) {
-        this.repository = repo;
-        this.signatures = new ArrayList<>();
+        repository = repo;
+        signatures = new ArrayList<>();
     }
 
     @Override
@@ -64,8 +64,8 @@ public class InfrastructureInterfaceCreator extends Interface {
      */
     public InfrastructureInterfaceCreator withInfrastructureSignature(final InfrastructureSignatureCreator signature) {
         final InfrastructureSignature build = signature.build();
-        this.repository.addSignature(build);
-        this.signatures.add(build);
+        repository.addSignature(build);
+        signatures.add(build);
         return this;
     }
 
@@ -73,22 +73,22 @@ public class InfrastructureInterfaceCreator extends Interface {
     public InfrastructureInterface build() {
         final InfrastructureInterface interfce = RepositoryFactory.eINSTANCE.createInfrastructureInterface();
 
-        if (this.name != null) {
-            interfce.setEntityName(this.name);
+        if (name != null) {
+            interfce.setEntityName(name);
             // if (id != null)
             // interfce.setId(id);
         }
 
-        interfce.getInfrastructureSignatures__InfrastructureInterface().addAll(this.signatures);
+        interfce.getInfrastructureSignatures__InfrastructureInterface().addAll(signatures);
 
-        interfce.getParentInterfaces__Interface().addAll(this.parentInterfaces);
-        interfce.getRequiredCharacterisations().addAll(this.requiredCharacterisations);
+        interfce.getParentInterfaces__Interface().addAll(parentInterfaces);
+        interfce.getRequiredCharacterisations().addAll(requiredCharacterisations);
 
         return interfce;
     }
 
     protected void addInfrastructureSignatures(final InfrastructureSignature signature) {
-        this.signatures.add(signature);
+        signatures.add(signature);
     }
 
 }

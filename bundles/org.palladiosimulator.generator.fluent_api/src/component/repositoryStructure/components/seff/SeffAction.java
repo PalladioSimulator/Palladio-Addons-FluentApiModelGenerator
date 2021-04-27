@@ -28,9 +28,9 @@ public abstract class SeffAction extends RepositoryEntity {
      * @return the SEFF's body behaviour
      */
     public ActionSeff followedBy() {
-        final AbstractAction action = this.build();
+        final AbstractAction action = build();
 
-        this.seff.setNext(action);
-        return this.seff;
+        seff.setNext(action);
+        return seff;
     }
 }

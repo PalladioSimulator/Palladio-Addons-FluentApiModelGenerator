@@ -18,7 +18,7 @@ public class EventChannelCreator extends SystemEntity {
     private EventGroup eventGroup;
 
     public EventChannelCreator(final SystemCreator systemCreator) {
-        this.system = systemCreator;
+        system = systemCreator;
     }
 
     /**
@@ -48,7 +48,7 @@ public class EventChannelCreator extends SystemEntity {
     public EventChannelCreator withEventGroup(final String name) throws NoSuchElementException {
         EventGroup group;
         try {
-            group = (EventGroup) this.system.getInterfaceByName(name);
+            group = (EventGroup) system.getInterfaceByName(name);
         } catch (final ClassCastException e) {
             throw new NoSuchElementException(
                     String.format("An Interface with name '%s' was found, but it was not an EventGroup. "
@@ -60,10 +60,10 @@ public class EventChannelCreator extends SystemEntity {
     @Override
     public EventChannel build() {
         final EventChannel channel = CompositionFactory.eINSTANCE.createEventChannel();
-        if (this.name != null) {
-            channel.setEntityName(this.name);
+        if (name != null) {
+            channel.setEntityName(name);
         }
-        channel.setEventGroup__EventChannel(this.eventGroup);
+        channel.setEventGroup__EventChannel(eventGroup);
         return channel;
     }
 

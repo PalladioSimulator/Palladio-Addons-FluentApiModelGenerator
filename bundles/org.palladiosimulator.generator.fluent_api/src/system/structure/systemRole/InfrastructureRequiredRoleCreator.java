@@ -23,7 +23,7 @@ public class InfrastructureRequiredRoleCreator extends SystemEntity {
     private InfrastructureInterface requiredInterface;
 
     public InfrastructureRequiredRoleCreator(final SystemCreator systemCreator) {
-        this.system = systemCreator;
+        system = systemCreator;
     }
 
     /**
@@ -38,7 +38,7 @@ public class InfrastructureRequiredRoleCreator extends SystemEntity {
     public InfrastructureRequiredRoleCreator withRequiredInterface(
             final InfrastructureInterface infrastructureInterface) {
         Objects.requireNonNull(infrastructureInterface, "The given Interface must not be null.");
-        this.requiredInterface = infrastructureInterface;
+        requiredInterface = infrastructureInterface;
         return this;
     }
 
@@ -56,7 +56,7 @@ public class InfrastructureRequiredRoleCreator extends SystemEntity {
     public InfrastructureRequiredRoleCreator withRequiredInterface(final String name) throws NoSuchElementException {
         InfrastructureInterface infrastructureInterface;
         try {
-            infrastructureInterface = (InfrastructureInterface) this.system.getInterfaceByName(name);
+            infrastructureInterface = (InfrastructureInterface) system.getInterfaceByName(name);
         } catch (final ClassCastException e) {
             throw new NoSuchElementException(
                     String.format("An Interface with name '%s' was found, but it was not an InfrastructureInterface. "
@@ -68,10 +68,10 @@ public class InfrastructureRequiredRoleCreator extends SystemEntity {
     @Override
     public InfrastructureRequiredRole build() {
         final InfrastructureRequiredRole role = RepositoryFactory.eINSTANCE.createInfrastructureRequiredRole();
-        if (this.name != null) {
-            role.setEntityName(this.name);
+        if (name != null) {
+            role.setEntityName(name);
         }
-        role.setRequiredInterface__InfrastructureRequiredRole(this.requiredInterface);
+        role.setRequiredInterface__InfrastructureRequiredRole(requiredInterface);
         return role;
     }
 

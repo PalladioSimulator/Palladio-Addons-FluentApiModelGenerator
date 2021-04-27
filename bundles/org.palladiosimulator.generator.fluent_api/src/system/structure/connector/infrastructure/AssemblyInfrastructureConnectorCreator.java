@@ -28,7 +28,7 @@ public class AssemblyInfrastructureConnectorCreator extends AbstractConnectorCre
     private InfrastructureProvidedRole providedRole;
 
     public AssemblyInfrastructureConnectorCreator(final SystemCreator systemCreator) {
-        this.system = systemCreator;
+        system = systemCreator;
     }
 
     /**
@@ -43,12 +43,11 @@ public class AssemblyInfrastructureConnectorCreator extends AbstractConnectorCre
     public InfrastructureRequiredRoleSelector<AssemblyInfrastructureConnectorCreator> withRequiringAssemblyContext(
             final AssemblyContext context) {
         Objects.requireNonNull(context, "The given AssemblyContext must not be null.");
-        return new InfrastructureRequiredRoleSelector<>(
-                (reqContext, role) -> {
-                  AssemblyInfrastructureConnectorCreator.this.requiringContext = reqContext;
-                  AssemblyInfrastructureConnectorCreator.this.requiredRole = role;
-                  return AssemblyInfrastructureConnectorCreator.this;
-               }, context);
+        return new InfrastructureRequiredRoleSelector<>((reqContext, role) -> {
+            AssemblyInfrastructureConnectorCreator.this.requiringContext = reqContext;
+            AssemblyInfrastructureConnectorCreator.this.requiredRole = role;
+            return AssemblyInfrastructureConnectorCreator.this;
+        }, context);
     }
 
     /**
@@ -64,7 +63,7 @@ public class AssemblyInfrastructureConnectorCreator extends AbstractConnectorCre
      */
     public InfrastructureRequiredRoleSelector<AssemblyInfrastructureConnectorCreator> withRequiringAssemblyContext(
             final String name) {
-        final AssemblyContext context = this.system.getAssemblyContextByName(name);
+        final AssemblyContext context = system.getAssemblyContextByName(name);
         return this.withRequiringAssemblyContext(context);
     }
 
@@ -81,12 +80,11 @@ public class AssemblyInfrastructureConnectorCreator extends AbstractConnectorCre
             final AssemblyContext context) {
         Objects.requireNonNull(context, "The given AssemblyContext must not be null.");
         final var creator = this;
-        return new InfrastructureProvidedRoleSelector<>(
-                (provContext, role) -> {
-                  AssemblyInfrastructureConnectorCreator.this.providingContext = provContext;
-                  AssemblyInfrastructureConnectorCreator.this.providedRole = role;
-                  return creator;
-               }, context);
+        return new InfrastructureProvidedRoleSelector<>((provContext, role) -> {
+            AssemblyInfrastructureConnectorCreator.this.providingContext = provContext;
+            AssemblyInfrastructureConnectorCreator.this.providedRole = role;
+            return creator;
+        }, context);
     }
 
     /**
@@ -102,20 +100,20 @@ public class AssemblyInfrastructureConnectorCreator extends AbstractConnectorCre
      */
     public InfrastructureProvidedRoleSelector<AssemblyInfrastructureConnectorCreator> withProvidingAssemblyContext(
             final String name) {
-        final AssemblyContext context = this.system.getAssemblyContextByName(name);
+        final AssemblyContext context = system.getAssemblyContextByName(name);
         return this.withProvidingAssemblyContext(context);
     }
 
     @Override
     public AssemblyInfrastructureConnector build() {
         final var connector = CompositionFactory.eINSTANCE.createAssemblyInfrastructureConnector();
-        if (this.name != null) {
-            connector.setEntityName(this.name);
+        if (name != null) {
+            connector.setEntityName(name);
         }
-        connector.setRequiringAssemblyContext__AssemblyInfrastructureConnector(this.requiringContext);
-        connector.setRequiredRole__AssemblyInfrastructureConnector(this.requiredRole);
-        connector.setProvidingAssemblyContext__AssemblyInfrastructureConnector(this.providingContext);
-        connector.setProvidedRole__AssemblyInfrastructureConnector(this.providedRole);
+        connector.setRequiringAssemblyContext__AssemblyInfrastructureConnector(requiringContext);
+        connector.setRequiredRole__AssemblyInfrastructureConnector(requiredRole);
+        connector.setProvidingAssemblyContext__AssemblyInfrastructureConnector(providingContext);
+        connector.setProvidedRole__AssemblyInfrastructureConnector(providedRole);
         return connector;
     }
 

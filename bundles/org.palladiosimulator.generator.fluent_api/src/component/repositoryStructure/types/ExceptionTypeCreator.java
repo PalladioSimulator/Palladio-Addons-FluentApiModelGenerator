@@ -23,7 +23,7 @@ public class ExceptionTypeCreator extends RepositoryEntity {
     private String exceptionMessage;
 
     public ExceptionTypeCreator(final RepositoryCreator repo) {
-        this.repository = repo;
+        repository = repo;
     }
 
     @Override
@@ -39,18 +39,18 @@ public class ExceptionTypeCreator extends RepositoryEntity {
      */
     public ExceptionTypeCreator withExceptionMessage(final String message) {
         Objects.requireNonNull(message, "message must not be null");
-        this.exceptionMessage = message;
+        exceptionMessage = message;
         return this;
     }
 
     @Override
     public ExceptionType build() {
         final ExceptionType exType = RepositoryFactory.eINSTANCE.createExceptionType();
-        if (this.name != null) {
-            exType.setExceptionName(this.name);
+        if (name != null) {
+            exType.setExceptionName(name);
         }
-        if (this.exceptionMessage != null) {
-            exType.setExceptionMessage(this.exceptionMessage);
+        if (exceptionMessage != null) {
+            exType.setExceptionMessage(exceptionMessage);
         }
         return exType;
     }

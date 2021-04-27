@@ -31,7 +31,7 @@ public class SetVariableActionCreator extends GeneralAction {
 
     protected SetVariableActionCreator(final SeffCreator seff) {
         this.seff = seff;
-        this.localVariableUsages = new ArrayList<>();
+        localVariableUsages = new ArrayList<>();
     }
 
     @Override
@@ -49,7 +49,7 @@ public class SetVariableActionCreator extends GeneralAction {
      */
     public SetVariableActionCreator withLocalVariableUsage(final VariableUsageCreator variableUsage) {
         Objects.requireNonNull(variableUsage, "variableUsage must not be null");
-        this.localVariableUsages.add(variableUsage.build());
+        localVariableUsages.add(variableUsage.build());
         return this;
     }
 
@@ -80,15 +80,15 @@ public class SetVariableActionCreator extends GeneralAction {
     protected SetVariableAction build() {
         final SetVariableAction action = SeffFactory.eINSTANCE.createSetVariableAction();
 
-        if (this.name != null) {
+        if (name != null) {
             action.getEntityName();
         }
 
-        action.getLocalVariableUsages_SetVariableAction().addAll(this.localVariableUsages);
+        action.getLocalVariableUsages_SetVariableAction().addAll(localVariableUsages);
 
-        action.getInfrastructureCall__Action().addAll(this.infrastructureCalls);
-        action.getResourceCall__Action().addAll(this.resourceCalls);
-        action.getResourceDemand_Action().addAll(this.demands);
+        action.getInfrastructureCall__Action().addAll(infrastructureCalls);
+        action.getResourceCall__Action().addAll(resourceCalls);
+        action.getResourceDemand_Action().addAll(demands);
         return action;
     }
 }

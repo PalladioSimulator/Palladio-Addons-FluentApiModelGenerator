@@ -55,9 +55,9 @@ public class StartActionCreator extends GeneralAction {
     @Override
     protected StartAction build() {
         final StartAction action = SeffFactory.eINSTANCE.createStartAction();
-        action.getInfrastructureCall__Action().addAll(this.infrastructureCalls);
-        action.getResourceCall__Action().addAll(this.resourceCalls);
-        action.getResourceDemand_Action().addAll(this.demands);
+        action.getInfrastructureCall__Action().addAll(infrastructureCalls);
+        action.getResourceCall__Action().addAll(resourceCalls);
+        action.getResourceDemand_Action().addAll(demands);
         return action;
     }
 

@@ -30,7 +30,7 @@ public class EmitEventActionCreator extends SeffAction {
 
     protected EmitEventActionCreator(final SeffCreator seff) {
         this.seff = seff;
-        this.inputVariableUsages = new ArrayList<>();
+        inputVariableUsages = new ArrayList<>();
     }
 
     @Override
@@ -68,7 +68,7 @@ public class EmitEventActionCreator extends SeffAction {
      */
     public EmitEventActionCreator withSourceRole(final SourceRole sourceRole) {
         Objects.requireNonNull(sourceRole, "sourceRole must not be null");
-        this.requiredRole = sourceRole;
+        requiredRole = sourceRole;
         return this;
     }
 
@@ -82,20 +82,20 @@ public class EmitEventActionCreator extends SeffAction {
      */
     public EmitEventActionCreator withInputVariableUsage(final VariableUsageCreator variableUsage) {
         Objects.requireNonNull(variableUsage, "variableUsage must not be null");
-        this.inputVariableUsages.add(variableUsage.build());
+        inputVariableUsages.add(variableUsage.build());
         return this;
     }
 
     @Override
     protected EmitEventAction build() {
         final EmitEventAction action = SeffFactory.eINSTANCE.createEmitEventAction();
-        if (this.eventType != null) {
-            action.setEventType__EmitEventAction(this.eventType);
+        if (eventType != null) {
+            action.setEventType__EmitEventAction(eventType);
         }
-        if (this.requiredRole != null) {
-            action.setSourceRole__EmitEventAction(this.requiredRole);
+        if (requiredRole != null) {
+            action.setSourceRole__EmitEventAction(requiredRole);
         }
-        action.getInputVariableUsages__CallAction().addAll(this.inputVariableUsages);
+        action.getInputVariableUsages__CallAction().addAll(inputVariableUsages);
         return action;
     }
 }

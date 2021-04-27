@@ -27,8 +27,8 @@ public class OperationInterfaceCreator extends Interface {
     private final List<OperationSignature> signatures;
 
     public OperationInterfaceCreator(final RepositoryCreator repo) {
-        this.repository = repo;
-        this.signatures = new ArrayList<>();
+        repository = repo;
+        signatures = new ArrayList<>();
     }
 
     @Override
@@ -64,29 +64,29 @@ public class OperationInterfaceCreator extends Interface {
      */
     public OperationInterfaceCreator withOperationSignature(final OperationSignatureCreator signature) {
         final OperationSignature build = signature.build();
-        this.repository.addSignature(build);
-        this.signatures.add(build);
+        repository.addSignature(build);
+        signatures.add(build);
         return this;
     }
 
     @Override
     public OperationInterface build() {
         final OperationInterface interfce = RepositoryFactory.eINSTANCE.createOperationInterface();
-        if (this.name != null) {
-            interfce.setEntityName(this.name);
+        if (name != null) {
+            interfce.setEntityName(name);
             // if (id != null)
             // interfce.setId(id);
         }
 
-        interfce.getParentInterfaces__Interface().addAll(this.parentInterfaces);
-        interfce.getRequiredCharacterisations().addAll(this.requiredCharacterisations);
+        interfce.getParentInterfaces__Interface().addAll(parentInterfaces);
+        interfce.getRequiredCharacterisations().addAll(requiredCharacterisations);
 
-        interfce.getSignatures__OperationInterface().addAll(this.signatures);
+        interfce.getSignatures__OperationInterface().addAll(signatures);
 
         return interfce;
     }
 
     protected void addOperationSignatures(final OperationSignature signature) {
-        this.signatures.add(signature);
+        signatures.add(signature);
     }
 }

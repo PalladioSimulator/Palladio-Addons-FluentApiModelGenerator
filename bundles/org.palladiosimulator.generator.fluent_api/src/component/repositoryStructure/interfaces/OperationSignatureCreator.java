@@ -37,10 +37,10 @@ public class OperationSignatureCreator extends RepositoryEntity {
     private final List<ExceptionType> exceptionTypes;
 
     public OperationSignatureCreator(final RepositoryCreator repo) {
-        this.repository = repo;
-        this.ownedParameters = new ArrayList<>();
-        this.failureTypes = new ArrayList<>();
-        this.exceptionTypes = new ArrayList<>();
+        repository = repo;
+        ownedParameters = new ArrayList<>();
+        failureTypes = new ArrayList<>();
+        exceptionTypes = new ArrayList<>();
     }
 
     @Override
@@ -80,7 +80,7 @@ public class OperationSignatureCreator extends RepositoryEntity {
      */
     public OperationSignatureCreator withReturnType(final Primitive returnType) {
         Objects.requireNonNull(returnType, "returnType must not be null");
-        final PrimitiveDataType primitiveDataType = this.repository.getPrimitiveDataType(returnType);
+        final PrimitiveDataType primitiveDataType = repository.getPrimitiveDataType(returnType);
         return this.withReturnType(primitiveDataType);
     }
 
@@ -112,7 +112,7 @@ public class OperationSignatureCreator extends RepositoryEntity {
             final ParameterModifier modifier) {
         Objects.requireNonNull(name, "name must not be null");
         Objects.requireNonNull(dataType, "dataType must not be null");
-        final PrimitiveDataType dt = this.repository.getPrimitiveDataType(dataType);
+        final PrimitiveDataType dt = repository.getPrimitiveDataType(dataType);
         return this.withParameter(name, dt, modifier);
     }
 
@@ -153,8 +153,8 @@ public class OperationSignatureCreator extends RepositoryEntity {
             param.setModifier__Parameter(modifier);
         }
 
-        this.ownedParameters.add(param);
-        this.repository.addParameter(param);
+        ownedParameters.add(param);
+        repository.addParameter(param);
         return this;
     }
 
@@ -172,7 +172,7 @@ public class OperationSignatureCreator extends RepositoryEntity {
      */
     public OperationSignatureCreator withFailureType(final FailureType failureType) {
         Objects.requireNonNull(failureType, "failureType must not be null");
-        this.failureTypes.add(failureType);
+        failureTypes.add(failureType);
         return this;
     }
 
@@ -191,7 +191,7 @@ public class OperationSignatureCreator extends RepositoryEntity {
      */
     public OperationSignatureCreator withFailureType(final Failure failureType) {
         Objects.requireNonNull(failureType, "failureType must not be null");
-        final FailureType failure = this.repository.getFailureType(failureType);
+        final FailureType failure = repository.getFailureType(failureType);
         return this.withFailureType(failure);
     }
 
@@ -210,7 +210,7 @@ public class OperationSignatureCreator extends RepositoryEntity {
     public OperationSignatureCreator withExceptionType(final ExceptionType exceptionType) {
         Objects.requireNonNull(exceptionType, "exceptionType must not be null");
         if (exceptionType != null) {
-            this.exceptionTypes.add(exceptionType);
+            exceptionTypes.add(exceptionType);
         }
         return this;
     }
@@ -218,13 +218,13 @@ public class OperationSignatureCreator extends RepositoryEntity {
     @Override
     protected OperationSignature build() {
         final OperationSignature ops = RepositoryFactory.eINSTANCE.createOperationSignature();
-        if (this.name != null) {
-            ops.setEntityName(this.name);
+        if (name != null) {
+            ops.setEntityName(name);
         }
-        ops.setReturnType__OperationSignature(this.returnType);
-        ops.getParameters__OperationSignature().addAll(this.ownedParameters);
-        ops.getFailureType().addAll(this.failureTypes);
-        ops.getExceptions__Signature().addAll(this.exceptionTypes);
+        ops.setReturnType__OperationSignature(returnType);
+        ops.getParameters__OperationSignature().addAll(ownedParameters);
+        ops.getFailureType().addAll(failureTypes);
+        ops.getExceptions__Signature().addAll(exceptionTypes);
 
         return ops;
     }

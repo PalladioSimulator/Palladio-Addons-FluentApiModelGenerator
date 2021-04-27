@@ -31,7 +31,7 @@ public class LinkingResourceCreator extends ResourceEntity {
     private PCMRandomVariable throughputVariable;
 
     public LinkingResourceCreator(final ResourceEnvironmentCreator resourceEnvironmentCreator) {
-        this.resourceCreator = resourceEnvironmentCreator;
+        resourceCreator = resourceEnvironmentCreator;
     }
 
     /**
@@ -58,7 +58,7 @@ public class LinkingResourceCreator extends ResourceEntity {
      * @see org.palladiosimulator.pcm.resourceenvironment.LinkingResource
      */
     public LinkingResourceCreator withCommunicationLinkResource(final CommunicationLinkResource resource) {
-        this.resourceType = this.resourceCreator.getCommunicationLinkResource(resource);
+        resourceType = resourceCreator.getCommunicationLinkResource(resource);
         return this;
     }
 
@@ -74,7 +74,7 @@ public class LinkingResourceCreator extends ResourceEntity {
      */
     public LinkingResourceCreator addLinkedResourceContainer(final ResourceContainer container) {
         Objects.requireNonNull(container, "The given ResourceContainer must not be null");
-        this.linkedContainers.add(container);
+        linkedContainers.add(container);
         return this;
     }
 
@@ -90,8 +90,8 @@ public class LinkingResourceCreator extends ResourceEntity {
      *                                  with the given name exists.
      */
     public LinkingResourceCreator addLinkedResourceContainer(final String name) throws IllegalArgumentException {
-        final ResourceContainer container = this.resourceCreator.getResourceContainerByName(name);
-        this.linkedContainers.add(container);
+        final ResourceContainer container = resourceCreator.getResourceContainerByName(name);
+        linkedContainers.add(container);
         return this;
     }
 
@@ -106,8 +106,8 @@ public class LinkingResourceCreator extends ResourceEntity {
      */
     public LinkingResourceCreator withLatency(final String latency) {
         Objects.requireNonNull(latency, "the given latency must not be null");
-        this.latencyVariable = CoreFactory.eINSTANCE.createPCMRandomVariable();
-        this.latencyVariable.setSpecification(latency);
+        latencyVariable = CoreFactory.eINSTANCE.createPCMRandomVariable();
+        latencyVariable.setSpecification(latency);
         return this;
     }
 
@@ -122,8 +122,8 @@ public class LinkingResourceCreator extends ResourceEntity {
      */
     public LinkingResourceCreator withThroughput(final String throughput) {
         Objects.requireNonNull(throughput, "The given throughput must not be null");
-        this.throughputVariable = CoreFactory.eINSTANCE.createPCMRandomVariable();
-        this.throughputVariable.setSpecification(throughput);
+        throughputVariable = CoreFactory.eINSTANCE.createPCMRandomVariable();
+        throughputVariable.setSpecification(throughput);
         return this;
     }
 
@@ -136,17 +136,16 @@ public class LinkingResourceCreator extends ResourceEntity {
     public LinkingResource build() {
         final CommunicationLinkResourceSpecification resourceSpecification = ResourceenvironmentFactory.eINSTANCE
                 .createCommunicationLinkResourceSpecification();
-        resourceSpecification
-                .setCommunicationLinkResourceType_CommunicationLinkResourceSpecification(this.resourceType);
-        resourceSpecification.setFailureProbability(this.failureProbability);
-        resourceSpecification.setLatency_CommunicationLinkResourceSpecification(this.latencyVariable);
-        resourceSpecification.setThroughput_CommunicationLinkResourceSpecification(this.throughputVariable);
+        resourceSpecification.setCommunicationLinkResourceType_CommunicationLinkResourceSpecification(resourceType);
+        resourceSpecification.setFailureProbability(failureProbability);
+        resourceSpecification.setLatency_CommunicationLinkResourceSpecification(latencyVariable);
+        resourceSpecification.setThroughput_CommunicationLinkResourceSpecification(throughputVariable);
         final LinkingResource resource = ResourceenvironmentFactory.eINSTANCE.createLinkingResource();
-        if (this.name != null) {
-            resource.setEntityName(this.name);
+        if (name != null) {
+            resource.setEntityName(name);
         }
         resource.setCommunicationLinkResourceSpecifications_LinkingResource(resourceSpecification);
-        resource.getConnectedResourceContainers_LinkingResource().addAll(this.linkedContainers);
+        resource.getConnectedResourceContainers_LinkingResource().addAll(linkedContainers);
         return resource;
     }
 

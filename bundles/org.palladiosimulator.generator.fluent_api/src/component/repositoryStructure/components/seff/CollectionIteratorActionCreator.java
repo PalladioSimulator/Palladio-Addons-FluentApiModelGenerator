@@ -93,23 +93,23 @@ public class CollectionIteratorActionCreator extends GeneralAction {
     protected CollectionIteratorAction build() {
         final CollectionIteratorAction action = SeffFactory.eINSTANCE.createCollectionIteratorAction();
 
-        if (this.parameter != null) {
-            action.setParameter_CollectionIteratorAction(this.parameter);
+        if (parameter != null) {
+            action.setParameter_CollectionIteratorAction(parameter);
         }
 
-        if (this.loopBody != null) {
-            final ResourceDemandingSEFF build = this.loopBody.buildRDSeff();
+        if (loopBody != null) {
+            final ResourceDemandingSEFF build = loopBody.buildRDSeff();
             if ((build.getDescribedService__SEFF() == null) && (build.getSeffTypeID() == null)
                     && build.getResourceDemandingInternalBehaviours().isEmpty()) {
-                action.setBodyBehaviour_Loop(this.loopBody.buildBehaviour());
+                action.setBodyBehaviour_Loop(loopBody.buildBehaviour());
             } else {
                 action.setBodyBehaviour_Loop(build);
             }
         }
 
-        action.getInfrastructureCall__Action().addAll(this.infrastructureCalls);
-        action.getResourceCall__Action().addAll(this.resourceCalls);
-        action.getResourceDemand_Action().addAll(this.demands);
+        action.getInfrastructureCall__Action().addAll(infrastructureCalls);
+        action.getResourceCall__Action().addAll(resourceCalls);
+        action.getResourceDemand_Action().addAll(demands);
 
         return action;
 

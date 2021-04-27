@@ -87,7 +87,7 @@ public class ProcessingResourceSpecificationCreator {
      * @see org.palladiosimulator.pcm.resourceenvironment.ProcessingResourceSpecification
      */
     public ProcessingResourceSpecificationCreator isRequiredByContainer() {
-        this.isRequiredByContainer = true;
+        isRequiredByContainer = true;
         return this;
     }
 
@@ -101,7 +101,7 @@ public class ProcessingResourceSpecificationCreator {
      * @see org.palladiosimulator.pcm.resourceenvironment.ProcessingResourceSpecification
      */
     public ProcessingResourceSpecificationCreator withSchedulingPolicy(final SchedulingPolicies policy) {
-        this.schedulingPolicy = this.resourceCreator.getSchedulingPolicy(policy);
+        schedulingPolicy = resourceCreator.getSchedulingPolicy(policy);
         return this;
     }
 
@@ -115,7 +115,7 @@ public class ProcessingResourceSpecificationCreator {
      * @see org.palladiosimulator.pcm.resourceenvironment.ProcessingResourceSpecification
      */
     public ProcessingResourceSpecificationCreator withProcessingResourceType(final ProcessingResource resource) {
-        this.processingResourceType = this.resourceCreator.getProcessingResource(resource);
+        processingResourceType = resourceCreator.getProcessingResource(resource);
         return this;
     }
 
@@ -132,7 +132,7 @@ public class ProcessingResourceSpecificationCreator {
         Objects.requireNonNull(processingRate, "The given processingRate must not be null");
         final PCMRandomVariable randomVariable = CoreFactory.eINSTANCE.createPCMRandomVariable();
         randomVariable.setSpecification(processingRate);
-        this.processingRateVariable = randomVariable;
+        processingRateVariable = randomVariable;
         return this;
     }
 
@@ -146,13 +146,13 @@ public class ProcessingResourceSpecificationCreator {
     public ProcessingResourceSpecification build() {
         final ProcessingResourceSpecification prs = ResourceenvironmentFactory.eINSTANCE
                 .createProcessingResourceSpecification();
-        prs.setMTTR(this.mttr);
-        prs.setMTTF(this.mttf);
-        prs.setNumberOfReplicas(this.numberOfReplicas);
-        prs.setRequiredByContainer(this.isRequiredByContainer);
-        prs.setSchedulingPolicy(this.schedulingPolicy);
-        prs.setActiveResourceType_ActiveResourceSpecification(this.processingResourceType);
-        prs.setProcessingRate_ProcessingResourceSpecification(this.processingRateVariable);
+        prs.setMTTR(mttr);
+        prs.setMTTF(mttf);
+        prs.setNumberOfReplicas(numberOfReplicas);
+        prs.setRequiredByContainer(isRequiredByContainer);
+        prs.setSchedulingPolicy(schedulingPolicy);
+        prs.setActiveResourceType_ActiveResourceSpecification(processingResourceType);
+        prs.setProcessingRate_ProcessingResourceSpecification(processingRateVariable);
 
         return prs;
     }

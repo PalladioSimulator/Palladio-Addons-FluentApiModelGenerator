@@ -24,7 +24,7 @@ public class QoSAnnotationsCreator extends SystemEntity {
     private final Collection<SpecifiedQoSAnnotation> qoSAnnotations = new ArrayList<>();
 
     public QoSAnnotationsCreator(final SystemCreator systemCreator) {
-        this.system = systemCreator;
+        system = systemCreator;
     }
 
     /**
@@ -36,7 +36,7 @@ public class QoSAnnotationsCreator extends SystemEntity {
      * @see org.palladiosimulator.pcm.qosannotations.SpecifiedQoSAnnotation
      */
     public QoSAnnotationsCreator addQoSAnnotation(final SpecifiedQoSAnnotation annotation) {
-        this.qoSAnnotations.add(annotation);
+        qoSAnnotations.add(annotation);
         return this;
     }
 
@@ -50,7 +50,7 @@ public class QoSAnnotationsCreator extends SystemEntity {
      * @see org.palladiosimulator.pcm.qosannotations.SpecifiedQoSAnnotation
      */
     public QoSAnnotationsCreator addQoSAnnotations(final Collection<SpecifiedQoSAnnotation> annotations) {
-        this.qoSAnnotations.addAll(annotations);
+        qoSAnnotations.addAll(annotations);
         return this;
     }
 
@@ -65,7 +65,7 @@ public class QoSAnnotationsCreator extends SystemEntity {
      */
     public QoSAnnotationsCreator addOutputParameterAbstraction(
             final SpecifiedOutputParameterAbstraction outputParameterAbstraction) {
-        this.outputParameterAbstractions.add(outputParameterAbstraction);
+        outputParameterAbstractions.add(outputParameterAbstraction);
         return this;
     }
 
@@ -87,11 +87,11 @@ public class QoSAnnotationsCreator extends SystemEntity {
     @Override
     public QoSAnnotations build() {
         final QoSAnnotations annotations = QosannotationsFactory.eINSTANCE.createQoSAnnotations();
-        if (this.name != null) {
-            annotations.setEntityName(this.name);
+        if (name != null) {
+            annotations.setEntityName(name);
         }
-        annotations.getSpecifiedOutputParameterAbstractions_QoSAnnotations().addAll(this.outputParameterAbstractions);
-        annotations.getSpecifiedQoSAnnotations_QoSAnnotations().addAll(this.qoSAnnotations);
+        annotations.getSpecifiedOutputParameterAbstractions_QoSAnnotations().addAll(outputParameterAbstractions);
+        annotations.getSpecifiedQoSAnnotations_QoSAnnotations().addAll(qoSAnnotations);
         return annotations;
     }
 

@@ -37,7 +37,7 @@ public class BranchActionCreator extends GeneralAction {
 
     protected BranchActionCreator(final SeffCreator seff) {
         this.seff = seff;
-        this.branches = new ArrayList<>();
+        branches = new ArrayList<>();
     }
 
     @Override
@@ -93,7 +93,7 @@ public class BranchActionCreator extends GeneralAction {
             branch.setBranchCondition_GuardedBranchTransition(rand);
         }
 
-        this.branches.add(branch);
+        branches.add(branch);
         return this;
     }
 
@@ -157,7 +157,7 @@ public class BranchActionCreator extends GeneralAction {
 
         branch.setBranchProbability(branchProbability);
 
-        this.branches.add(branch);
+        branches.add(branch);
         return this;
     }
 
@@ -205,11 +205,11 @@ public class BranchActionCreator extends GeneralAction {
     @Override
     protected BranchAction build() {
         final BranchAction action = SeffFactory.eINSTANCE.createBranchAction();
-        action.getBranches_Branch().addAll(this.branches);
+        action.getBranches_Branch().addAll(branches);
 
-        action.getInfrastructureCall__Action().addAll(this.infrastructureCalls);
-        action.getResourceCall__Action().addAll(this.resourceCalls);
-        action.getResourceDemand_Action().addAll(this.demands);
+        action.getInfrastructureCall__Action().addAll(infrastructureCalls);
+        action.getResourceCall__Action().addAll(resourceCalls);
+        action.getResourceDemand_Action().addAll(demands);
 
         return action;
     }

@@ -24,7 +24,7 @@ public class ResourceRequiredDelegationConnectorCreator {
     private ResourceRequiredRole innerRequiredRole;
 
     public ResourceRequiredDelegationConnectorCreator(final SystemCreator systemCreator) {
-        this.system = systemCreator;
+        system = systemCreator;
     }
 
     /**
@@ -37,7 +37,7 @@ public class ResourceRequiredDelegationConnectorCreator {
      */
     public ResourceRequiredDelegationConnectorCreator withOuterRequiredRole(final ResourceRequiredRole role) {
         Objects.requireNonNull(role, "The given Role must not be null.");
-        this.outerRequiredRole = role;
+        outerRequiredRole = role;
         return this;
     }
 
@@ -54,7 +54,7 @@ public class ResourceRequiredDelegationConnectorCreator {
      */
     public ResourceRequiredDelegationConnectorCreator withOuterRequiredRole(final String name)
             throws NoSuchElementException {
-        final ResourceRequiredRole role = this.system.getSystemResourceRequiredRoleByName(name);
+        final ResourceRequiredRole role = system.getSystemResourceRequiredRoleByName(name);
         return this.withOuterRequiredRole(role);
     }
 
@@ -69,7 +69,7 @@ public class ResourceRequiredDelegationConnectorCreator {
      */
     public ResourceRequiredDelegationConnectorCreator withInnerRequiredRole(final ResourceRequiredRole role) {
         Objects.requireNonNull(role, "The given Role must not be null.");
-        this.innerRequiredRole = role;
+        innerRequiredRole = role;
         return this;
     }
 
@@ -86,15 +86,15 @@ public class ResourceRequiredDelegationConnectorCreator {
      * @see org.palladiosimulator.pcm.core.entity.ResourceRequiredRole
      */
     public ResourceRequiredDelegationConnectorCreator withInnerRequiredRole(final String name) {
-        final ResourceRequiredRole role = this.system.getResourceRequiredRoleByName(name);
+        final ResourceRequiredRole role = system.getResourceRequiredRoleByName(name);
         return this.withInnerRequiredRole(role);
     }
 
     public ResourceRequiredDelegationConnector build() {
         final ResourceRequiredDelegationConnector connector = CompositionFactory.eINSTANCE
                 .createResourceRequiredDelegationConnector();
-        connector.setOuterResourceRequiredRole_ResourceRequiredDelegationConnector(this.outerRequiredRole);
-        connector.setInnerResourceRequiredRole_ResourceRequiredDelegationConnector(this.innerRequiredRole);
+        connector.setOuterResourceRequiredRole_ResourceRequiredDelegationConnector(outerRequiredRole);
+        connector.setInnerResourceRequiredRole_ResourceRequiredDelegationConnector(innerRequiredRole);
         return connector;
     }
 }

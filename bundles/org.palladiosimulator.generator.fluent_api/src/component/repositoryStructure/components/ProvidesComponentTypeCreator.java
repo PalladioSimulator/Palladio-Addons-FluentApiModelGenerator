@@ -26,7 +26,7 @@ import shared.structure.ResourceInterface;
 public class ProvidesComponentTypeCreator extends Component {
 
     public ProvidesComponentTypeCreator(final RepositoryCreator repo) {
-        this.repository = repo;
+        repository = repo;
     }
 
     @Override
@@ -185,15 +185,15 @@ public class ProvidesComponentTypeCreator extends Component {
     @Override
     public ProvidesComponentType build() {
         final ProvidesComponentType pct = RepositoryFactory.eINSTANCE.createProvidesComponentType();
-        if (this.name != null) {
-            pct.setEntityName(this.name);
+        if (name != null) {
+            pct.setEntityName(name);
             // if (id != null)
             // pct.setId(id);
         }
 
-        pct.getProvidedRoles_InterfaceProvidingEntity().addAll(this.providedRoles);
-        pct.getRequiredRoles_InterfaceRequiringEntity().addAll(this.requiredRoles);
-        pct.getResourceRequiredRoles__ResourceInterfaceRequiringEntity().addAll(this.resourceRequiredRoles);
+        pct.getProvidedRoles_InterfaceProvidingEntity().addAll(providedRoles);
+        pct.getRequiredRoles_InterfaceRequiringEntity().addAll(requiredRoles);
+        pct.getResourceRequiredRoles__ResourceInterfaceRequiringEntity().addAll(resourceRequiredRoles);
 
         return pct;
     }

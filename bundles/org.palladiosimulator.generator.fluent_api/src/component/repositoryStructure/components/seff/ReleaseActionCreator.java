@@ -78,13 +78,13 @@ public class ReleaseActionCreator extends GeneralAction {
     @Override
     protected ReleaseAction build() {
         final ReleaseAction action = SeffFactory.eINSTANCE.createReleaseAction();
-        if (this.passiveResource != null) {
-            action.setPassiveResource_ReleaseAction(this.passiveResource);
+        if (passiveResource != null) {
+            action.setPassiveResource_ReleaseAction(passiveResource);
         }
 
-        action.getInfrastructureCall__Action().addAll(this.infrastructureCalls);
-        action.getResourceCall__Action().addAll(this.resourceCalls);
-        action.getResourceDemand_Action().addAll(this.demands);
+        action.getInfrastructureCall__Action().addAll(infrastructureCalls);
+        action.getResourceCall__Action().addAll(resourceCalls);
+        action.getResourceDemand_Action().addAll(demands);
 
         return action;
     }

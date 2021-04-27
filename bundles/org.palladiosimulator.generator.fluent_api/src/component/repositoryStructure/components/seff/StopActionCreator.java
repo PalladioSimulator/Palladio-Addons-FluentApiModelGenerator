@@ -44,9 +44,9 @@ public class StopActionCreator extends GeneralAction implements StopSeff {
 
     @Override
     public SeffCreator createBehaviourNow() {
-        final AbstractAction action = this.build();
-        this.seff.setNext(action);
-        return this.seff;
+        final AbstractAction action = build();
+        seff.setNext(action);
+        return seff;
     }
 
     @Override
@@ -74,9 +74,9 @@ public class StopActionCreator extends GeneralAction implements StopSeff {
     @Override
     protected StopAction build() {
         final StopAction action = SeffFactory.eINSTANCE.createStopAction();
-        action.getInfrastructureCall__Action().addAll(this.infrastructureCalls);
-        action.getResourceCall__Action().addAll(this.resourceCalls);
-        action.getResourceDemand_Action().addAll(this.demands);
+        action.getInfrastructureCall__Action().addAll(infrastructureCalls);
+        action.getResourceCall__Action().addAll(resourceCalls);
+        action.getResourceDemand_Action().addAll(demands);
         return action;
     }
 }

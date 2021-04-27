@@ -32,10 +32,10 @@ public class InternalActionCreator extends GeneralAction {
 
     protected InternalActionCreator(final SeffCreator seff) {
         this.seff = seff;
-        this.demands = new ArrayList<>();
-        this.failures = new ArrayList<>();
-        this.infrastructureCalls = new ArrayList<>();
-        this.resourceCalls = new ArrayList<>();
+        demands = new ArrayList<>();
+        failures = new ArrayList<>();
+        infrastructureCalls = new ArrayList<>();
+        resourceCalls = new ArrayList<>();
     }
 
     @Override
@@ -61,7 +61,7 @@ public class InternalActionCreator extends GeneralAction {
                 .createInternalFailureOccurrenceDescription();
         failure.setFailureProbability(failureProbability);
         failure.setSoftwareInducedFailureType__InternalFailureOccurrenceDescription(failureType);
-        this.failures.add(failure);
+        failures.add(failure);
         return this;
     }
 
@@ -90,11 +90,11 @@ public class InternalActionCreator extends GeneralAction {
     @Override
     protected InternalAction build() {
         final InternalAction action = SeffFactory.eINSTANCE.createInternalAction();
-        action.getInternalFailureOccurrenceDescriptions__InternalAction().addAll(this.failures);
+        action.getInternalFailureOccurrenceDescriptions__InternalAction().addAll(failures);
 
-        action.getResourceDemand_Action().addAll(this.demands);
-        action.getInfrastructureCall__Action().addAll(this.infrastructureCalls);
-        action.getResourceCall__Action().addAll(this.resourceCalls);
+        action.getResourceDemand_Action().addAll(demands);
+        action.getInfrastructureCall__Action().addAll(infrastructureCalls);
+        action.getResourceCall__Action().addAll(resourceCalls);
 
         return action;
     }

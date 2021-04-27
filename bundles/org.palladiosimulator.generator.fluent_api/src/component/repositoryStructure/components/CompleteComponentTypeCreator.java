@@ -33,8 +33,8 @@ public class CompleteComponentTypeCreator extends Component {
     private final List<ProvidesComponentType> conformsProvidedTypes;
 
     public CompleteComponentTypeCreator(final RepositoryCreator repo) {
-        this.repository = repo;
-        this.conformsProvidedTypes = new ArrayList<>();
+        repository = repo;
+        conformsProvidedTypes = new ArrayList<>();
     }
 
     @Override
@@ -215,7 +215,7 @@ public class CompleteComponentTypeCreator extends Component {
     public CompleteComponentTypeCreator conforms(final ProvidesComponentTypeCreator providesComponentType) {
         Objects.requireNonNull(providesComponentType, "providesComponentType must not be null");
         final ProvidesComponentType pct = providesComponentType.build();
-        this.repository.addComponent(pct);
+        repository.addComponent(pct);
         return this.conforms(pct);
     }
 
@@ -243,23 +243,23 @@ public class CompleteComponentTypeCreator extends Component {
      */
     public CompleteComponentTypeCreator conforms(final ProvidesComponentType providesComponentType) {
         Objects.requireNonNull(providesComponentType, "providesComponentType must not be null");
-        this.conformsProvidedTypes.add(providesComponentType);
+        conformsProvidedTypes.add(providesComponentType);
         return this;
     }
 
     @Override
     public CompleteComponentType build() {
         final CompleteComponentType cct = RepositoryFactory.eINSTANCE.createCompleteComponentType();
-        if (this.name != null) {
-            cct.setEntityName(this.name);
+        if (name != null) {
+            cct.setEntityName(name);
             // if (id != null)
             // cct.setId(id);
         }
 
-        cct.getProvidedRoles_InterfaceProvidingEntity().addAll(this.providedRoles);
-        cct.getRequiredRoles_InterfaceRequiringEntity().addAll(this.requiredRoles);
-        cct.getResourceRequiredRoles__ResourceInterfaceRequiringEntity().addAll(this.resourceRequiredRoles);
-        cct.getParentProvidesComponentTypes().addAll(this.conformsProvidedTypes);
+        cct.getProvidedRoles_InterfaceProvidingEntity().addAll(providedRoles);
+        cct.getRequiredRoles_InterfaceRequiringEntity().addAll(requiredRoles);
+        cct.getResourceRequiredRoles__ResourceInterfaceRequiringEntity().addAll(resourceRequiredRoles);
+        cct.getParentProvidesComponentTypes().addAll(conformsProvidedTypes);
 
         return cct;
     }

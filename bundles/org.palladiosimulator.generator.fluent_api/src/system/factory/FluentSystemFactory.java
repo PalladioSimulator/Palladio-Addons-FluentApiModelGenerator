@@ -69,8 +69,8 @@ public class FluentSystemFactory {
         final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
         logger.setLevel(Level.ALL);
         final IModelValidator validator = new ModelValidator(logger);
-        this.systemCreator = new SystemCreator(resources, validator);
-        return this.systemCreator;
+        systemCreator = new SystemCreator(resources, validator);
+        return systemCreator;
     }
 
     /**
@@ -82,7 +82,7 @@ public class FluentSystemFactory {
      * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
      */
     public AssemblyContextCreator newAssemblyContext() {
-        return new AssemblyContextCreator(this.systemCreator);
+        return new AssemblyContextCreator(systemCreator);
     }
 
     /**
@@ -94,7 +94,7 @@ public class FluentSystemFactory {
      * @see org.palladiosimulator.pcm.core.composition.AssemblyConnector
      */
     public AssemblyConnectorCreator newAssemblyConnector() {
-        return new AssemblyConnectorCreator(this.systemCreator);
+        return new AssemblyConnectorCreator(systemCreator);
     }
 
     /**
@@ -106,7 +106,7 @@ public class FluentSystemFactory {
      * @see org.palladiosimulator.pcm.repository.OperationRequiredRole
      */
     public OperationRequiredRoleCreator newOperationRequiredRole() {
-        return new OperationRequiredRoleCreator(this.systemCreator);
+        return new OperationRequiredRoleCreator(systemCreator);
     }
 
     /**
@@ -118,7 +118,7 @@ public class FluentSystemFactory {
      * @see org.palladiosimulator.pcm.core.composition.RequiredDelegationConnector
      */
     public RequiredDelegationConnectorCreator newRequiredDelegationConnectorCreator() {
-        return new RequiredDelegationConnectorCreator(this.systemCreator);
+        return new RequiredDelegationConnectorCreator(systemCreator);
     }
 
     /**
@@ -130,7 +130,7 @@ public class FluentSystemFactory {
      * @see org.palladiosimulator.pcm.repository.OperationProvidedRole
      */
     public OperationProvidedRoleCreator newOperationProvidedRole() {
-        return new OperationProvidedRoleCreator(this.systemCreator);
+        return new OperationProvidedRoleCreator(systemCreator);
     }
 
     /**
@@ -142,7 +142,7 @@ public class FluentSystemFactory {
      * @see org.palladiosimulator.pcm.core.composition.ProvidedDelegationConnector
      */
     public ProvidedDelegationConnectorCreator newProvidedDelegationConnectorCreator() {
-        return new ProvidedDelegationConnectorCreator(this.systemCreator);
+        return new ProvidedDelegationConnectorCreator(systemCreator);
     }
 
     /**
@@ -153,7 +153,7 @@ public class FluentSystemFactory {
      * @see org.palladiosimulator.pcm.core.composition.EventChannel
      */
     public EventChannelCreator newEventChannelCreator() {
-        return new EventChannelCreator(this.systemCreator);
+        return new EventChannelCreator(systemCreator);
     }
 
     /**
@@ -165,7 +165,7 @@ public class FluentSystemFactory {
      * @see org.palladiosimulator.pcm.core.composition.EventChannelSinkConnector
      */
     public EventChannelSinkConnectorCreator newEventChannelSinkConnector() {
-        return new EventChannelSinkConnectorCreator(this.systemCreator);
+        return new EventChannelSinkConnectorCreator(systemCreator);
     }
 
     /**
@@ -177,7 +177,7 @@ public class FluentSystemFactory {
      * @see org.palladiosimulator.pcm.core.composition.EventChannelSourceConnector
      */
     public EventChannelSourceConnectorCreator newEventChannelSourceConnector() {
-        return new EventChannelSourceConnectorCreator(this.systemCreator);
+        return new EventChannelSourceConnectorCreator(systemCreator);
     }
 
     /**
@@ -188,7 +188,7 @@ public class FluentSystemFactory {
      * @see org.palladiosimulator.pcm.repository.SinkRole
      */
     public SinkRoleCreator newSinkRole() {
-        return new SinkRoleCreator(this.systemCreator);
+        return new SinkRoleCreator(systemCreator);
     }
 
     /**
@@ -200,7 +200,7 @@ public class FluentSystemFactory {
      * @see org.palladiosimulator.pcm.core.composition.SinkDelegationConnector
      */
     public SinkDelegationConnectorCreator newSinkDelegationConnector() {
-        return new SinkDelegationConnectorCreator(this.systemCreator);
+        return new SinkDelegationConnectorCreator(systemCreator);
     }
 
     /**
@@ -211,7 +211,7 @@ public class FluentSystemFactory {
      * @see org.palladiosimulator.pcm.repository.SourceRole
      */
     public SourceRoleCreator newSourceRole() {
-        return new SourceRoleCreator(this.systemCreator);
+        return new SourceRoleCreator(systemCreator);
     }
 
     /**
@@ -223,7 +223,7 @@ public class FluentSystemFactory {
      * @see org.palladiosimulator.pcm.core.composition.SourceDelegationConnector
      */
     public SourceDelegationConnectorCreator newSourceDelegationConnector() {
-        return new SourceDelegationConnectorCreator(this.systemCreator);
+        return new SourceDelegationConnectorCreator(systemCreator);
     }
 
     /**
@@ -235,7 +235,7 @@ public class FluentSystemFactory {
      * @see org.palladiosimulator.pcm.core.composition.AssemblyEventConnector
      */
     public AssemblyEventConnectorCreator newAssemblyEventConnector() {
-        return new AssemblyEventConnectorCreator(this.systemCreator);
+        return new AssemblyEventConnectorCreator(systemCreator);
     }
 
     /**
@@ -247,7 +247,7 @@ public class FluentSystemFactory {
      * @see org.palladiosimulator.pcm.core.composition.AssemblyInfrastructureConnector
      */
     public AssemblyInfrastructureConnectorCreator newAssemblyInfrastructureConnector() {
-        return new AssemblyInfrastructureConnectorCreator(this.systemCreator);
+        return new AssemblyInfrastructureConnectorCreator(systemCreator);
     }
 
     /**
@@ -259,7 +259,7 @@ public class FluentSystemFactory {
      * @see org.palladiosimulator.pcm.repository.InfrastructureRequiredRole
      */
     public InfrastructureRequiredRoleCreator newInfrastructureRequiredRole() {
-        return new InfrastructureRequiredRoleCreator(this.systemCreator);
+        return new InfrastructureRequiredRoleCreator(systemCreator);
     }
 
     /**
@@ -272,7 +272,7 @@ public class FluentSystemFactory {
      * @see org.palladiosimulator.pcm.core.composition.RequiredInfrastructureDelegationConnector
      */
     public RequiredInfrastructureDelegationConnectorCreator newRequiredInfrastructureDelegationConnector() {
-        return new RequiredInfrastructureDelegationConnectorCreator(this.systemCreator);
+        return new RequiredInfrastructureDelegationConnectorCreator(systemCreator);
     }
 
     /**
@@ -284,7 +284,7 @@ public class FluentSystemFactory {
      * @see org.palladiosimulator.pcm.repository.InfrastructureProvidedRole
      */
     public InfrastructureProvidedRoleCreator newInfrastructureProvidedRole() {
-        return new InfrastructureProvidedRoleCreator(this.systemCreator);
+        return new InfrastructureProvidedRoleCreator(systemCreator);
     }
 
     /**
@@ -297,7 +297,7 @@ public class FluentSystemFactory {
      * @see org.palladiosimulator.pcm.core.composition.ProvidedInfrastructureDelegationConnector
      */
     public ProvidedInfrastructureDelegationConnectorCreator newProvidedInfrastructureDelegationConnector() {
-        return new ProvidedInfrastructureDelegationConnectorCreator(this.systemCreator);
+        return new ProvidedInfrastructureDelegationConnectorCreator(systemCreator);
     }
 
     /**
@@ -309,7 +309,7 @@ public class FluentSystemFactory {
      * @see org.palladiosimulator.pcm.qosannotations.QoSAnnotations
      */
     public QoSAnnotationsCreator newQoSAnnotations() {
-        return new QoSAnnotationsCreator(this.systemCreator);
+        return new QoSAnnotationsCreator(systemCreator);
     }
 
     /**
@@ -321,7 +321,7 @@ public class FluentSystemFactory {
      * @see org.palladiosimulator.pcm.core.entity.ResourceRequiredRole
      */
     public ResourceRequiredRoleCreator newResourceRequiredRole() {
-        return new ResourceRequiredRoleCreator(this.systemCreator);
+        return new ResourceRequiredRoleCreator(systemCreator);
     }
 
     /**
@@ -333,7 +333,7 @@ public class FluentSystemFactory {
      * @see org.palladiosimulator.pcm.core.composition.ResourceRequiredDelegationConnector
      */
     public ResourceRequiredDelegationConnectorCreator newResourceRequiredDelegationConnector() {
-        return new ResourceRequiredDelegationConnectorCreator(this.systemCreator);
+        return new ResourceRequiredDelegationConnectorCreator(systemCreator);
     }
 
     /**
@@ -345,6 +345,6 @@ public class FluentSystemFactory {
      * @see org.palladiosimulator.pcm.core.composition.RequiredResourceDelegationConnector
      */
     public RequiredResourceDelegationConnectorCreator newRequiredResourceDelegationConnector() {
-        return new RequiredResourceDelegationConnectorCreator(this.systemCreator);
+        return new RequiredResourceDelegationConnectorCreator(systemCreator);
     }
 }

@@ -28,7 +28,7 @@ public class AssemblyConnectorCreator extends AbstractConnectorCreator {
     private OperationProvidedRole providedRole;
 
     public AssemblyConnectorCreator(final SystemCreator systemCreator) {
-        this.system = systemCreator;
+        system = systemCreator;
     }
 
     /**
@@ -42,12 +42,11 @@ public class AssemblyConnectorCreator extends AbstractConnectorCreator {
     public OperationRequiredRoleSelector<AssemblyConnectorCreator> withRequiringAssemblyContext(
             final AssemblyContext context) {
         Objects.requireNonNull(context, "The given AssemblyContext must not be null.");
-        return new OperationRequiredRoleSelector<>(
-                (reqContext, role) -> {
-                  AssemblyConnectorCreator.this.requiringContext = reqContext;
-                  AssemblyConnectorCreator.this.requiredRole = role;
-                  return AssemblyConnectorCreator.this;
-               }, context);
+        return new OperationRequiredRoleSelector<>((reqContext, role) -> {
+            AssemblyConnectorCreator.this.requiringContext = reqContext;
+            AssemblyConnectorCreator.this.requiredRole = role;
+            return AssemblyConnectorCreator.this;
+        }, context);
     }
 
     /**
@@ -62,7 +61,7 @@ public class AssemblyConnectorCreator extends AbstractConnectorCreator {
      */
     public OperationRequiredRoleSelector<AssemblyConnectorCreator> withRequiringAssemblyContext(final String name)
             throws NoSuchElementException {
-        final AssemblyContext context = this.system.getAssemblyContextByName(name);
+        final AssemblyContext context = system.getAssemblyContextByName(name);
         return this.withRequiringAssemblyContext(context);
     }
 
@@ -77,12 +76,11 @@ public class AssemblyConnectorCreator extends AbstractConnectorCreator {
     public OperationProvidedRoleSelector<AssemblyConnectorCreator> withProvidingAssemblyContext(
             final AssemblyContext context) {
         Objects.requireNonNull(context, "The given AssemblyContext must not be null.");
-        return new OperationProvidedRoleSelector<>(
-                (provContext, role) -> {
-                  AssemblyConnectorCreator.this.providingContext = provContext;
-                  AssemblyConnectorCreator.this.providedRole = role;
-                  return AssemblyConnectorCreator.this;
-               }, context);
+        return new OperationProvidedRoleSelector<>((provContext, role) -> {
+            AssemblyConnectorCreator.this.providingContext = provContext;
+            AssemblyConnectorCreator.this.providedRole = role;
+            return AssemblyConnectorCreator.this;
+        }, context);
     }
 
     /**
@@ -96,20 +94,20 @@ public class AssemblyConnectorCreator extends AbstractConnectorCreator {
      */
     public OperationProvidedRoleSelector<AssemblyConnectorCreator> withProvidingAssemblyContext(final String name)
             throws NoSuchElementException {
-        final AssemblyContext context = this.system.getAssemblyContextByName(name);
+        final AssemblyContext context = system.getAssemblyContextByName(name);
         return this.withProvidingAssemblyContext(context);
     }
 
     @Override
     public AssemblyConnector build() {
         final AssemblyConnector connector = CompositionFactory.eINSTANCE.createAssemblyConnector();
-        if (this.name != null) {
-            connector.setEntityName(this.name);
+        if (name != null) {
+            connector.setEntityName(name);
         }
-        connector.setRequiringAssemblyContext_AssemblyConnector(this.requiringContext);
-        connector.setRequiredRole_AssemblyConnector(this.requiredRole);
-        connector.setProvidingAssemblyContext_AssemblyConnector(this.providingContext);
-        connector.setProvidedRole_AssemblyConnector(this.providedRole);
+        connector.setRequiringAssemblyContext_AssemblyConnector(requiringContext);
+        connector.setRequiredRole_AssemblyConnector(requiredRole);
+        connector.setProvidingAssemblyContext_AssemblyConnector(providingContext);
+        connector.setProvidedRole_AssemblyConnector(providedRole);
         return connector;
     }
 

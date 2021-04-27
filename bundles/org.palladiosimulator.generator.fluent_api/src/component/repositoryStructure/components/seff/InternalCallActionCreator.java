@@ -34,10 +34,10 @@ public class InternalCallActionCreator extends GeneralAction {
 
     protected InternalCallActionCreator(final SeffCreator seff) {
         this.seff = seff;
-        this.demands = new ArrayList<>();
-        this.infrastructureCalls = new ArrayList<>();
-        this.resourceCalls = new ArrayList<>();
-        this.inputVariableUsages = new ArrayList<>();
+        demands = new ArrayList<>();
+        infrastructureCalls = new ArrayList<>();
+        resourceCalls = new ArrayList<>();
+        inputVariableUsages = new ArrayList<>();
     }
 
     @Override
@@ -55,7 +55,7 @@ public class InternalCallActionCreator extends GeneralAction {
      */
     public InternalCallActionCreator withInputVaribleUsage(final VariableUsageCreator variableUsage) {
         Objects.requireNonNull(variableUsage, "variableUsage must not be null");
-        this.inputVariableUsages.add(variableUsage.build());
+        inputVariableUsages.add(variableUsage.build());
         return this;
     }
 
@@ -68,7 +68,7 @@ public class InternalCallActionCreator extends GeneralAction {
      */
     public InternalCallActionCreator withInternalBehaviour(final InternalSeff internalBehaviour) {
         Objects.requireNonNull(internalBehaviour, "internalBehaviour must not be null");
-        this.internalSeff = internalBehaviour;
+        internalSeff = internalBehaviour;
         return this;
     }
 
@@ -99,16 +99,16 @@ public class InternalCallActionCreator extends GeneralAction {
     protected InternalCallAction build() {
         final InternalCallAction action = SeffFactory.eINSTANCE.createInternalCallAction();
 
-        if (this.internalSeff != null) {
-            final ResourceDemandingInternalBehaviour internal = this.internalSeff.buildInternalBehaviour();
+        if (internalSeff != null) {
+            final ResourceDemandingInternalBehaviour internal = internalSeff.buildInternalBehaviour();
             action.setCalledResourceDemandingInternalBehaviour(internal);
         }
 
-        action.getInputVariableUsages__CallAction().addAll(this.inputVariableUsages);
+        action.getInputVariableUsages__CallAction().addAll(inputVariableUsages);
 
-        action.getResourceDemand_Action().addAll(this.demands);
-        action.getInfrastructureCall__Action().addAll(this.infrastructureCalls);
-        action.getResourceCall__Action().addAll(this.resourceCalls);
+        action.getResourceDemand_Action().addAll(demands);
+        action.getInfrastructureCall__Action().addAll(infrastructureCalls);
+        action.getResourceCall__Action().addAll(resourceCalls);
 
         return action;
     }

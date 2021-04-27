@@ -26,7 +26,7 @@ public class EventChannelSourceConnectorCreator extends AbstractConnectorCreator
     private SourceRole role;
 
     public EventChannelSourceConnectorCreator(final SystemCreator systemCreator) {
-        this.system = systemCreator;
+        system = systemCreator;
     }
 
     /**
@@ -56,7 +56,7 @@ public class EventChannelSourceConnectorCreator extends AbstractConnectorCreator
      * @see org.palladiosimulator.pcm.repository.SourceRole
      */
     public EventChannelSourceConnectorCreator withEventChannel(final String name) throws NoSuchElementException {
-        final EventChannel channel = this.system.getEventChannelByName(name);
+        final EventChannel channel = system.getEventChannelByName(name);
         return this.withEventChannel(channel);
     }
 
@@ -72,12 +72,11 @@ public class EventChannelSourceConnectorCreator extends AbstractConnectorCreator
     public SourceRoleSelector<EventChannelSourceConnectorCreator> withAssemblyContext(
             final AssemblyContext assemblyContext) {
         Objects.requireNonNull(assemblyContext, "The given AssemblyContext must not be null.");
-        return new SourceRoleSelector<>(
-                (context, role) -> {
-                  EventChannelSourceConnectorCreator.this.assemblyContext = context;
-                  EventChannelSourceConnectorCreator.this.role = role;
-                  return EventChannelSourceConnectorCreator.this;
-               }, assemblyContext);
+        return new SourceRoleSelector<>((context, role) -> {
+            EventChannelSourceConnectorCreator.this.assemblyContext = context;
+            EventChannelSourceConnectorCreator.this.role = role;
+            return EventChannelSourceConnectorCreator.this;
+        }, assemblyContext);
     }
 
     /**
@@ -92,19 +91,19 @@ public class EventChannelSourceConnectorCreator extends AbstractConnectorCreator
      * @see org.palladiosimulator.pcm.repository.SourceRole
      */
     public SourceRoleSelector<EventChannelSourceConnectorCreator> withAssemblyContext(final String name) {
-        final AssemblyContext context = this.system.getAssemblyContextByName(name);
+        final AssemblyContext context = system.getAssemblyContextByName(name);
         return this.withAssemblyContext(context);
     }
 
     @Override
     public EventChannelSourceConnector build() {
         final EventChannelSourceConnector connector = CompositionFactory.eINSTANCE.createEventChannelSourceConnector();
-        if (this.name != null) {
-            connector.setEntityName(this.name);
+        if (name != null) {
+            connector.setEntityName(name);
         }
-        connector.setEventChannel__EventChannelSourceConnector(this.eventChannel);
-        connector.setAssemblyContext__EventChannelSourceConnector(this.assemblyContext);
-        connector.setSourceRole__EventChannelSourceRole(this.role);
+        connector.setEventChannel__EventChannelSourceConnector(eventChannel);
+        connector.setAssemblyContext__EventChannelSourceConnector(assemblyContext);
+        connector.setSourceRole__EventChannelSourceRole(role);
         return connector;
     }
 

@@ -126,34 +126,34 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
 
     public RepositoryCreator(final Repository primitiveDataTypes, final ResourceRepository resourceTypes,
             final Repository failureTypes, final Logger logger, final IModelValidator validator) {
-        this.imports = new ArrayList<>();
-        this.importedDataTypes = new ArrayList<>();
-        this.importedFailureTypes = new ArrayList<>();
-        this.importedComponents = new ArrayList<>();
-        this.importedInterfaces = new ArrayList<>();
-        this.dataTypes = new ArrayList<>();
-        this.internalPrimitives = new HashMap<>();
-        this.internalProcessingResources = new HashMap<>();
-        this.internalResourceSignatures = new HashMap<>();
-        this.internalCommunicationLinkResources = new HashMap<>();
-        this.internalResourceInterfaces = new HashMap<>();
-        this.internalFailureTypes = new HashMap<>();
+        imports = new ArrayList<>();
+        importedDataTypes = new ArrayList<>();
+        importedFailureTypes = new ArrayList<>();
+        importedComponents = new ArrayList<>();
+        importedInterfaces = new ArrayList<>();
+        dataTypes = new ArrayList<>();
+        internalPrimitives = new HashMap<>();
+        internalProcessingResources = new HashMap<>();
+        internalResourceSignatures = new HashMap<>();
+        internalCommunicationLinkResources = new HashMap<>();
+        internalResourceInterfaces = new HashMap<>();
+        internalFailureTypes = new HashMap<>();
         this.failureTypes = new ArrayList<>();
-        this.interfaces = new ArrayList<>();
-        this.components = new ArrayList<>();
-        this.providedRoles = new ArrayList<>();
-        this.requiredRoles = new ArrayList<>();
-        this.resourceRequiredRoles = new ArrayList<>();
-        this.parameters = new ArrayList<>();
-        this.assemblyContexts = new ArrayList<>();
-        this.eventChannels = new ArrayList<>();
-        this.connectors = new ArrayList<>();
-        this.behaviours = new ArrayList<>();
-        this.passiveResources = new ArrayList<>();
-        this.exceptionTypes = new ArrayList<>();
-        this.signatures = new ArrayList<>();
+        interfaces = new ArrayList<>();
+        components = new ArrayList<>();
+        providedRoles = new ArrayList<>();
+        requiredRoles = new ArrayList<>();
+        resourceRequiredRoles = new ArrayList<>();
+        parameters = new ArrayList<>();
+        assemblyContexts = new ArrayList<>();
+        eventChannels = new ArrayList<>();
+        connectors = new ArrayList<>();
+        behaviours = new ArrayList<>();
+        passiveResources = new ArrayList<>();
+        exceptionTypes = new ArrayList<>();
+        signatures = new ArrayList<>();
 
-        this.initPredefinedDataTypesAndResources(primitiveDataTypes, resourceTypes, failureTypes);
+        initPredefinedDataTypesAndResources(primitiveDataTypes, resourceTypes, failureTypes);
 
         this.logger = logger;
         this.validator = validator;
@@ -186,25 +186,25 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             final PrimitiveTypeEnum type = p.getType();
             switch (type) {
             case BOOL:
-                this.internalPrimitives.put(Primitive.BOOLEAN, p);
+                internalPrimitives.put(Primitive.BOOLEAN, p);
                 break;
             case BYTE:
-                this.internalPrimitives.put(Primitive.BYTE, p);
+                internalPrimitives.put(Primitive.BYTE, p);
                 break;
             case CHAR:
-                this.internalPrimitives.put(Primitive.CHAR, p);
+                internalPrimitives.put(Primitive.CHAR, p);
                 break;
             case DOUBLE:
-                this.internalPrimitives.put(Primitive.DOUBLE, p);
+                internalPrimitives.put(Primitive.DOUBLE, p);
                 break;
             case INT:
-                this.internalPrimitives.put(Primitive.INTEGER, p);
+                internalPrimitives.put(Primitive.INTEGER, p);
                 break;
             case LONG:
-                this.internalPrimitives.put(Primitive.LONG, p);
+                internalPrimitives.put(Primitive.LONG, p);
                 break;
             case STRING:
-                this.internalPrimitives.put(Primitive.STRING, p);
+                internalPrimitives.put(Primitive.STRING, p);
                 break;
             default: // just ignore everything not matching any type
             }
@@ -215,17 +215,17 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             if (resourceType instanceof ProcessingResourceType) {
                 final ProcessingResourceType p = (ProcessingResourceType) resourceType;
                 if (p.getEntityName().contentEquals("CPU")) {
-                    this.internalProcessingResources.put(ProcessingResource.CPU, p);
+                    internalProcessingResources.put(ProcessingResource.CPU, p);
                 } else if (p.getEntityName().contentEquals("HDD")) {
-                    this.internalProcessingResources.put(ProcessingResource.HDD, p);
+                    internalProcessingResources.put(ProcessingResource.HDD, p);
                 } else if (p.getEntityName().contentEquals("DELAY")) {
-                    this.internalProcessingResources.put(ProcessingResource.DELAY, p);
+                    internalProcessingResources.put(ProcessingResource.DELAY, p);
                 } else {
                     System.err.println("Unexpected Processing Resource Type.");
                 }
 
             } else if (resourceType instanceof CommunicationLinkResourceType) {
-                this.internalCommunicationLinkResources.put(CommunicationLinkResource.LAN,
+                internalCommunicationLinkResources.put(CommunicationLinkResource.LAN,
                         (CommunicationLinkResourceType) resourceType);
             }
         }
@@ -233,23 +233,21 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         // Resource interfaces and signatures
         for (final ResourceInterface resourceInterface : resourceTypes.getResourceInterfaces__ResourceRepository()) {
             if (resourceInterface.getEntityName().contentEquals("CpuInterface")) {
-                this.internalResourceInterfaces.put(shared.structure.ResourceInterface.CPU, resourceInterface);
+                internalResourceInterfaces.put(shared.structure.ResourceInterface.CPU, resourceInterface);
             } else if (resourceInterface.getEntityName().contentEquals("HddInterface")) {
-                this.internalResourceInterfaces.put(shared.structure.ResourceInterface.HDD, resourceInterface);
+                internalResourceInterfaces.put(shared.structure.ResourceInterface.HDD, resourceInterface);
             } else {
                 System.err.println("Unexpected Resource Interface.");
             }
 
             for (final ResourceSignature s : resourceInterface.getResourceSignatures__ResourceInterface()) {
                 if (s.getEntityName().contentEquals("process")) {
-                    this.internalResourceSignatures
-                            .put(component.repositoryStructure.internals.ResourceSignature.PROCESS, s);
+                    internalResourceSignatures.put(component.repositoryStructure.internals.ResourceSignature.PROCESS,
+                            s);
                 } else if (s.getEntityName().contentEquals("read")) {
-                    this.internalResourceSignatures.put(component.repositoryStructure.internals.ResourceSignature.READ,
-                            s);
+                    internalResourceSignatures.put(component.repositoryStructure.internals.ResourceSignature.READ, s);
                 } else if (s.getEntityName().contentEquals("write")) {
-                    this.internalResourceSignatures.put(component.repositoryStructure.internals.ResourceSignature.WRITE,
-                            s);
+                    internalResourceSignatures.put(component.repositoryStructure.internals.ResourceSignature.WRITE, s);
                 } else {
                     System.err.println("Unexpected Resource Signature.");
                 }
@@ -259,21 +257,21 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         // FailureTypes
         final EList<FailureType> failures = failureTypes.getFailureTypes__Repository();
         for (final FailureType f : failures) {
-            if ((f instanceof SoftwareInducedFailureType) && !this.internalFailureTypes.containsKey(Failure.SOFTWARE)) {
-                this.internalFailureTypes.put(Failure.SOFTWARE, f);
+            if ((f instanceof SoftwareInducedFailureType) && !internalFailureTypes.containsKey(Failure.SOFTWARE)) {
+                internalFailureTypes.put(Failure.SOFTWARE, f);
             } else if ((f instanceof NetworkInducedFailureType)
-                    && !this.internalFailureTypes.containsKey(Failure.NETWORK_LAN)) {
-                this.internalFailureTypes.put(Failure.NETWORK_LAN, f);
+                    && !internalFailureTypes.containsKey(Failure.NETWORK_LAN)) {
+                internalFailureTypes.put(Failure.NETWORK_LAN, f);
             } else if (f instanceof HardwareInducedFailureType) {
                 if (f.getEntityName().toLowerCase().contentEquals("hardwareinducedfailure (cpu)")
-                        && !this.internalFailureTypes.containsKey(Failure.HARDWARE_CPU)) {
-                    this.internalFailureTypes.put(Failure.HARDWARE_CPU, f);
+                        && !internalFailureTypes.containsKey(Failure.HARDWARE_CPU)) {
+                    internalFailureTypes.put(Failure.HARDWARE_CPU, f);
                 } else if (f.getEntityName().toLowerCase().contentEquals("hardwareinducedfailure (hdd)")
-                        && !this.internalFailureTypes.containsKey(Failure.HARDWARE_HDD)) {
-                    this.internalFailureTypes.put(Failure.HARDWARE_HDD, f);
+                        && !internalFailureTypes.containsKey(Failure.HARDWARE_HDD)) {
+                    internalFailureTypes.put(Failure.HARDWARE_HDD, f);
                 } else if (f.getEntityName().toLowerCase().contentEquals("hardwareinducedfailure (delay)")
-                        && !this.internalFailureTypes.containsKey(Failure.HARDWARE_DELAY)) {
-                    this.internalFailureTypes.put(Failure.HARDWARE_DELAY, f);
+                        && !internalFailureTypes.containsKey(Failure.HARDWARE_DELAY)) {
+                    internalFailureTypes.put(Failure.HARDWARE_DELAY, f);
                 } else {
                     System.err.println("Unexpected failure type while reading internal failure types.");
                 }
@@ -330,11 +328,11 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
     public Repo withImportedResource(Repository repository) {
         Objects.requireNonNull(repository, "repository must not be null");
 
-        this.imports.add(repository);
-        this.importedDataTypes.addAll(repository.getDataTypes__Repository());
-        this.importedFailureTypes.addAll(repository.getFailureTypes__Repository());
-        this.importedComponents.addAll(repository.getComponents__Repository());
-        this.importedInterfaces.addAll(repository.getInterfaces__Repository());
+        imports.add(repository);
+        importedDataTypes.addAll(repository.getDataTypes__Repository());
+        importedFailureTypes.addAll(repository.getFailureTypes__Repository());
+        importedComponents.addAll(repository.getComponents__Repository());
+        importedInterfaces.addAll(repository.getInterfaces__Repository());
 
         return this;
     }
@@ -342,7 +340,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
     @Override
     public RepoAddition addToRepository(final CollectionDataType collectionDataType) {
         Objects.requireNonNull(collectionDataType, "collectionDataType must not be null");
-        this.dataTypes.add(collectionDataType);
+        dataTypes.add(collectionDataType);
         return this;
     }
 
@@ -350,21 +348,21 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
     public RepoAddition addToRepository(final CompositeDataTypeCreator compositeDataType) {
         Objects.requireNonNull(compositeDataType, "compositeDataType must not be null");
         final CompositeDataType dataType = compositeDataType.build();
-        this.dataTypes.add(dataType);
+        dataTypes.add(dataType);
         return this;
     }
 
     @Override
     public RepoAddition addToRepository(final FailureType failureType) {
         Objects.requireNonNull(failureType, "failureType must not be null");
-        this.failureTypes.add(failureType);
+        failureTypes.add(failureType);
         return this;
     }
 
     @Override
     public RepoAddition addToRepository(final ResourceTimeoutFailureTypeCreator failureType) {
         Objects.requireNonNull(failureType, "failureType must not be null");
-        this.failureTypes.add(failureType.build());
+        failureTypes.add(failureType.build());
         return this;
     }
 
@@ -372,7 +370,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
     public RepoAddition addToRepository(final ExceptionTypeCreator exceptionType) {
         Objects.requireNonNull(exceptionType, "exceptionType must not be null");
         final ExceptionType build = exceptionType.build();
-        this.exceptionTypes.add(build);
+        exceptionTypes.add(build);
         return this;
     }
 
@@ -380,7 +378,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
     public RepoAddition addToRepository(final component.repositoryStructure.interfaces.Interface interfce) {
         Objects.requireNonNull(interfce, "interfce must not be null");
         final Interface i = interfce.build();
-        this.interfaces.add(i);
+        interfaces.add(i);
         return this;
     }
 
@@ -388,46 +386,46 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
     public RepoAddition addToRepository(final Component component) {
         Objects.requireNonNull(component, "component must not be null");
         final RepositoryComponent c = component.build();
-        this.components.add(c);
+        components.add(c);
         return this;
     }
 
     @Override
     protected Repository build() {
         final Repository repo = RepositoryFactory.eINSTANCE.createRepository();
-        if (this.name != null) {
-            repo.setEntityName(this.name);
+        if (name != null) {
+            repo.setEntityName(name);
         }
         // if (id != null)
         // repo.setId(id);
-        if (this.description != null) {
-            repo.setRepositoryDescription(this.description);
+        if (description != null) {
+            repo.setRepositoryDescription(description);
         }
 
-        repo.getDataTypes__Repository().addAll(this.dataTypes);
-        repo.getInterfaces__Repository().addAll(this.interfaces);
-        repo.getComponents__Repository().addAll(this.components);
+        repo.getDataTypes__Repository().addAll(dataTypes);
+        repo.getInterfaces__Repository().addAll(interfaces);
+        repo.getComponents__Repository().addAll(components);
 
         return repo;
     }
 
     @Override
     public Repository createRepositoryNow() {
-        final Repository repo = this.build();
-        this.validator.validate(repo, this.name);
+        final Repository repo = build();
+        validator.validate(repo, name);
 
         return repo;
     }
 
     private Repository getRepositoryByName(final String name) {
-        final List<Repository> collect = this.imports.stream()
+        final List<Repository> collect = imports.stream()
                 .filter(r -> (r.getEntityName() != null) && r.getEntityName().contentEquals(name))
                 .collect(Collectors.toList());
         if (collect.isEmpty()) {
             return null;
         }
         if (collect.size() > 1) {
-            this.logger.warning("More than repository with name '" + name + "' found.");
+            logger.warning("More than repository with name '" + name + "' found.");
         }
         return collect.get(0);
     }
@@ -441,7 +439,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
     // parameters. However, it is implemented. Maybe later this can be restricted if
     // it is confusing for the user,
     public PrimitiveDataType getPrimitiveDataType(final Primitive primitive) {
-        return this.internalPrimitives.get(primitive);
+        return internalPrimitives.get(primitive);
     }
 
     public PrimitiveDataType getPrimitiveDataType(String name) {
@@ -453,7 +451,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
                 name = "boolean";
             }
             final Primitive valueOf = Primitive.valueOf(name.toUpperCase());
-            return this.internalPrimitives.get(valueOf);
+            return internalPrimitives.get(valueOf);
         } catch (final IllegalArgumentException e) {
             return null;
         }
@@ -464,20 +462,20 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         final String[] split = name.split("\\.");
         if (split.length == 2) {
             name = split[1];
-            final Repository r = this.getRepositoryByName(split[0]);
+            final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
                 throw new RuntimeException("Repository '" + split[0] + "' could not be found");
             }
             collect = r.getDataTypes__Repository().stream().filter(d -> d instanceof CompositeDataType)
                     .map(d -> (CompositeDataType) d).collect(Collectors.toList());
         } else if (split.length == 1) {
-            collect = this.dataTypes.stream().filter(d -> d instanceof CompositeDataType)
-                    .map(d -> (CompositeDataType) d).collect(Collectors.toList());
+            collect = dataTypes.stream().filter(d -> d instanceof CompositeDataType).map(d -> (CompositeDataType) d)
+                    .collect(Collectors.toList());
         } else {
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
         }
-        return this.getCompositeDataTypeFromList(name, collect);
+        return getCompositeDataTypeFromList(name, collect);
     }
 
     private CompositeDataType getCompositeDataTypeFromList(final String name, final List<CompositeDataType> dataTypes) {
@@ -488,7 +486,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             return null;
         }
         if (collect.size() > 1) {
-            this.logger.warning("More than one composite data type with name '" + name + "' found.");
+            logger.warning("More than one composite data type with name '" + name + "' found.");
         }
         return collect.get(0);
     }
@@ -497,18 +495,17 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         final String[] split = name.split("\\.");
         if (split.length == 2) {
             final String entityName = split[1];
-            final Repository r = this.getRepositoryByName(split[0]);
+            final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
                 throw new RuntimeException("Repository '" + split[0] + "' could not be found");
             }
-            return this.getDataTypeFromList(entityName, r.getDataTypes__Repository());
+            return getDataTypeFromList(entityName, r.getDataTypes__Repository());
         }
         if (split.length == 1) {
-            return this.getDataTypeFromList(name, this.dataTypes);
-        } else {
-            throw new IllegalArgumentException(
-                    "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
+            return getDataTypeFromList(name, dataTypes);
         }
+        throw new IllegalArgumentException(
+                "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
     }
 
     private DataType getDataTypeFromList(final String name, final List<DataType> dataTypes) {
@@ -528,38 +525,37 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             return this.getPrimitiveDataType(name);
         }
         if (collect.size() > 1) {
-            this.logger.warning("More than one data type with name '" + name + "' found.");
+            logger.warning("More than one data type with name '" + name + "' found.");
         }
         return collect.get(0);
     }
 
     public FailureType getFailureType(final Failure failure) {
-        return this.internalFailureTypes.get(failure);
+        return internalFailureTypes.get(failure);
     }
 
     public FailureType getFailureType(final String name) {
         final String[] split = name.split("\\.");
         if (split.length == 2) {
             final String entityName = split[1];
-            final Repository r = this.getRepositoryByName(split[0]);
+            final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
                 throw new RuntimeException("Repository '" + split[0] + "' could not be found");
             }
-            return this.getFailureTypeFromList(entityName, r.getFailureTypes__Repository());
+            return getFailureTypeFromList(entityName, r.getFailureTypes__Repository());
         }
         if (split.length == 1) {
-            return this.getFailureTypeFromList(name, this.failureTypes);
-        } else {
-            throw new IllegalArgumentException(
-                    "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
+            return getFailureTypeFromList(name, failureTypes);
         }
+        throw new IllegalArgumentException(
+                "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
     }
 
     private FailureType getFailureTypeFromList(final String name, final List<FailureType> failureTypes) {
         final List<FailureType> collect = failureTypes.stream()
                 .filter(c -> (c.getEntityName() != null) && c.getEntityName().contentEquals(name))
                 .collect(Collectors.toList());
-        final List<FailureType> collect2 = this.internalFailureTypes.values().stream()
+        final List<FailureType> collect2 = internalFailureTypes.values().stream()
                 .filter(c -> (c.getEntityName() != null) && c.getEntityName().contentEquals(name))
                 .collect(Collectors.toList());
         collect.addAll(collect2);
@@ -567,7 +563,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             return null;
         }
         if (collect.size() > 1) {
-            this.logger.warning("More than one failure type with name '" + name + "' found.");
+            logger.warning("More than one failure type with name '" + name + "' found.");
         }
         return collect.get(0);
     }
@@ -577,20 +573,20 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         final String[] split = name.split("\\.");
         if (split.length == 2) {
             name = split[1];
-            final Repository r = this.getRepositoryByName(split[0]);
+            final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
                 throw new RuntimeException("Repository '" + split[0] + "' could not be found");
             }
             collect = r.getFailureTypes__Repository().stream().filter(d -> d instanceof ResourceTimeoutFailureType)
                     .map(d -> (ResourceTimeoutFailureType) d).collect(Collectors.toList());
         } else if (split.length == 1) {
-            collect = this.failureTypes.stream().filter(d -> d instanceof ResourceTimeoutFailureType)
+            collect = failureTypes.stream().filter(d -> d instanceof ResourceTimeoutFailureType)
                     .map(d -> (ResourceTimeoutFailureType) d).collect(Collectors.toList());
         } else {
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
         }
-        return this.getResourceTimeoutFailureTypeFromList(name, collect);
+        return getResourceTimeoutFailureTypeFromList(name, collect);
     }
 
     private ResourceTimeoutFailureType getResourceTimeoutFailureTypeFromList(final String name,
@@ -602,40 +598,40 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             return null;
         }
         if (collect.size() > 1) {
-            this.logger.warning("More than one resource timeout failure type with name '" + name + "' found.");
+            logger.warning("More than one resource timeout failure type with name '" + name + "' found.");
         }
         return collect.get(0);
     }
 
     public ExceptionType getExceptionType(final String name) {
-        final List<ExceptionType> collect = this.exceptionTypes.stream()
+        final List<ExceptionType> collect = exceptionTypes.stream()
                 .filter(c -> (c.getExceptionName() != null) && c.getExceptionName().contentEquals(name))
                 .collect(Collectors.toList());
         if (collect.isEmpty()) {
             return null;
         }
         if (collect.size() > 1) {
-            this.logger.warning("More than one component with name '" + name + "' found.");
+            logger.warning("More than one component with name '" + name + "' found.");
         }
         return collect.get(0);
     }
 
     public ProcessingResourceType getProcessingResourceType(final ProcessingResource processingResource) {
-        return this.internalProcessingResources.get(processingResource);
+        return internalProcessingResources.get(processingResource);
     }
 
     public CommunicationLinkResourceType getCommunicationLinkResource(
             final CommunicationLinkResource communicationLinkResource) {
-        return this.internalCommunicationLinkResources.get(communicationLinkResource);
+        return internalCommunicationLinkResources.get(communicationLinkResource);
     }
 
     public ResourceInterface getResourceInterface(final shared.structure.ResourceInterface resourceInterface) {
-        return this.internalResourceInterfaces.get(resourceInterface);
+        return internalResourceInterfaces.get(resourceInterface);
     }
 
     public ResourceSignature getResourceSignature(
             final component.repositoryStructure.internals.ResourceSignature resourceSignature) {
-        return this.internalResourceSignatures.get(resourceSignature);
+        return internalResourceSignatures.get(resourceSignature);
     }
 
     public RepositoryComponent getComponent(String name) {
@@ -643,18 +639,18 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         final String[] split = name.split("\\.");
         if (split.length == 2) {
             name = split[1];
-            final Repository r = this.getRepositoryByName(split[0]);
+            final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
                 throw new RuntimeException("Repository '" + split[0] + "' could not be found");
             }
             collect = r.getComponents__Repository();
         } else if (split.length == 1) {
-            collect = this.components;
+            collect = components;
         } else {
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
         }
-        return this.getComponentFromList(name, collect);
+        return getComponentFromList(name, collect);
     }
 
     private RepositoryComponent getComponentFromList(final String name, final List<RepositoryComponent> components) {
@@ -665,7 +661,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             return null;
         }
         if (collect.size() > 1) {
-            this.logger.warning("More than one component with name '" + name + "' found.");
+            logger.warning("More than one component with name '" + name + "' found.");
         }
         return collect.get(0);
     }
@@ -675,20 +671,20 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         final String[] split = name.split("\\.");
         if (split.length == 2) {
             name = split[1];
-            final Repository r = this.getRepositoryByName(split[0]);
+            final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
                 throw new RuntimeException("Repository '" + split[0] + "' could not be found");
             }
             collect = r.getComponents__Repository().stream().filter(d -> d instanceof BasicComponent)
                     .map(d -> (BasicComponent) d).collect(Collectors.toList());
         } else if (split.length == 1) {
-            collect = this.components.stream().filter(d -> d instanceof BasicComponent).map(d -> (BasicComponent) d)
+            collect = components.stream().filter(d -> d instanceof BasicComponent).map(d -> (BasicComponent) d)
                     .collect(Collectors.toList());
         } else {
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
         }
-        return this.getBasicComponentFromList(name, collect);
+        return getBasicComponentFromList(name, collect);
     }
 
     private BasicComponent getBasicComponentFromList(final String name, final List<BasicComponent> components) {
@@ -699,7 +695,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             return null;
         }
         if (collect.size() > 1) {
-            this.logger.warning("More than one basic component with name '" + name + "' found.");
+            logger.warning("More than one basic component with name '" + name + "' found.");
         }
         return collect.get(0);
     }
@@ -709,20 +705,20 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         final String[] split = name.split("\\.");
         if (split.length == 2) {
             name = split[1];
-            final Repository r = this.getRepositoryByName(split[0]);
+            final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
                 throw new RuntimeException("Repository '" + split[0] + "' could not be found");
             }
             collect = r.getComponents__Repository().stream().filter(d -> d instanceof CompositeComponent)
                     .map(d -> (CompositeComponent) d).collect(Collectors.toList());
         } else if (split.length == 1) {
-            collect = this.components.stream().filter(d -> d instanceof CompositeComponent)
-                    .map(d -> (CompositeComponent) d).collect(Collectors.toList());
+            collect = components.stream().filter(d -> d instanceof CompositeComponent).map(d -> (CompositeComponent) d)
+                    .collect(Collectors.toList());
         } else {
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
         }
-        return this.getCompositeComponentFromList(name, collect);
+        return getCompositeComponentFromList(name, collect);
     }
 
     private CompositeComponent getCompositeComponentFromList(final String name,
@@ -734,7 +730,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             return null;
         }
         if (collect.size() > 1) {
-            this.logger.warning("More than one composite component with name '" + name + "' found.");
+            logger.warning("More than one composite component with name '" + name + "' found.");
         }
         return collect.get(0);
     }
@@ -744,20 +740,20 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         final String[] split = name.split("\\.");
         if (split.length == 2) {
             name = split[1];
-            final Repository r = this.getRepositoryByName(split[0]);
+            final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
                 throw new RuntimeException("Repository '" + split[0] + "' could not be found");
             }
             collect = r.getComponents__Repository().stream().filter(d -> d instanceof SubSystem).map(d -> (SubSystem) d)
                     .collect(Collectors.toList());
         } else if (split.length == 1) {
-            collect = this.components.stream().filter(d -> d instanceof SubSystem).map(d -> (SubSystem) d)
+            collect = components.stream().filter(d -> d instanceof SubSystem).map(d -> (SubSystem) d)
                     .collect(Collectors.toList());
         } else {
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
         }
-        return this.getSubsystemFromList(name, collect);
+        return getSubsystemFromList(name, collect);
     }
 
     private SubSystem getSubsystemFromList(final String name, final List<SubSystem> components) {
@@ -768,7 +764,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             return null;
         }
         if (collect.size() > 1) {
-            this.logger.warning("More than one subsystem with name '" + name + "' found.");
+            logger.warning("More than one subsystem with name '" + name + "' found.");
         }
         return collect.get(0);
     }
@@ -778,20 +774,20 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         final String[] split = name.split("\\.");
         if (split.length == 2) {
             name = split[1];
-            final Repository r = this.getRepositoryByName(split[0]);
+            final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
                 throw new RuntimeException("Repository '" + split[0] + "' could not be found");
             }
             collect = r.getComponents__Repository().stream().filter(d -> d instanceof CompleteComponentType)
                     .map(d -> (CompleteComponentType) d).collect(Collectors.toList());
         } else if (split.length == 1) {
-            collect = this.components.stream().filter(d -> d instanceof CompleteComponentType)
+            collect = components.stream().filter(d -> d instanceof CompleteComponentType)
                     .map(d -> (CompleteComponentType) d).collect(Collectors.toList());
         } else {
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
         }
-        return this.getCompleteComponentTypeFromList(name, collect);
+        return getCompleteComponentTypeFromList(name, collect);
     }
 
     private CompleteComponentType getCompleteComponentTypeFromList(final String name,
@@ -803,7 +799,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             return null;
         }
         if (collect.size() > 1) {
-            this.logger.warning("More than one complete component type with name '" + name + "' found.");
+            logger.warning("More than one complete component type with name '" + name + "' found.");
         }
         return collect.get(0);
     }
@@ -813,20 +809,20 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         final String[] split = name.split("\\.");
         if (split.length == 2) {
             name = split[1];
-            final Repository r = this.getRepositoryByName(split[0]);
+            final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
                 throw new RuntimeException("Repository '" + split[0] + "' could not be found");
             }
             collect = r.getComponents__Repository().stream().filter(d -> d instanceof ProvidesComponentType)
                     .map(d -> (ProvidesComponentType) d).collect(Collectors.toList());
         } else if (split.length == 1) {
-            collect = this.components.stream().filter(d -> d instanceof ProvidesComponentType)
+            collect = components.stream().filter(d -> d instanceof ProvidesComponentType)
                     .map(d -> (ProvidesComponentType) d).collect(Collectors.toList());
         } else {
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
         }
-        return this.getProvidesComponentTypeFromList(name, collect);
+        return getProvidesComponentTypeFromList(name, collect);
     }
 
     private ProvidesComponentType getProvidesComponentTypeFromList(final String name,
@@ -838,7 +834,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             return null;
         }
         if (collect.size() > 1) {
-            this.logger.warning("More than one provides component type with name '" + name + "' found.");
+            logger.warning("More than one provides component type with name '" + name + "' found.");
         }
         return collect.get(0);
     }
@@ -848,18 +844,18 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         final String[] split = name.split("\\.");
         if (split.length == 2) {
             name = split[1];
-            final Repository r = this.getRepositoryByName(split[0]);
+            final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
                 throw new RuntimeException("Repository '" + split[0] + "' could not be found");
             }
             collect = r.getInterfaces__Repository();
         } else if (split.length == 1) {
-            collect = this.interfaces;
+            collect = interfaces;
         } else {
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
         }
-        return this.getInterfaceFromList(name, collect);
+        return getInterfaceFromList(name, collect);
     }
 
     private Interface getInterfaceFromList(final String name, final List<Interface> interfaces) {
@@ -870,7 +866,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             return null;
         }
         if (collect.size() > 1) {
-            this.logger.warning("More than one interface with name '" + name + "' found.");
+            logger.warning("More than one interface with name '" + name + "' found.");
         }
         return collect.get(0);
     }
@@ -880,20 +876,20 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         final String[] split = name.split("\\.");
         if (split.length == 2) {
             name = split[1];
-            final Repository r = this.getRepositoryByName(split[0]);
+            final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
                 throw new RuntimeException("Repository '" + split[0] + "' could not be found");
             }
             collect = r.getInterfaces__Repository().stream().filter(d -> d instanceof OperationInterface)
                     .map(d -> (OperationInterface) d).collect(Collectors.toList());
         } else if (split.length == 1) {
-            collect = this.interfaces.stream().filter(d -> d instanceof OperationInterface)
-                    .map(d -> (OperationInterface) d).collect(Collectors.toList());
+            collect = interfaces.stream().filter(d -> d instanceof OperationInterface).map(d -> (OperationInterface) d)
+                    .collect(Collectors.toList());
         } else {
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
         }
-        return this.getOperationInterfaceFromList(name, collect);
+        return getOperationInterfaceFromList(name, collect);
     }
 
     private OperationInterface getOperationInterfaceFromList(final String name,
@@ -905,7 +901,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             return null;
         }
         if (collect.size() > 1) {
-            this.logger.warning("More than one operation interface with name '" + name + "' found.");
+            logger.warning("More than one operation interface with name '" + name + "' found.");
         }
         return collect.get(0);
     }
@@ -915,20 +911,20 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         final String[] split = name.split("\\.");
         if (split.length == 2) {
             name = split[1];
-            final Repository r = this.getRepositoryByName(split[0]);
+            final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
                 throw new RuntimeException("Repository '" + split[0] + "' could not be found");
             }
             collect = r.getInterfaces__Repository().stream().filter(d -> d instanceof InfrastructureInterface)
                     .map(d -> (InfrastructureInterface) d).collect(Collectors.toList());
         } else if (split.length == 1) {
-            collect = this.interfaces.stream().filter(d -> d instanceof InfrastructureInterface)
+            collect = interfaces.stream().filter(d -> d instanceof InfrastructureInterface)
                     .map(d -> (InfrastructureInterface) d).collect(Collectors.toList());
         } else {
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
         }
-        return this.getInfrastructureInterfaceFromList(name, collect);
+        return getInfrastructureInterfaceFromList(name, collect);
     }
 
     private InfrastructureInterface getInfrastructureInterfaceFromList(final String name,
@@ -940,7 +936,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             return null;
         }
         if (collect.size() > 1) {
-            this.logger.warning("More than one infrastructure interface with name '" + name + "' found.");
+            logger.warning("More than one infrastructure interface with name '" + name + "' found.");
         }
         return collect.get(0);
     }
@@ -950,20 +946,20 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         final String[] split = name.split("\\.");
         if (split.length == 2) {
             name = split[1];
-            final Repository r = this.getRepositoryByName(split[0]);
+            final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
                 throw new RuntimeException("Repository '" + split[0] + "' could not be found");
             }
             collect = r.getInterfaces__Repository().stream().filter(d -> d instanceof EventGroup)
                     .map(d -> (EventGroup) d).collect(Collectors.toList());
         } else if (split.length == 1) {
-            collect = this.interfaces.stream().filter(d -> d instanceof EventGroup).map(d -> (EventGroup) d)
+            collect = interfaces.stream().filter(d -> d instanceof EventGroup).map(d -> (EventGroup) d)
                     .collect(Collectors.toList());
         } else {
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
         }
-        return this.getEventGroupFromList(name, collect);
+        return getEventGroupFromList(name, collect);
     }
 
     private EventGroup getEventGroupFromList(final String name, final List<EventGroup> interfaces) {
@@ -974,7 +970,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             return null;
         }
         if (collect.size() > 1) {
-            this.logger.warning("More than one event group with name '" + name + "' found.");
+            logger.warning("More than one event group with name '" + name + "' found.");
         }
         return collect.get(0);
     }
@@ -984,7 +980,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         final String[] split = name.split("\\.");
         if (split.length == 2) {
             name = split[1];
-            final Repository r = this.getRepositoryByName(split[0]);
+            final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
                 throw new RuntimeException("Repository '" + split[0] + "' could not be found");
             }
@@ -992,12 +988,12 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
                 collect.addAll(c.getProvidedRoles_InterfaceProvidingEntity());
             }
         } else if (split.length == 1) {
-            collect = this.providedRoles;
+            collect = providedRoles;
         } else {
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
         }
-        return this.getProvidedRoleFromList(name, collect);
+        return getProvidedRoleFromList(name, collect);
     }
 
     private ProvidedRole getProvidedRoleFromList(final String name, final List<ProvidedRole> providedRoles) {
@@ -1008,7 +1004,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             return null;
         }
         if (collect.size() > 1) {
-            this.logger.warning("More than one provided role with name '" + name + "' found.");
+            logger.warning("More than one provided role with name '" + name + "' found.");
         }
         return collect.get(0);
     }
@@ -1018,7 +1014,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         final String[] split = name.split("\\.");
         if (split.length == 2) {
             name = split[1];
-            final Repository r = this.getRepositoryByName(split[0]);
+            final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
                 throw new RuntimeException("Repository '" + split[0] + "' could not be found");
             }
@@ -1028,13 +1024,13 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
                         .collect(Collectors.toList()));
             }
         } else if (split.length == 1) {
-            collect = this.providedRoles.stream().filter(r -> r instanceof OperationProvidedRole)
+            collect = providedRoles.stream().filter(r -> r instanceof OperationProvidedRole)
                     .map(r -> (OperationProvidedRole) r).collect(Collectors.toList());
         } else {
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
         }
-        return this.getOperationProvidedRoleFromList(name, collect);
+        return getOperationProvidedRoleFromList(name, collect);
     }
 
     private OperationProvidedRole getOperationProvidedRoleFromList(final String name,
@@ -1046,7 +1042,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             return null;
         }
         if (collect.size() > 1) {
-            this.logger.warning("More than one operation provided role with name '" + name + "' found.");
+            logger.warning("More than one operation provided role with name '" + name + "' found.");
         }
         return collect.get(0);
     }
@@ -1056,7 +1052,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         final String[] split = name.split("\\.");
         if (split.length == 2) {
             name = split[1];
-            final Repository r = this.getRepositoryByName(split[0]);
+            final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
                 throw new RuntimeException("Repository '" + split[0] + "' could not be found");
             }
@@ -1066,13 +1062,13 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
                         .collect(Collectors.toList()));
             }
         } else if (split.length == 1) {
-            collect = this.providedRoles.stream().filter(r -> r instanceof InfrastructureProvidedRole)
+            collect = providedRoles.stream().filter(r -> r instanceof InfrastructureProvidedRole)
                     .map(r -> (InfrastructureProvidedRole) r).collect(Collectors.toList());
         } else {
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
         }
-        return this.getInfrastructureProvidedRoleFromList(name, collect);
+        return getInfrastructureProvidedRoleFromList(name, collect);
     }
 
     private InfrastructureProvidedRole getInfrastructureProvidedRoleFromList(final String name,
@@ -1084,7 +1080,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             return null;
         }
         if (collect.size() > 1) {
-            this.logger.warning("More than one infrastructure provided role with name '" + name + "' found.");
+            logger.warning("More than one infrastructure provided role with name '" + name + "' found.");
         }
         return collect.get(0);
     }
@@ -1094,7 +1090,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         final String[] split = name.split("\\.");
         if (split.length == 2) {
             name = split[1];
-            final Repository r = this.getRepositoryByName(split[0]);
+            final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
                 throw new RuntimeException("Repository '" + split[0] + "' could not be found");
             }
@@ -1103,13 +1099,13 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
                         .map(p -> (SinkRole) p).collect(Collectors.toList()));
             }
         } else if (split.length == 1) {
-            collect = this.providedRoles.stream().filter(r -> r instanceof SinkRole).map(r -> (SinkRole) r)
+            collect = providedRoles.stream().filter(r -> r instanceof SinkRole).map(r -> (SinkRole) r)
                     .collect(Collectors.toList());
         } else {
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
         }
-        return this.getSinkRoleFromList(name, collect);
+        return getSinkRoleFromList(name, collect);
     }
 
     private SinkRole getSinkRoleFromList(final String name, final List<SinkRole> providedRoles) {
@@ -1120,7 +1116,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             return null;
         }
         if (collect.size() > 1) {
-            this.logger.warning("More than one sink role with name '" + name + "' found.");
+            logger.warning("More than one sink role with name '" + name + "' found.");
         }
         return collect.get(0);
     }
@@ -1130,7 +1126,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         final String[] split = name.split("\\.");
         if (split.length == 2) {
             name = split[1];
-            final Repository r = this.getRepositoryByName(split[0]);
+            final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
                 throw new RuntimeException("Repository '" + split[0] + "' could not be found");
             }
@@ -1138,12 +1134,12 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
                 collect.addAll(c.getRequiredRoles_InterfaceRequiringEntity());
             }
         } else if (split.length == 1) {
-            collect = this.requiredRoles;
+            collect = requiredRoles;
         } else {
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
         }
-        return this.getRequiredRoleFromList(name, collect);
+        return getRequiredRoleFromList(name, collect);
     }
 
     private RequiredRole getRequiredRoleFromList(final String name, final List<RequiredRole> requiredRoles) {
@@ -1154,7 +1150,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             return null;
         }
         if (collect.size() > 1) {
-            this.logger.warning("More than one required role with name '" + name + "' found.");
+            logger.warning("More than one required role with name '" + name + "' found.");
         }
         return collect.get(0);
     }
@@ -1164,7 +1160,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         final String[] split = name.split("\\.");
         if (split.length == 2) {
             name = split[1];
-            final Repository r = this.getRepositoryByName(split[0]);
+            final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
                 throw new RuntimeException("Repository '" + split[0] + "' could not be found");
             }
@@ -1174,13 +1170,13 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
                         .collect(Collectors.toList()));
             }
         } else if (split.length == 1) {
-            collect = this.requiredRoles.stream().filter(r -> r instanceof OperationRequiredRole)
+            collect = requiredRoles.stream().filter(r -> r instanceof OperationRequiredRole)
                     .map(r -> (OperationRequiredRole) r).collect(Collectors.toList());
         } else {
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
         }
-        return this.getOperationRequiredRoleFromList(name, collect);
+        return getOperationRequiredRoleFromList(name, collect);
     }
 
     private OperationRequiredRole getOperationRequiredRoleFromList(final String name,
@@ -1192,7 +1188,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             return null;
         }
         if (collect.size() > 1) {
-            this.logger.warning("More than one operation required role with name '" + name + "' found.");
+            logger.warning("More than one operation required role with name '" + name + "' found.");
         }
         return collect.get(0);
     }
@@ -1202,7 +1198,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         final String[] split = name.split("\\.");
         if (split.length == 2) {
             name = split[1];
-            final Repository r = this.getRepositoryByName(split[0]);
+            final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
                 throw new RuntimeException("Repository '" + split[0] + "' could not be found");
             }
@@ -1212,13 +1208,13 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
                         .collect(Collectors.toList()));
             }
         } else if (split.length == 1) {
-            collect = this.requiredRoles.stream().filter(r -> r instanceof InfrastructureRequiredRole)
+            collect = requiredRoles.stream().filter(r -> r instanceof InfrastructureRequiredRole)
                     .map(r -> (InfrastructureRequiredRole) r).collect(Collectors.toList());
         } else {
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
         }
-        return this.getInfrastructureRequiredRoleFromList(name, collect);
+        return getInfrastructureRequiredRoleFromList(name, collect);
     }
 
     private InfrastructureRequiredRole getInfrastructureRequiredRoleFromList(final String name,
@@ -1230,7 +1226,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             return null;
         }
         if (collect.size() > 1) {
-            this.logger.warning("More than one infrastructure required role with name '" + name + "' found.");
+            logger.warning("More than one infrastructure required role with name '" + name + "' found.");
         }
         return collect.get(0);
     }
@@ -1240,7 +1236,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         final String[] split = name.split("\\.");
         if (split.length == 2) {
             name = split[1];
-            final Repository r = this.getRepositoryByName(split[0]);
+            final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
                 throw new RuntimeException("Repository '" + split[0] + "' could not be found");
             }
@@ -1249,13 +1245,13 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
                         .filter(p -> p instanceof SourceRole).map(p -> (SourceRole) p).collect(Collectors.toList()));
             }
         } else if (split.length == 1) {
-            collect = this.requiredRoles.stream().filter(r -> r instanceof SourceRole).map(r -> (SourceRole) r)
+            collect = requiredRoles.stream().filter(r -> r instanceof SourceRole).map(r -> (SourceRole) r)
                     .collect(Collectors.toList());
         } else {
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
         }
-        return this.getSourceRoleFromList(name, collect);
+        return getSourceRoleFromList(name, collect);
     }
 
     private SourceRole getSourceRoleFromList(final String name, final List<SourceRole> requiredRoles) {
@@ -1266,7 +1262,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             return null;
         }
         if (collect.size() > 1) {
-            this.logger.warning("More than one source role with name '" + name + "' found.");
+            logger.warning("More than one source role with name '" + name + "' found.");
         }
         return collect.get(0);
     }
@@ -1276,7 +1272,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         final String[] split = name.split("\\.");
         if (split.length == 2) {
             name = split[1];
-            final Repository r = this.getRepositoryByName(split[0]);
+            final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
                 throw new RuntimeException("Repository '" + split[0] + "' could not be found");
             }
@@ -1284,12 +1280,12 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
                 collect.addAll(c.getResourceRequiredRoles__ResourceInterfaceRequiringEntity());
             }
         } else if (split.length == 1) {
-            collect = this.resourceRequiredRoles;
+            collect = resourceRequiredRoles;
         } else {
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
         }
-        return this.getResourceRequiredRoleFromList(name, collect);
+        return getResourceRequiredRoleFromList(name, collect);
     }
 
     private ResourceRequiredRole getResourceRequiredRoleFromList(final String name,
@@ -1301,7 +1297,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             return null;
         }
         if (collect.size() > 1) {
-            this.logger.warning("More than one resource required role with name '" + name + "' found.");
+            logger.warning("More than one resource required role with name '" + name + "' found.");
         }
         return collect.get(0);
     }
@@ -1311,7 +1307,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         final String[] split = name.split("\\.");
         if (split.length == 2) {
             name = split[1];
-            final Repository r = this.getRepositoryByName(split[0]);
+            final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
                 throw new RuntimeException("Repository '" + split[0] + "' could not be found");
             }
@@ -1329,12 +1325,12 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
                 }
             }
         } else if (split.length == 1) {
-            collect = this.signatures;
+            collect = signatures;
         } else {
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
         }
-        return this.getSignatureFromList(name, collect);
+        return getSignatureFromList(name, collect);
     }
 
     private Signature getSignatureFromList(final String name, final List<Signature> signatures) {
@@ -1345,7 +1341,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             return null;
         }
         if (collect.size() > 1) {
-            this.logger.warning("More than one signature with name '" + name + "' found.");
+            logger.warning("More than one signature with name '" + name + "' found.");
         }
         return collect.get(0);
     }
@@ -1355,7 +1351,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         final String[] split = name.split("\\.");
         if (split.length == 2) {
             name = split[1];
-            final Repository r = this.getRepositoryByName(split[0]);
+            final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
                 throw new RuntimeException("Repository '" + split[0] + "' could not be found");
             }
@@ -1367,13 +1363,13 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
                 }
             }
         } else if (split.length == 1) {
-            collect = this.signatures.stream().filter(i -> i instanceof OperationSignature)
-                    .map(i -> (OperationSignature) i).collect(Collectors.toList());
+            collect = signatures.stream().filter(i -> i instanceof OperationSignature).map(i -> (OperationSignature) i)
+                    .collect(Collectors.toList());
         } else {
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
         }
-        return this.getOperationSignatureFromList(name, collect);
+        return getOperationSignatureFromList(name, collect);
     }
 
     private OperationSignature getOperationSignatureFromList(final String name,
@@ -1385,7 +1381,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             return null;
         }
         if (collect.size() > 1) {
-            this.logger.warning("More than one operation signature with name '" + name + "' found.");
+            logger.warning("More than one operation signature with name '" + name + "' found.");
         }
         return collect.get(0);
     }
@@ -1395,7 +1391,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         final String[] split = name.split("\\.");
         if (split.length == 2) {
             name = split[1];
-            final Repository r = this.getRepositoryByName(split[0]);
+            final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
                 throw new RuntimeException("Repository '" + split[0] + "' could not be found");
             }
@@ -1407,13 +1403,13 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
                 }
             }
         } else if (split.length == 1) {
-            collect = this.signatures.stream().filter(i -> i instanceof InfrastructureSignature)
+            collect = signatures.stream().filter(i -> i instanceof InfrastructureSignature)
                     .map(i -> (InfrastructureSignature) i).collect(Collectors.toList());
         } else {
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
         }
-        return this.getInfrastructureSignatureFromList(name, collect);
+        return getInfrastructureSignatureFromList(name, collect);
     }
 
     private InfrastructureSignature getInfrastructureSignatureFromList(final String name,
@@ -1425,7 +1421,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             return null;
         }
         if (collect.size() > 1) {
-            this.logger.warning("More than one infrastructure signature with name '" + name + "' found.");
+            logger.warning("More than one infrastructure signature with name '" + name + "' found.");
         }
         return collect.get(0);
     }
@@ -1435,7 +1431,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         final String[] split = name.split("\\.");
         if (split.length == 2) {
             name = split[1];
-            final Repository r = this.getRepositoryByName(split[0]);
+            final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
                 throw new RuntimeException("Repository '" + split[0] + "' could not be found");
             }
@@ -1447,13 +1443,13 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
                 }
             }
         } else if (split.length == 1) {
-            collect = this.signatures.stream().filter(i -> i instanceof EventType).map(i -> (EventType) i)
+            collect = signatures.stream().filter(i -> i instanceof EventType).map(i -> (EventType) i)
                     .collect(Collectors.toList());
         } else {
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
         }
-        return this.getEventTypeFromList(name, collect);
+        return getEventTypeFromList(name, collect);
     }
 
     private EventType getEventTypeFromList(final String name, final List<EventType> signatures) {
@@ -1464,7 +1460,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             return null;
         }
         if (collect.size() > 1) {
-            this.logger.warning("More than one event type with name '" + name + "' found.");
+            logger.warning("More than one event type with name '" + name + "' found.");
         }
         return collect.get(0);
     }
@@ -1474,7 +1470,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         final String[] split = name.split("\\.");
         if (split.length == 2) {
             name = split[1];
-            final Repository r = this.getRepositoryByName(split[0]);
+            final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
                 throw new RuntimeException("Repository '" + split[0] + "' could not be found");
             }
@@ -1486,12 +1482,12 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
                 }
             }
         } else if (split.length == 1) {
-            collect = this.assemblyContexts;
+            collect = assemblyContexts;
         } else {
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
         }
-        return this.getAssemblyContextFromList(name, collect);
+        return getAssemblyContextFromList(name, collect);
     }
 
     private AssemblyContext getAssemblyContextFromList(final String name,
@@ -1503,7 +1499,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             return null;
         }
         if (collect.size() > 1) {
-            this.logger.warning("More than one assembly context with name '" + name + "' found.");
+            logger.warning("More than one assembly context with name '" + name + "' found.");
         }
         return collect.get(0);
     }
@@ -1513,7 +1509,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         final String[] split = name.split("\\.");
         if (split.length == 2) {
             name = split[1];
-            final Repository r = this.getRepositoryByName(split[0]);
+            final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
                 throw new RuntimeException("Repository '" + split[0] + "' could not be found");
             }
@@ -1525,12 +1521,12 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
                 }
             }
         } else if (split.length == 1) {
-            collect = this.eventChannels;
+            collect = eventChannels;
         } else {
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
         }
-        return this.getEventChannelFromList(name, collect);
+        return getEventChannelFromList(name, collect);
     }
 
     private EventChannel getEventChannelFromList(final String name, final List<EventChannel> eventChannels) {
@@ -1541,7 +1537,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             return null;
         }
         if (collect.size() > 1) {
-            this.logger.warning("More than one event channel with name '" + name + "' found.");
+            logger.warning("More than one event channel with name '" + name + "' found.");
         }
         return collect.get(0);
     }
@@ -1551,7 +1547,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         final String[] split = name.split("\\.");
         if (split.length == 2) {
             name = split[1];
-            final Repository r = this.getRepositoryByName(split[0]);
+            final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
                 throw new RuntimeException("Repository '" + split[0] + "' could not be found");
             }
@@ -1574,12 +1570,12 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
                 }
             }
         } else if (split.length == 1) {
-            collect = this.parameters;
+            collect = parameters;
         } else {
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
         }
-        return this.getParameterFromList(name, collect);
+        return getParameterFromList(name, collect);
     }
 
     private Parameter getParameterFromList(final String name, final List<Parameter> parameters) {
@@ -1590,7 +1586,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             return null;
         }
         if (collect.size() > 1) {
-            this.logger.warning("More than one parameter with name '" + name + "' found.");
+            logger.warning("More than one parameter with name '" + name + "' found.");
         }
         return collect.get(0);
     }
@@ -1600,7 +1596,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         final String[] split = name.split("\\.");
         if (split.length == 2) {
             name = split[1];
-            final Repository r = this.getRepositoryByName(split[0]);
+            final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
                 throw new RuntimeException("Repository '" + split[0] + "' could not be found");
                 // it is assumed that split[0] = name of the repository refers to the same
@@ -1619,7 +1615,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             collect.add(((EventType) context).getParameter__EventType());
         }
 
-        return this.getParameterFromList(name, collect);
+        return getParameterFromList(name, collect);
     }
 
     public PassiveResource getPassiveResource(String name) {
@@ -1627,7 +1623,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         final String[] split = name.split("\\.");
         if (split.length == 2) {
             name = split[1];
-            final Repository r = this.getRepositoryByName(split[0]);
+            final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
                 throw new RuntimeException("Repository '" + split[0] + "' could not be found");
             }
@@ -1639,12 +1635,12 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
                 }
             }
         } else if (split.length == 1) {
-            collect = this.passiveResources;
+            collect = passiveResources;
         } else {
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
         }
-        return this.getPassiveResourceFromList(name, collect);
+        return getPassiveResourceFromList(name, collect);
     }
 
     private PassiveResource getPassiveResourceFromList(final String name,
@@ -1656,7 +1652,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             return null;
         }
         if (collect.size() > 1) {
-            this.logger.warning("More than one passive resource with name '" + name + "' found.");
+            logger.warning("More than one passive resource with name '" + name + "' found.");
         }
         return collect.get(0);
     }
@@ -1666,7 +1662,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         final String[] split = name.split("\\.");
         if (split.length == 2) {
             name = split[1];
-            final Repository r = this.getRepositoryByName(split[0]);
+            final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
                 throw new RuntimeException("Repository '" + split[0] + "' could not be found");
             }
@@ -1691,12 +1687,12 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             }
             collect.addAll(set);
         } else if (split.length == 1) {
-            collect = this.behaviours;
+            collect = behaviours;
         } else {
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
         }
-        return this.getRecoveryActionBehaviourFromList(name, collect);
+        return getRecoveryActionBehaviourFromList(name, collect);
     }
 
     private RecoveryActionBehaviour getRecoveryActionBehaviourFromList(final String name,
@@ -1708,7 +1704,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             return null;
         }
         if (collect.size() > 1) {
-            this.logger.warning("More than one recovery action behaviour with name '" + name + "' found.");
+            logger.warning("More than one recovery action behaviour with name '" + name + "' found.");
         }
         return collect.get(0);
     }
@@ -1716,51 +1712,51 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
     // ------------- adding -------------
 
     public void addComponent(final RepositoryComponent c) {
-        this.components.add(c);
+        components.add(c);
     }
 
     public void addInterface(final Interface i) {
-        this.interfaces.add(i);
+        interfaces.add(i);
     }
 
     public void addProvidedRole(final ProvidedRole pr) {
-        this.providedRoles.add(pr);
+        providedRoles.add(pr);
     }
 
     public void addRequiredRole(final RequiredRole rr) {
-        this.requiredRoles.add(rr);
+        requiredRoles.add(rr);
     }
 
     public void addResourceRequiredRole(final ResourceRequiredRole rr) {
-        this.resourceRequiredRoles.add(rr);
+        resourceRequiredRoles.add(rr);
     }
 
     public void addSignature(final Signature sign) {
-        this.signatures.add(sign);
+        signatures.add(sign);
     }
 
     public void addAssemblyContext(final AssemblyContext ac) {
-        this.assemblyContexts.add(ac);
+        assemblyContexts.add(ac);
     }
 
     public void addConnector(final Connector r) {
-        this.connectors.add(r);
+        connectors.add(r);
     }
 
     public void addEventChannel(final EventChannel eg) {
-        this.eventChannels.add(eg);
+        eventChannels.add(eg);
     }
 
     public void addParameter(final Parameter p) {
-        this.parameters.add(p);
+        parameters.add(p);
     }
 
     public void addPassiveResource(final PassiveResource pass) {
-        this.passiveResources.add(pass);
+        passiveResources.add(pass);
     }
 
     public void addRecoveryActionBehaviour(final RecoveryActionBehaviour recovery) {
-        this.behaviours.add(recovery);
+        behaviours.add(recovery);
     }
 
 }

@@ -34,7 +34,7 @@ public class EventTypeCreator extends RepositoryEntity {
     private final List<ExceptionType> exceptionTypes = new ArrayList<>();
 
     public EventTypeCreator(final RepositoryCreator repo) {
-        this.repository = repo;
+        repository = repo;
     }
 
     @Override
@@ -70,7 +70,7 @@ public class EventTypeCreator extends RepositoryEntity {
             final ParameterModifier modifier) {
         Objects.requireNonNull(name, "name must not be null");
         Objects.requireNonNull(dataType, "dataType must not be null");
-        final PrimitiveDataType dt = this.repository.getPrimitiveDataType(dataType);
+        final PrimitiveDataType dt = repository.getPrimitiveDataType(dataType);
         return this.withParameter(name, dt, modifier);
     }
 
@@ -111,8 +111,8 @@ public class EventTypeCreator extends RepositoryEntity {
             param.setModifier__Parameter(modifier);
         }
 
-        this.parameter = param;
-        this.repository.addParameter(param);
+        parameter = param;
+        repository.addParameter(param);
         return this;
     }
 
@@ -130,7 +130,7 @@ public class EventTypeCreator extends RepositoryEntity {
      */
     public EventTypeCreator withFailureType(final FailureType failureType) {
         Objects.requireNonNull(failureType, "failureType must not be null");
-        this.failureTypes.add(failureType);
+        failureTypes.add(failureType);
         return this;
     }
 
@@ -149,7 +149,7 @@ public class EventTypeCreator extends RepositoryEntity {
      */
     public EventTypeCreator withFailureType(final Failure failureType) {
         Objects.requireNonNull(failureType, "failureType must not be null");
-        final FailureType failure = this.repository.getFailureType(failureType);
+        final FailureType failure = repository.getFailureType(failureType);
         return this.withFailureType(failure);
     }
 
@@ -167,21 +167,21 @@ public class EventTypeCreator extends RepositoryEntity {
      */
     public EventTypeCreator withExceptionType(final ExceptionType exceptionType) {
         Objects.requireNonNull(exceptionType, "exceptionType must not be null");
-        this.exceptionTypes.add(exceptionType);
+        exceptionTypes.add(exceptionType);
         return this;
     }
 
     @Override
     protected EventType build() {
         final EventType et = RepositoryFactory.eINSTANCE.createEventType();
-        if (this.name != null) {
-            et.setEntityName(this.name);
+        if (name != null) {
+            et.setEntityName(name);
         }
-        if (this.parameter != null) {
-            et.setParameter__EventType(this.parameter);
+        if (parameter != null) {
+            et.setParameter__EventType(parameter);
         }
-        et.getFailureType().addAll(this.failureTypes);
-        et.getExceptions__Signature().addAll(this.exceptionTypes);
+        et.getFailureType().addAll(failureTypes);
+        et.getExceptions__Signature().addAll(exceptionTypes);
 
         return et;
     }

@@ -102,19 +102,19 @@ public class AcquireActionCreator extends GeneralAction {
     @Override
     protected AcquireAction build() {
         final AcquireAction action = SeffFactory.eINSTANCE.createAcquireAction();
-        if (this.passiveResource != null) {
-            action.setPassiveresource_AcquireAction(this.passiveResource);
+        if (passiveResource != null) {
+            action.setPassiveresource_AcquireAction(passiveResource);
         }
-        if (this.timeoutValue != null) {
-            action.setTimeoutValue(this.timeoutValue);
+        if (timeoutValue != null) {
+            action.setTimeoutValue(timeoutValue);
         }
-        if (this.isTimeout != null) {
-            action.setTimeout(this.isTimeout);
+        if (isTimeout != null) {
+            action.setTimeout(isTimeout);
         }
 
-        action.getInfrastructureCall__Action().addAll(this.infrastructureCalls);
-        action.getResourceCall__Action().addAll(this.resourceCalls);
-        action.getResourceDemand_Action().addAll(this.demands);
+        action.getInfrastructureCall__Action().addAll(infrastructureCalls);
+        action.getResourceCall__Action().addAll(resourceCalls);
+        action.getResourceDemand_Action().addAll(demands);
 
         return action;
     }

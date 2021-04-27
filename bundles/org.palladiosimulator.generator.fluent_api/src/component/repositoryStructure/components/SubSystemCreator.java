@@ -34,7 +34,7 @@ import shared.structure.ResourceInterface;
 public class SubSystemCreator extends ComplexComponent {
 
     public SubSystemCreator(final RepositoryCreator repo) {
-        this.repository = repo;
+        repository = repo;
     }
 
     @Override
@@ -305,21 +305,21 @@ public class SubSystemCreator extends ComplexComponent {
     @Override
     public SubSystem build() {
         final SubSystem subSystem = SubsystemFactory.eINSTANCE.createSubSystem();
-        if (this.name != null) {
-            subSystem.setEntityName(this.name);
+        if (name != null) {
+            subSystem.setEntityName(name);
             // if (this.id != null)
             // subSystem.setId(this.id);
         }
 
-        subSystem.getProvidedRoles_InterfaceProvidingEntity().addAll(this.providedRoles);
-        subSystem.getRequiredRoles_InterfaceRequiringEntity().addAll(this.requiredRoles);
-        subSystem.getResourceRequiredRoles__ResourceInterfaceRequiringEntity().addAll(this.resourceRequiredRoles);
+        subSystem.getProvidedRoles_InterfaceProvidingEntity().addAll(providedRoles);
+        subSystem.getRequiredRoles_InterfaceRequiringEntity().addAll(requiredRoles);
+        subSystem.getResourceRequiredRoles__ResourceInterfaceRequiringEntity().addAll(resourceRequiredRoles);
 
-        subSystem.getAssemblyContexts__ComposedStructure().addAll(this.assemblyContexts);
-        subSystem.getConnectors__ComposedStructure().addAll(this.connectors);
-        subSystem.getEventChannel__ComposedStructure().addAll(this.eventChannels);
+        subSystem.getAssemblyContexts__ComposedStructure().addAll(assemblyContexts);
+        subSystem.getConnectors__ComposedStructure().addAll(connectors);
+        subSystem.getEventChannel__ComposedStructure().addAll(eventChannels);
         subSystem.getResourceRequiredDelegationConnectors_ComposedStructure()
-                .addAll(this.resourceRequiredDelegationConnectors);
+                .addAll(resourceRequiredDelegationConnectors);
 
         return subSystem;
     }

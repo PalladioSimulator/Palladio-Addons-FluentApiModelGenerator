@@ -21,7 +21,7 @@ public class SourceRoleCreator extends SystemEntity {
     private EventGroup eventGroup;
 
     public SourceRoleCreator(final SystemCreator systemCreator) {
-        this.system = systemCreator;
+        system = systemCreator;
     }
 
     /**
@@ -51,7 +51,7 @@ public class SourceRoleCreator extends SystemEntity {
     public SourceRoleCreator withEventGroup(final String name) throws NoSuchElementException {
         EventGroup group;
         try {
-            group = (EventGroup) this.system.getInterfaceByName(name);
+            group = (EventGroup) system.getInterfaceByName(name);
         } catch (final ClassCastException e) {
             throw new NoSuchElementException(
                     String.format("An Interface with name '%s' was found, but it was not an EventGroup. "
@@ -63,10 +63,10 @@ public class SourceRoleCreator extends SystemEntity {
     @Override
     public SourceRole build() {
         final SourceRole role = RepositoryFactory.eINSTANCE.createSourceRole();
-        if (this.name != null) {
-            role.setEntityName(this.name);
+        if (name != null) {
+            role.setEntityName(name);
         }
-        role.setEventGroup__SourceRole(this.eventGroup);
+        role.setEventGroup__SourceRole(eventGroup);
         return role;
     }
 

@@ -37,9 +37,9 @@ public class InfrastructureSignatureCreator extends RepositoryEntity {
 
     public InfrastructureSignatureCreator(final RepositoryCreator repository) {
         this.repository = repository;
-        this.parameters = new ArrayList<>();
-        this.exceptions = new ArrayList<>();
-        this.failures = new ArrayList<>();
+        parameters = new ArrayList<>();
+        exceptions = new ArrayList<>();
+        failures = new ArrayList<>();
     }
 
     @Override
@@ -75,7 +75,7 @@ public class InfrastructureSignatureCreator extends RepositoryEntity {
             final ParameterModifier modifier) {
         Objects.requireNonNull(name, "name must not be null");
         Objects.requireNonNull(dataType, "dataType must not be null");
-        final PrimitiveDataType dt = this.repository.getPrimitiveDataType(dataType);
+        final PrimitiveDataType dt = repository.getPrimitiveDataType(dataType);
         return this.withParameter(name, dt, modifier);
     }
 
@@ -116,8 +116,8 @@ public class InfrastructureSignatureCreator extends RepositoryEntity {
             param.setModifier__Parameter(modifier);
         }
 
-        this.parameters.add(param);
-        this.repository.addParameter(param);
+        parameters.add(param);
+        repository.addParameter(param);
         return this;
     }
 
@@ -135,7 +135,7 @@ public class InfrastructureSignatureCreator extends RepositoryEntity {
      */
     public InfrastructureSignatureCreator withFailureType(final FailureType failureType) {
         Objects.requireNonNull(failureType, "failureType must not be null");
-        this.failures.add(failureType);
+        failures.add(failureType);
         return this;
     }
 
@@ -154,7 +154,7 @@ public class InfrastructureSignatureCreator extends RepositoryEntity {
      */
     public InfrastructureSignatureCreator withFailureType(final Failure failureType) {
         Objects.requireNonNull(failureType, "failureType must not be null");
-        final FailureType failure = this.repository.getFailureType(failureType);
+        final FailureType failure = repository.getFailureType(failureType);
         return this.withFailureType(failure);
     }
 
@@ -172,19 +172,19 @@ public class InfrastructureSignatureCreator extends RepositoryEntity {
      */
     public InfrastructureSignatureCreator withExceptionType(final ExceptionType exceptionType) {
         Objects.requireNonNull(exceptionType, "exceptionType must not be null");
-        this.exceptions.add(exceptionType);
+        exceptions.add(exceptionType);
         return this;
     }
 
     @Override
     protected InfrastructureSignature build() {
         final InfrastructureSignature sig = RepositoryFactory.eINSTANCE.createInfrastructureSignature();
-        if (this.name != null) {
-            sig.setEntityName(this.name);
+        if (name != null) {
+            sig.setEntityName(name);
         }
-        sig.getParameters__InfrastructureSignature().addAll(this.parameters);
-        sig.getExceptions__Signature().addAll(this.exceptions);
-        sig.getFailureType().addAll(this.failures);
+        sig.getParameters__InfrastructureSignature().addAll(parameters);
+        sig.getExceptions__Signature().addAll(exceptions);
+        sig.getFailureType().addAll(failures);
 
         return sig;
     }

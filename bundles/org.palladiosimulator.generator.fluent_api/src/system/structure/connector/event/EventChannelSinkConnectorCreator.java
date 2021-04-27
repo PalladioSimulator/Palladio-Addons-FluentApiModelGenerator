@@ -26,7 +26,7 @@ public class EventChannelSinkConnectorCreator extends AbstractConnectorCreator {
     private SinkRole role;
 
     public EventChannelSinkConnectorCreator(final SystemCreator systemCreator) {
-        this.system = systemCreator;
+        system = systemCreator;
     }
 
     /**
@@ -56,7 +56,7 @@ public class EventChannelSinkConnectorCreator extends AbstractConnectorCreator {
      * @see org.palladiosimulator.pcm.repository.SinkRole
      */
     public EventChannelSinkConnectorCreator withEventChannel(final String name) throws NoSuchElementException {
-        final EventChannel channel = this.system.getEventChannelByName(name);
+        final EventChannel channel = system.getEventChannelByName(name);
         return this.withEventChannel(channel);
     }
 
@@ -72,12 +72,11 @@ public class EventChannelSinkConnectorCreator extends AbstractConnectorCreator {
     public SinkRoleSelector<EventChannelSinkConnectorCreator> withAssemblyContext(
             final AssemblyContext assemblyContext) {
         Objects.requireNonNull(assemblyContext, "The given AssemblyContext must not be null.");
-        return new SinkRoleSelector<>(
-                (context, role) -> {
-                  EventChannelSinkConnectorCreator.this.assemblyContext = context;
-                  EventChannelSinkConnectorCreator.this.role = role;
-                  return EventChannelSinkConnectorCreator.this;
-               }, assemblyContext);
+        return new SinkRoleSelector<>((context, role) -> {
+            EventChannelSinkConnectorCreator.this.assemblyContext = context;
+            EventChannelSinkConnectorCreator.this.role = role;
+            return EventChannelSinkConnectorCreator.this;
+        }, assemblyContext);
     }
 
     /**
@@ -92,19 +91,19 @@ public class EventChannelSinkConnectorCreator extends AbstractConnectorCreator {
      * @see org.palladiosimulator.pcm.repository.SinkRole
      */
     public SinkRoleSelector<EventChannelSinkConnectorCreator> withAssemblyContext(final String name) {
-        final AssemblyContext context = this.system.getAssemblyContextByName(name);
+        final AssemblyContext context = system.getAssemblyContextByName(name);
         return this.withAssemblyContext(context);
     }
 
     @Override
     public EventChannelSinkConnector build() {
         final EventChannelSinkConnector connector = CompositionFactory.eINSTANCE.createEventChannelSinkConnector();
-        if (this.name != null) {
-            connector.setEntityName(this.name);
+        if (name != null) {
+            connector.setEntityName(name);
         }
-        connector.setEventChannel__EventChannelSinkConnector(this.eventChannel);
-        connector.setAssemblyContext__EventChannelSinkConnector(this.assemblyContext);
-        connector.setSinkRole__EventChannelSinkConnector(this.role);
+        connector.setEventChannel__EventChannelSinkConnector(eventChannel);
+        connector.setAssemblyContext__EventChannelSinkConnector(assemblyContext);
+        connector.setSinkRole__EventChannelSinkConnector(role);
         return connector;
     }
 

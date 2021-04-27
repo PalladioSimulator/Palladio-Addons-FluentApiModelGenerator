@@ -35,9 +35,9 @@ public class ForkActionCreator extends GeneralAction {
 
     protected ForkActionCreator(final SeffCreator seff) {
         this.seff = seff;
-        this.asynchronousForkedBehaviours = new ArrayList<>();
-        this.synchronousForkedBehaviours = new ArrayList<>();
-        this.variableUsages = new ArrayList<>();
+        asynchronousForkedBehaviours = new ArrayList<>();
+        synchronousForkedBehaviours = new ArrayList<>();
+        variableUsages = new ArrayList<>();
     }
 
     @Override
@@ -55,7 +55,7 @@ public class ForkActionCreator extends GeneralAction {
      */
     public ForkActionCreator withOutputParameterUsageAtSynchronisationPoint(final VariableUsageCreator variableUsage) {
         Objects.requireNonNull(variableUsage, "variableUsage must not be null");
-        this.variableUsages.add(variableUsage.build());
+        variableUsages.add(variableUsage.build());
         return this;
     }
 
@@ -70,7 +70,7 @@ public class ForkActionCreator extends GeneralAction {
     public ForkActionCreator withSynchronousForkedBehaviourAtSynchronisationPoint(final InternalSeff forkedBehaviour) {
         Objects.requireNonNull(forkedBehaviour, "forkedBehaviour must not be null");
         final ForkedBehaviour fork = forkedBehaviour.buildForkedBehaviour();
-        this.synchronousForkedBehaviours.add(fork);
+        synchronousForkedBehaviours.add(fork);
         return this;
     }
 
@@ -85,7 +85,7 @@ public class ForkActionCreator extends GeneralAction {
     public ForkActionCreator withAsynchronousForkedBehaviour(final InternalSeff forkedBehaviour) {
         Objects.requireNonNull(forkedBehaviour, "forkedBehaviour must not be null");
         final ForkedBehaviour fork = forkedBehaviour.buildForkedBehaviour();
-        this.asynchronousForkedBehaviours.add(fork);
+        asynchronousForkedBehaviours.add(fork);
         return this;
     }
 
@@ -114,16 +114,16 @@ public class ForkActionCreator extends GeneralAction {
     @Override
     protected ForkAction build() {
         final ForkAction action = SeffFactory.eINSTANCE.createForkAction();
-        action.getAsynchronousForkedBehaviours_ForkAction().addAll(this.asynchronousForkedBehaviours);
+        action.getAsynchronousForkedBehaviours_ForkAction().addAll(asynchronousForkedBehaviours);
 
         final SynchronisationPoint synch = SeffFactory.eINSTANCE.createSynchronisationPoint();
-        synch.getOutputParameterUsage_SynchronisationPoint().addAll(this.variableUsages);
-        synch.getSynchronousForkedBehaviours_SynchronisationPoint().addAll(this.synchronousForkedBehaviours);
+        synch.getOutputParameterUsage_SynchronisationPoint().addAll(variableUsages);
+        synch.getSynchronousForkedBehaviours_SynchronisationPoint().addAll(synchronousForkedBehaviours);
         action.setSynchronisingBehaviours_ForkAction(synch);
 
-        action.getInfrastructureCall__Action().addAll(this.infrastructureCalls);
-        action.getResourceCall__Action().addAll(this.resourceCalls);
-        action.getResourceDemand_Action().addAll(this.demands);
+        action.getInfrastructureCall__Action().addAll(infrastructureCalls);
+        action.getResourceCall__Action().addAll(resourceCalls);
+        action.getResourceDemand_Action().addAll(demands);
 
         return action;
     }

@@ -58,14 +58,13 @@ public abstract class GeneralAction extends SeffAction {
         Objects.requireNonNull(processingResource, "processingResource must not be null");
         final ParametricResourceDemand demand = SeffPerformanceFactory.eINSTANCE.createParametricResourceDemand();
 
-        final ProcessingResourceType processingResourceType = this.repository
-                .getProcessingResourceType(processingResource);
+        final ProcessingResourceType processingResourceType = repository.getProcessingResourceType(processingResource);
         demand.setRequiredResource_ParametricResourceDemand(processingResourceType);
 
         final PCMRandomVariable rand = CoreFactory.eINSTANCE.createPCMRandomVariable();
         rand.setSpecification(specificationStochasticExpression);
         demand.setSpecification_ParametericResourceDemand(rand);
-        this.demands.add(demand);
+        demands.add(demand);
         return this;
     }
 
@@ -111,7 +110,7 @@ public abstract class GeneralAction extends SeffAction {
                     .forEach(v -> call.getInputVariableUsages__CallAction().add(v));
         }
 
-        this.infrastructureCalls.add(call);
+        infrastructureCalls.add(call);
         return this;
     }
 
@@ -145,7 +144,7 @@ public abstract class GeneralAction extends SeffAction {
         rand.setSpecification(numberOfCallsStochasticExpression);
         call.setNumberOfCalls__ResourceCall(rand);
 
-        final org.palladiosimulator.pcm.resourcetype.ResourceSignature resourceSignature = this.repository
+        final org.palladiosimulator.pcm.resourcetype.ResourceSignature resourceSignature = repository
                 .getResourceSignature(signature);
         call.setSignature__ResourceCall(resourceSignature);
         call.setResourceRequiredRole__ResourceCall(requiredRole);
@@ -155,7 +154,7 @@ public abstract class GeneralAction extends SeffAction {
                     .forEach(v -> call.getInputVariableUsages__CallAction().add(v));
         }
 
-        this.resourceCalls.add(call);
+        resourceCalls.add(call);
         return this;
     }
 

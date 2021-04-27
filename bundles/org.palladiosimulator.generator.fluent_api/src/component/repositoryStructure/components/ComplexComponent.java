@@ -80,8 +80,8 @@ public abstract class ComplexComponent extends Component {
         ac.setEncapsulatedComponent__AssemblyContext(encapsulatedComponent);
         Arrays.asList(configParameterUsages).stream().map(VariableUsageCreator::build)
                 .forEach(v -> ac.getConfigParameterUsages__AssemblyContext().add(v));
-        this.assemblyContexts.add(ac);
-        this.repository.addAssemblyContext(ac);
+        assemblyContexts.add(ac);
+        repository.addAssemblyContext(ac);
         return this;
     }
 
@@ -131,7 +131,7 @@ public abstract class ComplexComponent extends Component {
             eventChannel.setEntityName(name);
         }
         eventChannel.setEventGroup__EventChannel(eventGroup);
-        this.eventChannels.add(eventChannel);
+        eventChannels.add(eventChannel);
         return this;
     }
 
@@ -197,7 +197,7 @@ public abstract class ComplexComponent extends Component {
         assemblyConnector.setRequiredRole_AssemblyConnector(requiredRole);
         assemblyConnector.setRequiringAssemblyContext_AssemblyConnector(requiringAssemblyContext);
 
-        this.connectors.add(assemblyConnector);
+        connectors.add(assemblyConnector);
         return this;
     }
 
@@ -232,7 +232,7 @@ public abstract class ComplexComponent extends Component {
         connector.setInnerProvidedRole_ProvidedDelegationConnector(innerProvidedRole);
         connector.setOuterProvidedRole_ProvidedDelegationConnector(outerProvidedRole);
 
-        this.connectors.add(connector);
+        connectors.add(connector);
         return this;
     }
 
@@ -267,7 +267,7 @@ public abstract class ComplexComponent extends Component {
         connector.setInnerRequiredRole_RequiredDelegationConnector(innerRequiredRole);
         connector.setOuterRequiredRole_RequiredDelegationConnector(outerRequiredRole);
 
-        this.connectors.add(connector);
+        connectors.add(connector);
         return this;
     }
 
@@ -320,7 +320,7 @@ public abstract class ComplexComponent extends Component {
             connector.setFilterCondition__AssemblyEventConnector(rand);
         }
 
-        this.connectors.add(connector);
+        connectors.add(connector);
         return this;
     }
 
@@ -355,13 +355,13 @@ public abstract class ComplexComponent extends Component {
         connector.setAssemblyContext__EventChannelSinkConnector(assemblyContext);
         connector.setEventChannel__EventChannelSinkConnector(eventChannel);
         connector.setSinkRole__EventChannelSinkConnector(sinkRole);
-        connector.setEntityName(this.name);
+        connector.setEntityName(name);
 
         final PCMRandomVariable rand = CoreFactory.eINSTANCE.createPCMRandomVariable();
         rand.setSpecification(filterConditionStochasticExpression);
         connector.setFilterCondition__EventChannelSinkConnector(rand);
 
-        this.connectors.add(connector);
+        connectors.add(connector);
         return this;
     }
 
@@ -392,9 +392,9 @@ public abstract class ComplexComponent extends Component {
         connector.setAssemblyContext__EventChannelSourceConnector(assemblyContext);
         connector.setEventChannel__EventChannelSourceConnector(eventChannel);
         connector.setSourceRole__EventChannelSourceRole(sourceRole);
-        connector.setEntityName(this.name);
+        connector.setEntityName(name);
 
-        this.connectors.add(connector);
+        connectors.add(connector);
         return this;
     }
 
@@ -429,7 +429,7 @@ public abstract class ComplexComponent extends Component {
         connector.setInnerSinkRole__SinkRole(innerSinkRole);
         connector.setOuterSinkRole__SinkRole(outerSinkRole);
 
-        this.connectors.add(connector);
+        connectors.add(connector);
         return this;
     }
 
@@ -465,7 +465,7 @@ public abstract class ComplexComponent extends Component {
         connector.setInnerSourceRole__SourceRole(innerSourceRole);
         connector.setOuterSourceRole__SourceRole(outerSourceRole);
 
-        this.connectors.add(connector);
+        connectors.add(connector);
         return this;
     }
 
@@ -503,7 +503,7 @@ public abstract class ComplexComponent extends Component {
         connector.setRequiredRole__AssemblyInfrastructureConnector(requiredRole);
         connector.setRequiringAssemblyContext__AssemblyInfrastructureConnector(requiringAssemblyContext);
 
-        this.connectors.add(connector);
+        connectors.add(connector);
         return this;
     }
 
@@ -534,7 +534,7 @@ public abstract class ComplexComponent extends Component {
         connector.setInnerProvidedRole__ProvidedInfrastructureDelegationConnector(innerProvidedRole);
         connector.setOuterProvidedRole__ProvidedInfrastructureDelegationConnector(outerProvidedRole);
 
-        this.connectors.add(connector);
+        connectors.add(connector);
         return this;
     }
 
@@ -565,7 +565,7 @@ public abstract class ComplexComponent extends Component {
         connector.setInnerRequiredRole__RequiredInfrastructureDelegationConnector(innerRequiredRole);
         connector.setOuterRequiredRole__RequiredInfrastructureDelegationConnector(outerRequiredRole);
 
-        this.connectors.add(connector);
+        connectors.add(connector);
         return this;
     }
 
@@ -595,7 +595,7 @@ public abstract class ComplexComponent extends Component {
         connector.setAssemblyContext__RequiredResourceDelegationConnector(assemblyContext);
         connector.setInnerRequiredRole__RequiredResourceDelegationConnector(innerRequiredRole);
         connector.setOuterRequiredRole__RequiredResourceDelegationConnector(outerRequiredRole);
-        this.connectors.add(connector);
+        connectors.add(connector);
         return this;
     }
 
@@ -623,13 +623,13 @@ public abstract class ComplexComponent extends Component {
         connector.setInnerResourceRequiredRole_ResourceRequiredDelegationConnector(innerRequiredRole);
         connector.setOuterResourceRequiredRole_ResourceRequiredDelegationConnector(outerRequiredRole);
 
-        this.resourceRequiredDelegationConnectors.add(connector);
+        resourceRequiredDelegationConnectors.add(connector);
         return this;
 
     }
 
     protected void addEventChannel(final EventChannel eventChannel) {
-        this.eventChannels.add(eventChannel);
+        eventChannels.add(eventChannel);
     }
 
 }

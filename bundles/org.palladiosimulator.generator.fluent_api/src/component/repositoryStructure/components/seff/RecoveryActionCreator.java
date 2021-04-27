@@ -32,9 +32,9 @@ public class RecoveryActionCreator extends GeneralAction {
     private final List<RecoveryActionBehaviour> otherBehaviours;
 
     protected RecoveryActionCreator(final SeffCreator seff, final RepositoryCreator repo) {
-        this.repository = repo;
+        repository = repo;
         this.seff = seff;
-        this.otherBehaviours = new ArrayList<>();
+        otherBehaviours = new ArrayList<>();
     }
 
     @Override
@@ -52,8 +52,8 @@ public class RecoveryActionCreator extends GeneralAction {
     public RecoveryActionCreator withPrimaryBehaviour(final RecoverySeff recoveryActionBehaviour) {
         Objects.requireNonNull(recoveryActionBehaviour, "recoveryActionBehaviour must not be null");
         final RecoveryActionBehaviour build = recoveryActionBehaviour.buildRecoveryBehaviour();
-        this.primary = build;
-        this.repository.addRecoveryActionBehaviour(build);
+        primary = build;
+        repository.addRecoveryActionBehaviour(build);
         return this;
     }
 
@@ -68,8 +68,8 @@ public class RecoveryActionCreator extends GeneralAction {
     public RecoveryActionCreator withAlternativeBehaviour(final RecoverySeff recoveryActionBehaviour) {
         Objects.requireNonNull(recoveryActionBehaviour, "recoveryActionBehaviour must not be null");
         final RecoveryActionBehaviour buildRecoveryBehaviour = recoveryActionBehaviour.buildRecoveryBehaviour();
-        this.otherBehaviours.add(buildRecoveryBehaviour);
-        this.repository.addRecoveryActionBehaviour(buildRecoveryBehaviour);
+        otherBehaviours.add(buildRecoveryBehaviour);
+        repository.addRecoveryActionBehaviour(buildRecoveryBehaviour);
         return this;
     }
 
@@ -98,18 +98,18 @@ public class RecoveryActionCreator extends GeneralAction {
     @Override
     protected RecoveryAction build() {
         final RecoveryAction action = SeffReliabilityFactory.eINSTANCE.createRecoveryAction();
-        if (this.name != null) {
-            action.setEntityName(this.name);
+        if (name != null) {
+            action.setEntityName(name);
         }
-        if (this.primary != null) {
-            action.setPrimaryBehaviour__RecoveryAction(this.primary);
+        if (primary != null) {
+            action.setPrimaryBehaviour__RecoveryAction(primary);
         }
 
-        action.getRecoveryActionBehaviours__RecoveryAction().addAll(this.otherBehaviours);
+        action.getRecoveryActionBehaviours__RecoveryAction().addAll(otherBehaviours);
 
-        action.getInfrastructureCall__Action().addAll(this.infrastructureCalls);
-        action.getResourceCall__Action().addAll(this.resourceCalls);
-        action.getResourceDemand_Action().addAll(this.demands);
+        action.getInfrastructureCall__Action().addAll(infrastructureCalls);
+        action.getResourceCall__Action().addAll(resourceCalls);
+        action.getResourceDemand_Action().addAll(demands);
 
         return action;
     }

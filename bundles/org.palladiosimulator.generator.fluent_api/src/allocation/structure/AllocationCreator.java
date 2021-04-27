@@ -40,12 +40,12 @@ public class AllocationCreator extends AllocationEntity implements IAllocation {
     @Override
     protected Allocation build() {
         final Allocation allocation = AllocationFactory.eINSTANCE.createAllocation();
-        if (this.name != null) {
-            allocation.setEntityName(this.name);
+        if (name != null) {
+            allocation.setEntityName(name);
         }
-        allocation.getAllocationContexts_Allocation().addAll(this.allocationContexts);
-        allocation.setTargetResourceEnvironment_Allocation(this.resourceEnvironment);
-        allocation.setSystem_Allocation(this.system);
+        allocation.getAllocationContexts_Allocation().addAll(allocationContexts);
+        allocation.setTargetResourceEnvironment_Allocation(resourceEnvironment);
+        allocation.setSystem_Allocation(system);
         return allocation;
     }
 
@@ -56,15 +56,15 @@ public class AllocationCreator extends AllocationEntity implements IAllocation {
 
     @Override
     public Allocation createAllocationNow() {
-        final Allocation allocation = this.build();
-        this.validator.validate(allocation, this.name);
+        final Allocation allocation = build();
+        validator.validate(allocation, name);
         return allocation;
     }
 
     @Override
     public IAllocationAddition withResourceEnvironment(final ResourceEnvironment environment) {
         Objects.requireNonNull(environment, "The given ResourceEnvironment must not be null");
-        this.resourceEnvironment = environment;
+        resourceEnvironment = environment;
         return this;
     }
 
@@ -78,7 +78,7 @@ public class AllocationCreator extends AllocationEntity implements IAllocation {
     @Override
     public IAllocationAddition addToAllocation(final AllocationContextCreator allocationContext) {
         Objects.requireNonNull(allocationContext, "The given AllocationContext must not be null");
-        this.allocationContexts.add(allocationContext.build());
+        allocationContexts.add(allocationContext.build());
         return this;
     }
 
@@ -92,7 +92,7 @@ public class AllocationCreator extends AllocationEntity implements IAllocation {
      *                                  name exists
      */
     public AssemblyContext getAssemblyContextByName(final String name) throws IllegalArgumentException {
-        return this.system.getAssemblyContexts__ComposedStructure().stream().filter(x -> x.getEntityName().equals(name))
+        return system.getAssemblyContexts__ComposedStructure().stream().filter(x -> x.getEntityName().equals(name))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("No AssemblyContext with name " + name + " found."));
     }
@@ -107,7 +107,7 @@ public class AllocationCreator extends AllocationEntity implements IAllocation {
      *                                  name exists
      */
     public EventChannel getEventChannelByName(final String name) throws IllegalArgumentException {
-        return this.system.getEventChannel__ComposedStructure().stream().filter(x -> x.getEntityName().equals(name))
+        return system.getEventChannel__ComposedStructure().stream().filter(x -> x.getEntityName().equals(name))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("No EventChannel with name " + name + " found."));
     }
@@ -122,7 +122,7 @@ public class AllocationCreator extends AllocationEntity implements IAllocation {
      *                                  given name exists
      */
     public ResourceContainer getResourceContainerByName(final String name) throws IllegalArgumentException {
-        return this.resourceEnvironment.getResourceContainer_ResourceEnvironment().stream()
+        return resourceEnvironment.getResourceContainer_ResourceEnvironment().stream()
                 .filter(x -> x.getEntityName().equals(name)).findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("No ResourceContainer with name " + name + " found."));
     }

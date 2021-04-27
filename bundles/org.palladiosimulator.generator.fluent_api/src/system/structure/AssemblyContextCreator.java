@@ -20,7 +20,7 @@ public class AssemblyContextCreator extends SystemEntity {
     private RepositoryComponent encapuslatedComponent;
 
     public AssemblyContextCreator(final SystemCreator systemCreator) {
-        this.system = systemCreator;
+        system = systemCreator;
     }
 
     /**
@@ -33,7 +33,7 @@ public class AssemblyContextCreator extends SystemEntity {
      */
     public AssemblyContextCreator withEncapsulatedComponent(final RepositoryComponent component) {
         Objects.requireNonNull(component, "The given RepositoryComponent must not be null.");
-        this.encapuslatedComponent = component;
+        encapuslatedComponent = component;
         return this;
     }
 
@@ -48,18 +48,18 @@ public class AssemblyContextCreator extends SystemEntity {
      * @see org.palladiosimulator.pcm.repository.RepositoryComponent
      */
     public AssemblyContextCreator withEncapsulatedComponent(final String name) throws NoSuchElementException {
-        final RepositoryComponent component = this.system.getRepositoryComponentByName(name);
+        final RepositoryComponent component = system.getRepositoryComponentByName(name);
         return this.withEncapsulatedComponent(component);
     }
 
     @Override
     public AssemblyContext build() {
         final AssemblyContext context = CompositionFactory.eINSTANCE.createAssemblyContext();
-        if (this.name != null) {
-            context.setEntityName(this.name);
+        if (name != null) {
+            context.setEntityName(name);
         }
-        if (this.encapuslatedComponent != null) {
-            context.setEncapsulatedComponent__AssemblyContext(this.encapuslatedComponent);
+        if (encapuslatedComponent != null) {
+            context.setEncapsulatedComponent__AssemblyContext(encapuslatedComponent);
         }
         return context;
     }

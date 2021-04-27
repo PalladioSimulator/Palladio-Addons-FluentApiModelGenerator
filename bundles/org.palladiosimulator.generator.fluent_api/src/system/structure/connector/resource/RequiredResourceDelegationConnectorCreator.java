@@ -25,7 +25,7 @@ public class RequiredResourceDelegationConnectorCreator extends AbstractConnecto
     private AssemblyContext requringAssemblyContext;
 
     public RequiredResourceDelegationConnectorCreator(final SystemCreator systemCreator) {
-        this.system = systemCreator;
+        system = systemCreator;
     }
 
     /**
@@ -38,7 +38,7 @@ public class RequiredResourceDelegationConnectorCreator extends AbstractConnecto
      */
     public RequiredResourceDelegationConnectorCreator withOuterRequiredRole(final ResourceRequiredRole role) {
         Objects.requireNonNull(role, "The given Role must not be null.");
-        this.outerRequiredRole = role;
+        outerRequiredRole = role;
         return this;
     }
 
@@ -55,7 +55,7 @@ public class RequiredResourceDelegationConnectorCreator extends AbstractConnecto
      */
     public RequiredResourceDelegationConnectorCreator withOuterRequiredRole(final String name)
             throws NoSuchElementException {
-        final ResourceRequiredRole role = this.system.getSystemResourceRequiredRoleByName(name);
+        final ResourceRequiredRole role = system.getSystemResourceRequiredRoleByName(name);
         return this.withOuterRequiredRole(role);
     }
 
@@ -70,12 +70,11 @@ public class RequiredResourceDelegationConnectorCreator extends AbstractConnecto
      */
     public ResourceRequiredRoleSelector withRequiringContext(final AssemblyContext context) {
         Objects.requireNonNull(context, "The given AssemblyContext must not be null.");
-        return new ResourceRequiredRoleSelector(
-                (context1, role) -> {
-                  RequiredResourceDelegationConnectorCreator.this.requringAssemblyContext = context1;
-                  RequiredResourceDelegationConnectorCreator.this.innerRequiredRole = role;
-                  return RequiredResourceDelegationConnectorCreator.this;
-               }, context);
+        return new ResourceRequiredRoleSelector((context1, role) -> {
+            RequiredResourceDelegationConnectorCreator.this.requringAssemblyContext = context1;
+            RequiredResourceDelegationConnectorCreator.this.innerRequiredRole = role;
+            return RequiredResourceDelegationConnectorCreator.this;
+        }, context);
     }
 
     /**
@@ -90,7 +89,7 @@ public class RequiredResourceDelegationConnectorCreator extends AbstractConnecto
      * @see org.palladiosimulator.pcm.core.entity.ResourceRequiredRole
      */
     public ResourceRequiredRoleSelector withRequiringContext(final String name) {
-        final AssemblyContext context = this.system.getAssemblyContextByName(name);
+        final AssemblyContext context = system.getAssemblyContextByName(name);
         return this.withRequiringContext(context);
     }
 
@@ -98,12 +97,12 @@ public class RequiredResourceDelegationConnectorCreator extends AbstractConnecto
     public RequiredResourceDelegationConnector build() {
         final RequiredResourceDelegationConnector connector = CompositionFactory.eINSTANCE
                 .createRequiredResourceDelegationConnector();
-        if (this.name != null) {
-            connector.setEntityName(this.name);
+        if (name != null) {
+            connector.setEntityName(name);
         }
-        connector.setAssemblyContext__RequiredResourceDelegationConnector(this.requringAssemblyContext);
-        connector.setOuterRequiredRole__RequiredResourceDelegationConnector(this.outerRequiredRole);
-        connector.setInnerRequiredRole__RequiredResourceDelegationConnector(this.innerRequiredRole);
+        connector.setAssemblyContext__RequiredResourceDelegationConnector(requringAssemblyContext);
+        connector.setOuterRequiredRole__RequiredResourceDelegationConnector(outerRequiredRole);
+        connector.setInnerRequiredRole__RequiredResourceDelegationConnector(innerRequiredRole);
         return connector;
     }
 
