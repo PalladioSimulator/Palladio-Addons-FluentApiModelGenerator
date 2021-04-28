@@ -47,7 +47,7 @@ public class AcquireActionCreator extends GeneralAction {
      * @see factory.FluentRepositoryFactory#fetchOfPassiveResource(String)
      */
     public AcquireActionCreator withPassiveResource(final PassiveResource passiveResource) {
-        IllegalArgumentException.requireNonNull(passiveResource, "passiveResource must not be null");
+        IllegalArgumentException.throwIfNull(passiveResource, "passiveResource must not be null");
         this.passiveResource = passiveResource;
         return this;
     }
@@ -70,7 +70,7 @@ public class AcquireActionCreator extends GeneralAction {
      * @return this acquire action in the making
      */
     public AcquireActionCreator isTimeout(final Boolean isTimeout) {
-        IllegalArgumentException.requireNonNull(isTimeout, "isTimeout must not be null");
+        IllegalArgumentException.throwIfNull(isTimeout, "isTimeout must not be null");
         this.isTimeout = isTimeout;
         return this;
     }

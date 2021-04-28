@@ -39,7 +39,7 @@ public class AssemblyEventConnectorCreator extends AbstractConnectorCreator {
      * @see org.palladiosimulator.pcm.repository.SourceRole
      */
     public SourceRoleSelector<AssemblyEventConnectorCreator> withSourceAssemblyContext(final AssemblyContext context) {
-        IllegalArgumentException.requireNonNull(context, "The given AssemblyContext must not be null.");
+        IllegalArgumentException.throwIfNull(context, "The given AssemblyContext must not be null.");
         return new SourceRoleSelector<>((context1, role) -> {
             AssemblyEventConnectorCreator.this.sourceContext = context1;
             AssemblyEventConnectorCreator.this.sourceRole = role;
@@ -75,7 +75,7 @@ public class AssemblyEventConnectorCreator extends AbstractConnectorCreator {
      * @see org.palladiosimulator.pcm.repository.SinkRole
      */
     public SinkRoleSelector<AssemblyEventConnectorCreator> withSinkAssemblyContext(final AssemblyContext context) {
-        IllegalArgumentException.requireNonNull(context, "The given AssemblyContext must not be null.");
+        IllegalArgumentException.throwIfNull(context, "The given AssemblyContext must not be null.");
         return new SinkRoleSelector<>((context1, role) -> {
             AssemblyEventConnectorCreator.this.sinkContext = context1;
             AssemblyEventConnectorCreator.this.sinkRole = role;

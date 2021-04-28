@@ -40,7 +40,7 @@ public class ResourceContainerCreator extends ResourceEntity {
      */
     public ResourceContainerCreator addProcessingResourceSpecification(
             final ProcessingResourceSpecificationCreator processingResourceSpecification) {
-        IllegalArgumentException.requireNonNull(processingResourceSpecification,
+        IllegalArgumentException.throwIfNull(processingResourceSpecification,
                 "The given ProcessingResourceSpecification must not be null");
         processingResourceSpecifications.add(processingResourceSpecification.build());
         return this;
@@ -60,7 +60,7 @@ public class ResourceContainerCreator extends ResourceEntity {
      */
     public ResourceContainerCreator addHddProcessingResourceSpecification(
             final HddProcessingResourceSpecificationCreator hddProcessingResourceSpecification) {
-        IllegalArgumentException.requireNonNull(hddProcessingResourceSpecification,
+        IllegalArgumentException.throwIfNull(hddProcessingResourceSpecification,
                 "The given HddProcessingResourceSpecification must not be null");
         hddProcessingResourceSpecifications.add(hddProcessingResourceSpecification.build());
         return this;
@@ -76,7 +76,7 @@ public class ResourceContainerCreator extends ResourceEntity {
      * @see org.palladiosimulator.pcm.resourceenvironment.ResourceContainer
      */
     public ResourceContainerCreator addNestedResourceContainer(final ResourceContainerCreator resourceContainer) {
-        IllegalArgumentException.requireNonNull(resourceContainer, "The given ResourceContainer must not be null");
+        IllegalArgumentException.throwIfNull(resourceContainer, "The given ResourceContainer must not be null");
         nestedResourceContainers.add(resourceContainer.build());
         return this;
     }

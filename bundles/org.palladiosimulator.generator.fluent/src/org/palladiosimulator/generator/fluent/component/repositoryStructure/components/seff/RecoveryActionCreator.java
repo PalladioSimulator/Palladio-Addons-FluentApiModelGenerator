@@ -49,7 +49,7 @@ public class RecoveryActionCreator extends GeneralAction {
      * @see org.palladiosimulator.generator.fluent.component.factory.FluentRepositoryFactory#newRecoveryBehaviour()
      */
     public RecoveryActionCreator withPrimaryBehaviour(final RecoverySeff recoveryActionBehaviour) {
-        IllegalArgumentException.requireNonNull(recoveryActionBehaviour, "recoveryActionBehaviour must not be null");
+        IllegalArgumentException.throwIfNull(recoveryActionBehaviour, "recoveryActionBehaviour must not be null");
         final RecoveryActionBehaviour build = recoveryActionBehaviour.buildRecoveryBehaviour();
         primary = build;
         repository.addRecoveryActionBehaviour(build);
@@ -65,7 +65,7 @@ public class RecoveryActionCreator extends GeneralAction {
      * @see org.palladiosimulator.generator.fluent.component.factory.FluentRepositoryFactory#newRecoveryBehaviour()
      */
     public RecoveryActionCreator withAlternativeBehaviour(final RecoverySeff recoveryActionBehaviour) {
-        IllegalArgumentException.requireNonNull(recoveryActionBehaviour, "recoveryActionBehaviour must not be null");
+        IllegalArgumentException.throwIfNull(recoveryActionBehaviour, "recoveryActionBehaviour must not be null");
         final RecoveryActionBehaviour buildRecoveryBehaviour = recoveryActionBehaviour.buildRecoveryBehaviour();
         otherBehaviours.add(buildRecoveryBehaviour);
         repository.addRecoveryActionBehaviour(buildRecoveryBehaviour);

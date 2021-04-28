@@ -21,7 +21,7 @@ public abstract class Entity {
      * @return this current entity in the making
      */
     public Entity withName(final String name) {
-        IllegalArgumentException.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
         this.name = name;
         return this;
     }

@@ -34,7 +34,7 @@ public class SinkRoleSelector<T> {
      * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
      */
     public T withSinkRole(final SinkRole role) {
-        IllegalArgumentException.requireNonNull(role, "The given Role must not be null.");
+        IllegalArgumentException.throwIfNull(role, "The given Role must not be null.");
         return this.combinator.combineContextAndRole(this.context, role);
     }
 

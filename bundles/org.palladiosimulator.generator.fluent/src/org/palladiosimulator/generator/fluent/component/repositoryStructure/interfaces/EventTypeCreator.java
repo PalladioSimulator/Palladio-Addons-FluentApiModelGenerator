@@ -68,8 +68,8 @@ public class EventTypeCreator extends RepositoryEntity {
      */
     public EventTypeCreator withParameter(final String name, final Primitive dataType,
             final ParameterModifier modifier) {
-        IllegalArgumentException.requireNonNull(name, "name must not be null");
-        IllegalArgumentException.requireNonNull(dataType, "dataType must not be null");
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
+        IllegalArgumentException.throwIfNull(dataType, "dataType must not be null");
         final PrimitiveDataType dt = repository.getPrimitiveDataType(dataType);
         return this.withParameter(name, dt, modifier);
     }
@@ -99,8 +99,8 @@ public class EventTypeCreator extends RepositoryEntity {
      */
     public EventTypeCreator withParameter(final String name, final DataType dataType,
             final ParameterModifier modifier) {
-        IllegalArgumentException.requireNonNull(name, "name must not be null");
-        IllegalArgumentException.requireNonNull(dataType, "dataType must not be null");
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
+        IllegalArgumentException.throwIfNull(dataType, "dataType must not be null");
         final Parameter param = RepositoryFactory.eINSTANCE.createParameter();
 
         param.setParameterName(name);
@@ -129,7 +129,7 @@ public class EventTypeCreator extends RepositoryEntity {
      * @see org.palladiosimulator.generator.fluent.component.factory.FluentRepositoryFactory#fetchOfFailureType(String)
      */
     public EventTypeCreator withFailureType(final FailureType failureType) {
-        IllegalArgumentException.requireNonNull(failureType, "failureType must not be null");
+        IllegalArgumentException.throwIfNull(failureType, "failureType must not be null");
         failureTypes.add(failureType);
         return this;
     }
@@ -149,7 +149,7 @@ public class EventTypeCreator extends RepositoryEntity {
      * @return this event type in the making
      */
     public EventTypeCreator withFailureType(final Failure failureType) {
-        IllegalArgumentException.requireNonNull(failureType, "failureType must not be null");
+        IllegalArgumentException.throwIfNull(failureType, "failureType must not be null");
         final FailureType failure = repository.getFailureType(failureType);
         return this.withFailureType(failure);
     }
@@ -168,7 +168,7 @@ public class EventTypeCreator extends RepositoryEntity {
      * @see org.palladiosimulator.generator.fluent.component.factory.FluentRepositoryFactory#fetchOfExceptionType(String)
      */
     public EventTypeCreator withExceptionType(final ExceptionType exceptionType) {
-        IllegalArgumentException.requireNonNull(exceptionType, "exceptionType must not be null");
+        IllegalArgumentException.throwIfNull(exceptionType, "exceptionType must not be null");
         exceptionTypes.add(exceptionType);
         return this;
     }

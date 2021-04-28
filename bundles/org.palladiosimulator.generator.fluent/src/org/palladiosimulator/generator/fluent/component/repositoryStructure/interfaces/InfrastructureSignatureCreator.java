@@ -73,8 +73,8 @@ public class InfrastructureSignatureCreator extends RepositoryEntity {
      */
     public InfrastructureSignatureCreator withParameter(final String name, final Primitive dataType,
             final ParameterModifier modifier) {
-        IllegalArgumentException.requireNonNull(name, "name must not be null");
-        IllegalArgumentException.requireNonNull(dataType, "dataType must not be null");
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
+        IllegalArgumentException.throwIfNull(dataType, "dataType must not be null");
         final PrimitiveDataType dt = repository.getPrimitiveDataType(dataType);
         return this.withParameter(name, dt, modifier);
     }
@@ -104,8 +104,8 @@ public class InfrastructureSignatureCreator extends RepositoryEntity {
      */
     public InfrastructureSignatureCreator withParameter(final String name, final DataType dataType,
             final ParameterModifier modifier) {
-        IllegalArgumentException.requireNonNull(name, "name must not be null");
-        IllegalArgumentException.requireNonNull(dataType, "dataType must not be null");
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
+        IllegalArgumentException.throwIfNull(dataType, "dataType must not be null");
         final Parameter param = RepositoryFactory.eINSTANCE.createParameter();
 
         param.setParameterName(name);
@@ -135,7 +135,7 @@ public class InfrastructureSignatureCreator extends RepositoryEntity {
      * @see org.palladiosimulator.generator.fluent.component.factory.FluentRepositoryFactory#fetchOfFailureType(String)
      */
     public InfrastructureSignatureCreator withFailureType(final FailureType failureType) {
-        IllegalArgumentException.requireNonNull(failureType, "failureType must not be null");
+        IllegalArgumentException.throwIfNull(failureType, "failureType must not be null");
         failures.add(failureType);
         return this;
     }
@@ -155,7 +155,7 @@ public class InfrastructureSignatureCreator extends RepositoryEntity {
      * @return this infrastructure signature in the making
      */
     public InfrastructureSignatureCreator withFailureType(final Failure failureType) {
-        IllegalArgumentException.requireNonNull(failureType, "failureType must not be null");
+        IllegalArgumentException.throwIfNull(failureType, "failureType must not be null");
         final FailureType failure = repository.getFailureType(failureType);
         return this.withFailureType(failure);
     }
@@ -174,7 +174,7 @@ public class InfrastructureSignatureCreator extends RepositoryEntity {
      * @see org.palladiosimulator.generator.fluent.component.factory.FluentRepositoryFactory#fetchOfExceptionType(String)
      */
     public InfrastructureSignatureCreator withExceptionType(final ExceptionType exceptionType) {
-        IllegalArgumentException.requireNonNull(exceptionType, "exceptionType must not be null");
+        IllegalArgumentException.throwIfNull(exceptionType, "exceptionType must not be null");
         exceptions.add(exceptionType);
         return this;
     }

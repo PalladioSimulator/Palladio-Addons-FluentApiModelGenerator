@@ -60,7 +60,7 @@ public class OperationSignatureCreator extends RepositoryEntity {
      * @see org.palladiosimulator.generator.fluent.component.factory.FluentRepositoryFactory#fetchOfDataType(String)
      */
     public OperationSignatureCreator withReturnType(final DataType returnType) {
-        IllegalArgumentException.requireNonNull(returnType, "returnType must not be null");
+        IllegalArgumentException.throwIfNull(returnType, "returnType must not be null");
         this.returnType = returnType;
         return this;
     }
@@ -80,7 +80,7 @@ public class OperationSignatureCreator extends RepositoryEntity {
      * @return this operation signature in the making
      */
     public OperationSignatureCreator withReturnType(final Primitive returnType) {
-        IllegalArgumentException.requireNonNull(returnType, "returnType must not be null");
+        IllegalArgumentException.throwIfNull(returnType, "returnType must not be null");
         final PrimitiveDataType primitiveDataType = repository.getPrimitiveDataType(returnType);
         return this.withReturnType(primitiveDataType);
     }
@@ -112,8 +112,8 @@ public class OperationSignatureCreator extends RepositoryEntity {
      */
     public OperationSignatureCreator withParameter(final String name, final Primitive dataType,
             final ParameterModifier modifier) {
-        IllegalArgumentException.requireNonNull(name, "name must not be null");
-        IllegalArgumentException.requireNonNull(dataType, "dataType must not be null");
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
+        IllegalArgumentException.throwIfNull(dataType, "dataType must not be null");
         final PrimitiveDataType dt = repository.getPrimitiveDataType(dataType);
         return this.withParameter(name, dt, modifier);
     }
@@ -143,8 +143,8 @@ public class OperationSignatureCreator extends RepositoryEntity {
      */
     public OperationSignatureCreator withParameter(final String name, final DataType dataType,
             final ParameterModifier modifier) {
-        IllegalArgumentException.requireNonNull(name, "name must not be null");
-        IllegalArgumentException.requireNonNull(dataType, "dataType must not be null");
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
+        IllegalArgumentException.throwIfNull(dataType, "dataType must not be null");
         final Parameter param = RepositoryFactory.eINSTANCE.createParameter();
 
         param.setParameterName(name);
@@ -173,7 +173,7 @@ public class OperationSignatureCreator extends RepositoryEntity {
      * @see org.palladiosimulator.generator.fluent.component.factory.FluentRepositoryFactory#fetchOfFailureType(String)
      */
     public OperationSignatureCreator withFailureType(final FailureType failureType) {
-        IllegalArgumentException.requireNonNull(failureType, "failureType must not be null");
+        IllegalArgumentException.throwIfNull(failureType, "failureType must not be null");
         failureTypes.add(failureType);
         return this;
     }
@@ -193,7 +193,7 @@ public class OperationSignatureCreator extends RepositoryEntity {
      * @return this operation signature in the making
      */
     public OperationSignatureCreator withFailureType(final Failure failureType) {
-        IllegalArgumentException.requireNonNull(failureType, "failureType must not be null");
+        IllegalArgumentException.throwIfNull(failureType, "failureType must not be null");
         final FailureType failure = repository.getFailureType(failureType);
         return this.withFailureType(failure);
     }
@@ -212,7 +212,7 @@ public class OperationSignatureCreator extends RepositoryEntity {
      * @see org.palladiosimulator.generator.fluent.component.factory.FluentRepositoryFactory#fetchOfExceptionType(String)
      */
     public OperationSignatureCreator withExceptionType(final ExceptionType exceptionType) {
-        IllegalArgumentException.requireNonNull(exceptionType, "exceptionType must not be null");
+        IllegalArgumentException.throwIfNull(exceptionType, "exceptionType must not be null");
         exceptionTypes.add(exceptionType);
         return this;
     }

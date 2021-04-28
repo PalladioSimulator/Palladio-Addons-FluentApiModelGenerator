@@ -33,7 +33,7 @@ public class OperationProvidedRoleCreator extends SystemEntity {
      * @see org.palladiosimulator.pcm.repository.OperationInterface
      */
     public OperationProvidedRoleCreator withProvidedInterface(final OperationInterface operationInterface) {
-        IllegalArgumentException.requireNonNull(operationInterface, "The given Interface must not be null.");
+        IllegalArgumentException.throwIfNull(operationInterface, "The given Interface must not be null.");
         providedInterface = operationInterface;
         return this;
     }

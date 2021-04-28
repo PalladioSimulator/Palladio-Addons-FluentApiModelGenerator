@@ -53,8 +53,8 @@ public class CompositeDataTypeCreator extends RepositoryEntity {
      * @see org.palladiosimulator.pcm.repository.CompositeDataType
      */
     public CompositeDataTypeCreator withInnerDeclaration(final String name, final Primitive primitive) {
-        IllegalArgumentException.requireNonNull(name, "name must not be null");
-        IllegalArgumentException.requireNonNull(primitive, "primitive must not be null");
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
+        IllegalArgumentException.throwIfNull(primitive, "primitive must not be null");
         final InnerDeclaration inner = RepositoryFactory.eINSTANCE.createInnerDeclaration();
         inner.setEntityName(name);
         final PrimitiveDataType p = repository.getPrimitiveDataType(primitive);
@@ -81,8 +81,8 @@ public class CompositeDataTypeCreator extends RepositoryEntity {
      * @see org.palladiosimulator.pcm.repository.CompositeDataType
      */
     public CompositeDataTypeCreator withInnerDeclaration(final String name, final DataType dataType) {
-        IllegalArgumentException.requireNonNull(name, "name must not be null");
-        IllegalArgumentException.requireNonNull(dataType, "dataType must not be null");
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
+        IllegalArgumentException.throwIfNull(dataType, "dataType must not be null");
         final InnerDeclaration inner = RepositoryFactory.eINSTANCE.createInnerDeclaration();
         inner.setEntityName(name);
         inner.setDatatype_InnerDeclaration(dataType);
@@ -105,7 +105,7 @@ public class CompositeDataTypeCreator extends RepositoryEntity {
      * @see org.palladiosimulator.pcm.repository.CompositeDataType
      */
     public CompositeDataTypeCreator withParentCompositeDataType(final CompositeDataType parent) {
-        IllegalArgumentException.requireNonNull(parent, "parent must not be null");
+        IllegalArgumentException.throwIfNull(parent, "parent must not be null");
         parents.add(parent);
         return this;
     }

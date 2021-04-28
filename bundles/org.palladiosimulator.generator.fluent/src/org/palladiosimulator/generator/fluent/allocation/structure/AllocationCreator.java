@@ -62,21 +62,20 @@ public class AllocationCreator extends AllocationEntity implements IAllocation {
 
     @Override
     public IAllocationAddition withResourceEnvironment(final ResourceEnvironment environment) {
-        IllegalArgumentException.requireNonNull(environment, "The given ResourceEnvironment must not be null");
-        resourceEnvironment = environment;
+        resourceEnvironment = IllegalArgumentException.throwIfNull(environment,
+                "The given ResourceEnvironment must not be null");
         return this;
     }
 
     @Override
     public IAllocationAddition withSystem(final System system) {
-        IllegalArgumentException.requireNonNull(system, "The given System must not be null");
-        this.system = system;
+        this.system = IllegalArgumentException.throwIfNull(system, "The given System must not be null");
         return this;
     }
 
     @Override
     public IAllocationAddition addToAllocation(final AllocationContextCreator allocationContext) {
-        IllegalArgumentException.requireNonNull(allocationContext, "The given AllocationContext must not be null");
+        IllegalArgumentException.throwIfNull(allocationContext, "The given AllocationContext must not be null");
         allocationContexts.add(allocationContext.build());
         return this;
     }

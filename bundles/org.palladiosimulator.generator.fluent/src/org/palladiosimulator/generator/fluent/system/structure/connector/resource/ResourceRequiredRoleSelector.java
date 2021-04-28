@@ -34,7 +34,7 @@ public class ResourceRequiredRoleSelector {
      * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
      */
     public RequiredResourceDelegationConnectorCreator withResourceRequiredRole(final ResourceRequiredRole role) {
-        IllegalArgumentException.requireNonNull(role, "The given Role must not be null.");
+        IllegalArgumentException.throwIfNull(role, "The given Role must not be null.");
         return combinator.combineContextAndRole(context, role);
     }
 

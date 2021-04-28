@@ -7,6 +7,8 @@ import org.palladiosimulator.generator.fluent.shared.structure.ResourceInterface
 import org.palladiosimulator.generator.fluent.shared.util.ModelSaver;
 import org.palladiosimulator.pcm.parameter.VariableCharacterisationType;
 import org.palladiosimulator.pcm.repository.BasicComponent;
+import org.palladiosimulator.pcm.repository.CompositeDataType;
+import org.palladiosimulator.pcm.repository.DataType;
 import org.palladiosimulator.pcm.repository.OperationInterface;
 import org.palladiosimulator.pcm.repository.OperationProvidedRole;
 import org.palladiosimulator.pcm.repository.OperationRequiredRole;
@@ -21,12 +23,36 @@ import org.palladiosimulator.pcm.seff.SeffFactory;
 class Example {
 
     public static void main(final String[] args) {
-        invalidExample();
-        miniExample();
-        readmeExampleBackend();
-        readmeExampleFluentAPI();
-        mediaStoreExample();
-        exampleWithoutMeaning();
+        // invalidExample();
+        // miniExample();
+        // readmeExampleBackend();
+        // readmeExampleFluentAPI();
+        // mediaStoreExample();
+        // exampleWithoutMeaning();
+        testMW();
+    }
+
+    public static void testMW() {
+        FluentRepositoryFactory create = new FluentRepositoryFactory();
+
+        final Repository repository = create.newRepository().withName("mw")
+                .addToRepository(create.newCollectionDataType("String List", Primitive.STRING))
+                .addToRepository(create.newCompositeDataType().withName("Person")
+                        .withInnerDeclaration("names", create.fetchOfDataType("String List"))
+                        .withInnerDeclaration("age", Primitive.INTEGER)).createRepositoryNow();
+        
+        for (DataType element : repository.getDataTypes__Repository()) {
+            System.out.println(element);
+        }
+        
+
+        
+        create = new FluentRepositoryFactory();
+        create.newRepository().withImportedResource(repository);
+        CompositeDataType person = create.fetchOfCompositeDataType("mw.Person");
+
+        System.out.println(person);
+        System.out.println(repository.getDataTypes__Repository().get(1) == person);
 
     }
 

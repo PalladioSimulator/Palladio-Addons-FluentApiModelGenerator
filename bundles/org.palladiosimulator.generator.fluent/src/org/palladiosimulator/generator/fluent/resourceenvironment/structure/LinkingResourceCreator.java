@@ -72,7 +72,7 @@ public class LinkingResourceCreator extends ResourceEntity {
      * @see org.palladiosimulator.pcm.resourceenvironment.ResourceContainer
      */
     public LinkingResourceCreator addLinkedResourceContainer(final ResourceContainer container) {
-        IllegalArgumentException.requireNonNull(container, "The given ResourceContainer must not be null");
+        IllegalArgumentException.throwIfNull(container, "The given ResourceContainer must not be null");
         linkedContainers.add(container);
         return this;
     }
@@ -104,7 +104,7 @@ public class LinkingResourceCreator extends ResourceEntity {
      * @see org.palladiosimulator.pcm.resourceenvironment.LinkingResource
      */
     public LinkingResourceCreator withLatency(final String latency) {
-        IllegalArgumentException.requireNonNull(latency, "the given latency must not be null");
+        IllegalArgumentException.throwIfNull(latency, "the given latency must not be null");
         latencyVariable = CoreFactory.eINSTANCE.createPCMRandomVariable();
         latencyVariable.setSpecification(latency);
         return this;
@@ -120,7 +120,7 @@ public class LinkingResourceCreator extends ResourceEntity {
      * @see org.palladiosimulator.pcm.resourceenvironment.LinkingResource
      */
     public LinkingResourceCreator withThroughput(final String throughput) {
-        IllegalArgumentException.requireNonNull(throughput, "The given throughput must not be null");
+        IllegalArgumentException.throwIfNull(throughput, "The given throughput must not be null");
         throughputVariable = CoreFactory.eINSTANCE.createPCMRandomVariable();
         throughputVariable.setSpecification(throughput);
         return this;

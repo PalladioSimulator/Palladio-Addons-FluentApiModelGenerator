@@ -3,16 +3,16 @@ Bundle-ManifestVersion: 2
 Bundle-Name: FluentApiModelGenerator
 Bundle-SymbolicName: org.palladiosimulator.generator.fluent;singleton:=true
 Bundle-Version: 5.0.0.qualifier
-Automatic-Module-Name: com.palladiosimulator.generator.fluent_api
+Automatic-Module-Name: com.palladiosimulator.generator.fluent
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Require-Bundle: org.palladiosimulator.pcm;visibility:=reexport,
  org.palladiosimulator.pcm.resources;visibility:=reexport,
- org.palladiosimulator.commons.stoex,
- de.uka.ipd.sdq.stoex.analyser,
- org.apache.log4j,
- org.palladiosimulator.generator.fluent
+ org.palladiosimulator.commons.stoex;visibility:=reexport,
+ de.uka.ipd.sdq.stoex.analyser;visibility:=reexport,
+ org.apache.log4j
 Bundle-Vendor: palladiosimulator.org
-Export-Package: org.palladiosimulator.generator.fluent.allocation,
+Export-Package: org.palladiosimulator.generator.fluent,
+ org.palladiosimulator.generator.fluent.allocation,
  org.palladiosimulator.generator.fluent.allocation.api,
  org.palladiosimulator.generator.fluent.allocation.factory,
  org.palladiosimulator.generator.fluent.allocation.structure,
@@ -25,6 +25,7 @@ Export-Package: org.palladiosimulator.generator.fluent.allocation,
  org.palladiosimulator.generator.fluent.component.repositoryStructure.interfaces,
  org.palladiosimulator.generator.fluent.component.repositoryStructure.internals,
  org.palladiosimulator.generator.fluent.component.repositoryStructure.types,
+ org.palladiosimulator.generator.fluent.exceptions,
  org.palladiosimulator.generator.fluent.resourceenvironment,
  org.palladiosimulator.generator.fluent.resourceenvironment.api,
  org.palladiosimulator.generator.fluent.resourceenvironment.factory,
@@ -44,4 +45,3 @@ Export-Package: org.palladiosimulator.generator.fluent.allocation,
  org.palladiosimulator.generator.fluent.system.structure.connector.resource,
  org.palladiosimulator.generator.fluent.system.structure.qos,
  org.palladiosimulator.generator.fluent.system.structure.role
-Import-Package: org.palladiosimulator.generator.fluent.system.structure.connector.infrastructure

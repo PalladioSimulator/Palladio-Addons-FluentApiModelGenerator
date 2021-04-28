@@ -52,9 +52,9 @@ public abstract class GeneralAction extends SeffAction {
      */
     public GeneralAction withResourceDemand(final String specificationStochasticExpression,
             final ProcessingResource processingResource) {
-        IllegalArgumentException.requireNonNull(specificationStochasticExpression,
+        IllegalArgumentException.throwIfNull(specificationStochasticExpression,
                 "specification_stochasticExpression must not be null");
-        IllegalArgumentException.requireNonNull(processingResource, "processingResource must not be null");
+        IllegalArgumentException.throwIfNull(processingResource, "processingResource must not be null");
         final ParametricResourceDemand demand = SeffPerformanceFactory.eINSTANCE.createParametricResourceDemand();
 
         final ProcessingResourceType processingResourceType = repository.getProcessingResourceType(processingResource);
@@ -81,14 +81,14 @@ public abstract class GeneralAction extends SeffAction {
     public GeneralAction withInfrastructureCall(final String numberOfCallsStochasticExpression,
             final InfrastructureSignature signature, final InfrastructureRequiredRole requiredRole,
             final VariableUsageCreator... variableUsages) {
-        IllegalArgumentException.requireNonNull(numberOfCallsStochasticExpression,
+        IllegalArgumentException.throwIfNull(numberOfCallsStochasticExpression,
                 "numberOfCalls_stochasticExpression must not be null");
-        IllegalArgumentException.requireNonNull(signature, "signature must not be null");
-        IllegalArgumentException.requireNonNull(requiredRole, "requiredRole must not be null");
-        IllegalArgumentException.requireNonNull(variableUsages, "variable usages must not be null");
+        IllegalArgumentException.throwIfNull(signature, "signature must not be null");
+        IllegalArgumentException.throwIfNull(requiredRole, "requiredRole must not be null");
+        IllegalArgumentException.throwIfNull(variableUsages, "variable usages must not be null");
         if (variableUsages.length > 0) {
             for (final VariableUsageCreator variableUsage : variableUsages) {
-                IllegalArgumentException.requireNonNull(variableUsage, "variable usages must not be null");
+                IllegalArgumentException.throwIfNull(variableUsage, "variable usages must not be null");
             }
         }
 
@@ -122,13 +122,13 @@ public abstract class GeneralAction extends SeffAction {
             final ResourceSignature signature, final ResourceRequiredRole requiredRole,
             final VariableUsageCreator... variableUsages) {
 
-        IllegalArgumentException.requireNonNull(numberOfCallsStochasticExpression,
+        IllegalArgumentException.throwIfNull(numberOfCallsStochasticExpression,
                 "numberOfCalls_stochasticExpression must not be null");
-        IllegalArgumentException.requireNonNull(signature, "signature must not be null");
-        IllegalArgumentException.requireNonNull(requiredRole, "requiredRole must not be null");
+        IllegalArgumentException.throwIfNull(signature, "signature must not be null");
+        IllegalArgumentException.throwIfNull(requiredRole, "requiredRole must not be null");
         if ((variableUsages != null) && (variableUsages.length > 0)) {
             for (final VariableUsageCreator variableUsage : variableUsages) {
-                IllegalArgumentException.requireNonNull(variableUsage, "variable usages must not be null");
+                IllegalArgumentException.throwIfNull(variableUsage, "variable usages must not be null");
             }
         }
 

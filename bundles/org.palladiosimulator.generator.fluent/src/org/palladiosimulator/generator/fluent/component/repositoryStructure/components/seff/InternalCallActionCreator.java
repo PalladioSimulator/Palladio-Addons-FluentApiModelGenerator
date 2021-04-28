@@ -53,7 +53,7 @@ public class InternalCallActionCreator extends GeneralAction {
      * @see org.palladiosimulator.generator.fluent.component.factory.FluentRepositoryFactory#newVariableUsage()
      */
     public InternalCallActionCreator withInputVaribleUsage(final VariableUsageCreator variableUsage) {
-        IllegalArgumentException.requireNonNull(variableUsage, "variableUsage must not be null");
+        IllegalArgumentException.throwIfNull(variableUsage, "variableUsage must not be null");
         inputVariableUsages.add(variableUsage.build());
         return this;
     }
@@ -66,7 +66,7 @@ public class InternalCallActionCreator extends GeneralAction {
      * @see org.palladiosimulator.generator.fluent.component.factory.FluentRepositoryFactory#newInternalBehaviour()
      */
     public InternalCallActionCreator withInternalBehaviour(final InternalSeff internalBehaviour) {
-        IllegalArgumentException.requireNonNull(internalBehaviour, "internalBehaviour must not be null");
+        IllegalArgumentException.throwIfNull(internalBehaviour, "internalBehaviour must not be null");
         internalSeff = internalBehaviour;
         return this;
     }

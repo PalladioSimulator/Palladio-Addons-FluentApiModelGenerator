@@ -303,14 +303,14 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
 
     @Override
     public RepositoryCreator withDescription(final String description) {
-        IllegalArgumentException.requireNonNull(description, "description must not be null");
+        IllegalArgumentException.throwIfNull(description, "description must not be null");
         this.description = description;
         return this;
     }
 
     @Override
     public Repo withImportedResource(URI uri) {
-        IllegalArgumentException.requireNonNull(uri, "URI must not be null.");
+        IllegalArgumentException.throwIfNull(uri, "URI must not be null.");
 
         if ("repository".equalsIgnoreCase(uri.fileExtension()) == false) {
             throw new IllegalArgumentException("The specified URI must lead to a .repository file");
@@ -323,7 +323,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
 
     @Override
     public Repo withImportedResource(String path) {
-        IllegalArgumentException.requireNonNull(path, "path must not be null.");
+        IllegalArgumentException.throwIfNull(path, "path must not be null.");
 
         if (!path.toLowerCase().endsWith("." + "repository")) {
             throw new IllegalArgumentException("The specified path must lead to a .repository file");
@@ -336,9 +336,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
 
     @Override
     public Repo withImportedResource(Repository repository) {
-        IllegalArgumentException.requireNonNull(repository, "repository must not be null");
-
-        imports.add(repository);
+        imports.add(IllegalArgumentException.throwIfNull(repository, "repository must not be null"));
         importedDataTypes.addAll(repository.getDataTypes__Repository());
         importedFailureTypes.addAll(repository.getFailureTypes__Repository());
         importedComponents.addAll(repository.getComponents__Repository());
@@ -349,14 +347,13 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
 
     @Override
     public RepoAddition addToRepository(final CollectionDataType collectionDataType) {
-        IllegalArgumentException.requireNonNull(collectionDataType, "collectionDataType must not be null");
-        dataTypes.add(collectionDataType);
+        dataTypes.add(IllegalArgumentException.throwIfNull(collectionDataType, "collectionDataType must not be null"));
         return this;
     }
 
     @Override
     public RepoAddition addToRepository(final CompositeDataTypeCreator compositeDataType) {
-        IllegalArgumentException.requireNonNull(compositeDataType, "compositeDataType must not be null");
+        IllegalArgumentException.throwIfNull(compositeDataType, "compositeDataType must not be null");
         final CompositeDataType dataType = compositeDataType.build();
         dataTypes.add(dataType);
         return this;
@@ -364,40 +361,33 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
 
     @Override
     public RepoAddition addToRepository(final FailureType failureType) {
-        IllegalArgumentException.requireNonNull(failureType, "failureType must not be null");
-        failureTypes.add(failureType);
+        failureTypes.add(IllegalArgumentException.throwIfNull(failureType, "failureType must not be null"));
         return this;
     }
 
     @Override
     public RepoAddition addToRepository(final ResourceTimeoutFailureTypeCreator failureType) {
-        IllegalArgumentException.requireNonNull(failureType, "failureType must not be null");
-        failureTypes.add(failureType.build());
+        failureTypes.add(IllegalArgumentException.throwIfNull(failureType, "failureType must not be null").build());
         return this;
     }
 
     @Override
     public RepoAddition addToRepository(final ExceptionTypeCreator exceptionType) {
-        IllegalArgumentException.requireNonNull(exceptionType, "exceptionType must not be null");
-        final ExceptionType build = exceptionType.build();
-        exceptionTypes.add(build);
+        exceptionTypes
+                .add(IllegalArgumentException.throwIfNull(exceptionType, "exceptionType must not be null").build());
         return this;
     }
 
     @Override
     public RepoAddition addToRepository(
             final org.palladiosimulator.generator.fluent.component.repositoryStructure.interfaces.Interface interfce) {
-        IllegalArgumentException.requireNonNull(interfce, "interfce must not be null");
-        final Interface i = interfce.build();
-        interfaces.add(i);
+        interfaces.add(IllegalArgumentException.throwIfNull(interfce, "interfce must not be null").build());
         return this;
     }
 
     @Override
     public RepoAddition addToRepository(final Component component) {
-        IllegalArgumentException.requireNonNull(component, "component must not be null");
-        final RepositoryComponent c = component.build();
-        components.add(c);
+        components.add(IllegalArgumentException.throwIfNull(component, "component must not be null").build());
         return this;
     }
 
@@ -1615,11 +1605,11 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         final String[] split = name.split("\\.");
         if (split.length == 2) {
             name = split[1];
+            // it is assumed that split[0] = name of the repository refers to the same
+            // repository that the signature <context> comes from
             final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
                 throw new FluentApiException("Repository '" + split[0] + "' could not be found");
-                // it is assumed that split[0] = name of the repository refers to the same
-                // repository that the signature <context> comes from
             }
         } else if (split.length != 1) {
             throw new IllegalArgumentException(

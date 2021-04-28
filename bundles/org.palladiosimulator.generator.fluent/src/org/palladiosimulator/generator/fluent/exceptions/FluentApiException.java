@@ -10,40 +10,7 @@ import java.util.function.Supplier;
  */
 public class FluentApiException extends RuntimeException {
 
-    private static final String DEFAULT_MESSAGE = "";
-
     private static final long serialVersionUID = 4990563621773025662L;
-
-    /**
-     * Checks that the specified object reference is not {@code null}. This method
-     * is designed primarily for doing parameter validation in methods and
-     * constructors.
-     *
-     * @param obj the object reference to check for nullity
-     * @param <T> the type of the reference
-     * @return {@code obj} if not {@code null}
-     * @throws FluentApiException if {@code obj} is {@code null}
-     */
-    public static <T> T requireNonNull(T obj) throws FluentApiException {
-        return requireNonNull(obj, DEFAULT_MESSAGE);
-    }
-
-    /**
-     * Checks that the specified object reference is not {@code null} and throws a
-     * customized {@code FluentApiException} if it is. This method is designed
-     * primarily for doing parameter validation in methods and constructors with
-     * multiple parameters.
-     *
-     * @param obj     the object reference to check for nullity
-     * @param message detail message to be used in the event that a {@code
-     *                IllegalArgumentException} is thrown
-     * @param <T>     the type of the reference
-     * @return {@code obj} if not {@code null}
-     * @throws FluentApiException if {@code obj} is {@code null}
-     */
-    public static <T> T requireNonNull(T obj, String message) throws FluentApiException {
-        return requireNonNull(obj, () -> new FluentApiException(message));
-    }
 
     /**
      * Checks that the specified object reference is not {@code null} and throws a
@@ -77,7 +44,6 @@ public class FluentApiException extends RuntimeException {
      * Constructs a new {@code FluentApiException} with the default message.
      */
     public FluentApiException() {
-        super(DEFAULT_MESSAGE);
     }
 
     /**

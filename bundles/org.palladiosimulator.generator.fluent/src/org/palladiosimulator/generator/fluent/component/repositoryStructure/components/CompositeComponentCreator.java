@@ -71,7 +71,7 @@ public class CompositeComponentCreator extends ComplexComponent {
      * @return the composite component in the making
      */
     public CompositeComponentCreator ofType(final ComponentType type) {
-        IllegalArgumentException.requireNonNull(type, "type must not be null");
+        IllegalArgumentException.throwIfNull(type, "type must not be null");
         this.type = type;
         return this;
     }
@@ -240,7 +240,7 @@ public class CompositeComponentCreator extends ComplexComponent {
      * @see org.palladiosimulator.pcm.repository.CompleteComponentType
      */
     public CompositeComponentCreator conforms(final CompleteComponentTypeCreator completeComponentType) {
-        IllegalArgumentException.requireNonNull(completeComponentType, "completeComponentType must not be null");
+        IllegalArgumentException.throwIfNull(completeComponentType, "completeComponentType must not be null");
         final CompleteComponentType cct = completeComponentType.build();
         repository.addComponent(cct);
         return this.conforms(cct);
@@ -268,7 +268,7 @@ public class CompositeComponentCreator extends ComplexComponent {
      * @see org.palladiosimulator.pcm.repository.CompleteComponentType
      */
     public CompositeComponentCreator conforms(final CompleteComponentType completeComponentType) {
-        IllegalArgumentException.requireNonNull(completeComponentType, "completeComponentType must not be null");
+        IllegalArgumentException.throwIfNull(completeComponentType, "completeComponentType must not be null");
         conformsCompleteTypes.add(completeComponentType);
         return this;
     }
@@ -294,7 +294,7 @@ public class CompositeComponentCreator extends ComplexComponent {
      * @see org.palladiosimulator.pcm.parameter.VariableUsage
      */
     public CompositeComponentCreator withVariableUsage(final VariableUsageCreator variableUsage) {
-        IllegalArgumentException.requireNonNull(variableUsage, "variableUsage must not be null");
+        IllegalArgumentException.throwIfNull(variableUsage, "variableUsage must not be null");
         componentParameterUsages.add(variableUsage.build());
         return this;
     }

@@ -36,7 +36,7 @@ public class ExceptionTypeCreator extends RepositoryEntity {
      * @return this exception in the making
      */
     public ExceptionTypeCreator withExceptionMessage(final String message) {
-        IllegalArgumentException.requireNonNull(message, "message must not be null");
+        IllegalArgumentException.throwIfNull(message, "message must not be null");
         exceptionMessage = message;
         return this;
     }

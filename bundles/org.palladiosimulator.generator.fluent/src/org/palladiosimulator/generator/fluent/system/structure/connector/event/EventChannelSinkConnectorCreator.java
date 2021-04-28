@@ -37,7 +37,7 @@ public class EventChannelSinkConnectorCreator extends AbstractConnectorCreator {
      * @see org.palladiosimulator.pcm.repository.SinkRole
      */
     public EventChannelSinkConnectorCreator withEventChannel(final EventChannel eventChannel) {
-        IllegalArgumentException.requireNonNull(eventChannel, "The given EventChannel must not be null.");
+        IllegalArgumentException.throwIfNull(eventChannel, "The given EventChannel must not be null.");
         this.eventChannel = eventChannel;
         return this;
     }
@@ -70,7 +70,7 @@ public class EventChannelSinkConnectorCreator extends AbstractConnectorCreator {
      */
     public SinkRoleSelector<EventChannelSinkConnectorCreator> withAssemblyContext(
             final AssemblyContext assemblyContext) {
-        IllegalArgumentException.requireNonNull(assemblyContext, "The given AssemblyContext must not be null.");
+        IllegalArgumentException.throwIfNull(assemblyContext, "The given AssemblyContext must not be null.");
         return new SinkRoleSelector<>((context, role) -> {
             EventChannelSinkConnectorCreator.this.assemblyContext = context;
             EventChannelSinkConnectorCreator.this.role = role;

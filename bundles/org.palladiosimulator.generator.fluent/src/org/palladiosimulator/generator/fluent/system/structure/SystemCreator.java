@@ -102,91 +102,91 @@ public class SystemCreator extends SystemEntity implements ISystem {
 
     @Override
     public ISystemAddition addToSystem(final AssemblyContextCreator context) {
-        IllegalArgumentException.requireNonNull(context, "The given AssemblyContext must not be null.");
+        IllegalArgumentException.throwIfNull(context, "The given AssemblyContext must not be null.");
         assemblyContexts.add(context.build());
         return this;
     }
 
     @Override
     public ISystem addRepository(final Repository repository) {
-        IllegalArgumentException.requireNonNull(repository, "The given Repository must not be null.");
+        IllegalArgumentException.throwIfNull(repository, "The given Repository must not be null.");
         repositories.add(repository);
         return this;
     }
 
     @Override
     public ISystemAddition addToSystem(final AbstractConnectorCreator connector) {
-        IllegalArgumentException.requireNonNull(connector, "The given Connector must not be null.");
+        IllegalArgumentException.throwIfNull(connector, "The given Connector must not be null.");
         connectors.add(connector.build());
         return this;
     }
 
     @Override
     public ISystemAddition addToSystem(final OperationRequiredRoleCreator role) {
-        IllegalArgumentException.requireNonNull(role, "The given Role must not be null.");
+        IllegalArgumentException.throwIfNull(role, "The given Role must not be null.");
         systemOperationRequiredRoles.add(role.build());
         return this;
     }
 
     @Override
     public ISystemAddition addToSystem(final OperationProvidedRoleCreator role) {
-        IllegalArgumentException.requireNonNull(role, "The given Role must not be null.");
+        IllegalArgumentException.throwIfNull(role, "The given Role must not be null.");
         systemOperationProvidedRoles.add(role.build());
         return this;
     }
 
     @Override
     public ISystemAddition addToSystem(final EventChannelCreator eventChannel) {
-        IllegalArgumentException.requireNonNull(eventChannel, "The given EventChannel must not be null.");
+        IllegalArgumentException.throwIfNull(eventChannel, "The given EventChannel must not be null.");
         eventChannels.add(eventChannel.build());
         return this;
     }
 
     @Override
     public ISystemAddition addToSystem(final SinkRoleCreator role) {
-        IllegalArgumentException.requireNonNull(role, "The given Role must not be null.");
+        IllegalArgumentException.throwIfNull(role, "The given Role must not be null.");
         systemSinkRoles.add(role.build());
         return this;
     }
 
     @Override
     public ISystemAddition addToSystem(final SourceRoleCreator role) {
-        IllegalArgumentException.requireNonNull(role, "The given Role must not be null.");
+        IllegalArgumentException.throwIfNull(role, "The given Role must not be null.");
         systemSourceRoles.add(role.build());
         return this;
     }
 
     @Override
     public ISystemAddition addToSystem(final InfrastructureRequiredRoleCreator role) {
-        IllegalArgumentException.requireNonNull(role, "The given Role must not be null.");
+        IllegalArgumentException.throwIfNull(role, "The given Role must not be null.");
         systemInfrastructureRequiredRoles.add(role.build());
         return this;
     }
 
     @Override
     public ISystemAddition addToSystem(final InfrastructureProvidedRoleCreator role) {
-        IllegalArgumentException.requireNonNull(role, "The given Role must not be null.");
+        IllegalArgumentException.throwIfNull(role, "The given Role must not be null.");
         systemInfrastructureProvidedRoles.add(role.build());
         return this;
     }
 
     @Override
     public ISystemAddition addToSystem(final QoSAnnotationsCreator annotations) {
-        IllegalArgumentException.requireNonNull(annotations, "The given QoSAnnotations must not be null.");
+        IllegalArgumentException.throwIfNull(annotations, "The given QoSAnnotations must not be null.");
         qoSAnnotations.add(annotations.build());
         return this;
     }
 
     @Override
     public ISystemAddition addToSystem(final ResourceRequiredRoleCreator role) {
-        IllegalArgumentException.requireNonNull(role, "The given Role must not be null.");
+        IllegalArgumentException.throwIfNull(role, "The given Role must not be null.");
         systemResourceRequiredRoles.add(role.build());
         return this;
     }
 
     @Override
     public ISystemAddition addToSystem(final ResourceRequiredDelegationConnectorCreator connector) {
-        IllegalArgumentException.requireNonNull(connector, "The given Connector must not be null.");
+        IllegalArgumentException.throwIfNull(connector, "The given Connector must not be null.");
         resourceConnectors.add(connector.build());
         return this;
     }
@@ -407,7 +407,7 @@ public class SystemCreator extends SystemEntity implements ISystem {
      */
     public ResourceInterface getResourceInterface(
             final org.palladiosimulator.generator.fluent.shared.structure.ResourceInterface resource) {
-        IllegalArgumentException.requireNonNull(resource, "The given resource must not be null.");
+        IllegalArgumentException.throwIfNull(resource, "The given resource must not be null.");
         return resources.getResourceInterfaces__ResourceRepository().stream()
                 .filter(x -> x.getEntityName().equals(resource.getResourceName())).findFirst().get();
     }

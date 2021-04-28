@@ -40,7 +40,7 @@ public class AssemblyInfrastructureConnectorCreator extends AbstractConnectorCre
      */
     public InfrastructureRequiredRoleSelector<AssemblyInfrastructureConnectorCreator> withRequiringAssemblyContext(
             final AssemblyContext context) {
-        IllegalArgumentException.requireNonNull(context, "The given AssemblyContext must not be null.");
+        IllegalArgumentException.throwIfNull(context, "The given AssemblyContext must not be null.");
         return new InfrastructureRequiredRoleSelector<>((reqContext, role) -> {
             AssemblyInfrastructureConnectorCreator.this.requiringContext = reqContext;
             AssemblyInfrastructureConnectorCreator.this.requiredRole = role;
@@ -77,7 +77,7 @@ public class AssemblyInfrastructureConnectorCreator extends AbstractConnectorCre
      */
     public InfrastructureProvidedRoleSelector<AssemblyInfrastructureConnectorCreator> withProvidingAssemblyContext(
             final AssemblyContext context) {
-        IllegalArgumentException.requireNonNull(context, "The given AssemblyContext must not be null.");
+        IllegalArgumentException.throwIfNull(context, "The given AssemblyContext must not be null.");
         final var creator = this;
         return new InfrastructureProvidedRoleSelector<>((provContext, role) -> {
             AssemblyInfrastructureConnectorCreator.this.providingContext = provContext;

@@ -149,21 +149,21 @@ public class SeffCreator extends RepositoryEntity implements Seff, ActionSeff, S
 
     @Override
     public SeffCreator onSignature(final Signature signature) {
-        IllegalArgumentException.requireNonNull(signature, "signature must not be null");
+        IllegalArgumentException.throwIfNull(signature, "signature must not be null");
         this.signature = signature;
         return this;
     }
 
     @Override
     public SeffCreator withSeffTypeID(final String seffTypeID) {
-        IllegalArgumentException.requireNonNull(seffTypeID, "seffTypeID must not be null");
+        IllegalArgumentException.throwIfNull(seffTypeID, "seffTypeID must not be null");
         this.seffTypeID = seffTypeID;
         return this;
     }
 
     @Override
     public SeffCreator withInternalBehaviour(final InternalSeff internalBehaviour) {
-        IllegalArgumentException.requireNonNull(internalBehaviour, "internalBehaviour must not be null");
+        IllegalArgumentException.throwIfNull(internalBehaviour, "internalBehaviour must not be null");
         internalBehaviours.add(internalBehaviour);
         return this;
     }
@@ -175,21 +175,21 @@ public class SeffCreator extends RepositoryEntity implements Seff, ActionSeff, S
 
     @Override
     public SeffCreator withFailureType(final Failure failure) {
-        IllegalArgumentException.requireNonNull(failure, "failure must not be null");
+        IllegalArgumentException.throwIfNull(failure, "failure must not be null");
         final FailureType f = repository.getFailureType(failure);
         return this.withFailureType(f);
     }
 
     @Override
     public SeffCreator withFailureType(final FailureType failureType) {
-        IllegalArgumentException.requireNonNull(failureType, "failureType must not be null");
+        IllegalArgumentException.throwIfNull(failureType, "failureType must not be null");
         failures.add(failureType);
         return this;
     }
 
     @Override
     public SeffCreator withAlternativeRecoveryBehaviour(final RecoveryActionBehaviour recoveryBehaviour) {
-        IllegalArgumentException.requireNonNull(recoveryBehaviour, "recoveryBehaviour must not be null");
+        IllegalArgumentException.throwIfNull(recoveryBehaviour, "recoveryBehaviour must not be null");
         alternatives.add(recoveryBehaviour);
         return this;
     }

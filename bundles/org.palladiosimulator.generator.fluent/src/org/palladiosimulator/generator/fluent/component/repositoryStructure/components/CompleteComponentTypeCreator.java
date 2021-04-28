@@ -213,7 +213,7 @@ public class CompleteComponentTypeCreator extends Component {
      * @see org.palladiosimulator.pcm.repository.ProvidesComponentType
      */
     public CompleteComponentTypeCreator conforms(final ProvidesComponentTypeCreator providesComponentType) {
-        IllegalArgumentException.requireNonNull(providesComponentType, "providesComponentType must not be null");
+        IllegalArgumentException.throwIfNull(providesComponentType, "providesComponentType must not be null");
         final ProvidesComponentType pct = providesComponentType.build();
         repository.addComponent(pct);
         return this.conforms(pct);
@@ -243,7 +243,7 @@ public class CompleteComponentTypeCreator extends Component {
      * @see org.palladiosimulator.pcm.repository.ProvidesComponentType
      */
     public CompleteComponentTypeCreator conforms(final ProvidesComponentType providesComponentType) {
-        IllegalArgumentException.requireNonNull(providesComponentType, "providesComponentType must not be null");
+        IllegalArgumentException.throwIfNull(providesComponentType, "providesComponentType must not be null");
         conformsProvidedTypes.add(providesComponentType);
         return this;
     }

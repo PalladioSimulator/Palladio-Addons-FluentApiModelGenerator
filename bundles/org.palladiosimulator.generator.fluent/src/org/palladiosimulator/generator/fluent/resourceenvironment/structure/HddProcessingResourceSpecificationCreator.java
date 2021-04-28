@@ -136,7 +136,7 @@ public class HddProcessingResourceSpecificationCreator {
      * @see org.palladiosimulator.pcm.resourceenvironment.ProcessingResourceSpecification
      */
     public HddProcessingResourceSpecificationCreator withProcessingRate(final String processingRate) {
-        IllegalArgumentException.requireNonNull(processingRate, "The given processingRate must not be null");
+        IllegalArgumentException.throwIfNull(processingRate, "The given processingRate must not be null");
         final PCMRandomVariable randomVariable = CoreFactory.eINSTANCE.createPCMRandomVariable();
         randomVariable.setSpecification(processingRate);
         processingRateVariable = randomVariable;
@@ -153,7 +153,7 @@ public class HddProcessingResourceSpecificationCreator {
      * @see org.palladiosimulator.pcm.resourceenvironment.HDDProcessingResourceSpecification
      */
     public HddProcessingResourceSpecificationCreator withWriteProcessingRate(final String writeProcessingRate) {
-        IllegalArgumentException.requireNonNull(writeProcessingRate, "The given writeProcessingRate must not be null");
+        IllegalArgumentException.throwIfNull(writeProcessingRate, "The given writeProcessingRate must not be null");
         final PCMRandomVariable randomVariable = CoreFactory.eINSTANCE.createPCMRandomVariable();
         randomVariable.setSpecification(writeProcessingRate);
         this.writeProcessingRate = randomVariable;
@@ -170,7 +170,7 @@ public class HddProcessingResourceSpecificationCreator {
      * @see org.palladiosimulator.pcm.resourceenvironment.HDDProcessingResourceSpecification
      */
     public HddProcessingResourceSpecificationCreator withReadProcessingRate(final String readProcessingRate) {
-        IllegalArgumentException.requireNonNull(readProcessingRate, "The given readProcessingRate must not be null");
+        IllegalArgumentException.throwIfNull(readProcessingRate, "The given readProcessingRate must not be null");
         final PCMRandomVariable randomVariable = CoreFactory.eINSTANCE.createPCMRandomVariable();
         randomVariable.setSpecification(readProcessingRate);
         this.readProcessingRate = randomVariable;

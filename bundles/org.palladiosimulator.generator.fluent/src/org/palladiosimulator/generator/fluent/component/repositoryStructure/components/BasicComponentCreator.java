@@ -71,7 +71,7 @@ public class BasicComponentCreator extends Component {
      * @return the basic component in the making
      */
     public BasicComponentCreator ofType(final ComponentType type) {
-        IllegalArgumentException.requireNonNull(type, "type must not be null");
+        IllegalArgumentException.throwIfNull(type, "type must not be null");
         this.type = type;
         return this;
     }
@@ -240,7 +240,7 @@ public class BasicComponentCreator extends Component {
      * @see org.palladiosimulator.pcm.repository.CompleteComponentType
      */
     public BasicComponentCreator conforms(final CompleteComponentTypeCreator completeComponentType) {
-        IllegalArgumentException.requireNonNull(completeComponentType, "completeComponentType must not be null");
+        IllegalArgumentException.throwIfNull(completeComponentType, "completeComponentType must not be null");
         final CompleteComponentType cct = completeComponentType.build();
         repository.addComponent(cct);
         return this.conforms(cct);
@@ -268,7 +268,7 @@ public class BasicComponentCreator extends Component {
      * @see org.palladiosimulator.pcm.repository.CompleteComponentType
      */
     public BasicComponentCreator conforms(final CompleteComponentType completeComponentType) {
-        IllegalArgumentException.requireNonNull(completeComponentType, "completeComponentType must not be null");
+        IllegalArgumentException.throwIfNull(completeComponentType, "completeComponentType must not be null");
         conformsCompleteTypes.add(completeComponentType);
         return this;
     }
@@ -294,9 +294,9 @@ public class BasicComponentCreator extends Component {
      */
     public BasicComponentCreator withPassiveResource(final String capacityStochasticExpression,
             final ResourceTimeoutFailureType failureType, final String name) {
-        IllegalArgumentException.requireNonNull(capacityStochasticExpression,
+        IllegalArgumentException.throwIfNull(capacityStochasticExpression,
                 "capacity_stochasticExpression must not be null");
-        IllegalArgumentException.requireNonNull(failureType, "failureType must not be null");
+        IllegalArgumentException.throwIfNull(failureType, "failureType must not be null");
 
         final PCMRandomVariable randVar = CoreFactory.eINSTANCE.createPCMRandomVariable();
         randVar.setSpecification(capacityStochasticExpression);
@@ -353,7 +353,7 @@ public class BasicComponentCreator extends Component {
      * @see org.palladiosimulator.pcm.seff.ResourceDemandingSEFF
      */
     public BasicComponentCreator withServiceEffectSpecification(final Seff seff) {
-        IllegalArgumentException.requireNonNull(seff, "seff must not be null");
+        IllegalArgumentException.throwIfNull(seff, "seff must not be null");
         final ServiceEffectSpecification sEfF = seff.build();
         seffs.add(sEfF);
         return this;
@@ -380,7 +380,7 @@ public class BasicComponentCreator extends Component {
      * @see org.palladiosimulator.pcm.parameter.VariableUsage
      */
     public BasicComponentCreator withVariableUsage(final VariableUsageCreator variableUsage) {
-        IllegalArgumentException.requireNonNull(variableUsage, "variableUsage must not be null");
+        IllegalArgumentException.throwIfNull(variableUsage, "variableUsage must not be null");
         componentParameterUsages.add(variableUsage.build());
         return this;
     }

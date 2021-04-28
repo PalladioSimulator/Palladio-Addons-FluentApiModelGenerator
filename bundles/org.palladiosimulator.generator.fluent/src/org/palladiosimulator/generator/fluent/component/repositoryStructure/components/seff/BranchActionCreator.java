@@ -65,9 +65,9 @@ public class BranchActionCreator extends GeneralAction {
      */
     public BranchActionCreator withGuardedBranchTransition(final String branchConditionStochasticExpression,
             final Seff branchActions, final String name) {
-        IllegalArgumentException.requireNonNull(branchConditionStochasticExpression,
+        IllegalArgumentException.throwIfNull(branchConditionStochasticExpression,
                 "branchCondition_stochasticExpression must not be null");
-        IllegalArgumentException.requireNonNull(branchActions, "branchActions must not be null");
+        IllegalArgumentException.throwIfNull(branchActions, "branchActions must not be null");
         final GuardedBranchTransition branch = SeffFactory.eINSTANCE.createGuardedBranchTransition();
 
         if (name != null) {
@@ -132,7 +132,7 @@ public class BranchActionCreator extends GeneralAction {
      */
     public BranchActionCreator withProbabilisticBranchTransition(final double branchProbability,
             final SeffCreator branchActions, final String name) {
-        IllegalArgumentException.requireNonNull(branchActions, "branchActions must not be null");
+        IllegalArgumentException.throwIfNull(branchActions, "branchActions must not be null");
 
         final ProbabilisticBranchTransition branch = SeffFactory.eINSTANCE.createProbabilisticBranchTransition();
 

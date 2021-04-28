@@ -35,7 +35,7 @@ public class ResourceRequiredDelegationConnectorCreator {
      * @see org.palladiosimulator.pcm.core.entity.ResourceRequiredRole
      */
     public ResourceRequiredDelegationConnectorCreator withOuterRequiredRole(final ResourceRequiredRole role) {
-        IllegalArgumentException.requireNonNull(role, "The given Role must not be null.");
+        IllegalArgumentException.throwIfNull(role, "The given Role must not be null.");
         outerRequiredRole = role;
         return this;
     }
@@ -68,7 +68,7 @@ public class ResourceRequiredDelegationConnectorCreator {
      * @see org.palladiosimulator.pcm.core.entity.ResourceRequiredRole
      */
     public ResourceRequiredDelegationConnectorCreator withInnerRequiredRole(final ResourceRequiredRole role) {
-        IllegalArgumentException.requireNonNull(role, "The given Role must not be null.");
+        IllegalArgumentException.throwIfNull(role, "The given Role must not be null.");
         innerRequiredRole = role;
         return this;
     }

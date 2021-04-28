@@ -46,7 +46,7 @@ public class ReleaseActionCreator extends GeneralAction {
      * @see org.palladiosimulator.generator.fluent.component.factory.FluentRepositoryFactory#fetchOfPassiveResource(String)
      */
     public ReleaseActionCreator withPassiveResource(final PassiveResource passiveResource) {
-        IllegalArgumentException.requireNonNull(passiveResource, "passiveResource must not be null");
+        IllegalArgumentException.throwIfNull(passiveResource, "passiveResource must not be null");
         this.passiveResource = passiveResource;
         return this;
     }

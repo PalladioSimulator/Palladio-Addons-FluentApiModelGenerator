@@ -55,7 +55,7 @@ public class InternalActionCreator extends GeneralAction {
      */
     public InternalActionCreator withInternalFailureOccurrenceDescription(final double failureProbability,
             final SoftwareInducedFailureType failureType) {
-        IllegalArgumentException.requireNonNull(failureType, "failureType must not be null");
+        IllegalArgumentException.throwIfNull(failureType, "failureType must not be null");
         final InternalFailureOccurrenceDescription failure = ReliabilityFactory.eINSTANCE
                 .createInternalFailureOccurrenceDescription();
         failure.setFailureProbability(failureProbability);

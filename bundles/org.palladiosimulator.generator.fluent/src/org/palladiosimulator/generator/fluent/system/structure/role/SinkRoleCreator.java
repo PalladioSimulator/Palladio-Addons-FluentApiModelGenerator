@@ -31,7 +31,7 @@ public class SinkRoleCreator extends SystemEntity {
      * @see org.palladiosimulator.pcm.repository.EventGroup
      */
     public SinkRoleCreator withEventGroup(final EventGroup eventGroup) {
-        IllegalArgumentException.requireNonNull(eventGroup, "The given EventGroup must not be null.");
+        IllegalArgumentException.throwIfNull(eventGroup, "The given EventGroup must not be null.");
         this.eventGroup = eventGroup;
         return this;
     }

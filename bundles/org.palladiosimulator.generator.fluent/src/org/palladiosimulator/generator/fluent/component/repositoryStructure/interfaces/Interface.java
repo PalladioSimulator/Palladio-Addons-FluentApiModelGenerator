@@ -42,7 +42,7 @@ public abstract class Interface extends RepositoryEntity {
      * @see org.palladiosimulator.pcm.repository.Interface
      */
     public Interface conforms(final org.palladiosimulator.pcm.repository.Interface parentInterface) {
-        IllegalArgumentException.requireNonNull(parentInterface, "parentInterface must not be null");
+        IllegalArgumentException.throwIfNull(parentInterface, "parentInterface must not be null");
         parentInterfaces.add(parentInterface);
         return this;
     }
@@ -76,8 +76,8 @@ public abstract class Interface extends RepositoryEntity {
      *      org.palladiosimulator.pcm.repository.Signature)
      */
     public Interface withRequiredCharacterisation(final Parameter parameter, final VariableCharacterisationType type) {
-        IllegalArgumentException.requireNonNull(parameter, "parameter must not be null");
-        IllegalArgumentException.requireNonNull(type, "type must not be null");
+        IllegalArgumentException.throwIfNull(parameter, "parameter must not be null");
+        IllegalArgumentException.throwIfNull(type, "type must not be null");
         final RequiredCharacterisation reqChar = RepositoryFactory.eINSTANCE.createRequiredCharacterisation();
         reqChar.setParameter(parameter);
         reqChar.setType(type);

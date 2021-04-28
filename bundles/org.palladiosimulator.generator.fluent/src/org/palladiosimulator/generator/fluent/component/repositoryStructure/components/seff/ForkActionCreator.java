@@ -53,7 +53,7 @@ public class ForkActionCreator extends GeneralAction {
      * @see org.palladiosimulator.generator.fluent.component.factory.FluentRepositoryFactory#newVariableUsage()
      */
     public ForkActionCreator withOutputParameterUsageAtSynchronisationPoint(final VariableUsageCreator variableUsage) {
-        IllegalArgumentException.requireNonNull(variableUsage, "variableUsage must not be null");
+        IllegalArgumentException.throwIfNull(variableUsage, "variableUsage must not be null");
         variableUsages.add(variableUsage.build());
         return this;
     }
@@ -67,7 +67,7 @@ public class ForkActionCreator extends GeneralAction {
      * @see org.palladiosimulator.generator.fluent.component.factory.FluentRepositoryFactory#newInternalBehaviour()
      */
     public ForkActionCreator withSynchronousForkedBehaviourAtSynchronisationPoint(final InternalSeff forkedBehaviour) {
-        IllegalArgumentException.requireNonNull(forkedBehaviour, "forkedBehaviour must not be null");
+        IllegalArgumentException.throwIfNull(forkedBehaviour, "forkedBehaviour must not be null");
         final ForkedBehaviour fork = forkedBehaviour.buildForkedBehaviour();
         synchronousForkedBehaviours.add(fork);
         return this;
@@ -82,7 +82,7 @@ public class ForkActionCreator extends GeneralAction {
      * @see org.palladiosimulator.generator.fluent.component.factory.FluentRepositoryFactory#newInternalBehaviour()
      */
     public ForkActionCreator withAsynchronousForkedBehaviour(final InternalSeff forkedBehaviour) {
-        IllegalArgumentException.requireNonNull(forkedBehaviour, "forkedBehaviour must not be null");
+        IllegalArgumentException.throwIfNull(forkedBehaviour, "forkedBehaviour must not be null");
         final ForkedBehaviour fork = forkedBehaviour.buildForkedBehaviour();
         asynchronousForkedBehaviours.add(fork);
         return this;

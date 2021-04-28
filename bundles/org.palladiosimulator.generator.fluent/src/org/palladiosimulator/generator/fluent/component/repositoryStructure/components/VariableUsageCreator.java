@@ -73,9 +73,9 @@ public class VariableUsageCreator extends RepositoryEntity {
      */
     public VariableUsageCreator withVariableCharacterisation(final String specificationStochasticExpression,
             final VariableCharacterisationType type) {
-        IllegalArgumentException.requireNonNull(specificationStochasticExpression,
+        IllegalArgumentException.throwIfNull(specificationStochasticExpression,
                 "specification_stochasticExpression must not be null");
-        IllegalArgumentException.requireNonNull(type, "type must not be null");
+        IllegalArgumentException.throwIfNull(type, "type must not be null");
         final VariableCharacterisation varchar = ParameterFactory.eINSTANCE.createVariableCharacterisation();
         final PCMRandomVariable rand = CoreFactory.eINSTANCE.createPCMRandomVariable();
         rand.setSpecification(specificationStochasticExpression);
@@ -103,7 +103,7 @@ public class VariableUsageCreator extends RepositoryEntity {
      * @see de.uka.ipd.sdq.stoex.AbstractNamedReference
      */
     public VariableUsageCreator withVariableReference(final String reference) {
-        IllegalArgumentException.requireNonNull(reference, "reference must not be null");
+        IllegalArgumentException.throwIfNull(reference, "reference must not be null");
         final VariableReference variableReference = StoexFactory.eINSTANCE.createVariableReference();
         variableReference.setReferenceName(reference);
         this.reference = variableReference;
@@ -132,10 +132,10 @@ public class VariableUsageCreator extends RepositoryEntity {
      * @see de.uka.ipd.sdq.stoex.AbstractNamedReference
      */
     public VariableUsageCreator withNamespaceReference(final String reference, final String... innerReferences) {
-        IllegalArgumentException.requireNonNull(reference, "reference must not be null");
+        IllegalArgumentException.throwIfNull(reference, "reference must not be null");
         if ((innerReferences != null) && (innerReferences.length > 0)) {
             for (final String element : innerReferences) {
-                IllegalArgumentException.requireNonNull(element, "inner references must not be null");
+                IllegalArgumentException.throwIfNull(element, "inner references must not be null");
             }
         }
 

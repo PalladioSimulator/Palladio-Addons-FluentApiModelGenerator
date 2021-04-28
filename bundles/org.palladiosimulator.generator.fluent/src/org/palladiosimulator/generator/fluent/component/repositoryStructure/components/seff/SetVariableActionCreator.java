@@ -47,7 +47,7 @@ public class SetVariableActionCreator extends GeneralAction {
      * @see org.palladiosimulator.generator.fluent.component.factory.FluentRepositoryFactory#newVariableUsage()
      */
     public SetVariableActionCreator withLocalVariableUsage(final VariableUsageCreator variableUsage) {
-        IllegalArgumentException.requireNonNull(variableUsage, "variableUsage must not be null");
+        IllegalArgumentException.throwIfNull(variableUsage, "variableUsage must not be null");
         localVariableUsages.add(variableUsage.build());
         return this;
     }

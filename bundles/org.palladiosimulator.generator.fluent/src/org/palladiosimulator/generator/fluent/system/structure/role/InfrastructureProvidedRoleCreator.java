@@ -35,7 +35,7 @@ public class InfrastructureProvidedRoleCreator extends SystemEntity {
      */
     public InfrastructureProvidedRoleCreator withProvidedInterface(
             final InfrastructureInterface infrastructureInterface) {
-        IllegalArgumentException.requireNonNull(infrastructureInterface, "The given Interface must not be null.");
+        IllegalArgumentException.throwIfNull(infrastructureInterface, "The given Interface must not be null.");
         providedInterface = infrastructureInterface;
         return this;
     }

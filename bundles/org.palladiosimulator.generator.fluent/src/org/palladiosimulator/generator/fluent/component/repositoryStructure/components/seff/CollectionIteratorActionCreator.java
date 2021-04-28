@@ -46,7 +46,7 @@ public class CollectionIteratorActionCreator extends GeneralAction {
      * @return this collection iterator action in the making
      */
     public CollectionIteratorActionCreator withParameter(final Parameter parameter) {
-        IllegalArgumentException.requireNonNull(parameter, "parameter must not be null");
+        IllegalArgumentException.throwIfNull(parameter, "parameter must not be null");
         this.parameter = parameter;
         return this;
     }
@@ -59,7 +59,7 @@ public class CollectionIteratorActionCreator extends GeneralAction {
      * @return this collection iterator action in the making
      */
     public CollectionIteratorActionCreator withLoopBody(final Seff loopBody) {
-        IllegalArgumentException.requireNonNull(loopBody, "loopBody must not be null");
+        IllegalArgumentException.throwIfNull(loopBody, "loopBody must not be null");
         this.loopBody = loopBody;
         return this;
     }

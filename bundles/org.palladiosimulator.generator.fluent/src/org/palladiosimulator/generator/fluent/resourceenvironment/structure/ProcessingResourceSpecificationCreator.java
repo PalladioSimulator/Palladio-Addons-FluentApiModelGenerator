@@ -127,7 +127,7 @@ public class ProcessingResourceSpecificationCreator {
      * @see org.palladiosimulator.pcm.resourceenvironment.ProcessingResourceSpecification
      */
     public ProcessingResourceSpecificationCreator withProcessingRate(final String processingRate) {
-        IllegalArgumentException.requireNonNull(processingRate, "The given processingRate must not be null");
+        IllegalArgumentException.throwIfNull(processingRate, "The given processingRate must not be null");
         final PCMRandomVariable randomVariable = CoreFactory.eINSTANCE.createPCMRandomVariable();
         randomVariable.setSpecification(processingRate);
         processingRateVariable = randomVariable;

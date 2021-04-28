@@ -36,7 +36,7 @@ public class RequiredDelegationConnectorCreator extends AbstractConnectorCreator
      * @see org.palladiosimulator.pcm.repository.OperationRequiredRole
      */
     public RequiredDelegationConnectorCreator withOuterRequiredRole(final OperationRequiredRole role) {
-        IllegalArgumentException.requireNonNull(role, "The given Role must not be null.");
+        IllegalArgumentException.throwIfNull(role, "The given Role must not be null.");
         outerRequiredRole = role;
         return this;
     }
@@ -69,7 +69,7 @@ public class RequiredDelegationConnectorCreator extends AbstractConnectorCreator
      */
     public OperationRequiredRoleSelector<RequiredDelegationConnectorCreator> withRequiringContext(
             final AssemblyContext context) {
-        IllegalArgumentException.requireNonNull(context, "The given AssemblyContext must not be null.");
+        IllegalArgumentException.throwIfNull(context, "The given AssemblyContext must not be null.");
         return new OperationRequiredRoleSelector<>((context1, role) -> {
             RequiredDelegationConnectorCreator.this.requringAssemblyContext = context1;
             RequiredDelegationConnectorCreator.this.innerRequiredRole = role;

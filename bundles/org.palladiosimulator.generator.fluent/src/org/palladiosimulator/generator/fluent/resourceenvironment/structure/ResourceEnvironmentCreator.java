@@ -65,14 +65,14 @@ public class ResourceEnvironmentCreator extends ResourceEntity implements IResou
 
     @Override
     public IResourceEnvironmentAddition addToResourceEnvironment(final ResourceContainerCreator resourceContainer) {
-        IllegalArgumentException.requireNonNull(resourceContainer, "The given ResourceContainer must not be null");
+        IllegalArgumentException.throwIfNull(resourceContainer, "The given ResourceContainer must not be null");
         resourceContainers.add(resourceContainer.build());
         return this;
     }
 
     @Override
     public IResourceEnvironmentAddition addToResourceEnvironment(final LinkingResourceCreator linkingResource) {
-        IllegalArgumentException.requireNonNull(linkingResource, "The given LinkingResource must not be null");
+        IllegalArgumentException.throwIfNull(linkingResource, "The given LinkingResource must not be null");
         linkingResources.add(linkingResource.build());
         return this;
     }
@@ -85,7 +85,7 @@ public class ResourceEnvironmentCreator extends ResourceEntity implements IResou
      * @return the matching <code>SchedulingPolicy</code>
      */
     public SchedulingPolicy getSchedulingPolicy(final SchedulingPolicies policy) {
-        IllegalArgumentException.requireNonNull(policy, "The given SchedulingPolicy must not be null");
+        IllegalArgumentException.throwIfNull(policy, "The given SchedulingPolicy must not be null");
         return resources.getSchedulingPolicies__ResourceRepository().stream()
                 .filter(x -> x.getEntityName().equals(policy.getPolicyName())).findFirst().get();
     }
@@ -99,7 +99,7 @@ public class ResourceEnvironmentCreator extends ResourceEntity implements IResou
      * @return the matching <code>ProcessingResourceType</code>
      */
     public ProcessingResourceType getProcessingResource(final ProcessingResource resource) {
-        IllegalArgumentException.requireNonNull(resource, "The given ProcessignResource must not be null");
+        IllegalArgumentException.throwIfNull(resource, "The given ProcessignResource must not be null");
         return (ProcessingResourceType) resources.getAvailableResourceTypes_ResourceRepository().stream()
                 .filter(x -> x.getEntityName().equals(resource.getResourceName())).findFirst().get();
     }
@@ -113,7 +113,7 @@ public class ResourceEnvironmentCreator extends ResourceEntity implements IResou
      * @return the matching <code>CommunicationLinkResourceType</code>
      */
     public CommunicationLinkResourceType getCommunicationLinkResource(final CommunicationLinkResource resource) {
-        IllegalArgumentException.requireNonNull(resource, "The given CommunicationLinkResource must not be null");
+        IllegalArgumentException.throwIfNull(resource, "The given CommunicationLinkResource must not be null");
         return (CommunicationLinkResourceType) resources.getAvailableResourceTypes_ResourceRepository().stream()
                 .filter(x -> x.getEntityName().equals(resource.getResourceName())).findFirst().get();
     }

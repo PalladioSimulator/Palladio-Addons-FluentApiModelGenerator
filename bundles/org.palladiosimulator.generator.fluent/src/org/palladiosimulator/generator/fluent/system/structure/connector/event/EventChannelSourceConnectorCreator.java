@@ -37,7 +37,7 @@ public class EventChannelSourceConnectorCreator extends AbstractConnectorCreator
      * @see org.palladiosimulator.pcm.repository.SourceRole
      */
     public EventChannelSourceConnectorCreator withEventChannel(final EventChannel eventChannel) {
-        IllegalArgumentException.requireNonNull(eventChannel, "The given EventChannel must not be null.");
+        IllegalArgumentException.throwIfNull(eventChannel, "The given EventChannel must not be null.");
         this.eventChannel = eventChannel;
         return this;
     }
@@ -70,7 +70,7 @@ public class EventChannelSourceConnectorCreator extends AbstractConnectorCreator
      */
     public SourceRoleSelector<EventChannelSourceConnectorCreator> withAssemblyContext(
             final AssemblyContext assemblyContext) {
-        IllegalArgumentException.requireNonNull(assemblyContext, "The given AssemblyContext must not be null.");
+        IllegalArgumentException.throwIfNull(assemblyContext, "The given AssemblyContext must not be null.");
         return new SourceRoleSelector<>((context, role) -> {
             EventChannelSourceConnectorCreator.this.assemblyContext = context;
             EventChannelSourceConnectorCreator.this.role = role;

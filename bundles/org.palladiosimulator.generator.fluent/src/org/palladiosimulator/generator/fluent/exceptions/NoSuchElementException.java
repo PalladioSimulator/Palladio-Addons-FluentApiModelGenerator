@@ -10,15 +10,7 @@ public class NoSuchElementException extends FluentApiException {
 
     private static final long serialVersionUID = -6262647326073807402L;
 
-    private static final String DEFAULT_MESSAGE = "";
-
-    public static <T> T requireNonNull(T obj) throws FluentApiException {
-        return requireNonNull(obj, DEFAULT_MESSAGE);
-    }
-
-    public static <T> T requireNonNull(T obj, String message) throws FluentApiException {
-        return requireNonNull(obj, () -> new NoSuchElementException(message));
-    }
+    private static final String DEFAULT_MESSAGE = "NoSuchElementException";
 
     /**
      * Constructs a new {@code NoSuchElementException} with {@code null} as its

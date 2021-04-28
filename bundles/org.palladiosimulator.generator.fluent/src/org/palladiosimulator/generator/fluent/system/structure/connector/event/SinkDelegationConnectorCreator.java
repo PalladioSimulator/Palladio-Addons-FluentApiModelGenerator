@@ -36,7 +36,7 @@ public class SinkDelegationConnectorCreator extends AbstractConnectorCreator {
      * @see org.palladiosimulator.pcm.repository.SinkRole
      */
     public SinkDelegationConnectorCreator withOuterSinkRole(final SinkRole role) {
-        IllegalArgumentException.requireNonNull(role, "The given Role must not be null.");
+        IllegalArgumentException.throwIfNull(role, "The given Role must not be null.");
         outerRole = role;
         return this;
     }
@@ -68,7 +68,7 @@ public class SinkDelegationConnectorCreator extends AbstractConnectorCreator {
      * @see org.palladiosimulator.pcm.repository.SinkRole
      */
     public SinkRoleSelector<SinkDelegationConnectorCreator> withAssemblyContext(final AssemblyContext context) {
-        IllegalArgumentException.requireNonNull(context, "The given AssemblyContext must not be null.");
+        IllegalArgumentException.throwIfNull(context, "The given AssemblyContext must not be null.");
         return new SinkRoleSelector<>((context1, role) -> {
             SinkDelegationConnectorCreator.this.assemblyContext = context1;
             SinkDelegationConnectorCreator.this.innerRole = role;

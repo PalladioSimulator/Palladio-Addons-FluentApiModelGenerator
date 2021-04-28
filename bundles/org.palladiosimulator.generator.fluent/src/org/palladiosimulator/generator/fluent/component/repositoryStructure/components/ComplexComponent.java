@@ -68,12 +68,11 @@ public abstract class ComplexComponent extends Component {
     public ComplexComponent withAssemblyContext(final RepositoryComponent encapsulatedComponent, final String name,
             final VariableUsageCreator... configParameterUsages) {
         // Null checks
-        IllegalArgumentException.requireNonNull(encapsulatedComponent, "encapsulatedComponent must not be null");
-        IllegalArgumentException.requireNonNull(configParameterUsages, "config parameter usages must not be null");
+        IllegalArgumentException.throwIfNull(encapsulatedComponent, "encapsulatedComponent must not be null");
+        IllegalArgumentException.throwIfNull(configParameterUsages, "config parameter usages must not be null");
         if (configParameterUsages.length > 0) {
             for (final VariableUsageCreator configParameterUsage : configParameterUsages) {
-                IllegalArgumentException.requireNonNull(configParameterUsage,
-                        "config parameter usages must not be null");
+                IllegalArgumentException.throwIfNull(configParameterUsage, "config parameter usages must not be null");
             }
         }
 
@@ -131,7 +130,7 @@ public abstract class ComplexComponent extends Component {
      * @see org.palladiosimulator.generator.fluent.component.factory.FluentRepositoryFactory#fetchOfEventGroup(String)
      */
     public ComplexComponent withEventChannel(final EventGroup eventGroup, final String name) {
-        IllegalArgumentException.requireNonNull(eventGroup, "eventGroup must not be null");
+        IllegalArgumentException.throwIfNull(eventGroup, "eventGroup must not be null");
         final EventChannel eventChannel = CompositionFactory.eINSTANCE.createEventChannel();
         if (name != null) {
             eventChannel.setEntityName(name);
@@ -192,10 +191,10 @@ public abstract class ComplexComponent extends Component {
     public ComplexComponent withAssemblyConnection(final OperationProvidedRole providedRole,
             final AssemblyContext providingAssemblyContext, final OperationRequiredRole requiredRole,
             final AssemblyContext requiringAssemblyContext) {
-        IllegalArgumentException.requireNonNull(providedRole, "providedRole must not be null");
-        IllegalArgumentException.requireNonNull(providingAssemblyContext, "providingAssemblyContext must not be null");
-        IllegalArgumentException.requireNonNull(requiredRole, "requiredRole must not be null");
-        IllegalArgumentException.requireNonNull(requiringAssemblyContext, "requiringAssemblyContext must not be null");
+        IllegalArgumentException.throwIfNull(providedRole, "providedRole must not be null");
+        IllegalArgumentException.throwIfNull(providingAssemblyContext, "providingAssemblyContext must not be null");
+        IllegalArgumentException.throwIfNull(requiredRole, "requiredRole must not be null");
+        IllegalArgumentException.throwIfNull(requiringAssemblyContext, "requiringAssemblyContext must not be null");
         final AssemblyConnector assemblyConnector = CompositionFactory.eINSTANCE.createAssemblyConnector();
 
         assemblyConnector.setProvidedRole_AssemblyConnector(providedRole);
@@ -229,9 +228,9 @@ public abstract class ComplexComponent extends Component {
      */
     public ComplexComponent withProvidedDelegationConnection(final AssemblyContext assemblyContext,
             final OperationProvidedRole innerProvidedRole, final OperationProvidedRole outerProvidedRole) {
-        IllegalArgumentException.requireNonNull(assemblyContext, "assemblyContext must not be null");
-        IllegalArgumentException.requireNonNull(innerProvidedRole, "innerProvidedRole must not be null");
-        IllegalArgumentException.requireNonNull(outerProvidedRole, "outerProvidedRole must not be null");
+        IllegalArgumentException.throwIfNull(assemblyContext, "assemblyContext must not be null");
+        IllegalArgumentException.throwIfNull(innerProvidedRole, "innerProvidedRole must not be null");
+        IllegalArgumentException.throwIfNull(outerProvidedRole, "outerProvidedRole must not be null");
         final ProvidedDelegationConnector connector = CompositionFactory.eINSTANCE.createProvidedDelegationConnector();
 
         connector.setAssemblyContext_ProvidedDelegationConnector(assemblyContext);
@@ -264,9 +263,9 @@ public abstract class ComplexComponent extends Component {
      */
     public ComplexComponent withRequiredDelegationConnection(final AssemblyContext assemblyContext,
             final OperationRequiredRole innerRequiredRole, final OperationRequiredRole outerRequiredRole) {
-        IllegalArgumentException.requireNonNull(assemblyContext, "assemblyContext must not be null");
-        IllegalArgumentException.requireNonNull(innerRequiredRole, "innerRequiredRole must not be null");
-        IllegalArgumentException.requireNonNull(outerRequiredRole, "outerRequiredRole must not be null");
+        IllegalArgumentException.throwIfNull(assemblyContext, "assemblyContext must not be null");
+        IllegalArgumentException.throwIfNull(innerRequiredRole, "innerRequiredRole must not be null");
+        IllegalArgumentException.throwIfNull(outerRequiredRole, "outerRequiredRole must not be null");
         final RequiredDelegationConnector connector = CompositionFactory.eINSTANCE.createRequiredDelegationConnector();
 
         connector.setAssemblyContext_RequiredDelegationConnector(assemblyContext);
@@ -307,11 +306,11 @@ public abstract class ComplexComponent extends Component {
     public ComplexComponent withAssemblyEventConnection(final SinkRole sinkRole,
             final AssemblyContext sinkAssemblyContext, final SourceRole sourceRole,
             final AssemblyContext sourceAssemblyContext, final String filterConditionStochasticExpression) {
-        IllegalArgumentException.requireNonNull(sinkRole, "sinkRole must not be null");
-        IllegalArgumentException.requireNonNull(sinkAssemblyContext, "sinkAssemblyContext must not be null");
-        IllegalArgumentException.requireNonNull(sourceRole, "sourceRole must not be null");
-        IllegalArgumentException.requireNonNull(sourceAssemblyContext, "sourceAssemblyContext must not be null");
-        IllegalArgumentException.requireNonNull(filterConditionStochasticExpression,
+        IllegalArgumentException.throwIfNull(sinkRole, "sinkRole must not be null");
+        IllegalArgumentException.throwIfNull(sinkAssemblyContext, "sinkAssemblyContext must not be null");
+        IllegalArgumentException.throwIfNull(sourceRole, "sourceRole must not be null");
+        IllegalArgumentException.throwIfNull(sourceAssemblyContext, "sourceAssemblyContext must not be null");
+        IllegalArgumentException.throwIfNull(filterConditionStochasticExpression,
                 "filterCondition_stochasticExpression must not be null");
         final AssemblyEventConnector connector = CompositionFactory.eINSTANCE.createAssemblyEventConnector();
 
@@ -350,10 +349,10 @@ public abstract class ComplexComponent extends Component {
     public ComplexComponent withEventChannelSinkConnection(final AssemblyContext assemblyContext,
             final EventChannel eventChannel, final SinkRole sinkRole,
             final String filterConditionStochasticExpression) {
-        IllegalArgumentException.requireNonNull(assemblyContext, "assemblyContext must not be null");
-        IllegalArgumentException.requireNonNull(eventChannel, "eventChannel must not be null");
-        IllegalArgumentException.requireNonNull(sinkRole, "sinkRole must not be null");
-        IllegalArgumentException.requireNonNull(filterConditionStochasticExpression,
+        IllegalArgumentException.throwIfNull(assemblyContext, "assemblyContext must not be null");
+        IllegalArgumentException.throwIfNull(eventChannel, "eventChannel must not be null");
+        IllegalArgumentException.throwIfNull(sinkRole, "sinkRole must not be null");
+        IllegalArgumentException.throwIfNull(filterConditionStochasticExpression,
                 "filterCondition_stochasticExpression must not be null");
         final EventChannelSinkConnector connector = CompositionFactory.eINSTANCE.createEventChannelSinkConnector();
 
@@ -390,9 +389,9 @@ public abstract class ComplexComponent extends Component {
      */
     public ComplexComponent withEventChannelSourceConnection(final AssemblyContext assemblyContext,
             final EventChannel eventChannel, final SourceRole sourceRole) {
-        IllegalArgumentException.requireNonNull(assemblyContext, "assemblyContext must not be null");
-        IllegalArgumentException.requireNonNull(eventChannel, "eventChannel must not be null");
-        IllegalArgumentException.requireNonNull(sourceRole, "sourceRole must not be null");
+        IllegalArgumentException.throwIfNull(assemblyContext, "assemblyContext must not be null");
+        IllegalArgumentException.throwIfNull(eventChannel, "eventChannel must not be null");
+        IllegalArgumentException.throwIfNull(sourceRole, "sourceRole must not be null");
         final EventChannelSourceConnector connector = CompositionFactory.eINSTANCE.createEventChannelSourceConnector();
 
         connector.setAssemblyContext__EventChannelSourceConnector(assemblyContext);
@@ -426,9 +425,9 @@ public abstract class ComplexComponent extends Component {
      */
     public ComplexComponent withSinkDelegationConnection(final AssemblyContext assemblyContext,
             final SinkRole innerSinkRole, final SinkRole outerSinkRole) {
-        IllegalArgumentException.requireNonNull(assemblyContext, "assemblyContext must not be null");
-        IllegalArgumentException.requireNonNull(innerSinkRole, "innerSinkRole must not be null");
-        IllegalArgumentException.requireNonNull(outerSinkRole, "outerSinkRole must not be null");
+        IllegalArgumentException.throwIfNull(assemblyContext, "assemblyContext must not be null");
+        IllegalArgumentException.throwIfNull(innerSinkRole, "innerSinkRole must not be null");
+        IllegalArgumentException.throwIfNull(outerSinkRole, "outerSinkRole must not be null");
         final SinkDelegationConnector connector = CompositionFactory.eINSTANCE.createSinkDelegationConnector();
 
         connector.setAssemblyContext__SinkDelegationConnector(assemblyContext);
@@ -462,9 +461,9 @@ public abstract class ComplexComponent extends Component {
      */
     public ComplexComponent withSourceDelegationConnection(final AssemblyContext assemblyContext,
             final SourceRole innerSourceRole, final SourceRole outerSourceRole) {
-        IllegalArgumentException.requireNonNull(assemblyContext, "assemblyContext must not be null");
-        IllegalArgumentException.requireNonNull(innerSourceRole, "innerSourceRole must not be null");
-        IllegalArgumentException.requireNonNull(outerSourceRole, "outerSourceRole must not be null");
+        IllegalArgumentException.throwIfNull(assemblyContext, "assemblyContext must not be null");
+        IllegalArgumentException.throwIfNull(innerSourceRole, "innerSourceRole must not be null");
+        IllegalArgumentException.throwIfNull(outerSourceRole, "outerSourceRole must not be null");
         final SourceDelegationConnector connector = CompositionFactory.eINSTANCE.createSourceDelegationConnector();
 
         connector.setAssemblyContext__SourceDelegationConnector(assemblyContext);
@@ -497,10 +496,10 @@ public abstract class ComplexComponent extends Component {
     public ComplexComponent withAssemblyInfrastructureConnection(final InfrastructureProvidedRole providedRole,
             final AssemblyContext providingAssemblyContext, final InfrastructureRequiredRole requiredRole,
             final AssemblyContext requiringAssemblyContext) {
-        IllegalArgumentException.requireNonNull(providedRole, "providedRole must not be null");
-        IllegalArgumentException.requireNonNull(providingAssemblyContext, "providingAssemblyContext must not be null");
-        IllegalArgumentException.requireNonNull(requiredRole, "requiredRole must not be null");
-        IllegalArgumentException.requireNonNull(requiringAssemblyContext, "requiringAssemblyContext must not be null");
+        IllegalArgumentException.throwIfNull(providedRole, "providedRole must not be null");
+        IllegalArgumentException.throwIfNull(providingAssemblyContext, "providingAssemblyContext must not be null");
+        IllegalArgumentException.throwIfNull(requiredRole, "requiredRole must not be null");
+        IllegalArgumentException.throwIfNull(requiringAssemblyContext, "requiringAssemblyContext must not be null");
         final AssemblyInfrastructureConnector connector = CompositionFactory.eINSTANCE
                 .createAssemblyInfrastructureConnector();
 
@@ -531,9 +530,9 @@ public abstract class ComplexComponent extends Component {
      */
     public ComplexComponent withProvidedInfrastructureDelegationConnection(final AssemblyContext assemblyContext,
             final InfrastructureProvidedRole innerProvidedRole, final InfrastructureProvidedRole outerProvidedRole) {
-        IllegalArgumentException.requireNonNull(assemblyContext, "assemblyContext must not be null");
-        IllegalArgumentException.requireNonNull(innerProvidedRole, "innerProvidedRole must not be null");
-        IllegalArgumentException.requireNonNull(outerProvidedRole, "outerProvidedRole must not be null");
+        IllegalArgumentException.throwIfNull(assemblyContext, "assemblyContext must not be null");
+        IllegalArgumentException.throwIfNull(innerProvidedRole, "innerProvidedRole must not be null");
+        IllegalArgumentException.throwIfNull(outerProvidedRole, "outerProvidedRole must not be null");
         final ProvidedInfrastructureDelegationConnector connector = CompositionFactory.eINSTANCE
                 .createProvidedInfrastructureDelegationConnector();
         connector.setAssemblyContext__ProvidedInfrastructureDelegationConnector(assemblyContext);
@@ -562,9 +561,9 @@ public abstract class ComplexComponent extends Component {
      */
     public ComplexComponent withRequiredInfrastructureDelegationConnection(final AssemblyContext assemblyContext,
             final InfrastructureRequiredRole innerRequiredRole, final InfrastructureRequiredRole outerRequiredRole) {
-        IllegalArgumentException.requireNonNull(assemblyContext, "assemblyContext must not be null");
-        IllegalArgumentException.requireNonNull(innerRequiredRole, "innerRequiredRole must not be null");
-        IllegalArgumentException.requireNonNull(outerRequiredRole, "outerRequiredRole must not be null");
+        IllegalArgumentException.throwIfNull(assemblyContext, "assemblyContext must not be null");
+        IllegalArgumentException.throwIfNull(innerRequiredRole, "innerRequiredRole must not be null");
+        IllegalArgumentException.throwIfNull(outerRequiredRole, "outerRequiredRole must not be null");
         final RequiredInfrastructureDelegationConnector connector = CompositionFactory.eINSTANCE
                 .createRequiredInfrastructureDelegationConnector();
         connector.setAssemblyContext__RequiredInfrastructureDelegationConnector(assemblyContext);
@@ -593,9 +592,9 @@ public abstract class ComplexComponent extends Component {
      */
     public ComplexComponent withRequiredResourceDelegationConnection(final AssemblyContext assemblyContext,
             final ResourceRequiredRole innerRequiredRole, final ResourceRequiredRole outerRequiredRole) {
-        IllegalArgumentException.requireNonNull(assemblyContext, "assemblyContext must not be null");
-        IllegalArgumentException.requireNonNull(innerRequiredRole, "innerRequiredRole must not be null");
-        IllegalArgumentException.requireNonNull(outerRequiredRole, "outerRequiredRole must not be null");
+        IllegalArgumentException.throwIfNull(assemblyContext, "assemblyContext must not be null");
+        IllegalArgumentException.throwIfNull(innerRequiredRole, "innerRequiredRole must not be null");
+        IllegalArgumentException.throwIfNull(outerRequiredRole, "outerRequiredRole must not be null");
         final RequiredResourceDelegationConnector connector = CompositionFactory.eINSTANCE
                 .createRequiredResourceDelegationConnector();
         connector.setAssemblyContext__RequiredResourceDelegationConnector(assemblyContext);
@@ -622,8 +621,8 @@ public abstract class ComplexComponent extends Component {
      */
     public ComplexComponent resourceRequiredDegelationConnection(final ResourceRequiredRole innerRequiredRole,
             final ResourceRequiredRole outerRequiredRole) {
-        IllegalArgumentException.requireNonNull(innerRequiredRole, "innerRequiredRole must not be null");
-        IllegalArgumentException.requireNonNull(outerRequiredRole, "outerRequiredRole must not be null");
+        IllegalArgumentException.throwIfNull(innerRequiredRole, "innerRequiredRole must not be null");
+        IllegalArgumentException.throwIfNull(outerRequiredRole, "outerRequiredRole must not be null");
         final ResourceRequiredDelegationConnector connector = CompositionFactory.eINSTANCE
                 .createResourceRequiredDelegationConnector();
         connector.setInnerResourceRequiredRole_ResourceRequiredDelegationConnector(innerRequiredRole);

@@ -10,7 +10,7 @@ public class IllegalArgumentException extends FluentApiException {
 
     private static final long serialVersionUID = -6262647326073807402L;
 
-    private static final String DEFAULT_MESSAGE = "";
+    private static final String DEFAULT_MESSAGE = "IllegalArgumentException";
 
     /**
      * Checks that the specified object reference is not {@code null}. This method
@@ -20,10 +20,10 @@ public class IllegalArgumentException extends FluentApiException {
      * @param obj the object reference to check for nullity
      * @param <T> the type of the reference
      * @return {@code obj} if not {@code null}
-     * @throws FluentApiException if {@code obj} is {@code null}
+     * @throws IllegalArgumentException if {@code obj} is {@code null}
      */
-    public static <T> T requireNonNull(T obj) throws FluentApiException {
-        return requireNonNull(obj, DEFAULT_MESSAGE);
+    public static <T> T throwIfNull(T obj) throws IllegalArgumentException {
+        return throwIfNull(obj, DEFAULT_MESSAGE);
     }
 
     /**
@@ -37,9 +37,9 @@ public class IllegalArgumentException extends FluentApiException {
      *                IllegalArgumentException} is thrown
      * @param <T>     the type of the reference
      * @return {@code obj} if not {@code null}
-     * @throws FluentApiException if {@code obj} is {@code null}
+     * @throws IllegalArgumentException if {@code obj} is {@code null}
      */
-    public static <T> T requireNonNull(T obj, String message) throws FluentApiException {
+    public static <T> T throwIfNull(T obj, String message) throws IllegalArgumentException {
         return requireNonNull(obj, () -> new IllegalArgumentException(message));
     }
 

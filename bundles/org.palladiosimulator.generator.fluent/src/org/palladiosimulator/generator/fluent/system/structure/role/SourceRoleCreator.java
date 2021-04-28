@@ -31,7 +31,7 @@ public class SourceRoleCreator extends SystemEntity {
      * @see org.palladiosimulator.pcm.repository.EventGroup
      */
     public SourceRoleCreator withEventGroup(final EventGroup eventGroup) {
-        IllegalArgumentException.requireNonNull(eventGroup, "The given EventGroup must not be null.");
+        IllegalArgumentException.throwIfNull(eventGroup, "The given EventGroup must not be null.");
         this.eventGroup = eventGroup;
         return this;
     }

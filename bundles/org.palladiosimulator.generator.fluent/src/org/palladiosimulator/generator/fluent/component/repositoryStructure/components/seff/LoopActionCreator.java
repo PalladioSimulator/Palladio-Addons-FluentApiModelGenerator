@@ -56,7 +56,7 @@ public class LoopActionCreator extends GeneralAction {
      * @see org.palladiosimulator.pcm.seff.LoopAction
      */
     public LoopActionCreator withIterationCount(final String iterationCountStochasticExpression) {
-        IllegalArgumentException.requireNonNull(iterationCountStochasticExpression,
+        IllegalArgumentException.throwIfNull(iterationCountStochasticExpression,
                 "iterationCount_stochasticExpression must not be null");
         final PCMRandomVariable rand = CoreFactory.eINSTANCE.createPCMRandomVariable();
         rand.setSpecification(iterationCountStochasticExpression);
@@ -78,7 +78,7 @@ public class LoopActionCreator extends GeneralAction {
      * @return this loop action in the making
      */
     public LoopActionCreator withLoopBody(final Seff loopBody) {
-        IllegalArgumentException.requireNonNull(loopBody, "loopBody must not be null");
+        IllegalArgumentException.throwIfNull(loopBody, "loopBody must not be null");
         this.loopBody = loopBody;
         return this;
     }

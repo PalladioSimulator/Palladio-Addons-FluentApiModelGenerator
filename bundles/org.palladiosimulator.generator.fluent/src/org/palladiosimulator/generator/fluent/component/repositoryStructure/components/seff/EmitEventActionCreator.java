@@ -50,7 +50,7 @@ public class EmitEventActionCreator extends SeffAction {
      * @see org.palladiosimulator.generator.fluent.component.factory.FluentRepositoryFactory#fetchOfEventType(String)
      */
     public EmitEventActionCreator withEventType(final EventType eventType) {
-        IllegalArgumentException.requireNonNull(eventType, "eventType must not be null");
+        IllegalArgumentException.throwIfNull(eventType, "eventType must not be null");
         this.eventType = eventType;
         return this;
     }
@@ -68,7 +68,7 @@ public class EmitEventActionCreator extends SeffAction {
      * @see org.palladiosimulator.generator.fluent.component.factory.FluentRepositoryFactory#fetchOfSourceRole(String)
      */
     public EmitEventActionCreator withSourceRole(final SourceRole sourceRole) {
-        IllegalArgumentException.requireNonNull(sourceRole, "sourceRole must not be null");
+        IllegalArgumentException.throwIfNull(sourceRole, "sourceRole must not be null");
         requiredRole = sourceRole;
         return this;
     }
@@ -82,7 +82,7 @@ public class EmitEventActionCreator extends SeffAction {
      * @see org.palladiosimulator.generator.fluent.component.factory.FluentRepositoryFactory#newVariableUsage()
      */
     public EmitEventActionCreator withInputVariableUsage(final VariableUsageCreator variableUsage) {
-        IllegalArgumentException.requireNonNull(variableUsage, "variableUsage must not be null");
+        IllegalArgumentException.throwIfNull(variableUsage, "variableUsage must not be null");
         inputVariableUsages.add(variableUsage.build());
         return this;
     }

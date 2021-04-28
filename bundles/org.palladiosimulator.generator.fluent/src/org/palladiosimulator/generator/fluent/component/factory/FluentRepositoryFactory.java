@@ -499,7 +499,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.generator.fluent.component.repositoryStructure.internals.Primitive
      */
     public CollectionDataType newCollectionDataType(final String name, final Primitive primitive) {
-        IllegalArgumentException.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
         final PrimitiveDataType p = repo.getPrimitiveDataType(primitive);
 
         final CollectionDataType coll = RepositoryFactory.eINSTANCE.createCollectionDataType();
@@ -534,7 +534,7 @@ public class FluentRepositoryFactory {
      */
     public static CollectionDataType newCollectionDataType(final String name,
             final org.palladiosimulator.pcm.repository.DataType dataType) {
-        IllegalArgumentException.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
         final CollectionDataType coll = RepositoryFactory.eINSTANCE.createCollectionDataType();
         coll.setEntityName(name);
         coll.setInnerType_CollectionDataType(dataType);
@@ -578,7 +578,7 @@ public class FluentRepositoryFactory {
      */
     public HardwareInducedFailureType newHardwareInducedFailureType(final String name,
             final ProcessingResource processingResource) {
-        IllegalArgumentException.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
         final HardwareInducedFailureType h = ReliabilityFactory.eINSTANCE.createHardwareInducedFailureType();
         h.setEntityName(name);
         h.setProcessingResourceType__HardwareInducedFailureType(repo.getProcessingResourceType(processingResource));
@@ -596,7 +596,7 @@ public class FluentRepositoryFactory {
      */
     public NetworkInducedFailureType newNetworkInducedFailureType(final String name,
             final CommunicationLinkResource communicationLinkResource) {
-        IllegalArgumentException.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
         final NetworkInducedFailureType n = ReliabilityFactory.eINSTANCE.createNetworkInducedFailureType();
         n.setEntityName(name);
         n.setCommunicationLinkResourceType__NetworkInducedFailureType(
@@ -612,7 +612,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.reliability.ResourceTimeoutFailureType
      */
     public ResourceTimeoutFailureTypeCreator newResourceTimeoutFailureType(final String name) {
-        IllegalArgumentException.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
         return new ResourceTimeoutFailureTypeCreator(name, repo);
     }
 
@@ -624,7 +624,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.reliability.SoftwareInducedFailureType
      */
     public static SoftwareInducedFailureType newSoftwareInducedFailureType(final String name) {
-        IllegalArgumentException.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
         final SoftwareInducedFailureType s = ReliabilityFactory.eINSTANCE.createSoftwareInducedFailureType();
         s.setEntityName(name);
         return s;
@@ -952,7 +952,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.CompositeDataType
      */
     public CompositeDataType fetchOfCompositeDataType(final String name) {
-        IllegalArgumentException.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
         final CompositeDataType dataType = repo.getCompositeDataType(name);
         if (dataType == null) {
             throw new FluentApiException("Composite data type '" + name + "' could not be found");
@@ -997,7 +997,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.DataType
      */
     public DataType fetchOfDataType(final String name) {
-        IllegalArgumentException.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
         DataType dataType = repo.getDataType(name);
         if (dataType == null) {
             dataType = repo.getPrimitiveDataType(name);
@@ -1075,7 +1075,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.reliability.FailureType
      */
     public FailureType fetchOfFailureType(final String name) {
-        IllegalArgumentException.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
         final FailureType f = repo.getFailureType(name);
         if (f == null) {
             throw new FluentApiException("Failure Type '" + name + "' could not be found");
@@ -1099,7 +1099,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.ExceptionType
      */
     public ExceptionType fetchOfExceptionType(final String name) {
-        IllegalArgumentException.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
         final ExceptionType e = repo.getExceptionType(name);
         if (e == null) {
             throw new FluentApiException("Failure Type '" + name + "' could not be found");
@@ -1125,7 +1125,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.RepositoryComponent
      */
     public RepositoryComponent fetchOfComponent(final String name) {
-        IllegalArgumentException.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
         final RepositoryComponent component = repo.getComponent(name);
         if (component == null) {
             throw new FluentApiException("Component '" + name + "' could not be found");
@@ -1151,7 +1151,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.BasicComponent
      */
     public BasicComponent fetchOfBasicComponent(final String name) {
-        IllegalArgumentException.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
         final BasicComponent component = repo.getBasicComponent(name);
         if (component == null) {
             throw new FluentApiException("BasicComponent '" + name + "' could not be found");
@@ -1177,7 +1177,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.CompositeComponent
      */
     public CompositeComponent fetchOfCompositeComponent(final String name) {
-        IllegalArgumentException.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
         final CompositeComponent component = repo.getCompositeComponent(name);
         if (component == null) {
             throw new FluentApiException("CompositeComponent '" + name + "' could not be found");
@@ -1203,7 +1203,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.subsystem.SubSystem
      */
     public SubSystem fetchOfSubSystem(final String name) {
-        IllegalArgumentException.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
         final SubSystem component = repo.getSubsystem(name);
         if (component == null) {
             throw new FluentApiException("Subsystem '" + name + "' could not be found");
@@ -1229,7 +1229,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.CompleteComponentType
      */
     public CompleteComponentType fetchOfCompleteComponentType(final String name) {
-        IllegalArgumentException.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
         final CompleteComponentType component = repo.getCompleteComponentType(name);
         if (component == null) {
             throw new FluentApiException("CompleteComponentType '" + name + "' could not be found");
@@ -1255,7 +1255,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.ProvidesComponentType
      */
     public ProvidesComponentType fetchOfProvidesComponentType(final String name) {
-        IllegalArgumentException.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
         final ProvidesComponentType component = repo.getProvidesComponentType(name);
         if (component == null) {
             throw new FluentApiException("ProvidesComponentType '" + name + "' could not be found");
@@ -1281,7 +1281,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.Interface
      */
     public Interface fetchOfInterface(final String name) {
-        IllegalArgumentException.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
         final Interface interfce = repo.getInterface(name);
         if (interfce == null) {
             throw new FluentApiException("Interface '" + name + "' could not be found");
@@ -1307,7 +1307,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.OperationInterface
      */
     public OperationInterface fetchOfOperationInterface(final String name) {
-        IllegalArgumentException.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
         final OperationInterface interfce = repo.getOperationInterface(name);
         if (interfce == null) {
             throw new FluentApiException("OperationInterface '" + name + "' could not be found");
@@ -1333,7 +1333,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.InfrastructureInterface
      */
     public InfrastructureInterface fetchOfInfrastructureInterface(final String name) {
-        IllegalArgumentException.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
         final InfrastructureInterface interfce = repo.getInfrastructureInterface(name);
         if (interfce == null) {
             throw new FluentApiException("InfrastructureInterface '" + name + "' could not be found");
@@ -1359,7 +1359,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.EventGroup
      */
     public EventGroup fetchOfEventGroup(final String name) {
-        IllegalArgumentException.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
         final EventGroup interfce = repo.getEventGroup(name);
         if (interfce == null) {
             throw new FluentApiException("EventGroup '" + name + "' could not be found");
@@ -1384,7 +1384,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.ProvidedRole
      */
     public ProvidedRole fetchOfProvidedRole(final String name) {
-        IllegalArgumentException.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
         final ProvidedRole provRole = repo.getProvidedRole(name);
         if (provRole == null) {
             throw new FluentApiException("ProvidedRole '" + name + "' could not be found");
@@ -1409,7 +1409,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.OperationProvidedRole
      */
     public OperationProvidedRole fetchOfOperationProvidedRole(final String name) {
-        IllegalArgumentException.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
         final OperationProvidedRole provRole = repo.getOperationProvidedRole(name);
         if (provRole == null) {
             throw new FluentApiException("ProvidedRole '" + name + "' could not be found");
@@ -1434,7 +1434,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.InfrastructureProvidedRole
      */
     public InfrastructureProvidedRole fetchOfInfrastructureProvidedRole(final String name) {
-        IllegalArgumentException.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
         final InfrastructureProvidedRole provRole = repo.getInfrastructureProvidedRole(name);
         if (provRole == null) {
             throw new FluentApiException("ProvidedRole '" + name + "' could not be found");
@@ -1459,7 +1459,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.SinkRole
      */
     public SinkRole fetchOfSinkRole(final String name) {
-        IllegalArgumentException.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
         final SinkRole provRole = repo.getSinkRole(name);
         if (provRole == null) {
             throw new FluentApiException("SinkRole '" + name + "' could not be found");
@@ -1484,7 +1484,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.RequiredRole
      */
     public RequiredRole fetchOfRequiredRole(final String name) {
-        IllegalArgumentException.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
         final RequiredRole reqRole = repo.getRequiredRole(name);
         if (reqRole == null) {
             throw new FluentApiException("RequiredRole '" + name + "' could not be found");
@@ -1509,7 +1509,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.OperationRequiredRole
      */
     public OperationRequiredRole fetchOfOperationRequiredRole(final String name) {
-        IllegalArgumentException.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
         final OperationRequiredRole reqRole = repo.getOperationRequiredRole(name);
         if (reqRole == null) {
             throw new FluentApiException("RequiredRole '" + name + "' could not be found");
@@ -1534,7 +1534,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.InfrastructureRequiredRole
      */
     public InfrastructureRequiredRole fetchOfInfrastructureRequiredRole(final String name) {
-        IllegalArgumentException.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
         final InfrastructureRequiredRole reqRole = repo.getInfrastructureRequiredRole(name);
         if (reqRole == null) {
             throw new FluentApiException("RequiredRole '" + name + "' could not be found");
@@ -1559,7 +1559,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.SourceRole
      */
     public SourceRole fetchOfSourceRole(final String name) {
-        IllegalArgumentException.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
         final SourceRole reqRole = repo.getSourceRole(name);
         if (reqRole == null) {
             throw new FluentApiException("SourceRole '" + name + "' could not be found");
@@ -1584,7 +1584,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.core.entity.ResourceRequiredRole
      */
     public ResourceRequiredRole fetchOfResourceRequiredRole(final String name) {
-        IllegalArgumentException.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
         final ResourceRequiredRole reqRole = repo.getResourceRequiredRole(name);
         if (reqRole == null) {
             throw new FluentApiException("ResourceRequiredRole '" + name + "' could not be found");
@@ -1609,7 +1609,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.Signature
      */
     public Signature fetchOfSignature(final String name) {
-        IllegalArgumentException.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
         final Signature signature = repo.getSignature(name);
         if (signature == null) {
             throw new FluentApiException("Signature '" + name + "' could not be found");
@@ -1634,7 +1634,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.OperationSignature
      */
     public OperationSignature fetchOfOperationSignature(final String name) {
-        IllegalArgumentException.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
         final OperationSignature signature = repo.getOperationSignature(name);
         if (signature == null) {
             throw new FluentApiException("Operation signature '" + name + "' could not be found");
@@ -1659,7 +1659,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.InfrastructureSignature
      */
     public InfrastructureSignature fetchOfInfrastructureSignature(final String name) {
-        IllegalArgumentException.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
         final InfrastructureSignature signature = repo.getInfrastructureSignature(name);
         if (signature == null) {
             throw new FluentApiException("Operation signature '" + name + "' could not be found");
@@ -1684,7 +1684,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.EventType
      */
     public EventType fetchOfEventType(final String name) {
-        IllegalArgumentException.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
         final EventType eventType = repo.getEventType(name);
         if (eventType == null) {
             throw new FluentApiException("EventType '" + name + "' could not be found");
@@ -1709,7 +1709,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
      */
     public AssemblyContext fetchOfAssemblyContext(final String name) {
-        IllegalArgumentException.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
         final AssemblyContext assContext = repo.getAssemblyContext(name);
         if (assContext == null) {
             throw new FluentApiException("Assembly context '" + name + "' could not be found");
@@ -1734,7 +1734,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.core.composition.EventChannel
      */
     public EventChannel fetchOfEventChannel(final String name) {
-        IllegalArgumentException.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
         final EventChannel eventChannel = repo.getEventChannel(name);
         if (eventChannel == null) {
             throw new FluentApiException("Event Channel '" + name + "' could not be found");
@@ -1759,7 +1759,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.Parameter
      */
     public Parameter fetchOfParameter(final String name) {
-        IllegalArgumentException.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
         final Parameter p = repo.getParameter(name);
         if (p == null) {
             throw new FluentApiException("Parameter '" + name + "' could not be found");
@@ -1786,7 +1786,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.Parameter
      */
     public Parameter fetchOfParameter(final String name, final Signature context) {
-        IllegalArgumentException.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
         final Parameter p = repo.getParameter(name, context);
         if (p == null) {
             throw new FluentApiException("Parameter '" + name + "' could not be found");
@@ -1811,7 +1811,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.seff.seff_reliability.RecoveryActionBehaviour
      */
     public PassiveResource fetchOfPassiveResource(final String name) {
-        IllegalArgumentException.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
         final PassiveResource r = repo.getPassiveResource(name);
         if (r == null) {
             throw new FluentApiException("Passive Resource '" + name + "' could not be found");
@@ -1836,7 +1836,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.seff.seff_reliability.RecoveryActionBehaviour
      */
     public RecoveryActionBehaviour fetchOfRecoveryActionBehaviour(final String name) {
-        IllegalArgumentException.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
         final RecoveryActionBehaviour r = repo.getRecoveryActionBehaviour(name);
         if (r == null) {
             throw new FluentApiException("Recovery action behaviour '" + name + "' could not be found");

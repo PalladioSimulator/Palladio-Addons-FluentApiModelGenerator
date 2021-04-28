@@ -31,7 +31,7 @@ public class AssemblyContextCreator extends SystemEntity {
      * @see org.palladiosimulator.pcm.repository.RepositoryComponent
      */
     public AssemblyContextCreator withEncapsulatedComponent(final RepositoryComponent component) {
-        IllegalArgumentException.requireNonNull(component, "The given RepositoryComponent must not be null.");
+        IllegalArgumentException.throwIfNull(component, "The given RepositoryComponent must not be null.");
         encapuslatedComponent = component;
         return this;
     }

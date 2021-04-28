@@ -41,8 +41,7 @@ public class AllocationContextCreator extends AllocationEntity {
      * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
      */
     public AllocationContextCreator withAssemblyContext(final AssemblyContext context) {
-        IllegalArgumentException.requireNonNull(context, "The given AssemblyContext must not be null.");
-        assemblyContext = context;
+        assemblyContext = IllegalArgumentException.throwIfNull(context, "The given AssemblyContext must not be null.");
         return this;
     }
 
@@ -75,8 +74,7 @@ public class AllocationContextCreator extends AllocationEntity {
      * @see org.palladiosimulator.pcm.core.composition.EventChannel
      */
     public AllocationContextCreator withEventChannel(final EventChannel channel) {
-        IllegalArgumentException.requireNonNull(channel, "The given EventChannel must not be null");
-        eventChannel = channel;
+        eventChannel = IllegalArgumentException.throwIfNull(channel, "The given EventChannel must not be null");
         return this;
     }
 
@@ -112,8 +110,8 @@ public class AllocationContextCreator extends AllocationEntity {
      * @see org.palladiosimulator.pcm.resourceenvironment.ResourceContainer
      */
     public AllocationContextCreator withResourceContainer(final ResourceContainer container) {
-        IllegalArgumentException.requireNonNull(container, "The given ResourceContainer must not be null");
-        resourceContainer = container;
+        resourceContainer = IllegalArgumentException.throwIfNull(container,
+                "The given ResourceContainer must not be null");
         return this;
     }
 

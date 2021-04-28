@@ -39,7 +39,7 @@ public class AssemblyConnectorCreator extends AbstractConnectorCreator {
      */
     public OperationRequiredRoleSelector<AssemblyConnectorCreator> withRequiringAssemblyContext(
             final AssemblyContext context) {
-        IllegalArgumentException.requireNonNull(context, "The given AssemblyContext must not be null.");
+        IllegalArgumentException.throwIfNull(context, "The given AssemblyContext must not be null.");
         return new OperationRequiredRoleSelector<>((reqContext, role) -> {
             AssemblyConnectorCreator.this.requiringContext = reqContext;
             AssemblyConnectorCreator.this.requiredRole = role;
@@ -74,7 +74,7 @@ public class AssemblyConnectorCreator extends AbstractConnectorCreator {
      */
     public OperationProvidedRoleSelector<AssemblyConnectorCreator> withProvidingAssemblyContext(
             final AssemblyContext context) {
-        IllegalArgumentException.requireNonNull(context, "The given AssemblyContext must not be null.");
+        IllegalArgumentException.throwIfNull(context, "The given AssemblyContext must not be null.");
         return new OperationProvidedRoleSelector<>((provContext, role) -> {
             AssemblyConnectorCreator.this.providingContext = provContext;
             AssemblyConnectorCreator.this.providedRole = role;
