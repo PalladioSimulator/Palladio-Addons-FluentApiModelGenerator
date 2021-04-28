@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -24,6 +23,8 @@ import org.palladiosimulator.generator.fluent.component.repositoryStructure.inte
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.types.CompositeDataTypeCreator;
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.types.ExceptionTypeCreator;
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.types.ResourceTimeoutFailureTypeCreator;
+import org.palladiosimulator.generator.fluent.exceptions.FluentApiException;
+import org.palladiosimulator.generator.fluent.exceptions.IllegalArgumentException;
 import org.palladiosimulator.generator.fluent.exceptions.NoSuchElementException;
 import org.palladiosimulator.generator.fluent.shared.structure.CommunicationLinkResource;
 import org.palladiosimulator.generator.fluent.shared.structure.ProcessingResource;
@@ -302,14 +303,14 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
 
     @Override
     public RepositoryCreator withDescription(final String description) {
-        Objects.requireNonNull(description, "description must not be null");
+        IllegalArgumentException.requireNonNull(description, "description must not be null");
         this.description = description;
         return this;
     }
 
     @Override
     public Repo withImportedResource(URI uri) {
-        Objects.requireNonNull(uri, "URI must not be null.");
+        IllegalArgumentException.requireNonNull(uri, "URI must not be null.");
 
         if ("repository".equalsIgnoreCase(uri.fileExtension()) == false) {
             throw new IllegalArgumentException("The specified URI must lead to a .repository file");
@@ -322,7 +323,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
 
     @Override
     public Repo withImportedResource(String path) {
-        Objects.requireNonNull(path, "path must not be null.");
+        IllegalArgumentException.requireNonNull(path, "path must not be null.");
 
         if (!path.toLowerCase().endsWith("." + "repository")) {
             throw new IllegalArgumentException("The specified path must lead to a .repository file");
@@ -335,7 +336,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
 
     @Override
     public Repo withImportedResource(Repository repository) {
-        Objects.requireNonNull(repository, "repository must not be null");
+        IllegalArgumentException.requireNonNull(repository, "repository must not be null");
 
         imports.add(repository);
         importedDataTypes.addAll(repository.getDataTypes__Repository());
@@ -348,14 +349,14 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
 
     @Override
     public RepoAddition addToRepository(final CollectionDataType collectionDataType) {
-        Objects.requireNonNull(collectionDataType, "collectionDataType must not be null");
+        IllegalArgumentException.requireNonNull(collectionDataType, "collectionDataType must not be null");
         dataTypes.add(collectionDataType);
         return this;
     }
 
     @Override
     public RepoAddition addToRepository(final CompositeDataTypeCreator compositeDataType) {
-        Objects.requireNonNull(compositeDataType, "compositeDataType must not be null");
+        IllegalArgumentException.requireNonNull(compositeDataType, "compositeDataType must not be null");
         final CompositeDataType dataType = compositeDataType.build();
         dataTypes.add(dataType);
         return this;
@@ -363,21 +364,21 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
 
     @Override
     public RepoAddition addToRepository(final FailureType failureType) {
-        Objects.requireNonNull(failureType, "failureType must not be null");
+        IllegalArgumentException.requireNonNull(failureType, "failureType must not be null");
         failureTypes.add(failureType);
         return this;
     }
 
     @Override
     public RepoAddition addToRepository(final ResourceTimeoutFailureTypeCreator failureType) {
-        Objects.requireNonNull(failureType, "failureType must not be null");
+        IllegalArgumentException.requireNonNull(failureType, "failureType must not be null");
         failureTypes.add(failureType.build());
         return this;
     }
 
     @Override
     public RepoAddition addToRepository(final ExceptionTypeCreator exceptionType) {
-        Objects.requireNonNull(exceptionType, "exceptionType must not be null");
+        IllegalArgumentException.requireNonNull(exceptionType, "exceptionType must not be null");
         final ExceptionType build = exceptionType.build();
         exceptionTypes.add(build);
         return this;
@@ -386,7 +387,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
     @Override
     public RepoAddition addToRepository(
             final org.palladiosimulator.generator.fluent.component.repositoryStructure.interfaces.Interface interfce) {
-        Objects.requireNonNull(interfce, "interfce must not be null");
+        IllegalArgumentException.requireNonNull(interfce, "interfce must not be null");
         final Interface i = interfce.build();
         interfaces.add(i);
         return this;
@@ -394,7 +395,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
 
     @Override
     public RepoAddition addToRepository(final Component component) {
-        Objects.requireNonNull(component, "component must not be null");
+        IllegalArgumentException.requireNonNull(component, "component must not be null");
         final RepositoryComponent c = component.build();
         components.add(c);
         return this;
@@ -481,7 +482,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             name = split[1];
             final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
-                throw new RuntimeException("Repository '" + split[0] + "' could not be found");
+                throw new NoSuchElementException("Repository '" + split[0] + "' could not be found");
             }
             collect = r.getDataTypes__Repository().stream().filter(d -> d instanceof CompositeDataType)
                     .map(d -> (CompositeDataType) d).collect(Collectors.toList());
@@ -514,7 +515,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             final String entityName = split[1];
             final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
-                throw new RuntimeException("Repository '" + split[0] + "' could not be found");
+                throw new FluentApiException("Repository '" + split[0] + "' could not be found");
             }
             return getDataTypeFromList(entityName, r.getDataTypes__Repository());
         }
@@ -557,7 +558,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             final String entityName = split[1];
             final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
-                throw new RuntimeException("Repository '" + split[0] + "' could not be found");
+                throw new FluentApiException("Repository '" + split[0] + "' could not be found");
             }
             return getFailureTypeFromList(entityName, r.getFailureTypes__Repository());
         }
@@ -592,7 +593,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             name = split[1];
             final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
-                throw new RuntimeException("Repository '" + split[0] + "' could not be found");
+                throw new FluentApiException("Repository '" + split[0] + "' could not be found");
             }
             collect = r.getFailureTypes__Repository().stream().filter(d -> d instanceof ResourceTimeoutFailureType)
                     .map(d -> (ResourceTimeoutFailureType) d).collect(Collectors.toList());
@@ -659,7 +660,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             name = split[1];
             final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
-                throw new RuntimeException("Repository '" + split[0] + "' could not be found");
+                throw new FluentApiException("Repository '" + split[0] + "' could not be found");
             }
             collect = r.getComponents__Repository();
         } else if (split.length == 1) {
@@ -691,7 +692,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             name = split[1];
             final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
-                throw new RuntimeException("Repository '" + split[0] + "' could not be found");
+                throw new FluentApiException("Repository '" + split[0] + "' could not be found");
             }
             collect = r.getComponents__Repository().stream().filter(d -> d instanceof BasicComponent)
                     .map(d -> (BasicComponent) d).collect(Collectors.toList());
@@ -725,7 +726,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             name = split[1];
             final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
-                throw new RuntimeException("Repository '" + split[0] + "' could not be found");
+                throw new FluentApiException("Repository '" + split[0] + "' could not be found");
             }
             collect = r.getComponents__Repository().stream().filter(d -> d instanceof CompositeComponent)
                     .map(d -> (CompositeComponent) d).collect(Collectors.toList());
@@ -760,7 +761,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             name = split[1];
             final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
-                throw new RuntimeException("Repository '" + split[0] + "' could not be found");
+                throw new FluentApiException("Repository '" + split[0] + "' could not be found");
             }
             collect = r.getComponents__Repository().stream().filter(d -> d instanceof SubSystem).map(d -> (SubSystem) d)
                     .collect(Collectors.toList());
@@ -794,7 +795,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             name = split[1];
             final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
-                throw new RuntimeException("Repository '" + split[0] + "' could not be found");
+                throw new FluentApiException("Repository '" + split[0] + "' could not be found");
             }
             collect = r.getComponents__Repository().stream().filter(d -> d instanceof CompleteComponentType)
                     .map(d -> (CompleteComponentType) d).collect(Collectors.toList());
@@ -829,7 +830,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             name = split[1];
             final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
-                throw new RuntimeException("Repository '" + split[0] + "' could not be found");
+                throw new FluentApiException("Repository '" + split[0] + "' could not be found");
             }
             collect = r.getComponents__Repository().stream().filter(d -> d instanceof ProvidesComponentType)
                     .map(d -> (ProvidesComponentType) d).collect(Collectors.toList());
@@ -864,7 +865,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             name = split[1];
             final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
-                throw new RuntimeException("Repository '" + split[0] + "' could not be found");
+                throw new FluentApiException("Repository '" + split[0] + "' could not be found");
             }
             collect = r.getInterfaces__Repository();
         } else if (split.length == 1) {
@@ -896,7 +897,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             name = split[1];
             final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
-                throw new RuntimeException("Repository '" + split[0] + "' could not be found");
+                throw new FluentApiException("Repository '" + split[0] + "' could not be found");
             }
             collect = r.getInterfaces__Repository().stream().filter(d -> d instanceof OperationInterface)
                     .map(d -> (OperationInterface) d).collect(Collectors.toList());
@@ -931,7 +932,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             name = split[1];
             final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
-                throw new RuntimeException("Repository '" + split[0] + "' could not be found");
+                throw new FluentApiException("Repository '" + split[0] + "' could not be found");
             }
             collect = r.getInterfaces__Repository().stream().filter(d -> d instanceof InfrastructureInterface)
                     .map(d -> (InfrastructureInterface) d).collect(Collectors.toList());
@@ -966,7 +967,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             name = split[1];
             final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
-                throw new RuntimeException("Repository '" + split[0] + "' could not be found");
+                throw new FluentApiException("Repository '" + split[0] + "' could not be found");
             }
             collect = r.getInterfaces__Repository().stream().filter(d -> d instanceof EventGroup)
                     .map(d -> (EventGroup) d).collect(Collectors.toList());
@@ -1000,7 +1001,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             name = split[1];
             final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
-                throw new RuntimeException("Repository '" + split[0] + "' could not be found");
+                throw new FluentApiException("Repository '" + split[0] + "' could not be found");
             }
             for (final RepositoryComponent c : r.getComponents__Repository()) {
                 collect.addAll(c.getProvidedRoles_InterfaceProvidingEntity());
@@ -1034,7 +1035,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             name = split[1];
             final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
-                throw new RuntimeException("Repository '" + split[0] + "' could not be found");
+                throw new FluentApiException("Repository '" + split[0] + "' could not be found");
             }
             for (final RepositoryComponent c : r.getComponents__Repository()) {
                 collect.addAll(c.getProvidedRoles_InterfaceProvidingEntity().stream()
@@ -1072,7 +1073,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             name = split[1];
             final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
-                throw new RuntimeException("Repository '" + split[0] + "' could not be found");
+                throw new FluentApiException("Repository '" + split[0] + "' could not be found");
             }
             for (final RepositoryComponent c : r.getComponents__Repository()) {
                 collect.addAll(c.getProvidedRoles_InterfaceProvidingEntity().stream()
@@ -1110,7 +1111,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             name = split[1];
             final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
-                throw new RuntimeException("Repository '" + split[0] + "' could not be found");
+                throw new FluentApiException("Repository '" + split[0] + "' could not be found");
             }
             for (final RepositoryComponent c : r.getComponents__Repository()) {
                 collect.addAll(c.getProvidedRoles_InterfaceProvidingEntity().stream().filter(p -> p instanceof SinkRole)
@@ -1146,7 +1147,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             name = split[1];
             final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
-                throw new RuntimeException("Repository '" + split[0] + "' could not be found");
+                throw new FluentApiException("Repository '" + split[0] + "' could not be found");
             }
             for (final RepositoryComponent c : r.getComponents__Repository()) {
                 collect.addAll(c.getRequiredRoles_InterfaceRequiringEntity());
@@ -1180,7 +1181,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             name = split[1];
             final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
-                throw new RuntimeException("Repository '" + split[0] + "' could not be found");
+                throw new FluentApiException("Repository '" + split[0] + "' could not be found");
             }
             for (final RepositoryComponent c : r.getComponents__Repository()) {
                 collect.addAll(c.getRequiredRoles_InterfaceRequiringEntity().stream()
@@ -1218,7 +1219,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             name = split[1];
             final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
-                throw new RuntimeException("Repository '" + split[0] + "' could not be found");
+                throw new FluentApiException("Repository '" + split[0] + "' could not be found");
             }
             for (final RepositoryComponent c : r.getComponents__Repository()) {
                 collect.addAll(c.getRequiredRoles_InterfaceRequiringEntity().stream()
@@ -1256,7 +1257,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             name = split[1];
             final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
-                throw new RuntimeException("Repository '" + split[0] + "' could not be found");
+                throw new FluentApiException("Repository '" + split[0] + "' could not be found");
             }
             for (final RepositoryComponent c : r.getComponents__Repository()) {
                 collect.addAll(c.getRequiredRoles_InterfaceRequiringEntity().stream()
@@ -1292,7 +1293,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             name = split[1];
             final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
-                throw new RuntimeException("Repository '" + split[0] + "' could not be found");
+                throw new FluentApiException("Repository '" + split[0] + "' could not be found");
             }
             for (final RepositoryComponent c : r.getComponents__Repository()) {
                 collect.addAll(c.getResourceRequiredRoles__ResourceInterfaceRequiringEntity());
@@ -1327,7 +1328,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             name = split[1];
             final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
-                throw new RuntimeException("Repository '" + split[0] + "' could not be found");
+                throw new FluentApiException("Repository '" + split[0] + "' could not be found");
             }
 
             for (final Interface i : r.getInterfaces__Repository()) {
@@ -1371,7 +1372,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             name = split[1];
             final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
-                throw new RuntimeException("Repository '" + split[0] + "' could not be found");
+                throw new FluentApiException("Repository '" + split[0] + "' could not be found");
             }
 
             for (final Interface i : r.getInterfaces__Repository()) {
@@ -1411,7 +1412,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             name = split[1];
             final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
-                throw new RuntimeException("Repository '" + split[0] + "' could not be found");
+                throw new FluentApiException("Repository '" + split[0] + "' could not be found");
             }
 
             for (final Interface i : r.getInterfaces__Repository()) {
@@ -1451,7 +1452,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             name = split[1];
             final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
-                throw new RuntimeException("Repository '" + split[0] + "' could not be found");
+                throw new FluentApiException("Repository '" + split[0] + "' could not be found");
             }
 
             for (final Interface i : r.getInterfaces__Repository()) {
@@ -1490,7 +1491,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             name = split[1];
             final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
-                throw new RuntimeException("Repository '" + split[0] + "' could not be found");
+                throw new FluentApiException("Repository '" + split[0] + "' could not be found");
             }
 
             for (final RepositoryComponent c : r.getComponents__Repository()) {
@@ -1529,7 +1530,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             name = split[1];
             final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
-                throw new RuntimeException("Repository '" + split[0] + "' could not be found");
+                throw new FluentApiException("Repository '" + split[0] + "' could not be found");
             }
 
             for (final RepositoryComponent c : r.getComponents__Repository()) {
@@ -1567,7 +1568,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             name = split[1];
             final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
-                throw new RuntimeException("Repository '" + split[0] + "' could not be found");
+                throw new FluentApiException("Repository '" + split[0] + "' could not be found");
             }
             for (final Interface i : r.getInterfaces__Repository()) {
                 if (i instanceof OperationInterface) {
@@ -1616,7 +1617,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             name = split[1];
             final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
-                throw new RuntimeException("Repository '" + split[0] + "' could not be found");
+                throw new FluentApiException("Repository '" + split[0] + "' could not be found");
                 // it is assumed that split[0] = name of the repository refers to the same
                 // repository that the signature <context> comes from
             }
@@ -1643,7 +1644,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             name = split[1];
             final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
-                throw new RuntimeException("Repository '" + split[0] + "' could not be found");
+                throw new FluentApiException("Repository '" + split[0] + "' could not be found");
             }
 
             for (final RepositoryComponent c : r.getComponents__Repository()) {
@@ -1682,7 +1683,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             name = split[1];
             final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
-                throw new RuntimeException("Repository '" + split[0] + "' could not be found");
+                throw new FluentApiException("Repository '" + split[0] + "' could not be found");
             }
 
             final Set<RecoveryActionBehaviour> set = new HashSet<>();

@@ -1,7 +1,6 @@
 package org.palladiosimulator.generator.fluent.system.structure.connector.resource;
 
-import java.util.Objects;
-
+import org.palladiosimulator.generator.fluent.exceptions.IllegalArgumentException;
 import org.palladiosimulator.generator.fluent.exceptions.NoSuchElementException;
 import org.palladiosimulator.generator.fluent.system.structure.SystemCreator;
 import org.palladiosimulator.pcm.core.composition.CompositionFactory;
@@ -36,7 +35,7 @@ public class ResourceRequiredDelegationConnectorCreator {
      * @see org.palladiosimulator.pcm.core.entity.ResourceRequiredRole
      */
     public ResourceRequiredDelegationConnectorCreator withOuterRequiredRole(final ResourceRequiredRole role) {
-        Objects.requireNonNull(role, "The given Role must not be null.");
+        IllegalArgumentException.requireNonNull(role, "The given Role must not be null.");
         outerRequiredRole = role;
         return this;
     }
@@ -69,7 +68,7 @@ public class ResourceRequiredDelegationConnectorCreator {
      * @see org.palladiosimulator.pcm.core.entity.ResourceRequiredRole
      */
     public ResourceRequiredDelegationConnectorCreator withInnerRequiredRole(final ResourceRequiredRole role) {
-        Objects.requireNonNull(role, "The given Role must not be null.");
+        IllegalArgumentException.requireNonNull(role, "The given Role must not be null.");
         innerRequiredRole = role;
         return this;
     }

@@ -1,7 +1,6 @@
 package org.palladiosimulator.generator.fluent.system.structure.role;
 
-import java.util.Objects;
-
+import org.palladiosimulator.generator.fluent.exceptions.IllegalArgumentException;
 import org.palladiosimulator.generator.fluent.exceptions.NoSuchElementException;
 import org.palladiosimulator.generator.fluent.system.structure.SystemCreator;
 import org.palladiosimulator.generator.fluent.system.structure.SystemEntity;
@@ -36,7 +35,7 @@ public class InfrastructureProvidedRoleCreator extends SystemEntity {
      */
     public InfrastructureProvidedRoleCreator withProvidedInterface(
             final InfrastructureInterface infrastructureInterface) {
-        Objects.requireNonNull(infrastructureInterface, "The given Interface must not be null.");
+        IllegalArgumentException.requireNonNull(infrastructureInterface, "The given Interface must not be null.");
         providedInterface = infrastructureInterface;
         return this;
     }

@@ -3,10 +3,10 @@ package org.palladiosimulator.generator.fluent.component.repositoryStructure.com
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.components.VariableUsageCreator;
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.internals.ResourceSignature;
+import org.palladiosimulator.generator.fluent.exceptions.IllegalArgumentException;
 import org.palladiosimulator.generator.fluent.shared.structure.ProcessingResource;
 import org.palladiosimulator.pcm.core.CoreFactory;
 import org.palladiosimulator.pcm.core.PCMRandomVariable;
@@ -52,9 +52,9 @@ public abstract class GeneralAction extends SeffAction {
      */
     public GeneralAction withResourceDemand(final String specificationStochasticExpression,
             final ProcessingResource processingResource) {
-        Objects.requireNonNull(specificationStochasticExpression,
+        IllegalArgumentException.requireNonNull(specificationStochasticExpression,
                 "specification_stochasticExpression must not be null");
-        Objects.requireNonNull(processingResource, "processingResource must not be null");
+        IllegalArgumentException.requireNonNull(processingResource, "processingResource must not be null");
         final ParametricResourceDemand demand = SeffPerformanceFactory.eINSTANCE.createParametricResourceDemand();
 
         final ProcessingResourceType processingResourceType = repository.getProcessingResourceType(processingResource);
@@ -81,14 +81,14 @@ public abstract class GeneralAction extends SeffAction {
     public GeneralAction withInfrastructureCall(final String numberOfCallsStochasticExpression,
             final InfrastructureSignature signature, final InfrastructureRequiredRole requiredRole,
             final VariableUsageCreator... variableUsages) {
-        Objects.requireNonNull(numberOfCallsStochasticExpression,
+        IllegalArgumentException.requireNonNull(numberOfCallsStochasticExpression,
                 "numberOfCalls_stochasticExpression must not be null");
-        Objects.requireNonNull(signature, "signature must not be null");
-        Objects.requireNonNull(requiredRole, "requiredRole must not be null");
-        Objects.requireNonNull(variableUsages, "variable usages must not be null");
+        IllegalArgumentException.requireNonNull(signature, "signature must not be null");
+        IllegalArgumentException.requireNonNull(requiredRole, "requiredRole must not be null");
+        IllegalArgumentException.requireNonNull(variableUsages, "variable usages must not be null");
         if (variableUsages.length > 0) {
             for (final VariableUsageCreator variableUsage : variableUsages) {
-                Objects.requireNonNull(variableUsage, "variable usages must not be null");
+                IllegalArgumentException.requireNonNull(variableUsage, "variable usages must not be null");
             }
         }
 
@@ -122,13 +122,13 @@ public abstract class GeneralAction extends SeffAction {
             final ResourceSignature signature, final ResourceRequiredRole requiredRole,
             final VariableUsageCreator... variableUsages) {
 
-        Objects.requireNonNull(numberOfCallsStochasticExpression,
+        IllegalArgumentException.requireNonNull(numberOfCallsStochasticExpression,
                 "numberOfCalls_stochasticExpression must not be null");
-        Objects.requireNonNull(signature, "signature must not be null");
-        Objects.requireNonNull(requiredRole, "requiredRole must not be null");
+        IllegalArgumentException.requireNonNull(signature, "signature must not be null");
+        IllegalArgumentException.requireNonNull(requiredRole, "requiredRole must not be null");
         if ((variableUsages != null) && (variableUsages.length > 0)) {
             for (final VariableUsageCreator variableUsage : variableUsages) {
-                Objects.requireNonNull(variableUsage, "variable usages must not be null");
+                IllegalArgumentException.requireNonNull(variableUsage, "variable usages must not be null");
             }
         }
 

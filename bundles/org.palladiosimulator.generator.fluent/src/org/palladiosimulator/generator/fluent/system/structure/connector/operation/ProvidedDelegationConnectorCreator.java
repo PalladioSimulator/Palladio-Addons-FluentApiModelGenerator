@@ -1,7 +1,6 @@
 package org.palladiosimulator.generator.fluent.system.structure.connector.operation;
 
-import java.util.Objects;
-
+import org.palladiosimulator.generator.fluent.exceptions.IllegalArgumentException;
 import org.palladiosimulator.generator.fluent.exceptions.NoSuchElementException;
 import org.palladiosimulator.generator.fluent.system.structure.SystemCreator;
 import org.palladiosimulator.generator.fluent.system.structure.connector.AbstractConnectorCreator;
@@ -37,7 +36,7 @@ public class ProvidedDelegationConnectorCreator extends AbstractConnectorCreator
      * @see org.palladiosimulator.pcm.repository.OperationProvidedRole
      */
     public ProvidedDelegationConnectorCreator withOuterProvidedRole(final OperationProvidedRole role) {
-        Objects.requireNonNull(role, "The given Role must not be null.");
+        IllegalArgumentException.requireNonNull(role, "The given Role must not be null.");
         outerProvidedRole = role;
         return this;
     }
@@ -70,7 +69,7 @@ public class ProvidedDelegationConnectorCreator extends AbstractConnectorCreator
      */
     public OperationProvidedRoleSelector<ProvidedDelegationConnectorCreator> withProvidingContext(
             final AssemblyContext context) {
-        Objects.requireNonNull(context, "The given AssemblyContext must not be null.");
+        IllegalArgumentException.requireNonNull(context, "The given AssemblyContext must not be null.");
         return new OperationProvidedRoleSelector<>((context1, role) -> {
             ProvidedDelegationConnectorCreator.this.providingAssemblyContext = context1;
             ProvidedDelegationConnectorCreator.this.innerProvidedRole = role;

@@ -1,7 +1,6 @@
 package org.palladiosimulator.generator.fluent.system.structure.role;
 
-import java.util.Objects;
-
+import org.palladiosimulator.generator.fluent.exceptions.IllegalArgumentException;
 import org.palladiosimulator.generator.fluent.exceptions.NoSuchElementException;
 import org.palladiosimulator.generator.fluent.system.structure.SystemCreator;
 import org.palladiosimulator.generator.fluent.system.structure.SystemEntity;
@@ -34,7 +33,7 @@ public class OperationRequiredRoleCreator extends SystemEntity {
      * @see org.palladiosimulator.pcm.repository.OperationInterface
      */
     public OperationRequiredRoleCreator withRequiredInterface(final OperationInterface operationInterface) {
-        Objects.requireNonNull(operationInterface, "The given Interface must not be null.");
+        IllegalArgumentException.requireNonNull(operationInterface, "The given Interface must not be null.");
         requiredInterface = operationInterface;
         return this;
     }

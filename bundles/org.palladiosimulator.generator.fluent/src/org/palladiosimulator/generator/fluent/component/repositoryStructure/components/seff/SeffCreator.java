@@ -2,7 +2,6 @@ package org.palladiosimulator.generator.fluent.component.repositoryStructure.com
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.palladiosimulator.generator.fluent.component.api.seff.ActionSeff;
@@ -13,6 +12,7 @@ import org.palladiosimulator.generator.fluent.component.api.seff.StartSeff;
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.RepositoryCreator;
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.RepositoryEntity;
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.internals.Failure;
+import org.palladiosimulator.generator.fluent.exceptions.IllegalArgumentException;
 import org.palladiosimulator.pcm.reliability.FailureType;
 import org.palladiosimulator.pcm.repository.Signature;
 import org.palladiosimulator.pcm.seff.AbstractAction;
@@ -149,21 +149,21 @@ public class SeffCreator extends RepositoryEntity implements Seff, ActionSeff, S
 
     @Override
     public SeffCreator onSignature(final Signature signature) {
-        Objects.requireNonNull(signature, "signature must not be null");
+        IllegalArgumentException.requireNonNull(signature, "signature must not be null");
         this.signature = signature;
         return this;
     }
 
     @Override
     public SeffCreator withSeffTypeID(final String seffTypeID) {
-        Objects.requireNonNull(seffTypeID, "seffTypeID must not be null");
+        IllegalArgumentException.requireNonNull(seffTypeID, "seffTypeID must not be null");
         this.seffTypeID = seffTypeID;
         return this;
     }
 
     @Override
     public SeffCreator withInternalBehaviour(final InternalSeff internalBehaviour) {
-        Objects.requireNonNull(internalBehaviour, "internalBehaviour must not be null");
+        IllegalArgumentException.requireNonNull(internalBehaviour, "internalBehaviour must not be null");
         internalBehaviours.add(internalBehaviour);
         return this;
     }
@@ -175,21 +175,21 @@ public class SeffCreator extends RepositoryEntity implements Seff, ActionSeff, S
 
     @Override
     public SeffCreator withFailureType(final Failure failure) {
-        Objects.requireNonNull(failure, "failure must not be null");
+        IllegalArgumentException.requireNonNull(failure, "failure must not be null");
         final FailureType f = repository.getFailureType(failure);
         return this.withFailureType(f);
     }
 
     @Override
     public SeffCreator withFailureType(final FailureType failureType) {
-        Objects.requireNonNull(failureType, "failureType must not be null");
+        IllegalArgumentException.requireNonNull(failureType, "failureType must not be null");
         failures.add(failureType);
         return this;
     }
 
     @Override
     public SeffCreator withAlternativeRecoveryBehaviour(final RecoveryActionBehaviour recoveryBehaviour) {
-        Objects.requireNonNull(recoveryBehaviour, "recoveryBehaviour must not be null");
+        IllegalArgumentException.requireNonNull(recoveryBehaviour, "recoveryBehaviour must not be null");
         alternatives.add(recoveryBehaviour);
         return this;
     }

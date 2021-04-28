@@ -2,9 +2,9 @@ package org.palladiosimulator.generator.fluent.component.repositoryStructure.com
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.components.VariableUsageCreator;
+import org.palladiosimulator.generator.fluent.exceptions.IllegalArgumentException;
 import org.palladiosimulator.pcm.parameter.VariableUsage;
 import org.palladiosimulator.pcm.reliability.FailureType;
 import org.palladiosimulator.pcm.repository.OperationRequiredRole;
@@ -68,7 +68,7 @@ public class ExternalCallActionCreator extends SeffAction {
      * @see org.palladiosimulator.generator.fluent.component.factory.FluentRepositoryFactory#fetchOfOperationSignature(String)
      */
     public ExternalCallActionCreator withCalledService(final OperationSignature signature) {
-        Objects.requireNonNull(signature, "signature must not be null");
+        IllegalArgumentException.requireNonNull(signature, "signature must not be null");
         this.signature = signature;
         return this;
     }
@@ -87,7 +87,7 @@ public class ExternalCallActionCreator extends SeffAction {
      * @see org.palladiosimulator.generator.fluent.component.factory.FluentRepositoryFactory#fetchOfOperationRequiredRole(String)
      */
     public ExternalCallActionCreator withRequiredRole(final OperationRequiredRole requiredRole) {
-        Objects.requireNonNull(requiredRole, "requiredRole must not be null");
+        IllegalArgumentException.requireNonNull(requiredRole, "requiredRole must not be null");
         this.requiredRole = requiredRole;
         return this;
     }
@@ -101,7 +101,7 @@ public class ExternalCallActionCreator extends SeffAction {
      * @see org.palladiosimulator.generator.fluent.component.factory.FluentRepositoryFactory#newVariableUsage()
      */
     public ExternalCallActionCreator withInputVariableUsage(final VariableUsageCreator variableUsage) {
-        Objects.requireNonNull(variableUsage, "variableUsage must not be null");
+        IllegalArgumentException.requireNonNull(variableUsage, "variableUsage must not be null");
         inputVariableUsages.add(variableUsage.build());
         return this;
     }
@@ -115,7 +115,7 @@ public class ExternalCallActionCreator extends SeffAction {
      * @see org.palladiosimulator.generator.fluent.component.factory.FluentRepositoryFactory#newVariableUsage()
      */
     public ExternalCallActionCreator withReturnVariableUsage(final VariableUsageCreator variableUsage) {
-        Objects.requireNonNull(variableUsage, "variableUsage must not be null");
+        IllegalArgumentException.requireNonNull(variableUsage, "variableUsage must not be null");
         returnVariableUsages.add(variableUsage.build());
         return this;
     }
@@ -135,7 +135,7 @@ public class ExternalCallActionCreator extends SeffAction {
      * @see org.palladiosimulator.generator.fluent.component.factory.FluentRepositoryFactory#fetchOfFailureType(String)
      */
     public ExternalCallActionCreator withFailureType(final FailureType failure) {
-        Objects.requireNonNull(failure, "failure must not be null");
+        IllegalArgumentException.requireNonNull(failure, "failure must not be null");
         failures.add(failure);
         return this;
     }

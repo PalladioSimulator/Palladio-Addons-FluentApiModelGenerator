@@ -1,9 +1,8 @@
 package org.palladiosimulator.generator.fluent.component.repositoryStructure.types;
 
-import java.util.Objects;
-
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.RepositoryCreator;
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.RepositoryEntity;
+import org.palladiosimulator.generator.fluent.exceptions.IllegalArgumentException;
 import org.palladiosimulator.pcm.repository.ExceptionType;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
 
@@ -37,7 +36,7 @@ public class ExceptionTypeCreator extends RepositoryEntity {
      * @return this exception in the making
      */
     public ExceptionTypeCreator withExceptionMessage(final String message) {
-        Objects.requireNonNull(message, "message must not be null");
+        IllegalArgumentException.requireNonNull(message, "message must not be null");
         exceptionMessage = message;
         return this;
     }

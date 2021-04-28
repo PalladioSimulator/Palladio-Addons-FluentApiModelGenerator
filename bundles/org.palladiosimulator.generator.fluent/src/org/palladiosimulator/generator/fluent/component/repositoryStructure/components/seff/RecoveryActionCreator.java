@@ -2,12 +2,12 @@ package org.palladiosimulator.generator.fluent.component.repositoryStructure.com
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import org.palladiosimulator.generator.fluent.component.api.seff.RecoverySeff;
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.RepositoryCreator;
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.components.VariableUsageCreator;
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.internals.ResourceSignature;
+import org.palladiosimulator.generator.fluent.exceptions.IllegalArgumentException;
 import org.palladiosimulator.generator.fluent.shared.structure.ProcessingResource;
 import org.palladiosimulator.pcm.core.entity.ResourceRequiredRole;
 import org.palladiosimulator.pcm.repository.InfrastructureRequiredRole;
@@ -49,7 +49,7 @@ public class RecoveryActionCreator extends GeneralAction {
      * @see org.palladiosimulator.generator.fluent.component.factory.FluentRepositoryFactory#newRecoveryBehaviour()
      */
     public RecoveryActionCreator withPrimaryBehaviour(final RecoverySeff recoveryActionBehaviour) {
-        Objects.requireNonNull(recoveryActionBehaviour, "recoveryActionBehaviour must not be null");
+        IllegalArgumentException.requireNonNull(recoveryActionBehaviour, "recoveryActionBehaviour must not be null");
         final RecoveryActionBehaviour build = recoveryActionBehaviour.buildRecoveryBehaviour();
         primary = build;
         repository.addRecoveryActionBehaviour(build);
@@ -65,7 +65,7 @@ public class RecoveryActionCreator extends GeneralAction {
      * @see org.palladiosimulator.generator.fluent.component.factory.FluentRepositoryFactory#newRecoveryBehaviour()
      */
     public RecoveryActionCreator withAlternativeBehaviour(final RecoverySeff recoveryActionBehaviour) {
-        Objects.requireNonNull(recoveryActionBehaviour, "recoveryActionBehaviour must not be null");
+        IllegalArgumentException.requireNonNull(recoveryActionBehaviour, "recoveryActionBehaviour must not be null");
         final RecoveryActionBehaviour buildRecoveryBehaviour = recoveryActionBehaviour.buildRecoveryBehaviour();
         otherBehaviours.add(buildRecoveryBehaviour);
         repository.addRecoveryActionBehaviour(buildRecoveryBehaviour);

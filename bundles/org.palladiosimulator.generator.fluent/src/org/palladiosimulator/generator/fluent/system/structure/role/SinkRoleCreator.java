@@ -1,7 +1,6 @@
 package org.palladiosimulator.generator.fluent.system.structure.role;
 
-import java.util.Objects;
-
+import org.palladiosimulator.generator.fluent.exceptions.IllegalArgumentException;
 import org.palladiosimulator.generator.fluent.exceptions.NoSuchElementException;
 import org.palladiosimulator.generator.fluent.system.structure.SystemCreator;
 import org.palladiosimulator.generator.fluent.system.structure.SystemEntity;
@@ -32,7 +31,7 @@ public class SinkRoleCreator extends SystemEntity {
      * @see org.palladiosimulator.pcm.repository.EventGroup
      */
     public SinkRoleCreator withEventGroup(final EventGroup eventGroup) {
-        Objects.requireNonNull(eventGroup, "The given EventGroup must not be null.");
+        IllegalArgumentException.requireNonNull(eventGroup, "The given EventGroup must not be null.");
         this.eventGroup = eventGroup;
         return this;
     }

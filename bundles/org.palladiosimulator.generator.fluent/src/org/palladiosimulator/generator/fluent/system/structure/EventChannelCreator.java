@@ -1,7 +1,6 @@
 package org.palladiosimulator.generator.fluent.system.structure;
 
-import java.util.Objects;
-
+import org.palladiosimulator.generator.fluent.exceptions.IllegalArgumentException;
 import org.palladiosimulator.generator.fluent.exceptions.NoSuchElementException;
 import org.palladiosimulator.pcm.core.composition.CompositionFactory;
 import org.palladiosimulator.pcm.core.composition.EventChannel;
@@ -30,7 +29,7 @@ public class EventChannelCreator extends SystemEntity {
      * @see org.palladiosimulator.pcm.repository.EventGroup
      */
     public EventChannelCreator withEventGroup(final EventGroup eventGroup) {
-        Objects.requireNonNull(eventGroup, "The given EventGroup must not be null.");
+        IllegalArgumentException.requireNonNull(eventGroup, "The given EventGroup must not be null.");
         this.eventGroup = eventGroup;
         return this;
     }

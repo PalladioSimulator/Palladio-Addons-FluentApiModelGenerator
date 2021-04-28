@@ -1,7 +1,6 @@
 package org.palladiosimulator.generator.fluent.resourceenvironment.structure;
 
-import java.util.Objects;
-
+import org.palladiosimulator.generator.fluent.exceptions.IllegalArgumentException;
 import org.palladiosimulator.generator.fluent.shared.structure.ProcessingResource;
 import org.palladiosimulator.generator.fluent.shared.structure.SchedulingPolicies;
 import org.palladiosimulator.pcm.core.CoreFactory;
@@ -128,7 +127,7 @@ public class ProcessingResourceSpecificationCreator {
      * @see org.palladiosimulator.pcm.resourceenvironment.ProcessingResourceSpecification
      */
     public ProcessingResourceSpecificationCreator withProcessingRate(final String processingRate) {
-        Objects.requireNonNull(processingRate, "The given processingRate must not be null");
+        IllegalArgumentException.requireNonNull(processingRate, "The given processingRate must not be null");
         final PCMRandomVariable randomVariable = CoreFactory.eINSTANCE.createPCMRandomVariable();
         randomVariable.setSpecification(processingRate);
         processingRateVariable = randomVariable;

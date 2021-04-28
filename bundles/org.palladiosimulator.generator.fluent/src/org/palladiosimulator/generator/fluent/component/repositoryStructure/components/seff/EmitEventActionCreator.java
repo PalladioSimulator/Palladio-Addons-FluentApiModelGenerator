@@ -2,9 +2,9 @@ package org.palladiosimulator.generator.fluent.component.repositoryStructure.com
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.components.VariableUsageCreator;
+import org.palladiosimulator.generator.fluent.exceptions.IllegalArgumentException;
 import org.palladiosimulator.pcm.parameter.VariableUsage;
 import org.palladiosimulator.pcm.repository.EventType;
 import org.palladiosimulator.pcm.repository.SourceRole;
@@ -50,7 +50,7 @@ public class EmitEventActionCreator extends SeffAction {
      * @see org.palladiosimulator.generator.fluent.component.factory.FluentRepositoryFactory#fetchOfEventType(String)
      */
     public EmitEventActionCreator withEventType(final EventType eventType) {
-        Objects.requireNonNull(eventType, "eventType must not be null");
+        IllegalArgumentException.requireNonNull(eventType, "eventType must not be null");
         this.eventType = eventType;
         return this;
     }
@@ -68,7 +68,7 @@ public class EmitEventActionCreator extends SeffAction {
      * @see org.palladiosimulator.generator.fluent.component.factory.FluentRepositoryFactory#fetchOfSourceRole(String)
      */
     public EmitEventActionCreator withSourceRole(final SourceRole sourceRole) {
-        Objects.requireNonNull(sourceRole, "sourceRole must not be null");
+        IllegalArgumentException.requireNonNull(sourceRole, "sourceRole must not be null");
         requiredRole = sourceRole;
         return this;
     }
@@ -82,7 +82,7 @@ public class EmitEventActionCreator extends SeffAction {
      * @see org.palladiosimulator.generator.fluent.component.factory.FluentRepositoryFactory#newVariableUsage()
      */
     public EmitEventActionCreator withInputVariableUsage(final VariableUsageCreator variableUsage) {
-        Objects.requireNonNull(variableUsage, "variableUsage must not be null");
+        IllegalArgumentException.requireNonNull(variableUsage, "variableUsage must not be null");
         inputVariableUsages.add(variableUsage.build());
         return this;
     }

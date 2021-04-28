@@ -2,12 +2,12 @@ package org.palladiosimulator.generator.fluent.component.repositoryStructure.int
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.RepositoryCreator;
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.RepositoryEntity;
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.internals.Failure;
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.internals.Primitive;
+import org.palladiosimulator.generator.fluent.exceptions.IllegalArgumentException;
 import org.palladiosimulator.pcm.reliability.FailureType;
 import org.palladiosimulator.pcm.repository.DataType;
 import org.palladiosimulator.pcm.repository.EventType;
@@ -68,8 +68,8 @@ public class EventTypeCreator extends RepositoryEntity {
      */
     public EventTypeCreator withParameter(final String name, final Primitive dataType,
             final ParameterModifier modifier) {
-        Objects.requireNonNull(name, "name must not be null");
-        Objects.requireNonNull(dataType, "dataType must not be null");
+        IllegalArgumentException.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.requireNonNull(dataType, "dataType must not be null");
         final PrimitiveDataType dt = repository.getPrimitiveDataType(dataType);
         return this.withParameter(name, dt, modifier);
     }
@@ -99,8 +99,8 @@ public class EventTypeCreator extends RepositoryEntity {
      */
     public EventTypeCreator withParameter(final String name, final DataType dataType,
             final ParameterModifier modifier) {
-        Objects.requireNonNull(name, "name must not be null");
-        Objects.requireNonNull(dataType, "dataType must not be null");
+        IllegalArgumentException.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.requireNonNull(dataType, "dataType must not be null");
         final Parameter param = RepositoryFactory.eINSTANCE.createParameter();
 
         param.setParameterName(name);
@@ -129,7 +129,7 @@ public class EventTypeCreator extends RepositoryEntity {
      * @see org.palladiosimulator.generator.fluent.component.factory.FluentRepositoryFactory#fetchOfFailureType(String)
      */
     public EventTypeCreator withFailureType(final FailureType failureType) {
-        Objects.requireNonNull(failureType, "failureType must not be null");
+        IllegalArgumentException.requireNonNull(failureType, "failureType must not be null");
         failureTypes.add(failureType);
         return this;
     }
@@ -149,7 +149,7 @@ public class EventTypeCreator extends RepositoryEntity {
      * @return this event type in the making
      */
     public EventTypeCreator withFailureType(final Failure failureType) {
-        Objects.requireNonNull(failureType, "failureType must not be null");
+        IllegalArgumentException.requireNonNull(failureType, "failureType must not be null");
         final FailureType failure = repository.getFailureType(failureType);
         return this.withFailureType(failure);
     }
@@ -168,7 +168,7 @@ public class EventTypeCreator extends RepositoryEntity {
      * @see org.palladiosimulator.generator.fluent.component.factory.FluentRepositoryFactory#fetchOfExceptionType(String)
      */
     public EventTypeCreator withExceptionType(final ExceptionType exceptionType) {
-        Objects.requireNonNull(exceptionType, "exceptionType must not be null");
+        IllegalArgumentException.requireNonNull(exceptionType, "exceptionType must not be null");
         exceptionTypes.add(exceptionType);
         return this;
     }

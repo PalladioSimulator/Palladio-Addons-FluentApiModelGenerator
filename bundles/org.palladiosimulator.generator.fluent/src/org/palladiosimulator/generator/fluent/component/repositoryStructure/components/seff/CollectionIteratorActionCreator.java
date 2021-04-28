@@ -1,10 +1,9 @@
 package org.palladiosimulator.generator.fluent.component.repositoryStructure.components.seff;
 
-import java.util.Objects;
-
 import org.palladiosimulator.generator.fluent.component.api.seff.Seff;
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.components.VariableUsageCreator;
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.internals.ResourceSignature;
+import org.palladiosimulator.generator.fluent.exceptions.IllegalArgumentException;
 import org.palladiosimulator.generator.fluent.shared.structure.ProcessingResource;
 import org.palladiosimulator.pcm.core.entity.ResourceRequiredRole;
 import org.palladiosimulator.pcm.repository.InfrastructureRequiredRole;
@@ -47,7 +46,7 @@ public class CollectionIteratorActionCreator extends GeneralAction {
      * @return this collection iterator action in the making
      */
     public CollectionIteratorActionCreator withParameter(final Parameter parameter) {
-        Objects.requireNonNull(parameter, "parameter must not be null");
+        IllegalArgumentException.requireNonNull(parameter, "parameter must not be null");
         this.parameter = parameter;
         return this;
     }
@@ -60,7 +59,7 @@ public class CollectionIteratorActionCreator extends GeneralAction {
      * @return this collection iterator action in the making
      */
     public CollectionIteratorActionCreator withLoopBody(final Seff loopBody) {
-        Objects.requireNonNull(loopBody, "loopBody must not be null");
+        IllegalArgumentException.requireNonNull(loopBody, "loopBody must not be null");
         this.loopBody = loopBody;
         return this;
     }

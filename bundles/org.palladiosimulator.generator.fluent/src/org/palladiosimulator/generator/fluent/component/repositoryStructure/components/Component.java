@@ -2,12 +2,12 @@ package org.palladiosimulator.generator.fluent.component.repositoryStructure.com
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.RepositoryEntity;
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.interfaces.EventGroupCreator;
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.interfaces.InfrastructureInterfaceCreator;
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.interfaces.OperationInterfaceCreator;
+import org.palladiosimulator.generator.fluent.exceptions.IllegalArgumentException;
 import org.palladiosimulator.generator.fluent.shared.structure.ResourceInterface;
 import org.palladiosimulator.pcm.core.entity.EntityFactory;
 import org.palladiosimulator.pcm.core.entity.ResourceRequiredRole;
@@ -60,7 +60,7 @@ public abstract class Component extends RepositoryEntity {
      * @see org.palladiosimulator.generator.fluent.component.factory.FluentRepositoryFactory#newOperationInterface()
      */
     public Component provides(final OperationInterfaceCreator interfce) {
-        Objects.requireNonNull(interfce, "interfce must not be null");
+        IllegalArgumentException.requireNonNull(interfce, "interfce must not be null");
         return this.provides(interfce, null);
     }
 
@@ -84,7 +84,7 @@ public abstract class Component extends RepositoryEntity {
      * @see org.palladiosimulator.generator.fluent.component.factory.FluentRepositoryFactory#newOperationInterface()
      */
     public Component provides(final OperationInterfaceCreator interfce, final String name) {
-        Objects.requireNonNull(interfce, "interfce must not be null");
+        IllegalArgumentException.requireNonNull(interfce, "interfce must not be null");
         final OperationInterface i = interfce.build();
         repository.addInterface(i);
         return this.provides(i, name);
@@ -106,7 +106,7 @@ public abstract class Component extends RepositoryEntity {
      * @see org.palladiosimulator.generator.fluent.component.factory.FluentRepositoryFactory#fetchOfOperationInterface(String)
      */
     public Component provides(final OperationInterface interfce) {
-        Objects.requireNonNull(interfce, "interfce must not be null");
+        IllegalArgumentException.requireNonNull(interfce, "interfce must not be null");
         return this.provides(interfce, null);
     }
 
@@ -130,7 +130,7 @@ public abstract class Component extends RepositoryEntity {
      * @see org.palladiosimulator.generator.fluent.component.factory.FluentRepositoryFactory#fetchOfOperationInterface(String)
      */
     public Component provides(final OperationInterface interfce, final String name) {
-        Objects.requireNonNull(interfce, "interfce must not be null");
+        IllegalArgumentException.requireNonNull(interfce, "interfce must not be null");
         final OperationProvidedRole providedRole = RepositoryFactory.eINSTANCE.createOperationProvidedRole();
         if (name != null) {
             providedRole.setEntityName(name);
@@ -159,7 +159,7 @@ public abstract class Component extends RepositoryEntity {
      * @see org.palladiosimulator.generator.fluent.component.factory.FluentRepositoryFactory#newInfrastructureInterface()
      */
     public Component providesInfrastructure(final InfrastructureInterfaceCreator interfce) {
-        Objects.requireNonNull(interfce, "interfce must not be null");
+        IllegalArgumentException.requireNonNull(interfce, "interfce must not be null");
         return this.providesInfrastructure(interfce, null);
     }
 
@@ -184,7 +184,7 @@ public abstract class Component extends RepositoryEntity {
      * @see org.palladiosimulator.generator.fluent.component.factory.FluentRepositoryFactory#newInfrastructureInterface()
      */
     public Component providesInfrastructure(final InfrastructureInterfaceCreator interfce, final String name) {
-        Objects.requireNonNull(interfce, "interfce must not be null");
+        IllegalArgumentException.requireNonNull(interfce, "interfce must not be null");
         final InfrastructureInterface i = interfce.build();
         repository.addInterface(i);
         return this.providesInfrastructure(i, name);
@@ -207,7 +207,7 @@ public abstract class Component extends RepositoryEntity {
      * @see org.palladiosimulator.generator.fluent.component.factory.FluentRepositoryFactory#fetchOfInfrastructureInterface(String)
      */
     public Component providesInfrastructure(final InfrastructureInterface interfce) {
-        Objects.requireNonNull(interfce, "interfce must not be null");
+        IllegalArgumentException.requireNonNull(interfce, "interfce must not be null");
         return this.providesInfrastructure(interfce, null);
     }
 
@@ -232,7 +232,7 @@ public abstract class Component extends RepositoryEntity {
      * @see org.palladiosimulator.generator.fluent.component.factory.FluentRepositoryFactory#fetchOfInfrastructureInterface(String)
      */
     public Component providesInfrastructure(final InfrastructureInterface interfce, final String name) {
-        Objects.requireNonNull(interfce, "interfce must not be null");
+        IllegalArgumentException.requireNonNull(interfce, "interfce must not be null");
         final InfrastructureProvidedRole providedRole = RepositoryFactory.eINSTANCE.createInfrastructureProvidedRole();
         if (name != null) {
             providedRole.setEntityName(name);
@@ -260,7 +260,7 @@ public abstract class Component extends RepositoryEntity {
      * @see org.palladiosimulator.generator.fluent.component.factory.FluentRepositoryFactory#newEventGroup()
      */
     public Component handles(final EventGroupCreator eventGroup) {
-        Objects.requireNonNull(eventGroup, "eventGroup must not be null");
+        IllegalArgumentException.requireNonNull(eventGroup, "eventGroup must not be null");
         return this.handles(eventGroup, null);
     }
 
@@ -283,7 +283,7 @@ public abstract class Component extends RepositoryEntity {
      * @see org.palladiosimulator.generator.fluent.component.factory.FluentRepositoryFactory#newEventGroup()
      */
     public Component handles(final EventGroupCreator eventGroup, final String name) {
-        Objects.requireNonNull(eventGroup, "eventGroup must not be null");
+        IllegalArgumentException.requireNonNull(eventGroup, "eventGroup must not be null");
         final EventGroup eg = eventGroup.build();
         repository.addInterface(eg);
         return this.handles(eg, name);
@@ -305,7 +305,7 @@ public abstract class Component extends RepositoryEntity {
      * @see org.palladiosimulator.generator.fluent.component.factory.FluentRepositoryFactory#fetchOfEventGroup(String)
      */
     public Component handles(final EventGroup eventGroup) {
-        Objects.requireNonNull(eventGroup, "eventGroup must not be null");
+        IllegalArgumentException.requireNonNull(eventGroup, "eventGroup must not be null");
         return this.handles(eventGroup, null);
     }
 
@@ -328,7 +328,7 @@ public abstract class Component extends RepositoryEntity {
      * @see org.palladiosimulator.generator.fluent.component.factory.FluentRepositoryFactory#fetchOfEventGroup(String)
      */
     public Component handles(final EventGroup eventGroup, final String name) {
-        Objects.requireNonNull(eventGroup, "eventGroup must not be null");
+        IllegalArgumentException.requireNonNull(eventGroup, "eventGroup must not be null");
         final SinkRole providedRole = RepositoryFactory.eINSTANCE.createSinkRole();
         if (name != null) {
             providedRole.setEntityName(name);
@@ -357,7 +357,7 @@ public abstract class Component extends RepositoryEntity {
      * @see org.palladiosimulator.generator.fluent.component.factory.FluentRepositoryFactory#newOperationInterface()
      */
     public Component requires(final OperationInterfaceCreator interfce) {
-        Objects.requireNonNull(interfce, "interfce must not be null");
+        IllegalArgumentException.requireNonNull(interfce, "interfce must not be null");
         return this.requires(interfce, null);
     }
 
@@ -381,7 +381,7 @@ public abstract class Component extends RepositoryEntity {
      * @see org.palladiosimulator.generator.fluent.component.factory.FluentRepositoryFactory#newOperationInterface()
      */
     public Component requires(final OperationInterfaceCreator interfce, final String name) {
-        Objects.requireNonNull(interfce, "interfce must not be null");
+        IllegalArgumentException.requireNonNull(interfce, "interfce must not be null");
         final OperationInterface i = interfce.build();
         repository.addInterface(i);
         return this.requires(i, name);
@@ -403,7 +403,7 @@ public abstract class Component extends RepositoryEntity {
      * @see org.palladiosimulator.generator.fluent.component.factory.FluentRepositoryFactory#fetchOfOperationInterface(String)
      */
     public Component requires(final OperationInterface interfce) {
-        Objects.requireNonNull(interfce, "interfce must not be null");
+        IllegalArgumentException.requireNonNull(interfce, "interfce must not be null");
         return this.requires(interfce, null);
     }
 
@@ -427,7 +427,7 @@ public abstract class Component extends RepositoryEntity {
      * @see org.palladiosimulator.generator.fluent.component.factory.FluentRepositoryFactory#fetchOfOperationInterface(String)
      */
     public Component requires(final OperationInterface interfce, final String name) {
-        Objects.requireNonNull(interfce, "interfce must not be null");
+        IllegalArgumentException.requireNonNull(interfce, "interfce must not be null");
         final OperationRequiredRole requiredRole = RepositoryFactory.eINSTANCE.createOperationRequiredRole();
         if (name != null) {
             requiredRole.setEntityName(name);
@@ -456,7 +456,7 @@ public abstract class Component extends RepositoryEntity {
      * @see org.palladiosimulator.generator.fluent.component.factory.FluentRepositoryFactory#newInfrastructureInterface()
      */
     public Component requiresInfrastructure(final InfrastructureInterfaceCreator interfce) {
-        Objects.requireNonNull(interfce, "interfce must not be null");
+        IllegalArgumentException.requireNonNull(interfce, "interfce must not be null");
         return this.requiresInfrastructure(interfce, null);
     }
 
@@ -481,7 +481,7 @@ public abstract class Component extends RepositoryEntity {
      * @see org.palladiosimulator.generator.fluent.component.factory.FluentRepositoryFactory#newInfrastructureInterface()
      */
     public Component requiresInfrastructure(final InfrastructureInterfaceCreator interfce, final String name) {
-        Objects.requireNonNull(interfce, "interfce must not be null");
+        IllegalArgumentException.requireNonNull(interfce, "interfce must not be null");
         final InfrastructureInterface i = interfce.build();
         repository.addInterface(i);
         return this.requiresInfrastructure(i, name);
@@ -504,7 +504,7 @@ public abstract class Component extends RepositoryEntity {
      * @see org.palladiosimulator.generator.fluent.component.factory.FluentRepositoryFactory#fetchOfInfrastructureInterface(String)
      */
     public Component requiresInfrastructure(final InfrastructureInterface interfce) {
-        Objects.requireNonNull(interfce, "interfce must not be null");
+        IllegalArgumentException.requireNonNull(interfce, "interfce must not be null");
         return this.requiresInfrastructure(interfce, null);
     }
 
@@ -529,7 +529,7 @@ public abstract class Component extends RepositoryEntity {
      * @see org.palladiosimulator.generator.fluent.component.factory.FluentRepositoryFactory#fetchOfInfrastructureInterface(String)
      */
     public Component requiresInfrastructure(final InfrastructureInterface interfce, final String name) {
-        Objects.requireNonNull(interfce, "interfce must not be null");
+        IllegalArgumentException.requireNonNull(interfce, "interfce must not be null");
         final InfrastructureRequiredRole requiredRole = RepositoryFactory.eINSTANCE.createInfrastructureRequiredRole();
         if (name != null) {
             requiredRole.setEntityName(name);
@@ -557,7 +557,7 @@ public abstract class Component extends RepositoryEntity {
      * @see org.palladiosimulator.generator.fluent.component.factory.FluentRepositoryFactory#newEventGroup()
      */
     public Component emits(final EventGroupCreator eventGroup) {
-        Objects.requireNonNull(eventGroup, "eventGroup must not be null");
+        IllegalArgumentException.requireNonNull(eventGroup, "eventGroup must not be null");
         return this.emits(eventGroup, null);
     }
 
@@ -580,7 +580,7 @@ public abstract class Component extends RepositoryEntity {
      * @see org.palladiosimulator.generator.fluent.component.factory.FluentRepositoryFactory#newEventGroup()
      */
     public Component emits(final EventGroupCreator eventGroup, final String name) {
-        Objects.requireNonNull(eventGroup, "eventGroup must not be null");
+        IllegalArgumentException.requireNonNull(eventGroup, "eventGroup must not be null");
         final EventGroup eg = eventGroup.build();
         repository.addInterface(eg);
         return this.emits(eg, name);
@@ -602,7 +602,7 @@ public abstract class Component extends RepositoryEntity {
      * @see org.palladiosimulator.generator.fluent.component.factory.FluentRepositoryFactory#fetchOfEventGroup(String)
      */
     public Component emits(final EventGroup eventGroup) {
-        Objects.requireNonNull(eventGroup, "eventGroup must not be null");
+        IllegalArgumentException.requireNonNull(eventGroup, "eventGroup must not be null");
         return this.emits(eventGroup, null);
     }
 
@@ -625,7 +625,7 @@ public abstract class Component extends RepositoryEntity {
      * @see org.palladiosimulator.generator.fluent.component.factory.FluentRepositoryFactory#fetchOfEventGroup(String)
      */
     public Component emits(final EventGroup eventGroup, final String name) {
-        Objects.requireNonNull(eventGroup, "eventGroup must not be null");
+        IllegalArgumentException.requireNonNull(eventGroup, "eventGroup must not be null");
         final SourceRole requiredRole = RepositoryFactory.eINSTANCE.createSourceRole();
         if (name != null) {
             requiredRole.setEntityName(name);
@@ -654,7 +654,7 @@ public abstract class Component extends RepositoryEntity {
      * @see org.palladiosimulator.generator.fluent.component.factory.FluentRepositoryFactory#fetchOfResourceInterface(String)
      */
     public Component requiresResource(final ResourceInterface resourceInterface) {
-        Objects.requireNonNull(resourceInterface, "resourceInterface must not be null");
+        IllegalArgumentException.requireNonNull(resourceInterface, "resourceInterface must not be null");
         return this.requiresResource(resourceInterface, null);
     }
 
@@ -679,7 +679,7 @@ public abstract class Component extends RepositoryEntity {
      * @see org.palladiosimulator.generator.fluent.component.factory.FluentRepositoryFactory#fetchOfResourceInterface(String)
      */
     public Component requiresResource(final ResourceInterface resourceInterface, final String name) {
-        Objects.requireNonNull(resourceInterface, "resourceInterface must not be null");
+        IllegalArgumentException.requireNonNull(resourceInterface, "resourceInterface must not be null");
         final ResourceRequiredRole rrr = EntityFactory.eINSTANCE.createResourceRequiredRole();
         if (name != null) {
             rrr.setEntityName(name);

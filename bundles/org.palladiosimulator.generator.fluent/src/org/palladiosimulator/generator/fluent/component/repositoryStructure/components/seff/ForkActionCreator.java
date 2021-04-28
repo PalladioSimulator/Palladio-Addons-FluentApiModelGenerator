@@ -2,11 +2,11 @@ package org.palladiosimulator.generator.fluent.component.repositoryStructure.com
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import org.palladiosimulator.generator.fluent.component.api.seff.InternalSeff;
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.components.VariableUsageCreator;
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.internals.ResourceSignature;
+import org.palladiosimulator.generator.fluent.exceptions.IllegalArgumentException;
 import org.palladiosimulator.generator.fluent.shared.structure.ProcessingResource;
 import org.palladiosimulator.pcm.core.entity.ResourceRequiredRole;
 import org.palladiosimulator.pcm.parameter.VariableUsage;
@@ -53,7 +53,7 @@ public class ForkActionCreator extends GeneralAction {
      * @see org.palladiosimulator.generator.fluent.component.factory.FluentRepositoryFactory#newVariableUsage()
      */
     public ForkActionCreator withOutputParameterUsageAtSynchronisationPoint(final VariableUsageCreator variableUsage) {
-        Objects.requireNonNull(variableUsage, "variableUsage must not be null");
+        IllegalArgumentException.requireNonNull(variableUsage, "variableUsage must not be null");
         variableUsages.add(variableUsage.build());
         return this;
     }
@@ -67,7 +67,7 @@ public class ForkActionCreator extends GeneralAction {
      * @see org.palladiosimulator.generator.fluent.component.factory.FluentRepositoryFactory#newInternalBehaviour()
      */
     public ForkActionCreator withSynchronousForkedBehaviourAtSynchronisationPoint(final InternalSeff forkedBehaviour) {
-        Objects.requireNonNull(forkedBehaviour, "forkedBehaviour must not be null");
+        IllegalArgumentException.requireNonNull(forkedBehaviour, "forkedBehaviour must not be null");
         final ForkedBehaviour fork = forkedBehaviour.buildForkedBehaviour();
         synchronousForkedBehaviours.add(fork);
         return this;
@@ -82,7 +82,7 @@ public class ForkActionCreator extends GeneralAction {
      * @see org.palladiosimulator.generator.fluent.component.factory.FluentRepositoryFactory#newInternalBehaviour()
      */
     public ForkActionCreator withAsynchronousForkedBehaviour(final InternalSeff forkedBehaviour) {
-        Objects.requireNonNull(forkedBehaviour, "forkedBehaviour must not be null");
+        IllegalArgumentException.requireNonNull(forkedBehaviour, "forkedBehaviour must not be null");
         final ForkedBehaviour fork = forkedBehaviour.buildForkedBehaviour();
         asynchronousForkedBehaviours.add(fork);
         return this;

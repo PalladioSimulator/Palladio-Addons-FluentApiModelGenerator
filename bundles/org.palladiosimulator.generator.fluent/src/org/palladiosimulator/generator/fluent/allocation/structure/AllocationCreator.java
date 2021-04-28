@@ -2,10 +2,10 @@ package org.palladiosimulator.generator.fluent.allocation.structure;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import org.palladiosimulator.generator.fluent.allocation.api.IAllocation;
 import org.palladiosimulator.generator.fluent.allocation.api.IAllocationAddition;
+import org.palladiosimulator.generator.fluent.exceptions.IllegalArgumentException;
 import org.palladiosimulator.generator.fluent.shared.validate.IModelValidator;
 import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.pcm.allocation.AllocationContext;
@@ -62,21 +62,21 @@ public class AllocationCreator extends AllocationEntity implements IAllocation {
 
     @Override
     public IAllocationAddition withResourceEnvironment(final ResourceEnvironment environment) {
-        Objects.requireNonNull(environment, "The given ResourceEnvironment must not be null");
+        IllegalArgumentException.requireNonNull(environment, "The given ResourceEnvironment must not be null");
         resourceEnvironment = environment;
         return this;
     }
 
     @Override
     public IAllocationAddition withSystem(final System system) {
-        Objects.requireNonNull(system, "The given System must not be null");
+        IllegalArgumentException.requireNonNull(system, "The given System must not be null");
         this.system = system;
         return this;
     }
 
     @Override
     public IAllocationAddition addToAllocation(final AllocationContextCreator allocationContext) {
-        Objects.requireNonNull(allocationContext, "The given AllocationContext must not be null");
+        IllegalArgumentException.requireNonNull(allocationContext, "The given AllocationContext must not be null");
         allocationContexts.add(allocationContext.build());
         return this;
     }
@@ -91,6 +91,10 @@ public class AllocationCreator extends AllocationEntity implements IAllocation {
      *                                  name exists
      */
     public AssemblyContext getAssemblyContextByName(final String name) throws IllegalArgumentException {
+        if (system == null) {
+            throw new IllegalArgumentException("No AssemblyContext found.");
+        }
+
         return system.getAssemblyContexts__ComposedStructure().stream().filter(x -> x.getEntityName().equals(name))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("No AssemblyContext with name " + name + " found."));
@@ -106,6 +110,10 @@ public class AllocationCreator extends AllocationEntity implements IAllocation {
      *                                  name exists
      */
     public EventChannel getEventChannelByName(final String name) throws IllegalArgumentException {
+        if (system == null) {
+            throw new IllegalArgumentException("No EventChannel found.");
+        }
+
         return system.getEventChannel__ComposedStructure().stream().filter(x -> x.getEntityName().equals(name))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("No EventChannel with name " + name + " found."));
@@ -121,6 +129,9 @@ public class AllocationCreator extends AllocationEntity implements IAllocation {
      *                                  given name exists
      */
     public ResourceContainer getResourceContainerByName(final String name) throws IllegalArgumentException {
+        if (resourceEnvironment == null) {
+            throw new IllegalArgumentException("No ResourceContainer found.");
+        }
         return resourceEnvironment.getResourceContainer_ResourceEnvironment().stream()
                 .filter(x -> x.getEntityName().equals(name)).findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("No ResourceContainer with name " + name + " found."));

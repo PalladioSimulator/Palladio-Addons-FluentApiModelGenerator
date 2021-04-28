@@ -9,7 +9,8 @@ Require-Bundle: org.palladiosimulator.pcm;visibility:=reexport,
  org.palladiosimulator.pcm.resources;visibility:=reexport,
  org.palladiosimulator.commons.stoex,
  de.uka.ipd.sdq.stoex.analyser,
- org.apache.log4j
+ org.apache.log4j,
+ org.palladiosimulator.generator.fluent
 Bundle-Vendor: palladiosimulator.org
 Export-Package: org.palladiosimulator.generator.fluent.allocation,
  org.palladiosimulator.generator.fluent.allocation.api,
@@ -43,3 +44,4 @@ Export-Package: org.palladiosimulator.generator.fluent.allocation,
  org.palladiosimulator.generator.fluent.system.structure.connector.resource,
  org.palladiosimulator.generator.fluent.system.structure.qos,
  org.palladiosimulator.generator.fluent.system.structure.role
+Import-Package: org.palladiosimulator.generator.fluent.system.structure.connector.infrastructure

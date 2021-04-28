@@ -1,7 +1,6 @@
 package org.palladiosimulator.generator.fluent.system.structure;
 
-import java.util.Objects;
-
+import org.palladiosimulator.generator.fluent.exceptions.IllegalArgumentException;
 import org.palladiosimulator.generator.fluent.exceptions.NoSuchElementException;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.composition.CompositionFactory;
@@ -32,7 +31,7 @@ public class AssemblyContextCreator extends SystemEntity {
      * @see org.palladiosimulator.pcm.repository.RepositoryComponent
      */
     public AssemblyContextCreator withEncapsulatedComponent(final RepositoryComponent component) {
-        Objects.requireNonNull(component, "The given RepositoryComponent must not be null.");
+        IllegalArgumentException.requireNonNull(component, "The given RepositoryComponent must not be null.");
         encapuslatedComponent = component;
         return this;
     }

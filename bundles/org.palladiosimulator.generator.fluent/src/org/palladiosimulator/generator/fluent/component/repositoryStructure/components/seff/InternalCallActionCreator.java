@@ -2,11 +2,11 @@ package org.palladiosimulator.generator.fluent.component.repositoryStructure.com
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import org.palladiosimulator.generator.fluent.component.api.seff.InternalSeff;
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.components.VariableUsageCreator;
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.internals.ResourceSignature;
+import org.palladiosimulator.generator.fluent.exceptions.IllegalArgumentException;
 import org.palladiosimulator.generator.fluent.shared.structure.ProcessingResource;
 import org.palladiosimulator.pcm.core.entity.ResourceRequiredRole;
 import org.palladiosimulator.pcm.parameter.VariableUsage;
@@ -53,7 +53,7 @@ public class InternalCallActionCreator extends GeneralAction {
      * @see org.palladiosimulator.generator.fluent.component.factory.FluentRepositoryFactory#newVariableUsage()
      */
     public InternalCallActionCreator withInputVaribleUsage(final VariableUsageCreator variableUsage) {
-        Objects.requireNonNull(variableUsage, "variableUsage must not be null");
+        IllegalArgumentException.requireNonNull(variableUsage, "variableUsage must not be null");
         inputVariableUsages.add(variableUsage.build());
         return this;
     }
@@ -66,7 +66,7 @@ public class InternalCallActionCreator extends GeneralAction {
      * @see org.palladiosimulator.generator.fluent.component.factory.FluentRepositoryFactory#newInternalBehaviour()
      */
     public InternalCallActionCreator withInternalBehaviour(final InternalSeff internalBehaviour) {
-        Objects.requireNonNull(internalBehaviour, "internalBehaviour must not be null");
+        IllegalArgumentException.requireNonNull(internalBehaviour, "internalBehaviour must not be null");
         internalSeff = internalBehaviour;
         return this;
     }

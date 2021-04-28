@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceFactoryImpl;
+import org.palladiosimulator.generator.fluent.exceptions.FluentApiException;
 import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.pcm.repository.Repository;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceEnvironment;
@@ -127,7 +128,7 @@ public class ModelSaver {
                 ((XMLResource) resource).save(java.lang.System.out, ((XMLResource) resource).getDefaultSaveOptions());
             }
         } catch (final IOException e) {
-            throw new RuntimeException(e);
+            throw new FluentApiException(e);
         }
     }
 }

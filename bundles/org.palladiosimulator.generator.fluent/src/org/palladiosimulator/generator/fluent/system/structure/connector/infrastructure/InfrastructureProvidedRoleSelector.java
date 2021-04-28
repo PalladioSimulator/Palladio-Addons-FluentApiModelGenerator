@@ -1,7 +1,6 @@
 package org.palladiosimulator.generator.fluent.system.structure.connector.infrastructure;
 
-import java.util.Objects;
-
+import org.palladiosimulator.generator.fluent.exceptions.IllegalArgumentException;
 import org.palladiosimulator.generator.fluent.exceptions.NoSuchElementException;
 import org.palladiosimulator.generator.fluent.system.structure.connector.IContextRoleCombinator;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
@@ -37,7 +36,7 @@ public class InfrastructureProvidedRoleSelector<T> {
      * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
      */
     public T withInfrastructureProvidedRole(final InfrastructureProvidedRole role) {
-        Objects.requireNonNull(role, "The given Role must not be null.");
+        IllegalArgumentException.requireNonNull(role, "The given Role must not be null.");
         return this.combinator.combineContextAndRole(this.context, role);
     }
 

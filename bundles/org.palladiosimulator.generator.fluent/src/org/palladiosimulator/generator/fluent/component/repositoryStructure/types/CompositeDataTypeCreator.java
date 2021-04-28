@@ -2,11 +2,11 @@ package org.palladiosimulator.generator.fluent.component.repositoryStructure.typ
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.RepositoryCreator;
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.RepositoryEntity;
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.internals.Primitive;
+import org.palladiosimulator.generator.fluent.exceptions.IllegalArgumentException;
 import org.palladiosimulator.pcm.repository.CompositeDataType;
 import org.palladiosimulator.pcm.repository.DataType;
 import org.palladiosimulator.pcm.repository.InnerDeclaration;
@@ -53,8 +53,8 @@ public class CompositeDataTypeCreator extends RepositoryEntity {
      * @see org.palladiosimulator.pcm.repository.CompositeDataType
      */
     public CompositeDataTypeCreator withInnerDeclaration(final String name, final Primitive primitive) {
-        Objects.requireNonNull(name, "name must not be null");
-        Objects.requireNonNull(primitive, "primitive must not be null");
+        IllegalArgumentException.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.requireNonNull(primitive, "primitive must not be null");
         final InnerDeclaration inner = RepositoryFactory.eINSTANCE.createInnerDeclaration();
         inner.setEntityName(name);
         final PrimitiveDataType p = repository.getPrimitiveDataType(primitive);
@@ -81,8 +81,8 @@ public class CompositeDataTypeCreator extends RepositoryEntity {
      * @see org.palladiosimulator.pcm.repository.CompositeDataType
      */
     public CompositeDataTypeCreator withInnerDeclaration(final String name, final DataType dataType) {
-        Objects.requireNonNull(name, "name must not be null");
-        Objects.requireNonNull(dataType, "dataType must not be null");
+        IllegalArgumentException.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.requireNonNull(dataType, "dataType must not be null");
         final InnerDeclaration inner = RepositoryFactory.eINSTANCE.createInnerDeclaration();
         inner.setEntityName(name);
         inner.setDatatype_InnerDeclaration(dataType);
@@ -105,7 +105,7 @@ public class CompositeDataTypeCreator extends RepositoryEntity {
      * @see org.palladiosimulator.pcm.repository.CompositeDataType
      */
     public CompositeDataTypeCreator withParentCompositeDataType(final CompositeDataType parent) {
-        Objects.requireNonNull(parent, "parent must not be null");
+        IllegalArgumentException.requireNonNull(parent, "parent must not be null");
         parents.add(parent);
         return this;
     }

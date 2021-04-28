@@ -2,8 +2,8 @@ package org.palladiosimulator.generator.fluent.resourceenvironment.structure;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
+import org.palladiosimulator.generator.fluent.exceptions.IllegalArgumentException;
 import org.palladiosimulator.pcm.resourceenvironment.HDDProcessingResourceSpecification;
 import org.palladiosimulator.pcm.resourceenvironment.ProcessingResourceSpecification;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
@@ -40,7 +40,7 @@ public class ResourceContainerCreator extends ResourceEntity {
      */
     public ResourceContainerCreator addProcessingResourceSpecification(
             final ProcessingResourceSpecificationCreator processingResourceSpecification) {
-        Objects.requireNonNull(processingResourceSpecification,
+        IllegalArgumentException.requireNonNull(processingResourceSpecification,
                 "The given ProcessingResourceSpecification must not be null");
         processingResourceSpecifications.add(processingResourceSpecification.build());
         return this;
@@ -60,7 +60,7 @@ public class ResourceContainerCreator extends ResourceEntity {
      */
     public ResourceContainerCreator addHddProcessingResourceSpecification(
             final HddProcessingResourceSpecificationCreator hddProcessingResourceSpecification) {
-        Objects.requireNonNull(hddProcessingResourceSpecification,
+        IllegalArgumentException.requireNonNull(hddProcessingResourceSpecification,
                 "The given HddProcessingResourceSpecification must not be null");
         hddProcessingResourceSpecifications.add(hddProcessingResourceSpecification.build());
         return this;
@@ -76,7 +76,7 @@ public class ResourceContainerCreator extends ResourceEntity {
      * @see org.palladiosimulator.pcm.resourceenvironment.ResourceContainer
      */
     public ResourceContainerCreator addNestedResourceContainer(final ResourceContainerCreator resourceContainer) {
-        Objects.requireNonNull(resourceContainer, "The given ResourceContainer must not be null");
+        IllegalArgumentException.requireNonNull(resourceContainer, "The given ResourceContainer must not be null");
         nestedResourceContainers.add(resourceContainer.build());
         return this;
     }

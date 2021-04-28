@@ -1,6 +1,5 @@
 package org.palladiosimulator.generator.fluent.component.factory;
 
-import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -28,6 +27,8 @@ import org.palladiosimulator.generator.fluent.component.repositoryStructure.inte
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.types.CompositeDataTypeCreator;
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.types.ExceptionTypeCreator;
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.types.ResourceTimeoutFailureTypeCreator;
+import org.palladiosimulator.generator.fluent.exceptions.FluentApiException;
+import org.palladiosimulator.generator.fluent.exceptions.IllegalArgumentException;
 import org.palladiosimulator.generator.fluent.shared.structure.CommunicationLinkResource;
 import org.palladiosimulator.generator.fluent.shared.structure.ProcessingResource;
 import org.palladiosimulator.generator.fluent.shared.util.ModelLoader;
@@ -498,7 +499,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.generator.fluent.component.repositoryStructure.internals.Primitive
      */
     public CollectionDataType newCollectionDataType(final String name, final Primitive primitive) {
-        Objects.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.requireNonNull(name, "name must not be null");
         final PrimitiveDataType p = repo.getPrimitiveDataType(primitive);
 
         final CollectionDataType coll = RepositoryFactory.eINSTANCE.createCollectionDataType();
@@ -533,7 +534,7 @@ public class FluentRepositoryFactory {
      */
     public static CollectionDataType newCollectionDataType(final String name,
             final org.palladiosimulator.pcm.repository.DataType dataType) {
-        Objects.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.requireNonNull(name, "name must not be null");
         final CollectionDataType coll = RepositoryFactory.eINSTANCE.createCollectionDataType();
         coll.setEntityName(name);
         coll.setInnerType_CollectionDataType(dataType);
@@ -577,7 +578,7 @@ public class FluentRepositoryFactory {
      */
     public HardwareInducedFailureType newHardwareInducedFailureType(final String name,
             final ProcessingResource processingResource) {
-        Objects.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.requireNonNull(name, "name must not be null");
         final HardwareInducedFailureType h = ReliabilityFactory.eINSTANCE.createHardwareInducedFailureType();
         h.setEntityName(name);
         h.setProcessingResourceType__HardwareInducedFailureType(repo.getProcessingResourceType(processingResource));
@@ -595,7 +596,7 @@ public class FluentRepositoryFactory {
      */
     public NetworkInducedFailureType newNetworkInducedFailureType(final String name,
             final CommunicationLinkResource communicationLinkResource) {
-        Objects.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.requireNonNull(name, "name must not be null");
         final NetworkInducedFailureType n = ReliabilityFactory.eINSTANCE.createNetworkInducedFailureType();
         n.setEntityName(name);
         n.setCommunicationLinkResourceType__NetworkInducedFailureType(
@@ -611,7 +612,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.reliability.ResourceTimeoutFailureType
      */
     public ResourceTimeoutFailureTypeCreator newResourceTimeoutFailureType(final String name) {
-        Objects.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.requireNonNull(name, "name must not be null");
         return new ResourceTimeoutFailureTypeCreator(name, repo);
     }
 
@@ -623,7 +624,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.reliability.SoftwareInducedFailureType
      */
     public static SoftwareInducedFailureType newSoftwareInducedFailureType(final String name) {
-        Objects.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.requireNonNull(name, "name must not be null");
         final SoftwareInducedFailureType s = ReliabilityFactory.eINSTANCE.createSoftwareInducedFailureType();
         s.setEntityName(name);
         return s;
@@ -938,7 +939,7 @@ public class FluentRepositoryFactory {
      * repository. If the entity belongs to an imported repository, refer to it as
      * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
-     * This method throws a RuntimeException if no composite data type is present
+     * This method throws a FluentApiException if no composite data type is present
      * under the given <code>name</code>. If more than one composite data type with
      * this <code>name</code> is present, a warning will be printed during runtime
      * and the org.palladiosimulator.generator.fluent.system chooses the first
@@ -951,10 +952,10 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.CompositeDataType
      */
     public CompositeDataType fetchOfCompositeDataType(final String name) {
-        Objects.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.requireNonNull(name, "name must not be null");
         final CompositeDataType dataType = repo.getCompositeDataType(name);
         if (dataType == null) {
-            throw new RuntimeException("Composite data type '" + name + "' could not be found");
+            throw new FluentApiException("Composite data type '" + name + "' could not be found");
         }
 
         return dataType;
@@ -971,7 +972,7 @@ public class FluentRepositoryFactory {
     public DataType fetchOfDataType(final Primitive primitive) {
         final PrimitiveDataType p = repo.getPrimitiveDataType(primitive);
         if (p == null) {
-            throw new RuntimeException("Primitive data Type '" + primitive + "' could not be found");
+            throw new FluentApiException("Primitive data Type '" + primitive + "' could not be found");
         }
         return p;
     }
@@ -981,7 +982,7 @@ public class FluentRepositoryFactory {
      * If the entity belongs to an imported repository, refer to it as
      * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
-     * This method throws a RuntimeException if no data type is present under the
+     * This method throws a FluentApiException if no data type is present under the
      * given <code>name</code>. If more than one data type with this
      * <code>name</code> is present, a warning will be printed during runtime and
      * the org.palladiosimulator.generator.fluent.system chooses the first data type
@@ -996,13 +997,13 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.DataType
      */
     public DataType fetchOfDataType(final String name) {
-        Objects.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.requireNonNull(name, "name must not be null");
         DataType dataType = repo.getDataType(name);
         if (dataType == null) {
             dataType = repo.getPrimitiveDataType(name);
         }
         if (dataType == null) {
-            throw new RuntimeException("Datatype '" + name + "' could not be found");
+            throw new FluentApiException("Datatype '" + name + "' could not be found");
         }
 
         return dataType;
@@ -1013,11 +1014,12 @@ public class FluentRepositoryFactory {
      * from the repository. If the entity belongs to an imported repository, refer
      * to it as <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
-     * This method throws a RuntimeException if no resource timeout failure type is
-     * present under the given <code>name</code>. If more than one resource timeout
-     * failure type with this <code>name</code> is present, a warning will be
-     * printed during runtime and the org.palladiosimulator.generator.fluent.system
-     * chooses the first resource timeout failure type it finds.
+     * This method throws a FluentApiException if no resource timeout failure type
+     * is present under the given <code>name</code>. If more than one resource
+     * timeout failure type with this <code>name</code> is present, a warning will
+     * be printed during runtime and the
+     * org.palladiosimulator.generator.fluent.system chooses the first resource
+     * timeout failure type it finds.
      * </p>
      *
      * @param name
@@ -1027,7 +1029,7 @@ public class FluentRepositoryFactory {
     public ResourceTimeoutFailureType fetchOfResourceTimeoutFailureType(final String name) {
         final ResourceTimeoutFailureType failureType = repo.getResourceTimeoutFailureType(name);
         if (failureType == null) {
-            throw new RuntimeException("Failure Type '" + name + "' could not be found");
+            throw new FluentApiException("Failure Type '" + name + "' could not be found");
         }
         return failureType;
     }
@@ -1037,8 +1039,8 @@ public class FluentRepositoryFactory {
      * repository. If the entity belongs to an imported repository, refer to it as
      * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
-     * This method throws a RuntimeException if no failure type is present under the
-     * given <code>name</code>. If more than one failure type with this
+     * This method throws a FluentApiException if no failure type is present under
+     * the given <code>name</code>. If more than one failure type with this
      * <code>name</code> is present, a warning will be printed during runtime and
      * the org.palladiosimulator.generator.fluent.system chooses the first failure
      * type it finds.
@@ -1051,7 +1053,7 @@ public class FluentRepositoryFactory {
     public FailureType fetchOfFailureType(final Failure failure) {
         final FailureType f = repo.getFailureType(failure);
         if (f == null) {
-            throw new RuntimeException("Failure Type '" + failure + "' could not be found");
+            throw new FluentApiException("Failure Type '" + failure + "' could not be found");
         }
         return f;
     }
@@ -1061,8 +1063,8 @@ public class FluentRepositoryFactory {
      * repository. If the entity belongs to an imported repository, refer to it as
      * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
-     * This method throws a RuntimeException if no failure type is present under the
-     * given <code>name</code>. If more than one failure type with this
+     * This method throws a FluentApiException if no failure type is present under
+     * the given <code>name</code>. If more than one failure type with this
      * <code>name</code> is present, a warning will be printed during runtime and
      * the org.palladiosimulator.generator.fluent.system chooses the first failure
      * type it finds.
@@ -1073,10 +1075,10 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.reliability.FailureType
      */
     public FailureType fetchOfFailureType(final String name) {
-        Objects.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.requireNonNull(name, "name must not be null");
         final FailureType f = repo.getFailureType(name);
         if (f == null) {
-            throw new RuntimeException("Failure Type '" + name + "' could not be found");
+            throw new FluentApiException("Failure Type '" + name + "' could not be found");
         }
         return f;
     }
@@ -1085,7 +1087,7 @@ public class FluentRepositoryFactory {
      * Extracts the exception type referenced by <code>name</code> from the
      * repository.
      * <p>
-     * This method throws a RuntimeException if no exception type is present under
+     * This method throws a FluentApiException if no exception type is present under
      * the given <code>name</code>. If more than one exception type with this
      * <code>name</code> is present, a warning will be printed during runtime and
      * the org.palladiosimulator.generator.fluent.system chooses the first exception
@@ -1097,10 +1099,10 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.ExceptionType
      */
     public ExceptionType fetchOfExceptionType(final String name) {
-        Objects.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.requireNonNull(name, "name must not be null");
         final ExceptionType e = repo.getExceptionType(name);
         if (e == null) {
-            throw new RuntimeException("Failure Type '" + name + "' could not be found");
+            throw new FluentApiException("Failure Type '" + name + "' could not be found");
         }
         return e;
     }
@@ -1110,10 +1112,10 @@ public class FluentRepositoryFactory {
      * repository. If the entity belongs to an imported repository, refer to it as
      * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
-     * This method throws a RuntimeException if no <b>component</b> is present under
-     * the given <code>name</code>. If more than one <b>component</b> with this
-     * <code>name</code> is present, a warning will be printed during runtime and
-     * the org.palladiosimulator.generator.fluent.system chooses the first
+     * This method throws a FluentApiException if no <b>component</b> is present
+     * under the given <code>name</code>. If more than one <b>component</b> with
+     * this <code>name</code> is present, a warning will be printed during runtime
+     * and the org.palladiosimulator.generator.fluent.system chooses the first
      * <b>component</b> it finds.
      * </p>
      *
@@ -1123,10 +1125,10 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.RepositoryComponent
      */
     public RepositoryComponent fetchOfComponent(final String name) {
-        Objects.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.requireNonNull(name, "name must not be null");
         final RepositoryComponent component = repo.getComponent(name);
         if (component == null) {
-            throw new RuntimeException("Component '" + name + "' could not be found");
+            throw new FluentApiException("Component '" + name + "' could not be found");
         }
         return component;
     }
@@ -1136,8 +1138,8 @@ public class FluentRepositoryFactory {
      * repository. If the entity belongs to an imported repository, refer to it as
      * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
-     * This method throws a RuntimeException if no basic component is present under
-     * the given <code>name</code>. If more than one basic component with this
+     * This method throws a FluentApiException if no basic component is present
+     * under the given <code>name</code>. If more than one basic component with this
      * <code>name</code> is present, a warning will be printed during runtime and
      * the org.palladiosimulator.generator.fluent.system chooses the first basic
      * component it finds.
@@ -1149,10 +1151,10 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.BasicComponent
      */
     public BasicComponent fetchOfBasicComponent(final String name) {
-        Objects.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.requireNonNull(name, "name must not be null");
         final BasicComponent component = repo.getBasicComponent(name);
         if (component == null) {
-            throw new RuntimeException("BasicComponent '" + name + "' could not be found");
+            throw new FluentApiException("BasicComponent '" + name + "' could not be found");
         }
         return component;
     }
@@ -1162,7 +1164,7 @@ public class FluentRepositoryFactory {
      * repository. If the entity belongs to an imported repository, refer to it as
      * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
-     * This method throws a RuntimeException if no composite component is present
+     * This method throws a FluentApiException if no composite component is present
      * under the given <code>name</code>. If more than one composite component with
      * this <code>name</code> is present, a warning will be printed during runtime
      * and the org.palladiosimulator.generator.fluent.system chooses the first
@@ -1175,10 +1177,10 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.CompositeComponent
      */
     public CompositeComponent fetchOfCompositeComponent(final String name) {
-        Objects.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.requireNonNull(name, "name must not be null");
         final CompositeComponent component = repo.getCompositeComponent(name);
         if (component == null) {
-            throw new RuntimeException("CompositeComponent '" + name + "' could not be found");
+            throw new FluentApiException("CompositeComponent '" + name + "' could not be found");
         }
         return component;
     }
@@ -1188,7 +1190,7 @@ public class FluentRepositoryFactory {
      * If the entity belongs to an imported repository, refer to it as
      * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
-     * This method throws a RuntimeException if no subsystem is present under the
+     * This method throws a FluentApiException if no subsystem is present under the
      * given <code>name</code>. If more than one subsystem with this
      * <code>name</code> is present, a warning will be printed during runtime and
      * the org.palladiosimulator.generator.fluent.system chooses the first subsystem
@@ -1201,10 +1203,10 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.subsystem.SubSystem
      */
     public SubSystem fetchOfSubSystem(final String name) {
-        Objects.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.requireNonNull(name, "name must not be null");
         final SubSystem component = repo.getSubsystem(name);
         if (component == null) {
-            throw new RuntimeException("Subsystem '" + name + "' could not be found");
+            throw new FluentApiException("Subsystem '" + name + "' could not be found");
         }
         return component;
     }
@@ -1214,7 +1216,7 @@ public class FluentRepositoryFactory {
      * repository. If the entity belongs to an imported repository, refer to it as
      * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
-     * This method throws a RuntimeException if no complete component type is
+     * This method throws a FluentApiException if no complete component type is
      * present under the given <code>name</code>. If more than one complete
      * component type with this <code>name</code> is present, a warning will be
      * printed during runtime and the org.palladiosimulator.generator.fluent.system
@@ -1227,10 +1229,10 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.CompleteComponentType
      */
     public CompleteComponentType fetchOfCompleteComponentType(final String name) {
-        Objects.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.requireNonNull(name, "name must not be null");
         final CompleteComponentType component = repo.getCompleteComponentType(name);
         if (component == null) {
-            throw new RuntimeException("CompleteComponentType '" + name + "' could not be found");
+            throw new FluentApiException("CompleteComponentType '" + name + "' could not be found");
         }
         return component;
     }
@@ -1240,7 +1242,7 @@ public class FluentRepositoryFactory {
      * repository. If the entity belongs to an imported repository, refer to it as
      * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
-     * This method throws a RuntimeException if no provides component type is
+     * This method throws a FluentApiException if no provides component type is
      * present under the given <code>name</code>. If more than one provides
      * component type with this <code>name</code> is present, a warning will be
      * printed during runtime and the org.palladiosimulator.generator.fluent.system
@@ -1253,10 +1255,10 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.ProvidesComponentType
      */
     public ProvidesComponentType fetchOfProvidesComponentType(final String name) {
-        Objects.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.requireNonNull(name, "name must not be null");
         final ProvidesComponentType component = repo.getProvidesComponentType(name);
         if (component == null) {
-            throw new RuntimeException("ProvidesComponentType '" + name + "' could not be found");
+            throw new FluentApiException("ProvidesComponentType '" + name + "' could not be found");
         }
         return component;
     }
@@ -1266,7 +1268,7 @@ public class FluentRepositoryFactory {
      * If the entity belongs to an imported repository, refer to it as
      * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
-     * This method throws a RuntimeException if no interface is present under the
+     * This method throws a FluentApiException if no interface is present under the
      * given <code>name</code>. If more than one interface with this
      * <code>name</code> is present, a warning will be printed during runtime and
      * the org.palladiosimulator.generator.fluent.system chooses the first interface
@@ -1279,10 +1281,10 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.Interface
      */
     public Interface fetchOfInterface(final String name) {
-        Objects.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.requireNonNull(name, "name must not be null");
         final Interface interfce = repo.getInterface(name);
         if (interfce == null) {
-            throw new RuntimeException("Interface '" + name + "' could not be found");
+            throw new FluentApiException("Interface '" + name + "' could not be found");
         }
         return interfce;
     }
@@ -1292,7 +1294,7 @@ public class FluentRepositoryFactory {
      * repository. If the entity belongs to an imported repository, refer to it as
      * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
-     * This method throws a RuntimeException if no operation interface is present
+     * This method throws a FluentApiException if no operation interface is present
      * under the given <code>name</code>. If more than one operation interface with
      * this <code>name</code> is present, a warning will be printed during runtime
      * and the org.palladiosimulator.generator.fluent.system chooses the first
@@ -1305,10 +1307,10 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.OperationInterface
      */
     public OperationInterface fetchOfOperationInterface(final String name) {
-        Objects.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.requireNonNull(name, "name must not be null");
         final OperationInterface interfce = repo.getOperationInterface(name);
         if (interfce == null) {
-            throw new RuntimeException("OperationInterface '" + name + "' could not be found");
+            throw new FluentApiException("OperationInterface '" + name + "' could not be found");
         }
         return interfce;
     }
@@ -1318,7 +1320,7 @@ public class FluentRepositoryFactory {
      * the repository. If the entity belongs to an imported repository, refer to it
      * as <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
-     * This method throws a RuntimeException if no infrastructure interface is
+     * This method throws a FluentApiException if no infrastructure interface is
      * present under the given <code>name</code>. If more than one infrastructure
      * interface with this <code>name</code> is present, a warning will be printed
      * during runtime and the org.palladiosimulator.generator.fluent.system chooses
@@ -1331,10 +1333,10 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.InfrastructureInterface
      */
     public InfrastructureInterface fetchOfInfrastructureInterface(final String name) {
-        Objects.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.requireNonNull(name, "name must not be null");
         final InfrastructureInterface interfce = repo.getInfrastructureInterface(name);
         if (interfce == null) {
-            throw new RuntimeException("InfrastructureInterface '" + name + "' could not be found");
+            throw new FluentApiException("InfrastructureInterface '" + name + "' could not be found");
         }
         return interfce;
     }
@@ -1344,8 +1346,8 @@ public class FluentRepositoryFactory {
      * If the entity belongs to an imported repository, refer to it as
      * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
-     * This method throws a RuntimeException if no event group is present under the
-     * given <code>name</code>. If more than one event group with this
+     * This method throws a FluentApiException if no event group is present under
+     * the given <code>name</code>. If more than one event group with this
      * <code>name</code> is present, a warning will be printed during runtime and
      * the org.palladiosimulator.generator.fluent.system chooses the first event
      * group it finds.
@@ -1357,10 +1359,10 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.EventGroup
      */
     public EventGroup fetchOfEventGroup(final String name) {
-        Objects.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.requireNonNull(name, "name must not be null");
         final EventGroup interfce = repo.getEventGroup(name);
         if (interfce == null) {
-            throw new RuntimeException("EventGroup '" + name + "' could not be found");
+            throw new FluentApiException("EventGroup '" + name + "' could not be found");
         }
         return interfce;
     }
@@ -1370,7 +1372,7 @@ public class FluentRepositoryFactory {
      * repository. If the entity belongs to an imported repository, refer to it as
      * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
-     * This method throws a RuntimeException if no provided role is present under
+     * This method throws a FluentApiException if no provided role is present under
      * the given <code>name</code>. If more than one provided role with this
      * <code>name</code> is present, a warning will be printed during runtime and
      * the org.palladiosimulator.generator.fluent.system chooses the first provided
@@ -1382,10 +1384,10 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.ProvidedRole
      */
     public ProvidedRole fetchOfProvidedRole(final String name) {
-        Objects.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.requireNonNull(name, "name must not be null");
         final ProvidedRole provRole = repo.getProvidedRole(name);
         if (provRole == null) {
-            throw new RuntimeException("ProvidedRole '" + name + "' could not be found");
+            throw new FluentApiException("ProvidedRole '" + name + "' could not be found");
         }
         return provRole;
     }
@@ -1395,7 +1397,7 @@ public class FluentRepositoryFactory {
      * repository. If the entity belongs to an imported repository, refer to it as
      * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
-     * This method throws a RuntimeException if no operation provided role is
+     * This method throws a FluentApiException if no operation provided role is
      * present under the given <code>name</code>. If more than one operation
      * provided role with this <code>name</code> is present, a warning will be
      * printed during runtime and the org.palladiosimulator.generator.fluent.system
@@ -1407,10 +1409,10 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.OperationProvidedRole
      */
     public OperationProvidedRole fetchOfOperationProvidedRole(final String name) {
-        Objects.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.requireNonNull(name, "name must not be null");
         final OperationProvidedRole provRole = repo.getOperationProvidedRole(name);
         if (provRole == null) {
-            throw new RuntimeException("ProvidedRole '" + name + "' could not be found");
+            throw new FluentApiException("ProvidedRole '" + name + "' could not be found");
         }
         return provRole;
     }
@@ -1420,7 +1422,7 @@ public class FluentRepositoryFactory {
      * from the repository. If the entity belongs to an imported repository, refer
      * to it as <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
-     * This method throws a RuntimeException if no infrastructure provided role is
+     * This method throws a FluentApiException if no infrastructure provided role is
      * present under the given <code>name</code>. If more than one infrastructure
      * provided role with this <code>name</code> is present, a warning will be
      * printed during runtime and the org.palladiosimulator.generator.fluent.system
@@ -1432,10 +1434,10 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.InfrastructureProvidedRole
      */
     public InfrastructureProvidedRole fetchOfInfrastructureProvidedRole(final String name) {
-        Objects.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.requireNonNull(name, "name must not be null");
         final InfrastructureProvidedRole provRole = repo.getInfrastructureProvidedRole(name);
         if (provRole == null) {
-            throw new RuntimeException("ProvidedRole '" + name + "' could not be found");
+            throw new FluentApiException("ProvidedRole '" + name + "' could not be found");
         }
         return provRole;
     }
@@ -1445,7 +1447,7 @@ public class FluentRepositoryFactory {
      * If the entity belongs to an imported repository, refer to it as
      * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
-     * This method throws a RuntimeException if no sink role is present under the
+     * This method throws a FluentApiException if no sink role is present under the
      * given <code>name</code>. If more than one sink role with this
      * <code>name</code> is present, a warning will be printed during runtime and
      * the org.palladiosimulator.generator.fluent.system chooses the first sink role
@@ -1457,10 +1459,10 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.SinkRole
      */
     public SinkRole fetchOfSinkRole(final String name) {
-        Objects.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.requireNonNull(name, "name must not be null");
         final SinkRole provRole = repo.getSinkRole(name);
         if (provRole == null) {
-            throw new RuntimeException("SinkRole '" + name + "' could not be found");
+            throw new FluentApiException("SinkRole '" + name + "' could not be found");
         }
         return provRole;
     }
@@ -1470,7 +1472,7 @@ public class FluentRepositoryFactory {
      * repository. If the entity belongs to an imported repository, refer to it as
      * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
-     * This method throws a RuntimeException if no required role is present under
+     * This method throws a FluentApiException if no required role is present under
      * the given <code>name</code>. If more than one required role with this
      * <code>name</code> is present, a warning will be printed during runtime and
      * the org.palladiosimulator.generator.fluent.system chooses the first required
@@ -1482,10 +1484,10 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.RequiredRole
      */
     public RequiredRole fetchOfRequiredRole(final String name) {
-        Objects.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.requireNonNull(name, "name must not be null");
         final RequiredRole reqRole = repo.getRequiredRole(name);
         if (reqRole == null) {
-            throw new RuntimeException("RequiredRole '" + name + "' could not be found");
+            throw new FluentApiException("RequiredRole '" + name + "' could not be found");
         }
         return reqRole;
     }
@@ -1495,7 +1497,7 @@ public class FluentRepositoryFactory {
      * repository. If the entity belongs to an imported repository, refer to it as
      * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
-     * This method throws a RuntimeException if no operation required role is
+     * This method throws a FluentApiException if no operation required role is
      * present under the given <code>name</code>. If more than one operation
      * required role with this <code>name</code> is present, a warning will be
      * printed during runtime and the org.palladiosimulator.generator.fluent.system
@@ -1507,10 +1509,10 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.OperationRequiredRole
      */
     public OperationRequiredRole fetchOfOperationRequiredRole(final String name) {
-        Objects.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.requireNonNull(name, "name must not be null");
         final OperationRequiredRole reqRole = repo.getOperationRequiredRole(name);
         if (reqRole == null) {
-            throw new RuntimeException("RequiredRole '" + name + "' could not be found");
+            throw new FluentApiException("RequiredRole '" + name + "' could not be found");
         }
         return reqRole;
     }
@@ -1520,7 +1522,7 @@ public class FluentRepositoryFactory {
      * from the repository. If the entity belongs to an imported repository, refer
      * to it as <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
-     * This method throws a RuntimeException if no infrastructure required role is
+     * This method throws a FluentApiException if no infrastructure required role is
      * present under the given <code>name</code>. If more than one infrastructure
      * required role with this <code>name</code> is present, a warning will be
      * printed during runtime and the org.palladiosimulator.generator.fluent.system
@@ -1532,10 +1534,10 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.InfrastructureRequiredRole
      */
     public InfrastructureRequiredRole fetchOfInfrastructureRequiredRole(final String name) {
-        Objects.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.requireNonNull(name, "name must not be null");
         final InfrastructureRequiredRole reqRole = repo.getInfrastructureRequiredRole(name);
         if (reqRole == null) {
-            throw new RuntimeException("RequiredRole '" + name + "' could not be found");
+            throw new FluentApiException("RequiredRole '" + name + "' could not be found");
         }
         return reqRole;
     }
@@ -1545,8 +1547,8 @@ public class FluentRepositoryFactory {
      * If the entity belongs to an imported repository, refer to it as
      * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
-     * This method throws a RuntimeException if no source role is present under the
-     * given <code>name</code>. If more than one source role with this
+     * This method throws a FluentApiException if no source role is present under
+     * the given <code>name</code>. If more than one source role with this
      * <code>name</code> is present, a warning will be printed during runtime and
      * the org.palladiosimulator.generator.fluent.system chooses the first source
      * role it finds.
@@ -1557,10 +1559,10 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.SourceRole
      */
     public SourceRole fetchOfSourceRole(final String name) {
-        Objects.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.requireNonNull(name, "name must not be null");
         final SourceRole reqRole = repo.getSourceRole(name);
         if (reqRole == null) {
-            throw new RuntimeException("SourceRole '" + name + "' could not be found");
+            throw new FluentApiException("SourceRole '" + name + "' could not be found");
         }
         return reqRole;
     }
@@ -1570,9 +1572,9 @@ public class FluentRepositoryFactory {
      * repository. If the entity belongs to an imported repository, refer to it as
      * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
-     * This method throws a RuntimeException if no resource required role is present
-     * under the given <code>name</code>. If more than one resource required role
-     * with this <code>name</code> is present, a warning will be printed during
+     * This method throws a FluentApiException if no resource required role is
+     * present under the given <code>name</code>. If more than one resource required
+     * role with this <code>name</code> is present, a warning will be printed during
      * runtime and the org.palladiosimulator.generator.fluent.system chooses the
      * first resource required role it finds.
      * </p>
@@ -1582,10 +1584,10 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.core.entity.ResourceRequiredRole
      */
     public ResourceRequiredRole fetchOfResourceRequiredRole(final String name) {
-        Objects.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.requireNonNull(name, "name must not be null");
         final ResourceRequiredRole reqRole = repo.getResourceRequiredRole(name);
         if (reqRole == null) {
-            throw new RuntimeException("ResourceRequiredRole '" + name + "' could not be found");
+            throw new FluentApiException("ResourceRequiredRole '" + name + "' could not be found");
         }
         return reqRole;
     }
@@ -1595,7 +1597,7 @@ public class FluentRepositoryFactory {
      * If the entity belongs to an imported repository, refer to it as
      * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
-     * This method throws a RuntimeException if no signature is present under the
+     * This method throws a FluentApiException if no signature is present under the
      * given <code>name</code>. If more than one signature with this
      * <code>name</code> is present, a warning will be printed during runtime and
      * the org.palladiosimulator.generator.fluent.system chooses the first signature
@@ -1607,10 +1609,10 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.Signature
      */
     public Signature fetchOfSignature(final String name) {
-        Objects.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.requireNonNull(name, "name must not be null");
         final Signature signature = repo.getSignature(name);
         if (signature == null) {
-            throw new RuntimeException("Signature '" + name + "' could not be found");
+            throw new FluentApiException("Signature '" + name + "' could not be found");
         }
         return signature;
     }
@@ -1620,7 +1622,7 @@ public class FluentRepositoryFactory {
      * repository. If the entity belongs to an imported repository, refer to it as
      * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
-     * This method throws a RuntimeException if no operation signature is present
+     * This method throws a FluentApiException if no operation signature is present
      * under the given <code>name</code>. If more than one operation signature with
      * this <code>name</code> is present, a warning will be printed during runtime
      * and the org.palladiosimulator.generator.fluent.system chooses the first
@@ -1632,10 +1634,10 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.OperationSignature
      */
     public OperationSignature fetchOfOperationSignature(final String name) {
-        Objects.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.requireNonNull(name, "name must not be null");
         final OperationSignature signature = repo.getOperationSignature(name);
         if (signature == null) {
-            throw new RuntimeException("Operation signature '" + name + "' could not be found");
+            throw new FluentApiException("Operation signature '" + name + "' could not be found");
         }
         return signature;
     }
@@ -1645,7 +1647,7 @@ public class FluentRepositoryFactory {
      * the repository. If the entity belongs to an imported repository, refer to it
      * as <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
-     * This method throws a RuntimeException if no infrastructure signature is
+     * This method throws a FluentApiException if no infrastructure signature is
      * present under the given <code>name</code>. If more than one infrastructure
      * signature with this <code>name</code> is present, a warning will be printed
      * during runtime and the org.palladiosimulator.generator.fluent.system chooses
@@ -1657,10 +1659,10 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.InfrastructureSignature
      */
     public InfrastructureSignature fetchOfInfrastructureSignature(final String name) {
-        Objects.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.requireNonNull(name, "name must not be null");
         final InfrastructureSignature signature = repo.getInfrastructureSignature(name);
         if (signature == null) {
-            throw new RuntimeException("Operation signature '" + name + "' could not be found");
+            throw new FluentApiException("Operation signature '" + name + "' could not be found");
         }
         return signature;
     }
@@ -1670,7 +1672,7 @@ public class FluentRepositoryFactory {
      * If the entity belongs to an imported repository, refer to it as
      * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
-     * This method throws a RuntimeException if no event type is present under the
+     * This method throws a FluentApiException if no event type is present under the
      * given <code>name</code>. If more than one event type with this
      * <code>name</code> is present, a warning will be printed during runtime and
      * the org.palladiosimulator.generator.fluent.system chooses the first event
@@ -1682,10 +1684,10 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.EventType
      */
     public EventType fetchOfEventType(final String name) {
-        Objects.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.requireNonNull(name, "name must not be null");
         final EventType eventType = repo.getEventType(name);
         if (eventType == null) {
-            throw new RuntimeException("EventType '" + name + "' could not be found");
+            throw new FluentApiException("EventType '" + name + "' could not be found");
         }
         return eventType;
     }
@@ -1695,11 +1697,11 @@ public class FluentRepositoryFactory {
      * repository. If the entity belongs to an imported repository, refer to it as
      * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
-     * This method throws a RuntimeException if no assembly context is present under
-     * the given <code>name</code>. If more than one assembly context with this
-     * <code>name</code> is present, a warning will be printed during runtime and
-     * the org.palladiosimulator.generator.fluent.system chooses the first assembly
-     * context it finds.
+     * This method throws a FluentApiException if no assembly context is present
+     * under the given <code>name</code>. If more than one assembly context with
+     * this <code>name</code> is present, a warning will be printed during runtime
+     * and the org.palladiosimulator.generator.fluent.system chooses the first
+     * assembly context it finds.
      * </p>
      *
      * @param name
@@ -1707,10 +1709,10 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
      */
     public AssemblyContext fetchOfAssemblyContext(final String name) {
-        Objects.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.requireNonNull(name, "name must not be null");
         final AssemblyContext assContext = repo.getAssemblyContext(name);
         if (assContext == null) {
-            throw new RuntimeException("Assembly context '" + name + "' could not be found");
+            throw new FluentApiException("Assembly context '" + name + "' could not be found");
         }
         return assContext;
     }
@@ -1720,7 +1722,7 @@ public class FluentRepositoryFactory {
      * repository. If the entity belongs to an imported repository, refer to it as
      * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
-     * This method throws a RuntimeException if no event channel is present under
+     * This method throws a FluentApiException if no event channel is present under
      * the given <code>name</code>. If more than one event channel with this
      * <code>name</code> is present, a warning will be printed during runtime and
      * the org.palladiosimulator.generator.fluent.system chooses the first event
@@ -1732,10 +1734,10 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.core.composition.EventChannel
      */
     public EventChannel fetchOfEventChannel(final String name) {
-        Objects.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.requireNonNull(name, "name must not be null");
         final EventChannel eventChannel = repo.getEventChannel(name);
         if (eventChannel == null) {
-            throw new RuntimeException("Event Channel '" + name + "' could not be found");
+            throw new FluentApiException("Event Channel '" + name + "' could not be found");
         }
         return eventChannel;
     }
@@ -1745,7 +1747,7 @@ public class FluentRepositoryFactory {
      * If the entity belongs to an imported repository, refer to it as
      * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
-     * This method throws a RuntimeException if no parameter is present under the
+     * This method throws a FluentApiException if no parameter is present under the
      * given <code>name</code>. If more than one parameter with this
      * <code>name</code> is present, a warning will be printed during runtime and
      * the org.palladiosimulator.generator.fluent.system chooses the first parameter
@@ -1757,10 +1759,10 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.Parameter
      */
     public Parameter fetchOfParameter(final String name) {
-        Objects.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.requireNonNull(name, "name must not be null");
         final Parameter p = repo.getParameter(name);
         if (p == null) {
-            throw new RuntimeException("Parameter '" + name + "' could not be found");
+            throw new FluentApiException("Parameter '" + name + "' could not be found");
         }
         return p;
     }
@@ -1771,7 +1773,7 @@ public class FluentRepositoryFactory {
      * an imported repository, refer to it as
      * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
-     * This method throws a RuntimeException if no parameter is present under the
+     * This method throws a FluentApiException if no parameter is present under the
      * given <code>name</code>. If more than one parameter with this
      * <code>name</code> is present, a warning will be printed during runtime and
      * the org.palladiosimulator.generator.fluent.system chooses the first parameter
@@ -1784,10 +1786,10 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.Parameter
      */
     public Parameter fetchOfParameter(final String name, final Signature context) {
-        Objects.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.requireNonNull(name, "name must not be null");
         final Parameter p = repo.getParameter(name, context);
         if (p == null) {
-            throw new RuntimeException("Parameter '" + name + "' could not be found");
+            throw new FluentApiException("Parameter '" + name + "' could not be found");
         }
         return p;
     }
@@ -1797,11 +1799,11 @@ public class FluentRepositoryFactory {
      * repository. If the entity belongs to an imported repository, refer to it as
      * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
-     * This method throws a RuntimeException if no passive resource is present under
-     * the given <code>name</code>. If more than one passive resource with this
-     * <code>name</code> is present, a warning will be printed during runtime and
-     * the org.palladiosimulator.generator.fluent.system chooses the first passive
-     * resource it finds.
+     * This method throws a FluentApiException if no passive resource is present
+     * under the given <code>name</code>. If more than one passive resource with
+     * this <code>name</code> is present, a warning will be printed during runtime
+     * and the org.palladiosimulator.generator.fluent.system chooses the first
+     * passive resource it finds.
      * </p>
      *
      * @param name
@@ -1809,10 +1811,10 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.seff.seff_reliability.RecoveryActionBehaviour
      */
     public PassiveResource fetchOfPassiveResource(final String name) {
-        Objects.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.requireNonNull(name, "name must not be null");
         final PassiveResource r = repo.getPassiveResource(name);
         if (r == null) {
-            throw new RuntimeException("Passive Resource '" + name + "' could not be found");
+            throw new FluentApiException("Passive Resource '" + name + "' could not be found");
         }
         return r;
     }
@@ -1822,7 +1824,7 @@ public class FluentRepositoryFactory {
      * the repository. If the entity belongs to an imported repository, refer to it
      * as <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
-     * This method throws a RuntimeException if no recovery action behaviour is
+     * This method throws a FluentApiException if no recovery action behaviour is
      * present under the given <code>name</code>. If more than one recovery action
      * behaviour with this <code>name</code> is present, a warning will be printed
      * during runtime and the org.palladiosimulator.generator.fluent.system chooses
@@ -1834,10 +1836,10 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.seff.seff_reliability.RecoveryActionBehaviour
      */
     public RecoveryActionBehaviour fetchOfRecoveryActionBehaviour(final String name) {
-        Objects.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.requireNonNull(name, "name must not be null");
         final RecoveryActionBehaviour r = repo.getRecoveryActionBehaviour(name);
         if (r == null) {
-            throw new RuntimeException("Recovery action behaviour '" + name + "' could not be found");
+            throw new FluentApiException("Recovery action behaviour '" + name + "' could not be found");
         }
         return r;
     }

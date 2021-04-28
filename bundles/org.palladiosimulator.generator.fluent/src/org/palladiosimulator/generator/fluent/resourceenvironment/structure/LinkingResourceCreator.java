@@ -2,8 +2,8 @@ package org.palladiosimulator.generator.fluent.resourceenvironment.structure;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
+import org.palladiosimulator.generator.fluent.exceptions.IllegalArgumentException;
 import org.palladiosimulator.generator.fluent.shared.structure.CommunicationLinkResource;
 import org.palladiosimulator.pcm.core.CoreFactory;
 import org.palladiosimulator.pcm.core.PCMRandomVariable;
@@ -72,7 +72,7 @@ public class LinkingResourceCreator extends ResourceEntity {
      * @see org.palladiosimulator.pcm.resourceenvironment.ResourceContainer
      */
     public LinkingResourceCreator addLinkedResourceContainer(final ResourceContainer container) {
-        Objects.requireNonNull(container, "The given ResourceContainer must not be null");
+        IllegalArgumentException.requireNonNull(container, "The given ResourceContainer must not be null");
         linkedContainers.add(container);
         return this;
     }
@@ -104,7 +104,7 @@ public class LinkingResourceCreator extends ResourceEntity {
      * @see org.palladiosimulator.pcm.resourceenvironment.LinkingResource
      */
     public LinkingResourceCreator withLatency(final String latency) {
-        Objects.requireNonNull(latency, "the given latency must not be null");
+        IllegalArgumentException.requireNonNull(latency, "the given latency must not be null");
         latencyVariable = CoreFactory.eINSTANCE.createPCMRandomVariable();
         latencyVariable.setSpecification(latency);
         return this;
@@ -120,7 +120,7 @@ public class LinkingResourceCreator extends ResourceEntity {
      * @see org.palladiosimulator.pcm.resourceenvironment.LinkingResource
      */
     public LinkingResourceCreator withThroughput(final String throughput) {
-        Objects.requireNonNull(throughput, "The given throughput must not be null");
+        IllegalArgumentException.requireNonNull(throughput, "The given throughput must not be null");
         throughputVariable = CoreFactory.eINSTANCE.createPCMRandomVariable();
         throughputVariable.setSpecification(throughput);
         return this;

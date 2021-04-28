@@ -1,8 +1,7 @@
 package org.palladiosimulator.generator.fluent.shared.structure;
 
-import java.util.Objects;
-
 import org.eclipse.emf.cdo.CDOObject;
+import org.palladiosimulator.generator.fluent.exceptions.IllegalArgumentException;
 
 /***
  * This class provides the general infrastructure of a Palladio Model Entity.
@@ -22,7 +21,7 @@ public abstract class Entity {
      * @return this current entity in the making
      */
     public Entity withName(final String name) {
-        Objects.requireNonNull(name, "name must not be null");
+        IllegalArgumentException.requireNonNull(name, "name must not be null");
         this.name = name;
         return this;
     }

@@ -2,9 +2,9 @@ package org.palladiosimulator.generator.fluent.component.repositoryStructure.int
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.RepositoryEntity;
+import org.palladiosimulator.generator.fluent.exceptions.IllegalArgumentException;
 import org.palladiosimulator.pcm.parameter.VariableCharacterisationType;
 import org.palladiosimulator.pcm.repository.Parameter;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
@@ -42,7 +42,7 @@ public abstract class Interface extends RepositoryEntity {
      * @see org.palladiosimulator.pcm.repository.Interface
      */
     public Interface conforms(final org.palladiosimulator.pcm.repository.Interface parentInterface) {
-        Objects.requireNonNull(parentInterface, "parentInterface must not be null");
+        IllegalArgumentException.requireNonNull(parentInterface, "parentInterface must not be null");
         parentInterfaces.add(parentInterface);
         return this;
     }
@@ -76,8 +76,8 @@ public abstract class Interface extends RepositoryEntity {
      *      org.palladiosimulator.pcm.repository.Signature)
      */
     public Interface withRequiredCharacterisation(final Parameter parameter, final VariableCharacterisationType type) {
-        Objects.requireNonNull(parameter, "parameter must not be null");
-        Objects.requireNonNull(type, "type must not be null");
+        IllegalArgumentException.requireNonNull(parameter, "parameter must not be null");
+        IllegalArgumentException.requireNonNull(type, "type must not be null");
         final RequiredCharacterisation reqChar = RepositoryFactory.eINSTANCE.createRequiredCharacterisation();
         reqChar.setParameter(parameter);
         reqChar.setType(type);

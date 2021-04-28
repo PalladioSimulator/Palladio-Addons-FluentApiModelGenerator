@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Objects;
 
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.RepositoryCreator;
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.RepositoryEntity;
+import org.palladiosimulator.generator.fluent.exceptions.IllegalArgumentException;
 import org.palladiosimulator.pcm.core.CoreFactory;
 import org.palladiosimulator.pcm.core.PCMRandomVariable;
 import org.palladiosimulator.pcm.parameter.ParameterFactory;
@@ -73,9 +73,9 @@ public class VariableUsageCreator extends RepositoryEntity {
      */
     public VariableUsageCreator withVariableCharacterisation(final String specificationStochasticExpression,
             final VariableCharacterisationType type) {
-        Objects.requireNonNull(specificationStochasticExpression,
+        IllegalArgumentException.requireNonNull(specificationStochasticExpression,
                 "specification_stochasticExpression must not be null");
-        Objects.requireNonNull(type, "type must not be null");
+        IllegalArgumentException.requireNonNull(type, "type must not be null");
         final VariableCharacterisation varchar = ParameterFactory.eINSTANCE.createVariableCharacterisation();
         final PCMRandomVariable rand = CoreFactory.eINSTANCE.createPCMRandomVariable();
         rand.setSpecification(specificationStochasticExpression);
@@ -103,7 +103,7 @@ public class VariableUsageCreator extends RepositoryEntity {
      * @see de.uka.ipd.sdq.stoex.AbstractNamedReference
      */
     public VariableUsageCreator withVariableReference(final String reference) {
-        Objects.requireNonNull(reference, "reference must not be null");
+        IllegalArgumentException.requireNonNull(reference, "reference must not be null");
         final VariableReference variableReference = StoexFactory.eINSTANCE.createVariableReference();
         variableReference.setReferenceName(reference);
         this.reference = variableReference;
@@ -132,10 +132,10 @@ public class VariableUsageCreator extends RepositoryEntity {
      * @see de.uka.ipd.sdq.stoex.AbstractNamedReference
      */
     public VariableUsageCreator withNamespaceReference(final String reference, final String... innerReferences) {
-        Objects.requireNonNull(reference, "reference must not be null");
+        IllegalArgumentException.requireNonNull(reference, "reference must not be null");
         if ((innerReferences != null) && (innerReferences.length > 0)) {
             for (final String element : innerReferences) {
-                Objects.requireNonNull(element, "inner references must not be null");
+                IllegalArgumentException.requireNonNull(element, "inner references must not be null");
             }
         }
 

@@ -2,10 +2,10 @@ package org.palladiosimulator.generator.fluent.component.repositoryStructure.com
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.components.VariableUsageCreator;
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.internals.ResourceSignature;
+import org.palladiosimulator.generator.fluent.exceptions.IllegalArgumentException;
 import org.palladiosimulator.generator.fluent.shared.structure.ProcessingResource;
 import org.palladiosimulator.pcm.core.entity.ResourceRequiredRole;
 import org.palladiosimulator.pcm.reliability.InternalFailureOccurrenceDescription;
@@ -55,7 +55,7 @@ public class InternalActionCreator extends GeneralAction {
      */
     public InternalActionCreator withInternalFailureOccurrenceDescription(final double failureProbability,
             final SoftwareInducedFailureType failureType) {
-        Objects.requireNonNull(failureType, "failureType must not be null");
+        IllegalArgumentException.requireNonNull(failureType, "failureType must not be null");
         final InternalFailureOccurrenceDescription failure = ReliabilityFactory.eINSTANCE
                 .createInternalFailureOccurrenceDescription();
         failure.setFailureProbability(failureProbability);

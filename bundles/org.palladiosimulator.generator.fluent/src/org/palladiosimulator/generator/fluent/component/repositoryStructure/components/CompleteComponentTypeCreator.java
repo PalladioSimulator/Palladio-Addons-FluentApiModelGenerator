@@ -2,12 +2,12 @@ package org.palladiosimulator.generator.fluent.component.repositoryStructure.com
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.RepositoryCreator;
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.interfaces.EventGroupCreator;
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.interfaces.InfrastructureInterfaceCreator;
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.interfaces.OperationInterfaceCreator;
+import org.palladiosimulator.generator.fluent.exceptions.IllegalArgumentException;
 import org.palladiosimulator.generator.fluent.shared.structure.ResourceInterface;
 import org.palladiosimulator.pcm.repository.CompleteComponentType;
 import org.palladiosimulator.pcm.repository.EventGroup;
@@ -213,7 +213,7 @@ public class CompleteComponentTypeCreator extends Component {
      * @see org.palladiosimulator.pcm.repository.ProvidesComponentType
      */
     public CompleteComponentTypeCreator conforms(final ProvidesComponentTypeCreator providesComponentType) {
-        Objects.requireNonNull(providesComponentType, "providesComponentType must not be null");
+        IllegalArgumentException.requireNonNull(providesComponentType, "providesComponentType must not be null");
         final ProvidesComponentType pct = providesComponentType.build();
         repository.addComponent(pct);
         return this.conforms(pct);
@@ -243,7 +243,7 @@ public class CompleteComponentTypeCreator extends Component {
      * @see org.palladiosimulator.pcm.repository.ProvidesComponentType
      */
     public CompleteComponentTypeCreator conforms(final ProvidesComponentType providesComponentType) {
-        Objects.requireNonNull(providesComponentType, "providesComponentType must not be null");
+        IllegalArgumentException.requireNonNull(providesComponentType, "providesComponentType must not be null");
         conformsProvidedTypes.add(providesComponentType);
         return this;
     }

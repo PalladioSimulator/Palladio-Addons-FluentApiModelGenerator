@@ -2,11 +2,11 @@ package org.palladiosimulator.generator.fluent.component.repositoryStructure.com
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import org.palladiosimulator.generator.fluent.component.api.seff.Seff;
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.components.VariableUsageCreator;
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.internals.ResourceSignature;
+import org.palladiosimulator.generator.fluent.exceptions.IllegalArgumentException;
 import org.palladiosimulator.generator.fluent.shared.structure.ProcessingResource;
 import org.palladiosimulator.pcm.core.CoreFactory;
 import org.palladiosimulator.pcm.core.PCMRandomVariable;
@@ -65,9 +65,9 @@ public class BranchActionCreator extends GeneralAction {
      */
     public BranchActionCreator withGuardedBranchTransition(final String branchConditionStochasticExpression,
             final Seff branchActions, final String name) {
-        Objects.requireNonNull(branchConditionStochasticExpression,
+        IllegalArgumentException.requireNonNull(branchConditionStochasticExpression,
                 "branchCondition_stochasticExpression must not be null");
-        Objects.requireNonNull(branchActions, "branchActions must not be null");
+        IllegalArgumentException.requireNonNull(branchActions, "branchActions must not be null");
         final GuardedBranchTransition branch = SeffFactory.eINSTANCE.createGuardedBranchTransition();
 
         if (name != null) {
@@ -132,7 +132,7 @@ public class BranchActionCreator extends GeneralAction {
      */
     public BranchActionCreator withProbabilisticBranchTransition(final double branchProbability,
             final SeffCreator branchActions, final String name) {
-        Objects.requireNonNull(branchActions, "branchActions must not be null");
+        IllegalArgumentException.requireNonNull(branchActions, "branchActions must not be null");
 
         final ProbabilisticBranchTransition branch = SeffFactory.eINSTANCE.createProbabilisticBranchTransition();
 

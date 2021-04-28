@@ -2,12 +2,12 @@ package org.palladiosimulator.generator.fluent.component.repositoryStructure.com
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.RepositoryCreator;
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.interfaces.EventGroupCreator;
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.interfaces.InfrastructureInterfaceCreator;
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.interfaces.OperationInterfaceCreator;
+import org.palladiosimulator.generator.fluent.exceptions.IllegalArgumentException;
 import org.palladiosimulator.generator.fluent.shared.structure.ResourceInterface;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.composition.EventChannel;
@@ -71,7 +71,7 @@ public class CompositeComponentCreator extends ComplexComponent {
      * @return the composite component in the making
      */
     public CompositeComponentCreator ofType(final ComponentType type) {
-        Objects.requireNonNull(type, "type must not be null");
+        IllegalArgumentException.requireNonNull(type, "type must not be null");
         this.type = type;
         return this;
     }
@@ -240,7 +240,7 @@ public class CompositeComponentCreator extends ComplexComponent {
      * @see org.palladiosimulator.pcm.repository.CompleteComponentType
      */
     public CompositeComponentCreator conforms(final CompleteComponentTypeCreator completeComponentType) {
-        Objects.requireNonNull(completeComponentType, "completeComponentType must not be null");
+        IllegalArgumentException.requireNonNull(completeComponentType, "completeComponentType must not be null");
         final CompleteComponentType cct = completeComponentType.build();
         repository.addComponent(cct);
         return this.conforms(cct);
@@ -268,7 +268,7 @@ public class CompositeComponentCreator extends ComplexComponent {
      * @see org.palladiosimulator.pcm.repository.CompleteComponentType
      */
     public CompositeComponentCreator conforms(final CompleteComponentType completeComponentType) {
-        Objects.requireNonNull(completeComponentType, "completeComponentType must not be null");
+        IllegalArgumentException.requireNonNull(completeComponentType, "completeComponentType must not be null");
         conformsCompleteTypes.add(completeComponentType);
         return this;
     }
@@ -294,7 +294,7 @@ public class CompositeComponentCreator extends ComplexComponent {
      * @see org.palladiosimulator.pcm.parameter.VariableUsage
      */
     public CompositeComponentCreator withVariableUsage(final VariableUsageCreator variableUsage) {
-        Objects.requireNonNull(variableUsage, "variableUsage must not be null");
+        IllegalArgumentException.requireNonNull(variableUsage, "variableUsage must not be null");
         componentParameterUsages.add(variableUsage.build());
         return this;
     }

@@ -1,10 +1,9 @@
 package org.palladiosimulator.generator.fluent.component.repositoryStructure.components.seff;
 
-import java.util.Objects;
-
 import org.palladiosimulator.generator.fluent.component.api.seff.Seff;
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.components.VariableUsageCreator;
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.internals.ResourceSignature;
+import org.palladiosimulator.generator.fluent.exceptions.IllegalArgumentException;
 import org.palladiosimulator.generator.fluent.shared.structure.ProcessingResource;
 import org.palladiosimulator.pcm.core.CoreFactory;
 import org.palladiosimulator.pcm.core.PCMRandomVariable;
@@ -57,7 +56,7 @@ public class LoopActionCreator extends GeneralAction {
      * @see org.palladiosimulator.pcm.seff.LoopAction
      */
     public LoopActionCreator withIterationCount(final String iterationCountStochasticExpression) {
-        Objects.requireNonNull(iterationCountStochasticExpression,
+        IllegalArgumentException.requireNonNull(iterationCountStochasticExpression,
                 "iterationCount_stochasticExpression must not be null");
         final PCMRandomVariable rand = CoreFactory.eINSTANCE.createPCMRandomVariable();
         rand.setSpecification(iterationCountStochasticExpression);
@@ -79,7 +78,7 @@ public class LoopActionCreator extends GeneralAction {
      * @return this loop action in the making
      */
     public LoopActionCreator withLoopBody(final Seff loopBody) {
-        Objects.requireNonNull(loopBody, "loopBody must not be null");
+        IllegalArgumentException.requireNonNull(loopBody, "loopBody must not be null");
         this.loopBody = loopBody;
         return this;
     }

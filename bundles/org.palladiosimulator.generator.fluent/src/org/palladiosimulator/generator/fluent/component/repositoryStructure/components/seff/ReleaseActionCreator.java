@@ -1,9 +1,8 @@
 package org.palladiosimulator.generator.fluent.component.repositoryStructure.components.seff;
 
-import java.util.Objects;
-
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.components.VariableUsageCreator;
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.internals.ResourceSignature;
+import org.palladiosimulator.generator.fluent.exceptions.IllegalArgumentException;
 import org.palladiosimulator.generator.fluent.shared.structure.ProcessingResource;
 import org.palladiosimulator.pcm.core.entity.ResourceRequiredRole;
 import org.palladiosimulator.pcm.repository.InfrastructureRequiredRole;
@@ -47,7 +46,7 @@ public class ReleaseActionCreator extends GeneralAction {
      * @see org.palladiosimulator.generator.fluent.component.factory.FluentRepositoryFactory#fetchOfPassiveResource(String)
      */
     public ReleaseActionCreator withPassiveResource(final PassiveResource passiveResource) {
-        Objects.requireNonNull(passiveResource, "passiveResource must not be null");
+        IllegalArgumentException.requireNonNull(passiveResource, "passiveResource must not be null");
         this.passiveResource = passiveResource;
         return this;
     }
