@@ -2,6 +2,7 @@ package org.palladiosimulator.generator.fluent.component.factory;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.palladiosimulator.pcm.repository.Repository;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
@@ -80,19 +81,42 @@ import org.palladiosimulator.pcm.seff.seff_reliability.RecoveryActionBehaviour;
 import org.palladiosimulator.pcm.subsystem.SubSystem;
 
 /**
+ * TODO
+ *
  * @author dr6817
  */
 class FluentRepositoryFactoryTest {
 
-    /**
-     * Test method for
-     * {@link org.palladiosimulator.generator.fluent.component.factory.FluentRepositoryFactory#FluentRepositoryFactory()}.
-     */
+    private FluentRepositoryFactory factory;
+
+    @BeforeEach
+    public void init() {
+        factory = new FluentRepositoryFactory();
+    }
+
     @Test
-    final void testFluentRepositoryFactory() {
+    public void testCreateRepositoryWithName() {
         final String name = "test";
-        assertEquals(name,
-                new FluentRepositoryFactory().newRepository().withName(name).createRepositoryNow().getEntityName());
+        assertEquals(name, factory.newRepository().withName(name).createRepositoryNow().getEntityName());
+    }
+
+    @Test
+    public void testFetchOfCompositeDataType() {
+        final String repositoryName = "example";
+        final String dataTypeName = "Person";
+
+        // create
+        final Repository repositoryUnderTest = factory.newRepository().withName(repositoryName)
+                .addToRepository(factory.newCompositeDataType().withName(dataTypeName)
+                        .withInnerDeclaration("name", Primitive.STRING).withInnerDeclaration("age", Primitive.INTEGER))
+                .createRepositoryNow();
+
+        // fetch
+        final FluentRepositoryFactory factoryUnderTest = new FluentRepositoryFactory();
+        factoryUnderTest.newRepository().withImportedResource(repositoryUnderTest);
+        final CompositeDataType person = factoryUnderTest.fetchOfCompositeDataType(repositoryName + "." + dataTypeName);
+
+        assertSame(repositoryUnderTest.getDataTypes__Repository().get(0), person);
     }
 
 }
