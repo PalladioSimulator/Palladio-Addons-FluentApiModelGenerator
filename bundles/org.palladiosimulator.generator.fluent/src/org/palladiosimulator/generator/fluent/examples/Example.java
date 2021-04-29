@@ -8,7 +8,6 @@ import org.palladiosimulator.generator.fluent.shared.util.ModelSaver;
 import org.palladiosimulator.pcm.parameter.VariableCharacterisationType;
 import org.palladiosimulator.pcm.repository.BasicComponent;
 import org.palladiosimulator.pcm.repository.CompositeDataType;
-import org.palladiosimulator.pcm.repository.DataType;
 import org.palladiosimulator.pcm.repository.OperationInterface;
 import org.palladiosimulator.pcm.repository.OperationProvidedRole;
 import org.palladiosimulator.pcm.repository.OperationRequiredRole;
@@ -29,31 +28,26 @@ class Example {
         // readmeExampleFluentAPI();
         // mediaStoreExample();
         // exampleWithoutMeaning();
-        testMW();
+        fetchExample();
     }
 
-    public static void testMW() {
+    public static void fetchExample() {
+        // create
         FluentRepositoryFactory create = new FluentRepositoryFactory();
-
-        final Repository repository = create.newRepository().withName("mw")
+        final Repository repository = create.newRepository().withName("example")
                 .addToRepository(create.newCollectionDataType("String List", Primitive.STRING))
                 .addToRepository(create.newCompositeDataType().withName("Person")
                         .withInnerDeclaration("names", create.fetchOfDataType("String List"))
-                        .withInnerDeclaration("age", Primitive.INTEGER)).createRepositoryNow();
-        
-        for (DataType element : repository.getDataTypes__Repository()) {
-            System.out.println(element);
-        }
-        
+                        .withInnerDeclaration("age", Primitive.INTEGER))
+                .createRepositoryNow();
 
-        
+        // fetch
         create = new FluentRepositoryFactory();
         create.newRepository().withImportedResource(repository);
-        CompositeDataType person = create.fetchOfCompositeDataType("mw.Person");
+        final CompositeDataType person = create.fetchOfCompositeDataType("example.Person");
 
-        System.out.println(person);
+        // test
         System.out.println(repository.getDataTypes__Repository().get(1) == person);
-
     }
 
     public static void invalidExample() {
