@@ -197,6 +197,9 @@ public class RepositoryCreator extends Entity implements Repo, RepoAddition {
 				break;
 			case INT:
 				this.internalPrimitives.put(Primitive.INTEGER, p);
+				// TODO this is a dirty hack since long is not included in the
+				// primitive data types repository
+                this.internalPrimitives.put(Primitive.LONG, p);
 				break;
 			case LONG:
 				this.internalPrimitives.put(Primitive.LONG, p);
