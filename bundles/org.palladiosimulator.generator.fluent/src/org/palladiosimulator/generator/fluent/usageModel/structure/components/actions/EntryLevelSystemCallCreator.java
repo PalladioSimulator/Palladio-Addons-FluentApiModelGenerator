@@ -12,58 +12,88 @@ import org.palladiosimulator.pcm.usagemodel.AbstractUserAction;
 import org.palladiosimulator.pcm.usagemodel.EntryLevelSystemCall;
 import org.palladiosimulator.pcm.usagemodel.UsagemodelFactory;
 
-public class EntryLevelSystemCallCreator extends ActionCreator{
+public class EntryLevelSystemCallCreator extends ActionCreator {
 
-    List<VariableUsage> outputParameterUsage = new ArrayList<VariableUsage>();
-    List<VariableUsage> inputParameterUsage = new ArrayList<VariableUsage>();
-    int priority;
-    
-    //TODO Operation Siganture/Role ist aus Repository
-    OperationSignature opSignature;    
-    OperationProvidedRole opRole;
-    
-    @Override
-    public EntryLevelSystemCall build() {
-      EntryLevelSystemCall call = UsagemodelFactory.eINSTANCE.createEntryLevelSystemCall();
-      
-      call.getOutputParameterUsages_EntryLevelSystemCall().addAll(outputParameterUsage);
-      call.getInputParameterUsages_EntryLevelSystemCall().addAll(inputParameterUsage);
-      
-      if(opSignature != null) {
-      call.setOperationSignature__EntryLevelSystemCall(opSignature);}
-      
-      if(opRole != null) {
-          call.setProvidedRole_EntryLevelSystemCall(opRole);
-      }
-      
-      //TODO check if set
-      call.setPriority(priority);
-        
-            
-      if (name != null) {
-          call.setEntityName(name);
-      }
-      if (predecessor != null) {
-          call.setPredecessor(predecessor);
-      }
-      if (successor != null) {
-          call.setSuccessor(successor);
-      }
-      
-    return call;
+    private List<VariableUsage> outputParameterUsage;
+    private List<VariableUsage> inputParameterUsage;
+    private int priority;
+
+    // TODO Operation Siganture/Role ist aus Repository
+    private OperationSignature opSignature;
+    private OperationProvidedRole opRole;
+
+    public EntryLevelSystemCallCreator() {
+        outputParameterUsage = new ArrayList<VariableUsage>();
+        inputParameterUsage = new ArrayList<VariableUsage>();
+        priority = 0;
     }
-    
-    //TODO: sonst 2 gleiche Methoden
+
+    public EntryLevelSystemCallCreator withOperationSignatureEntryLevelSystemCall() {
+        // TODO:
+        return this;
+    }
+
+    public EntryLevelSystemCallCreator withProvidedRoleEntryLevelSystemCall() {
+        // TODO:
+        return this;
+    }
+
+    // TODO: sonst 2 gleiche Methoden, oder parameter bool für in/out
     public EntryLevelSystemCallCreator addToEntryLevelSystemCallOutput(VariableUsageCreator outputParameterUsage) {
         IllegalArgumentException.throwIfNull(outputParameterUsage, "The given Output Variable Usage must not be null");
         this.outputParameterUsage.add(outputParameterUsage.build());
-        return this;        
+        return this;
     }
-    
+
     public EntryLevelSystemCallCreator addToEntryLevelSystemCallInput(VariableUsageCreator inputParameterUsage) {
         IllegalArgumentException.throwIfNull(inputParameterUsage, "The given Input Variable Usage must not be null");
         this.inputParameterUsage.add(inputParameterUsage.build());
-        return this; 
+        return this;
+    }
+
+    @Override
+    public EntryLevelSystemCall build() {
+        EntryLevelSystemCall call = UsagemodelFactory.eINSTANCE.createEntryLevelSystemCall();
+
+        call.getOutputParameterUsages_EntryLevelSystemCall().addAll(outputParameterUsage);
+        call.getInputParameterUsages_EntryLevelSystemCall().addAll(inputParameterUsage);
+
+        if (opSignature != null) {
+            call.setOperationSignature__EntryLevelSystemCall(opSignature);
+        }
+
+        if (opRole != null) {
+            call.setProvidedRole_EntryLevelSystemCall(opRole);
+        }
+
+        call.setPriority(priority);
+
+        if (name != null) {
+            call.setEntityName(name);
+        }
+        if (predecessor != null) {
+            call.setPredecessor(predecessor);
+        }
+        if (successor != null) {
+            call.setSuccessor(successor);
+        }
+
+        return call;
+    }
+
+    @Override
+    public EntryLevelSystemCallCreator withPredecessor(ActionCreator action) {
+        return (EntryLevelSystemCallCreator) super.withPredecessor(action);
+    }
+
+    @Override
+    public EntryLevelSystemCallCreator withSuccessor(ActionCreator action) {
+        return (EntryLevelSystemCallCreator) super.withSuccessor(action);
+    }
+
+    @Override
+    public EntryLevelSystemCallCreator withName(final String name) {
+        return (EntryLevelSystemCallCreator) super.withName(name);
     }
 
 }

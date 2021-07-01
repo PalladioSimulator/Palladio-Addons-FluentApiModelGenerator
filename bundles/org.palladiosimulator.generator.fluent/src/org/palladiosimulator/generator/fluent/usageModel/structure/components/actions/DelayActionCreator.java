@@ -8,7 +8,14 @@ import org.palladiosimulator.pcm.usagemodel.UsagemodelFactory;
 
 public class DelayActionCreator extends ActionCreator {
 
-    PCMRandomVariable time;
+    private PCMRandomVariable time;
+
+    public DelayActionCreator addToDelayAction(String timeSpecification) {
+        IllegalArgumentException.throwIfNull(timeSpecification, "The given Time Sppecification must not be null");
+        time = CoreFactory.eINSTANCE.createPCMRandomVariable();
+        time.setSpecification(timeSpecification);
+        return this;
+    }
 
     @Override
     public Delay build() {
@@ -28,10 +35,18 @@ public class DelayActionCreator extends ActionCreator {
         return d;
     }
 
-    public DelayActionCreator addToDelayAction(String timeSpecification) {
-        IllegalArgumentException.throwIfNull(timeSpecification, "The given Time Sppecification must not be null");
-        time = CoreFactory.eINSTANCE.createPCMRandomVariable();
-        time.setSpecification(timeSpecification);
-        return this;
+    @Override
+    public DelayActionCreator withPredecessor(ActionCreator action) {
+        return (DelayActionCreator) super.withPredecessor(action);
+    }
+
+    @Override
+    public DelayActionCreator withSuccessor(ActionCreator action) {
+        return (DelayActionCreator) super.withSuccessor(action);
+    }
+
+    @Override
+    public DelayActionCreator withName(final String name) {
+        return (DelayActionCreator) super.withName(name);
     }
 }
