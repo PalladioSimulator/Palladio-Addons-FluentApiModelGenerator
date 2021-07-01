@@ -10,44 +10,42 @@ import org.palladiosimulator.pcm.usagemodel.UsagemodelFactory;
 import org.palladiosimulator.pcm.usagemodel.Workload;
 
 public class UsageScenarioCreator extends UsageModelEntity {
-    //TODO eventuell alles unter Workload hier rein, da 1er Beziehungen??
-    
+
     private ScenarioBehaviour scenarioBehaviour;
-    private Workload workload; //can be Open OR Closed
-    
-    
-    public UsageScenarioCreator addToUsageScenario(final OpenWorkloadCreator workload) {
+    private Workload workload; // can be Open OR Closed
+
+    public UsageScenarioCreator addToUsageScenario(OpenWorkloadCreator workload) {
         if (workload != null) {
-            //TODO: Fehlermeldung, da schon existiert
+            // TODO: Fehlermeldung, da schon existiert oder ignorieren?
         }
         this.workload = workload.build();
         return this;
     }
-    
-    public UsageScenarioCreator addToUsageScenario(final ClosedWorkloadCreator workload) {
+
+    public UsageScenarioCreator addToUsageScenario(ClosedWorkloadCreator workload) {
         if (workload != null) {
-            //TODO: Fehlermeldung, da schon existiert
+            // TODO: Fehlermeldung, da schon existiert oder ignorieren?
         }
         this.workload = workload.build();
         return this;
     }
-    
-    public UsageScenarioCreator addToUsageScenario(final ScenarioBehaviourCreator scenBehave) {
+
+    public UsageScenarioCreator addToUsageScenario(ScenarioBehaviourCreator scenBehave) {
         IllegalArgumentException.throwIfNull(scenBehave, "The given ScenarioBehaviour must not be null");
         this.scenarioBehaviour = scenBehave.build();
-        return this;        
+        return this;
     }
-    
+
     @Override
     public UsageScenario build() {
         final UsageScenario usgScenario = UsagemodelFactory.eINSTANCE.createUsageScenario();
         if (name != null) {
             usgScenario.setEntityName(name);
         }
-        if(scenarioBehaviour != null) {
+        if (scenarioBehaviour != null) {
             usgScenario.setScenarioBehaviour_UsageScenario(scenarioBehaviour);
         }
-        if(workload != null) {
+        if (workload != null) {
             usgScenario.setWorkload_UsageScenario(workload);
         }
         return usgScenario;
@@ -55,8 +53,7 @@ public class UsageScenarioCreator extends UsageModelEntity {
 
     @Override
     public UsageScenarioCreator withName(final String name) {
-        return (UsageScenarioCreator) super.withName(name);        
+        return (UsageScenarioCreator) super.withName(name);
     }
-
 
 }

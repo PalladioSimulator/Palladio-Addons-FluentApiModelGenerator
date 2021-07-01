@@ -14,14 +14,12 @@ import org.palladiosimulator.pcm.usagemodel.UserData;
 
 public class UserDataCreator extends UsageModelEntity {
 
-    // Properties
-    private AssemblyContext assemblyContext; // AssemblyContextUserData
-
-    // Child
-    private final List<VariableUsage> variableUsage = new ArrayList<>();
+    private AssemblyContext assemblyContext;
+    private final List<VariableUsage> variableUsage;
 
     public UserDataCreator(final UsageModelCreator usgModelCreator) {
         this.usageModelCreator = usgModelCreator;
+        variableUsage = new ArrayList<>();
     }
 
     // TODO: evtl. VariableUsageCreator verschieben in shared aus
@@ -32,8 +30,9 @@ public class UserDataCreator extends UsageModelEntity {
         return this;
     }
 
-    public UserDataCreator withAssemblyContext(final AssemblyContext context) {
-        assemblyContext = IllegalArgumentException.throwIfNull(context, "The given AssemblyContext must not be null.");
+    public UserDataCreator withAssemblyContext(AssemblyContext context) {
+        IllegalArgumentException.throwIfNull(context, "The given AssemblyContext must not be null.");
+        assemblyContext = context;
         return this;
     }
 

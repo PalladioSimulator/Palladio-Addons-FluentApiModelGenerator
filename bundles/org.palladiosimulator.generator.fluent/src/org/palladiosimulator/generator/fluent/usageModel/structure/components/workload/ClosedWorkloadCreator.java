@@ -8,20 +8,31 @@ public class ClosedWorkloadCreator extends WorkloadCreator {
 
     private int population;
 
+    public ClosedWorkloadCreator() {
+        this.population = 0; // default value
+    }
+
+    public ClosedWorkloadCreator withPopulation(int population) {
+        this.population = population;
+        return this;
+    }
+
     @Override
     public Workload build() {
-        final ClosedWorkload work = (ClosedWorkload) UsagemodelFactory.eINSTANCE.createUsageScenario().getWorkload_UsageScenario();
-  
+        final ClosedWorkload work = (ClosedWorkload) UsagemodelFactory.eINSTANCE.createUsageScenario()
+                .getWorkload_UsageScenario();
+
         work.setPopulation(population);
+
         if (time != null) {
             work.setThinkTime_ClosedWorkload(time);
         }
         return work;
     }
 
-    public ClosedWorkloadCreator withPopulation(int population) {
-        this.population = population;
-        return this;
+    @Override
+    public ClosedWorkloadCreator addToWorkload(String time) {
+        return (ClosedWorkloadCreator) super.addToWorkload(time);
     }
 
 }

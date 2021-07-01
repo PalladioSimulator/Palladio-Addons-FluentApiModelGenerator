@@ -5,16 +5,16 @@ import org.palladiosimulator.generator.fluent.usageModel.structure.UsageModelEnt
 import org.palladiosimulator.pcm.core.CoreFactory;
 import org.palladiosimulator.pcm.core.PCMRandomVariable;
 
-public abstract class WorkloadCreator extends UsageModelEntity{
-    
-    //child - 1fach
+public abstract class WorkloadCreator extends UsageModelEntity {
+
+    // child - 1fach
     protected PCMRandomVariable time;
-    
-    public WorkloadCreator addToWorkload(String pcmVariable) {
-        IllegalArgumentException.throwIfNull(pcmVariable, "The given PCMVariable must not be null");
-        time = CoreFactory.eINSTANCE.createPCMRandomVariable();
-        time.setSpecification(pcmVariable);
-        return this;  
+
+    public WorkloadCreator addToWorkload(String time) {
+        IllegalArgumentException.throwIfNull(time, "The given Time must not be null");
+        this.time = CoreFactory.eINSTANCE.createPCMRandomVariable();
+        this.time.setSpecification(time);
+        return this;
     }
 
 }
