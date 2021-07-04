@@ -8,7 +8,6 @@ import org.palladiosimulator.generator.fluent.exceptions.IllegalArgumentExceptio
 import org.palladiosimulator.pcm.parameter.VariableUsage;
 import org.palladiosimulator.pcm.repository.OperationProvidedRole;
 import org.palladiosimulator.pcm.repository.OperationSignature;
-import org.palladiosimulator.pcm.usagemodel.AbstractUserAction;
 import org.palladiosimulator.pcm.usagemodel.EntryLevelSystemCall;
 import org.palladiosimulator.pcm.usagemodel.UsagemodelFactory;
 
@@ -18,7 +17,6 @@ public class EntryLevelSystemCallCreator extends ActionCreator {
     private List<VariableUsage> inputParameterUsage;
     private int priority;
 
-    // TODO Operation Siganture/Role ist aus Repository
     private OperationSignature opSignature;
     private OperationProvidedRole opRole;
 
@@ -28,17 +26,20 @@ public class EntryLevelSystemCallCreator extends ActionCreator {
         priority = 0;
     }
 
-    public EntryLevelSystemCallCreator withOperationSignatureEntryLevelSystemCall() {
-        // TODO:
+    public EntryLevelSystemCallCreator withOperationSignatureEntryLevelSystemCall(
+            OperationSignature operationSignature) {
+        IllegalArgumentException.throwIfNull(operationSignature, "The given Operation Signature must not be null");
+        this.opSignature = operationSignature;
         return this;
     }
 
-    public EntryLevelSystemCallCreator withProvidedRoleEntryLevelSystemCall() {
-        // TODO:
+    public EntryLevelSystemCallCreator withProvidedRoleEntryLevelSystemCall(
+            OperationProvidedRole operationProvidedRole) {
+        IllegalArgumentException.throwIfNull(operationProvidedRole, "The given Provided Role must not be null");
+        this.opRole = operationProvidedRole;
         return this;
     }
 
-    // TODO: sonst 2 gleiche Methoden, oder parameter bool für in/out
     public EntryLevelSystemCallCreator addToEntryLevelSystemCallOutput(VariableUsageCreator outputParameterUsage) {
         IllegalArgumentException.throwIfNull(outputParameterUsage, "The given Output Variable Usage must not be null");
         this.outputParameterUsage.add(outputParameterUsage.build());
