@@ -14,7 +14,6 @@ import org.palladiosimulator.generator.fluent.component.repositoryStructure.comp
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.components.CompositeComponentCreator;
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.components.ProvidesComponentTypeCreator;
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.components.SubSystemCreator;
-import org.palladiosimulator.generator.fluent.component.repositoryStructure.components.VariableUsageCreator;
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.components.seff.SeffCreator;
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.interfaces.EventGroupCreator;
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.interfaces.EventTypeCreator;
@@ -29,6 +28,7 @@ import org.palladiosimulator.generator.fluent.component.repositoryStructure.type
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.types.ResourceTimeoutFailureTypeCreator;
 import org.palladiosimulator.generator.fluent.exceptions.FluentApiException;
 import org.palladiosimulator.generator.fluent.exceptions.IllegalArgumentException;
+import org.palladiosimulator.generator.fluent.shared.components.VariableUsageCreator;
 import org.palladiosimulator.generator.fluent.shared.structure.CommunicationLinkResource;
 import org.palladiosimulator.generator.fluent.shared.structure.ProcessingResource;
 import org.palladiosimulator.generator.fluent.shared.util.ModelLoader;
@@ -912,22 +912,23 @@ public class FluentRepositoryFactory {
      * </p>
      * <p>
      * Use the methods
-     * {@link org.palladiosimulator.generator.fluent.component.repositoryStructure.components.VariableUsageCreator#withVariableCharacterisation(String, org.palladiosimulator.pcm.parameter.VariableCharacterisationType)
+     * {@link org.palladiosimulator.generator.fluent.shared.components.VariableUsageCreator#withVariableCharacterisation(String, org.palladiosimulator.pcm.parameter.VariableCharacterisationType)
      * withVariableCharacterisation(String, VariableCharacterisationType)},
-     * {@link org.palladiosimulator.generator.fluent.component.repositoryStructure.components.VariableUsageCreator#withVariableReference(String)
+     * {@link org.palladiosimulator.generator.fluent.shared.components.VariableUsageCreator#withVariableReference(String)
      * withVariableReference(String)} and
-     * {@link org.palladiosimulator.generator.fluent.component.repositoryStructure.components.VariableUsageCreator#withNamespaceReference(String, String...)
+     * {@link org.palladiosimulator.generator.fluent.shared.components.VariableUsageCreator#withNamespaceReference(String, String...)
      * withNamespaceReference(String, String...)} to define the variable usage.
      * </p>
      *
      * @return the variable usage in the making
-     * @see org.palladiosimulator.generator.fluent.component.repositoryStructure.components.VariableUsageCreator#withVariableCharacterisation(String,
+     * @see org.palladiosimulator.generator.fluent.shared.components.VariableUsageCreator#withVariableCharacterisation(String,
      *      org.palladiosimulator.pcm.parameter.VariableCharacterisationType)
-     * @see org.palladiosimulator.generator.fluent.component.repositoryStructure.components.VariableUsageCreator#withVariableReference(String)
-     * @see org.palladiosimulator.generator.fluent.component.repositoryStructure.components.VariableUsageCreator#withNamespaceReference(String,
+     * @see org.palladiosimulator.generator.fluent.shared.components.VariableUsageCreator#withVariableReference(String)
+     * @see org.palladiosimulator.generator.fluent.shared.components.VariableUsageCreator#withNamespaceReference(String,
      *      String...)
      * @see org.palladiosimulator.pcm.parameter.VariableUsage
      */
+    //VariableUsageCreator moved to org.palladiosimulator.generator.fluent.shared.components
     public VariableUsageCreator newVariableUsage() {
         return new VariableUsageCreator(repo);
     }

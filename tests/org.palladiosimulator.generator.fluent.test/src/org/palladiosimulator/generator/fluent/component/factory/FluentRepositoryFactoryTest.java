@@ -16,7 +16,6 @@ import org.palladiosimulator.generator.fluent.component.repositoryStructure.comp
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.components.CompositeComponentCreator;
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.components.ProvidesComponentTypeCreator;
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.components.SubSystemCreator;
-import org.palladiosimulator.generator.fluent.component.repositoryStructure.components.VariableUsageCreator;
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.components.seff.SeffCreator;
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.interfaces.EventGroupCreator;
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.interfaces.EventTypeCreator;
@@ -31,6 +30,7 @@ import org.palladiosimulator.generator.fluent.component.repositoryStructure.type
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.types.ResourceTimeoutFailureTypeCreator;
 import org.palladiosimulator.generator.fluent.exceptions.FluentApiException;
 import org.palladiosimulator.generator.fluent.exceptions.IllegalArgumentException;
+import org.palladiosimulator.generator.fluent.shared.components.VariableUsageCreator;
 import org.palladiosimulator.generator.fluent.shared.structure.CommunicationLinkResource;
 import org.palladiosimulator.generator.fluent.shared.structure.ProcessingResource;
 import org.palladiosimulator.generator.fluent.shared.util.ModelLoader;

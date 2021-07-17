@@ -1,4 +1,4 @@
-package org.palladiosimulator.generator.fluent.component.repositoryStructure.components;
+package org.palladiosimulator.generator.fluent.shared.components;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,9 +36,14 @@ public class VariableUsageCreator extends RepositoryEntity {
     private final List<VariableCharacterisation> variableCharacterisations;
 
     public VariableUsageCreator(final RepositoryCreator repo) {
-        repository = repo;
+       //TODO: see if it is needed later, removed while moving to fluent.shared.components repository = repo;
         variableCharacterisations = new ArrayList<>();
     }
+    
+    public VariableUsageCreator() {
+         variableCharacterisations = new ArrayList<>();
+     }
+
 
     @Override
     public VariableUsageCreator withName(final String name) {
