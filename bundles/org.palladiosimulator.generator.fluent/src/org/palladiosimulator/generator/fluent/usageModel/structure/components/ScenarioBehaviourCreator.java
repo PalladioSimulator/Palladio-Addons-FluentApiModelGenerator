@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.palladiosimulator.generator.fluent.exceptions.IllegalArgumentException;
+import org.palladiosimulator.generator.fluent.usageModel.structure.UsageModelCreator;
 import org.palladiosimulator.generator.fluent.usageModel.structure.UsageModelEntity;
 import org.palladiosimulator.generator.fluent.usageModel.structure.components.actions.ActionCreator;
 import org.palladiosimulator.pcm.usagemodel.AbstractUserAction;
@@ -14,8 +15,9 @@ public class ScenarioBehaviourCreator extends UsageModelEntity {
 
     private List<AbstractUserAction> actions;
 
-    public ScenarioBehaviourCreator() {
+    public ScenarioBehaviourCreator(UsageModelCreator usgModelCreator) {
         this.actions = new ArrayList<>();
+        usageModelCreator = usgModelCreator;
     }
 
     public ScenarioBehaviourCreator addAction(ActionCreator action) {

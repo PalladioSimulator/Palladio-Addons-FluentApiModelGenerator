@@ -2,13 +2,15 @@ package org.palladiosimulator.generator.fluent.usageModel.structure.components.w
 
 import org.palladiosimulator.pcm.usagemodel.UsagemodelFactory;
 import org.palladiosimulator.pcm.usagemodel.Workload;
+import org.palladiosimulator.generator.fluent.usageModel.structure.UsageModelCreator;
 import org.palladiosimulator.pcm.usagemodel.ClosedWorkload;
 
 public class ClosedWorkloadCreator extends WorkloadCreator {
 
     private int population;
 
-    public ClosedWorkloadCreator() {
+    public ClosedWorkloadCreator(UsageModelCreator usgModelCreator) {
+        super(usgModelCreator);
         this.population = 0; // default value
     }
 

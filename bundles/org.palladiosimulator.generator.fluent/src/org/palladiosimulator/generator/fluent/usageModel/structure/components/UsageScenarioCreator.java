@@ -1,6 +1,7 @@
 package org.palladiosimulator.generator.fluent.usageModel.structure.components;
 
 import org.palladiosimulator.generator.fluent.exceptions.IllegalArgumentException;
+import org.palladiosimulator.generator.fluent.usageModel.structure.UsageModelCreator;
 import org.palladiosimulator.generator.fluent.usageModel.structure.UsageModelEntity;
 import org.palladiosimulator.generator.fluent.usageModel.structure.components.workload.ClosedWorkloadCreator;
 import org.palladiosimulator.generator.fluent.usageModel.structure.components.workload.OpenWorkloadCreator;
@@ -13,6 +14,10 @@ public class UsageScenarioCreator extends UsageModelEntity {
 
     private ScenarioBehaviour scenarioBehaviour;
     private Workload workload; // can be Open OR Closed
+
+    public UsageScenarioCreator(UsageModelCreator usgModelCreator) {
+        usageModelCreator = usgModelCreator;
+    }
 
     public UsageScenarioCreator addToUsageScenario(OpenWorkloadCreator workload) {
         if (workload != null) {

@@ -31,7 +31,9 @@ public class ModelLoader {
     public static final String PRIMITIVE_TYPES_PATH = "pathmap://PCM_MODELS/PrimitiveTypes.repository";
     public static final String RESOURCE_TYPE_PATH = "pathmap://PCM_MODELS/Palladio.resourcetype";
     public static final String FAILURE_TYPES_PATH = "pathmap://PCM_MODELS/FailureTypes.repository";
-
+    //public static final String SYSTEM_PATH = "pathmap://PCM_MODELS/FailureTypes.repository";
+    
+    
     /**
      * Loads a repository from the specified path.
      *

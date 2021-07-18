@@ -8,6 +8,7 @@ import java.util.List;
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.RepositoryCreator;
 import org.palladiosimulator.generator.fluent.component.repositoryStructure.RepositoryEntity;
 import org.palladiosimulator.generator.fluent.exceptions.IllegalArgumentException;
+import org.palladiosimulator.generator.fluent.usageModel.structure.UsageModelCreator;
 import org.palladiosimulator.pcm.core.CoreFactory;
 import org.palladiosimulator.pcm.core.PCMRandomVariable;
 import org.palladiosimulator.pcm.parameter.ParameterFactory;
@@ -36,14 +37,20 @@ public class VariableUsageCreator extends RepositoryEntity {
     private final List<VariableCharacterisation> variableCharacterisations;
 
     public VariableUsageCreator(final RepositoryCreator repo) {
-       //TODO: see if it is needed later, removed while moving to fluent.shared.components repository = repo;
+        this();
+        // TODO: see if it is needed later, removed while moving to
+        // fluent.shared.components repository = repo;
+    }
+
+    public VariableUsageCreator() {
         variableCharacterisations = new ArrayList<>();
     }
-    
-    public VariableUsageCreator() {
-         variableCharacterisations = new ArrayList<>();
-     }
 
+    public VariableUsageCreator(UsageModelCreator usgModelCreator) {
+        this();
+        /// TODO: see if it is needed later or how to add
+        //usageModelCreator = usgModelCreator;
+    }
 
     @Override
     public VariableUsageCreator withName(final String name) {

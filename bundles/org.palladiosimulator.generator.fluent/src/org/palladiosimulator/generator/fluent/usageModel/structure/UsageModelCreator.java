@@ -9,6 +9,10 @@ import org.palladiosimulator.generator.fluent.usageModel.api.IUsageModel;
 import org.palladiosimulator.generator.fluent.usageModel.api.IUsageModelAddition;
 import org.palladiosimulator.generator.fluent.usageModel.structure.components.UsageScenarioCreator;
 import org.palladiosimulator.generator.fluent.usageModel.structure.components.UserDataCreator;
+import org.palladiosimulator.pcm.repository.Repository;
+import org.palladiosimulator.pcm.resourceenvironment.ResourceEnvironment;
+import org.palladiosimulator.pcm.resourcetype.ResourceRepository;
+import org.palladiosimulator.pcm.system.System;
 import org.palladiosimulator.pcm.usagemodel.UsageModel;
 import org.palladiosimulator.pcm.usagemodel.UsageScenario;
 import org.palladiosimulator.pcm.usagemodel.UsagemodelFactory;
@@ -16,15 +20,26 @@ import org.palladiosimulator.pcm.usagemodel.UserData;
 
 public class UsageModelCreator extends UsageModelEntity implements IUsageModel, IUsageModelAddition {
     private final IModelValidator validator;
-
+    private final System system;
+   // private final ResourceEnvironment resourceEnv;
+    private final Repository repository;
+    private final ResourceRepository resources ;
+    
     private final List<UsageScenario> usageScenarios;
     private final List<UserData> userDatas;
 
     // TODO ? private System system;
     // TODO ? private Repository repository;
 
-    public UsageModelCreator(final IModelValidator validator) {
+    public UsageModelCreator(System system, Repository repository, ResourceRepository resources, final IModelValidator validator) {
         this.validator = validator;
+        this.system = system;
+       // this.resourceEnv = resourceEnv;
+        this.repository  = repository;
+        this.resources = resources;
+        
+        //TODO: oder doch nicht alle?? (siehe System)
+        
         this.usageScenarios = new ArrayList<>();
         this.userDatas = new ArrayList<>();
     }
