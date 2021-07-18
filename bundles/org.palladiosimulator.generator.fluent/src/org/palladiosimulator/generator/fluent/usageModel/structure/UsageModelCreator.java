@@ -28,9 +28,6 @@ public class UsageModelCreator extends UsageModelEntity implements IUsageModel, 
     private final List<UsageScenario> usageScenarios;
     private final List<UserData> userDatas;
 
-    // TODO ? private System system;
-    // TODO ? private Repository repository;
-
     public UsageModelCreator(System system, Repository repository, ResourceRepository resources, final IModelValidator validator) {
         this.validator = validator;
         this.system = system;
@@ -46,7 +43,7 @@ public class UsageModelCreator extends UsageModelEntity implements IUsageModel, 
 
     public UsageModel createUsageModelNow() {
         final UsageModel usgModel = build();
-        // TODO: name? validator.validate(usgModel, name);
+        validator.validate(usgModel, "UsageModel");
         return usgModel;
     }
 
