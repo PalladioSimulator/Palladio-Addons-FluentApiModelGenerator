@@ -21,8 +21,7 @@ public class ClosedWorkloadCreator extends WorkloadCreator {
 
     @Override
     public Workload build() {
-        final ClosedWorkload work = (ClosedWorkload) UsagemodelFactory.eINSTANCE.createUsageScenario()
-                .getWorkload_UsageScenario();
+        final ClosedWorkload work = UsagemodelFactory.eINSTANCE.createClosedWorkload();
 
         work.setPopulation(population);
 

@@ -9,6 +9,7 @@ import org.palladiosimulator.generator.fluent.usageModel.structure.UsageModelEnt
 import org.palladiosimulator.generator.fluent.usageModel.structure.components.actions.ActionCreator;
 import org.palladiosimulator.pcm.usagemodel.AbstractUserAction;
 import org.palladiosimulator.pcm.usagemodel.ScenarioBehaviour;
+import org.palladiosimulator.pcm.usagemodel.UsageScenario;
 import org.palladiosimulator.pcm.usagemodel.UsagemodelFactory;
 
 public class ScenarioBehaviourCreator extends UsageModelEntity {
@@ -29,9 +30,8 @@ public class ScenarioBehaviourCreator extends UsageModelEntity {
 
     @Override
     public ScenarioBehaviour build() {
-        final ScenarioBehaviour scenBeh = UsagemodelFactory.eINSTANCE.createUsageScenario()
-                .getScenarioBehaviour_UsageScenario();
-
+        ScenarioBehaviour scenBeh =  UsagemodelFactory.eINSTANCE.createScenarioBehaviour();
+        
         scenBeh.getActions_ScenarioBehaviour().addAll(actions); // da sind andere drinnen/eingeschlossen
         return scenBeh;
     }

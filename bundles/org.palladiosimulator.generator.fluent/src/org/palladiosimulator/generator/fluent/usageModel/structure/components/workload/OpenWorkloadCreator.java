@@ -13,8 +13,7 @@ public class OpenWorkloadCreator extends WorkloadCreator {
 
     @Override
     public Workload build() {
-        OpenWorkload work = (OpenWorkload) UsagemodelFactory.eINSTANCE.createUsageScenario()
-                .getWorkload_UsageScenario();
+        OpenWorkload work = UsagemodelFactory.eINSTANCE.createOpenWorkload();
 
         if (time != null) {
             work.setInterArrivalTime_OpenWorkload(time);

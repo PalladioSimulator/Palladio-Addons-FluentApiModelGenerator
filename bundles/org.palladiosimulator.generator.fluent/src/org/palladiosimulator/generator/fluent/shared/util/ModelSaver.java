@@ -18,6 +18,7 @@ import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.pcm.repository.Repository;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceEnvironment;
 import org.palladiosimulator.pcm.system.System;
+import org.palladiosimulator.pcm.usagemodel.UsageModel;
 
 /**
  * This utility class contains functions to save Repositories,
@@ -97,6 +98,10 @@ public class ModelSaver {
     public static void saveAllocation(final Allocation allocation, final String path, final boolean printToConsole) {
         save(allocation, path, "org.palladiosimulator.generator.fluent.allocation", printToConsole);
     }
+    
+    public static void saveUsageModel(final UsageModel usgModel, final String path, final boolean printToConsole) {
+        save(usgModel, path, "org.palladiosimulator.generator.fluent.usagemodel", printToConsole);
+    }
 
     private static void save(final EObject model, final String path, final String extension,
             final boolean printToConsole) {
@@ -129,6 +134,6 @@ public class ModelSaver {
             }
         } catch (final IOException e) {
             throw new FluentApiException(e);
-        }
+        } 
     }
 }

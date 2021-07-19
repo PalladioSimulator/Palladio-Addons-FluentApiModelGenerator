@@ -30,6 +30,7 @@ public class UserDataCreator extends UsageModelEntity {
         return this;
     }
 
+    //TODO: wo bekommen wir AssemblyContext her
     public UserDataCreator withAssemblyContext(AssemblyContext context) {
         IllegalArgumentException.throwIfNull(context, "The given AssemblyContext must not be null.");
         assemblyContext = context;

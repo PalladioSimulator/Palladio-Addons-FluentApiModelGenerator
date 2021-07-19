@@ -54,8 +54,8 @@ public class FluentUsageModelFactory {
     public FluentUsageModelFactory() {
         EcorePlugin.ExtensionProcessor.process(null);
         //resourceEnv = ModelLoader.loadResourceEnvironment(null);//TODO Parameter
-        repository = ModelLoader.loadRepository(null); //TODO Parameter 
-        system = ModelLoader.loadSystem(null); //TODO Parameter     
+        repository = null; // ModelLoader.loadRepository(null); //TODO Parameter 
+        system = null; // ModelLoader.loadSystem(null); //TODO Parameter     
         resources = ModelLoader.loadResourceTypeRepository(ModelLoader.RESOURCE_TYPE_PATH);
     }
 
