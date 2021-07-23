@@ -31,7 +31,9 @@ public class ScenarioBehaviourCreator extends UsageModelEntity {
     @Override
     public ScenarioBehaviour build() {
         ScenarioBehaviour scenBeh =  UsagemodelFactory.eINSTANCE.createScenarioBehaviour();
-        
+        if(name != null) {
+            scenBeh.setEntityName(name);
+        }
         scenBeh.getActions_ScenarioBehaviour().addAll(actions); // da sind andere drinnen/eingeschlossen
         return scenBeh;
     }

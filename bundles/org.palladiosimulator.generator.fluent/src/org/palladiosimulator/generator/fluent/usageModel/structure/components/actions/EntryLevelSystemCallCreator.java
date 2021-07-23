@@ -39,6 +39,11 @@ public class EntryLevelSystemCallCreator extends ActionCreator {
         this.opRole = operationProvidedRole;
         return this;
     }
+    
+    public  EntryLevelSystemCallCreator withPriority(int priority) {
+        this.priority = priority;
+        return this;
+    }
 
     public EntryLevelSystemCallCreator addToEntryLevelSystemCallOutput(VariableUsageCreator outputParameterUsage) {
         IllegalArgumentException.throwIfNull(outputParameterUsage, "The given Output Variable Usage must not be null");
