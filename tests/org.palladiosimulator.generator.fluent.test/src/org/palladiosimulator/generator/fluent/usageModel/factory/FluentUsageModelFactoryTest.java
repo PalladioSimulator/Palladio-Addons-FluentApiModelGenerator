@@ -22,20 +22,13 @@ import org.palladiosimulator.pcm.usagemodel.Workload;
 public class FluentUsageModelFactoryTest {
     FluentUsageModelFactory create;
 
-    /*ToDo weitere Tests: 
-        Default Values all set corrct?
-        Actions Verknüpfung
-        ToDos hier
-        großes Beispiel
-    */
-    
     private void setUp() {
         create = new FluentUsageModelFactory();
     }
 
     private void printXML(UsageModel usgModel, String name) {
         //ModelSaver.saveUsageModel(usgModel, name, true);
-         ModelSaver.saveUsageModel(usgModel, name, false);
+        // ModelSaver.saveUsageModel(usgModel, name, false);
     }
 
     @Test
@@ -50,6 +43,34 @@ public class FluentUsageModelFactoryTest {
 
         // Test
         assertEquals(expectedModel.toString(), usgModel.toString());
+    }
+    
+    //@Test
+    public void bigExample() {
+        setUp();
+        UsageModel usgModel = create.newUsageModel().createUsageModelNow();
+        //TODO
+        printXML(usgModel, "./UsgModBigExample");
+    }
+    
+    public void checkDefaultValues() {
+        setUp();
+        UsageModel usgModel = create.newUsageModel()
+                .addToUsageModel(create.newUsageScenario()
+                        .addToUsageScenario(create.newClosedWorkload()))
+                
+                .createUsageModelNow();
+        printXML(usgModel, "./UsgModDefaultValues");
+        
+        //Default Values are:
+        //Branch Transition -> Probability 0.0 
+        //Entry Level System Call -> Priority 0
+        //Closed Workload -> Population 0
+        Workload w = usgModel.getUsageScenario_UsageModel().get(0).getWorkload_UsageScenario();
+        ClosedWorkload c = (ClosedWorkload) w;
+        assertEquals(0, c.getPopulation());
+        
+        //-->Default Values does not need to be set while creating the model
     }
 
     //------------------   Usage Scenario ------------------ 
@@ -187,6 +208,26 @@ public class FluentUsageModelFactoryTest {
     }
     
     @Test
+    public void usageScenarioBehavActionList() {
+setUp();
+        
+        UsageModel usgModel = create.newUsageModel().addToUsageModel(create.newUsageScenario()
+
+                .addToUsageScenario(
+                        create.newScenarioBehavior()
+                        .addAction(create.newStartAction().withSuccessor(create.newDelayAction().withSuccessor(create.newStopAction())))
+                        ))
+                
+                .createUsageModelNow();
+        printXML(usgModel, "./UsgModScenBehvActionList");
+        
+        List<AbstractUserAction> list = usgModel.getUsageScenario_UsageModel().get(0).getScenarioBehaviour_UsageScenario().getActions_ScenarioBehaviour();
+        assertFalse(list.isEmpty());
+        assertEquals(3, list.size());  
+    }
+    
+    
+    @Test
     public void usageScenarioBehavActionsDelay() {
         String name = "DelayAction";
         String time = "20";
@@ -305,7 +346,7 @@ public class FluentUsageModelFactoryTest {
     
     //------------------   User Data ------------------ 
     
-    // @Test
+    @Test
     public void basicUserData() {
         setUp();
         UsageModel usgModel = create.newUsageModel()
