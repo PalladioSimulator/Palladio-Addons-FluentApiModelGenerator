@@ -22,16 +22,33 @@ public class ScenarioBehaviourCreator extends UsageModelEntity {
     }
 
     public ScenarioBehaviourCreator addAction(ActionCreator action) {
-        IllegalArgumentException.throwIfNull(action, "The given Action must not be null");
+        IllegalArgumentException.throwIfNull(action, "The given Action must not be null");        
         AbstractUserAction usrAction = action.build();
-        actions.add(usrAction);
+
+        createActionFlow(usrAction);
+        //actions.add(usrAction);
         return this;
     }
 
+    private void createActionFlow(AbstractUserAction start) {
+        //use only successor, predesccor then happens form itself
+        List<AbstractUserAction> flow = new ArrayList<>();
+    
+        AbstractUserAction current = start;
+        
+        while(current != null) {
+            flow.add(current);            
+            current = current.getSuccessor();
+        }
+    
+        actions.addAll(flow);
+    } 
+    
+    
     @Override
     public ScenarioBehaviour build() {
-        ScenarioBehaviour scenBeh =  UsagemodelFactory.eINSTANCE.createScenarioBehaviour();
-        if(name != null) {
+        ScenarioBehaviour scenBeh = UsagemodelFactory.eINSTANCE.createScenarioBehaviour();
+        if (name != null) {
             scenBeh.setEntityName(name);
         }
         scenBeh.getActions_ScenarioBehaviour().addAll(actions); // da sind andere drinnen/eingeschlossen
