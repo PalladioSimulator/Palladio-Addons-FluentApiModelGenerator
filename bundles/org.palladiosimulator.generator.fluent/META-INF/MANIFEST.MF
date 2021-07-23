@@ -49,5 +49,7 @@ Export-Package: org.palladiosimulator.generator.fluent,
  org.palladiosimulator.generator.fluent.system.structure.role,
  org.palladiosimulator.generator.fluent.usageModel.api,
  org.palladiosimulator.generator.fluent.usageModel.factory,
- org.palladiosimulator.generator.fluent.usageModel.structure.components
+ org.palladiosimulator.generator.fluent.usageModel.structure.components,
+ org.palladiosimulator.generator.fluent.usageModel.structure.components.actions,
+ org.palladiosimulator.generator.fluent.usageModel.structure.components.workload
 Import-Package: org.junit.jupiter.api
