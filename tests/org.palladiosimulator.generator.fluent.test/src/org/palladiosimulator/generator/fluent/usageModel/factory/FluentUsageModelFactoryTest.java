@@ -5,7 +5,11 @@ import static org.junit.Assert.*;
 import java.util.List;
 
 import org.junit.Test;
+import org.palladiosimulator.generator.fluent.shared.util.ModelLoader;
 import org.palladiosimulator.generator.fluent.shared.util.ModelSaver;
+import org.palladiosimulator.generator.fluent.system.factory.FluentSystemFactory;
+import org.palladiosimulator.pcm.core.composition.AssemblyContext;
+import org.palladiosimulator.pcm.system.System;
 import org.palladiosimulator.pcm.usagemodel.AbstractUserAction;
 import org.palladiosimulator.pcm.usagemodel.Branch;
 import org.palladiosimulator.pcm.usagemodel.BranchTransition;
@@ -21,16 +25,31 @@ import org.palladiosimulator.pcm.usagemodel.Workload;
 
 public class FluentUsageModelFactoryTest {
     FluentUsageModelFactory create;
+    FluentSystemFactory systemFac;
 
+    
+  //------------------   Util ------------------ 
+    
     private void setUp() {
         create = new FluentUsageModelFactory();
     }
 
+    /*
+    private System createSystem() {
+        //String path = ModelLoader.STANDARD_SYSTEM_PATH;
+        systemFac = new FluentSystemFactory();
+        return s s = systemFac.newSystem().addToSystem(systemFac.newAssemblyContext()).createSystemNow();
+        ModelSaver.saveSystem(s, path, false);
+    }*/
+    
     private void printXML(UsageModel usgModel, String name) {
         //ModelSaver.saveUsageModel(usgModel, name, true);
-        // ModelSaver.saveUsageModel(usgModel, name, false);
+        ModelSaver.saveUsageModel(usgModel, name, false);
     }
 
+    
+  //------------------   TESTS ------------------ 
+    
     @Test
     public void basicUsageModelClasses() {
         // Actual Model
@@ -360,6 +379,39 @@ setUp();
         
         assertFalse(usgModel.getUserData_UsageModel().get(0).getUserDataParameterUsages_UserData().isEmpty());
     
-    }
+    }    
 
+    
+    @Test
+    public void usrDataAssemblyContext() {
+        String assConName = "assemblyContext";
+        String systemURI = ModelLoader.STANDARD_SYSTEM_PATH + ".org.palladiosimulator.generator.fluent.system";
+        
+        //System
+        systemFac = new FluentSystemFactory();
+        System s = systemFac.newSystem().addToSystem(systemFac.newAssemblyContext().withName(assConName)).createSystemNow();
+        ModelSaver.saveSystem(s, ModelLoader.STANDARD_SYSTEM_PATH, false);        
+        
+        //Usage Model
+        setUp(); 
+        
+        UsageModel usgModel = create.setSystem(systemURI).newUsageModel()
+                .addToUsageModel(
+                        create.newUserData().withAssemblyContext(assConName)
+                        )
+                .createUsageModelNow();
+        printXML(usgModel, "./UsgModUserDataAssembly"); 
+        
+        //Test
+        AssemblyContext con = usgModel.getUserData_UsageModel().get(0).getAssemblyContext_userData();
+        assertEquals(assConName, con.getEntityName());
+    }
+    
+    public void usrDataAssemblyContextString() {
+        setUp();
+        UsageModel usgModel = create.newUsageModel()
+                .addToUsageModel(
+                        create.newUserData().withAssemblyContext("test")).createUsageModelNow();
+        printXML(usgModel, "./UsgModUserDataAssemblyString"); //TODO
+    }
 }

@@ -4,11 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.palladiosimulator.generator.fluent.exceptions.IllegalArgumentException;
+import org.palladiosimulator.generator.fluent.exceptions.NoSuchElementException;
+import org.palladiosimulator.generator.fluent.shared.util.ModelLoader;
 import org.palladiosimulator.generator.fluent.shared.validate.IModelValidator;
 import org.palladiosimulator.generator.fluent.usageModel.api.IUsageModel;
 import org.palladiosimulator.generator.fluent.usageModel.api.IUsageModelAddition;
 import org.palladiosimulator.generator.fluent.usageModel.structure.components.UsageScenarioCreator;
 import org.palladiosimulator.generator.fluent.usageModel.structure.components.UserDataCreator;
+import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.repository.Repository;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceEnvironment;
 import org.palladiosimulator.pcm.resourcetype.ResourceRepository;
@@ -22,20 +25,19 @@ public class UsageModelCreator extends UsageModelEntity implements IUsageModel, 
     private final IModelValidator validator;
     private final System system;
    // private final ResourceEnvironment resourceEnv;
-    private final Repository repository;
-    private final ResourceRepository resources ;
+   //private final Repository repository;
+   // private final ResourceRepository resources ;
     
     private final List<UsageScenario> usageScenarios;
     private final List<UserData> userDatas;
 
-    public UsageModelCreator(System system, Repository repository, ResourceRepository resources, final IModelValidator validator) {
+    
+    public UsageModelCreator(System system,/* Repository repository, ResourceRepository resources,*/IModelValidator validator) {
         this.validator = validator;
         this.system = system;
-       // this.resourceEnv = resourceEnv;
-        this.repository  = repository;
-        this.resources = resources;
-        
-        //TODO: oder doch nicht alle?? (siehe System)
+        // this.resourceEnv = resourceEnv;
+        // this.repository  = repository;
+        // this.resources = resources;
         
         this.usageScenarios = new ArrayList<>();
         this.userDatas = new ArrayList<>();
@@ -68,4 +70,12 @@ public class UsageModelCreator extends UsageModelEntity implements IUsageModel, 
         usageScenarios.add(usageScenario.build());
         return this;
     }
+    
+    public AssemblyContext getAssemblyContextByName(String name) throws NoSuchElementException {
+        IllegalArgumentException.throwIfNull(system, "The referred System was not set correctly in FluentUsageModelFactory");
+        return  system.getAssemblyContexts__ComposedStructure().stream().filter(x -> x.getEntityName().equals(name))
+       .findFirst()
+       .orElseThrow(() -> new IllegalArgumentException("No AssemblyContext with name " + name + " found."));        
+    }
+
 }

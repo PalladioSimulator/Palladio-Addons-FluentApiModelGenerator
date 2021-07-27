@@ -46,7 +46,7 @@ public class FluentUsageModelFactory {
     private UsageModelCreator usgModelCreator;
 //    private final ResourceEnvironment resourceEnv;
     private final Repository repository;
-    private final System system;
+    private System system;
     private final ResourceRepository resources ;
     /**
      * Creates an instance of the FluentUsageModelFactory.
@@ -55,8 +55,15 @@ public class FluentUsageModelFactory {
         EcorePlugin.ExtensionProcessor.process(null);
         //resourceEnv = ModelLoader.loadResourceEnvironment(null);//TODO Parameter
         repository = null; // ModelLoader.loadRepository(null); //TODO Parameter 
-        system = null; // ModelLoader.loadSystem(null); //TODO Parameter     
-        resources = ModelLoader.loadResourceTypeRepository(ModelLoader.RESOURCE_TYPE_PATH);
+        //system = ModelLoader.loadSystem(ModelLoader.STANDARD_SYSTEM_PATH);    
+        system = null;
+        resources = null; ModelLoader.loadResourceTypeRepository(ModelLoader.RESOURCE_TYPE_PATH);
+    }
+    
+    //TODO nötig??    
+    public FluentUsageModelFactory setSystem(String uri) {
+        system = ModelLoader.loadSystem(uri); 
+        return this;
     }
 
     /**
@@ -74,7 +81,8 @@ public class FluentUsageModelFactory {
         final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
         logger.setLevel(Level.ALL);
         final IModelValidator validator = new ModelValidator(logger);
-        usgModelCreator = new UsageModelCreator(system, repository, resources, validator);
+       // usgModelCreator = new UsageModelCreator(system, repository, resources, validator);
+        usgModelCreator = new UsageModelCreator(system, validator);
         return usgModelCreator;
     }
     
@@ -115,10 +123,12 @@ public class FluentUsageModelFactory {
         return new LoopActionCreator();
     }
     
+    @Deprecated
     public StartActionCreator newStartAction() {
         return new StartActionCreator();
     }
     
+    @Deprecated
     public StopActionCreator newStopAction() {
         return new StopActionCreator();
     }

@@ -9,6 +9,7 @@ import org.palladiosimulator.generator.fluent.usageModel.structure.UsageModelCre
 import org.palladiosimulator.generator.fluent.usageModel.structure.UsageModelEntity;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.parameter.VariableUsage;
+import org.palladiosimulator.pcm.repository.RepositoryComponent;
 import org.palladiosimulator.pcm.usagemodel.UsagemodelFactory;
 import org.palladiosimulator.pcm.usagemodel.UserData;
 
@@ -22,19 +23,21 @@ public class UserDataCreator extends UsageModelEntity {
         variableUsage = new ArrayList<>();
     }
 
-    // TODO: evtl. VariableUsageCreator verschieben in shared aus
-    // repositoryStructure.components
     public UserDataCreator addToUserData(VariableUsageCreator var) {
         IllegalArgumentException.throwIfNull(var, "The given Variable must not be null");
         variableUsage.add(var.build());
         return this;
     }
 
-    //TODO: wo bekommen wir AssemblyContext her
     public UserDataCreator withAssemblyContext(AssemblyContext context) {
         IllegalArgumentException.throwIfNull(context, "The given AssemblyContext must not be null.");
         assemblyContext = context;
         return this;
+    }
+    
+    public UserDataCreator withAssemblyContext(String name) {
+        AssemblyContext context = usageModelCreator.getAssemblyContextByName(name);
+        return withAssemblyContext(context);
     }
 
     @Override
