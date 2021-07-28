@@ -1,4 +1,4 @@
-package org.palladiosimulator.generator.fluent.usage;
+package org.palladiosimulator.generator.fluent.usagemodel.factory;
 
 import static org.junit.Assert.*;
 
