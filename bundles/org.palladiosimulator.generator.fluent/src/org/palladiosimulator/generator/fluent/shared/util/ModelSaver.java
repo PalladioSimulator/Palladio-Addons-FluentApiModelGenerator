@@ -61,7 +61,7 @@ public class ModelSaver {
      * @see org.palladiosimulator.pcm.system.System
      */
     public static void saveSystem(final System system, final String path, final boolean printToConsole) {
-        save(system, path, "org.palladiosimulator.generator.fluent.system", printToConsole);
+        save(system, path, "system", printToConsole);
     }
 
     /**
@@ -100,7 +100,7 @@ public class ModelSaver {
     }
     
     public static void saveUsageModel(final UsageModel usgModel, final String path, final boolean printToConsole) {
-        save(usgModel, path, "org.palladiosimulator.generator.fluent.usagemodel", printToConsole);
+        save(usgModel, path, "usagemodel", printToConsole);
     }
 
     private static void save(final EObject model, final String path, final String extension,

@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.palladiosimulator.generator.fluent.exceptions.IllegalArgumentException;
 import org.palladiosimulator.generator.fluent.shared.components.VariableUsageCreator;
+import org.palladiosimulator.generator.fluent.usagemodel.structure.UsageModelCreator;
+import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.parameter.VariableUsage;
 import org.palladiosimulator.pcm.repository.OperationProvidedRole;
 import org.palladiosimulator.pcm.repository.OperationSignature;
@@ -20,7 +22,8 @@ public class EntryLevelSystemCallCreator extends ActionCreator {
     private OperationSignature opSignature;
     private OperationProvidedRole opRole;
 
-    public EntryLevelSystemCallCreator() {
+    public EntryLevelSystemCallCreator(UsageModelCreator usgModelCreator) {
+        this.usageModelCreator = usgModelCreator;
         outputParameterUsage = new ArrayList<VariableUsage>();
         inputParameterUsage = new ArrayList<VariableUsage>();
         priority = 0;
@@ -31,6 +34,17 @@ public class EntryLevelSystemCallCreator extends ActionCreator {
         IllegalArgumentException.throwIfNull(operationSignature, "The given Operation Signature must not be null");
         this.opSignature = operationSignature;
         return this;
+    }
+    public EntryLevelSystemCallCreator withOperationSignatureEntryLevelSystemCall(
+            String name) {
+        OperationSignature sig = usageModelCreator.getOperationSignatureByName(name);
+        return withOperationSignatureEntryLevelSystemCall(sig);
+    }
+
+    public EntryLevelSystemCallCreator withProvidedRoleEntryLevelSystemCall(
+            String name) {
+        OperationProvidedRole role = usageModelCreator.getOperationProvidedRoleByName(name);
+        return withProvidedRoleEntryLevelSystemCall(role);
     }
 
     public EntryLevelSystemCallCreator withProvidedRoleEntryLevelSystemCall(

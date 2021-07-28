@@ -3,6 +3,7 @@
 *.system
 *.resourceenvironment
 *.allocation
+*.usagemodel
 
 # Eclipse
 .loadpath

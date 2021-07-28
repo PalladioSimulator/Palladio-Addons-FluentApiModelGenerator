@@ -23,7 +23,6 @@ import org.palladiosimulator.generator.fluent.usagemodel.structure.components.ac
 import org.palladiosimulator.generator.fluent.usagemodel.structure.components.workload.ClosedWorkloadCreator;
 import org.palladiosimulator.generator.fluent.usagemodel.structure.components.workload.OpenWorkloadCreator;
 import org.palladiosimulator.pcm.repository.Repository;
-import org.palladiosimulator.pcm.resourcetype.ResourceRepository;
 import org.palladiosimulator.pcm.system.System;
 
 /**
@@ -45,9 +44,9 @@ import org.palladiosimulator.pcm.system.System;
 public class FluentUsageModelFactory {
     private UsageModelCreator usgModelCreator;
 //    private final ResourceEnvironment resourceEnv;
-    private final Repository repository;
+    private Repository repository;
     private System system;
-    private final ResourceRepository resources; 
+    //private final ResourceRepository resources; 
     /**
      * Creates an instance of the FluentUsageModelFactory.
      */
@@ -57,12 +56,16 @@ public class FluentUsageModelFactory {
         repository = null; // ModelLoader.loadRepository(null); //TODO Parameter 
         //system = ModelLoader.loadSystem(ModelLoader.STANDARD_SYSTEM_PATH);    
         system = null;
-        resources = null; ModelLoader.loadResourceTypeRepository(ModelLoader.RESOURCE_TYPE_PATH);
+       // resources = null; ModelLoader.loadResourceTypeRepository(ModelLoader.RESOURCE_TYPE_PATH);
     }
     
     //TODO nötig?? besprechen    
     public FluentUsageModelFactory setSystem(String uri) {
         system = ModelLoader.loadSystem(uri); 
+        return this;
+    }
+    public FluentUsageModelFactory setRepository(String uri) {
+        repository = ModelLoader.loadRepository(uri); 
         return this;
     }
 
@@ -82,7 +85,7 @@ public class FluentUsageModelFactory {
         logger.setLevel(Level.ALL);
         final IModelValidator validator = new ModelValidator(logger);
        // usgModelCreator = new UsageModelCreator(system, repository, resources, validator);
-        usgModelCreator = new UsageModelCreator(system, validator);
+        usgModelCreator = new UsageModelCreator(system, repository, validator);
         return usgModelCreator;
     }
     
@@ -116,7 +119,7 @@ public class FluentUsageModelFactory {
     }
     
     public EntryLevelSystemCallCreator newEntryLevelSystemCall() {
-        return new EntryLevelSystemCallCreator();
+        return new EntryLevelSystemCallCreator(usgModelCreator);
     }
     
     public LoopActionCreator newLoopAction() {

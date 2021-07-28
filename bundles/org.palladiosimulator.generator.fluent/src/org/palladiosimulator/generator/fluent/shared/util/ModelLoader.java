@@ -31,7 +31,6 @@ public class ModelLoader {
     public static final String PRIMITIVE_TYPES_PATH = "pathmap://PCM_MODELS/PrimitiveTypes.repository";
     public static final String RESOURCE_TYPE_PATH = "pathmap://PCM_MODELS/Palladio.resourcetype";
     public static final String FAILURE_TYPES_PATH = "pathmap://PCM_MODELS/FailureTypes.repository";
-    public static final String STANDARD_SYSTEM_PATH = "./System";
     
     
     /**
@@ -64,7 +63,7 @@ public class ModelLoader {
      * @see org.palladiosimulator.pcm.system.System
      */
     public static System loadSystem(final String uri) {
-        return (System) load(uri,"org.palladiosimulator.generator.fluent.system");//"org.palladiosimulator.generator.fluent.system" //"system"
+        return (System) load(uri,"system");//"org.palladiosimulator.generator.fluent.system" //"system"
     }
 
     /**
