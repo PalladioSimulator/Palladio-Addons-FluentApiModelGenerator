@@ -7,6 +7,11 @@ import org.palladiosimulator.pcm.usagemodel.Workload;
 
 public class OpenWorkloadCreator extends WorkloadCreator {
 
+    public OpenWorkloadCreator(UsageModelCreator usgModelCreator, String interArrivalTime) {
+        super(usgModelCreator, interArrivalTime);
+    }
+    
+    @Deprecated
     public OpenWorkloadCreator(UsageModelCreator usgModelCreator) {
         super(usgModelCreator);
     }
@@ -22,6 +27,7 @@ public class OpenWorkloadCreator extends WorkloadCreator {
     }
 
     @Override
+    @Deprecated
     public OpenWorkloadCreator addToWorkload(String time) {
         return (OpenWorkloadCreator) super.addToWorkload(time);
     }

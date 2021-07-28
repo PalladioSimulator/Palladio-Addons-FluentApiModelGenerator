@@ -5,6 +5,7 @@ import org.palladiosimulator.generator.fluent.usagemodel.structure.UsageModelCre
 import org.palladiosimulator.generator.fluent.usagemodel.structure.UsageModelEntity;
 import org.palladiosimulator.generator.fluent.usagemodel.structure.components.workload.ClosedWorkloadCreator;
 import org.palladiosimulator.generator.fluent.usagemodel.structure.components.workload.OpenWorkloadCreator;
+import org.palladiosimulator.generator.fluent.usagemodel.structure.components.workload.WorkloadCreator;
 import org.palladiosimulator.pcm.usagemodel.ScenarioBehaviour;
 import org.palladiosimulator.pcm.usagemodel.UsageScenario;
 import org.palladiosimulator.pcm.usagemodel.UsagemodelFactory;
@@ -15,26 +16,41 @@ public class UsageScenarioCreator extends UsageModelEntity {
     private ScenarioBehaviour scenarioBehaviour;
     private Workload workload; // can be Open OR Closed
 
+    public UsageScenarioCreator(UsageModelCreator usgModelCreator, ScenarioBehaviourCreator scenBehave, WorkloadCreator work) {
+        usageModelCreator = usgModelCreator;
+        addToUsageScenario(scenBehave);
+        addToUsageScenario(work);
+    }
+    
+    @Deprecated
     public UsageScenarioCreator(UsageModelCreator usgModelCreator) {
         usageModelCreator = usgModelCreator;
     }
 
+    private void addToUsageScenario (WorkloadCreator workload) {
+         if(workload instanceof OpenWorkloadCreator) {
+             OpenWorkloadCreator o = (OpenWorkloadCreator) workload;
+             this.workload = o.build();
+         } else {
+             //then ClosedWorkloadCrator
+             ClosedWorkloadCreator c = (ClosedWorkloadCreator) workload;
+             this.workload = c.build();
+         }
+    }
+    
+    @Deprecated
     public UsageScenarioCreator addToUsageScenario(OpenWorkloadCreator workload) {
-        if (workload != null) {
-            // TODO: Fehlermeldung, da schon existiert oder ignorieren?
-        }
         this.workload = workload.build();
         return this;
     }
-
+    
+    @Deprecated
     public UsageScenarioCreator addToUsageScenario(ClosedWorkloadCreator workload) {
-        if (workload != null) {
-            // TODO: Fehlermeldung, da schon existiert oder ignorieren?
-        }
         this.workload = workload.build();
         return this;
     }
 
+    @Deprecated
     public UsageScenarioCreator addToUsageScenario(ScenarioBehaviourCreator scenBehave) {
         IllegalArgumentException.throwIfNull(scenBehave, "The given ScenarioBehaviour must not be null");
         this.scenarioBehaviour = scenBehave.build();

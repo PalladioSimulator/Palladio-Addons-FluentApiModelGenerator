@@ -22,6 +22,7 @@ import org.palladiosimulator.generator.fluent.usagemodel.structure.components.ac
 import org.palladiosimulator.generator.fluent.usagemodel.structure.components.actions.StopActionCreator;
 import org.palladiosimulator.generator.fluent.usagemodel.structure.components.workload.ClosedWorkloadCreator;
 import org.palladiosimulator.generator.fluent.usagemodel.structure.components.workload.OpenWorkloadCreator;
+import org.palladiosimulator.generator.fluent.usagemodel.structure.components.workload.WorkloadCreator;
 import org.palladiosimulator.pcm.repository.Repository;
 import org.palladiosimulator.pcm.system.System;
 
@@ -91,6 +92,11 @@ public class FluentUsageModelFactory {
     
     // ---------------------- Components ----------------------
     
+    public UsageScenarioCreator newUsageScenario(ScenarioBehaviourCreator scen, WorkloadCreator work) {
+        return new UsageScenarioCreator(usgModelCreator,scen, work);
+    }
+    
+    @Deprecated
     public UsageScenarioCreator newUsageScenario() {
         return new UsageScenarioCreator(usgModelCreator);
     }
@@ -136,10 +142,20 @@ public class FluentUsageModelFactory {
     
     // ---------------------- Workload ----------------------
     
+    public ClosedWorkloadCreator newClosedWorkload(String thinkTime) {
+        return new ClosedWorkloadCreator(usgModelCreator, thinkTime);
+    }
+    
+    @Deprecated
     public ClosedWorkloadCreator newClosedWorkload() {
         return new ClosedWorkloadCreator(usgModelCreator);
     }
     
+    public OpenWorkloadCreator newOpenWorkload(String interArrivalTime) {
+        return new OpenWorkloadCreator(usgModelCreator, interArrivalTime);
+    }
+    
+    @Deprecated
     public OpenWorkloadCreator newOpenWorkload() {
         return new OpenWorkloadCreator(usgModelCreator);
     }

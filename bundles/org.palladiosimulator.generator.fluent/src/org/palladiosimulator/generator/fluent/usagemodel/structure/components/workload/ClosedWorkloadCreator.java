@@ -9,6 +9,12 @@ public class ClosedWorkloadCreator extends WorkloadCreator {
 
     private int population;
 
+    public ClosedWorkloadCreator(UsageModelCreator usgModelCreator, String thinkTime) {
+        super(usgModelCreator, thinkTime);
+        this.population = 0; // default value
+    }
+    
+    @Deprecated
     public ClosedWorkloadCreator(UsageModelCreator usgModelCreator) {
         super(usgModelCreator);
         this.population = 0; // default value
@@ -31,7 +37,8 @@ public class ClosedWorkloadCreator extends WorkloadCreator {
         return work;
     }
 
-    @Override
+   @Override
+   @Deprecated
     public ClosedWorkloadCreator addToWorkload(String time) {
         return (ClosedWorkloadCreator) super.addToWorkload(time);
     }

@@ -76,12 +76,25 @@ public class ScenarioBehaviourCreator extends UsageModelEntity {
         actions.addAll(flow);
     } 
     
+    private void addStartStop() {
+        ActionCreator startCreator  = new StartActionCreator();
+        AbstractUserAction start = startCreator.build();
+        ActionCreator stopCreator  = new StopActionCreator();
+        AbstractUserAction stop = stopCreator.build();
+        start.setSuccessor(stop);
+        actions.add(start);
+        actions.add(stop);
+    }
     
     @Override
     public ScenarioBehaviour build() {
         ScenarioBehaviour scenBeh = UsagemodelFactory.eINSTANCE.createScenarioBehaviour();
         if (name != null) {
             scenBeh.setEntityName(name);
+        }
+        if(actions.isEmpty()) {
+            //add Start and Stop Actions as this is required
+            addStartStop();
         }
         scenBeh.getActions_ScenarioBehaviour().addAll(actions); // da sind andere drinnen/eingeschlossen
         return scenBeh;
