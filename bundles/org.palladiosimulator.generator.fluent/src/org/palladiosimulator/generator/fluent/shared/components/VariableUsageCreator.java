@@ -5,9 +5,9 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.palladiosimulator.generator.fluent.component.repositoryStructure.RepositoryCreator;
-import org.palladiosimulator.generator.fluent.component.repositoryStructure.RepositoryEntity;
 import org.palladiosimulator.generator.fluent.exceptions.IllegalArgumentException;
+import org.palladiosimulator.generator.fluent.repository.structure.RepositoryCreator;
+import org.palladiosimulator.generator.fluent.repository.structure.RepositoryEntity;
 import org.palladiosimulator.generator.fluent.usagemodel.structure.UsageModelCreator;
 import org.palladiosimulator.pcm.core.CoreFactory;
 import org.palladiosimulator.pcm.core.PCMRandomVariable;
