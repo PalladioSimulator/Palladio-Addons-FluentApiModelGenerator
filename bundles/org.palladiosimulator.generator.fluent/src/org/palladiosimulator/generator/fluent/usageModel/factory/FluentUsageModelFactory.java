@@ -60,7 +60,7 @@ public class FluentUsageModelFactory {
         resources = null; ModelLoader.loadResourceTypeRepository(ModelLoader.RESOURCE_TYPE_PATH);
     }
     
-    //TODO nötig??    
+    //TODO nötig?? besprechen    
     public FluentUsageModelFactory setSystem(String uri) {
         system = ModelLoader.loadSystem(uri); 
         return this;
@@ -123,12 +123,10 @@ public class FluentUsageModelFactory {
         return new LoopActionCreator();
     }
     
-    @Deprecated
     public StartActionCreator newStartAction() {
         return new StartActionCreator();
     }
     
-    @Deprecated
     public StopActionCreator newStopAction() {
         return new StopActionCreator();
     }

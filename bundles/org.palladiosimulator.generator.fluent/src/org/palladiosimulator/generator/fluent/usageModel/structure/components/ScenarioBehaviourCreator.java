@@ -7,8 +7,12 @@ import org.palladiosimulator.generator.fluent.exceptions.IllegalArgumentExceptio
 import org.palladiosimulator.generator.fluent.usageModel.structure.UsageModelCreator;
 import org.palladiosimulator.generator.fluent.usageModel.structure.UsageModelEntity;
 import org.palladiosimulator.generator.fluent.usageModel.structure.components.actions.ActionCreator;
+import org.palladiosimulator.generator.fluent.usageModel.structure.components.actions.StartActionCreator;
+import org.palladiosimulator.generator.fluent.usageModel.structure.components.actions.StopActionCreator;
 import org.palladiosimulator.pcm.usagemodel.AbstractUserAction;
 import org.palladiosimulator.pcm.usagemodel.ScenarioBehaviour;
+import org.palladiosimulator.pcm.usagemodel.Start;
+import org.palladiosimulator.pcm.usagemodel.Stop;
 import org.palladiosimulator.pcm.usagemodel.UsageScenario;
 import org.palladiosimulator.pcm.usagemodel.UsagemodelFactory;
 
@@ -30,17 +34,45 @@ public class ScenarioBehaviourCreator extends UsageModelEntity {
         return this;
     }
 
-    private void createActionFlow(AbstractUserAction start) {
-        //use only successor, predesccor then happens form itself
-        List<AbstractUserAction> flow = new ArrayList<>();
+    private void addStart(AbstractUserAction first) {
+        //test if current is already Start
+        if(first instanceof Start) {
+            return;
+        }        
+        
+        ActionCreator startCreator  = new StartActionCreator();
+        AbstractUserAction start = startCreator.build();        
+        start.setSuccessor(first);
+        actions.add(start);
+        
+    }
+    private void addStop(AbstractUserAction last) {
+        //test if last is already Stop        
+        if(last instanceof Stop) {
+            return;
+        }
+        
+        ActionCreator stopCreator  = new StopActionCreator();
+        AbstractUserAction stop = stopCreator.build();
+        stop.setPredecessor(last);
+        actions.add(stop);
+    }
     
+    private void createActionFlow(AbstractUserAction start) {
+        //use only successor, predecessor then happens from itself
+        List<AbstractUserAction> flow = new ArrayList<>();
+        AbstractUserAction before = start;
+        
         AbstractUserAction current = start;
         
+        addStart(current);
+        
         while(current != null) {
-            flow.add(current);            
+            flow.add(current); 
+            before = current;
             current = current.getSuccessor();
         }
-    
+        addStop(before);
         actions.addAll(flow);
     } 
     

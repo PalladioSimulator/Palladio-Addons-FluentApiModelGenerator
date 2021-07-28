@@ -188,7 +188,6 @@ public class FluentUsageModelFactoryTest {
                         create.newScenarioBehavior()
                         .withName(name)
                         .addAction(create.newStartAction())
-                        .addAction(create.newStopAction())
                         ))
                 
                 .createUsageModelNow();
@@ -198,8 +197,7 @@ public class FluentUsageModelFactoryTest {
         
         List<AbstractUserAction> list = usgModel.getUsageScenario_UsageModel().get(0).getScenarioBehaviour_UsageScenario().getActions_ScenarioBehaviour();
         assertFalse(list.isEmpty());
-        assertEquals(2, list.size());
-        
+        assertEquals(2, list.size()); //as it adds only additional stop        
     }
     
     @Test
@@ -209,13 +207,11 @@ public class FluentUsageModelFactoryTest {
         UsageModel usgModel = create.newUsageModel().addToUsageModel(create.newUsageScenario()
 
                 .addToUsageScenario(
-                        create.newScenarioBehavior()
-                        .addAction(create.newStartAction())
+                        create.newScenarioBehavior()                      
                         .addAction(create.newDelayAction())
                         .addAction(create.newBranchAction())
                         .addAction(create.newEntryLevelSystemCall())
-                        .addAction(create.newLoopAction())
-                        .addAction(create.newStopAction())
+                        .addAction(create.newLoopAction())                        
                         ))
                 
                 .createUsageModelNow();
@@ -223,18 +219,18 @@ public class FluentUsageModelFactoryTest {
         
         List<AbstractUserAction> list = usgModel.getUsageScenario_UsageModel().get(0).getScenarioBehaviour_UsageScenario().getActions_ScenarioBehaviour();
         assertFalse(list.isEmpty());
-        assertEquals(6, list.size());        
+        assertEquals(12, list.size()); //as each gets added with Start/Stop before = 4 x 3      
     }
     
     @Test
     public void usageScenarioBehavActionList() {
-setUp();
+        setUp();
         
         UsageModel usgModel = create.newUsageModel().addToUsageModel(create.newUsageScenario()
 
                 .addToUsageScenario(
                         create.newScenarioBehavior()
-                        .addAction(create.newStartAction().withSuccessor(create.newDelayAction().withSuccessor(create.newStopAction())))
+                        .addAction(create.newDelayAction().withSuccessor(create.newDelayAction()))
                         ))
                 
                 .createUsageModelNow();
@@ -242,7 +238,7 @@ setUp();
         
         List<AbstractUserAction> list = usgModel.getUsageScenario_UsageModel().get(0).getScenarioBehaviour_UsageScenario().getActions_ScenarioBehaviour();
         assertFalse(list.isEmpty());
-        assertEquals(3, list.size());  
+        assertEquals(4, list.size());   //needs to be 4 as Start/Stop get added automatically
     }
     
     
@@ -264,11 +260,18 @@ setUp();
                 .createUsageModelNow();
         printXML(usgModel, "./UsgModScenBehvActionsDelay");
         
-        AbstractUserAction action = usgModel.getUsageScenario_UsageModel().get(0).getScenarioBehaviour_UsageScenario().getActions_ScenarioBehaviour().get(0);
-        Delay delay = (Delay) action;
+        Delay act = null;
+        List<AbstractUserAction> list = usgModel.getUsageScenario_UsageModel().get(0).getScenarioBehaviour_UsageScenario().getActions_ScenarioBehaviour();
+        //to filter for the correct one and ignore Start/Stop which get added automatically
+        for(int i = 0; i< list.size(); i++) {     
+            AbstractUserAction action = list.get(i);
+            if(action instanceof Delay) {                
+                act = (Delay) action;}
+        }    
         
-        assertEquals(name, delay.getEntityName());
-        assertEquals(time, delay.getTimeSpecification_Delay().getSpecification());
+        assertNotNull(act);
+        assertEquals(name, act.getEntityName());
+        assertEquals(time, act.getTimeSpecification_Delay().getSpecification());
     }
     
     @Test
@@ -291,9 +294,16 @@ setUp();
                 .createUsageModelNow();
         printXML(usgModel, "./UsgModScenBehvActionsLoop");
         
-        AbstractUserAction action = usgModel.getUsageScenario_UsageModel().get(0).getScenarioBehaviour_UsageScenario().getActions_ScenarioBehaviour().get(0);
-        Loop act = (Loop) action;
+        Loop act = null;
+        List<AbstractUserAction> list = usgModel.getUsageScenario_UsageModel().get(0).getScenarioBehaviour_UsageScenario().getActions_ScenarioBehaviour();
+        //to filter for the correct one and ignore Start/Stop which get added automatically
+        for(int i = 0; i< list.size(); i++) {     
+            AbstractUserAction action = list.get(i);
+            if(action instanceof Loop) {                
+                act = (Loop) action;}
+        }
         
+        assertNotNull(act);
         assertEquals(name, act.getEntityName());
         assertEquals(iteration, act.getLoopIteration_Loop().getSpecification());
         assertEquals(scenName, act.getBodyBehaviour_Loop().getEntityName());
@@ -322,9 +332,16 @@ setUp();
                 .createUsageModelNow();
         printXML(usgModel, "./UsgModScenBehvActionsBranch");
         
-        AbstractUserAction action = usgModel.getUsageScenario_UsageModel().get(0).getScenarioBehaviour_UsageScenario().getActions_ScenarioBehaviour().get(0);
-        Branch act = (Branch) action;
+        Branch act = null;
+        List<AbstractUserAction> list = usgModel.getUsageScenario_UsageModel().get(0).getScenarioBehaviour_UsageScenario().getActions_ScenarioBehaviour();
+        //to filter for the correct one and ignore Start/Stop which get added automatically
+        for(int i = 0; i< list.size(); i++) {     
+            AbstractUserAction action = list.get(i);
+            if(action instanceof Branch) {                
+                act = (Branch) action;}
+        }    
         
+        assertNotNull(act);        
         assertEquals(name, act.getEntityName());
         BranchTransition trans = act.getBranchTransitions_Branch().get(0);
         assertEquals(prop,trans.getBranchProbability(),0.001);
@@ -354,9 +371,16 @@ setUp();
                 .createUsageModelNow();
         printXML(usgModel, "./UsgModScenBehvActionsEntryLevelSystemCall");
         
-        AbstractUserAction action = usgModel.getUsageScenario_UsageModel().get(0).getScenarioBehaviour_UsageScenario().getActions_ScenarioBehaviour().get(0);
-        EntryLevelSystemCall act = (EntryLevelSystemCall) action;
+        EntryLevelSystemCall act = null;
+        List<AbstractUserAction> list = usgModel.getUsageScenario_UsageModel().get(0).getScenarioBehaviour_UsageScenario().getActions_ScenarioBehaviour();
+        //to filter for the correct one and ignore Start/Stop which get added automatically
+        for(int i = 0; i< list.size(); i++) {     
+            AbstractUserAction action = list.get(i);
+            if(action instanceof EntryLevelSystemCall) {                
+                act = (EntryLevelSystemCall) action;}
+        }    
         
+        assertNotNull(act);        
         assertEquals(name, act.getEntityName());
         assertEquals(priority, act.getPriority());
         assertFalse(act.getInputParameterUsages_EntryLevelSystemCall().isEmpty());
