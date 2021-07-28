@@ -25,7 +25,7 @@ public class ScenarioBehaviourCreator extends UsageModelEntity {
         usageModelCreator = usgModelCreator;
     }
 
-    public ScenarioBehaviourCreator addAction(ActionCreator action) {
+    public ScenarioBehaviourCreator addActions(ActionCreator action) {
         IllegalArgumentException.throwIfNull(action, "The given Action must not be null");        
         AbstractUserAction usrAction = action.build();
 

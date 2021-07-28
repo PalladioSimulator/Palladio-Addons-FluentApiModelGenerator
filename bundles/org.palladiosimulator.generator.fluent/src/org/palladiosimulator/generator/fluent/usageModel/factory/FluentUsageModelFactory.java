@@ -47,7 +47,7 @@ public class FluentUsageModelFactory {
 //    private final ResourceEnvironment resourceEnv;
     private final Repository repository;
     private System system;
-    private final ResourceRepository resources ;
+    private final ResourceRepository resources; 
     /**
      * Creates an instance of the FluentUsageModelFactory.
      */

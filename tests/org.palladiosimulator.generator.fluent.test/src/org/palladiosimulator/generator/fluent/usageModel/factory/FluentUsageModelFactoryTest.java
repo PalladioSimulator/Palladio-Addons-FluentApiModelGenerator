@@ -187,7 +187,7 @@ public class FluentUsageModelFactoryTest {
                 .addToUsageScenario(
                         create.newScenarioBehavior()
                         .withName(name)
-                        .addAction(create.newStartAction())
+                        .addActions(create.newStartAction())
                         ))
                 
                 .createUsageModelNow();
@@ -207,19 +207,20 @@ public class FluentUsageModelFactoryTest {
         UsageModel usgModel = create.newUsageModel().addToUsageModel(create.newUsageScenario()
 
                 .addToUsageScenario(
-                        create.newScenarioBehavior()                      
-                        .addAction(create.newDelayAction())
-                        .addAction(create.newBranchAction())
-                        .addAction(create.newEntryLevelSystemCall())
-                        .addAction(create.newLoopAction())                        
-                        ))
+                        create.newScenarioBehavior()  
+                        .addActions(create.newStartAction().withSuccessor(create.newDelayAction()
+                                .withSuccessor(create.newBranchAction()
+                                .withSuccessor(create.newEntryLevelSystemCall()
+                                .withSuccessor(create.newLoopAction()
+                                .withSuccessor(create.newStopAction())))
+    )))))
                 
                 .createUsageModelNow();
         printXML(usgModel, "./UsgModScenBehvActions");
         
         List<AbstractUserAction> list = usgModel.getUsageScenario_UsageModel().get(0).getScenarioBehaviour_UsageScenario().getActions_ScenarioBehaviour();
         assertFalse(list.isEmpty());
-        assertEquals(12, list.size()); //as each gets added with Start/Stop before = 4 x 3      
+        assertEquals(6, list.size());       
     }
     
     @Test
@@ -230,7 +231,7 @@ public class FluentUsageModelFactoryTest {
 
                 .addToUsageScenario(
                         create.newScenarioBehavior()
-                        .addAction(create.newDelayAction().withSuccessor(create.newDelayAction()))
+                        .addActions(create.newDelayAction().withSuccessor(create.newDelayAction()))
                         ))
                 
                 .createUsageModelNow();
@@ -252,7 +253,7 @@ public class FluentUsageModelFactoryTest {
 
                 .addToUsageScenario(
                         create.newScenarioBehavior()
-                        .addAction(create.newDelayAction()
+                        .addActions(create.newDelayAction()
                                 .withName(name)
                                 .addToDelayAction(time))
                         ))
@@ -285,7 +286,7 @@ public class FluentUsageModelFactoryTest {
 
                 .addToUsageScenario(
                         create.newScenarioBehavior()
-                        .addAction(create.newLoopAction()
+                        .addActions(create.newLoopAction()
                                 .withName(name)
                                 .addToLoopAction(iteration)
                                 .addToLoopAction(create.newScenarioBehavior().withName(scenName)))
@@ -320,7 +321,7 @@ public class FluentUsageModelFactoryTest {
 
                 .addToUsageScenario(
                         create.newScenarioBehavior()
-                        .addAction(create.newBranchAction()
+                        .addActions(create.newBranchAction()
                                 .withName(name)
                                 .addToBranchAction(
                                         create.newBranchTransition()
@@ -359,7 +360,7 @@ public class FluentUsageModelFactoryTest {
 
                 .addToUsageScenario(
                         create.newScenarioBehavior()
-                        .addAction(create.newEntryLevelSystemCall()
+                        .addActions(create.newEntryLevelSystemCall()
                                 .withName(name)
                                 .addToEntryLevelSystemCallInput(create.newVariableUsage())
                                 .addToEntryLevelSystemCallOutput(create.newVariableUsage())
