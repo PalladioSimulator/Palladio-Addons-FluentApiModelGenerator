@@ -1,4 +1,4 @@
-package org.palladiosimulator.generator.fluent.component.factory;
+package org.palladiosimulator.generator.fluent.repository.factory;
 
 import static org.junit.jupiter.api.Assertions.*;
 
