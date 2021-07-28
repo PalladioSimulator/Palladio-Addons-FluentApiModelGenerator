@@ -1,4 +1,4 @@
-package org.palladiosimulator.generator.fluent.usageModel.structure.components.actions;
+package org.palladiosimulator.generator.fluent.usagemodel.structure.components.actions;
 
 import org.palladiosimulator.pcm.usagemodel.AbstractUserAction;
 import org.palladiosimulator.pcm.usagemodel.Stop;

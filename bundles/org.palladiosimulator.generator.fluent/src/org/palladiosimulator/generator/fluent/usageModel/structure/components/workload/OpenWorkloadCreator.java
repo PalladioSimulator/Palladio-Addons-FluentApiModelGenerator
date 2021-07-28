@@ -1,6 +1,6 @@
-package org.palladiosimulator.generator.fluent.usageModel.structure.components.workload;
+package org.palladiosimulator.generator.fluent.usagemodel.structure.components.workload;
 
-import org.palladiosimulator.generator.fluent.usageModel.structure.UsageModelCreator;
+import org.palladiosimulator.generator.fluent.usagemodel.structure.UsageModelCreator;
 import org.palladiosimulator.pcm.usagemodel.OpenWorkload;
 import org.palladiosimulator.pcm.usagemodel.UsagemodelFactory;
 import org.palladiosimulator.pcm.usagemodel.Workload;

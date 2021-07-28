@@ -1,7 +1,7 @@
-package org.palladiosimulator.generator.fluent.usageModel.structure.components.actions;
+package org.palladiosimulator.generator.fluent.usagemodel.structure.components.actions;
 
 import org.palladiosimulator.generator.fluent.exceptions.IllegalArgumentException;
-import org.palladiosimulator.generator.fluent.usageModel.structure.components.ScenarioBehaviourCreator;
+import org.palladiosimulator.generator.fluent.usagemodel.structure.components.ScenarioBehaviourCreator;
 import org.palladiosimulator.pcm.core.CoreFactory;
 import org.palladiosimulator.pcm.core.PCMRandomVariable;
 import org.palladiosimulator.pcm.usagemodel.Loop;

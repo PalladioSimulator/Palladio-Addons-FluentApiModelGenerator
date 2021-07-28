@@ -1,7 +1,7 @@
-package org.palladiosimulator.generator.fluent.usageModel.api;
+package org.palladiosimulator.generator.fluent.usagemodel.api;
 
-import org.palladiosimulator.generator.fluent.usageModel.structure.components.UsageScenarioCreator;
-import org.palladiosimulator.generator.fluent.usageModel.structure.components.UserDataCreator;
+import org.palladiosimulator.generator.fluent.usagemodel.structure.components.UsageScenarioCreator;
+import org.palladiosimulator.generator.fluent.usagemodel.structure.components.UserDataCreator;
 import org.palladiosimulator.pcm.usagemodel.UsageModel;
 
 public interface IUsageModelAddition {

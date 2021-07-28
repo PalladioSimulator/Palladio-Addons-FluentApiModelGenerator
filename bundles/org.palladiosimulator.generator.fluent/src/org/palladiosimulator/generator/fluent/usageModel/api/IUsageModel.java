@@ -1,4 +1,4 @@
-package org.palladiosimulator.generator.fluent.usageModel.api;
+package org.palladiosimulator.generator.fluent.usagemodel.api;
 
 /**
  * The Interface IUsageModel.

@@ -1,8 +1,8 @@
-package org.palladiosimulator.generator.fluent.usageModel.structure.components.actions;
+package org.palladiosimulator.generator.fluent.usagemodel.structure.components.actions;
 
 import org.palladiosimulator.generator.fluent.exceptions.IllegalArgumentException;
-import org.palladiosimulator.generator.fluent.usageModel.structure.UsageModelEntity;
-import org.palladiosimulator.generator.fluent.usageModel.structure.components.ScenarioBehaviourCreator;
+import org.palladiosimulator.generator.fluent.usagemodel.structure.UsageModelEntity;
+import org.palladiosimulator.generator.fluent.usagemodel.structure.components.ScenarioBehaviourCreator;
 import org.palladiosimulator.pcm.usagemodel.BranchTransition;
 import org.palladiosimulator.pcm.usagemodel.ScenarioBehaviour;
 import org.palladiosimulator.pcm.usagemodel.UsagemodelFactory;

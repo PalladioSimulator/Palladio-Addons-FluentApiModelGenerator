@@ -1,4 +1,4 @@
-package org.palladiosimulator.generator.fluent.usageModel.factory;
+package org.palladiosimulator.generator.fluent.usagemodel.factory;
 
 import static org.junit.Assert.*;
 
@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.palladiosimulator.generator.fluent.shared.util.ModelLoader;
 import org.palladiosimulator.generator.fluent.shared.util.ModelSaver;
 import org.palladiosimulator.generator.fluent.system.factory.FluentSystemFactory;
+import org.palladiosimulator.generator.fluent.usagemodel.factory.FluentUsageModelFactory;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.system.System;
 import org.palladiosimulator.pcm.usagemodel.AbstractUserAction;

@@ -1,4 +1,4 @@
-package org.palladiosimulator.generator.fluent.usageModel.structure;
+package org.palladiosimulator.generator.fluent.usagemodel.structure;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,10 +7,10 @@ import org.palladiosimulator.generator.fluent.exceptions.IllegalArgumentExceptio
 import org.palladiosimulator.generator.fluent.exceptions.NoSuchElementException;
 import org.palladiosimulator.generator.fluent.shared.util.ModelLoader;
 import org.palladiosimulator.generator.fluent.shared.validate.IModelValidator;
-import org.palladiosimulator.generator.fluent.usageModel.api.IUsageModel;
-import org.palladiosimulator.generator.fluent.usageModel.api.IUsageModelAddition;
-import org.palladiosimulator.generator.fluent.usageModel.structure.components.UsageScenarioCreator;
-import org.palladiosimulator.generator.fluent.usageModel.structure.components.UserDataCreator;
+import org.palladiosimulator.generator.fluent.usagemodel.api.IUsageModel;
+import org.palladiosimulator.generator.fluent.usagemodel.api.IUsageModelAddition;
+import org.palladiosimulator.generator.fluent.usagemodel.structure.components.UsageScenarioCreator;
+import org.palladiosimulator.generator.fluent.usagemodel.structure.components.UserDataCreator;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.repository.Repository;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceEnvironment;

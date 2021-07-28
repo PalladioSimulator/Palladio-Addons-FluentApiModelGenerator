@@ -1,12 +1,12 @@
-package org.palladiosimulator.generator.fluent.usageModel.structure.components;
+package org.palladiosimulator.generator.fluent.usagemodel.structure.components;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.palladiosimulator.generator.fluent.exceptions.IllegalArgumentException;
 import org.palladiosimulator.generator.fluent.shared.components.VariableUsageCreator;
-import org.palladiosimulator.generator.fluent.usageModel.structure.UsageModelCreator;
-import org.palladiosimulator.generator.fluent.usageModel.structure.UsageModelEntity;
+import org.palladiosimulator.generator.fluent.usagemodel.structure.UsageModelCreator;
+import org.palladiosimulator.generator.fluent.usagemodel.structure.UsageModelEntity;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.parameter.VariableUsage;
 import org.palladiosimulator.pcm.repository.RepositoryComponent;

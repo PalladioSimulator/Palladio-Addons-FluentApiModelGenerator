@@ -1,8 +1,8 @@
-package org.palladiosimulator.generator.fluent.usageModel.structure.components.workload;
+package org.palladiosimulator.generator.fluent.usagemodel.structure.components.workload;
 
 import org.palladiosimulator.generator.fluent.exceptions.IllegalArgumentException;
-import org.palladiosimulator.generator.fluent.usageModel.structure.UsageModelCreator;
-import org.palladiosimulator.generator.fluent.usageModel.structure.UsageModelEntity;
+import org.palladiosimulator.generator.fluent.usagemodel.structure.UsageModelCreator;
+import org.palladiosimulator.generator.fluent.usagemodel.structure.UsageModelEntity;
 import org.palladiosimulator.pcm.core.CoreFactory;
 import org.palladiosimulator.pcm.core.PCMRandomVariable;
 

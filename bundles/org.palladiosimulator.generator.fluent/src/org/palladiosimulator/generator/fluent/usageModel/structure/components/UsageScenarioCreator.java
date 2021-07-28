@@ -1,10 +1,10 @@
-package org.palladiosimulator.generator.fluent.usageModel.structure.components;
+package org.palladiosimulator.generator.fluent.usagemodel.structure.components;
 
 import org.palladiosimulator.generator.fluent.exceptions.IllegalArgumentException;
-import org.palladiosimulator.generator.fluent.usageModel.structure.UsageModelCreator;
-import org.palladiosimulator.generator.fluent.usageModel.structure.UsageModelEntity;
-import org.palladiosimulator.generator.fluent.usageModel.structure.components.workload.ClosedWorkloadCreator;
-import org.palladiosimulator.generator.fluent.usageModel.structure.components.workload.OpenWorkloadCreator;
+import org.palladiosimulator.generator.fluent.usagemodel.structure.UsageModelCreator;
+import org.palladiosimulator.generator.fluent.usagemodel.structure.UsageModelEntity;
+import org.palladiosimulator.generator.fluent.usagemodel.structure.components.workload.ClosedWorkloadCreator;
+import org.palladiosimulator.generator.fluent.usagemodel.structure.components.workload.OpenWorkloadCreator;
 import org.palladiosimulator.pcm.usagemodel.ScenarioBehaviour;
 import org.palladiosimulator.pcm.usagemodel.UsageScenario;
 import org.palladiosimulator.pcm.usagemodel.UsagemodelFactory;

@@ -1,1 +1,1 @@
-package org.palladiosimulator.generator.fluent.usageModel.structure.components;
+package org.palladiosimulator.generator.fluent.usagemodel.structure.components;

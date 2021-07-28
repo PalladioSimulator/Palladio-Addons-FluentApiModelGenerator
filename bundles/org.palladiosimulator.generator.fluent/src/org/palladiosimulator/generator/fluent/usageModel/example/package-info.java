@@ -1,1 +1,1 @@
-package org.palladiosimulator.generator.fluent.usageModel.example;
+package org.palladiosimulator.generator.fluent.usagemodel.example;
