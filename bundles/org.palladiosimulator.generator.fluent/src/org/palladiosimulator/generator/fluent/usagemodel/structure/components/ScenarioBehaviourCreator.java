@@ -13,7 +13,6 @@ import org.palladiosimulator.pcm.usagemodel.AbstractUserAction;
 import org.palladiosimulator.pcm.usagemodel.ScenarioBehaviour;
 import org.palladiosimulator.pcm.usagemodel.Start;
 import org.palladiosimulator.pcm.usagemodel.Stop;
-import org.palladiosimulator.pcm.usagemodel.UsageScenario;
 import org.palladiosimulator.pcm.usagemodel.UsagemodelFactory;
 
 public class ScenarioBehaviourCreator extends UsageModelEntity {

@@ -2,7 +2,6 @@ package org.palladiosimulator.generator.fluent.usagemodel.structure.components.a
 
 import org.palladiosimulator.generator.fluent.exceptions.IllegalArgumentException;
 import org.palladiosimulator.generator.fluent.usagemodel.structure.UsageModelEntity;
-import org.palladiosimulator.pcm.seff.AbstractAction;
 import org.palladiosimulator.pcm.usagemodel.AbstractUserAction;
 
 public abstract class ActionCreator extends UsageModelEntity {

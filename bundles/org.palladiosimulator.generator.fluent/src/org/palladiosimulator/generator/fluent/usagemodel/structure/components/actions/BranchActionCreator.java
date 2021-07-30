@@ -11,6 +11,10 @@ import org.palladiosimulator.pcm.usagemodel.UsagemodelFactory;
 public class BranchActionCreator extends ActionCreator {
 
     private List<BranchTransition> transitions = new ArrayList<BranchTransition>();
+    
+    public BranchActionCreator() {
+    }
+    
 
     public BranchActionCreator addToBranchAction(BranchTransitionCreator branchTransition) {
         IllegalArgumentException.throwIfNull(branchTransition, "The given Branch Transition must not be null");
@@ -37,6 +41,7 @@ public class BranchActionCreator extends ActionCreator {
     }
 
     @Override
+    @Deprecated
     public BranchActionCreator withPredecessor(ActionCreator action) {
         return (BranchActionCreator) super.withPredecessor(action);
     }

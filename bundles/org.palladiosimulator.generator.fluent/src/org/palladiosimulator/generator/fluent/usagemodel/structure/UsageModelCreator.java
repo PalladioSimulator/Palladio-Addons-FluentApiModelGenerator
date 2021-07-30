@@ -27,20 +27,16 @@ import org.palladiosimulator.pcm.usagemodel.UserData;
 public class UsageModelCreator extends UsageModelEntity implements IUsageModel, IUsageModelAddition {
     private final IModelValidator validator;
     private final System system;
-   // private final ResourceEnvironment resourceEnv;
-   private final Repository repository;
-   // private final ResourceRepository resources ;
+    private final Repository repository;
     
     private final List<UsageScenario> usageScenarios;
     private final List<UserData> userDatas;
 
     
-    public UsageModelCreator(System system,Repository repository, /* Repository repository, ResourceRepository resources,*/IModelValidator validator) {
+    public UsageModelCreator(System system, Repository repository, IModelValidator validator) {
         this.validator = validator;
         this.system = system;
-        // this.resourceEnv = resourceEnv;
         this.repository  = repository;
-        // this.resources = resources;
         
         this.usageScenarios = new ArrayList<>();
         this.userDatas = new ArrayList<>();
@@ -96,8 +92,8 @@ public class UsageModelCreator extends UsageModelEntity implements IUsageModel, 
         return sig;
     }
     
-    //TODO .withProvidedRoleEntryLevelSystemCall(null)       //OperationProvidedRole
-    public OperationProvidedRole getOperationProvidedRoleByName(String name) {
+   //OperationProvidedRole
+   public OperationProvidedRole getOperationProvidedRoleByName(String name) {
         IllegalArgumentException.throwIfNull(repository, "The referred Repository was not set correctly in FluentUsageModelFactory");
         
         OperationProvidedRole role = null;
@@ -106,7 +102,7 @@ public class UsageModelCreator extends UsageModelEntity implements IUsageModel, 
         for(int i = 0; i < list.size(); i++) {
             ProvidedRole r = list.get(i).getProvidedRoles_InterfaceProvidingEntity().stream().filter(x -> x.getEntityName().equals(name))
             .findFirst()
-            .orElseThrow(() -> new IllegalArgumentException("No AssemblyContext with name " + name + " found."));
+            .orElseThrow(() -> new IllegalArgumentException("No ProvidedRole with name " + name + " found."));
             
             if(r instanceof OperationProvidedRole) {
                 role = (OperationProvidedRole) r;
@@ -114,6 +110,21 @@ public class UsageModelCreator extends UsageModelEntity implements IUsageModel, 
         }     
         
        IllegalArgumentException.throwIfNull(role,"No OperationSignature with name " + name + " found.");
+        
+        return role;
+    }
+    
+    public OperationProvidedRole getOperationProvidedRoleByNameSystem(String name) {
+        IllegalArgumentException.throwIfNull(system, "The referred System was not set correctly in FluentUsageModelFactory");
+        
+        OperationProvidedRole role = null;
+        ProvidedRole r = system.getProvidedRoles_InterfaceProvidingEntity().stream().filter(x -> x.getEntityName().equals(name))
+            .findFirst()
+            .orElseThrow(() -> new IllegalArgumentException("No ProvidedRole with name " + name + " found."));
+            
+        if(r instanceof OperationProvidedRole) {
+            role = (OperationProvidedRole) r;
+        }        
         
         return role;
     }

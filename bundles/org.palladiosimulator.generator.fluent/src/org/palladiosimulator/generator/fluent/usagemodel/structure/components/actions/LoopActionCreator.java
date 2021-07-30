@@ -13,12 +13,23 @@ public class LoopActionCreator extends ActionCreator {
     private PCMRandomVariable iteration;
     private ScenarioBehaviour bodyBehav;
 
+    public LoopActionCreator(String iteration, ScenarioBehaviourCreator bodyBehaviour) {
+        addToLoopAction(iteration);
+        addToLoopAction(bodyBehaviour);
+    }
+    
+    @Deprecated
+    public LoopActionCreator() {        
+    }
+    
+    @Deprecated
     public LoopActionCreator addToLoopAction(ScenarioBehaviourCreator bodyBehaviour) {
         IllegalArgumentException.throwIfNull(bodyBehaviour, "The given body Behavoiur must not be null");
         this.bodyBehav = bodyBehaviour.build();
         return this;
-    }
-
+    } 
+    
+    @Deprecated
     public LoopActionCreator addToLoopAction(String iteration) {
         IllegalArgumentException.throwIfNull(iteration, "The given Iteration must not be null");
         this.iteration = CoreFactory.eINSTANCE.createPCMRandomVariable();
@@ -50,6 +61,7 @@ public class LoopActionCreator extends ActionCreator {
     }
 
     @Override
+    @Deprecated
     public LoopActionCreator withPredecessor(ActionCreator action) {
         return (LoopActionCreator) super.withPredecessor(action);
     }

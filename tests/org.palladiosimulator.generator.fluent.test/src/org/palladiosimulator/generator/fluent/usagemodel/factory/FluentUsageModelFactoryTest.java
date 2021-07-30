@@ -25,8 +25,13 @@ import org.palladiosimulator.pcm.usagemodel.Workload;
 
 public class FluentUsageModelFactoryTest {
     FluentUsageModelFactory create;
-    FluentSystemFactory systemFac;
 
+    /*TODO
+     * WARNING: An illegal reflective access operation has occurred
+     *WARNING: Illegal reflective access by com.google.inject.internal.cglib.core.$ReflectUtils$1 (file:/C:/Users/Eva-Maria/Documents/Uni/21%20SS/Praktika/eclipse-modeling-2021-03-R-win32-x86_64/eclipse/plugins/com.google.inject_4.2.3.jar) to method java.lang.ClassLoader.defineClass(java.lang.String,byte[],int,int,java.security.ProtectionDomain)
+     *WARNING: Please consider reporting this to the maintainers of com.google.inject.internal.cglib.core.$ReflectUtils$1
+     *WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+     *WARNING: All illegal access operations will be denied in a future release*/
     
   //------------------   Util ------------------ 
     
@@ -34,13 +39,24 @@ public class FluentUsageModelFactoryTest {
         create = new FluentUsageModelFactory();
     }
 
-    /*
-    private System createSystem() {
-        //String path = ModelLoader.STANDARD_SYSTEM_PATH;
-        systemFac = new FluentSystemFactory();
-        return s s = systemFac.newSystem().addToSystem(systemFac.newAssemblyContext()).createSystemNow();
-        ModelSaver.saveSystem(s, path, false);
-    }*/
+    private void createSystemforTest(String systemPath, String assConName, String provRoleName) {
+        FluentSystemFactory systemFac = new FluentSystemFactory();
+        System s = systemFac.newSystem()
+                .addToSystem(systemFac.newAssemblyContext().withName(assConName))
+                .addToSystem(systemFac.newOperationProvidedRole().withName(provRoleName))
+                .createSystemNow();
+        ModelSaver.saveSystem(s, systemPath, false); 
+    }
+    
+    
+    private void createRepositoryforTest(String repositoryName, String operSigName, String provRoleName ) {
+        FluentRepositoryFactory f = new FluentRepositoryFactory();
+        Repository r = f.newRepository()
+                .addToRepository(f.newBasicComponent().provides(f.newOperationInterface()
+                .withOperationSignature(f.newOperationSignature().withName(operSigName)),provRoleName))
+                .createRepositoryNow();
+        ModelSaver.saveRepository(r, repositoryName, false);
+    }
     
     private void printXML(UsageModel usgModel, String name) {
         //ModelSaver.saveUsageModel(usgModel, name, true);
@@ -77,13 +93,7 @@ public class FluentUsageModelFactoryTest {
    
    @Test
     public void basicUsageScenario() {
-        /*TODO
-         * WARNING: An illegal reflective access operation has occurred
-         *WARNING: Illegal reflective access by com.google.inject.internal.cglib.core.$ReflectUtils$1 (file:/C:/Users/Eva-Maria/Documents/Uni/21%20SS/Praktika/eclipse-modeling-2021-03-R-win32-x86_64/eclipse/plugins/com.google.inject_4.2.3.jar) to method java.lang.ClassLoader.defineClass(java.lang.String,byte[],int,int,java.security.ProtectionDomain)
-         *WARNING: Please consider reporting this to the maintainers of com.google.inject.internal.cglib.core.$ReflectUtils$1
-         *WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
-         *WARNING: All illegal access operations will be denied in a future release*/
-        
+    
         String name = "UsgScen";
         setUp();
         UsageModel usgModel = create.newUsageModel().addToUsageModel(create.newUsageScenario(create.newScenarioBehavior()
@@ -160,16 +170,22 @@ public class FluentUsageModelFactoryTest {
         String name = "ScenBehaviour";
         setUp();
         
-        UsageModel usgModel = create.newUsageModel().addToUsageModel(create.newUsageScenario(//)
-
-               // .addToUsageScenario(
+        UsageModel usgModel = create.newUsageModel().addToUsageModel(create.newUsageScenario(
                         create.newScenarioBehavior()
                         .withName(name)
-                        .addActions(create.newStartAction())
                         ,create.newClosedWorkload("0")))
                 
                 .createUsageModelNow();
         printXML(usgModel, "UsgModScenBehavior");
+        
+        
+        UsageModel usgModel2 = create.newUsageModel().addToUsageModel(create.newUsageScenario()
+
+                .addToUsageScenario(create.newScenarioBehavior()
+                         .withName(name)
+                         .addActions(create.newStartAction()))
+                         .addToUsageScenario(create.newClosedWorkload().addToWorkload("0")))                 
+                 .createUsageModelNow();
         
         assertEquals(name, usgModel.getUsageScenario_UsageModel().get(0).getScenarioBehaviour_UsageScenario().getEntityName());
         
@@ -178,21 +194,37 @@ public class FluentUsageModelFactoryTest {
         assertEquals(2, list.size()); //as it adds only additional stop        
     }
    
-    @Test
-    //TODO
+  @Test
     public void usageScenarioBehavActions() {
         setUp();
+        String operSigName = "TestOperationSignature";
+        String provRoleName = "TestProvidedRole";
+        createRepositoryforTest("Repository",operSigName,provRoleName);
         
-        UsageModel usgModel = create.newUsageModel().addToUsageModel(create.newUsageScenario(//)
-
-                //.addToUsageScenario(
+        UsageModel usgModel = create.setRepository("./"+"Repository"+".repository").newUsageModel().addToUsageModel(create.newUsageScenario(
                         create.newScenarioBehavior()  
-                        .addActions(create.newStartAction().withSuccessor(create.newDelayAction()
+                        .addActions(create.newStartAction()
+                                .withSuccessor(create.newDelayAction("10")
                                 .withSuccessor(create.newBranchAction()
-                                .withSuccessor(create.newEntryLevelSystemCall()
-                                .withSuccessor(create.newLoopAction()
+                                .withSuccessor(create.newEntryLevelSystemCall(operSigName, provRoleName)
+                                .withSuccessor(create.newLoopAction("1", create.newScenarioBehavior())
                                 .withSuccessor(create.newStopAction())))
     ))),create.newOpenWorkload("0")))
+                
+                .createUsageModelNow();
+        
+        UsageModel usgModel2 = create.newUsageModel().addToUsageModel(create.newUsageScenario()
+
+                .addToUsageScenario(
+                        create.newScenarioBehavior()  
+                        .addActions(create.newStartAction()
+                                .withSuccessor(create.newDelayAction().addToDelayAction("10")
+                                .withSuccessor(create.newBranchAction())
+                                .withSuccessor(create.newEntryLevelSystemCall().withOperationSignatureEntryLevelSystemCall(operSigName) 
+                                        .withProvidedRoleEntryLevelSystemCall(provRoleName) 
+                                .withSuccessor(create.newLoopAction().addToLoopAction("0").addToLoopAction(create.newScenarioBehavior())
+                                .withSuccessor(create.newStopAction())))
+    ))).addToUsageScenario(create.newOpenWorkload("0")))
                 
                 .createUsageModelNow();
         printXML(usgModel, "UsgModScenBehvActions");
@@ -203,16 +235,20 @@ public class FluentUsageModelFactoryTest {
     }
     
     @Test
-    //TODO
     public void usageScenarioBehavActionList() {
         setUp();
         
-        UsageModel usgModel = create.newUsageModel().addToUsageModel(create.newUsageScenario()
+        UsageModel usgModel = create.newUsageModel().addToUsageModel(create.newUsageScenario(
+                create.newScenarioBehavior().addActions(create.newDelayAction("1").withSuccessor(create.newDelayAction("1")))
+                ,create.newOpenWorkload("10")))
+                .createUsageModelNow();
+                
+        UsageModel usgModel2 = create.newUsageModel().addToUsageModel(create.newUsageScenario()
 
                 .addToUsageScenario(
                         create.newScenarioBehavior()
-                        .addActions(create.newDelayAction().withSuccessor(create.newDelayAction()))
-                        ))
+                        .addActions(create.newDelayAction().addToDelayAction("1").withSuccessor(create.newDelayAction().addToDelayAction("1")))
+                        ).addToUsageScenario(create.newOpenWorkload().addToWorkload("10")))
                 
                 .createUsageModelNow();
         printXML(usgModel, "UsgModScenBehvActionList");
@@ -220,23 +256,28 @@ public class FluentUsageModelFactoryTest {
         List<AbstractUserAction> list = usgModel.getUsageScenario_UsageModel().get(0).getScenarioBehaviour_UsageScenario().getActions_ScenarioBehaviour();
         assertFalse(list.isEmpty());
         assertEquals(4, list.size());   //needs to be 4 as Start/Stop get added automatically
-    }
-    
-    
+    }    
+
     @Test
     public void usageScenarioBehavActionsDelay() {
         String name = "DelayAction";
         String time = "20";
         setUp();
         
-        UsageModel usgModel = create.newUsageModel().addToUsageModel(create.newUsageScenario()
+        UsageModel usgModel = create.newUsageModel().addToUsageModel(create.newUsageScenario(
+                create.newScenarioBehavior().addActions(create.newDelayAction(time).withName(name))
+                , create.newClosedWorkload("0")))
+                
+                .createUsageModelNow();
+        
+        UsageModel usgModel2 = create.newUsageModel().addToUsageModel(create.newUsageScenario()
 
                 .addToUsageScenario(
                         create.newScenarioBehavior()
                         .addActions(create.newDelayAction()
                                 .withName(name)
                                 .addToDelayAction(time))
-                        ))
+                        ).addToUsageScenario(create.newClosedWorkload().addToWorkload("0")))   
                 
                 .createUsageModelNow();
         printXML(usgModel, "UsgModScenBehvActionsDelay");
@@ -262,7 +303,14 @@ public class FluentUsageModelFactoryTest {
         String scenName = "ScenBeh";
         setUp();
         
-        UsageModel usgModel = create.newUsageModel().addToUsageModel(create.newUsageScenario()
+        UsageModel usgModel = create.newUsageModel().addToUsageModel(create.newUsageScenario(
+                create.newScenarioBehavior().addActions(
+                        create.newLoopAction(iteration, create.newScenarioBehavior().withName(scenName)).withName(name))
+                ,create.newClosedWorkload("0")))
+                .createUsageModelNow();        
+        
+        
+        UsageModel usgModel2 = create.newUsageModel().addToUsageModel(create.newUsageScenario()
 
                 .addToUsageScenario(
                         create.newScenarioBehavior()
@@ -270,8 +318,7 @@ public class FluentUsageModelFactoryTest {
                                 .withName(name)
                                 .addToLoopAction(iteration)
                                 .addToLoopAction(create.newScenarioBehavior().withName(scenName)))
-                        ))
-                
+                        ).addToUsageScenario(create.newClosedWorkload().addToWorkload("0")))                
                 .createUsageModelNow();
         printXML(usgModel, "UsgModScenBehvActionsLoop");
         
@@ -289,16 +336,23 @@ public class FluentUsageModelFactoryTest {
         assertEquals(iteration, act.getLoopIteration_Loop().getSpecification());
         assertEquals(scenName, act.getBodyBehaviour_Loop().getEntityName());
     }
-    
+  
     @Test
     public void usageScenarioBehavActionsBranch() {
         String name = "BranchAction";
-        Double prop = 0.6;
+        //Double prop = 0.6; TODO
+        Double prop = 1.0;
         String scenName = "ScenBeh";
         setUp();
         
-        UsageModel usgModel = create.newUsageModel().addToUsageModel(create.newUsageScenario()
-
+        UsageModel usgModel = create.newUsageModel().addToUsageModel(create.newUsageScenario(
+                create.newScenarioBehavior().addActions(
+                        create.newBranchAction().withName(name).addToBranchAction(
+                                create.newBranchTransition(create.newScenarioBehavior().withName(scenName)).withProbability(prop)))
+                , create.newClosedWorkload("0")))
+                .createUsageModelNow();
+                
+        UsageModel usgModel2 = create.newUsageModel().addToUsageModel(create.newUsageScenario()
                 .addToUsageScenario(
                         create.newScenarioBehavior()
                         .addActions(create.newBranchAction()
@@ -308,9 +362,9 @@ public class FluentUsageModelFactoryTest {
                                         .addToBranchTransition(create.newScenarioBehavior().withName(scenName))
                                         .withProbability(prop))                                        
                                 )
-                        ))
-                
+                        ).addToUsageScenario(create.newClosedWorkload().addToWorkload("0")))                
                 .createUsageModelNow();
+        
         printXML(usgModel, "UsgModScenBehvActionsBranch");
         
         Branch act = null;
@@ -333,22 +387,28 @@ public class FluentUsageModelFactoryTest {
     public void usageScenarioBehavActionsEntryLevelSystemCall() {
         String name = "EntryLevelSystemCall";
         int priority = 1;
-        String operSigName = "TestOperationSignature";
-        String provRoleName = "TestProvidedRole";
         
         String repositoryName = "Repository";
+        String operSigName = "OperatioSignature";
+        String provRoleName = "ProvidedRole";
         
-        //Repository
-        FluentRepositoryFactory f = new FluentRepositoryFactory();
-        Repository r = f.newRepository()
-                .addToRepository(f.newBasicComponent().provides(f.newOperationInterface()
-                .withOperationSignature(f.newOperationSignature().withName(operSigName)),provRoleName))
-                .createRepositoryNow();
-        ModelSaver.saveRepository(r, repositoryName, false);
+        createRepositoryforTest(repositoryName, operSigName, provRoleName);
+        createSystemforTest("System","AssemblyContext", provRoleName);
         
         setUp();
         
-        UsageModel usgModel = create.setRepository("./"+repositoryName+".repository").newUsageModel().addToUsageModel(create.newUsageScenario()
+        UsageModel usgModel = create.setSystem("./System.system").setRepository("./"+repositoryName+".repository").newUsageModel().addToUsageModel(
+                create.newUsageScenario(
+                        create.newScenarioBehavior().addActions(
+                                create.newEntryLevelSystemCall(operSigName, provRoleName)
+                                    .withName(name)
+                                    .addToEntryLevelSystemCallInput(create.newVariableUsage())
+                                    .addToEntryLevelSystemCallOutput(create.newVariableUsage())
+                                    .withPriority(priority))
+                        , create.newClosedWorkload("10")))
+                .createUsageModelNow();
+        
+        UsageModel usgModel2 = create.setSystem("./System.system").setRepository("./"+repositoryName+".repository").newUsageModel().addToUsageModel(create.newUsageScenario()
 
                 .addToUsageScenario(
                         create.newScenarioBehavior()
@@ -359,7 +419,7 @@ public class FluentUsageModelFactoryTest {
                                 .withPriority(priority)
                                 .withOperationSignatureEntryLevelSystemCall(operSigName) 
                                 .withProvidedRoleEntryLevelSystemCall(provRoleName)           
-                       )))
+                       )).addToUsageScenario(create.newClosedWorkload().addToWorkload("10")))
                 
                 .createUsageModelNow();
         printXML(usgModel, "UsgModScenBehvActionsEntryLevelSystemCall");
@@ -383,24 +443,52 @@ public class FluentUsageModelFactoryTest {
     }
     
     //------------------   User Data ------------------ 
-    
+      
     @Test
     public void basicUserData() {        
+        String assConName = "assemblyContext";
+        String systemPath = "System";
+        
+        //System
+       createSystemforTest(systemPath, assConName, "Test");
+        
         setUp();
     
-        UsageModel usgModel = create.newUsageModel()
+        UsageModel usgModel = create.setSystem("./"+systemPath+".system").newUsageModel().addToUsageModel(
+                create.newUserData(assConName))
+                .createUsageModelNow();
+                
+        UsageModel usgModel2 = create.setSystem("./"+systemPath+".system").newUsageModel()
                 .addToUsageModel(
                         create.newUserData()
-                        //.withAssemblyContext(null)
-                        .addToUserData(create.newVariableUsage()))
+                        .withAssemblyContext(assConName))
                 .createUsageModelNow();
         
         printXML(usgModel, "UsgModUserDataBasic");   
         
-        assertFalse(usgModel.getUserData_UsageModel().get(0).getUserDataParameterUsages_UserData().isEmpty());
-    
+        assertFalse(usgModel.getUserData_UsageModel().isEmpty());
     }    
 
+    @Test
+    public void usrDataVariableUsage() {
+        String assConName = "assemblyContext";
+        String systemPath = "System";
+        
+        //System
+       createSystemforTest(systemPath,assConName, "Test");
+        
+        //Usage Model
+        setUp(); 
+        
+        UsageModel usgModel = create.setSystem("./"+systemPath+".system").newUsageModel().addToUsageModel(
+                create.newUserData(assConName).addToUserData(create.newVariableUsage()))
+                .createUsageModelNow();
+
+        printXML(usgModel, "UsgModUserDataVarUsage"); 
+        
+        //Test
+        assertFalse(usgModel.getUserData_UsageModel().get(0).getUserDataParameterUsages_UserData().isEmpty());
+    }
     
     @Test
     public void usrDataAssemblyContext() {
@@ -408,14 +496,16 @@ public class FluentUsageModelFactoryTest {
         String systemPath = "System";
         
         //System
-        systemFac = new FluentSystemFactory();
-        System s = systemFac.newSystem().addToSystem(systemFac.newAssemblyContext().withName(assConName)).createSystemNow();
-        ModelSaver.saveSystem(s, systemPath, false);        
+       createSystemforTest(systemPath,assConName, "Test");
         
         //Usage Model
         setUp(); 
         
-        UsageModel usgModel = create.setSystem("./"+systemPath+".system").newUsageModel()
+        UsageModel usgModel = create.setSystem("./"+systemPath+".system").newUsageModel().addToUsageModel(
+                create.newUserData(assConName))
+                .createUsageModelNow();
+        
+        UsageModel usgModel2 = create.setSystem("./"+systemPath+".system").newUsageModel()
                 .addToUsageModel(
                         create.newUserData().withAssemblyContext(assConName)
                         )
@@ -426,5 +516,5 @@ public class FluentUsageModelFactoryTest {
         AssemblyContext con = usgModel.getUserData_UsageModel().get(0).getAssemblyContext_userData();
         assertEquals(assConName, con.getEntityName());
     }
-    
+
 }

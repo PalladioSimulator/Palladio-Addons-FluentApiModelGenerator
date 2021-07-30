@@ -12,9 +12,17 @@ public class BranchTransitionCreator extends UsageModelEntity {
     private double probability;
     private ScenarioBehaviour branchedBeh;
 
+   
+    public BranchTransitionCreator(ScenarioBehaviourCreator branchedBehaviour) {
+        this.probability = 0.0; // default value
+        addToBranchTransition(branchedBehaviour);
+    }
+    
+    @Deprecated
     public BranchTransitionCreator() {
         this.probability = 0.0; // default value
     }
+
 
     @Override
     protected BranchTransition build() {
@@ -28,6 +36,7 @@ public class BranchTransitionCreator extends UsageModelEntity {
         return branchT;
     }
 
+    @Deprecated
     public BranchTransitionCreator addToBranchTransition(ScenarioBehaviourCreator branchedBehaviour) {
         IllegalArgumentException.throwIfNull(branchedBehaviour, "The branched Behavoiur must not be null");
         branchedBeh = branchedBehaviour.build();

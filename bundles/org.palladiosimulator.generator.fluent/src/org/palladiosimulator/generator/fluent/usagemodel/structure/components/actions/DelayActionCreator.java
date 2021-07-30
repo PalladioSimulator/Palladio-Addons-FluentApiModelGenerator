@@ -10,6 +10,16 @@ public class DelayActionCreator extends ActionCreator {
 
     private PCMRandomVariable time;
 
+    @Deprecated
+    public DelayActionCreator() {
+        
+    }
+    
+    public DelayActionCreator(String timeSpecification) {
+        addToDelayAction(timeSpecification);
+    }
+    
+    @Deprecated
     public DelayActionCreator addToDelayAction(String timeSpecification) {
         IllegalArgumentException.throwIfNull(timeSpecification, "The given Time Sppecification must not be null");
         time = CoreFactory.eINSTANCE.createPCMRandomVariable();
@@ -36,6 +46,7 @@ public class DelayActionCreator extends ActionCreator {
     }
 
     @Override
+    @Deprecated
     public DelayActionCreator withPredecessor(ActionCreator action) {
         return (DelayActionCreator) super.withPredecessor(action);
     }

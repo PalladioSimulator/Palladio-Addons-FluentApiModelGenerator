@@ -23,6 +23,7 @@ public class StopActionCreator extends ActionCreator {
     }
 
     @Override
+    @Deprecated
     public StopActionCreator withPredecessor(ActionCreator action) {
         return (StopActionCreator) super.withPredecessor(action);
     }

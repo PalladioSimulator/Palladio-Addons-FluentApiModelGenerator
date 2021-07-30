@@ -6,7 +6,6 @@ import java.util.List;
 import org.palladiosimulator.generator.fluent.exceptions.IllegalArgumentException;
 import org.palladiosimulator.generator.fluent.shared.components.VariableUsageCreator;
 import org.palladiosimulator.generator.fluent.usagemodel.structure.UsageModelCreator;
-import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.parameter.VariableUsage;
 import org.palladiosimulator.pcm.repository.OperationProvidedRole;
 import org.palladiosimulator.pcm.repository.OperationSignature;
@@ -22,31 +21,46 @@ public class EntryLevelSystemCallCreator extends ActionCreator {
     private OperationSignature opSignature;
     private OperationProvidedRole opRole;
 
+    @Deprecated
     public EntryLevelSystemCallCreator(UsageModelCreator usgModelCreator) {
         this.usageModelCreator = usgModelCreator;
         outputParameterUsage = new ArrayList<VariableUsage>();
         inputParameterUsage = new ArrayList<VariableUsage>();
         priority = 0;
     }
+    
+    public EntryLevelSystemCallCreator(UsageModelCreator usgModelCreator, OperationSignature operationSignature, OperationProvidedRole operationProvidedRole) {
+        this.usageModelCreator = usgModelCreator;
+        outputParameterUsage = new ArrayList<VariableUsage>();
+        inputParameterUsage = new ArrayList<VariableUsage>();
+        priority = 0;
+        withOperationSignatureEntryLevelSystemCall(operationSignature);
+        withProvidedRoleEntryLevelSystemCall(operationProvidedRole);
+    }
 
+    @Deprecated
     public EntryLevelSystemCallCreator withOperationSignatureEntryLevelSystemCall(
             OperationSignature operationSignature) {
         IllegalArgumentException.throwIfNull(operationSignature, "The given Operation Signature must not be null");
         this.opSignature = operationSignature;
         return this;
     }
+    
+    @Deprecated
     public EntryLevelSystemCallCreator withOperationSignatureEntryLevelSystemCall(
             String name) {
         OperationSignature sig = usageModelCreator.getOperationSignatureByName(name);
         return withOperationSignatureEntryLevelSystemCall(sig);
     }
 
+    @Deprecated
     public EntryLevelSystemCallCreator withProvidedRoleEntryLevelSystemCall(
             String name) {
         OperationProvidedRole role = usageModelCreator.getOperationProvidedRoleByName(name);
         return withProvidedRoleEntryLevelSystemCall(role);
     }
 
+    @Deprecated
     public EntryLevelSystemCallCreator withProvidedRoleEntryLevelSystemCall(
             OperationProvidedRole operationProvidedRole) {
         IllegalArgumentException.throwIfNull(operationProvidedRole, "The given Provided Role must not be null");
@@ -102,6 +116,7 @@ public class EntryLevelSystemCallCreator extends ActionCreator {
     }
 
     @Override
+    @Deprecated
     public EntryLevelSystemCallCreator withPredecessor(ActionCreator action) {
         return (EntryLevelSystemCallCreator) super.withPredecessor(action);
     }

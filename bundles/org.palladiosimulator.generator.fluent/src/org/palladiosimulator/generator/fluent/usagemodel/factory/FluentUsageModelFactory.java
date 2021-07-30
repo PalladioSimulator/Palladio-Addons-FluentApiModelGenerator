@@ -23,6 +23,9 @@ import org.palladiosimulator.generator.fluent.usagemodel.structure.components.ac
 import org.palladiosimulator.generator.fluent.usagemodel.structure.components.workload.ClosedWorkloadCreator;
 import org.palladiosimulator.generator.fluent.usagemodel.structure.components.workload.OpenWorkloadCreator;
 import org.palladiosimulator.generator.fluent.usagemodel.structure.components.workload.WorkloadCreator;
+import org.palladiosimulator.pcm.core.composition.AssemblyContext;
+import org.palladiosimulator.pcm.repository.OperationProvidedRole;
+import org.palladiosimulator.pcm.repository.OperationSignature;
 import org.palladiosimulator.pcm.repository.Repository;
 import org.palladiosimulator.pcm.system.System;
 
@@ -101,9 +104,20 @@ public class FluentUsageModelFactory {
         return new UsageScenarioCreator(usgModelCreator);
     }
     
+    @Deprecated
     public UserDataCreator newUserData() {
         return new UserDataCreator(usgModelCreator);
     }
+    
+    public UserDataCreator newUserData(AssemblyContext context) {
+        return new UserDataCreator(usgModelCreator, context);
+    }
+    
+    public UserDataCreator newUserData(String assemblyContext) {
+        AssemblyContext context = usgModelCreator.getAssemblyContextByName(assemblyContext);
+        return new UserDataCreator(usgModelCreator, context);
+    }
+    
     
     public ScenarioBehaviourCreator newScenarioBehavior() {
         return new ScenarioBehaviourCreator(usgModelCreator);
@@ -111,25 +125,60 @@ public class FluentUsageModelFactory {
     
     // ---------------------- Actions ----------------------
     
-    //TODO: usgModel übergeben oder alle über ActionCreator erstellen siehe Seff als Bsp
     public BranchActionCreator newBranchAction() {
         return new BranchActionCreator();
     }
     
+    @Deprecated
     public BranchTransitionCreator newBranchTransition() {
         return new BranchTransitionCreator();
     }
+
+    public BranchTransitionCreator newBranchTransition(ScenarioBehaviourCreator branchedBehaviour) {
+        return new BranchTransitionCreator(branchedBehaviour);
+    }
     
+    @Deprecated
     public DelayActionCreator newDelayAction() {
         return new DelayActionCreator();
     }
     
+    public DelayActionCreator newDelayAction(String timeSpecification) {
+        return new DelayActionCreator(timeSpecification);
+    }
+    
+    @Deprecated
     public EntryLevelSystemCallCreator newEntryLevelSystemCall() {
         return new EntryLevelSystemCallCreator(usgModelCreator);
     }
     
+    public EntryLevelSystemCallCreator newEntryLevelSystemCall(OperationSignature operationSignature, OperationProvidedRole operationProvidedRole) {
+        return new EntryLevelSystemCallCreator(usgModelCreator, operationSignature, operationProvidedRole);
+    }
+    
+    public EntryLevelSystemCallCreator newEntryLevelSystemCall(String operationSignature, OperationProvidedRole operationProvidedRole) {
+        return new EntryLevelSystemCallCreator(usgModelCreator, usgModelCreator.getOperationSignatureByName(operationSignature), operationProvidedRole);
+    }
+    
+    public EntryLevelSystemCallCreator newEntryLevelSystemCall(String operationSignature, String operationProvidedRole) {
+        return new EntryLevelSystemCallCreator(usgModelCreator,
+                usgModelCreator.getOperationSignatureByName(operationSignature),
+                usgModelCreator.getOperationProvidedRoleByName(operationProvidedRole));
+    }
+    
+    public EntryLevelSystemCallCreator newEntryLevelSystemCall(OperationSignature operationSignature, String operationProvidedRole) {
+        return new EntryLevelSystemCallCreator(usgModelCreator,
+                operationSignature,
+                usgModelCreator.getOperationProvidedRoleByName(operationProvidedRole));
+    }
+    
+    @Deprecated
     public LoopActionCreator newLoopAction() {
         return new LoopActionCreator();
+    }
+    
+    public LoopActionCreator newLoopAction(String iteration, ScenarioBehaviourCreator bodyBehaviour) {
+        return new LoopActionCreator(iteration, bodyBehaviour);
     }
     
     public StartActionCreator newStartAction() {
