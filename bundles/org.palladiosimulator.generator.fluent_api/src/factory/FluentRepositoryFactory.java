@@ -1041,6 +1041,11 @@ public class FluentRepositoryFactory {
 
 		return dataType;
 	}
+	
+	// TODO doc
+	public boolean containsDataType(String name) {
+	    return repo.getDataType(name) != null || repo.getPrimitiveDataType(name) != null;
+	}
 
 	/**
 	 * Extracts the resource timeout failure type referenced by <code>name</code>
