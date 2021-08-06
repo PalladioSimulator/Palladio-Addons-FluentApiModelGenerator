@@ -8,6 +8,7 @@ import java.util.List;
 import org.palladiosimulator.generator.fluent.exceptions.IllegalArgumentException;
 import org.palladiosimulator.generator.fluent.repository.structure.RepositoryCreator;
 import org.palladiosimulator.generator.fluent.repository.structure.RepositoryEntity;
+import org.palladiosimulator.generator.fluent.shared.structure.Entity;
 import org.palladiosimulator.generator.fluent.usagemodel.structure.UsageModelCreator;
 import org.palladiosimulator.pcm.core.CoreFactory;
 import org.palladiosimulator.pcm.core.PCMRandomVariable;
@@ -31,25 +32,24 @@ import de.uka.ipd.sdq.stoex.VariableReference;
  * @author Louisa Lambrecht
  * @see org.palladiosimulator.pcm.parameter.VariableUsage
  */
-public class VariableUsageCreator extends RepositoryEntity {
+public class VariableUsageCreator extends Entity {
 
     private AbstractNamedReference reference;
     private final List<VariableCharacterisation> variableCharacterisations;
 
-    public VariableUsageCreator(final RepositoryCreator repo) {
-        this();
-        // TODO: see if it is needed later, removed while moving to
-        // fluent.shared.components repository = repo;
-    }
-
     public VariableUsageCreator() {
         variableCharacterisations = new ArrayList<>();
     }
+    
+    public VariableUsageCreator(String reference,String... innerReferences) {
+        variableCharacterisations = new ArrayList<>();
+        withNamespaceReference(reference,innerReferences);
+    }
 
-    public VariableUsageCreator(UsageModelCreator usgModelCreator) {
-        this();
-        /// TODO: see if it is needed later or how to add
-        //usageModelCreator = usgModelCreator;
+    
+    public VariableUsageCreator(String reference) {
+        variableCharacterisations = new ArrayList<>();
+        withVariableReference(reference);
     }
 
     @Override

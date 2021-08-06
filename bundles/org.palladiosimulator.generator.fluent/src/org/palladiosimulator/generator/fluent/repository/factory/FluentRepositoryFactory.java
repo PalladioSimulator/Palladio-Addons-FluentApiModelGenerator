@@ -930,7 +930,7 @@ public class FluentRepositoryFactory {
      */
     //VariableUsageCreator moved to org.palladiosimulator.generator.fluent.shared.components
     public VariableUsageCreator newVariableUsage() {
-        return new VariableUsageCreator(repo);
+        return new VariableUsageCreator();
     }
 
     // ---------------------- Fetching methods ----------------------

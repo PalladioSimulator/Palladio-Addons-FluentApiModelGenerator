@@ -206,7 +206,12 @@ public class FluentUsageModelFactory {
     
     // ---------------------- Shared ----------------------   
     
-    public VariableUsageCreator newVariableUsage() {
-        return new VariableUsageCreator(usgModelCreator);
+    public VariableUsageCreator newVariableUsage(String namespaceReference,String... innerReferences) {
+        return new VariableUsageCreator(namespaceReference, innerReferences);
     }
+    
+    public VariableUsageCreator newVariableUsage(String variableReference) {
+        return new VariableUsageCreator(variableReference);
+    }
+    
 }

@@ -369,8 +369,8 @@ public class FluentUsageModelFactoryTest {
                         create.newScenarioBehavior().addActions(
                                 create.newEntryLevelSystemCall(provRoleName, operSigName)
                                     .withName(name)
-                                    .addToEntryLevelSystemCallInput(create.newVariableUsage())
-                                    .addToEntryLevelSystemCallOutput(create.newVariableUsage())
+                                    .addToEntryLevelSystemCallInput(create.newVariableUsage("TestReferenz"))
+                                    .addToEntryLevelSystemCallOutput(create.newVariableUsage("TestReferenz"))
                                     .withPriority(priority))
                         , create.newClosedWorkload("10")))
                 .createUsageModelNow();
@@ -420,7 +420,7 @@ public class FluentUsageModelFactoryTest {
         setUp(); 
         
         UsageModel usgModel = create.setSystem(createSimplifiedMediaStoreSystem()).newUsageModel().addToUsageModel(
-                create.newUserData(assConName).addToUserData(create.newVariableUsage()))
+                create.newUserData(assConName).addToUserData(create.newVariableUsage("TestReferenz")))
                 .createUsageModelNow();
 
         printXML(usgModel, "UsgModUserDataVarUsage"); 
