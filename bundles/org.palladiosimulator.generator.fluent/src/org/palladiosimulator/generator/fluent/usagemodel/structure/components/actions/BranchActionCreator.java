@@ -31,9 +31,6 @@ public class BranchActionCreator extends ActionCreator {
         if (name != null) {
             b.setEntityName(name);
         }
-        if (predecessor != null) {
-            b.setPredecessor(predecessor);
-        }
         if (successor != null) {
             b.setSuccessor(successor);
         }

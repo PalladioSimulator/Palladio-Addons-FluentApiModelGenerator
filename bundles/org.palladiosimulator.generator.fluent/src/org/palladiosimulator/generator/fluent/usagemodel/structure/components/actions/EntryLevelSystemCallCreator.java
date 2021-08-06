@@ -79,9 +79,6 @@ public class EntryLevelSystemCallCreator extends ActionCreator {
         if (name != null) {
             call.setEntityName(name);
         }
-        if (predecessor != null) {
-            call.setPredecessor(predecessor);
-        }
         if (successor != null) {
             call.setSuccessor(successor);
         }

@@ -13,9 +13,6 @@ public class StartActionCreator extends ActionCreator {
         if (name != null) {
             start.setEntityName(name);
         }
-        if (predecessor != null) {
-            start.setPredecessor(predecessor);
-        }
         if (successor != null) {
             start.setSuccessor(successor);
         }

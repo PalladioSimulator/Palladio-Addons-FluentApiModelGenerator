@@ -30,9 +30,6 @@ public class DelayActionCreator extends ActionCreator {
         if (name != null) {
             d.setEntityName(name);
         }
-        if (predecessor != null) {
-            d.setPredecessor(predecessor);
-        }
         if (successor != null) {
             d.setSuccessor(successor);
         }

@@ -46,9 +46,6 @@ public class LoopActionCreator extends ActionCreator {
         if (name != null) {
             loop.setEntityName(name);
         }
-        if (predecessor != null) {
-            loop.setPredecessor(predecessor);
-        }
         if (successor != null) {
             loop.setSuccessor(successor);
         }

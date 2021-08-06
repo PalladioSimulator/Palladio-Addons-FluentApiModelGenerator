@@ -13,19 +13,9 @@ public class StopActionCreator extends ActionCreator {
         if (name != null) {
             stop.setEntityName(name);
         }
-        if (predecessor != null) {
-            stop.setPredecessor(predecessor);
-        }
-        if (successor != null) {
-            stop.setSuccessor(successor);
-        }
         return stop;
     }
 
-    @Override
-    public StopActionCreator withSuccessor(ActionCreator action) {
-        return (StopActionCreator) super.withSuccessor(action);
-    }
 
     @Override
     public StopActionCreator withName(final String name) {

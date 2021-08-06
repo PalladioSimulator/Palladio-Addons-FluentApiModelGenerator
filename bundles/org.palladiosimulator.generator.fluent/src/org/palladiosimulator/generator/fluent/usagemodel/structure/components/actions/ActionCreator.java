@@ -5,7 +5,6 @@ import org.palladiosimulator.generator.fluent.usagemodel.structure.UsageModelEnt
 import org.palladiosimulator.pcm.usagemodel.AbstractUserAction;
 
 public abstract class ActionCreator extends UsageModelEntity {
-    protected AbstractUserAction predecessor;
     protected AbstractUserAction successor;
     
     public abstract AbstractUserAction build();
