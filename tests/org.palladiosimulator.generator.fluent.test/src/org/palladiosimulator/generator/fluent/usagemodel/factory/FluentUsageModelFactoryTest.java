@@ -131,12 +131,61 @@ public class FluentUsageModelFactoryTest {
         assertEquals(expectedModel.toString(), usgModel.toString());
     }
    
-    //@Test
-    public void bigExample() {
+    private System mediaStoreMockUp() {
+        FluentSystemFactory sysFac = new FluentSystemFactory();
+        FluentRepositoryFactory repoFac = new FluentRepositoryFactory();
+        
+        Repository repo = repoFac.newRepository().withName("defaultRepository")
+                .addToRepository(repoFac.newOperationInterface().withName("IFacade")
+                        .withOperationSignature(repoFac.newOperationSignature().withName("upload")/*withParameter File*/)
+                        .withOperationSignature(repoFac.newOperationSignature().withName("getFileList"))
+                        .withOperationSignature(repoFac.newOperationSignature().withName("register"))
+                        .withOperationSignature(repoFac.newOperationSignature().withName("login"))
+                        .withOperationSignature(repoFac.newOperationSignature().withName("download")/*withParameter audioRequest*/))
+                .createRepositoryNow();
+        
+        System system = sysFac.newSystem().withName("defaultSystem")
+                .addRepository(repo)                
+                .addToSystem(sysFac.newOperationProvidedRole().withName("Provided_IWebGui").withProvidedInterface("IFacade"))                
+                .createSystemNow();
+        
+        ModelSaver.saveRepository(repo, "realisticMediaStore", false);
+        ModelSaver.saveSystem(system, "realisticMediaStore", false);
+        return system;
+    }
+    
+    @Test
+    public void mediaStore_Realistic() {
+        //Building MediaStore3-Model: ms_base_usage_realistic.usagemodel and needed System and Repository for that
         setUp();
-        UsageModel usgModel = create.newUsageModel().createUsageModelNow();
-        //TODO
-        printXML(usgModel, "UsgModBigExample");
+        UsageModel usgModel = create.setSystem(mediaStoreMockUp()).newUsageModel().addToUsageModel(
+                create.newUsageScenario(
+                        create.newScenarioBehavior().withName("RealisticUsageScenarioBehaviour")
+                        .addActions(
+                                create.newStartAction().withName("startUsage").withSuccessor(
+                                create.newBranchAction().withName("isRegistered")
+                                    .addToBranchAction(create.newBranchTransition(create.newScenarioBehavior().addActions(
+                                            create.newEntryLevelSystemCall("Provided_IWebGui","register").withName("register"))
+                                            .withName("needsToRegister")).withProbability(0.6))
+                                    .addToBranchAction(create.newBranchTransition(create.newScenarioBehavior().withName("isAlreadyRegistered")
+                                            ).withProbability(0.4)).withSuccessor(                                
+                                create.newEntryLevelSystemCall("Provided_IWebGui", "login").withName("login").withSuccessor(
+                                create.newDelayAction("GammaMoments(3000,0.3)").withName("userDelayAfterLogin").withSuccessor(
+                                create.newEntryLevelSystemCall("Provided_IWebGui", "getFileList").withName("getFileList").withSuccessor(
+                                create.newDelayAction("GammaMoments(6000,0.3)").withName("userDelayAfterGetFileList").withSuccessor(
+                                create.newBranchAction().withName("downloadOrUpload")
+                                    .addToBranchAction(create.newBranchTransition(create.newScenarioBehavior().withName("downloadCase")
+                                            .addActions(create.newEntryLevelSystemCall("Provided_IWebGui", "download").withName("download")
+                                                    /*TODO:VariableUsage*/)).withProbability(0.8))
+                                    .addToBranchAction(create.newBranchTransition(create.newScenarioBehavior().withName("uploadCase")
+                                            .addActions(create.newEntryLevelSystemCall("Provided_IWebGui", "upload").withName("upload")/*TODO:VariableUsage*/
+                                                    )).withProbability(0.2)).withSuccessor(
+                                create.newStopAction().withName("stopUsage"))))))))),
+                        
+                        create.newOpenWorkload("Exp(0.00004)")).withName("RealisticUsageScenario"))               
+                
+                .createUsageModelNow();
+        printXML(usgModel, "realisticMediaStore");
     }
     
 
