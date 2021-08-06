@@ -4,8 +4,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import org.palladiosimulator.generator.fluent.exceptions.IllegalArgumentException;
 import org.palladiosimulator.generator.fluent.shared.components.VariableUsageCreator;
-import org.palladiosimulator.generator.fluent.shared.util.ModelLoader;
 import org.palladiosimulator.generator.fluent.shared.validate.IModelValidator;
 import org.palladiosimulator.generator.fluent.shared.validate.ModelValidator;
 import org.palladiosimulator.generator.fluent.usagemodel.api.IUsageModel;
@@ -26,7 +26,6 @@ import org.palladiosimulator.generator.fluent.usagemodel.structure.components.wo
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.repository.OperationProvidedRole;
 import org.palladiosimulator.pcm.repository.OperationSignature;
-import org.palladiosimulator.pcm.repository.Repository;
 import org.palladiosimulator.pcm.system.System;
 
 /**
@@ -48,7 +47,6 @@ import org.palladiosimulator.pcm.system.System;
 
 public class FluentUsageModelFactory {
     private UsageModelCreator usgModelCreator;
-    private Repository repository;
     private System system;
 
     
@@ -57,16 +55,11 @@ public class FluentUsageModelFactory {
      */
     public FluentUsageModelFactory() {
         EcorePlugin.ExtensionProcessor.process(null);
-        repository = null;
         system = null;
     }
     
     public FluentUsageModelFactory setSystem(System system) {
         this.system = system;
-        return this;
-    }
-    public FluentUsageModelFactory setRepository(Repository repository) {
-        this.repository = repository;
         return this;
     }
 
@@ -85,7 +78,7 @@ public class FluentUsageModelFactory {
         final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
         logger.setLevel(Level.ALL);
         final IModelValidator validator = new ModelValidator(logger);
-        usgModelCreator = new UsageModelCreator(system, repository, validator);
+        usgModelCreator = new UsageModelCreator(system, validator);
         return usgModelCreator;
     }
     
@@ -147,25 +140,44 @@ public class FluentUsageModelFactory {
     }
     
     
-    //TODO: testen obs zusammen passt
-    public EntryLevelSystemCallCreator newEntryLevelSystemCall(OperationSignature operationSignature, OperationProvidedRole operationProvidedRole) {
-        return new EntryLevelSystemCallCreator(usgModelCreator, operationSignature, operationProvidedRole);
+    public EntryLevelSystemCallCreator newEntryLevelSystemCall(OperationProvidedRole operationProvidedRole, OperationSignature operationSignature) {
+       if (!operationProvidedRole.getProvidedInterface__OperationProvidedRole().getSignatures__OperationInterface().contains(operationSignature)) {
+           new IllegalArgumentException("No OperationSignature with name " + operationSignature.getEntityName() + " for OperationProvidedRole "+ operationProvidedRole.getEntityName() +" exits.");
+       }
+        return new EntryLevelSystemCallCreator(operationSignature, operationProvidedRole);
     }
     
-    public EntryLevelSystemCallCreator newEntryLevelSystemCall(String operationSignature, OperationProvidedRole operationProvidedRole) {
-        return new EntryLevelSystemCallCreator(usgModelCreator, usgModelCreator.getOperationSignatureByName(operationSignature), operationProvidedRole);
+    public EntryLevelSystemCallCreator newEntryLevelSystemCall(OperationProvidedRole operationProvidedRole, String operationSignature) {
+        String name = operationSignature;
+        OperationProvidedRole role = operationProvidedRole;
+
+        OperationSignature sig= role.getProvidedInterface__OperationProvidedRole().getSignatures__OperationInterface().stream().filter(x -> x.getEntityName().equals(name))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("No OperationSignature with name " + name + " for OperationProvidedRole "+ operationProvidedRole.getEntityName() +" found."));
+                
+        return new EntryLevelSystemCallCreator(sig,role);
     }
     
-    public EntryLevelSystemCallCreator newEntryLevelSystemCall(String operationSignature, String operationProvidedRole) {
-        return new EntryLevelSystemCallCreator(usgModelCreator,
-                usgModelCreator.getOperationSignatureByName(operationSignature),
-                usgModelCreator.getOperationProvidedRoleByName(operationProvidedRole));
+    public EntryLevelSystemCallCreator newEntryLevelSystemCall(String operationProvidedRole, String operationSignature) {
+        String name = operationSignature;
+        
+        OperationProvidedRole role = usgModelCreator.getOperationProvidedRoleByName(operationProvidedRole);
+        OperationSignature sig= role.getProvidedInterface__OperationProvidedRole().getSignatures__OperationInterface().stream().filter(x -> x.getEntityName().equals(name))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("No OperationSignature with name " + name + " for OperationProvidedRole "+ operationProvidedRole + " found."));
+                
+        return new EntryLevelSystemCallCreator(sig,role);
     }
     
-    public EntryLevelSystemCallCreator newEntryLevelSystemCall(OperationSignature operationSignature, String operationProvidedRole) {
-        return new EntryLevelSystemCallCreator(usgModelCreator,
-                operationSignature,
-                usgModelCreator.getOperationProvidedRoleByName(operationProvidedRole));
+    public EntryLevelSystemCallCreator newEntryLevelSystemCall(String operationProvidedRole, OperationSignature operationSignature) {
+        OperationProvidedRole role = usgModelCreator.getOperationProvidedRoleByName(operationProvidedRole);
+       
+        if (!role.getProvidedInterface__OperationProvidedRole().getSignatures__OperationInterface().contains(operationSignature)) {
+            new IllegalArgumentException("No OperationSignature with name " + operationSignature.getEntityName() + " for OperationProvidedRole "+ operationProvidedRole +" exits.");
+        }
+        
+        return new EntryLevelSystemCallCreator(
+                operationSignature, role);
     }
     
     public LoopActionCreator newLoopAction(String iteration, ScenarioBehaviourCreator bodyBehaviour) {

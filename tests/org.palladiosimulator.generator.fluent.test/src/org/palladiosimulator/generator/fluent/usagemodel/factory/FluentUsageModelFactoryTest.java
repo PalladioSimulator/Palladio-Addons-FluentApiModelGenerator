@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.junit.Test;
 import org.palladiosimulator.generator.fluent.repository.factory.FluentRepositoryFactory;
-import org.palladiosimulator.generator.fluent.shared.util.ModelLoader;
 import org.palladiosimulator.generator.fluent.shared.util.ModelSaver;
 import org.palladiosimulator.generator.fluent.system.factory.FluentSystemFactory;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
@@ -32,24 +31,82 @@ public class FluentUsageModelFactoryTest {
     private void setUp() {
         create = new FluentUsageModelFactory();
     }
-
-    private void createSystemforTest(String systemPath, String assConName, String provRoleName) {
-        FluentSystemFactory systemFac = new FluentSystemFactory();
-        System s = systemFac.newSystem()
-                .addToSystem(systemFac.newAssemblyContext().withName(assConName))
-                .addToSystem(systemFac.newOperationProvidedRole().withName(provRoleName))
-                .createSystemNow();
-        ModelSaver.saveSystem(s, systemPath, false); 
+    
+    private Repository createSimplifiedMediaStoreRepository() {
+      //copied from org.palladiosimulator.generator.fluent.repository.examples, added OperationSignature for testing
+        FluentRepositoryFactory create = new FluentRepositoryFactory();
+        Repository repo = create.newRepository().withName("SimplifiedMediaStore Repository")
+            .addToRepository(create.newOperationInterface().withName("IAudioDB")
+                    .withOperationSignature(create.newOperationSignature().withName("opSignatureAudioDB")))
+            .addToRepository(create.newOperationInterface().withName("ISound"))
+            .addToRepository(create.newOperationInterface().withName("MediaStoreInterface"))
+            .addToRepository(create.newOperationInterface().withName("GUIInterface")
+                    .withOperationSignature(create.newOperationSignature().withName("opSignatureGUIInterface")))
+            .addToRepository(create.newOperationInterface().withName("AudioDBInterface"))
+            .addToRepository(create.newBasicComponent().withName("AudioDB")
+                    .provides(create.fetchOfOperationInterface("AudioDBInterface"), "ProvidesAudioDBInterface"))
+            .addToRepository(create.newBasicComponent().withName("DBAdapter")
+                    .requires(create.fetchOfOperationInterface("AudioDBInterface"), "RequiresAudioDBInterface")
+                    .provides(create.fetchOfOperationInterface("IAudioDB"), "ProvidesIAudioDB"))
+            .addToRepository(create.newBasicComponent().withName("DigitalWatermarking")
+                    .provides(create.fetchOfOperationInterface("ISound"), "ProvidesISound"))
+            .addToRepository(create.newBasicComponent().withName("MediaStore")
+                    .requires(create.fetchOfOperationInterface("ISound"), "RequiresISound")
+                    .requires(create.fetchOfOperationInterface("IAudioDB"), "RequiresIAudioDB").provides(
+                            create.fetchOfOperationInterface("MediaStoreInterface"), "ProvidesMediaStoreInterface"))
+            .addToRepository(create.newBasicComponent().withName("WebGUI")
+                    .requires(create.fetchOfOperationInterface("MediaStoreInterface"),
+                            "RequiresMediaStoreInterface")
+                    .provides(create.fetchOfOperationInterface("GUIInterface"), "ProvidesGUIInterface"))
+            .createRepositoryNow();
+        ModelSaver.saveRepository(repo, "./simplifiedMediaStore", false);
+    return repo;
     }
     
-    
-    private void createRepositoryforTest(String repositoryName, String operSigName, String provRoleName ) {
-        FluentRepositoryFactory f = new FluentRepositoryFactory();
-        Repository r = f.newRepository()
-                .addToRepository(f.newBasicComponent().provides(f.newOperationInterface()
-                .withOperationSignature(f.newOperationSignature().withName(operSigName)),provRoleName))
-                .createRepositoryNow();
-        ModelSaver.saveRepository(r, repositoryName, false);
+    private System createSimplifiedMediaStoreSystem() {
+        //copied from org.palladiosimulator.generator.fluent.system.examples, changed where to get Respository
+        FluentSystemFactory create = new FluentSystemFactory();
+        System system = create.newSystem().withName("SimplifiedMediaStore System")
+                //.addRepository(ModelLoader.loadRepository("./simplifiedMediaStore.repository"))
+                .addRepository(createSimplifiedMediaStoreRepository())
+                .addToSystem(
+                        create.newAssemblyContext().withName("AudioDB Component").withEncapsulatedComponent("AudioDB"))
+                .addToSystem(create.newAssemblyContext().withName("DBAdapter Component")
+                        .withEncapsulatedComponent("DBAdapter"))
+                .addToSystem(create.newAssemblyContext().withName("DigitalWatermarking Component")
+                        .withEncapsulatedComponent("DigitalWatermarking"))
+                .addToSystem(create.newAssemblyContext().withName("MediaStore Component")
+                        .withEncapsulatedComponent("MediaStore"))
+                .addToSystem(
+                        create.newAssemblyContext().withName("WebGUI Component").withEncapsulatedComponent("WebGUI"))
+                .addToSystem(create.newAssemblyConnector().withName("AudioDBInterfaceConnector")
+                        .withProvidingAssemblyContext("AudioDB Component")
+                        .withOperationProvidedRole("ProvidesAudioDBInterface")
+                        .withRequiringAssemblyContext("DBAdapter Component")
+                        .withOperationRequiredRole("RequiresAudioDBInterface"))
+                .addToSystem(create.newAssemblyConnector().withName("IAudioDB Connector")
+                        .withProvidingAssemblyContext("DBAdapter Component")
+                        .withOperationProvidedRole("ProvidesIAudioDB")
+                        .withRequiringAssemblyContext("MediaStore Component")
+                        .withOperationRequiredRole("RequiresIAudioDB"))
+                .addToSystem(create.newAssemblyConnector().withName("ISound Connector")
+                        .withProvidingAssemblyContext("DigitalWatermarking Component")
+                        .withOperationProvidedRole("ProvidesISound")
+                        .withRequiringAssemblyContext("MediaStore Component")
+                        .withOperationRequiredRole("RequiresISound"))
+                .addToSystem(create.newAssemblyConnector().withName("MediaStoreInterface Connector")
+                        .withProvidingAssemblyContext("MediaStore Component")
+                        .withOperationProvidedRole("ProvidesMediaStoreInterface")
+                        .withRequiringAssemblyContext("WebGUI Component")
+                        .withOperationRequiredRole("RequiresMediaStoreInterface"))
+                .addToSystem(create.newOperationProvidedRole().withName("SystemProvidesGUIInterface")
+                        .withProvidedInterface("GUIInterface"))
+                .addToSystem(create.newProvidedDelegationConnectorCreator().withName("GUIInterface Connector")
+                        .withOuterProvidedRole("SystemProvidesGUIInterface").withProvidingContext("WebGUI Component")
+                        .withOperationProvidedRole("ProvidesGUIInterface"))
+                .createSystemNow();
+        ModelSaver.saveSystem(system, "./simplifiedMediaStore", false);
+        return system;
     }
     
     private void printXML(UsageModel usgModel, String name) {
@@ -165,21 +222,17 @@ public class FluentUsageModelFactoryTest {
   @Test
     public void usageScenarioBehavActions() {
         setUp();
-        String operSigName = "TestOperationSignature";
-        String provRoleName = "TestProvidedRole";
-        String systemPath = "System";
         
-       createSystemforTest(systemPath,"AssemblyContext", provRoleName);
-       createRepositoryforTest("Repository",operSigName,provRoleName);
-        
-        UsageModel usgModel = create.setSystem(ModelLoader.loadSystem("./"+systemPath+".system"))
-                .setRepository(ModelLoader.loadRepository("./"+"Repository"+".repository") )
+        String operSigName = "opSignatureGUIInterface";
+        String provRoleName = "SystemProvidesGUIInterface";
+               
+        UsageModel usgModel = create.setSystem(createSimplifiedMediaStoreSystem())
                 .newUsageModel().addToUsageModel(create.newUsageScenario(
                         create.newScenarioBehavior()  
                         .addActions(create.newStartAction()
                                 .withSuccessor(create.newDelayAction("10")
                                 .withSuccessor(create.newBranchAction()
-                                .withSuccessor(create.newEntryLevelSystemCall(operSigName, provRoleName)
+                                .withSuccessor(create.newEntryLevelSystemCall(provRoleName, operSigName)
                                 .withSuccessor(create.newLoopAction("1", create.newScenarioBehavior())
                                 .withSuccessor(create.newStopAction())))
     ))),create.newOpenWorkload("0")))
@@ -271,7 +324,7 @@ public class FluentUsageModelFactoryTest {
     @Test
     public void usageScenarioBehavActionsBranch() {
         String name = "BranchAction";
-        //Double prop = 0.6; TODO
+        //Double prop = 0.6; 
         Double prop = 1.0; 
         String scenName = "ScenBeh";
         setUp();
@@ -305,21 +358,16 @@ public class FluentUsageModelFactoryTest {
     public void usageScenarioBehavActionsEntryLevelSystemCall() {
         String name = "EntryLevelSystemCall";
         int priority = 1;
-        
-        String repositoryName = "Repository";
-        String operSigName = "OperatioSignature";
-        String provRoleName = "ProvidedRole";
-        
-        createRepositoryforTest(repositoryName, operSigName, provRoleName);
-        createSystemforTest("System","AssemblyContext", provRoleName);
+
+        String operSigName = "opSignatureGUIInterface";
+        String provRoleName = "SystemProvidesGUIInterface";
         
         setUp();
-        UsageModel usgModel = create.setSystem(ModelLoader.loadSystem("./System.system"))
-                .setRepository(ModelLoader.loadRepository("./"+repositoryName+".repository") )
+        UsageModel usgModel = create.setSystem(createSimplifiedMediaStoreSystem())
                 .newUsageModel().addToUsageModel(
                 create.newUsageScenario(
                         create.newScenarioBehavior().addActions(
-                                create.newEntryLevelSystemCall(operSigName, provRoleName)
+                                create.newEntryLevelSystemCall(provRoleName, operSigName)
                                     .withName(name)
                                     .addToEntryLevelSystemCallInput(create.newVariableUsage())
                                     .addToEntryLevelSystemCallOutput(create.newVariableUsage())
@@ -351,15 +399,11 @@ public class FluentUsageModelFactoryTest {
       
     @Test
     public void basicUserData() {        
-        String assConName = "assemblyContext";
-        String systemPath = "System";
-        
-        //System
-       createSystemforTest(systemPath, assConName, "Test");
-        
+        String assConName = "AudioDB Component"; //see createSimplifiedMediaStoreSystem() for an Assembly Context to test for
+    
         setUp();
         
-        UsageModel usgModel = create.setSystem(ModelLoader.loadSystem("./"+systemPath+".system")).newUsageModel().addToUsageModel(
+        UsageModel usgModel = create.setSystem(createSimplifiedMediaStoreSystem()).newUsageModel().addToUsageModel(
                 create.newUserData(assConName))
                 .createUsageModelNow();
                 
@@ -370,16 +414,12 @@ public class FluentUsageModelFactoryTest {
 
     @Test
     public void usrDataVariableUsage() {
-        String assConName = "assemblyContext";
-        String systemPath = "System";
-        
-        //System
-       createSystemforTest(systemPath,assConName, "Test");
+        String assConName = "AudioDB Component"; //see createSimplifiedMediaStoreSystem() for an Assembly Context to test for
         
         //Usage Model
         setUp(); 
         
-        UsageModel usgModel = create.setSystem(ModelLoader.loadSystem("./"+systemPath+".system")).newUsageModel().addToUsageModel(
+        UsageModel usgModel = create.setSystem(createSimplifiedMediaStoreSystem()).newUsageModel().addToUsageModel(
                 create.newUserData(assConName).addToUserData(create.newVariableUsage()))
                 .createUsageModelNow();
 
@@ -391,16 +431,11 @@ public class FluentUsageModelFactoryTest {
     
     @Test
     public void usrDataAssemblyContext() {
-        String assConName = "assemblyContext";
-        String systemPath = "System";
-        
-        //System
-       createSystemforTest(systemPath,assConName, "Test");
-        
-        //Usage Model
+        String assConName = "AudioDB Component"; //see createSimplifiedMediaStoreSystem() for an Assembly Context to test for
+
         setUp(); 
         
-        UsageModel usgModel = create.setSystem(ModelLoader.loadSystem("./"+systemPath+".system")).newUsageModel().addToUsageModel(
+        UsageModel usgModel = create.setSystem(createSimplifiedMediaStoreSystem()).newUsageModel().addToUsageModel(
                 create.newUserData(assConName))
                 .createUsageModelNow();
         

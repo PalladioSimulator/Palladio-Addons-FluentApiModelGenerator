@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.palladiosimulator.generator.fluent.exceptions.IllegalArgumentException;
 import org.palladiosimulator.generator.fluent.shared.components.VariableUsageCreator;
-import org.palladiosimulator.generator.fluent.usagemodel.structure.UsageModelCreator;
 import org.palladiosimulator.pcm.parameter.VariableUsage;
 import org.palladiosimulator.pcm.repository.OperationProvidedRole;
 import org.palladiosimulator.pcm.repository.OperationSignature;
@@ -21,8 +20,7 @@ public class EntryLevelSystemCallCreator extends ActionCreator {
     private OperationSignature opSignature;
     private OperationProvidedRole opRole;
 
-    public EntryLevelSystemCallCreator(UsageModelCreator usgModelCreator, OperationSignature operationSignature, OperationProvidedRole operationProvidedRole) {
-        this.usageModelCreator = usgModelCreator;
+    public EntryLevelSystemCallCreator(OperationSignature operationSignature, OperationProvidedRole operationProvidedRole) {
         outputParameterUsage = new ArrayList<VariableUsage>();
         inputParameterUsage = new ArrayList<VariableUsage>();
         priority = 0;

@@ -11,12 +11,8 @@ import org.palladiosimulator.generator.fluent.usagemodel.api.IUsageModelAddition
 import org.palladiosimulator.generator.fluent.usagemodel.structure.components.UsageScenarioCreator;
 import org.palladiosimulator.generator.fluent.usagemodel.structure.components.UserDataCreator;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
-import org.palladiosimulator.pcm.repository.Interface;
-import org.palladiosimulator.pcm.repository.OperationInterface;
 import org.palladiosimulator.pcm.repository.OperationProvidedRole;
-import org.palladiosimulator.pcm.repository.OperationSignature;
 import org.palladiosimulator.pcm.repository.ProvidedRole;
-import org.palladiosimulator.pcm.repository.Repository;
 import org.palladiosimulator.pcm.system.System;
 import org.palladiosimulator.pcm.usagemodel.UsageModel;
 import org.palladiosimulator.pcm.usagemodel.UsageScenario;
@@ -26,16 +22,14 @@ import org.palladiosimulator.pcm.usagemodel.UserData;
 public class UsageModelCreator extends UsageModelEntity implements IUsageModel, IUsageModelAddition {
     private final IModelValidator validator;
     private final System system;
-    private final Repository repository;
     
     private final List<UsageScenario> usageScenarios;
     private final List<UserData> userDatas;
 
     
-    public UsageModelCreator(System system, Repository repository, IModelValidator validator) {
+    public UsageModelCreator(System system, IModelValidator validator) {
         this.validator = validator;
         this.system = system;
-        this.repository  = repository;
         
         this.usageScenarios = new ArrayList<>();
         this.userDatas = new ArrayList<>();
@@ -68,38 +62,21 @@ public class UsageModelCreator extends UsageModelEntity implements IUsageModel, 
         usageScenarios.add(usageScenario.build());
         return this;
     }
-    
-    public OperationSignature getOperationSignatureByName(String name) {
-        IllegalArgumentException.throwIfNull(repository, "The referred Repository was not set correctly in FluentUsageModelFactory");
-        OperationSignature sig = null;
-        List<Interface> list = repository.getInterfaces__Repository();
-        
-        for(int i = 0; i < list.size(); i++) {
-            if(list.get(i) instanceof OperationInterface) {
-                OperationInterface opInt = (OperationInterface) list.get(i);
-                sig = opInt.getSignatures__OperationInterface().stream().filter(x -> x.getEntityName().equals(name))
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("No AssemblyContext with name " + name + " found.")); 
-            }
-        }
-        IllegalArgumentException.throwIfNull(sig,"No OperationSignature with name " + name + " found.");
-                
-        return sig;
-    }
-    
-    
+
     public OperationProvidedRole getOperationProvidedRoleByName(String name) {
         IllegalArgumentException.throwIfNull(system, "The referred System was not set correctly in FluentUsageModelFactory");
         
         OperationProvidedRole role = null;
+
         ProvidedRole r = system.getProvidedRoles_InterfaceProvidingEntity().stream().filter(x -> x.getEntityName().equals(name))
             .findFirst()
             .orElseThrow(() -> new IllegalArgumentException("No ProvidedRole with name " + name + " found."));
             
         if(r instanceof OperationProvidedRole) {
             role = (OperationProvidedRole) r;
-        }        
-        //TODO role.getProvidedInterface__OperationProvidedRole().getSignatures__OperationInterface()
+        }     
+        
+        IllegalArgumentException.throwIfNull(role,"No OperationProvidedRole with name " + name + " found.");
         return role;
     }
     
