@@ -14,14 +14,8 @@ public abstract class WorkloadCreator extends UsageModelEntity {
         usageModelCreator = usgModelCreator;
         addToWorkload(time);
     }
-    
-    @Deprecated
-    public WorkloadCreator(UsageModelCreator usgModelCreator) {
-        usageModelCreator = usgModelCreator;
-    }
 
-    @Deprecated
-    protected WorkloadCreator addToWorkload(String time) {
+    private WorkloadCreator addToWorkload(String time) {
         IllegalArgumentException.throwIfNull(time, "The given Time must not be null");
         this.time = CoreFactory.eINSTANCE.createPCMRandomVariable();
         this.time.setSpecification(time);

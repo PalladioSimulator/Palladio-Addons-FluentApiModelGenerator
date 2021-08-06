@@ -17,7 +17,6 @@ import org.palladiosimulator.pcm.repository.OperationProvidedRole;
 import org.palladiosimulator.pcm.repository.OperationSignature;
 import org.palladiosimulator.pcm.repository.ProvidedRole;
 import org.palladiosimulator.pcm.repository.Repository;
-import org.palladiosimulator.pcm.repository.RepositoryComponent;
 import org.palladiosimulator.pcm.system.System;
 import org.palladiosimulator.pcm.usagemodel.UsageModel;
 import org.palladiosimulator.pcm.usagemodel.UsageScenario;
@@ -83,38 +82,13 @@ public class UsageModelCreator extends UsageModelEntity implements IUsageModel, 
                 .orElseThrow(() -> new IllegalArgumentException("No AssemblyContext with name " + name + " found.")); 
             }
         }
-      /*  OperationSignature l = repository.getInterfaces__Repository().stream().
-                filter(c -> c instanceof OperationInterface).map(c -> (OperationInterface) c)
-                .map(x -> x.getSignatures__OperationInterface()
-                */
         IllegalArgumentException.throwIfNull(sig,"No OperationSignature with name " + name + " found.");
                 
         return sig;
     }
     
-   //OperationProvidedRole
-   public OperationProvidedRole getOperationProvidedRoleByName(String name) {
-        IllegalArgumentException.throwIfNull(repository, "The referred Repository was not set correctly in FluentUsageModelFactory");
-        
-        OperationProvidedRole role = null;
-        List<RepositoryComponent> list = repository.getComponents__Repository();
-        
-        for(int i = 0; i < list.size(); i++) {
-            ProvidedRole r = list.get(i).getProvidedRoles_InterfaceProvidingEntity().stream().filter(x -> x.getEntityName().equals(name))
-            .findFirst()
-            .orElseThrow(() -> new IllegalArgumentException("No ProvidedRole with name " + name + " found."));
-            
-            if(r instanceof OperationProvidedRole) {
-                role = (OperationProvidedRole) r;
-            }        
-        }     
-        
-       IllegalArgumentException.throwIfNull(role,"No OperationSignature with name " + name + " found.");
-        
-        return role;
-    }
     
-    public OperationProvidedRole getOperationProvidedRoleByNameSystem(String name) {
+    public OperationProvidedRole getOperationProvidedRoleByName(String name) {
         IllegalArgumentException.throwIfNull(system, "The referred System was not set correctly in FluentUsageModelFactory");
         
         OperationProvidedRole role = null;
@@ -125,7 +99,7 @@ public class UsageModelCreator extends UsageModelEntity implements IUsageModel, 
         if(r instanceof OperationProvidedRole) {
             role = (OperationProvidedRole) r;
         }        
-        
+        //TODO role.getProvidedInterface__OperationProvidedRole().getSignatures__OperationInterface()
         return role;
     }
     

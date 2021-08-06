@@ -41,12 +41,6 @@ public class BranchActionCreator extends ActionCreator {
     }
 
     @Override
-    @Deprecated
-    public BranchActionCreator withPredecessor(ActionCreator action) {
-        return (BranchActionCreator) super.withPredecessor(action);
-    }
-
-    @Override
     public BranchActionCreator withSuccessor(ActionCreator action) {
         return (BranchActionCreator) super.withSuccessor(action);
     }

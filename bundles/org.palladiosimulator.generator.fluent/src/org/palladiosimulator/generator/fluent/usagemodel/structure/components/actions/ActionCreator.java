@@ -10,14 +10,6 @@ public abstract class ActionCreator extends UsageModelEntity {
     
     public abstract AbstractUserAction build();
 
-    @Deprecated
-    //TODO:brauchen wir die?
-    public ActionCreator withPredecessor(ActionCreator act) {
-        IllegalArgumentException.throwIfNull(act, "The given Predecessor Action must not be null");
-        this.predecessor = act.build();
-        return this;
-    }
-
     public ActionCreator withSuccessor(ActionCreator act) {
         IllegalArgumentException.throwIfNull(act, "The given Successor Action must not be null");        
         this.successor = act.build();

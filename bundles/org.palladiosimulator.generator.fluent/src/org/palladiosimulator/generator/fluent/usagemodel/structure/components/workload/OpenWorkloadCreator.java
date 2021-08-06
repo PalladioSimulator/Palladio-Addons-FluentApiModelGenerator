@@ -10,11 +10,7 @@ public class OpenWorkloadCreator extends WorkloadCreator {
     public OpenWorkloadCreator(UsageModelCreator usgModelCreator, String interArrivalTime) {
         super(usgModelCreator, interArrivalTime);
     }
-    
-    @Deprecated
-    public OpenWorkloadCreator(UsageModelCreator usgModelCreator) {
-        super(usgModelCreator);
-    }
+
 
     @Override
     public Workload build() {
@@ -24,12 +20,6 @@ public class OpenWorkloadCreator extends WorkloadCreator {
             work.setInterArrivalTime_OpenWorkload(time);
         }
         return work;
-    }
-
-    @Override
-    @Deprecated
-    public OpenWorkloadCreator addToWorkload(String time) {
-        return (OpenWorkloadCreator) super.addToWorkload(time);
     }
 
 }

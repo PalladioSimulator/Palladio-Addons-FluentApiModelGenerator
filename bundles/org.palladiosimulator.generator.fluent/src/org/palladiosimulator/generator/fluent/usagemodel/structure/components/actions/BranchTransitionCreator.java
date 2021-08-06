@@ -18,12 +18,6 @@ public class BranchTransitionCreator extends UsageModelEntity {
         addToBranchTransition(branchedBehaviour);
     }
     
-    @Deprecated
-    public BranchTransitionCreator() {
-        this.probability = 0.0; // default value
-    }
-
-
     @Override
     protected BranchTransition build() {
         BranchTransition branchT = UsagemodelFactory.eINSTANCE.createBranchTransition();
@@ -36,8 +30,7 @@ public class BranchTransitionCreator extends UsageModelEntity {
         return branchT;
     }
 
-    @Deprecated
-    public BranchTransitionCreator addToBranchTransition(ScenarioBehaviourCreator branchedBehaviour) {
+    private BranchTransitionCreator addToBranchTransition(ScenarioBehaviourCreator branchedBehaviour) {
         IllegalArgumentException.throwIfNull(branchedBehaviour, "The branched Behavoiur must not be null");
         branchedBeh = branchedBehaviour.build();
         return this;

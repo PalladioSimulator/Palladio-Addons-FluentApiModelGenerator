@@ -29,7 +29,6 @@ public class ScenarioBehaviourCreator extends UsageModelEntity {
         AbstractUserAction usrAction = action.build();
 
         createActionFlow(usrAction);
-        //actions.add(usrAction);
         return this;
     }
 
@@ -95,7 +94,7 @@ public class ScenarioBehaviourCreator extends UsageModelEntity {
             //add Start and Stop Actions as this is required
             addStartStop();
         }
-        scenBeh.getActions_ScenarioBehaviour().addAll(actions); // da sind andere drinnen/eingeschlossen
+        scenBeh.getActions_ScenarioBehaviour().addAll(actions); 
         return scenBeh;
     }
 

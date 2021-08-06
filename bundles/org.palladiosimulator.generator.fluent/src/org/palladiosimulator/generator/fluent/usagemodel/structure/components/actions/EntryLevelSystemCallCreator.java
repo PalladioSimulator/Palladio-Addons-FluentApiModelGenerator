@@ -21,14 +21,6 @@ public class EntryLevelSystemCallCreator extends ActionCreator {
     private OperationSignature opSignature;
     private OperationProvidedRole opRole;
 
-    @Deprecated
-    public EntryLevelSystemCallCreator(UsageModelCreator usgModelCreator) {
-        this.usageModelCreator = usgModelCreator;
-        outputParameterUsage = new ArrayList<VariableUsage>();
-        inputParameterUsage = new ArrayList<VariableUsage>();
-        priority = 0;
-    }
-    
     public EntryLevelSystemCallCreator(UsageModelCreator usgModelCreator, OperationSignature operationSignature, OperationProvidedRole operationProvidedRole) {
         this.usageModelCreator = usgModelCreator;
         outputParameterUsage = new ArrayList<VariableUsage>();
@@ -38,30 +30,14 @@ public class EntryLevelSystemCallCreator extends ActionCreator {
         withProvidedRoleEntryLevelSystemCall(operationProvidedRole);
     }
 
-    @Deprecated
-    public EntryLevelSystemCallCreator withOperationSignatureEntryLevelSystemCall(
+    private EntryLevelSystemCallCreator withOperationSignatureEntryLevelSystemCall(
             OperationSignature operationSignature) {
         IllegalArgumentException.throwIfNull(operationSignature, "The given Operation Signature must not be null");
         this.opSignature = operationSignature;
         return this;
     }
     
-    @Deprecated
-    public EntryLevelSystemCallCreator withOperationSignatureEntryLevelSystemCall(
-            String name) {
-        OperationSignature sig = usageModelCreator.getOperationSignatureByName(name);
-        return withOperationSignatureEntryLevelSystemCall(sig);
-    }
-
-    @Deprecated
-    public EntryLevelSystemCallCreator withProvidedRoleEntryLevelSystemCall(
-            String name) {
-        OperationProvidedRole role = usageModelCreator.getOperationProvidedRoleByName(name);
-        return withProvidedRoleEntryLevelSystemCall(role);
-    }
-
-    @Deprecated
-    public EntryLevelSystemCallCreator withProvidedRoleEntryLevelSystemCall(
+    private EntryLevelSystemCallCreator withProvidedRoleEntryLevelSystemCall(
             OperationProvidedRole operationProvidedRole) {
         IllegalArgumentException.throwIfNull(operationProvidedRole, "The given Provided Role must not be null");
         this.opRole = operationProvidedRole;
@@ -113,12 +89,6 @@ public class EntryLevelSystemCallCreator extends ActionCreator {
         }
 
         return call;
-    }
-
-    @Override
-    @Deprecated
-    public EntryLevelSystemCallCreator withPredecessor(ActionCreator action) {
-        return (EntryLevelSystemCallCreator) super.withPredecessor(action);
     }
 
     @Override

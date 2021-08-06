@@ -45,22 +45,20 @@ import org.palladiosimulator.pcm.system.System;
  *
  * @author Eva-Maria Neumann
  */
+
 public class FluentUsageModelFactory {
     private UsageModelCreator usgModelCreator;
-//    private final ResourceEnvironment resourceEnv;
     private Repository repository;
     private System system;
-    //private final ResourceRepository resources; 
+
+    
     /**
      * Creates an instance of the FluentUsageModelFactory.
      */
     public FluentUsageModelFactory() {
         EcorePlugin.ExtensionProcessor.process(null);
-        //resourceEnv = ModelLoader.loadResourceEnvironment(null);//TODO Parameter
-        repository = null; // ModelLoader.loadRepository(null); //TODO Parameter 
-        //system = ModelLoader.loadSystem(ModelLoader.STANDARD_SYSTEM_PATH);    
+        repository = null;
         system = null;
-       // resources = null; ModelLoader.loadResourceTypeRepository(ModelLoader.RESOURCE_TYPE_PATH);
     }
     
     //TODO nötig?? besprechen    
@@ -88,25 +86,36 @@ public class FluentUsageModelFactory {
         final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
         logger.setLevel(Level.ALL);
         final IModelValidator validator = new ModelValidator(logger);
-       // usgModelCreator = new UsageModelCreator(system, repository, resources, validator);
         usgModelCreator = new UsageModelCreator(system, repository, validator);
         return usgModelCreator;
     }
     
+    
     // ---------------------- Components ----------------------
     
-    public UsageScenarioCreator newUsageScenario(ScenarioBehaviourCreator scen, WorkloadCreator work) {
-        return new UsageScenarioCreator(usgModelCreator,scen, work);
-    }
-    
-    @Deprecated
-    public UsageScenarioCreator newUsageScenario() {
-        return new UsageScenarioCreator(usgModelCreator);
-    }
-    
-    @Deprecated
-    public UserDataCreator newUserData() {
-        return new UserDataCreator(usgModelCreator);
+    /**
+     * Creates a new usage scenario.
+     * <p>
+     * UsageScenarios are concurrently executed behaviours of users within one UsageModel.
+     * It describes which services are directly invoked by users in one specific use case and models the possible sequences of calling them.
+     * Each UsageScenario includes a workload and a scenario behaviour.
+     * </p>
+     * <p>
+     * Usage scenarios are defined by their
+     * {@link org.palladiosimulator.generator.fluent.usagemodel.structure.components.UsageScenarioCreator#withName(String)
+     * name}
+     * </p>
+     *
+     * @param scenarioBehavior {@link org.palladiosimulator.generator.fluent.usagemodel.structure.components.ScenarioBehaviourCreator ScenarioBehaviourCreator}
+     * @param workload {@link org.palladiosimulator.generator.fluent.usagemodel.structure.components.workload.WorkloadCreator workload}
+     * @return the usage scenario in the making
+     * @see org.palladiosimulator.pcm.usagemodel.UsageScenario
+     * @see org.palladiosimulator.pcm.usagemodel.ClosedWorkload
+     * @see org.palladiosimulator.pcm.usagemodel.OpenWorkload
+     * @see org.palladiosimulator.pcm.usagemodel.ScenarioBehaviour
+     */
+    public UsageScenarioCreator newUsageScenario(ScenarioBehaviourCreator scenarioBehavior, WorkloadCreator workload) {
+        return new UsageScenarioCreator(usgModelCreator, scenarioBehavior, workload);
     }
     
     public UserDataCreator newUserData(AssemblyContext context) {
@@ -129,29 +138,17 @@ public class FluentUsageModelFactory {
         return new BranchActionCreator();
     }
     
-    @Deprecated
-    public BranchTransitionCreator newBranchTransition() {
-        return new BranchTransitionCreator();
-    }
-
     public BranchTransitionCreator newBranchTransition(ScenarioBehaviourCreator branchedBehaviour) {
         return new BranchTransitionCreator(branchedBehaviour);
     }
     
-    @Deprecated
-    public DelayActionCreator newDelayAction() {
-        return new DelayActionCreator();
-    }
     
     public DelayActionCreator newDelayAction(String timeSpecification) {
         return new DelayActionCreator(timeSpecification);
     }
     
-    @Deprecated
-    public EntryLevelSystemCallCreator newEntryLevelSystemCall() {
-        return new EntryLevelSystemCallCreator(usgModelCreator);
-    }
     
+    //TODO: testen obs zusammen passt
     public EntryLevelSystemCallCreator newEntryLevelSystemCall(OperationSignature operationSignature, OperationProvidedRole operationProvidedRole) {
         return new EntryLevelSystemCallCreator(usgModelCreator, operationSignature, operationProvidedRole);
     }
@@ -172,11 +169,6 @@ public class FluentUsageModelFactory {
                 usgModelCreator.getOperationProvidedRoleByName(operationProvidedRole));
     }
     
-    @Deprecated
-    public LoopActionCreator newLoopAction() {
-        return new LoopActionCreator();
-    }
-    
     public LoopActionCreator newLoopAction(String iteration, ScenarioBehaviourCreator bodyBehaviour) {
         return new LoopActionCreator(iteration, bodyBehaviour);
     }
@@ -194,20 +186,12 @@ public class FluentUsageModelFactory {
     public ClosedWorkloadCreator newClosedWorkload(String thinkTime) {
         return new ClosedWorkloadCreator(usgModelCreator, thinkTime);
     }
-    
-    @Deprecated
-    public ClosedWorkloadCreator newClosedWorkload() {
-        return new ClosedWorkloadCreator(usgModelCreator);
-    }
+
     
     public OpenWorkloadCreator newOpenWorkload(String interArrivalTime) {
         return new OpenWorkloadCreator(usgModelCreator, interArrivalTime);
     }
-    
-    @Deprecated
-    public OpenWorkloadCreator newOpenWorkload() {
-        return new OpenWorkloadCreator(usgModelCreator);
-    }
+
     
     // ---------------------- Shared ----------------------   
     

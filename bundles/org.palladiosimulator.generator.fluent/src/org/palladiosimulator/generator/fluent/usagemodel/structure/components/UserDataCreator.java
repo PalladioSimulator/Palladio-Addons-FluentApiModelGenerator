@@ -17,12 +17,6 @@ public class UserDataCreator extends UsageModelEntity {
     private AssemblyContext assemblyContext;
     private final List<VariableUsage> variableUsage;
 
-    @Deprecated
-    public UserDataCreator(UsageModelCreator usgModelCreator) {
-        this.usageModelCreator = usgModelCreator;
-        variableUsage = new ArrayList<>();
-    }
-    
     public UserDataCreator(UsageModelCreator usgModelCreator, AssemblyContext context) {
         this.usageModelCreator = usgModelCreator;
         variableUsage = new ArrayList<>();
@@ -35,17 +29,10 @@ public class UserDataCreator extends UsageModelEntity {
         return this;
     }
 
-    @Deprecated
-    public UserDataCreator withAssemblyContext(AssemblyContext context) {
+    private UserDataCreator withAssemblyContext(AssemblyContext context) {
         IllegalArgumentException.throwIfNull(context, "The given AssemblyContext must not be null.");
         assemblyContext = context;
         return this;
-    }
-    
-    @Deprecated
-    public UserDataCreator withAssemblyContext(String name) {
-        AssemblyContext context = usageModelCreator.getAssemblyContextByName(name);
-        return withAssemblyContext(context);
     }
 
     @Override

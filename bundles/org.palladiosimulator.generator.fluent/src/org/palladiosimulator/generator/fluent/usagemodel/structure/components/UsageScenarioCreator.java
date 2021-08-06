@@ -22,11 +22,6 @@ public class UsageScenarioCreator extends UsageModelEntity {
         addToUsageScenario(work);
     }
     
-    @Deprecated
-    public UsageScenarioCreator(UsageModelCreator usgModelCreator) {
-        usageModelCreator = usgModelCreator;
-    }
-
     private void addToUsageScenario (WorkloadCreator workload) {
          if(workload instanceof OpenWorkloadCreator) {
              OpenWorkloadCreator o = (OpenWorkloadCreator) workload;
@@ -38,20 +33,7 @@ public class UsageScenarioCreator extends UsageModelEntity {
          }
     }
     
-    @Deprecated
-    public UsageScenarioCreator addToUsageScenario(OpenWorkloadCreator workload) {
-        this.workload = workload.build();
-        return this;
-    }
-    
-    @Deprecated
-    public UsageScenarioCreator addToUsageScenario(ClosedWorkloadCreator workload) {
-        this.workload = workload.build();
-        return this;
-    }
-
-    @Deprecated
-    public UsageScenarioCreator addToUsageScenario(ScenarioBehaviourCreator scenBehave) {
+    private UsageScenarioCreator addToUsageScenario(ScenarioBehaviourCreator scenBehave) {
         IllegalArgumentException.throwIfNull(scenBehave, "The given ScenarioBehaviour must not be null");
         this.scenarioBehaviour = scenBehave.build();
         return this;
@@ -73,7 +55,7 @@ public class UsageScenarioCreator extends UsageModelEntity {
     }
 
     @Override
-    public UsageScenarioCreator withName(final String name) {
+    public UsageScenarioCreator withName(String name) {
         return (UsageScenarioCreator) super.withName(name);
     }
 

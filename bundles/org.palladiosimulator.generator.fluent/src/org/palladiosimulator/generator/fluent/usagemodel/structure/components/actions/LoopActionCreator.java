@@ -18,19 +18,14 @@ public class LoopActionCreator extends ActionCreator {
         addToLoopAction(bodyBehaviour);
     }
     
-    @Deprecated
-    public LoopActionCreator() {        
-    }
     
-    @Deprecated
-    public LoopActionCreator addToLoopAction(ScenarioBehaviourCreator bodyBehaviour) {
+    private LoopActionCreator addToLoopAction(ScenarioBehaviourCreator bodyBehaviour) {
         IllegalArgumentException.throwIfNull(bodyBehaviour, "The given body Behavoiur must not be null");
         this.bodyBehav = bodyBehaviour.build();
         return this;
     } 
     
-    @Deprecated
-    public LoopActionCreator addToLoopAction(String iteration) {
+    private LoopActionCreator addToLoopAction(String iteration) {
         IllegalArgumentException.throwIfNull(iteration, "The given Iteration must not be null");
         this.iteration = CoreFactory.eINSTANCE.createPCMRandomVariable();
         this.iteration.setSpecification(iteration);
@@ -58,12 +53,6 @@ public class LoopActionCreator extends ActionCreator {
             loop.setSuccessor(successor);
         }
         return loop;
-    }
-
-    @Override
-    @Deprecated
-    public LoopActionCreator withPredecessor(ActionCreator action) {
-        return (LoopActionCreator) super.withPredecessor(action);
     }
 
     @Override
