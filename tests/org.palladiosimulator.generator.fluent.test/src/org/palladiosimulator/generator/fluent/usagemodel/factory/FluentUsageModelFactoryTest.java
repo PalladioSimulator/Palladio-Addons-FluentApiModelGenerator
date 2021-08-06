@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.junit.Test;
 import org.palladiosimulator.generator.fluent.repository.factory.FluentRepositoryFactory;
+import org.palladiosimulator.generator.fluent.shared.util.ModelLoader;
 import org.palladiosimulator.generator.fluent.shared.util.ModelSaver;
 import org.palladiosimulator.generator.fluent.system.factory.FluentSystemFactory;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
@@ -171,7 +172,9 @@ public class FluentUsageModelFactoryTest {
        createSystemforTest(systemPath,"AssemblyContext", provRoleName);
        createRepositoryforTest("Repository",operSigName,provRoleName);
         
-        UsageModel usgModel = create.setSystem("./"+systemPath+".system").setRepository("./"+"Repository"+".repository").newUsageModel().addToUsageModel(create.newUsageScenario(
+        UsageModel usgModel = create.setSystem(ModelLoader.loadSystem("./"+systemPath+".system"))
+                .setRepository(ModelLoader.loadRepository("./"+"Repository"+".repository") )
+                .newUsageModel().addToUsageModel(create.newUsageScenario(
                         create.newScenarioBehavior()  
                         .addActions(create.newStartAction()
                                 .withSuccessor(create.newDelayAction("10")
@@ -311,8 +314,9 @@ public class FluentUsageModelFactoryTest {
         createSystemforTest("System","AssemblyContext", provRoleName);
         
         setUp();
-        
-        UsageModel usgModel = create.setSystem("./System.system").setRepository("./"+repositoryName+".repository").newUsageModel().addToUsageModel(
+        UsageModel usgModel = create.setSystem(ModelLoader.loadSystem("./System.system"))
+                .setRepository(ModelLoader.loadRepository("./"+repositoryName+".repository") )
+                .newUsageModel().addToUsageModel(
                 create.newUsageScenario(
                         create.newScenarioBehavior().addActions(
                                 create.newEntryLevelSystemCall(operSigName, provRoleName)
@@ -354,8 +358,8 @@ public class FluentUsageModelFactoryTest {
        createSystemforTest(systemPath, assConName, "Test");
         
         setUp();
-    
-        UsageModel usgModel = create.setSystem("./"+systemPath+".system").newUsageModel().addToUsageModel(
+        
+        UsageModel usgModel = create.setSystem(ModelLoader.loadSystem("./"+systemPath+".system")).newUsageModel().addToUsageModel(
                 create.newUserData(assConName))
                 .createUsageModelNow();
                 
@@ -375,7 +379,7 @@ public class FluentUsageModelFactoryTest {
         //Usage Model
         setUp(); 
         
-        UsageModel usgModel = create.setSystem("./"+systemPath+".system").newUsageModel().addToUsageModel(
+        UsageModel usgModel = create.setSystem(ModelLoader.loadSystem("./"+systemPath+".system")).newUsageModel().addToUsageModel(
                 create.newUserData(assConName).addToUserData(create.newVariableUsage()))
                 .createUsageModelNow();
 
@@ -396,7 +400,7 @@ public class FluentUsageModelFactoryTest {
         //Usage Model
         setUp(); 
         
-        UsageModel usgModel = create.setSystem("./"+systemPath+".system").newUsageModel().addToUsageModel(
+        UsageModel usgModel = create.setSystem(ModelLoader.loadSystem("./"+systemPath+".system")).newUsageModel().addToUsageModel(
                 create.newUserData(assConName))
                 .createUsageModelNow();
         

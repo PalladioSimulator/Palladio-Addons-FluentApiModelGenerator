@@ -61,13 +61,12 @@ public class FluentUsageModelFactory {
         system = null;
     }
     
-    //TODO nötig?? besprechen    
-    public FluentUsageModelFactory setSystem(String uri) {
-        system = ModelLoader.loadSystem(uri); 
+    public FluentUsageModelFactory setSystem(System system) {
+        this.system = system;
         return this;
     }
-    public FluentUsageModelFactory setRepository(String uri) {
-        repository = ModelLoader.loadRepository(uri); 
+    public FluentUsageModelFactory setRepository(Repository repository) {
+        this.repository = repository;
         return this;
     }
 
