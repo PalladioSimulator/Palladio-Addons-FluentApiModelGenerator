@@ -63,7 +63,7 @@ public class ModelLoader {
      * @see org.palladiosimulator.pcm.system.System
      */
     public static System loadSystem(final String uri) {
-        return (System) load(uri,"system");//"org.palladiosimulator.generator.fluent.system" //"system"
+        return (System) load(uri,"system");
     }
 
     /**

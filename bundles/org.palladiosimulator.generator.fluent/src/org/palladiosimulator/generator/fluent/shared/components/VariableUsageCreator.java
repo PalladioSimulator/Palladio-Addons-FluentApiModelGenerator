@@ -6,10 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.palladiosimulator.generator.fluent.exceptions.IllegalArgumentException;
-import org.palladiosimulator.generator.fluent.repository.structure.RepositoryCreator;
-import org.palladiosimulator.generator.fluent.repository.structure.RepositoryEntity;
 import org.palladiosimulator.generator.fluent.shared.structure.Entity;
-import org.palladiosimulator.generator.fluent.usagemodel.structure.UsageModelCreator;
 import org.palladiosimulator.pcm.core.CoreFactory;
 import org.palladiosimulator.pcm.core.PCMRandomVariable;
 import org.palladiosimulator.pcm.parameter.ParameterFactory;
@@ -41,7 +38,7 @@ public class VariableUsageCreator extends Entity {
         variableCharacterisations = new ArrayList<>();
     }
     
-    public VariableUsageCreator(String reference,String... innerReferences) {
+    public VariableUsageCreator(String reference, String... innerReferences) {
         variableCharacterisations = new ArrayList<>();
         withNamespaceReference(reference,innerReferences);
     }

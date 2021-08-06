@@ -99,6 +99,16 @@ public class ModelSaver {
         save(allocation, path, "org.palladiosimulator.generator.fluent.allocation", printToConsole);
     }
     
+    /**
+     * Saves a UsageModel to the specified location.
+     *
+     * @param usageModel
+     * @param path                the path to the target file including the name
+     *                            without the file extension
+     * @param printToConsole      prints the xml representation of the model to the
+     *                            console if set to true
+     * @see org.palladiosimulator.pcm.usagemodel.UsageModel
+     */
     public static void saveUsageModel(final UsageModel usgModel, final String path, final boolean printToConsole) {
         save(usgModel, path, "usagemodel", printToConsole);
     }
