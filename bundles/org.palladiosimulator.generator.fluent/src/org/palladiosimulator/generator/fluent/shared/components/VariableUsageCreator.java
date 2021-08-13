@@ -140,6 +140,7 @@ public class VariableUsageCreator extends Entity {
      * @return the variable usage in the making
      * @see de.uka.ipd.sdq.stoex.AbstractNamedReference
      */
+    /* TODO: usage and checking that inner References are valid*/
     public VariableUsageCreator withNamespaceReference(final String reference, final String... innerReferences) {
         IllegalArgumentException.throwIfNull(reference, "reference must not be null");
         if ((innerReferences != null) && (innerReferences.length > 0)) {

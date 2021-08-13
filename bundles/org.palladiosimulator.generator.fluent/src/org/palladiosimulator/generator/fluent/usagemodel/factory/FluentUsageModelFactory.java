@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.palladiosimulator.generator.fluent.exceptions.IllegalArgumentException;
+import org.palladiosimulator.generator.fluent.exceptions.NoSuchElementException;
 import org.palladiosimulator.generator.fluent.shared.components.VariableUsageCreator;
 import org.palladiosimulator.generator.fluent.shared.validate.IModelValidator;
 import org.palladiosimulator.generator.fluent.shared.validate.ModelValidator;
@@ -28,6 +29,7 @@ import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.parameter.VariableCharacterisationType;
 import org.palladiosimulator.pcm.repository.OperationProvidedRole;
 import org.palladiosimulator.pcm.repository.OperationSignature;
+import org.palladiosimulator.pcm.repository.ProvidedRole;
 import org.palladiosimulator.pcm.system.System;
 
 /**
@@ -85,7 +87,7 @@ public class FluentUsageModelFactory {
         final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
         logger.setLevel(Level.ALL);
         final IModelValidator validator = new ModelValidator(logger);
-        usgModelCreator = new UsageModelCreator(system, validator);
+        usgModelCreator = new UsageModelCreator(validator);
         return usgModelCreator;
     }
 
@@ -150,13 +152,6 @@ public class FluentUsageModelFactory {
      * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
      */
     public UserDataCreator newUserData(AssemblyContext context) {
-        return new UserDataCreator(usgModelCreator, context);
-    }
-
-    @Deprecated
-    // TODO: dafür fetchOfAssemblyContext hier, raus aus UserDataCreator
-    public UserDataCreator newUserData(String assemblyContext) {
-        AssemblyContext context = usgModelCreator.getAssemblyContextByName(assemblyContext);
         return new UserDataCreator(usgModelCreator, context);
     }
 
@@ -346,49 +341,6 @@ public class FluentUsageModelFactory {
         return new EntryLevelSystemCallCreator(operationSignature, operationProvidedRole);
     }
 
-    /*
-     * public EntryLevelSystemCallCreator
-     * newEntryLevelSystemCall(OperationProvidedRole operationProvidedRole, String
-     * operationSignature) { String name = operationSignature; OperationProvidedRole
-     * role = operationProvidedRole;
-     * 
-     * OperationSignature sig = role.getProvidedInterface__OperationProvidedRole().
-     * getSignatures__OperationInterface() .stream().filter(x ->
-     * x.getEntityName().equals(name)).findFirst() .orElseThrow(() -> new
-     * IllegalArgumentException("No OperationSignature with name " + name +
-     * " for OperationProvidedRole " + operationProvidedRole.getEntityName() +
-     * " found."));
-     * 
-     * return new EntryLevelSystemCallCreator(sig, role); } public
-     * EntryLevelSystemCallCreator newEntryLevelSystemCall(String
-     * operationProvidedRole, OperationSignature operationSignature) {
-     * OperationProvidedRole role =
-     * usgModelCreator.getOperationProvidedRoleByName(operationProvidedRole);
-     * 
-     * if (!role.getProvidedInterface__OperationProvidedRole().
-     * getSignatures__OperationInterface() .contains(operationSignature)) { new
-     * IllegalArgumentException("No OperationSignature with name " +
-     * operationSignature.getEntityName() + " for OperationProvidedRole " +
-     * operationProvidedRole + " exits."); }
-     * 
-     * return new EntryLevelSystemCallCreator(operationSignature, role); }
-     */
-
-    @Deprecated
-    // TODO: wie bei AssemblyContext
-    public EntryLevelSystemCallCreator newEntryLevelSystemCall(String operationProvidedRole,
-            String operationSignature) {
-        String name = operationSignature;
-
-        OperationProvidedRole role = usgModelCreator.getOperationProvidedRoleByName(operationProvidedRole);
-        OperationSignature sig = role.getProvidedInterface__OperationProvidedRole().getSignatures__OperationInterface()
-                .stream().filter(x -> x.getEntityName().equals(name)).findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("No OperationSignature with name " + name
-                        + " for OperationProvidedRole " + operationProvidedRole + " found."));
-
-        return newEntryLevelSystemCall(role, sig);
-    }
-
     /**
      * Creates a new loop action.
      * <p>
@@ -561,9 +513,9 @@ public class FluentUsageModelFactory {
      * VariableCharacterisation and also refer to the name of the characterised
      * variable in its namedReference association. Note that it was an explicit
      * design decision to refer to variable names instead of the actual variables
-     * (i.e., by refering to Parameter class). It eased the writing of
+     * (i.e., by referring to Parameter class). It eased the writing of
      * transformations (DSolver as well as SimuCom) but put some complexity in the
-     * frontend for entering the variable usages.
+     * front end for entering the variable usages.
      * </p>
      * <p>
      * Variable Usage offers the characteristics
@@ -584,4 +536,45 @@ public class FluentUsageModelFactory {
         return new VariableUsageCreator(variableReference);
     }
 
+    // ---------------------- Fetch Methods ----------------------
+    
+    public AssemblyContext fetchOffAssemblyContextByName(String name) throws NoSuchElementException {
+        IllegalArgumentException.throwIfNull(system,
+                "The referred System was not set correctly in FluentUsageModelFactory");
+        return system.getAssemblyContexts__ComposedStructure().stream().filter(x -> x.getEntityName().equals(name))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("No AssemblyContext with name " + name + " found."));
+    }
+    
+
+    public OperationProvidedRole fetchOffOperationProvidedRoleByName(String name) {
+        IllegalArgumentException.throwIfNull(system,
+                "The referred System was not set correctly in FluentUsageModelFactory");
+
+        OperationProvidedRole role = null;
+
+        ProvidedRole r = system.getProvidedRoles_InterfaceProvidingEntity().stream()
+                .filter(x -> x.getEntityName().equals(name)).findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("No ProvidedRole with name " + name + " found."));
+
+        if (r instanceof OperationProvidedRole) {
+            role = (OperationProvidedRole) r;
+        }
+
+        IllegalArgumentException.throwIfNull(role, "No OperationProvidedRole with name " + name + " found.");
+        return role;
+    }
+    
+    public OperationSignature fetchOffOperationSignatureByName(String operationProvidedRole,
+            String operationSignature) {
+        String name = operationSignature;
+
+        OperationProvidedRole role = fetchOffOperationProvidedRoleByName(operationProvidedRole);
+        OperationSignature sig = role.getProvidedInterface__OperationProvidedRole().getSignatures__OperationInterface()
+                .stream().filter(x -> x.getEntityName().equals(name)).findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("No OperationSignature with name " + name
+                        + " for OperationProvidedRole " + operationProvidedRole + " found."));
+
+        return sig;
+    }
 }

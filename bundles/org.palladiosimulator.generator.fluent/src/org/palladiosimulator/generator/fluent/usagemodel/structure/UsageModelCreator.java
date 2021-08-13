@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.palladiosimulator.generator.fluent.exceptions.IllegalArgumentException;
-import org.palladiosimulator.generator.fluent.exceptions.NoSuchElementException;
 import org.palladiosimulator.generator.fluent.shared.validate.IModelValidator;
 import org.palladiosimulator.generator.fluent.usagemodel.api.IUsageModel;
 import org.palladiosimulator.generator.fluent.usagemodel.api.IUsageModelAddition;
@@ -13,9 +12,6 @@ import org.palladiosimulator.generator.fluent.usagemodel.structure.components.Us
 import org.palladiosimulator.generator.fluent.usagemodel.structure.components.UserDataCreator;
 import org.palladiosimulator.generator.fluent.usagemodel.structure.components.workload.WorkloadCreator;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
-import org.palladiosimulator.pcm.repository.OperationProvidedRole;
-import org.palladiosimulator.pcm.repository.ProvidedRole;
-import org.palladiosimulator.pcm.system.System;
 import org.palladiosimulator.pcm.usagemodel.UsageModel;
 import org.palladiosimulator.pcm.usagemodel.UsageScenario;
 import org.palladiosimulator.pcm.usagemodel.UsagemodelFactory;
@@ -32,14 +28,12 @@ import org.palladiosimulator.pcm.usagemodel.UserData;
  */
 public class UsageModelCreator extends UsageModelEntity implements IUsageModel, IUsageModelAddition {
     private final IModelValidator validator;
-    private final System system;
 
     private final List<UsageScenario> usageScenarios;
     private final List<UserData> userDatas;
 
-    public UsageModelCreator(System system, IModelValidator validator) {
+    public UsageModelCreator(IModelValidator validator) {
         this.validator = validator;
-        this.system = system;
 
         this.usageScenarios = new ArrayList<>();
         this.userDatas = new ArrayList<>();
@@ -120,34 +114,6 @@ public class UsageModelCreator extends UsageModelEntity implements IUsageModel, 
         IllegalArgumentException.throwIfNull(usageScenario, "The given UsageScenario must not be null");
         usageScenarios.add(usageScenario.build());
         return this;
-    }
-
-    @Deprecated // TODO: move to Factory
-    public OperationProvidedRole getOperationProvidedRoleByName(String name) {
-        IllegalArgumentException.throwIfNull(system,
-                "The referred System was not set correctly in FluentUsageModelFactory");
-
-        OperationProvidedRole role = null;
-
-        ProvidedRole r = system.getProvidedRoles_InterfaceProvidingEntity().stream()
-                .filter(x -> x.getEntityName().equals(name)).findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("No ProvidedRole with name " + name + " found."));
-
-        if (r instanceof OperationProvidedRole) {
-            role = (OperationProvidedRole) r;
-        }
-
-        IllegalArgumentException.throwIfNull(role, "No OperationProvidedRole with name " + name + " found.");
-        return role;
-    }
-
-    @Deprecated // TODO: move to Factory
-    public AssemblyContext getAssemblyContextByName(String name) throws NoSuchElementException {
-        IllegalArgumentException.throwIfNull(system,
-                "The referred System was not set correctly in FluentUsageModelFactory");
-        return system.getAssemblyContexts__ComposedStructure().stream().filter(x -> x.getEntityName().equals(name))
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("No AssemblyContext with name " + name + " found."));
     }
 
 }

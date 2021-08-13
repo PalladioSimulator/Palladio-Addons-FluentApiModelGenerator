@@ -165,20 +165,28 @@ public class FluentUsageModelFactoryTest {
                                 create.newStartAction().withName("startUsage").withSuccessor(
                                 create.newBranchAction().withName("isRegistered")
                                     .addToBranchAction(create.newBranchTransition(create.newScenarioBehavior().addToScenarioBehaviour(
-                                            create.newEntryLevelSystemCall("Provided_IWebGui","register").withName("register"))
+                                            create.newEntryLevelSystemCall(create.fetchOffOperationProvidedRoleByName("Provided_IWebGui"),create.fetchOffOperationSignatureByName("Provided_IWebGui", "register")).withName("register"))
                                             .withName("needsToRegister")).withProbability(0.6))
                                     .addToBranchAction(create.newBranchTransition(create.newScenarioBehavior().withName("isAlreadyRegistered")
                                             ).withProbability(0.4)).withSuccessor(                                
-                                create.newEntryLevelSystemCall("Provided_IWebGui", "login").withName("login").withSuccessor(
+                                create.newEntryLevelSystemCall(
+                                        create.fetchOffOperationProvidedRoleByName("Provided_IWebGui"),create.fetchOffOperationSignatureByName("Provided_IWebGui","login"))
+                                        .withName("login").withSuccessor(
                                 create.newDelayAction("GammaMoments(3000,0.3)").withName("userDelayAfterLogin").withSuccessor(
-                                create.newEntryLevelSystemCall("Provided_IWebGui", "getFileList").withName("getFileList").withSuccessor(
+                                create.newEntryLevelSystemCall(
+                                        create.fetchOffOperationProvidedRoleByName("Provided_IWebGui"),create.fetchOffOperationSignatureByName("Provided_IWebGui","getFileList"))
+                                        .withName("getFileList").withSuccessor(
                                 create.newDelayAction("GammaMoments(6000,0.3)").withName("userDelayAfterGetFileList").withSuccessor(
                                 create.newBranchAction().withName("downloadOrUpload")
                                     .addToBranchAction(create.newBranchTransition(create.newScenarioBehavior().withName("downloadCase")
-                                            .addToScenarioBehaviour(create.newEntryLevelSystemCall("Provided_IWebGui", "download").withName("download")
+                                            .addToScenarioBehaviour(create.newEntryLevelSystemCall(
+                                                    create.fetchOffOperationProvidedRoleByName("Provided_IWebGui"),create.fetchOffOperationSignatureByName("Provided_IWebGui","download"))
+                                                    .withName("download")
                                                     /*TODO:VariableUsage*/)).withProbability(0.8))
                                     .addToBranchAction(create.newBranchTransition(create.newScenarioBehavior().withName("uploadCase")
-                                            .addToScenarioBehaviour(create.newEntryLevelSystemCall("Provided_IWebGui", "upload").withName("upload")/*TODO:VariableUsage*/
+                                            .addToScenarioBehaviour(create.newEntryLevelSystemCall(
+                                                    create.fetchOffOperationProvidedRoleByName("Provided_IWebGui"),create.fetchOffOperationSignatureByName("Provided_IWebGui","upload"))
+                                                    .withName("upload")/*TODO:VariableUsage*/
                                                     )).withProbability(0.2)).withSuccessor(
                                 create.newStopAction().withName("stopUsage"))))))))),
                         
@@ -281,7 +289,7 @@ public class FluentUsageModelFactoryTest {
                         .addToScenarioBehaviour(create.newStartAction()
                                 .withSuccessor(create.newDelayAction("10")
                                 .withSuccessor(create.newBranchAction()
-                                .withSuccessor(create.newEntryLevelSystemCall(provRoleName, operSigName)
+                                .withSuccessor(create.newEntryLevelSystemCall(create.fetchOffOperationProvidedRoleByName(provRoleName), create.fetchOffOperationSignatureByName(provRoleName, operSigName))
                                 .withSuccessor(create.newLoopAction("1", create.newScenarioBehavior())
                                 .withSuccessor(create.newStopAction())))
     ))),create.newOpenWorkload("0")))
@@ -416,7 +424,7 @@ public class FluentUsageModelFactoryTest {
                 .newUsageModel().addToUsageModel(
                 create.newUsageScenario(
                         create.newScenarioBehavior().addToScenarioBehaviour(
-                                create.newEntryLevelSystemCall(provRoleName, operSigName)
+                                create.newEntryLevelSystemCall(create.fetchOffOperationProvidedRoleByName(provRoleName), create.fetchOffOperationSignatureByName(provRoleName, operSigName))
                                     .withName(name)
                                     .addToEntryLevelSystemCallInput(create.newVariableUsage("TestReferenz"))
                                     .addToEntryLevelSystemCallOutput(create.newVariableUsage("TestReferenz"))
@@ -453,7 +461,7 @@ public class FluentUsageModelFactoryTest {
         setUp();
         
         UsageModel usgModel = create.setSystem(createSimplifiedMediaStoreSystem()).newUsageModel().addToUsageModel(
-                create.newUserData(assConName))
+                create.newUserData(create.fetchOffAssemblyContextByName(assConName)))
                 .createUsageModelNow();
                 
          printXML(usgModel, "UsgModUserDataBasic");   
@@ -469,7 +477,7 @@ public class FluentUsageModelFactoryTest {
         setUp(); 
         
         UsageModel usgModel = create.setSystem(createSimplifiedMediaStoreSystem()).newUsageModel().addToUsageModel(
-                create.newUserData(assConName).addToUserData(create.newVariableUsage("TestReferenz")))
+                create.newUserData(create.fetchOffAssemblyContextByName(assConName)).addToUserData(create.newVariableUsage("TestReferenz")))
                 .createUsageModelNow();
 
         printXML(usgModel, "UsgModUserDataVarUsage"); 
@@ -485,7 +493,7 @@ public class FluentUsageModelFactoryTest {
         setUp(); 
         
         UsageModel usgModel = create.setSystem(createSimplifiedMediaStoreSystem()).newUsageModel().addToUsageModel(
-                create.newUserData(assConName))
+                create.newUserData(create.fetchOffAssemblyContextByName(assConName)))
                 .createUsageModelNow();
         
          printXML(usgModel, "UsgModUserDataAssembly"); 
