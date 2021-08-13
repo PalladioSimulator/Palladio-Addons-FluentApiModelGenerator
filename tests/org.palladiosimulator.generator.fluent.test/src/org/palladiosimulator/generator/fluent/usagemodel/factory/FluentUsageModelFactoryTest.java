@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.junit.Test;
 import org.palladiosimulator.generator.fluent.repository.factory.FluentRepositoryFactory;
+import org.palladiosimulator.generator.fluent.repository.structure.internals.Primitive;
 import org.palladiosimulator.generator.fluent.shared.util.ModelSaver;
 import org.palladiosimulator.generator.fluent.system.factory.FluentSystemFactory;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
@@ -136,19 +137,25 @@ public class FluentUsageModelFactoryTest {
         FluentRepositoryFactory repoFac = new FluentRepositoryFactory();
         
         Repository repo = repoFac.newRepository().withName("defaultRepository")
+                .addToRepository(repoFac.newCompositeDataType().withName("FileContent"))
+                .addToRepository(repoFac.newCompositeDataType().withName("AudioCollectionRequest")
+                        .withInnerDeclaration("Count", Primitive.INTEGER)
+                        .withInnerDeclaration("Size", Primitive.INTEGER))
                 .addToRepository(repoFac.newOperationInterface().withName("IFacade")
-                        .withOperationSignature(repoFac.newOperationSignature().withName("upload")/*withParameter File*/)
+                        .withOperationSignature(repoFac.newOperationSignature().withName("upload")
+                                .withParameter("file", repoFac.fetchOfDataType("FileContent"), null))
                         .withOperationSignature(repoFac.newOperationSignature().withName("getFileList"))
                         .withOperationSignature(repoFac.newOperationSignature().withName("register"))
                         .withOperationSignature(repoFac.newOperationSignature().withName("login"))
-                        .withOperationSignature(repoFac.newOperationSignature().withName("download")/*withParameter audioRequest*/))
+                        .withOperationSignature(repoFac.newOperationSignature().withName("download")
+                                .withParameter("audioRequest", repoFac.fetchOfDataType("AudioCollectionRequest"), null)))
                 .createRepositoryNow();
         
         System system = sysFac.newSystem().withName("defaultSystem")
                 .addRepository(repo)                
                 .addToSystem(sysFac.newOperationProvidedRole().withName("Provided_IWebGui").withProvidedInterface("IFacade"))                
                 .createSystemNow();
-        
+
         ModelSaver.saveRepository(repo, "realisticMediaStore", false);
         ModelSaver.saveSystem(system, "realisticMediaStore", false);
         return system;
@@ -182,11 +189,13 @@ public class FluentUsageModelFactoryTest {
                                             .addToScenarioBehaviour(create.newEntryLevelSystemCall(
                                                     create.fetchOffOperationProvidedRoleByName("Provided_IWebGui"),create.fetchOffOperationSignatureByName("Provided_IWebGui","download"))
                                                     .withName("download")
-                                                    /*TODO:VariableUsage*/)).withProbability(0.8))
+                                                    .addToEntryLevelSystemCallInput(create.newVariableUsage("audioRequest", "Size").withVariableCharacterisation("IntPMF[(38303999;0.16666667)(38304000;0.16666667)(40568000;0.16666667)(41544000;0.16666667)(48280000;0.16666666)(65000000;0.16666667)(88216000;0.16666666)]", org.palladiosimulator.pcm.parameter.VariableCharacterisationType.BYTESIZE))
+                                                    .addToEntryLevelSystemCallInput(create.newVariableUsage("audioRequest", "Count").withVariableCharacterisation("2", org.palladiosimulator.pcm.parameter.VariableCharacterisationType.VALUE))
+                                                    )).withProbability(0.8))
                                     .addToBranchAction(create.newBranchTransition(create.newScenarioBehavior().withName("uploadCase")
                                             .addToScenarioBehaviour(create.newEntryLevelSystemCall(
                                                     create.fetchOffOperationProvidedRoleByName("Provided_IWebGui"),create.fetchOffOperationSignatureByName("Provided_IWebGui","upload"))
-                                                    .withName("upload")/*TODO:VariableUsage*/
+                                                    .withName("upload").addToEntryLevelSystemCallInput(create.newVariableUsage("file").withVariableCharacterisation("IntPMF[(38303999;0.16666667)(38304000;0.16666667)(40568000;0.16666667)(41544000;0.16666667)(48280000;0.16666666)(65000000;0.16666667)(88216000;0.16666666)]", org.palladiosimulator.pcm.parameter.VariableCharacterisationType.BYTESIZE))
                                                     )).withProbability(0.2)).withSuccessor(
                                 create.newStopAction().withName("stopUsage"))))))))),
                         
