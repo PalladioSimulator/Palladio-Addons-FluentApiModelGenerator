@@ -4,6 +4,16 @@ import org.palladiosimulator.pcm.usagemodel.AbstractUserAction;
 import org.palladiosimulator.pcm.usagemodel.Stop;
 import org.palladiosimulator.pcm.usagemodel.UsagemodelFactory;
 
+/**
+ * This class constructs a
+ * {@link org.palladiosimulator.pcm.usagemodel.Stop Stop}. It is used to create the '<em><b>Stop</b></em>'
+ * object step-by-step, i.e. '<em><b>StopActionCreator</b></em>' objects
+ * are of intermediate state.
+ *
+ * @author Eva-Maria Neumann
+ * @see org.palladiosimulator.pcm.usagemodel.Stop
+ * @see org.palladiosimulator.pcm.usagemodel.AbstractUserAction
+ */
 public class StopActionCreator extends ActionCreator {
 
     @Override

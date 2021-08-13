@@ -12,6 +12,15 @@ import org.palladiosimulator.pcm.parameter.VariableUsage;
 import org.palladiosimulator.pcm.usagemodel.UsagemodelFactory;
 import org.palladiosimulator.pcm.usagemodel.UserData;
 
+/**
+ * This class constructs a {@link org.palladiosimulator.pcm.usagemodel.UserData
+ * User Data}. It is used to create the '<em><b>User Data</b></em>' object
+ * step-by-step, i.e. '<em><b>UserDataCreator</b></em>' objects are of
+ * intermediate state.
+ *
+ * @author Eva-Maria Neumann
+ * @see org.palladiosimulator.pcm.usagemodel.UserData
+ */
 public class UserDataCreator extends UsageModelEntity {
 
     private AssemblyContext assemblyContext;
@@ -23,6 +32,30 @@ public class UserDataCreator extends UsageModelEntity {
         withAssemblyContext(context);
     }
 
+    /**
+     * Adds an {@link org.palladiosimulator.pcm.parameter.VariableUsage Variable
+     * Usage} to the user data.
+     * <p>
+     * Variable usages are used to characterise variables like input and output
+     * variables or component parameters. They contain the specification of the
+     * variable as VariableCharacterisation and also refer to the name of the
+     * characterised variable in its namedReference association. Note that it was an
+     * explicit design decision to refer to variable names instead of the actual
+     * variables (i.e., by refering to Parameter class). It eased the writing of
+     * transformations (DSolver as well as SimuCom) but put some complexity in the
+     * frontend for entering the variable usages.
+     * </p>
+     * <p>
+     * Create a new variable usage by using the
+     * org.palladiosimulator.generator.fluent.usagemodel.factory, i.e.
+     * <code>create.newVariableUsage(String variableReference)</code> or
+     * <code>create.newVariableUsage(String namespaceReference, String... innerReferences)</code>
+     * </p>
+     *
+     * @param variable usage in the making
+     * @return the user data in the making
+     * @see org.palladiosimulator.pcm.parameter.VariableUsage
+     */
     public UserDataCreator addToUserData(VariableUsageCreator var) {
         IllegalArgumentException.throwIfNull(var, "The given Variable must not be null");
         variableUsage.add(var.build());

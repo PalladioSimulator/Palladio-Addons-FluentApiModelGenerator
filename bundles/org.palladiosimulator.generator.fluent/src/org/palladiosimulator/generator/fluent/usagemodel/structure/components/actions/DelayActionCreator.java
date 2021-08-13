@@ -6,6 +6,16 @@ import org.palladiosimulator.pcm.core.PCMRandomVariable;
 import org.palladiosimulator.pcm.usagemodel.Delay;
 import org.palladiosimulator.pcm.usagemodel.UsagemodelFactory;
 
+/**
+ * This class constructs a
+ * {@link org.palladiosimulator.pcm.usagemodel.Delay Delay}. It is used to create the '<em><b>Delay</b></em>'
+ * object step-by-step, i.e. '<em><b>DelayActionCreator</b></em>' objects
+ * are of intermediate state.
+ *
+ * @author Eva-Maria Neumann
+ * @see org.palladiosimulator.pcm.usagemodel.Delay
+ * @see org.palladiosimulator.pcm.usagemodel.AbstractUserAction
+ */
 public class DelayActionCreator extends ActionCreator {
 
     private PCMRandomVariable time;

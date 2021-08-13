@@ -11,6 +11,15 @@ import org.palladiosimulator.pcm.usagemodel.UsageScenario;
 import org.palladiosimulator.pcm.usagemodel.UsagemodelFactory;
 import org.palladiosimulator.pcm.usagemodel.Workload;
 
+/**
+ * This class constructs a
+ * {@link org.palladiosimulator.pcm.usagemodel.UsageScenario Usage Scenario}. It is
+ * used to create the '<em><b>Usage Scenario</b></em>' object step-by-step, i.e.
+ * '<em><b>UsageScenarioCreator</b></em>' objects are of intermediate state.
+ *
+ * @author Eva-Maria Neumann
+ * @see org.palladiosimulator.pcm.usagemodel.UsageScenario
+ */
 public class UsageScenarioCreator extends UsageModelEntity {
 
     private ScenarioBehaviour scenarioBehaviour;

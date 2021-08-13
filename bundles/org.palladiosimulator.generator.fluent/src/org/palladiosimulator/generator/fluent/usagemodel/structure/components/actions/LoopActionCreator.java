@@ -8,6 +8,16 @@ import org.palladiosimulator.pcm.usagemodel.Loop;
 import org.palladiosimulator.pcm.usagemodel.ScenarioBehaviour;
 import org.palladiosimulator.pcm.usagemodel.UsagemodelFactory;
 
+/**
+ * This class constructs a
+ * {@link org.palladiosimulator.pcm.usagemodel.Loop Loop}. It is used to create the '<em><b>Loop</b></em>'
+ * object step-by-step, i.e. '<em><b>LoopActionCreator</b></em>' objects
+ * are of intermediate state.
+ *
+ * @author Eva-Maria Neumann
+ * @see org.palladiosimulator.pcm.usagemodel.Loop
+ * @see org.palladiosimulator.pcm.usagemodel.AbstractUserAction
+ */
 public class LoopActionCreator extends ActionCreator {
 
     private PCMRandomVariable iteration;

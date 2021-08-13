@@ -161,10 +161,10 @@ public class FluentUsageModelFactoryTest {
         UsageModel usgModel = create.setSystem(mediaStoreMockUp()).newUsageModel().addToUsageModel(
                 create.newUsageScenario(
                         create.newScenarioBehavior().withName("RealisticUsageScenarioBehaviour")
-                        .addActions(
+                        .addToScenarioBehaviour(
                                 create.newStartAction().withName("startUsage").withSuccessor(
                                 create.newBranchAction().withName("isRegistered")
-                                    .addToBranchAction(create.newBranchTransition(create.newScenarioBehavior().addActions(
+                                    .addToBranchAction(create.newBranchTransition(create.newScenarioBehavior().addToScenarioBehaviour(
                                             create.newEntryLevelSystemCall("Provided_IWebGui","register").withName("register"))
                                             .withName("needsToRegister")).withProbability(0.6))
                                     .addToBranchAction(create.newBranchTransition(create.newScenarioBehavior().withName("isAlreadyRegistered")
@@ -175,10 +175,10 @@ public class FluentUsageModelFactoryTest {
                                 create.newDelayAction("GammaMoments(6000,0.3)").withName("userDelayAfterGetFileList").withSuccessor(
                                 create.newBranchAction().withName("downloadOrUpload")
                                     .addToBranchAction(create.newBranchTransition(create.newScenarioBehavior().withName("downloadCase")
-                                            .addActions(create.newEntryLevelSystemCall("Provided_IWebGui", "download").withName("download")
+                                            .addToScenarioBehaviour(create.newEntryLevelSystemCall("Provided_IWebGui", "download").withName("download")
                                                     /*TODO:VariableUsage*/)).withProbability(0.8))
                                     .addToBranchAction(create.newBranchTransition(create.newScenarioBehavior().withName("uploadCase")
-                                            .addActions(create.newEntryLevelSystemCall("Provided_IWebGui", "upload").withName("upload")/*TODO:VariableUsage*/
+                                            .addToScenarioBehaviour(create.newEntryLevelSystemCall("Provided_IWebGui", "upload").withName("upload")/*TODO:VariableUsage*/
                                                     )).withProbability(0.2)).withSuccessor(
                                 create.newStopAction().withName("stopUsage"))))))))),
                         
@@ -278,7 +278,7 @@ public class FluentUsageModelFactoryTest {
         UsageModel usgModel = create.setSystem(createSimplifiedMediaStoreSystem())
                 .newUsageModel().addToUsageModel(create.newUsageScenario(
                         create.newScenarioBehavior()  
-                        .addActions(create.newStartAction()
+                        .addToScenarioBehaviour(create.newStartAction()
                                 .withSuccessor(create.newDelayAction("10")
                                 .withSuccessor(create.newBranchAction()
                                 .withSuccessor(create.newEntryLevelSystemCall(provRoleName, operSigName)
@@ -300,7 +300,7 @@ public class FluentUsageModelFactoryTest {
         setUp();
         
         UsageModel usgModel = create.newUsageModel().addToUsageModel(create.newUsageScenario(
-                create.newScenarioBehavior().addActions(create.newDelayAction("1").withSuccessor(create.newDelayAction("1")))
+                create.newScenarioBehavior().addToScenarioBehaviour(create.newDelayAction("1").withSuccessor(create.newDelayAction("1")))
                 ,create.newOpenWorkload("10")))
                 .createUsageModelNow();
                 
@@ -318,7 +318,7 @@ public class FluentUsageModelFactoryTest {
         setUp();
         
         UsageModel usgModel = create.newUsageModel().addToUsageModel(create.newUsageScenario(
-                create.newScenarioBehavior().addActions(create.newDelayAction(time).withName(name))
+                create.newScenarioBehavior().addToScenarioBehaviour(create.newDelayAction(time).withName(name))
                 , create.newClosedWorkload("0")))
                 
                 .createUsageModelNow();
@@ -347,7 +347,7 @@ public class FluentUsageModelFactoryTest {
         setUp();
         
         UsageModel usgModel = create.newUsageModel().addToUsageModel(create.newUsageScenario(
-                create.newScenarioBehavior().addActions(
+                create.newScenarioBehavior().addToScenarioBehaviour(
                         create.newLoopAction(iteration, create.newScenarioBehavior().withName(scenName)).withName(name))
                 ,create.newClosedWorkload("0")))
                 .createUsageModelNow();        
@@ -379,7 +379,7 @@ public class FluentUsageModelFactoryTest {
         setUp();
         
         UsageModel usgModel = create.newUsageModel().addToUsageModel(create.newUsageScenario(
-                create.newScenarioBehavior().addActions(
+                create.newScenarioBehavior().addToScenarioBehaviour(
                         create.newBranchAction().withName(name).addToBranchAction(
                                 create.newBranchTransition(create.newScenarioBehavior().withName(scenName)).withProbability(prop)))
                 , create.newClosedWorkload("0")))
@@ -415,7 +415,7 @@ public class FluentUsageModelFactoryTest {
         UsageModel usgModel = create.setSystem(createSimplifiedMediaStoreSystem())
                 .newUsageModel().addToUsageModel(
                 create.newUsageScenario(
-                        create.newScenarioBehavior().addActions(
+                        create.newScenarioBehavior().addToScenarioBehaviour(
                                 create.newEntryLevelSystemCall(provRoleName, operSigName)
                                     .withName(name)
                                     .addToEntryLevelSystemCallInput(create.newVariableUsage("TestReferenz"))

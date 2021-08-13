@@ -181,7 +181,7 @@ public class FluentUsageModelFactory {
      * Scenario Behaviour offers the characteristics
      * {@link org.palladiosimulator.generator.fluent.usagemodel.structure.components.ScenarioBehaviourCreator#withName(String)
      * name} and
-     * {@link org.palladiosimulator.generator.fluent.usagemodel.structure.components.UsageScenarioCreator#addActions(ActionCreator)
+     * {@link org.palladiosimulator.generator.fluent.usagemodel.structure.components.UsageScenarioCreator#addToScenarioBehaviour(ActionCreator)
      * actions}. The Actions are a chain of
      * {@link org.palladiosimulator.pcm.usagemodel.AbstractUserAction actions}
      * combined with an explicit start and end.
