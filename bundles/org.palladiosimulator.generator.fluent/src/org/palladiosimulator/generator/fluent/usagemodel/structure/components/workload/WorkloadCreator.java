@@ -6,6 +6,12 @@ import org.palladiosimulator.generator.fluent.usagemodel.structure.UsageModelEnt
 import org.palladiosimulator.pcm.core.CoreFactory;
 import org.palladiosimulator.pcm.core.PCMRandomVariable;
 
+/**
+ * This class provides the general infrastructure of an workload of usage scenario in usage model.
+ * All workloads inherit from this class.
+ *
+ * @author Eva-Maria Neumann
+ */
 public abstract class WorkloadCreator extends UsageModelEntity {
 
     protected PCMRandomVariable time;

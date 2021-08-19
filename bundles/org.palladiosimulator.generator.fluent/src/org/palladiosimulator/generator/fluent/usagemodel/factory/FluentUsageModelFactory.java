@@ -5,7 +5,6 @@ import java.util.logging.Logger;
 
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.palladiosimulator.generator.fluent.exceptions.IllegalArgumentException;
-import org.palladiosimulator.generator.fluent.exceptions.NoSuchElementException;
 import org.palladiosimulator.generator.fluent.shared.components.VariableUsageCreator;
 import org.palladiosimulator.generator.fluent.shared.validate.IModelValidator;
 import org.palladiosimulator.generator.fluent.shared.validate.ModelValidator;
@@ -537,16 +536,45 @@ public class FluentUsageModelFactory {
     }
 
     // ---------------------- Fetch Methods ----------------------
-    
-    public AssemblyContext fetchOffAssemblyContextByName(String name) throws NoSuchElementException {
+
+    /**
+     * Extracts the assembly context referenced by <code>name</code> from the
+     * system.
+     * <p>
+     * This method throws a FluentApiException if no parameter is present under the
+     * given <code>name</code>. If more than one parameter with this
+     * <code>name</code> is present, the
+     * org.palladiosimulator.generator.fluent.usagemodel chooses the first parameter
+     * it finds.
+     * </p>
+     *
+     * @param name
+     * @return the assembly context
+     * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
+     */
+    public AssemblyContext fetchOffAssemblyContextByName(String name) {
         IllegalArgumentException.throwIfNull(system,
                 "The referred System was not set correctly in FluentUsageModelFactory");
         return system.getAssemblyContexts__ComposedStructure().stream().filter(x -> x.getEntityName().equals(name))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("No AssemblyContext with name " + name + " found."));
     }
-    
 
+    /**
+     * Extracts the operation provided role referenced by <code>name</code> from the
+     * system.
+     * <p>
+     * This method throws a FluentApiException if no parameter is present under the
+     * given <code>name</code>. If more than one parameter with this
+     * <code>name</code> is present, the
+     * org.palladiosimulator.generator.fluent.usagemodel chooses the first parameter
+     * it finds.
+     * </p>
+     *
+     * @param name
+     * @return the operation provided role
+     * @see org.palladiosimulator.pcm.repository.OperationProvidedRole
+     */
     public OperationProvidedRole fetchOffOperationProvidedRoleByName(String name) {
         IllegalArgumentException.throwIfNull(system,
                 "The referred System was not set correctly in FluentUsageModelFactory");
@@ -564,7 +592,27 @@ public class FluentUsageModelFactory {
         IllegalArgumentException.throwIfNull(role, "No OperationProvidedRole with name " + name + " found.");
         return role;
     }
-    
+
+    /**
+     * Extracts the operation signature referenced by
+     * <code>operationSignature</code> from the repository.
+     * <p>
+     * The <code>operationProvidedRole</code> defines where to search for the
+     * operation signature as it is dependend from it.
+     * </p>
+     * <p>
+     * This method throws a FluentApiException if no parameter is present under the
+     * given <code>name</code>. If more than one parameter with this
+     * <code>name</code> is present, the
+     * org.palladiosimulator.generator.fluent.usagemodel chooses the first parameter
+     * it finds.
+     * </p>
+     *
+     * @param operationProvidedRole
+     * @param operationSignature
+     * @return the operation signature
+     * @see org.palladiosimulator.pcm.repository.OperationSignature
+     */
     public OperationSignature fetchOffOperationSignatureByName(String operationProvidedRole,
             String operationSignature) {
         String name = operationSignature;
