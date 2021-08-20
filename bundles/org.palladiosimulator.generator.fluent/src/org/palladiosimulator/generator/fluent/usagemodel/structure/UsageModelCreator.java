@@ -83,6 +83,7 @@ public class UsageModelCreator extends UsageModelEntity implements IUsageModel, 
      * @see org.palladiosimulator.generator.fluent.usagemodel.factory.FluentUsageModelFactory#newUserData(AssemblyContext)
      * @see org.palladiosimulator.pcm.usagemodel.UserData
      */
+    @Override
     public IUsageModelAddition addToUsageModel(UserDataCreator userData) {
         IllegalArgumentException.throwIfNull(userData, "The given UserData must not be null");
         userDatas.add(userData.build());
@@ -110,6 +111,7 @@ public class UsageModelCreator extends UsageModelEntity implements IUsageModel, 
      *      WorkloadCreator)
      * @see org.palladiosimulator.pcm.usagemodel.UsageScenario
      */
+    @Override
     public IUsageModelAddition addToUsageModel(UsageScenarioCreator usageScenario) {
         IllegalArgumentException.throwIfNull(usageScenario, "The given UsageScenario must not be null");
         usageScenarios.add(usageScenario.build());

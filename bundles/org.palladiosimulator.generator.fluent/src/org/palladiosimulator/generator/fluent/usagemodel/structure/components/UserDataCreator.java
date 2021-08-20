@@ -28,7 +28,7 @@ public class UserDataCreator extends UsageModelEntity {
 
     public UserDataCreator(UsageModelCreator usgModelCreator, AssemblyContext context) {
         this.usageModelCreator = usgModelCreator;
-        variableUsage = new ArrayList<>();
+        this.variableUsage = new ArrayList<>();
         withAssemblyContext(context);
     }
 

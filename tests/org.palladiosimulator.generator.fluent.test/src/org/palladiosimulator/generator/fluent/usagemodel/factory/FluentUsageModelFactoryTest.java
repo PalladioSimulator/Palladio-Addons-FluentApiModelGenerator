@@ -10,6 +10,7 @@ import org.palladiosimulator.generator.fluent.repository.structure.internals.Pri
 import org.palladiosimulator.generator.fluent.shared.util.ModelSaver;
 import org.palladiosimulator.generator.fluent.system.factory.FluentSystemFactory;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
+import org.palladiosimulator.pcm.parameter.VariableCharacterisationType;
 import org.palladiosimulator.pcm.repository.Repository;
 import org.palladiosimulator.pcm.system.System;
 import org.palladiosimulator.pcm.usagemodel.AbstractUserAction;
@@ -190,7 +191,7 @@ public class FluentUsageModelFactoryTest {
                                                     create.fetchOffOperationProvidedRoleByName("Provided_IWebGui"),create.fetchOffOperationSignatureByName("Provided_IWebGui","download"))
                                                     .withName("download")
                                                     .addToEntryLevelSystemCallInput(create.newVariableUsage("audioRequest", "Size").withVariableCharacterisation("IntPMF[(38303999;0.16666667)(38304000;0.16666667)(40568000;0.16666667)(41544000;0.16666667)(48280000;0.16666666)(65000000;0.16666667)(88216000;0.16666666)]", org.palladiosimulator.pcm.parameter.VariableCharacterisationType.BYTESIZE))
-                                                    .addToEntryLevelSystemCallInput(create.newVariableUsage("audioRequest", "Count").withVariableCharacterisation("2", org.palladiosimulator.pcm.parameter.VariableCharacterisationType.VALUE))
+                                                    .addToEntryLevelSystemCallInput(create.newVariableUsage("audioRequest", "Count").withVariableCharacterisation("2", VariableCharacterisationType.VALUE))
                                                     )).withProbability(0.8))
                                     .addToBranchAction(create.newBranchTransition(create.newScenarioBehavior().withName("uploadCase")
                                             .addToScenarioBehaviour(create.newEntryLevelSystemCall(
