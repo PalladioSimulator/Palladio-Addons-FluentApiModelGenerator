@@ -24,6 +24,14 @@ public class UsageScenarioCreator extends UsageModelEntity {
     private ScenarioBehaviour scenarioBehaviour;
     private Workload workload; // can be Open OR Closed
 
+    /**
+     * TODO
+     * Instantiates a new usage scenario creator.
+     *
+     * @param usgModelCreator the usg model creator
+     * @param scenBehave the scen behave
+     * @param work the work
+     */
     public UsageScenarioCreator(final UsageModelCreator usgModelCreator, final ScenarioBehaviourCreator scenBehave,
             final WorkloadCreator work) {
         this.usageModelCreator = usgModelCreator;

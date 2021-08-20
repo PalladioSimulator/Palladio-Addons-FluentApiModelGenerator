@@ -20,6 +20,12 @@ public class BranchTransitionCreator extends UsageModelEntity {
     private double probability;
     private ScenarioBehaviour branchedBeh;
 
+    /**
+     * TODO
+     * Instantiates a new branch transition creator.
+     *
+     * @param branchedBehaviour the branched behaviour
+     */
     public BranchTransitionCreator(final ScenarioBehaviourCreator branchedBehaviour) {
         this.probability = 0.0; // default value
         addToBranchTransition(branchedBehaviour);
@@ -44,7 +50,7 @@ public class BranchTransitionCreator extends UsageModelEntity {
     }
 
     /**
-     * Adds an probability to the branch transition
+     * Adds an probability to the branch transition.
      *
      * @param probability
      *            of the branch

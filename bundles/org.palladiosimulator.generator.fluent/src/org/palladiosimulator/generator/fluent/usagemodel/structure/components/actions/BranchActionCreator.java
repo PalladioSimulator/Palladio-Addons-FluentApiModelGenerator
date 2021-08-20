@@ -21,9 +21,6 @@ public class BranchActionCreator extends ActionCreator {
 
     private final List<BranchTransition> transitions = new ArrayList<BranchTransition>();
 
-    public BranchActionCreator() {
-    }
-
     /**
      * Adds an {@link org.palladiosimulator.pcm.usagemodel.BranchTransition Branch Transition} to
      * the Branch.

@@ -47,7 +47,9 @@ import org.palladiosimulator.pcm.system.System;
  *
  * @author Eva-Maria Neumann
  */
+@SuppressWarnings("static-method")
 public class FluentUsageModelFactory {
+    
     private UsageModelCreator usgModelCreator;
     private final List<System> systems;
 
@@ -62,9 +64,8 @@ public class FluentUsageModelFactory {
     /**
      * Sets the System used in some objects of the usage model.
      *
+     * @param system            {@link org.palladiosimulator.pcm.system.System System}
      * @return FluentUsageModelFactory
-     * @param system
-     *            {@link org.palladiosimulator.pcm.system.System System}
      * @see org.palladiosimulator.pcm.system.System
      */
     public FluentUsageModelFactory addSystem(final System system) {
@@ -215,6 +216,7 @@ public class FluentUsageModelFactory {
      * @see org.palladiosimulator.pcm.usagemodel.Branch
      * @see org.palladiosimulator.pcm.usagemodel.BranchTransition
      */
+
     public BranchActionCreator newBranchAction() {
         return new BranchActionCreator();
     }
@@ -335,6 +337,13 @@ public class FluentUsageModelFactory {
         return new EntryLevelSystemCallCreator(operationSignature, operationProvidedRole);
     }
 
+    /**
+     * TODO
+     * New entry level system call.
+     *
+     * @param operationProvided the operation provided
+     * @return the entry level system call creator
+     */
     public EntryLevelSystemCallCreator newEntryLevelSystemCall(final OperationProvidedSignatureRole operationProvided) {
         return newEntryLevelSystemCall(operationProvided.getRole(), operationProvided.getSignature());
     }
@@ -356,12 +365,11 @@ public class FluentUsageModelFactory {
      * body behaviour}.
      * </p>
      *
-     * @param timeSpecification
-     *            String
      * @param body
      *            behaviour
      *            {@link org.palladiosimulator.generator.fluent.usagemodel.structure.components.ScenarioBehaviourCreator
      *            ScenarioBehaviourCreator}
+     * @param iteration the iteration
      * @return the delay action in the making
      * @see org.palladiosimulator.pcm.usagemodel.AbstractUserAction
      * @see org.palladiosimulator.pcm.usagemodel.Loop
@@ -542,7 +550,7 @@ public class FluentUsageModelFactory {
      * org.palladiosimulator.generator.fluent.usagemodel chooses the first parameter it finds.
      * </p>
      *
-     * @param name
+     * @param name the name
      * @return the assembly context
      * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
      */
@@ -567,7 +575,7 @@ public class FluentUsageModelFactory {
      * org.palladiosimulator.generator.fluent.usagemodel chooses the first parameter it finds.
      * </p>
      *
-     * @param name
+     * @param name the name
      * @return the operation provided role
      * @see org.palladiosimulator.pcm.repository.OperationProvidedRole
      */
@@ -605,8 +613,8 @@ public class FluentUsageModelFactory {
      * finds.
      * </p>
      *
-     * @param operationProvidedRole
-     * @param operationSignature
+     * @param operationProvidedRole the operation provided role
+     * @param operationSignature the operation signature
      * @return Operation Provided Role & OperationSIgnature combined in one class
      * @see org.palladiosimulator.pcm.repository.OperationSignature
      * @see org.palladiosimulator.pcm.repository.OperationProvidedRole

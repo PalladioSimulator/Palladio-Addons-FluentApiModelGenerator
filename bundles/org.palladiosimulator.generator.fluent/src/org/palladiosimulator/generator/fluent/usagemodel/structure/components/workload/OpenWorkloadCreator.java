@@ -16,6 +16,13 @@ import org.palladiosimulator.pcm.usagemodel.Workload;
  */
 public class OpenWorkloadCreator extends WorkloadCreator {
 
+    /**
+     * TODO
+     * Instantiates a new open workload creator.
+     *
+     * @param usgModelCreator the usg model creator
+     * @param interArrivalTime the inter arrival time
+     */
     public OpenWorkloadCreator(final UsageModelCreator usgModelCreator, final String interArrivalTime) {
         super(usgModelCreator, interArrivalTime);
     }

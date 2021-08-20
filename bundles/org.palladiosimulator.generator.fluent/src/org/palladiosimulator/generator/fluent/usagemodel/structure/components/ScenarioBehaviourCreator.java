@@ -27,6 +27,13 @@ public class ScenarioBehaviourCreator extends UsageModelEntity {
 
     private final List<AbstractUserAction> actions;
 
+
+    /**
+     * TODO
+     * Instantiates a new scenario behaviour creator.
+     *
+     * @param usgModelCreator the usg model creator
+     */
     public ScenarioBehaviourCreator(final UsageModelCreator usgModelCreator) {
         this.actions = new ArrayList<>();
         this.usageModelCreator = usgModelCreator;

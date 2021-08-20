@@ -18,6 +18,13 @@ public class ClosedWorkloadCreator extends WorkloadCreator {
 
     private int population;
 
+    /**
+     * TODO
+     * Instantiates a new closed workload creator.
+     *
+     * @param usgModelCreator the usg model creator
+     * @param thinkTime the think time
+     */
     public ClosedWorkloadCreator(final UsageModelCreator usgModelCreator, final String thinkTime) {
         super(usgModelCreator, thinkTime);
         this.population = 0; // default value
@@ -26,7 +33,7 @@ public class ClosedWorkloadCreator extends WorkloadCreator {
     /**
      * Adds a population to the Closed Workload.
      *
-     * @param population
+     * @param population the population
      * @return the current closed workload in the making
      * @see org.palladiosimulator.pcm.usagemodel.ClosedWorkload
      */

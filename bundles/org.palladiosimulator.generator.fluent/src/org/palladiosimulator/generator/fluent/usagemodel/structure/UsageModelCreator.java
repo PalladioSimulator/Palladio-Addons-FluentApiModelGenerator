@@ -76,7 +76,7 @@ public class UsageModelCreator extends UsageModelEntity implements IUsageModel, 
      * <code>create.newUserData(AssemblyContext context)</code>.
      * </p>
      *
-     * @param variableData
+     * @param userData
      *            in the making
      * @return the usage model in the making
      * @see org.palladiosimulator.generator.fluent.usagemodel.factory.FluentUsageModelFactory#newUserData(AssemblyContext)

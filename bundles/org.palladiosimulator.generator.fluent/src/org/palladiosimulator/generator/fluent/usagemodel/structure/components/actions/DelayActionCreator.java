@@ -19,6 +19,12 @@ public class DelayActionCreator extends ActionCreator {
 
     private PCMRandomVariable time;
 
+    /**
+     * TODO
+     * Instantiates a new delay action creator.
+     *
+     * @param timeSpecification the time specification
+     */
     public DelayActionCreator(final String timeSpecification) {
         addToDelayAction(timeSpecification);
     }

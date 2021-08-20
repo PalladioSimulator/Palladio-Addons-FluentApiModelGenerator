@@ -25,6 +25,13 @@ public class UserDataCreator extends UsageModelEntity {
     private AssemblyContext assemblyContext;
     private final List<VariableUsage> variableUsage;
 
+    /**
+     * TODO
+     * Instantiates a new user data creator.
+     *
+     * @param usgModelCreator the usg model creator
+     * @param context the context
+     */
     public UserDataCreator(final UsageModelCreator usgModelCreator, final AssemblyContext context) {
         this.usageModelCreator = usgModelCreator;
         this.variableUsage = new ArrayList<>();
@@ -55,9 +62,9 @@ public class UserDataCreator extends UsageModelEntity {
      * @return the user data in the making
      * @see org.palladiosimulator.pcm.parameter.VariableUsage
      */
-    public UserDataCreator addToUserData(final VariableUsageCreator var) {
-        IllegalArgumentException.throwIfNull(var, "The given Variable must not be null");
-        this.variableUsage.add(var.build());
+    public UserDataCreator addToUserData(final VariableUsageCreator variable) {
+        IllegalArgumentException.throwIfNull(variable, "The given Variable must not be null");
+        this.variableUsage.add(variable.build());
         return this;
     }
 

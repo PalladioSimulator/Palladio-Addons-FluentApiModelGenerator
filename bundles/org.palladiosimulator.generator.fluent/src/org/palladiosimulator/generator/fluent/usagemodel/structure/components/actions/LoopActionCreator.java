@@ -22,6 +22,13 @@ public class LoopActionCreator extends ActionCreator {
     private PCMRandomVariable iteration;
     private ScenarioBehaviour bodyBehav;
 
+    /**
+     * TODO
+     * Instantiates a new loop action creator.
+     *
+     * @param iteration the iteration
+     * @param bodyBehaviour the body behaviour
+     */
     public LoopActionCreator(final String iteration, final ScenarioBehaviourCreator bodyBehaviour) {
         addToLoopAction(iteration);
         addToLoopAction(bodyBehaviour);

@@ -30,6 +30,14 @@ public class EntryLevelSystemCallCreator extends ActionCreator {
     private OperationSignature opSignature;
     private OperationProvidedRole opRole;
 
+    /**
+     * TODO Instantiates a new entry level system call creator.
+     *
+     * @param operationSignature
+     *            the operation signature
+     * @param operationProvidedRole
+     *            the operation provided role
+     */
     public EntryLevelSystemCallCreator(final OperationSignature operationSignature,
             final OperationProvidedRole operationProvidedRole) {
         this.outputParameterUsage = new ArrayList<VariableUsage>();
@@ -57,6 +65,7 @@ public class EntryLevelSystemCallCreator extends ActionCreator {
      * Adds an priority to the Entry Level System Call.
      *
      * @param priority
+     *            the priority
      * @return the current entry level system call in the making
      */
     public EntryLevelSystemCallCreator withPriority(final int priority) {
@@ -74,8 +83,8 @@ public class EntryLevelSystemCallCreator extends ActionCreator {
      * or<code>create.newVariableUsage(String namespaceReference, String... innerReferences)</code>.
      * </p>
      *
-     * @param variable
-     *            usage in the making
+     * @param outputParameterUsage
+     *            variable usage in the making
      * @return the entry level system call in the making
      * @see org.palladiosimulator.pcm.parameter.VariableUsage
      */
@@ -96,8 +105,8 @@ public class EntryLevelSystemCallCreator extends ActionCreator {
      * or<code>create.newVariableUsage(String namespaceReference, String... innerReferences)</code>.
      * </p>
      *
-     * @param variable
-     *            usage in the making
+     * @param inputParameterUsage
+     *            variable usage in the making
      * @return the entry level system call in the making
      * @see org.palladiosimulator.pcm.parameter.VariableUsage
      */
