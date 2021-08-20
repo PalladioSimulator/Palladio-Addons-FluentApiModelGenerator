@@ -34,9 +34,8 @@ import org.palladiosimulator.pcm.repository.ProvidedRole;
 import org.palladiosimulator.pcm.system.System;
 
 /**
- * This class provides all the methods to create a UsageModel and create
- * Entities that are added to this Repository. Characteristics of the entities
- * are specified by method chaining.<br>
+ * This class provides all the methods to create a UsageModel and create Entities that are added to
+ * this Repository. Characteristics of the entities are specified by method chaining.<br>
  * <p>
  * Start creating a repository like this:
  * <code>FluentUsageModelFactory create = new FluentUsageModelFactory();</code><br>
@@ -44,41 +43,40 @@ import org.palladiosimulator.pcm.system.System;
  * <p style=
 "margin-left: 130px">//create datatypes, components, interfaces etc. here</p>
  * <p style="margin-left: 130px">.createUsageModelNow();</p>
- *  </code> Refer to the project's Readme for an introduction and detailed
- * examples.
+ *  </code> Refer to the project's Readme for an introduction and detailed examples.
  *
  * @author Eva-Maria Neumann
  */
 public class FluentUsageModelFactory {
     private UsageModelCreator usgModelCreator;
-    private List<System> systeme;
+    private List<System> systems;
 
     /**
      * Creates an instance of the FluentUsageModelFactory.
      */
     public FluentUsageModelFactory() {
         EcorePlugin.ExtensionProcessor.process(null);
-        this.systeme = new ArrayList<System>();
+        this.systems = new ArrayList<System>();
     }
 
     /**
      * Sets the System used in some objects of the usage model.
      *
      * @return FluentUsageModelFactory
-     * @param system {@link org.palladiosimulator.pcm.system.System System}
+     * @param system
+     *            {@link org.palladiosimulator.pcm.system.System System}
      * @see org.palladiosimulator.pcm.system.System
      */
     public FluentUsageModelFactory addSystem(System system) {
-        this.systeme.add(system);
+        this.systems.add(system);
         return this;
     }
 
     /**
      * Creates a representation of the model object '<em><b>UsageModel</b></em>'.
      * <p>
-     * The usageModel entity allows storing components, data types, and interfaces
-     * to be fetched and reused for construction of component instances as well as
-     * new component types.
+     * The usageModel entity allows storing components, data types, and interfaces to be fetched and
+     * reused for construction of component instances as well as new component types.
      * </p>
      *
      * @return the <code>UsageModel</code> in the making
@@ -88,8 +86,8 @@ public class FluentUsageModelFactory {
         final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
         logger.setLevel(Level.ALL);
         final IModelValidator validator = new ModelValidator(logger);
-        usgModelCreator = new UsageModelCreator(validator);
-        return usgModelCreator;
+        this.usgModelCreator = new UsageModelCreator(validator);
+        return this.usgModelCreator;
     }
 
     // ---------------------- Components ----------------------
@@ -97,10 +95,10 @@ public class FluentUsageModelFactory {
     /**
      * Creates a new usage scenario.
      * <p>
-     * UsageScenarios are concurrently executed behaviours of users within one
-     * UsageModel. It describes which services are directly invoked by users in one
-     * specific use case and models the possible sequences of calling them. Each
-     * UsageScenario includes a workload and a scenario behaviour.
+     * UsageScenarios are concurrently executed behaviours of users within one UsageModel. It
+     * describes which services are directly invoked by users in one specific use case and models
+     * the possible sequences of calling them. Each UsageScenario includes a workload and a scenario
+     * behaviour.
      * </p>
      * <p>
      * Usage scenarios are defined by their
@@ -108,32 +106,32 @@ public class FluentUsageModelFactory {
      * name}
      * </p>
      *
-     * @param scenarioBehavior {@link org.palladiosimulator.generator.fluent.usagemodel.structure.components.ScenarioBehaviourCreator
-     *                         ScenarioBehaviourCreator}
-     * @param workload         {@link org.palladiosimulator.generator.fluent.usagemodel.structure.components.workload.WorkloadCreator
-     *                         WorkloadCreator}
+     * @param scenarioBehavior
+     *            {@link org.palladiosimulator.generator.fluent.usagemodel.structure.components.ScenarioBehaviourCreator
+     *            ScenarioBehaviourCreator}
+     * @param workload
+     *            {@link org.palladiosimulator.generator.fluent.usagemodel.structure.components.workload.WorkloadCreator
+     *            WorkloadCreator}
      * @return the usage scenario in the making
      * @see org.palladiosimulator.pcm.usagemodel.UsageScenario
      * 
      */
     public UsageScenarioCreator newUsageScenario(ScenarioBehaviourCreator scenarioBehavior, WorkloadCreator workload) {
-        return new UsageScenarioCreator(usgModelCreator, scenarioBehavior, workload);
+        return new UsageScenarioCreator(this.usgModelCreator, scenarioBehavior, workload);
     }
 
     /**
      * Creates a new user data creator.
      * <p>
-     * A representation of the model object 'User Data'. UserData characterises data
-     * used in specific assembly contexts in the system. This data is the same for
-     * all UsageScenarios, i.e.,multiple users accessing the same components access
-     * the same data. This UserData refers to component parameters of the system
-     * publicized by the software architect (see pcm::parameters package). The
-     * domain expert characterises the values of component parameters related to
-     * business concepts (e.g., user specific data,data specific for a business
-     * domain), whereas the software architect characterises the values of component
-     * parameters related to technical concepts (e.g., size of caches, size of a
-     * thread pool, configuration data,etc.). One UserData instance includes all
-     * parameter characterisation for the annotated entity.
+     * A representation of the model object 'User Data'. UserData characterises data used in
+     * specific assembly contexts in the system. This data is the same for all UsageScenarios,
+     * i.e.,multiple users accessing the same components access the same data. This UserData refers
+     * to component parameters of the system publicized by the software architect (see
+     * pcm::parameters package). The domain expert characterises the values of component parameters
+     * related to business concepts (e.g., user specific data,data specific for a business domain),
+     * whereas the software architect characterises the values of component parameters related to
+     * technical concepts (e.g., size of caches, size of a thread pool, configuration data,etc.).
+     * One UserData instance includes all parameter characterisation for the annotated entity.
      * </p>
      * <p>
      * User Data offers the characteristics
@@ -141,36 +139,33 @@ public class FluentUsageModelFactory {
      * name} and
      * {@link org.palladiosimulator.generator.fluent.usagemodel.structure.components.UsageScenarioCreator#addToUserData(VariableUsageCreator)
      * VariableUsage} and needs a mandatory
-     * {@link org.palladiosimulator.pcm.core.composition.AssemblyContext
-     * AssemblyContext}
+     * {@link org.palladiosimulator.pcm.core.composition.AssemblyContext AssemblyContext}
      * </p>
      *
-     * @param context {@link org.palladiosimulator.pcm.core.composition.AssemblyContext
-     *                AssemblyContext}
+     * @param context
+     *            {@link org.palladiosimulator.pcm.core.composition.AssemblyContext AssemblyContext}
      * @return the user data in the making
      * @see org.palladiosimulator.pcm.usagemodel.UserData
      * @see org.palladiosimulator.pcm.parameter.VariableUsage
      * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
      */
     public UserDataCreator newUserData(AssemblyContext context) {
-        return new UserDataCreator(usgModelCreator, context);
+        return new UserDataCreator(this.usgModelCreator, context);
     }
 
     /**
      * Creates a new scenario behaviour.
      * <p>
-     * A representation of the model object 'Scenario Behaviour'. A
-     * ScenarioBehaviour specifies possible sequences of executing services provided
-     * by the system.It contains a set of AbstractUserActions, each referencing a
-     * predecessor and successor (except the first and last action), thereby forming
-     * a sequence of actions.See the AbstractAction documentation for why it is
-     * advantageous to model control flow in this way, as the same principle is used
-     * in the RDSEFF language.Concrete user actions of the usage model are:- Branch-
-     * Loop- EntryLevelSystemCall- Delay- Start- StopSo far, ScenarioBehaviours do
-     * not include forks in the user flow (i.e., splitting the flow with anAND
-     * semantic), as it is assumed that users always act sequentially.As there are
-     * no random variables depending on other variables in the usage model, there
-     * are no equivalent actions to GuardedBranchTransitions or
+     * A representation of the model object 'Scenario Behaviour'. A ScenarioBehaviour specifies
+     * possible sequences of executing services provided by the system.It contains a set of
+     * AbstractUserActions, each referencing a predecessor and successor (except the first and last
+     * action), thereby forming a sequence of actions.See the AbstractAction documentation for why
+     * it is advantageous to model control flow in this way, as the same principle is used in the
+     * RDSEFF language.Concrete user actions of the usage model are:- Branch- Loop-
+     * EntryLevelSystemCall- Delay- Start- StopSo far, ScenarioBehaviours do not include forks in
+     * the user flow (i.e., splitting the flow with anAND semantic), as it is assumed that users
+     * always act sequentially.As there are no random variables depending on other variables in the
+     * usage model, there are no equivalent actions to GuardedBranchTransitions or
      * CollectionIteratorActions.
      * </p>
      * <p>
@@ -179,8 +174,8 @@ public class FluentUsageModelFactory {
      * name} and
      * {@link org.palladiosimulator.generator.fluent.usagemodel.structure.components.UsageScenarioCreator#addToScenarioBehaviour(ActionCreator)
      * actions}. The Actions are a chain of
-     * {@link org.palladiosimulator.pcm.usagemodel.AbstractUserAction actions}
-     * combined with an explicit start and end.
+     * {@link org.palladiosimulator.pcm.usagemodel.AbstractUserAction actions} combined with an
+     * explicit start and end.
      * </p>
      *
      * @return the scenario behaviour in the making
@@ -188,7 +183,7 @@ public class FluentUsageModelFactory {
      * @see org.palladiosimulator.pcm.usagemodel.AbstractUserAction
      */
     public ScenarioBehaviourCreator newScenarioBehavior() {
-        return new ScenarioBehaviourCreator(usgModelCreator);
+        return new ScenarioBehaviourCreator(this.usgModelCreator);
     }
 
     // ---------------------- Actions ----------------------
@@ -196,14 +191,13 @@ public class FluentUsageModelFactory {
     /**
      * Creates a new branch action.
      * <p>
-     * A representation of the model object 'Branch'. A Branch splits the user flow
-     * with a XOR-semantic: one of the included BranchTransitionsis taken depending
-     * on the specified branch probabilities. Each BranchTransition contains a
-     * nested ScenarioBehaviour, which a user executes once this branch transition
-     * is chosen. After execution of the complete nested ScenarioBehaviour, the next
-     * action in the user flow after theBranch is its successor action.A constraint
-     * ensures that all branchProbabilities of the included BranchTransitions sum up
-     * to 1.
+     * A representation of the model object 'Branch'. A Branch splits the user flow with a
+     * XOR-semantic: one of the included BranchTransitionsis taken depending on the specified branch
+     * probabilities. Each BranchTransition contains a nested ScenarioBehaviour, which a user
+     * executes once this branch transition is chosen. After execution of the complete nested
+     * ScenarioBehaviour, the next action in the user flow after theBranch is its successor action.A
+     * constraint ensures that all branchProbabilities of the included BranchTransitions sum up to
+     * 1.
      * </p>
      * <p>
      * A Branch offers the characteristics
@@ -227,11 +221,10 @@ public class FluentUsageModelFactory {
     /**
      * Creates a new branch transition.
      * <p>
-     * A representation of the model object 'Branch Transition'. The
-     * BranchTransition is an association class that realises the containment of
-     * ScenarioBehaviours in in the branches of a Branch action. It is a separate
-     * meta class because it has the additional attribute branchProbability that
-     * specifies how probably it is that the references ScenarioBehaviour is
+     * A representation of the model object 'Branch Transition'. The BranchTransition is an
+     * association class that realises the containment of ScenarioBehaviours in in the branches of a
+     * Branch action. It is a separate meta class because it has the additional attribute
+     * branchProbability that specifies how probably it is that the references ScenarioBehaviour is
      * executed in the Branch action.See also Branch.
      * </p>
      * <p>
@@ -244,8 +237,9 @@ public class FluentUsageModelFactory {
      * branchedBehaviour}
      * </p>
      *
-     * @param branchedBehaviour {@link org.palladiosimulator.generator.fluent.usagemodel.structure.components.ScenarioBehaviourCreator
-     *                          ScenarioBehaviourCreator}
+     * @param branchedBehaviour
+     *            {@link org.palladiosimulator.generator.fluent.usagemodel.structure.components.ScenarioBehaviourCreator
+     *            ScenarioBehaviourCreator}
      * @return the branch transition in the making
      * @see org.palladiosimulator.pcm.usagemodel.AbstractUserAction
      * @see org.palladiosimulator.pcm.usagemodel.BranchTransition
@@ -258,12 +252,11 @@ public class FluentUsageModelFactory {
     /**
      * Creates a new delay action.
      * <p>
-     * A representation of the model object 'Delay'. A Delay represents a timing
-     * delay as a RandomVariable between two user actions. The Delay is included
-     * into the usage model to express that users do not call system services in
-     * direct successions,but usually need some time to determine their next action.
-     * User delays are for example useful,if a performance analyst wants to
-     * determine the execution time for a complete scenario behaviour(instead of a
+     * A representation of the model object 'Delay'. A Delay represents a timing delay as a
+     * RandomVariable between two user actions. The Delay is included into the usage model to
+     * express that users do not call system services in direct successions,but usually need some
+     * time to determine their next action. User delays are for example useful,if a performance
+     * analyst wants to determine the execution time for a complete scenario behaviour(instead of a
      * single service), which needs to include user delays.
      * </p>
      * <p>
@@ -274,7 +267,8 @@ public class FluentUsageModelFactory {
      * successor} and needs a mandatory time specification.
      * </p>
      *
-     * @param timeSpecification String
+     * @param timeSpecification
+     *            String
      * @return the delay action in the making
      * @see org.palladiosimulator.pcm.usagemodel.AbstractUserAction
      * @see org.palladiosimulator.pcm.usagemodel.Delay
@@ -286,24 +280,21 @@ public class FluentUsageModelFactory {
     /**
      * Creates a new entry level system call action.
      * <p>
-     * A representation of the model object 'Entry Level System Call'. An
-     * EntryLevelSystemCall models the call to a service provided by a system.
-     * Therefore, anEntryLevelSystemCall references a ProvidedRole of a PCM System,
-     * from which the called interface and the providing component within the system
-     * can be derived, and a Signature specifying the called service. Notice, that
-     * the usage model does not permit the domain expert to model calls directly to
-     * components, but only to system roles. This decouples the System
-     * structure(i.e., the component-based software architecture model and its
-     * allocation) from the UsageModeland the software architect can change the
-     * System (e.g., include new components, remove existing components, or change
-     * their wiring or allocation) independently from the domain expert, if the
-     * system provided roles are not affected. EntryLevelSystemCalls may include a
-     * set of input parameter characterisations and a set of output parameter
-     * characterisations (as described in the pcm::parameters package). However, the
-     * random variables characterising the input parameters like NUMBER_OF_ELEMENTS
-     * can not depend on other variables in the usage model. They have to be
-     * composed from literals only including literals describing random variables
-     * having a certain fixed distribution.
+     * A representation of the model object 'Entry Level System Call'. An EntryLevelSystemCall
+     * models the call to a service provided by a system. Therefore, anEntryLevelSystemCall
+     * references a ProvidedRole of a PCM System, from which the called interface and the providing
+     * component within the system can be derived, and a Signature specifying the called service.
+     * Notice, that the usage model does not permit the domain expert to model calls directly to
+     * components, but only to system roles. This decouples the System structure(i.e., the
+     * component-based software architecture model and its allocation) from the UsageModeland the
+     * software architect can change the System (e.g., include new components, remove existing
+     * components, or change their wiring or allocation) independently from the domain expert, if
+     * the system provided roles are not affected. EntryLevelSystemCalls may include a set of input
+     * parameter characterisations and a set of output parameter characterisations (as described in
+     * the pcm::parameters package). However, the random variables characterising the input
+     * parameters like NUMBER_OF_ELEMENTS can not depend on other variables in the usage model. They
+     * have to be composed from literals only including literals describing random variables having
+     * a certain fixed distribution.
      * </p>
      * <p>
      * Entry level system call offers the characteristics
@@ -315,16 +306,16 @@ public class FluentUsageModelFactory {
      * input parameter usage},
      * {@link org.palladiosimulator.generator.fluent.usagemodel.structure.components.actions.EntryLevelSystemCallCreator#addToEntryLevelSystemCallOutput(VariableUsageCreator)
      * output parameter usage} and needs a mandatory
-     * {@link org.palladiosimulator.pcm.repository.OperationProvidedRole operation
-     * provided role} and related
-     * {@link org.palladiosimulator.pcm.repository.OperationSignature operation
+     * {@link org.palladiosimulator.pcm.repository.OperationProvidedRole operation provided role}
+     * and related {@link org.palladiosimulator.pcm.repository.OperationSignature operation
      * signature}.
      * </p>
      *
-     * @param operationProvidedRole {@link org.palladiosimulator.pcm.repository.OperationProvidedRole
-     *                              OperationProvidedRole}
-     * @param operationSignature    {@link org.palladiosimulator.pcm.repository.OperationSignature
-     *                              OperationSignature}
+     * @param operationProvidedRole
+     *            {@link org.palladiosimulator.pcm.repository.OperationProvidedRole
+     *            OperationProvidedRole}
+     * @param operationSignature
+     *            {@link org.palladiosimulator.pcm.repository.OperationSignature OperationSignature}
      * @return the entry level system call action in the making
      * @see org.palladiosimulator.pcm.usagemodel.AbstractUserAction
      * @see org.palladiosimulator.pcm.usagemodel.EntryLevelSystemCall
@@ -335,8 +326,9 @@ public class FluentUsageModelFactory {
     @Deprecated
     public EntryLevelSystemCallCreator newEntryLevelSystemCall(OperationProvidedRole operationProvidedRole,
             final OperationSignature operationSignature) {
-        if (!operationProvidedRole.getProvidedInterface__OperationProvidedRole().getSignatures__OperationInterface()
-                .contains(operationSignature)) {
+        if (!operationProvidedRole.getProvidedInterface__OperationProvidedRole()
+            .getSignatures__OperationInterface()
+            .contains(operationSignature)) {
             throw new IllegalArgumentException("No OperationSignature with name " + operationSignature.getEntityName()
                     + " for OperationProvidedRole " + operationProvidedRole.getEntityName() + " exits.");
         }
@@ -350,10 +342,9 @@ public class FluentUsageModelFactory {
     /**
      * Creates a new loop action.
      * <p>
-     * A representation of the model object 'Loop'. A Loop models a repeated
-     * sequence of actions in the user flow. It contains a nested ScenarioBehaviour
-     * specifying the loop body, and a RandomVariable specifying the number of
-     * iterations.
+     * A representation of the model object 'Loop'. A Loop models a repeated sequence of actions in
+     * the user flow. It contains a nested ScenarioBehaviour specifying the loop body, and a
+     * RandomVariable specifying the number of iterations.
      * </p>
      * <p>
      * Loop offers the characteristics
@@ -365,10 +356,12 @@ public class FluentUsageModelFactory {
      * body behaviour}.
      * </p>
      *
-     * @param timeSpecification String
-     * @param body              behaviour
-     *                          {@link org.palladiosimulator.generator.fluent.usagemodel.structure.components.ScenarioBehaviourCreator
-     *                          ScenarioBehaviourCreator}
+     * @param timeSpecification
+     *            String
+     * @param body
+     *            behaviour
+     *            {@link org.palladiosimulator.generator.fluent.usagemodel.structure.components.ScenarioBehaviourCreator
+     *            ScenarioBehaviourCreator}
      * @return the delay action in the making
      * @see org.palladiosimulator.pcm.usagemodel.AbstractUserAction
      * @see org.palladiosimulator.pcm.usagemodel.Loop
@@ -381,9 +374,9 @@ public class FluentUsageModelFactory {
     /**
      * Creates a new start action.
      * <p>
-     * A representation of the model object 'Start'. Each ScenarioBehaviour has
-     * exactly one Start action which marks the action where the control flows
-     * begins. Start actions have no predecessor.
+     * A representation of the model object 'Start'. Each ScenarioBehaviour has exactly one Start
+     * action which marks the action where the control flows begins. Start actions have no
+     * predecessor.
      * </p>
      * <p>
      * A Start offers the characteristics
@@ -404,9 +397,8 @@ public class FluentUsageModelFactory {
     /**
      * Creates a new stop action.
      * <p>
-     * A representation of the model object 'Stop'. Each ScenarioBehaviour has
-     * exactly one Stop action which marks the action where the control flows ends.
-     * Stop actions have no successor.
+     * A representation of the model object 'Stop'. Each ScenarioBehaviour has exactly one Stop
+     * action which marks the action where the control flows ends. Stop actions have no successor.
      * </p>
      * <p>
      * Stop offers the characteristics
@@ -427,12 +419,11 @@ public class FluentUsageModelFactory {
     /**
      * Creates a new closed workload.
      * <p>
-     * A representation of the model object 'Closed Workload'. ClosedWorkload
-     * specifies directly the (constant) user population and a think time. It models
-     * that a fixed number of users execute their scenario, then wait (or think) for
-     * the specified amount of think time as a RandomVariable, and then reenter the
-     * system executing their scenario again.Performance analysts use closed
-     * workloads to model scenarios, where the number of users is known(e.g., a
+     * A representation of the model object 'Closed Workload'. ClosedWorkload specifies directly the
+     * (constant) user population and a think time. It models that a fixed number of users execute
+     * their scenario, then wait (or think) for the specified amount of think time as a
+     * RandomVariable, and then reenter the system executing their scenario again.Performance
+     * analysts use closed workloads to model scenarios, where the number of users is known(e.g., a
      * fixed number of users in a company).
      * </p>
      * <p>
@@ -441,37 +432,38 @@ public class FluentUsageModelFactory {
      * population}, and needs a mandatory think time.
      * </p>
      *
-     * @param thinkTime String
+     * @param thinkTime
+     *            String
      * @return the closed workload in the making
      * @see org.palladiosimulator.pcm.usagemodel.Workload
      * @see org.palladiosimulator.pcm.usagemodel.ClosedWorkload
      */
     public ClosedWorkloadCreator newClosedWorkload(String thinkTime) {
-        return new ClosedWorkloadCreator(usgModelCreator, thinkTime);
+        return new ClosedWorkloadCreator(this.usgModelCreator, thinkTime);
     }
 
     /**
      * Creates a new open workload.
      * <p>
-     * A representation of the model object 'Open Workload'. OpenWorkload specifies
-     * usage intensity with an inter-arrival time (i.e., the time between two user
-     * arrivals at the system) as a RandomVariable with an arbitrary probability
-     * distribution. It models that an infinite stream of users arrives at a system.
-     * The users execute their scenario, and then leave the system. The user
-     * population (i.e., the number of users concurrently present in a system) is
-     * not fixed in an OpenWorkload.
+     * A representation of the model object 'Open Workload'. OpenWorkload specifies usage intensity
+     * with an inter-arrival time (i.e., the time between two user arrivals at the system) as a
+     * RandomVariable with an arbitrary probability distribution. It models that an infinite stream
+     * of users arrives at a system. The users execute their scenario, and then leave the system.
+     * The user population (i.e., the number of users concurrently present in a system) is not fixed
+     * in an OpenWorkload.
      * </p>
      * <p>
      * Open Workload needs a mandatory inter arrival time.
      * </p>
      *
-     * @param interArrivalTime String
+     * @param interArrivalTime
+     *            String
      * @return the open workload in the making
      * @see org.palladiosimulator.pcm.usagemodel.Workload
      * @see org.palladiosimulator.pcm.usagemodel.OpenWorkload
      */
     public OpenWorkloadCreator newOpenWorkload(String interArrivalTime) {
-        return new OpenWorkloadCreator(usgModelCreator, interArrivalTime);
+        return new OpenWorkloadCreator(this.usgModelCreator, interArrivalTime);
     }
 
     // ---------------------- Shared ----------------------
@@ -479,28 +471,27 @@ public class FluentUsageModelFactory {
     /**
      * Creates a new variable usage.
      * <p>
-     * A representation of the model object 'Variable Usage'. Variable usages are
-     * used to characterise variables like input and output variables or component
-     * parameters. They contain the specification of the variable as
-     * VariableCharacterisation and also refer to the name of the characterised
-     * variable in its namedReference association. Note that it was an explicit
-     * design decision to refer to variable names instead of the actual variables
-     * (i.e., by refering to Parameter class). It eased the writing of
-     * transformations (DSolver as well as SimuCom) but put some complexity in the
-     * frontend for entering the variable usages.
+     * A representation of the model object 'Variable Usage'. Variable usages are used to
+     * characterise variables like input and output variables or component parameters. They contain
+     * the specification of the variable as VariableCharacterisation and also refer to the name of
+     * the characterised variable in its namedReference association. Note that it was an explicit
+     * design decision to refer to variable names instead of the actual variables (i.e., by refering
+     * to Parameter class). It eased the writing of transformations (DSolver as well as SimuCom) but
+     * put some complexity in the frontend for entering the variable usages.
      * </p>
      * <p>
      * Variable Usage offers the characteristics
      * {@link org.palladiosimulator.generator.fluent.shared.components.VariableUsageCreator#withName(String)
      * name},
      * {@link org.palladiosimulator.generator.fluent.shared.components.VariableUsageCreator#withVariableCharacterisation(String,VariableCharacterisationType)
-     * variable characterisation} and needs a mandatory namespace reference and
-     * inner references.
+     * variable characterisation} and needs a mandatory namespace reference and inner references.
      * 
      * </p>
      *
-     * @param namespaceReference String
-     * @param innerReferences    String...
+     * @param namespaceReference
+     *            String
+     * @param innerReferences
+     *            String...
      * @return the variable usage in the making
      * @see org.palladiosimulator.pcm.parameter.VariableUsage
      * @see org.palladiosimulator.pcm.parameter.VariableCharacterisation
@@ -513,15 +504,13 @@ public class FluentUsageModelFactory {
     /**
      * Creates a new variable usage.
      * <p>
-     * A representation of the model object 'Variable Usage'. Variable usages are
-     * used to characterise variables like input and output variables or component
-     * parameters. They contain the specification of the variable as
-     * VariableCharacterisation and also refer to the name of the characterised
-     * variable in its namedReference association. Note that it was an explicit
-     * design decision to refer to variable names instead of the actual variables
-     * (i.e., by referring to Parameter class). It eased the writing of
-     * transformations (DSolver as well as SimuCom) but put some complexity in the
-     * front end for entering the variable usages.
+     * A representation of the model object 'Variable Usage'. Variable usages are used to
+     * characterise variables like input and output variables or component parameters. They contain
+     * the specification of the variable as VariableCharacterisation and also refer to the name of
+     * the characterised variable in its namedReference association. Note that it was an explicit
+     * design decision to refer to variable names instead of the actual variables (i.e., by
+     * referring to Parameter class). It eased the writing of transformations (DSolver as well as
+     * SimuCom) but put some complexity in the front end for entering the variable usages.
      * </p>
      * <p>
      * Variable Usage offers the characteristics
@@ -532,7 +521,8 @@ public class FluentUsageModelFactory {
      * 
      * </p>
      *
-     * @param variableReference String
+     * @param variableReference
+     *            String
      * @return the variable usage in the making
      * @see org.palladiosimulator.pcm.parameter.VariableUsage
      * @see org.palladiosimulator.pcm.parameter.VariableCharacterisation
@@ -545,14 +535,11 @@ public class FluentUsageModelFactory {
     // ---------------------- Fetch Methods ----------------------
 
     /**
-     * Extracts the assembly context referenced by <code>name</code> from the
-     * system.
+     * Extracts the assembly context referenced by <code>name</code> from the system.
      * <p>
-     * This method throws a FluentApiException if no parameter is present under the
-     * given <code>name</code>. If more than one parameter with this
-     * <code>name</code> is present, the
-     * org.palladiosimulator.generator.fluent.usagemodel chooses the first parameter
-     * it finds.
+     * This method throws a FluentApiException if no parameter is present under the given
+     * <code>name</code>. If more than one parameter with this <code>name</code> is present, the
+     * org.palladiosimulator.generator.fluent.usagemodel chooses the first parameter it finds.
      * </p>
      *
      * @param name
@@ -560,24 +547,24 @@ public class FluentUsageModelFactory {
      * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
      */
     public AssemblyContext fetchOffAssemblyContextByName(String name) {
-        if (this.systeme.isEmpty()) {
+        if (this.systems.isEmpty()) {
             throw new IllegalArgumentException("The referred System was not set correctly in FluentUsageModelFactory");
         }
-        System system = systeme.get(0); //TODO
-        return system.getAssemblyContexts__ComposedStructure().stream().filter(x -> x.getEntityName().equals(name))
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("No AssemblyContext with name " + name + " found."));
+        System system = this.systems.get(0); // TODO
+        return system.getAssemblyContexts__ComposedStructure()
+            .stream()
+            .filter(x -> x.getEntityName()
+                .equals(name))
+            .findFirst()
+            .orElseThrow(() -> new IllegalArgumentException("No AssemblyContext with name " + name + " found."));
     }
 
     /**
-     * Extracts the operation provided role referenced by <code>name</code> from the
-     * system.
+     * Extracts the operation provided role referenced by <code>name</code> from the system.
      * <p>
-     * This method throws a FluentApiException if no parameter is present under the
-     * given <code>name</code>. If more than one parameter with this
-     * <code>name</code> is present, the
-     * org.palladiosimulator.generator.fluent.usagemodel chooses the first parameter
-     * it finds.
+     * This method throws a FluentApiException if no parameter is present under the given
+     * <code>name</code>. If more than one parameter with this <code>name</code> is present, the
+     * org.palladiosimulator.generator.fluent.usagemodel chooses the first parameter it finds.
      * </p>
      *
      * @param name
@@ -585,16 +572,19 @@ public class FluentUsageModelFactory {
      * @see org.palladiosimulator.pcm.repository.OperationProvidedRole
      */
     private OperationProvidedRole fetchOffOperationProvidedRoleByName(String name) {
-        if (this.systeme.isEmpty()) {
+        if (this.systems.isEmpty()) {
             throw new IllegalArgumentException("The referred System was not set correctly in FluentUsageModelFactory");
         }
-        System system = systeme.get(0); //TODO
+        System system = this.systems.get(0); // TODO
 
         OperationProvidedRole role = null;
 
-        ProvidedRole r = system.getProvidedRoles_InterfaceProvidingEntity().stream()
-                .filter(x -> x.getEntityName().equals(name)).findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("No ProvidedRole with name " + name + " found."));
+        ProvidedRole r = system.getProvidedRoles_InterfaceProvidingEntity()
+            .stream()
+            .filter(x -> x.getEntityName()
+                .equals(name))
+            .findFirst()
+            .orElseThrow(() -> new IllegalArgumentException("No ProvidedRole with name " + name + " found."));
 
         if (r instanceof OperationProvidedRole) {
             role = (OperationProvidedRole) r;
@@ -605,49 +595,35 @@ public class FluentUsageModelFactory {
     }
 
     /**
-     * Extracts the operation signature referenced by
-     * <code>operationSignature</code> from the repository.
+     * Extracts the operation provided role referenced by <code>operationProvidedRole</code> from
+     * the system and the dependend <code>operationSignature</code> from the repository.
      * <p>
-     * The <code>operationProvidedRole</code> defines where to search for the
-     * operation signature as it is dependend from it.
-     * </p>
-     * <p>
-     * This method throws a FluentApiException if no parameter is present under the
-     * given <code>name</code>. If more than one parameter with this
-     * <code>name</code> is present, the
-     * org.palladiosimulator.generator.fluent.usagemodel chooses the first parameter
-     * it finds.
+     * This method throws a FluentApiException if no parameter is present under the given
+     * <code>operationProvidedRole</code> or <code>operationSignature</code>. If more than one
+     * parameter with the given Strings is present, the
+     * org.palladiosimulator.generator.fluent.usagemodel chooses each time the first parameter it
+     * finds.
      * </p>
      *
      * @param operationProvidedRole
      * @param operationSignature
-     * @return the operation signature
+     * @return Operation Provided Role & OperationSIgnature combined in one class
      * @see org.palladiosimulator.pcm.repository.OperationSignature
+     * @see org.palladiosimulator.pcm.repository.OperationProvidedRole
+     * @see org.palladiosimulator.generator.fluent.usagemodel.factory.OperationProvidedSignatureRole
      */
-    // TODO
-    @Deprecated
-    private OperationSignature fetchOffOperationSignatureByName(String operationProvidedRole,
-            String operationSignature) {
-        String name = operationSignature;
-
-        OperationProvidedRole role = fetchOffOperationProvidedRoleByName(operationProvidedRole);
-        OperationSignature sig = role.getProvidedInterface__OperationProvidedRole().getSignatures__OperationInterface()
-                .stream().filter(x -> x.getEntityName().equals(name)).findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("No OperationSignature with name " + name
-                        + " for OperationProvidedRole " + operationProvidedRole + " found."));
-
-        return sig;
-    }
-
-    // TODO: JavaDoc
     public OperationProvidedSignatureRole fetchOffOperationRoleAndSignature(String operationProvidedRole,
             String operationSignature) {
 
         OperationProvidedRole role = fetchOffOperationProvidedRoleByName(operationProvidedRole);
-        OperationSignature sig = role.getProvidedInterface__OperationProvidedRole().getSignatures__OperationInterface()
-                .stream().filter(x -> x.getEntityName().equals(operationSignature)).findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("No OperationSignature with name " + operationSignature
-                        + " for OperationProvidedRole " + operationProvidedRole + " found."));
+        OperationSignature sig = role.getProvidedInterface__OperationProvidedRole()
+            .getSignatures__OperationInterface()
+            .stream()
+            .filter(x -> x.getEntityName()
+                .equals(operationSignature))
+            .findFirst()
+            .orElseThrow(() -> new IllegalArgumentException("No OperationSignature with name " + operationSignature
+                    + " for OperationProvidedRole " + operationProvidedRole + " found."));
 
         return new OperationProvidedSignatureRole(role, sig);
     }

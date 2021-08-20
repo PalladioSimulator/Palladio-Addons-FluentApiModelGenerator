@@ -7,8 +7,7 @@ import org.palladiosimulator.pcm.usagemodel.UsageModel;
 public interface IUsageModelAddition {
 
     /**
-     * Turns this usageModel-in-the-making into a
-     * Palladio-'<em><b>UsageModel</b></em>' object.
+     * Turns this usageModel-in-the-making into a Palladio-'<em><b>UsageModel</b></em>' object.
      *
      * @return the final UsageModel object
      * @see org.palladiosimulator.pcm.usagemodel.UsageModel
@@ -16,10 +15,10 @@ public interface IUsageModelAddition {
     UsageModel createUsageModelNow();
 
     /**
-     * Adds the <code>userData</code> to the list of User Datas provided by this
-     * usage Model.
+     * Adds the <code>userData</code> to the list of User Datas provided by this usage Model.
      *
-     * @param UserDataCreator userData
+     * @param UserDataCreator
+     *            userData
      * @return this UsageModel, now containing the <code>userData</code>
      * 
      * @see org.palladiosimulator.pcm.usagemodel.UserData
@@ -27,10 +26,11 @@ public interface IUsageModelAddition {
     IUsageModelAddition addToUsageModel(UserDataCreator userData);
 
     /**
-     * Adds the <code>usageScenario</code> to the list of UsageScenrios provided by
-     * this usage Model.
+     * Adds the <code>usageScenario</code> to the list of UsageScenrios provided by this usage
+     * Model.
      *
-     * @param UserDataCreator userData
+     * @param UserDataCreator
+     *            userData
      * @return this UsageModel, now containing the <code>usageScenario</code>
      * 
      * @see org.palladiosimulator.pcm.usagemodel.UsageScenario

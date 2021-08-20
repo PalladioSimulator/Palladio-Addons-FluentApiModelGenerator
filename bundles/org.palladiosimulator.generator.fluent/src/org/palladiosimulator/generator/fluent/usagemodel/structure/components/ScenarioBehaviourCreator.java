@@ -16,11 +16,9 @@ import org.palladiosimulator.pcm.usagemodel.Stop;
 import org.palladiosimulator.pcm.usagemodel.UsagemodelFactory;
 
 /**
- * This class constructs a
- * {@link org.palladiosimulator.pcm.usagemodel.ScenarioBehaviour Scenario
- * Behaviour}. It is used to create the '<em><b>Scenario Behaviour</b></em>'
- * object step-by-step, i.e. '<em><b>ScenarioBehaviourCreator</b></em>' objects
- * are of intermediate state.
+ * This class constructs a {@link org.palladiosimulator.pcm.usagemodel.ScenarioBehaviour Scenario
+ * Behaviour}. It is used to create the '<em><b>Scenario Behaviour</b></em>' object step-by-step,
+ * i.e. '<em><b>ScenarioBehaviourCreator</b></em>' objects are of intermediate state.
  *
  * @author Eva-Maria Neumann
  * @see org.palladiosimulator.pcm.usagemodel.ScenarioBehaviour
@@ -31,32 +29,33 @@ public class ScenarioBehaviourCreator extends UsageModelEntity {
 
     public ScenarioBehaviourCreator(UsageModelCreator usgModelCreator) {
         this.actions = new ArrayList<>();
-        usageModelCreator = usgModelCreator;
+        this.usageModelCreator = usgModelCreator;
     }
 
     /**
-     * Adds an {@link org.palladiosimulator.pcm.usagemodel.AbstractUserAction
-     * Abstract User Action} to the scenario behaviour.
+     * Adds an {@link org.palladiosimulator.pcm.usagemodel.AbstractUserAction Abstract User Action}
+     * to the scenario behaviour.
      * <p>
-     * Concrete User Actions of the scenario behaviour are Branch, Delay,
-     * EntryLevelSystemCall, Loop, Start and Stop. Set connected user actions by
-     * using
+     * Concrete User Actions of the scenario behaviour are Branch, Delay, EntryLevelSystemCall,
+     * Loop, Start and Stop. Set connected user actions by using
      * {@link org.palladiosimulator.generator.fluent.usagemodel.structure.components.actions.ActionCreator#withSuccessor(ActionCreator)}.
-     * If a concrete start or end action is not added manually, it will be added as
-     * it's mandatory to the action chain.
+     * If a concrete start or end action is not added manually, it will be added as it's mandatory
+     * to the action chain.
      * </p>
      * <p>
-     * Create a new action by using the
-     * org.palladiosimulator.generator.fluent.usagemodel.factory, i.e.
-     * <code>create.newBranchAction()</code>.
+     * Create a new action by using the org.palladiosimulator.generator.fluent.usagemodel.factory,
+     * i.e. <code>create.newBranchAction()</code>.
      * </p>
      *
-     * @param action (or action chain) in the making
+     * @param action
+     *            (or action chain) in the making
      * @return the scenario behaviour in the making
      * @see org.palladiosimulator.generator.fluent.usagemodel.factory.FluentUsageModelFactory#newBranchAction()
      * @see org.palladiosimulator.generator.fluent.usagemodel.factory.FluentUsageModelFactory#newDelayAction(String)
-     * @see org.palladiosimulator.generator.fluent.usagemodel.factory.FluentUsageModelFactory#newEntryLevelSystemCall(org.palladiosimulator.pcm.repository.OperationProvidedRole, org.palladiosimulator.pcm.repository.OperationSignature)
-     * @see org.palladiosimulator.generator.fluent.usagemodel.factory.FluentUsageModelFactory#newLoopAction(String, ScenarioBehaviourCreator)
+     * @see org.palladiosimulator.generator.fluent.usagemodel.factory.FluentUsageModelFactory#newEntryLevelSystemCall(org.palladiosimulator.pcm.repository.OperationProvidedRole,
+     *      org.palladiosimulator.pcm.repository.OperationSignature)
+     * @see org.palladiosimulator.generator.fluent.usagemodel.factory.FluentUsageModelFactory#newLoopAction(String,
+     *      ScenarioBehaviourCreator)
      * @see org.palladiosimulator.generator.fluent.usagemodel.factory.FluentUsageModelFactory#newStartAction()
      * @see org.palladiosimulator.generator.fluent.usagemodel.factory.FluentUsageModelFactory#newStopAction()
      * @see org.palladiosimulator.pcm.usagemodel.AbstractUserAction
@@ -78,7 +77,7 @@ public class ScenarioBehaviourCreator extends UsageModelEntity {
         ActionCreator startCreator = new StartActionCreator();
         AbstractUserAction start = startCreator.build();
         start.setSuccessor(first);
-        actions.add(start);
+        this.actions.add(start);
 
     }
 
@@ -91,7 +90,7 @@ public class ScenarioBehaviourCreator extends UsageModelEntity {
         ActionCreator stopCreator = new StopActionCreator();
         AbstractUserAction stop = stopCreator.build();
         stop.setPredecessor(last);
-        actions.add(stop);
+        this.actions.add(stop);
     }
 
     private void createActionFlow(AbstractUserAction start) {
@@ -109,7 +108,7 @@ public class ScenarioBehaviourCreator extends UsageModelEntity {
             current = current.getSuccessor();
         }
         addStop(before);
-        actions.addAll(flow);
+        this.actions.addAll(flow);
     }
 
     private void addStartStop() {
@@ -118,21 +117,22 @@ public class ScenarioBehaviourCreator extends UsageModelEntity {
         ActionCreator stopCreator = new StopActionCreator();
         AbstractUserAction stop = stopCreator.build();
         start.setSuccessor(stop);
-        actions.add(start);
-        actions.add(stop);
+        this.actions.add(start);
+        this.actions.add(stop);
     }
 
     @Override
     public ScenarioBehaviour build() {
         ScenarioBehaviour scenBeh = UsagemodelFactory.eINSTANCE.createScenarioBehaviour();
-        if (name != null) {
-            scenBeh.setEntityName(name);
+        if (this.name != null) {
+            scenBeh.setEntityName(this.name);
         }
-        if (actions.isEmpty()) {
+        if (this.actions.isEmpty()) {
             // add Start and Stop Actions as this is required
             addStartStop();
         }
-        scenBeh.getActions_ScenarioBehaviour().addAll(actions);
+        scenBeh.getActions_ScenarioBehaviour()
+            .addAll(this.actions);
         return scenBeh;
     }
 

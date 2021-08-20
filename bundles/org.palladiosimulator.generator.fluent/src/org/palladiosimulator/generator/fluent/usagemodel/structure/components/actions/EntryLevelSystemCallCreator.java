@@ -12,11 +12,9 @@ import org.palladiosimulator.pcm.usagemodel.EntryLevelSystemCall;
 import org.palladiosimulator.pcm.usagemodel.UsagemodelFactory;
 
 /**
- * This class constructs a
- * {@link org.palladiosimulator.pcm.usagemodel.EntryLevelSystemCall
- * EntryLevelSystemCall}. It is used to create the
- * '<em><b>EntryLevelSystemCall</b></em>' object step-by-step, i.e.
- * '<em><b>EntryLevelSystemCallCreator</b></em>' objects are of intermediate
+ * This class constructs a {@link org.palladiosimulator.pcm.usagemodel.EntryLevelSystemCall
+ * EntryLevelSystemCall}. It is used to create the '<em><b>EntryLevelSystemCall</b></em>' object
+ * step-by-step, i.e. '<em><b>EntryLevelSystemCallCreator</b></em>' objects are of intermediate
  * state.
  *
  * @author Eva-Maria Neumann
@@ -34,9 +32,9 @@ public class EntryLevelSystemCallCreator extends ActionCreator {
 
     public EntryLevelSystemCallCreator(OperationSignature operationSignature,
             OperationProvidedRole operationProvidedRole) {
-        outputParameterUsage = new ArrayList<VariableUsage>();
-        inputParameterUsage = new ArrayList<VariableUsage>();
-        priority = 0;
+        this.outputParameterUsage = new ArrayList<VariableUsage>();
+        this.inputParameterUsage = new ArrayList<VariableUsage>();
+        this.priority = 0;
         withOperationSignatureEntryLevelSystemCall(operationSignature);
         withProvidedRoleEntryLevelSystemCall(operationProvidedRole);
     }
@@ -67,8 +65,8 @@ public class EntryLevelSystemCallCreator extends ActionCreator {
     }
 
     /**
-     * Adds an {@link org.palladiosimulator.pcm.parameter.VariableUsage Output
-     * Parameter} to the entry level system call.
+     * Adds an {@link org.palladiosimulator.pcm.parameter.VariableUsage Output Parameter} to the
+     * entry level system call.
      * <p>
      * Create a new variable usage by using the
      * org.palladiosimulator.generator.fluent.usagemodel.factory, i.e.
@@ -76,7 +74,8 @@ public class EntryLevelSystemCallCreator extends ActionCreator {
      * or<code>create.newVariableUsage(String namespaceReference, String... innerReferences)</code>.
      * </p>
      *
-     * @param variable usage in the making
+     * @param variable
+     *            usage in the making
      * @return the entry level system call in the making
      * @see org.palladiosimulator.pcm.parameter.VariableUsage
      */
@@ -87,8 +86,8 @@ public class EntryLevelSystemCallCreator extends ActionCreator {
     }
 
     /**
-     * Adds an {@link org.palladiosimulator.pcm.parameter.VariableUsage Input
-     * Parameter} to the entry level system call.
+     * Adds an {@link org.palladiosimulator.pcm.parameter.VariableUsage Input Parameter} to the
+     * entry level system call.
      * <p>
      * Create a new variable usage by using the
      * org.palladiosimulator.generator.fluent.usagemodel.factory, i.e.
@@ -96,7 +95,8 @@ public class EntryLevelSystemCallCreator extends ActionCreator {
      * or<code>create.newVariableUsage(String namespaceReference, String... innerReferences)</code>.
      * </p>
      *
-     * @param variable usage in the making
+     * @param variable
+     *            usage in the making
      * @return the entry level system call in the making
      * @see org.palladiosimulator.pcm.parameter.VariableUsage
      */
@@ -110,24 +110,26 @@ public class EntryLevelSystemCallCreator extends ActionCreator {
     public EntryLevelSystemCall build() {
         EntryLevelSystemCall call = UsagemodelFactory.eINSTANCE.createEntryLevelSystemCall();
 
-        call.getOutputParameterUsages_EntryLevelSystemCall().addAll(outputParameterUsage);
-        call.getInputParameterUsages_EntryLevelSystemCall().addAll(inputParameterUsage);
+        call.getOutputParameterUsages_EntryLevelSystemCall()
+            .addAll(this.outputParameterUsage);
+        call.getInputParameterUsages_EntryLevelSystemCall()
+            .addAll(this.inputParameterUsage);
 
-        if (opSignature != null) {
-            call.setOperationSignature__EntryLevelSystemCall(opSignature);
+        if (this.opSignature != null) {
+            call.setOperationSignature__EntryLevelSystemCall(this.opSignature);
         }
 
-        if (opRole != null) {
-            call.setProvidedRole_EntryLevelSystemCall(opRole);
+        if (this.opRole != null) {
+            call.setProvidedRole_EntryLevelSystemCall(this.opRole);
         }
 
-        call.setPriority(priority);
+        call.setPriority(this.priority);
 
-        if (name != null) {
-            call.setEntityName(name);
+        if (this.name != null) {
+            call.setEntityName(this.name);
         }
-        if (successor != null) {
-            call.setSuccessor(successor);
+        if (this.successor != null) {
+            call.setSuccessor(this.successor);
         }
 
         return call;

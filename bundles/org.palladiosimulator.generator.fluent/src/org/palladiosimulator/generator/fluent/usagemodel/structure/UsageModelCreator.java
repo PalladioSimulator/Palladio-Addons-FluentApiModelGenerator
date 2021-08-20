@@ -18,9 +18,8 @@ import org.palladiosimulator.pcm.usagemodel.UsagemodelFactory;
 import org.palladiosimulator.pcm.usagemodel.UserData;
 
 /**
- * This class constructs a
- * {@link org.palladiosimulator.pcm.usagemodel.UsageModel Usage Model}. It is
- * used to create the '<em><b>Usage Model</b></em>' object step-by-step, i.e.
+ * This class constructs a {@link org.palladiosimulator.pcm.usagemodel.UsageModel Usage Model}. It
+ * is used to create the '<em><b>Usage Model</b></em>' object step-by-step, i.e.
  * '<em><b>UsageModelCreator</b></em>' objects are of intermediate state.
  *
  * @author Eva-Maria Neumann
@@ -42,7 +41,7 @@ public class UsageModelCreator extends UsageModelEntity implements IUsageModel, 
     @Override
     public UsageModel createUsageModelNow() {
         UsageModel usgModel = build();
-        validator.validate(usgModel, "UsageModel");
+        this.validator.validate(usgModel, "UsageModel");
         return usgModel;
     }
 
@@ -50,26 +49,25 @@ public class UsageModelCreator extends UsageModelEntity implements IUsageModel, 
     protected UsageModel build() {
         UsageModel usgModel = UsagemodelFactory.eINSTANCE.createUsageModel();
 
-        usgModel.getUserData_UsageModel().addAll(userDatas);
-        usgModel.getUsageScenario_UsageModel().addAll(usageScenarios);
+        usgModel.getUserData_UsageModel()
+            .addAll(this.userDatas);
+        usgModel.getUsageScenario_UsageModel()
+            .addAll(this.usageScenarios);
 
         return usgModel;
     }
 
     /**
-     * Adds a {@link org.palladiosimulator.pcm.usagemodel.UserData UserData} to the
-     * usage model.
+     * Adds a {@link org.palladiosimulator.pcm.usagemodel.UserData UserData} to the usage model.
      * <p>
-     * UserData characterises data used in specific assembly contexts in the system.
-     * This data is the same for all UsageScenarios, i.e.,multiple users accessing
-     * the same components access the same data. This UserData refers to component
-     * parameters of the system publicized by the software architect (see
-     * pcm::parameters package). The domain expert characterises the values of
-     * component parameters related to business concepts (e.g., user specific
-     * data,data specific for a business domain), whereas the software architect
-     * characterises the values of component parameters related to technical
-     * concepts (e.g., size of caches, size of a thread pool, configuration
-     * data,etc.). One UserData instance includes all parameter characterisation for
+     * UserData characterises data used in specific assembly contexts in the system. This data is
+     * the same for all UsageScenarios, i.e.,multiple users accessing the same components access the
+     * same data. This UserData refers to component parameters of the system publicized by the
+     * software architect (see pcm::parameters package). The domain expert characterises the values
+     * of component parameters related to business concepts (e.g., user specific data,data specific
+     * for a business domain), whereas the software architect characterises the values of component
+     * parameters related to technical concepts (e.g., size of caches, size of a thread pool,
+     * configuration data,etc.). One UserData instance includes all parameter characterisation for
      * the annotated entity.
      * </p>
      * <p>
@@ -78,7 +76,8 @@ public class UsageModelCreator extends UsageModelEntity implements IUsageModel, 
      * <code>create.newUserData(AssemblyContext context)</code>.
      * </p>
      *
-     * @param variableData in the making
+     * @param variableData
+     *            in the making
      * @return the usage model in the making
      * @see org.palladiosimulator.generator.fluent.usagemodel.factory.FluentUsageModelFactory#newUserData(AssemblyContext)
      * @see org.palladiosimulator.pcm.usagemodel.UserData
@@ -86,18 +85,18 @@ public class UsageModelCreator extends UsageModelEntity implements IUsageModel, 
     @Override
     public IUsageModelAddition addToUsageModel(UserDataCreator userData) {
         IllegalArgumentException.throwIfNull(userData, "The given UserData must not be null");
-        userDatas.add(userData.build());
+        this.userDatas.add(userData.build());
         return this;
     }
 
     /**
-     * Adds a {@link org.palladiosimulator.pcm.usagemodel.UsageScenario Usage
-     * Scenario} to the usage model.
+     * Adds a {@link org.palladiosimulator.pcm.usagemodel.UsageScenario Usage Scenario} to the usage
+     * model.
      * <p>
-     * UsageScenarios are concurrently executed behaviours of users within one
-     * UsageModel. It describes which services are directly invoked by users in one
-     * specific use case and models the possible sequences of calling them. Each
-     * UsageScenario includes a workload and a scenario behaviour.
+     * UsageScenarios are concurrently executed behaviours of users within one UsageModel. It
+     * describes which services are directly invoked by users in one specific use case and models
+     * the possible sequences of calling them. Each UsageScenario includes a workload and a scenario
+     * behaviour.
      * </p>
      * <p>
      * Create a new usage scenario by using the
@@ -105,7 +104,8 @@ public class UsageModelCreator extends UsageModelEntity implements IUsageModel, 
      * <code>create.newUsageScenario(ScenarioBehaviourCreator scenarioBehavior, WorkloadCreator workload)</code>.
      * </p>
      *
-     * @param usage scenario in the making
+     * @param usage
+     *            scenario in the making
      * @return the usage model in the making
      * @see org.palladiosimulator.generator.fluent.usagemodel.factory.FluentUsageModelFactory#newUsageScenario(ScenarioBehaviourCreator,
      *      WorkloadCreator)
@@ -114,7 +114,7 @@ public class UsageModelCreator extends UsageModelEntity implements IUsageModel, 
     @Override
     public IUsageModelAddition addToUsageModel(UsageScenarioCreator usageScenario) {
         IllegalArgumentException.throwIfNull(usageScenario, "The given UsageScenario must not be null");
-        usageScenarios.add(usageScenario.build());
+        this.usageScenarios.add(usageScenario.build());
         return this;
     }
 

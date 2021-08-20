@@ -8,11 +8,9 @@ import org.palladiosimulator.pcm.usagemodel.ScenarioBehaviour;
 import org.palladiosimulator.pcm.usagemodel.UsagemodelFactory;
 
 /**
- * This class constructs a
- * {@link org.palladiosimulator.pcm.usagemodel.BranchTransition
- * BranchTransition}. It is used to create the
- * '<em><b>BranchTransition</b></em>' object step-by-step, i.e.
- * '<em><b>BranchTransitionCreator</b></em>' objects are of intermediate state.
+ * This class constructs a {@link org.palladiosimulator.pcm.usagemodel.BranchTransition
+ * BranchTransition}. It is used to create the '<em><b>BranchTransition</b></em>' object
+ * step-by-step, i.e. '<em><b>BranchTransitionCreator</b></em>' objects are of intermediate state.
  *
  * @author Eva-Maria Neumann
  * @see org.palladiosimulator.pcm.usagemodel.BranchTransition
@@ -31,24 +29,25 @@ public class BranchTransitionCreator extends UsageModelEntity {
     protected BranchTransition build() {
         BranchTransition branchT = UsagemodelFactory.eINSTANCE.createBranchTransition();
 
-        branchT.setBranchProbability(probability);
+        branchT.setBranchProbability(this.probability);
 
-        if (branchedBeh != null) {
-            branchT.setBranchedBehaviour_BranchTransition(branchedBeh);
+        if (this.branchedBeh != null) {
+            branchT.setBranchedBehaviour_BranchTransition(this.branchedBeh);
         }
         return branchT;
     }
 
     private BranchTransitionCreator addToBranchTransition(ScenarioBehaviourCreator branchedBehaviour) {
         IllegalArgumentException.throwIfNull(branchedBehaviour, "The branched Behavoiur must not be null");
-        branchedBeh = branchedBehaviour.build();
+        this.branchedBeh = branchedBehaviour.build();
         return this;
     }
 
     /**
      * Adds an probability to the branch transition
      *
-     * @param probability of the branch
+     * @param probability
+     *            of the branch
      * @return the current branch transition in the making
      */
     public BranchTransitionCreator withProbability(double probability) {

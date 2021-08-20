@@ -12,9 +12,8 @@ import org.palladiosimulator.pcm.usagemodel.UsagemodelFactory;
 import org.palladiosimulator.pcm.usagemodel.Workload;
 
 /**
- * This class constructs a
- * {@link org.palladiosimulator.pcm.usagemodel.UsageScenario Usage Scenario}. It is
- * used to create the '<em><b>Usage Scenario</b></em>' object step-by-step, i.e.
+ * This class constructs a {@link org.palladiosimulator.pcm.usagemodel.UsageScenario Usage
+ * Scenario}. It is used to create the '<em><b>Usage Scenario</b></em>' object step-by-step, i.e.
  * '<em><b>UsageScenarioCreator</b></em>' objects are of intermediate state.
  *
  * @author Eva-Maria Neumann
@@ -25,23 +24,24 @@ public class UsageScenarioCreator extends UsageModelEntity {
     private ScenarioBehaviour scenarioBehaviour;
     private Workload workload; // can be Open OR Closed
 
-    public UsageScenarioCreator(UsageModelCreator usgModelCreator, ScenarioBehaviourCreator scenBehave, WorkloadCreator work) {
-        usageModelCreator = usgModelCreator;
+    public UsageScenarioCreator(UsageModelCreator usgModelCreator, ScenarioBehaviourCreator scenBehave,
+            WorkloadCreator work) {
+        this.usageModelCreator = usgModelCreator;
         addToUsageScenario(scenBehave);
         addToUsageScenario(work);
     }
-    
-    private void addToUsageScenario (WorkloadCreator workload) {
-         if(workload instanceof OpenWorkloadCreator) {
-             OpenWorkloadCreator o = (OpenWorkloadCreator) workload;
-             this.workload = o.build();
-         } else {
-             //then ClosedWorkloadCrator
-             ClosedWorkloadCreator c = (ClosedWorkloadCreator) workload;
-             this.workload = c.build();
-         }
+
+    private void addToUsageScenario(WorkloadCreator workload) {
+        if (workload instanceof OpenWorkloadCreator) {
+            OpenWorkloadCreator o = (OpenWorkloadCreator) workload;
+            this.workload = o.build();
+        } else {
+            // then ClosedWorkloadCrator
+            ClosedWorkloadCreator c = (ClosedWorkloadCreator) workload;
+            this.workload = c.build();
+        }
     }
-    
+
     private UsageScenarioCreator addToUsageScenario(ScenarioBehaviourCreator scenBehave) {
         IllegalArgumentException.throwIfNull(scenBehave, "The given ScenarioBehaviour must not be null");
         this.scenarioBehaviour = scenBehave.build();
@@ -51,14 +51,14 @@ public class UsageScenarioCreator extends UsageModelEntity {
     @Override
     public UsageScenario build() {
         final UsageScenario usgScenario = UsagemodelFactory.eINSTANCE.createUsageScenario();
-        if (name != null) {
-            usgScenario.setEntityName(name);
+        if (this.name != null) {
+            usgScenario.setEntityName(this.name);
         }
-        if (scenarioBehaviour != null) {
-            usgScenario.setScenarioBehaviour_UsageScenario(scenarioBehaviour);
+        if (this.scenarioBehaviour != null) {
+            usgScenario.setScenarioBehaviour_UsageScenario(this.scenarioBehaviour);
         }
-        if (workload != null) {
-            usgScenario.setWorkload_UsageScenario(workload);
+        if (this.workload != null) {
+            usgScenario.setWorkload_UsageScenario(this.workload);
         }
         return usgScenario;
     }

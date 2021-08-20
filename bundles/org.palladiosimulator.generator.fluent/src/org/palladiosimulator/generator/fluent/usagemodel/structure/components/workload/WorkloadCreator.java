@@ -17,7 +17,7 @@ public abstract class WorkloadCreator extends UsageModelEntity {
     protected PCMRandomVariable time;
 
     public WorkloadCreator(UsageModelCreator usgModelCreator, String time) {
-        usageModelCreator = usgModelCreator;
+        this.usageModelCreator = usgModelCreator;
         addToWorkload(time);
     }
 

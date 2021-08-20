@@ -5,10 +5,9 @@ import org.palladiosimulator.pcm.usagemodel.Start;
 import org.palladiosimulator.pcm.usagemodel.UsagemodelFactory;
 
 /**
- * This class constructs a
- * {@link org.palladiosimulator.pcm.usagemodel.Start Start}. It is used to create the '<em><b>Start</b></em>'
- * object step-by-step, i.e. '<em><b>StartActionCreator</b></em>' objects
- * are of intermediate state.
+ * This class constructs a {@link org.palladiosimulator.pcm.usagemodel.Start Start}. It is used to
+ * create the '<em><b>Start</b></em>' object step-by-step, i.e. '<em><b>StartActionCreator</b></em>'
+ * objects are of intermediate state.
  *
  * @author Eva-Maria Neumann
  * @see org.palladiosimulator.pcm.usagemodel.Start
@@ -20,11 +19,11 @@ public class StartActionCreator extends ActionCreator {
     public AbstractUserAction build() {
         Start start = UsagemodelFactory.eINSTANCE.createStart();
 
-        if (name != null) {
-            start.setEntityName(name);
+        if (this.name != null) {
+            start.setEntityName(this.name);
         }
-        if (successor != null) {
-            start.setSuccessor(successor);
+        if (this.successor != null) {
+            start.setSuccessor(this.successor);
         }
         return start;
     }

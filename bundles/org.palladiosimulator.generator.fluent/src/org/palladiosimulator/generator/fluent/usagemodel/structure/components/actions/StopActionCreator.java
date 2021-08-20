@@ -5,10 +5,9 @@ import org.palladiosimulator.pcm.usagemodel.Stop;
 import org.palladiosimulator.pcm.usagemodel.UsagemodelFactory;
 
 /**
- * This class constructs a
- * {@link org.palladiosimulator.pcm.usagemodel.Stop Stop}. It is used to create the '<em><b>Stop</b></em>'
- * object step-by-step, i.e. '<em><b>StopActionCreator</b></em>' objects
- * are of intermediate state.
+ * This class constructs a {@link org.palladiosimulator.pcm.usagemodel.Stop Stop}. It is used to
+ * create the '<em><b>Stop</b></em>' object step-by-step, i.e. '<em><b>StopActionCreator</b></em>'
+ * objects are of intermediate state.
  *
  * @author Eva-Maria Neumann
  * @see org.palladiosimulator.pcm.usagemodel.Stop
@@ -20,12 +19,11 @@ public class StopActionCreator extends ActionCreator {
     public AbstractUserAction build() {
         Stop stop = UsagemodelFactory.eINSTANCE.createStop();
 
-        if (name != null) {
-            stop.setEntityName(name);
+        if (this.name != null) {
+            stop.setEntityName(this.name);
         }
         return stop;
     }
-
 
     @Override
     public StopActionCreator withName(final String name) {

@@ -9,10 +9,9 @@ import org.palladiosimulator.pcm.usagemodel.BranchTransition;
 import org.palladiosimulator.pcm.usagemodel.UsagemodelFactory;
 
 /**
- * This class constructs a
- * {@link org.palladiosimulator.pcm.usagemodel.Branch Branch}. It is used to create the '<em><b>Branch</b></em>'
- * object step-by-step, i.e. '<em><b>BranchActionCreator</b></em>' objects
- * are of intermediate state.
+ * This class constructs a {@link org.palladiosimulator.pcm.usagemodel.Branch Branch}. It is used to
+ * create the '<em><b>Branch</b></em>' object step-by-step, i.e.
+ * '<em><b>BranchActionCreator</b></em>' objects are of intermediate state.
  *
  * @author Eva-Maria Neumann
  * @see org.palladiosimulator.pcm.usagemodel.Branch
@@ -21,13 +20,13 @@ import org.palladiosimulator.pcm.usagemodel.UsagemodelFactory;
 public class BranchActionCreator extends ActionCreator {
 
     private List<BranchTransition> transitions = new ArrayList<BranchTransition>();
-    
+
     public BranchActionCreator() {
     }
-    
+
     /**
-     * Adds an {@link org.palladiosimulator.pcm.usagemodel.BranchTransition
-     * Branch Transition} to the Branch.
+     * Adds an {@link org.palladiosimulator.pcm.usagemodel.BranchTransition Branch Transition} to
+     * the Branch.
      * <p>
      * The probability of all added BranchTransitions need to sum up to 1.
      * </p>
@@ -37,7 +36,8 @@ public class BranchActionCreator extends ActionCreator {
      * <code>create.newBranchTransition(ScenarioBehaviourCreator branchedBehaviour)</code>.
      * </p>
      *
-     * @param branch transition in the making
+     * @param branch
+     *            transition in the making
      * @return the current branch action in the making
      * @see org.palladiosimulator.pcm.usagemodel.BranchTransition
      */
@@ -51,13 +51,14 @@ public class BranchActionCreator extends ActionCreator {
     public Branch build() {
         Branch b = UsagemodelFactory.eINSTANCE.createBranch();
 
-        b.getBranchTransitions_Branch().addAll(transitions);
+        b.getBranchTransitions_Branch()
+            .addAll(this.transitions);
 
-        if (name != null) {
-            b.setEntityName(name);
+        if (this.name != null) {
+            b.setEntityName(this.name);
         }
-        if (successor != null) {
-            b.setSuccessor(successor);
+        if (this.successor != null) {
+            b.setSuccessor(this.successor);
         }
         return b;
     }

@@ -6,10 +6,9 @@ import org.palladiosimulator.generator.fluent.usagemodel.structure.UsageModelCre
 import org.palladiosimulator.pcm.usagemodel.ClosedWorkload;
 
 /**
- * This class constructs a
- * {@link org.palladiosimulator.pcm.usagemodel.ClosedWorkload ClosedWorkload}. It is used to create the '<em><b>Closed Workload</b></em>'
- * object step-by-step, i.e. '<em><b>ClosedWorkloadCreator</b></em>' objects
- * are of intermediate state.
+ * This class constructs a {@link org.palladiosimulator.pcm.usagemodel.ClosedWorkload
+ * ClosedWorkload}. It is used to create the '<em><b>Closed Workload</b></em>' object step-by-step,
+ * i.e. '<em><b>ClosedWorkloadCreator</b></em>' objects are of intermediate state.
  *
  * @author Eva-Maria Neumann
  * @see org.palladiosimulator.pcm.usagemodel.ClosedWorkload
@@ -40,10 +39,10 @@ public class ClosedWorkloadCreator extends WorkloadCreator {
     public Workload build() {
         final ClosedWorkload work = UsagemodelFactory.eINSTANCE.createClosedWorkload();
 
-        work.setPopulation(population);
+        work.setPopulation(this.population);
 
-        if (time != null) {
-            work.setThinkTime_ClosedWorkload(time);
+        if (this.time != null) {
+            work.setThinkTime_ClosedWorkload(this.time);
         }
         return work;
     }
