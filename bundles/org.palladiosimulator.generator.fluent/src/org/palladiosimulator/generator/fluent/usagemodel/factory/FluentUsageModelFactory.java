@@ -323,8 +323,7 @@ public class FluentUsageModelFactory {
      * @see org.palladiosimulator.pcm.repository.OperationProvidedRole
      * @see org.palladiosimulator.pcm.repository.OperationSignature
      */
-    @Deprecated
-    public EntryLevelSystemCallCreator newEntryLevelSystemCall(OperationProvidedRole operationProvidedRole,
+    private EntryLevelSystemCallCreator newEntryLevelSystemCall(OperationProvidedRole operationProvidedRole,
             final OperationSignature operationSignature) {
         if (!operationProvidedRole.getProvidedInterface__OperationProvidedRole()
             .getSignatures__OperationInterface()

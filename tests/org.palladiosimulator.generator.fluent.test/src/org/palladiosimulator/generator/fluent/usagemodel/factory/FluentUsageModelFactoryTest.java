@@ -31,10 +31,10 @@ public class FluentUsageModelFactoryTest {
   //------------------   Util ------------------ 
     
     private void setUp() {
-        create = new FluentUsageModelFactory();
+        this.create = new FluentUsageModelFactory();
     }
     
-    private Repository createSimplifiedMediaStoreRepository() {
+    private static Repository createSimplifiedMediaStoreRepository() {
       //copied from org.palladiosimulator.generator.fluent.repository.examples, added OperationSignature for testing
         FluentRepositoryFactory create = new FluentRepositoryFactory();
         Repository repo = create.newRepository().withName("SimplifiedMediaStore Repository")
@@ -123,7 +123,7 @@ public class FluentUsageModelFactoryTest {
     public void basicUsageModelClasses() {
         // Actual Model
         setUp();
-        UsageModel usgModel = create.newUsageModel().createUsageModelNow();
+        UsageModel usgModel = this.create.newUsageModel().createUsageModelNow();
         printXML(usgModel, "UsgModClasses");
 
         // Expected Model
@@ -166,41 +166,41 @@ public class FluentUsageModelFactoryTest {
     public void mediaStore_Realistic() {
         //Building MediaStore3-Model: ms_base_usage_realistic.usagemodel and needed System and Repository for that
         setUp();
-        UsageModel usgModel = create.addSystem(mediaStoreMockUp()).newUsageModel().addToUsageModel(
-                create.newUsageScenario(
-                        create.newScenarioBehavior().withName("RealisticUsageScenarioBehaviour")
+        UsageModel usgModel = this.create.addSystem(mediaStoreMockUp()).newUsageModel().addToUsageModel(
+                this.create.newUsageScenario(
+                        this.create.newScenarioBehavior().withName("RealisticUsageScenarioBehaviour")
                         .addToScenarioBehaviour(
-                                create.newStartAction().withName("startUsage").withSuccessor(
-                                create.newBranchAction().withName("isRegistered")
-                                    .addToBranchAction(create.newBranchTransition(create.newScenarioBehavior().addToScenarioBehaviour(
-                                            create.newEntryLevelSystemCall(create.fetchOffOperationRoleAndSignature("Provided_IWebGui", "register")).withName("register"))
+                                this.create.newStartAction().withName("startUsage").withSuccessor(
+                                this.create.newBranchAction().withName("isRegistered")
+                                    .addToBranchAction(this.create.newBranchTransition(this.create.newScenarioBehavior().addToScenarioBehaviour(
+                                            this.create.newEntryLevelSystemCall(this.create.fetchOffOperationRoleAndSignature("Provided_IWebGui", "register")).withName("register"))
                                             .withName("needsToRegister")).withProbability(0.6))
-                                    .addToBranchAction(create.newBranchTransition(create.newScenarioBehavior().withName("isAlreadyRegistered")
+                                    .addToBranchAction(this.create.newBranchTransition(this.create.newScenarioBehavior().withName("isAlreadyRegistered")
                                             ).withProbability(0.4)).withSuccessor(                                
-                                create.newEntryLevelSystemCall(
-                                        create.fetchOffOperationRoleAndSignature("Provided_IWebGui","login"))
+                                this.create.newEntryLevelSystemCall(
+                                        this.create.fetchOffOperationRoleAndSignature("Provided_IWebGui","login"))
                                         .withName("login").withSuccessor(
-                                create.newDelayAction("GammaMoments(3000,0.3)").withName("userDelayAfterLogin").withSuccessor(
-                                create.newEntryLevelSystemCall(
-                                        create.fetchOffOperationRoleAndSignature("Provided_IWebGui","getFileList"))
+                                this.create.newDelayAction("GammaMoments(3000,0.3)").withName("userDelayAfterLogin").withSuccessor(
+                                this.create.newEntryLevelSystemCall(
+                                        this.create.fetchOffOperationRoleAndSignature("Provided_IWebGui","getFileList"))
                                         .withName("getFileList").withSuccessor(
-                                create.newDelayAction("GammaMoments(6000,0.3)").withName("userDelayAfterGetFileList").withSuccessor(
-                                create.newBranchAction().withName("downloadOrUpload")
-                                    .addToBranchAction(create.newBranchTransition(create.newScenarioBehavior().withName("downloadCase")
-                                            .addToScenarioBehaviour(create.newEntryLevelSystemCall(
-                                                    create.fetchOffOperationRoleAndSignature("Provided_IWebGui","download"))
+                                this.create.newDelayAction("GammaMoments(6000,0.3)").withName("userDelayAfterGetFileList").withSuccessor(
+                                this.create.newBranchAction().withName("downloadOrUpload")
+                                    .addToBranchAction(this.create.newBranchTransition(this.create.newScenarioBehavior().withName("downloadCase")
+                                            .addToScenarioBehaviour(this.create.newEntryLevelSystemCall(
+                                                    this.create.fetchOffOperationRoleAndSignature("Provided_IWebGui","download"))
                                                     .withName("download")
-                                                    .addToEntryLevelSystemCallInput(create.newVariableUsage("audioRequest", "Size").withVariableCharacterisation("IntPMF[(38303999;0.16666667)(38304000;0.16666667)(40568000;0.16666667)(41544000;0.16666667)(48280000;0.16666666)(65000000;0.16666667)(88216000;0.16666666)]", org.palladiosimulator.pcm.parameter.VariableCharacterisationType.BYTESIZE))
-                                                    .addToEntryLevelSystemCallInput(create.newVariableUsage("audioRequest", "Count").withVariableCharacterisation("2", VariableCharacterisationType.VALUE))
+                                                    .addToEntryLevelSystemCallInput(this.create.newVariableUsage("audioRequest", "Size").withVariableCharacterisation("IntPMF[(38303999;0.16666667)(38304000;0.16666667)(40568000;0.16666667)(41544000;0.16666667)(48280000;0.16666666)(65000000;0.16666667)(88216000;0.16666666)]", org.palladiosimulator.pcm.parameter.VariableCharacterisationType.BYTESIZE))
+                                                    .addToEntryLevelSystemCallInput(this.create.newVariableUsage("audioRequest", "Count").withVariableCharacterisation("2", VariableCharacterisationType.VALUE))
                                                     )).withProbability(0.8))
-                                    .addToBranchAction(create.newBranchTransition(create.newScenarioBehavior().withName("uploadCase")
-                                            .addToScenarioBehaviour(create.newEntryLevelSystemCall(
-                                                    create.fetchOffOperationRoleAndSignature("Provided_IWebGui","upload"))
-                                                    .withName("upload").addToEntryLevelSystemCallInput(create.newVariableUsage("file").withVariableCharacterisation("IntPMF[(38303999;0.16666667)(38304000;0.16666667)(40568000;0.16666667)(41544000;0.16666667)(48280000;0.16666666)(65000000;0.16666667)(88216000;0.16666666)]", org.palladiosimulator.pcm.parameter.VariableCharacterisationType.BYTESIZE))
+                                    .addToBranchAction(this.create.newBranchTransition(this.create.newScenarioBehavior().withName("uploadCase")
+                                            .addToScenarioBehaviour(this.create.newEntryLevelSystemCall(
+                                                    this.create.fetchOffOperationRoleAndSignature("Provided_IWebGui","upload"))
+                                                    .withName("upload").addToEntryLevelSystemCallInput(this.create.newVariableUsage("file").withVariableCharacterisation("IntPMF[(38303999;0.16666667)(38304000;0.16666667)(40568000;0.16666667)(41544000;0.16666667)(48280000;0.16666666)(65000000;0.16666667)(88216000;0.16666666)]", org.palladiosimulator.pcm.parameter.VariableCharacterisationType.BYTESIZE))
                                                     )).withProbability(0.2)).withSuccessor(
-                                create.newStopAction().withName("stopUsage"))))))))),
+                                this.create.newStopAction().withName("stopUsage"))))))))),
                         
-                        create.newOpenWorkload("Exp(0.00004)")).withName("RealisticUsageScenario"))               
+                        this.create.newOpenWorkload("Exp(0.00004)")).withName("RealisticUsageScenario"))               
                 
                 .createUsageModelNow();
         printXML(usgModel, "realisticMediaStore");
@@ -214,8 +214,8 @@ public class FluentUsageModelFactoryTest {
     
         String name = "UsgScen";
         setUp();
-        UsageModel usgModel = create.newUsageModel().addToUsageModel(create.newUsageScenario(create.newScenarioBehavior()
-                ,create.newOpenWorkload("10"))
+        UsageModel usgModel = this.create.newUsageModel().addToUsageModel(this.create.newUsageScenario(this.create.newScenarioBehavior()
+                ,this.create.newOpenWorkload("10"))
                 .withName(name))
                 .createUsageModelNow();
         
@@ -231,9 +231,9 @@ public class FluentUsageModelFactoryTest {
         String time = "10";
         setUp();
         
-        UsageModel usgModel = create.newUsageModel().addToUsageModel(create.newUsageScenario(
-                create.newScenarioBehavior()
-                ,create.newOpenWorkload(time)))
+        UsageModel usgModel = this.create.newUsageModel().addToUsageModel(this.create.newUsageScenario(
+                this.create.newScenarioBehavior()
+                ,this.create.newOpenWorkload(time)))
                 
                 .createUsageModelNow();
         
@@ -251,8 +251,8 @@ public class FluentUsageModelFactoryTest {
         int population = 100;
         setUp();
         
-        UsageModel usgModel = create.newUsageModel().addToUsageModel(create.newUsageScenario(create.newScenarioBehavior(),
-                        create.newClosedWorkload(time)
+        UsageModel usgModel = this.create.newUsageModel().addToUsageModel(this.create.newUsageScenario(this.create.newScenarioBehavior(),
+                        this.create.newClosedWorkload(time)
                         .withPopulation(population)))                
                 .createUsageModelNow();
                 
@@ -271,10 +271,10 @@ public class FluentUsageModelFactoryTest {
         String name = "ScenBehaviour";
         setUp();
         
-        UsageModel usgModel = create.newUsageModel().addToUsageModel(create.newUsageScenario(
-                        create.newScenarioBehavior()
+        UsageModel usgModel = this.create.newUsageModel().addToUsageModel(this.create.newUsageScenario(
+                        this.create.newScenarioBehavior()
                         .withName(name)
-                        ,create.newClosedWorkload("0")))
+                        ,this.create.newClosedWorkload("0")))
                 
                 .createUsageModelNow();
         printXML(usgModel, "UsgModScenBehavior");
@@ -293,16 +293,16 @@ public class FluentUsageModelFactoryTest {
         String operSigName = "opSignatureGUIInterface";
         String provRoleName = "SystemProvidesGUIInterface";
                
-        UsageModel usgModel = create.addSystem(createSimplifiedMediaStoreSystem())
-                .newUsageModel().addToUsageModel(create.newUsageScenario(
-                        create.newScenarioBehavior()  
-                        .addToScenarioBehaviour(create.newStartAction()
-                                .withSuccessor(create.newDelayAction("10")
-                                .withSuccessor(create.newBranchAction()
-                                .withSuccessor(create.newEntryLevelSystemCall(create.fetchOffOperationRoleAndSignature(provRoleName, operSigName))
-                                .withSuccessor(create.newLoopAction("1", create.newScenarioBehavior())
-                                .withSuccessor(create.newStopAction())))
-    ))),create.newOpenWorkload("0")))
+        UsageModel usgModel = this.create.addSystem(createSimplifiedMediaStoreSystem())
+                .newUsageModel().addToUsageModel(this.create.newUsageScenario(
+                        this.create.newScenarioBehavior()  
+                        .addToScenarioBehaviour(this.create.newStartAction()
+                                .withSuccessor(this.create.newDelayAction("10")
+                                .withSuccessor(this.create.newBranchAction()
+                                .withSuccessor(this.create.newEntryLevelSystemCall(this.create.fetchOffOperationRoleAndSignature(provRoleName, operSigName))
+                                .withSuccessor(this.create.newLoopAction("1", this.create.newScenarioBehavior())
+                                .withSuccessor(this.create.newStopAction())))
+    ))),this.create.newOpenWorkload("0")))
                 
                 .createUsageModelNow();
  
@@ -317,9 +317,9 @@ public class FluentUsageModelFactoryTest {
     public void usageScenarioBehavActionList() {
         setUp();
         
-        UsageModel usgModel = create.newUsageModel().addToUsageModel(create.newUsageScenario(
-                create.newScenarioBehavior().addToScenarioBehaviour(create.newDelayAction("1").withSuccessor(create.newDelayAction("1")))
-                ,create.newOpenWorkload("10")))
+        UsageModel usgModel = this.create.newUsageModel().addToUsageModel(this.create.newUsageScenario(
+                this.create.newScenarioBehavior().addToScenarioBehaviour(this.create.newDelayAction("1").withSuccessor(this.create.newDelayAction("1")))
+                ,this.create.newOpenWorkload("10")))
                 .createUsageModelNow();
                 
          printXML(usgModel, "UsgModScenBehvActionList");
@@ -335,9 +335,9 @@ public class FluentUsageModelFactoryTest {
         String time = "20";
         setUp();
         
-        UsageModel usgModel = create.newUsageModel().addToUsageModel(create.newUsageScenario(
-                create.newScenarioBehavior().addToScenarioBehaviour(create.newDelayAction(time).withName(name))
-                , create.newClosedWorkload("0")))
+        UsageModel usgModel = this.create.newUsageModel().addToUsageModel(this.create.newUsageScenario(
+                this.create.newScenarioBehavior().addToScenarioBehaviour(this.create.newDelayAction(time).withName(name))
+                , this.create.newClosedWorkload("0")))
                 
                 .createUsageModelNow();
         
@@ -364,10 +364,10 @@ public class FluentUsageModelFactoryTest {
         String scenName = "ScenBeh";
         setUp();
         
-        UsageModel usgModel = create.newUsageModel().addToUsageModel(create.newUsageScenario(
-                create.newScenarioBehavior().addToScenarioBehaviour(
-                        create.newLoopAction(iteration, create.newScenarioBehavior().withName(scenName)).withName(name))
-                ,create.newClosedWorkload("0")))
+        UsageModel usgModel = this.create.newUsageModel().addToUsageModel(this.create.newUsageScenario(
+                this.create.newScenarioBehavior().addToScenarioBehaviour(
+                        this.create.newLoopAction(iteration, this.create.newScenarioBehavior().withName(scenName)).withName(name))
+                ,this.create.newClosedWorkload("0")))
                 .createUsageModelNow();        
         
         
@@ -396,11 +396,11 @@ public class FluentUsageModelFactoryTest {
         String scenName = "ScenBeh";
         setUp();
         
-        UsageModel usgModel = create.newUsageModel().addToUsageModel(create.newUsageScenario(
-                create.newScenarioBehavior().addToScenarioBehaviour(
-                        create.newBranchAction().withName(name).addToBranchAction(
-                                create.newBranchTransition(create.newScenarioBehavior().withName(scenName)).withProbability(prop)))
-                , create.newClosedWorkload("0")))
+        UsageModel usgModel = this.create.newUsageModel().addToUsageModel(this.create.newUsageScenario(
+                this.create.newScenarioBehavior().addToScenarioBehaviour(
+                        this.create.newBranchAction().withName(name).addToBranchAction(
+                                this.create.newBranchTransition(this.create.newScenarioBehavior().withName(scenName)).withProbability(prop)))
+                , this.create.newClosedWorkload("0")))
                 .createUsageModelNow();
                 
         printXML(usgModel, "UsgModScenBehvActionsBranch");
@@ -430,16 +430,16 @@ public class FluentUsageModelFactoryTest {
         String provRoleName = "SystemProvidesGUIInterface";
         
         setUp();
-        UsageModel usgModel = create.addSystem(createSimplifiedMediaStoreSystem())
+        UsageModel usgModel = this.create.addSystem(createSimplifiedMediaStoreSystem())
                 .newUsageModel().addToUsageModel(
-                create.newUsageScenario(
-                        create.newScenarioBehavior().addToScenarioBehaviour(
-                                create.newEntryLevelSystemCall(create.fetchOffOperationRoleAndSignature(provRoleName, operSigName))
+                this.create.newUsageScenario(
+                        this.create.newScenarioBehavior().addToScenarioBehaviour(
+                                this.create.newEntryLevelSystemCall(this.create.fetchOffOperationRoleAndSignature(provRoleName, operSigName))
                                     .withName(name)
-                                    .addToEntryLevelSystemCallInput(create.newVariableUsage("TestReferenz"))
-                                    .addToEntryLevelSystemCallOutput(create.newVariableUsage("TestReferenz"))
+                                    .addToEntryLevelSystemCallInput(this.create.newVariableUsage("TestReferenz"))
+                                    .addToEntryLevelSystemCallOutput(this.create.newVariableUsage("TestReferenz"))
                                     .withPriority(priority))
-                        , create.newClosedWorkload("10")))
+                        , this.create.newClosedWorkload("10")))
                 .createUsageModelNow();
         
         printXML(usgModel, "UsgModScenBehvActionsEntryLevelSystemCall");
@@ -470,8 +470,8 @@ public class FluentUsageModelFactoryTest {
     
         setUp();
         
-        UsageModel usgModel = create.addSystem(createSimplifiedMediaStoreSystem()).newUsageModel().addToUsageModel(
-                create.newUserData(create.fetchOffAssemblyContextByName(assConName)))
+        UsageModel usgModel = this.create.addSystem(createSimplifiedMediaStoreSystem()).newUsageModel().addToUsageModel(
+                this.create.newUserData(this.create.fetchOffAssemblyContextByName(assConName)))
                 .createUsageModelNow();
                 
          printXML(usgModel, "UsgModUserDataBasic");   
@@ -486,8 +486,8 @@ public class FluentUsageModelFactoryTest {
         //Usage Model
         setUp(); 
         
-        UsageModel usgModel = create.addSystem(createSimplifiedMediaStoreSystem()).newUsageModel().addToUsageModel(
-                create.newUserData(create.fetchOffAssemblyContextByName(assConName)).addToUserData(create.newVariableUsage("TestReferenz")))
+        UsageModel usgModel = this.create.addSystem(createSimplifiedMediaStoreSystem()).newUsageModel().addToUsageModel(
+                this.create.newUserData(this.create.fetchOffAssemblyContextByName(assConName)).addToUserData(this.create.newVariableUsage("TestReferenz")))
                 .createUsageModelNow();
 
         printXML(usgModel, "UsgModUserDataVarUsage"); 
@@ -502,8 +502,8 @@ public class FluentUsageModelFactoryTest {
 
         setUp(); 
         
-        UsageModel usgModel = create.addSystem(createSimplifiedMediaStoreSystem()).newUsageModel().addToUsageModel(
-                create.newUserData(create.fetchOffAssemblyContextByName(assConName)))
+        UsageModel usgModel = this.create.addSystem(createSimplifiedMediaStoreSystem()).newUsageModel().addToUsageModel(
+                this.create.newUserData(this.create.fetchOffAssemblyContextByName(assConName)))
                 .createUsageModelNow();
         
          printXML(usgModel, "UsgModUserDataAssembly"); 
