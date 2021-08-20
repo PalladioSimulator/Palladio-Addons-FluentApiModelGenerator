@@ -25,9 +25,9 @@ import org.palladiosimulator.pcm.usagemodel.UsagemodelFactory;
  */
 public class ScenarioBehaviourCreator extends UsageModelEntity {
 
-    private List<AbstractUserAction> actions;
+    private final List<AbstractUserAction> actions;
 
-    public ScenarioBehaviourCreator(UsageModelCreator usgModelCreator) {
+    public ScenarioBehaviourCreator(final UsageModelCreator usgModelCreator) {
         this.actions = new ArrayList<>();
         this.usageModelCreator = usgModelCreator;
     }
@@ -60,42 +60,42 @@ public class ScenarioBehaviourCreator extends UsageModelEntity {
      * @see org.palladiosimulator.generator.fluent.usagemodel.factory.FluentUsageModelFactory#newStopAction()
      * @see org.palladiosimulator.pcm.usagemodel.AbstractUserAction
      */
-    public ScenarioBehaviourCreator addToScenarioBehaviour(ActionCreator action) {
+    public ScenarioBehaviourCreator addToScenarioBehaviour(final ActionCreator action) {
         IllegalArgumentException.throwIfNull(action, "The given Action must not be null");
-        AbstractUserAction usrAction = action.build();
+        final AbstractUserAction usrAction = action.build();
 
         createActionFlow(usrAction);
         return this;
     }
 
-    private void addStart(AbstractUserAction first) {
+    private void addStart(final AbstractUserAction first) {
         // test if current is already Start
         if (first instanceof Start) {
             return;
         }
 
-        ActionCreator startCreator = new StartActionCreator();
-        AbstractUserAction start = startCreator.build();
+        final ActionCreator startCreator = new StartActionCreator();
+        final AbstractUserAction start = startCreator.build();
         start.setSuccessor(first);
         this.actions.add(start);
 
     }
 
-    private void addStop(AbstractUserAction last) {
+    private void addStop(final AbstractUserAction last) {
         // test if last is already Stop
         if (last instanceof Stop) {
             return;
         }
 
-        ActionCreator stopCreator = new StopActionCreator();
-        AbstractUserAction stop = stopCreator.build();
+        final ActionCreator stopCreator = new StopActionCreator();
+        final AbstractUserAction stop = stopCreator.build();
         stop.setPredecessor(last);
         this.actions.add(stop);
     }
 
-    private void createActionFlow(AbstractUserAction start) {
+    private void createActionFlow(final AbstractUserAction start) {
         // use only successor, predecessor then happens from itself
-        List<AbstractUserAction> flow = new ArrayList<>();
+        final List<AbstractUserAction> flow = new ArrayList<>();
         AbstractUserAction before = start;
 
         AbstractUserAction current = start;
@@ -112,10 +112,10 @@ public class ScenarioBehaviourCreator extends UsageModelEntity {
     }
 
     private void addStartStop() {
-        ActionCreator startCreator = new StartActionCreator();
-        AbstractUserAction start = startCreator.build();
-        ActionCreator stopCreator = new StopActionCreator();
-        AbstractUserAction stop = stopCreator.build();
+        final ActionCreator startCreator = new StartActionCreator();
+        final AbstractUserAction start = startCreator.build();
+        final ActionCreator stopCreator = new StopActionCreator();
+        final AbstractUserAction stop = stopCreator.build();
         start.setSuccessor(stop);
         this.actions.add(start);
         this.actions.add(stop);
@@ -123,7 +123,7 @@ public class ScenarioBehaviourCreator extends UsageModelEntity {
 
     @Override
     public ScenarioBehaviour build() {
-        ScenarioBehaviour scenBeh = UsagemodelFactory.eINSTANCE.createScenarioBehaviour();
+        final ScenarioBehaviour scenBeh = UsagemodelFactory.eINSTANCE.createScenarioBehaviour();
         if (this.name != null) {
             scenBeh.setEntityName(this.name);
         }

@@ -19,7 +19,7 @@ import org.palladiosimulator.pcm.usagemodel.UsagemodelFactory;
  */
 public class BranchActionCreator extends ActionCreator {
 
-    private List<BranchTransition> transitions = new ArrayList<BranchTransition>();
+    private final List<BranchTransition> transitions = new ArrayList<BranchTransition>();
 
     public BranchActionCreator() {
     }
@@ -41,7 +41,7 @@ public class BranchActionCreator extends ActionCreator {
      * @return the current branch action in the making
      * @see org.palladiosimulator.pcm.usagemodel.BranchTransition
      */
-    public BranchActionCreator addToBranchAction(BranchTransitionCreator branchTransition) {
+    public BranchActionCreator addToBranchAction(final BranchTransitionCreator branchTransition) {
         IllegalArgumentException.throwIfNull(branchTransition, "The given Branch Transition must not be null");
         this.transitions.add(branchTransition.build());
         return this;
@@ -49,7 +49,7 @@ public class BranchActionCreator extends ActionCreator {
 
     @Override
     public Branch build() {
-        Branch b = UsagemodelFactory.eINSTANCE.createBranch();
+        final Branch b = UsagemodelFactory.eINSTANCE.createBranch();
 
         b.getBranchTransitions_Branch()
             .addAll(this.transitions);
@@ -64,7 +64,7 @@ public class BranchActionCreator extends ActionCreator {
     }
 
     @Override
-    public BranchActionCreator withSuccessor(ActionCreator action) {
+    public BranchActionCreator withSuccessor(final ActionCreator action) {
         return (BranchActionCreator) super.withSuccessor(action);
     }
 

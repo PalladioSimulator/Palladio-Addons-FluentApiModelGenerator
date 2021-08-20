@@ -20,8 +20,7 @@ import org.palladiosimulator.pcm.resourcetype.ResourceRepository;
 import org.palladiosimulator.pcm.resourcetype.SchedulingPolicy;
 
 /**
- * This class constructs a
- * {@link org.palladiosimulator.pcm.resourceenvironment.ResourceEnvironment
+ * This class constructs a {@link org.palladiosimulator.pcm.resourceenvironment.ResourceEnvironment
  * ResourceEnvironment}.
  *
  * @author Florian Krone
@@ -48,51 +47,56 @@ public class ResourceEnvironmentCreator extends ResourceEntity implements IResou
     @Override
     public ResourceEnvironment createResourceEnvironmentNow() {
         final ResourceEnvironment environment = build();
-        validator.validate(environment, name);
+        this.validator.validate(environment, this.name);
         return environment;
     }
 
     @Override
     protected ResourceEnvironment build() {
         final ResourceEnvironment environment = ResourceenvironmentFactory.eINSTANCE.createResourceEnvironment();
-        if (name != null) {
-            environment.setEntityName(name);
+        if (this.name != null) {
+            environment.setEntityName(this.name);
         }
-        environment.getResourceContainer_ResourceEnvironment().addAll(resourceContainers);
-        environment.getLinkingResources__ResourceEnvironment().addAll(linkingResources);
+        environment.getResourceContainer_ResourceEnvironment()
+            .addAll(this.resourceContainers);
+        environment.getLinkingResources__ResourceEnvironment()
+            .addAll(this.linkingResources);
         return environment;
     }
 
     @Override
     public IResourceEnvironmentAddition addToResourceEnvironment(final ResourceContainerCreator resourceContainer) {
         IllegalArgumentException.throwIfNull(resourceContainer, "The given ResourceContainer must not be null");
-        resourceContainers.add(resourceContainer.build());
+        this.resourceContainers.add(resourceContainer.build());
         return this;
     }
 
     @Override
     public IResourceEnvironmentAddition addToResourceEnvironment(final LinkingResourceCreator linkingResource) {
         IllegalArgumentException.throwIfNull(linkingResource, "The given LinkingResource must not be null");
-        linkingResources.add(linkingResource.build());
+        this.linkingResources.add(linkingResource.build());
         return this;
     }
 
     /**
-     * Fetches the {@link org.palladiosimulator.pcm.resourcetype.SchedulingPolicy
-     * SchedulingPolicy} matching the given policy.
+     * Fetches the {@link org.palladiosimulator.pcm.resourcetype.SchedulingPolicy SchedulingPolicy}
+     * matching the given policy.
      *
      * @param policy
      * @return the matching <code>SchedulingPolicy</code>
      */
     public SchedulingPolicy getSchedulingPolicy(final SchedulingPolicies policy) {
         IllegalArgumentException.throwIfNull(policy, "The given SchedulingPolicy must not be null");
-        return resources.getSchedulingPolicies__ResourceRepository().stream()
-                .filter(x -> x.getEntityName().equals(policy.getPolicyName())).findFirst().get();
+        return this.resources.getSchedulingPolicies__ResourceRepository()
+            .stream()
+            .filter(x -> x.getEntityName()
+                .equals(policy.getPolicyName()))
+            .findFirst()
+            .get();
     }
 
     /**
-     * Fetches the
-     * {@link org.palladiosimulator.pcm.resourcetype.ProcessingResourceType
+     * Fetches the {@link org.palladiosimulator.pcm.resourcetype.ProcessingResourceType
      * ProcessingResourceType} matching the given resource.
      *
      * @param resource
@@ -100,13 +104,16 @@ public class ResourceEnvironmentCreator extends ResourceEntity implements IResou
      */
     public ProcessingResourceType getProcessingResource(final ProcessingResource resource) {
         IllegalArgumentException.throwIfNull(resource, "The given ProcessignResource must not be null");
-        return (ProcessingResourceType) resources.getAvailableResourceTypes_ResourceRepository().stream()
-                .filter(x -> x.getEntityName().equals(resource.getResourceName())).findFirst().get();
+        return (ProcessingResourceType) this.resources.getAvailableResourceTypes_ResourceRepository()
+            .stream()
+            .filter(x -> x.getEntityName()
+                .equals(resource.getResourceName()))
+            .findFirst()
+            .get();
     }
 
     /**
-     * Fetches the
-     * {@link org.palladiosimulator.pcm.resourcetype.CommunicationLinkResourceType
+     * Fetches the {@link org.palladiosimulator.pcm.resourcetype.CommunicationLinkResourceType
      * CommunicationLinkResourceType} matching the given resource.
      *
      * @param resource
@@ -114,22 +121,28 @@ public class ResourceEnvironmentCreator extends ResourceEntity implements IResou
      */
     public CommunicationLinkResourceType getCommunicationLinkResource(final CommunicationLinkResource resource) {
         IllegalArgumentException.throwIfNull(resource, "The given CommunicationLinkResource must not be null");
-        return (CommunicationLinkResourceType) resources.getAvailableResourceTypes_ResourceRepository().stream()
-                .filter(x -> x.getEntityName().equals(resource.getResourceName())).findFirst().get();
+        return (CommunicationLinkResourceType) this.resources.getAvailableResourceTypes_ResourceRepository()
+            .stream()
+            .filter(x -> x.getEntityName()
+                .equals(resource.getResourceName()))
+            .findFirst()
+            .get();
     }
 
     /**
-     * Fetches the
-     * {@link org.palladiosimulator.pcm.resourceenvironment.ResourceContainer
+     * Fetches the {@link org.palladiosimulator.pcm.resourceenvironment.ResourceContainer
      * ResourceContaienr} with the given name.
      *
      * @param name
      * @return the <code>ResourceContainer</code>
-     * @throws IllegalArgumentException Thrown if no <code>ResourceContainer</code>
-     *                                  has the given name.
+     * @throws IllegalArgumentException
+     *             Thrown if no <code>ResourceContainer</code> has the given name.
      */
-    public ResourceContainer getResourceContainerByName(String name) throws IllegalArgumentException {
-        return resourceContainers.stream().filter(x -> x.getEntityName().equals(name)).findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("No ResourceContainer with name " + name + " found"));
+    public ResourceContainer getResourceContainerByName(final String name) throws IllegalArgumentException {
+        return this.resourceContainers.stream()
+            .filter(x -> x.getEntityName()
+                .equals(name))
+            .findFirst()
+            .orElseThrow(() -> new IllegalArgumentException("No ResourceContainer with name " + name + " found"));
     }
 }

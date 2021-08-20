@@ -10,8 +10,7 @@ import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceenvironmentFactory;
 
 /**
- * This class constructs a
- * {@link org.palladiosimulator.pcm.resourceenvironment.ResourceContainer
+ * This class constructs a {@link org.palladiosimulator.pcm.resourceenvironment.ResourceContainer
  * ResourceContainer}.
  *
  * @author Florian Krone
@@ -27,11 +26,9 @@ public class ResourceContainerCreator extends ResourceEntity {
     }
 
     /**
-     * Adds a
-     * {@link org.palladiosimulator.pcm.resourceenvironment.ProcessingResourceSpecification
+     * Adds a {@link org.palladiosimulator.pcm.resourceenvironment.ProcessingResourceSpecification
      * ProcessingResourceSpecification} to the
-     * {@link org.palladiosimulator.pcm.resourceenvironment.ResourceContainer
-     * ResourceContainer}.
+     * {@link org.palladiosimulator.pcm.resourceenvironment.ResourceContainer ResourceContainer}.
      *
      * @param processingResourceSpecification
      * @return this <code>ResourceContainer</code>
@@ -42,7 +39,7 @@ public class ResourceContainerCreator extends ResourceEntity {
             final ProcessingResourceSpecificationCreator processingResourceSpecification) {
         IllegalArgumentException.throwIfNull(processingResourceSpecification,
                 "The given ProcessingResourceSpecification must not be null");
-        processingResourceSpecifications.add(processingResourceSpecification.build());
+        this.processingResourceSpecifications.add(processingResourceSpecification.build());
         return this;
     }
 
@@ -50,8 +47,7 @@ public class ResourceContainerCreator extends ResourceEntity {
      * Adds a
      * {@link org.palladiosimulator.pcm.resourceenvironment.HDDProcessingResourceSpecification
      * HDDProcessingResourceSpecification} to the
-     * {@link org.palladiosimulator.pcm.resourceenvironment.ResourceContainer
-     * ResourceContainer}.
+     * {@link org.palladiosimulator.pcm.resourceenvironment.ResourceContainer ResourceContainer}.
      *
      * @param hddProcessingResourceSpecification
      * @return this <code>ResourceContainer</code>
@@ -62,14 +58,13 @@ public class ResourceContainerCreator extends ResourceEntity {
             final HddProcessingResourceSpecificationCreator hddProcessingResourceSpecification) {
         IllegalArgumentException.throwIfNull(hddProcessingResourceSpecification,
                 "The given HddProcessingResourceSpecification must not be null");
-        hddProcessingResourceSpecifications.add(hddProcessingResourceSpecification.build());
+        this.hddProcessingResourceSpecifications.add(hddProcessingResourceSpecification.build());
         return this;
     }
 
     /**
      * Adds a nested resource container to the
-     * {@link org.palladiosimulator.pcm.resourceenvironment.ResourceContainer
-     * ResourceContainer}.
+     * {@link org.palladiosimulator.pcm.resourceenvironment.ResourceContainer ResourceContainer}.
      *
      * @param resourceContainer
      * @return this <code>ResourceContainer</code>
@@ -77,7 +72,7 @@ public class ResourceContainerCreator extends ResourceEntity {
      */
     public ResourceContainerCreator addNestedResourceContainer(final ResourceContainerCreator resourceContainer) {
         IllegalArgumentException.throwIfNull(resourceContainer, "The given ResourceContainer must not be null");
-        nestedResourceContainers.add(resourceContainer.build());
+        this.nestedResourceContainers.add(resourceContainer.build());
         return this;
     }
 
@@ -89,13 +84,17 @@ public class ResourceContainerCreator extends ResourceEntity {
     @Override
     protected ResourceContainer build() {
         final ResourceContainer container = ResourceenvironmentFactory.eINSTANCE.createResourceContainer();
-        if (name != null) {
-            container.setEntityName(name);
+        if (this.name != null) {
+            container.setEntityName(this.name);
         }
-        container.getActiveResourceSpecifications_ResourceContainer().addAll(processingResourceSpecifications);
-        container.getActiveResourceSpecifications_ResourceContainer().addAll(hddProcessingResourceSpecifications);
-        container.getHddResourceSpecifications().addAll(hddProcessingResourceSpecifications);
-        container.getNestedResourceContainers__ResourceContainer().addAll(nestedResourceContainers);
+        container.getActiveResourceSpecifications_ResourceContainer()
+            .addAll(this.processingResourceSpecifications);
+        container.getActiveResourceSpecifications_ResourceContainer()
+            .addAll(this.hddProcessingResourceSpecifications);
+        container.getHddResourceSpecifications()
+            .addAll(this.hddProcessingResourceSpecifications);
+        container.getNestedResourceContainers__ResourceContainer()
+            .addAll(this.nestedResourceContainers);
         return container;
     }
 }

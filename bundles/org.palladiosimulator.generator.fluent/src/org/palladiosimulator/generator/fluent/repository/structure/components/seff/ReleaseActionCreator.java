@@ -12,10 +12,9 @@ import org.palladiosimulator.pcm.seff.ReleaseAction;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 
 /**
- * This class constructs a {@link org.palladiosimulator.pcm.seff.ReleaseAction
- * ReleaseAction}. It is used to create the '<em><b>ReleaseAction</b></em>'
- * object step-by-step, i.e. '<em><b>ReleaseActionCreator</b></em>' objects are
- * of intermediate state.
+ * This class constructs a {@link org.palladiosimulator.pcm.seff.ReleaseAction ReleaseAction}. It is
+ * used to create the '<em><b>ReleaseAction</b></em>' object step-by-step, i.e.
+ * '<em><b>ReleaseActionCreator</b></em>' objects are of intermediate state.
  *
  * @author Louisa Lambrecht
  * @see org.palladiosimulator.pcm.seff.ReleaseAction
@@ -36,8 +35,8 @@ public class ReleaseActionCreator extends GeneralAction {
     /**
      * Specifies the passive resource of this release action.
      * <p>
-     * An existing <code>passiveResource</code> can be fetched from the repository
-     * using the org.palladiosimulator.generator.fluent.component.factory, i.e.
+     * An existing <code>passiveResource</code> can be fetched from the repository using the
+     * org.palladiosimulator.generator.fluent.component.factory, i.e.
      * <code>create.fetchOfPassiveResource(name)</code>.
      * </p>
      *
@@ -76,13 +75,16 @@ public class ReleaseActionCreator extends GeneralAction {
     @Override
     protected ReleaseAction build() {
         final ReleaseAction action = SeffFactory.eINSTANCE.createReleaseAction();
-        if (passiveResource != null) {
-            action.setPassiveResource_ReleaseAction(passiveResource);
+        if (this.passiveResource != null) {
+            action.setPassiveResource_ReleaseAction(this.passiveResource);
         }
 
-        action.getInfrastructureCall__Action().addAll(infrastructureCalls);
-        action.getResourceCall__Action().addAll(resourceCalls);
-        action.getResourceDemand_Action().addAll(demands);
+        action.getInfrastructureCall__Action()
+            .addAll(this.infrastructureCalls);
+        action.getResourceCall__Action()
+            .addAll(this.resourceCalls);
+        action.getResourceDemand_Action()
+            .addAll(this.demands);
 
         return action;
     }

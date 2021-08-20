@@ -29,7 +29,7 @@ public abstract class ActionCreator extends UsageModelEntity {
      * @return the current action in the making
      * @see org.palladiosimulator.pcm.usagemodel.AbstractUserAction
      */
-    public ActionCreator withSuccessor(ActionCreator action) {
+    public ActionCreator withSuccessor(final ActionCreator action) {
         IllegalArgumentException.throwIfNull(action, "The given Successor Action must not be null");
         this.successor = action.build();
         return this;
@@ -38,7 +38,7 @@ public abstract class ActionCreator extends UsageModelEntity {
     /**
      * Returns the {@link org.palladiosimulator.pcm.usagemodel.AbstractUserAction successor} of the
      * current action.
-     * 
+     *
      * @return the successor of the current action in the making
      * @see org.palladiosimulator.pcm.usagemodel.AbstractUserAction
      */

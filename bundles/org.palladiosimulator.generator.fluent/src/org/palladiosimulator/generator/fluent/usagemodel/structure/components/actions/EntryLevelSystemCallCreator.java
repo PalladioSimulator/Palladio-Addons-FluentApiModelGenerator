@@ -23,15 +23,15 @@ import org.palladiosimulator.pcm.usagemodel.UsagemodelFactory;
  */
 public class EntryLevelSystemCallCreator extends ActionCreator {
 
-    private List<VariableUsage> outputParameterUsage;
-    private List<VariableUsage> inputParameterUsage;
+    private final List<VariableUsage> outputParameterUsage;
+    private final List<VariableUsage> inputParameterUsage;
     private int priority;
 
     private OperationSignature opSignature;
     private OperationProvidedRole opRole;
 
-    public EntryLevelSystemCallCreator(OperationSignature operationSignature,
-            OperationProvidedRole operationProvidedRole) {
+    public EntryLevelSystemCallCreator(final OperationSignature operationSignature,
+            final OperationProvidedRole operationProvidedRole) {
         this.outputParameterUsage = new ArrayList<VariableUsage>();
         this.inputParameterUsage = new ArrayList<VariableUsage>();
         this.priority = 0;
@@ -40,14 +40,14 @@ public class EntryLevelSystemCallCreator extends ActionCreator {
     }
 
     private EntryLevelSystemCallCreator withOperationSignatureEntryLevelSystemCall(
-            OperationSignature operationSignature) {
+            final OperationSignature operationSignature) {
         IllegalArgumentException.throwIfNull(operationSignature, "The given Operation Signature must not be null");
         this.opSignature = operationSignature;
         return this;
     }
 
     private EntryLevelSystemCallCreator withProvidedRoleEntryLevelSystemCall(
-            OperationProvidedRole operationProvidedRole) {
+            final OperationProvidedRole operationProvidedRole) {
         IllegalArgumentException.throwIfNull(operationProvidedRole, "The given Provided Role must not be null");
         this.opRole = operationProvidedRole;
         return this;
@@ -59,7 +59,7 @@ public class EntryLevelSystemCallCreator extends ActionCreator {
      * @param priority
      * @return the current entry level system call in the making
      */
-    public EntryLevelSystemCallCreator withPriority(int priority) {
+    public EntryLevelSystemCallCreator withPriority(final int priority) {
         this.priority = priority;
         return this;
     }
@@ -79,7 +79,8 @@ public class EntryLevelSystemCallCreator extends ActionCreator {
      * @return the entry level system call in the making
      * @see org.palladiosimulator.pcm.parameter.VariableUsage
      */
-    public EntryLevelSystemCallCreator addToEntryLevelSystemCallOutput(VariableUsageCreator outputParameterUsage) {
+    public EntryLevelSystemCallCreator addToEntryLevelSystemCallOutput(
+            final VariableUsageCreator outputParameterUsage) {
         IllegalArgumentException.throwIfNull(outputParameterUsage, "The given Output Variable Usage must not be null");
         this.outputParameterUsage.add(outputParameterUsage.build());
         return this;
@@ -100,7 +101,7 @@ public class EntryLevelSystemCallCreator extends ActionCreator {
      * @return the entry level system call in the making
      * @see org.palladiosimulator.pcm.parameter.VariableUsage
      */
-    public EntryLevelSystemCallCreator addToEntryLevelSystemCallInput(VariableUsageCreator inputParameterUsage) {
+    public EntryLevelSystemCallCreator addToEntryLevelSystemCallInput(final VariableUsageCreator inputParameterUsage) {
         IllegalArgumentException.throwIfNull(inputParameterUsage, "The given Input Variable Usage must not be null");
         this.inputParameterUsage.add(inputParameterUsage.build());
         return this;
@@ -108,7 +109,7 @@ public class EntryLevelSystemCallCreator extends ActionCreator {
 
     @Override
     public EntryLevelSystemCall build() {
-        EntryLevelSystemCall call = UsagemodelFactory.eINSTANCE.createEntryLevelSystemCall();
+        final EntryLevelSystemCall call = UsagemodelFactory.eINSTANCE.createEntryLevelSystemCall();
 
         call.getOutputParameterUsages_EntryLevelSystemCall()
             .addAll(this.outputParameterUsage);
@@ -136,7 +137,7 @@ public class EntryLevelSystemCallCreator extends ActionCreator {
     }
 
     @Override
-    public EntryLevelSystemCallCreator withSuccessor(ActionCreator action) {
+    public EntryLevelSystemCallCreator withSuccessor(final ActionCreator action) {
         return (EntryLevelSystemCallCreator) super.withSuccessor(action);
     }
 

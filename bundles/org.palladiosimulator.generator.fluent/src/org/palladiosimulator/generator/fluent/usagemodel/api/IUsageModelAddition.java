@@ -20,7 +20,7 @@ public interface IUsageModelAddition {
      * @param UserDataCreator
      *            userData
      * @return this UsageModel, now containing the <code>userData</code>
-     * 
+     *
      * @see org.palladiosimulator.pcm.usagemodel.UserData
      */
     IUsageModelAddition addToUsageModel(UserDataCreator userData);
@@ -32,7 +32,7 @@ public interface IUsageModelAddition {
      * @param UserDataCreator
      *            userData
      * @return this UsageModel, now containing the <code>usageScenario</code>
-     * 
+     *
      * @see org.palladiosimulator.pcm.usagemodel.UsageScenario
      */
     IUsageModelAddition addToUsageModel(UsageScenarioCreator usageScenario);

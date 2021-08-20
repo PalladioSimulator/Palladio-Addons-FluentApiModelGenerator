@@ -9,8 +9,7 @@ import org.palladiosimulator.pcm.repository.OperationProvidedRole;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
 
 /**
- * This class constructs an
- * {@link org.palladiosimulator.pcm.repository.OperationProvidedRole
+ * This class constructs an {@link org.palladiosimulator.pcm.repository.OperationProvidedRole
  * OperationProvidedRole}.
  *
  * @author Florian Krone
@@ -21,7 +20,7 @@ public class OperationProvidedRoleCreator extends SystemEntity {
     private OperationInterface providedInterface;
 
     public OperationProvidedRoleCreator(final SystemCreator systemCreator) {
-        system = systemCreator;
+        this.system = systemCreator;
     }
 
     /**
@@ -34,25 +33,25 @@ public class OperationProvidedRoleCreator extends SystemEntity {
      */
     public OperationProvidedRoleCreator withProvidedInterface(final OperationInterface operationInterface) {
         IllegalArgumentException.throwIfNull(operationInterface, "The given Interface must not be null.");
-        providedInterface = operationInterface;
+        this.providedInterface = operationInterface;
         return this;
     }
 
     /**
      * Defines the {@link org.palladiosimulator.pcm.repository.OperationInterface
-     * OperationInterface} this role provides. Searches the repositories added to
-     * the org.palladiosimulator.generator.fluent.system for an interface that
-     * matches the given name.
+     * OperationInterface} this role provides. Searches the repositories added to the
+     * org.palladiosimulator.generator.fluent.system for an interface that matches the given name.
      *
      * @param name
      * @return this role creator
-     * @throws NoSuchElementException Thrown if no element matches the given name.
+     * @throws NoSuchElementException
+     *             Thrown if no element matches the given name.
      * @see org.palladiosimulator.pcm.repository.OperationInterface
      */
     public OperationProvidedRoleCreator withProvidedInterface(final String name) throws NoSuchElementException {
         OperationInterface requiredInterface;
         try {
-            requiredInterface = (OperationInterface) system.getInterfaceByName(name);
+            requiredInterface = (OperationInterface) this.system.getInterfaceByName(name);
         } catch (final ClassCastException e) {
             throw new NoSuchElementException(
                     String.format("An Interface with name '%s' was found, but it was not an OperationInterface. "
@@ -65,10 +64,10 @@ public class OperationProvidedRoleCreator extends SystemEntity {
     @Override
     public OperationProvidedRole build() {
         final OperationProvidedRole role = RepositoryFactory.eINSTANCE.createOperationProvidedRole();
-        if (name != null) {
-            role.setEntityName(name);
+        if (this.name != null) {
+            role.setEntityName(this.name);
         }
-        role.setProvidedInterface__OperationProvidedRole(providedInterface);
+        role.setProvidedInterface__OperationProvidedRole(this.providedInterface);
         return role;
     }
 

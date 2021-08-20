@@ -12,11 +12,9 @@ import org.palladiosimulator.pcm.seff.EmitEventAction;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 
 /**
- * This class constructs an
- * {@link org.palladiosimulator.pcm.seff.EmitEventAction EmitEventAction}. It is
- * used to create the '<em><b>EmitEventAction</b></em>' object step-by-step,
- * i.e. '<em><b>EmitEventActionCreator</b></em>' objects are of intermediate
- * state.
+ * This class constructs an {@link org.palladiosimulator.pcm.seff.EmitEventAction EmitEventAction}.
+ * It is used to create the '<em><b>EmitEventAction</b></em>' object step-by-step, i.e.
+ * '<em><b>EmitEventActionCreator</b></em>' objects are of intermediate state.
  *
  * @author Louisa Lambrecht
  * @see org.palladiosimulator.pcm.seff.EmitEventAction
@@ -29,7 +27,7 @@ public class EmitEventActionCreator extends SeffAction {
 
     protected EmitEventActionCreator(final SeffCreator seff) {
         this.seff = seff;
-        inputVariableUsages = new ArrayList<>();
+        this.inputVariableUsages = new ArrayList<>();
     }
 
     @Override
@@ -40,8 +38,8 @@ public class EmitEventActionCreator extends SeffAction {
     /**
      * Specifies the <code>eventType</code> that is emitted by this action.
      * <p>
-     * An existing <code>eventType</code> can be fetched from the repository using
-     * the org.palladiosimulator.generator.fluent.component.factory, i.e.
+     * An existing <code>eventType</code> can be fetched from the repository using the
+     * org.palladiosimulator.generator.fluent.component.factory, i.e.
      * <code>create.fetchOfEventType(name)</code>.
      * </p>
      *
@@ -58,8 +56,8 @@ public class EmitEventActionCreator extends SeffAction {
     /**
      * Specifies the <code>sourceRole</code> that is triggered by this action.
      * <p>
-     * An existing <code>sourceRole</code> can be fetched from the repository using
-     * the org.palladiosimulator.generator.fluent.component.factory, i.e.
+     * An existing <code>sourceRole</code> can be fetched from the repository using the
+     * org.palladiosimulator.generator.fluent.component.factory, i.e.
      * <code>create.fetchOfSourceRole(name)</code>.
      * </p>
      *
@@ -69,13 +67,12 @@ public class EmitEventActionCreator extends SeffAction {
      */
     public EmitEventActionCreator withSourceRole(final SourceRole sourceRole) {
         IllegalArgumentException.throwIfNull(sourceRole, "sourceRole must not be null");
-        requiredRole = sourceRole;
+        this.requiredRole = sourceRole;
         return this;
     }
 
     /**
-     * Adds the <code>variableUsage</code> to this action's list of input variable
-     * usages.
+     * Adds the <code>variableUsage</code> to this action's list of input variable usages.
      *
      * @param variableUsage
      * @return this emit event action in the making
@@ -83,20 +80,21 @@ public class EmitEventActionCreator extends SeffAction {
      */
     public EmitEventActionCreator withInputVariableUsage(final VariableUsageCreator variableUsage) {
         IllegalArgumentException.throwIfNull(variableUsage, "variableUsage must not be null");
-        inputVariableUsages.add(variableUsage.build());
+        this.inputVariableUsages.add(variableUsage.build());
         return this;
     }
 
     @Override
     protected EmitEventAction build() {
         final EmitEventAction action = SeffFactory.eINSTANCE.createEmitEventAction();
-        if (eventType != null) {
-            action.setEventType__EmitEventAction(eventType);
+        if (this.eventType != null) {
+            action.setEventType__EmitEventAction(this.eventType);
         }
-        if (requiredRole != null) {
-            action.setSourceRole__EmitEventAction(requiredRole);
+        if (this.requiredRole != null) {
+            action.setSourceRole__EmitEventAction(this.requiredRole);
         }
-        action.getInputVariableUsages__CallAction().addAll(inputVariableUsages);
+        action.getInputVariableUsages__CallAction()
+            .addAll(this.inputVariableUsages);
         return action;
     }
 }

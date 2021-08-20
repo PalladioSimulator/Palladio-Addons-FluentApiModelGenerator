@@ -26,20 +26,15 @@ import org.palladiosimulator.pcm.seff.seff_reliability.RecoveryActionBehaviour;
 import org.palladiosimulator.pcm.seff.seff_reliability.SeffReliabilityFactory;
 
 /**
- * This class constructs a
- * {@link org.palladiosimulator.pcm.seff.ServiceEffectSpecification
- * ServiceEffectSpecification} /
- * {@link org.palladiosimulator.pcm.seff.ResourceDemandingSEFF
- * ResourceDemandingSEFF} /
- * {@link org.palladiosimulator.pcm.seff.ResourceDemandingBehaviour
+ * This class constructs a {@link org.palladiosimulator.pcm.seff.ServiceEffectSpecification
+ * ServiceEffectSpecification} / {@link org.palladiosimulator.pcm.seff.ResourceDemandingSEFF
+ * ResourceDemandingSEFF} / {@link org.palladiosimulator.pcm.seff.ResourceDemandingBehaviour
  * ResourceDemandingBehaviour} /
  * {@link org.palladiosimulator.pcm.seff.ResourceDemandingInternalBehaviour
- * ResourceDemandingInternalBehaviour} /
- * {@link org.palladiosimulator.pcm.seff.ForkedBehaviour ForkedBehaviour} /
- * {@link org.palladiosimulator.pcm.seff.RecoveryActionBehaviour
- * RecoveryActionBehaviour}. It is used to create the behaviour objects
- * step-by-step, i.e. '<em><b>SeffCreator</b></em>' objects are of intermediate
- * state.
+ * ResourceDemandingInternalBehaviour} / {@link org.palladiosimulator.pcm.seff.ForkedBehaviour
+ * ForkedBehaviour} / {@link org.palladiosimulator.pcm.seff.RecoveryActionBehaviour
+ * RecoveryActionBehaviour}. It is used to create the behaviour objects step-by-step, i.e.
+ * '<em><b>SeffCreator</b></em>' objects are of intermediate state.
  *
  * @author Louisa Lambrecht
  * @see org.palladiosimulator.pcm.seff.ServiceEffectSpecification
@@ -60,11 +55,11 @@ public class SeffCreator extends RepositoryEntity implements Seff, ActionSeff, S
     private final List<RecoveryActionBehaviour> alternatives;
 
     public SeffCreator(final RepositoryCreator repo) {
-        repository = repo;
-        steps = new ArrayList<>();
-        internalBehaviours = new ArrayList<>();
-        failures = new ArrayList<>();
-        alternatives = new ArrayList<>();
+        this.repository = repo;
+        this.steps = new ArrayList<>();
+        this.internalBehaviours = new ArrayList<>();
+        this.failures = new ArrayList<>();
+        this.alternatives = new ArrayList<>();
     }
 
     // ------------ action methods ------------
@@ -138,7 +133,7 @@ public class SeffCreator extends RepositoryEntity implements Seff, ActionSeff, S
 
     @Override
     public RecoveryActionCreator recoveryAction() {
-        return new RecoveryActionCreator(this, repository);
+        return new RecoveryActionCreator(this, this.repository);
     }
 
     // ------------ seff methods ------------
@@ -164,7 +159,7 @@ public class SeffCreator extends RepositoryEntity implements Seff, ActionSeff, S
     @Override
     public SeffCreator withInternalBehaviour(final InternalSeff internalBehaviour) {
         IllegalArgumentException.throwIfNull(internalBehaviour, "internalBehaviour must not be null");
-        internalBehaviours.add(internalBehaviour);
+        this.internalBehaviours.add(internalBehaviour);
         return this;
     }
 
@@ -176,21 +171,21 @@ public class SeffCreator extends RepositoryEntity implements Seff, ActionSeff, S
     @Override
     public SeffCreator withFailureType(final Failure failure) {
         IllegalArgumentException.throwIfNull(failure, "failure must not be null");
-        final FailureType f = repository.getFailureType(failure);
+        final FailureType f = this.repository.getFailureType(failure);
         return this.withFailureType(f);
     }
 
     @Override
     public SeffCreator withFailureType(final FailureType failureType) {
         IllegalArgumentException.throwIfNull(failureType, "failureType must not be null");
-        failures.add(failureType);
+        this.failures.add(failureType);
         return this;
     }
 
     @Override
     public SeffCreator withAlternativeRecoveryBehaviour(final RecoveryActionBehaviour recoveryBehaviour) {
         IllegalArgumentException.throwIfNull(recoveryBehaviour, "recoveryBehaviour must not be null");
-        alternatives.add(recoveryBehaviour);
+        this.alternatives.add(recoveryBehaviour);
         return this;
     }
 
@@ -205,17 +200,20 @@ public class SeffCreator extends RepositoryEntity implements Seff, ActionSeff, S
     public ResourceDemandingSEFF buildRDSeff() {
         final ResourceDemandingSEFF seff = SeffFactory.eINSTANCE.createResourceDemandingSEFF();
 
-        if (signature != null) {
-            seff.setDescribedService__SEFF(signature);
+        if (this.signature != null) {
+            seff.setDescribedService__SEFF(this.signature);
         }
-        if (seffTypeID != null) {
-            seff.setSeffTypeID(seffTypeID);
+        if (this.seffTypeID != null) {
+            seff.setSeffTypeID(this.seffTypeID);
         }
 
-        seff.getSteps_Behaviour().addAll(steps);
+        seff.getSteps_Behaviour()
+            .addAll(this.steps);
 
-        seff.getResourceDemandingInternalBehaviours().addAll(
-                internalBehaviours.stream().map(InternalSeff::buildInternalBehaviour).collect(Collectors.toList()));
+        seff.getResourceDemandingInternalBehaviours()
+            .addAll(this.internalBehaviours.stream()
+                .map(InternalSeff::buildInternalBehaviour)
+                .collect(Collectors.toList()));
         return seff;
 
     }
@@ -223,49 +221,55 @@ public class SeffCreator extends RepositoryEntity implements Seff, ActionSeff, S
     @Override
     public ResourceDemandingBehaviour buildBehaviour() {
         final ResourceDemandingBehaviour behaviour = SeffFactory.eINSTANCE.createResourceDemandingBehaviour();
-        behaviour.getSteps_Behaviour().addAll(steps);
+        behaviour.getSteps_Behaviour()
+            .addAll(this.steps);
         return behaviour;
     }
 
     @Override
     public ResourceDemandingInternalBehaviour buildInternalBehaviour() {
         final ResourceDemandingInternalBehaviour internal = SeffFactory.eINSTANCE
-                .createResourceDemandingInternalBehaviour();
-        internal.getSteps_Behaviour().addAll(steps);
+            .createResourceDemandingInternalBehaviour();
+        internal.getSteps_Behaviour()
+            .addAll(this.steps);
         return internal;
     }
 
     @Override
     public ForkedBehaviour buildForkedBehaviour() {
         final ForkedBehaviour fork = SeffFactory.eINSTANCE.createForkedBehaviour();
-        fork.getSteps_Behaviour().addAll(steps);
+        fork.getSteps_Behaviour()
+            .addAll(this.steps);
         return fork;
     }
 
     @Override
     public RecoveryActionBehaviour buildRecoveryBehaviour() {
         final RecoveryActionBehaviour recovActionBehaviour = SeffReliabilityFactory.eINSTANCE
-                .createRecoveryActionBehaviour();
+            .createRecoveryActionBehaviour();
 
-        if (name != null) {
-            recovActionBehaviour.setEntityName(name);
+        if (this.name != null) {
+            recovActionBehaviour.setEntityName(this.name);
         }
 
-        recovActionBehaviour.getSteps_Behaviour().addAll(steps);
-        recovActionBehaviour.getFailureHandlingAlternatives__RecoveryActionBehaviour().addAll(alternatives);
-        recovActionBehaviour.getFailureTypes_FailureHandlingEntity().addAll(failures);
+        recovActionBehaviour.getSteps_Behaviour()
+            .addAll(this.steps);
+        recovActionBehaviour.getFailureHandlingAlternatives__RecoveryActionBehaviour()
+            .addAll(this.alternatives);
+        recovActionBehaviour.getFailureTypes_FailureHandlingEntity()
+            .addAll(this.failures);
 
         return recovActionBehaviour;
     }
 
     // ------------ getter + setter ------------
     protected void setNext(final AbstractAction action) {
-        if (current != null) {
-            current.setSuccessor_AbstractAction(action);
-            action.setPredecessor_AbstractAction(current);
+        if (this.current != null) {
+            this.current.setSuccessor_AbstractAction(action);
+            action.setPredecessor_AbstractAction(this.current);
         }
-        current = action;
-        steps.add(action);
+        this.current = action;
+        this.steps.add(action);
     }
 
 }

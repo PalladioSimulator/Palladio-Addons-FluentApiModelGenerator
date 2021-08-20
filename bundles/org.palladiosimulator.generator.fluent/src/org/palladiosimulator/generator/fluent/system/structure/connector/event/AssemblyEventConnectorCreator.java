@@ -11,8 +11,7 @@ import org.palladiosimulator.pcm.repository.SinkRole;
 import org.palladiosimulator.pcm.repository.SourceRole;
 
 /**
- * This class constructs an
- * {@link org.palladiosimulator.pcm.core.composition.AssemblyEventConnector
+ * This class constructs an {@link org.palladiosimulator.pcm.core.composition.AssemblyEventConnector
  * AssemblyEventConnector}.
  *
  * @author Florian Krone
@@ -26,7 +25,7 @@ public class AssemblyEventConnectorCreator extends AbstractConnectorCreator {
     private SinkRole sinkRole;
 
     public AssemblyEventConnectorCreator(final SystemCreator systemCreator) {
-        system = systemCreator;
+        this.system = systemCreator;
     }
 
     /**
@@ -50,18 +49,19 @@ public class AssemblyEventConnectorCreator extends AbstractConnectorCreator {
     /**
      * Defines the {@link org.palladiosimulator.pcm.core.composition.AssemblyContext
      * AssemblyContext} with the source role. The assembly contexts added to the
-     * org.palladiosimulator.generator.fluent.system are searched for one that
-     * matches the given name.
+     * org.palladiosimulator.generator.fluent.system are searched for one that matches the given
+     * name.
      *
      * @param name
      * @return this connector
-     * @throws NoSuchElementException Thrown if no element matches the given name.
+     * @throws NoSuchElementException
+     *             Thrown if no element matches the given name.
      * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
      * @see org.palladiosimulator.pcm.repository.SourceRole
      */
     public SourceRoleSelector<AssemblyEventConnectorCreator> withSourceAssemblyContext(final String name)
             throws NoSuchElementException {
-        final AssemblyContext context = system.getAssemblyContextByName(name);
+        final AssemblyContext context = this.system.getAssemblyContextByName(name);
         return this.withSourceAssemblyContext(context);
     }
 
@@ -86,30 +86,31 @@ public class AssemblyEventConnectorCreator extends AbstractConnectorCreator {
     /**
      * Defines the {@link org.palladiosimulator.pcm.core.composition.AssemblyContext
      * AssemblyContext} with the sink role. The assembly contexts added to the
-     * org.palladiosimulator.generator.fluent.system are searched for one that
-     * matches the given name.
+     * org.palladiosimulator.generator.fluent.system are searched for one that matches the given
+     * name.
      *
      * @param name
      * @return this connector
-     * @throws NoSuchElementException Thrown if no element matches the given name.
+     * @throws NoSuchElementException
+     *             Thrown if no element matches the given name.
      * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
      * @see org.palladiosimulator.pcm.repository.SinkRole
      */
     public SinkRoleSelector<AssemblyEventConnectorCreator> withSinkAssemblyContext(final String name) {
-        final AssemblyContext context = system.getAssemblyContextByName(name);
+        final AssemblyContext context = this.system.getAssemblyContextByName(name);
         return this.withSinkAssemblyContext(context);
     }
 
     @Override
     public AssemblyEventConnector build() {
         final AssemblyEventConnector connector = CompositionFactory.eINSTANCE.createAssemblyEventConnector();
-        if (name != null) {
-            connector.setEntityName(name);
+        if (this.name != null) {
+            connector.setEntityName(this.name);
         }
-        connector.setSourceAssemblyContext__AssemblyEventConnector(sourceContext);
-        connector.setSourceRole__AssemblyEventConnector(sourceRole);
-        connector.setSinkAssemblyContext__AssemblyEventConnector(sinkContext);
-        connector.setSinkRole__AssemblyEventConnector(sinkRole);
+        connector.setSourceAssemblyContext__AssemblyEventConnector(this.sourceContext);
+        connector.setSourceRole__AssemblyEventConnector(this.sourceRole);
+        connector.setSinkAssemblyContext__AssemblyEventConnector(this.sinkContext);
+        connector.setSinkRole__AssemblyEventConnector(this.sinkRole);
         return connector;
     }
 

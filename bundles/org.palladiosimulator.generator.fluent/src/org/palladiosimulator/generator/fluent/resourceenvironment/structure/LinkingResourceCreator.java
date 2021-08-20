@@ -14,8 +14,7 @@ import org.palladiosimulator.pcm.resourceenvironment.ResourceenvironmentFactory;
 import org.palladiosimulator.pcm.resourcetype.CommunicationLinkResourceType;
 
 /**
- * This class constructs a
- * {@link org.palladiosimulator.pcm.resourceenvironment.LinkingResource
+ * This class constructs a {@link org.palladiosimulator.pcm.resourceenvironment.LinkingResource
  * LinkingResource}.
  *
  * @author Florian Krone
@@ -30,13 +29,12 @@ public class LinkingResourceCreator extends ResourceEntity {
     private PCMRandomVariable throughputVariable;
 
     public LinkingResourceCreator(final ResourceEnvironmentCreator resourceEnvironmentCreator) {
-        resourceCreator = resourceEnvironmentCreator;
+        this.resourceCreator = resourceEnvironmentCreator;
     }
 
     /**
      * Defines the failure probability of the
-     * {@link org.palladiosimulator.pcm.resourceenvironment.LinkingResource
-     * LinkingResource}.
+     * {@link org.palladiosimulator.pcm.resourceenvironment.LinkingResource LinkingResource}.
      *
      * @param failureProbability
      * @return this <code>LinkingResource</code>
@@ -49,22 +47,20 @@ public class LinkingResourceCreator extends ResourceEntity {
 
     /**
      * Defines the communication link resource of the
-     * {@link org.palladiosimulator.pcm.resourceenvironment.LinkingResource
-     * LinkingResource}.
+     * {@link org.palladiosimulator.pcm.resourceenvironment.LinkingResource LinkingResource}.
      *
      * @param resource
      * @return this <code>LinkingResource</code>
      * @see org.palladiosimulator.pcm.resourceenvironment.LinkingResource
      */
     public LinkingResourceCreator withCommunicationLinkResource(final CommunicationLinkResource resource) {
-        resourceType = resourceCreator.getCommunicationLinkResource(resource);
+        this.resourceType = this.resourceCreator.getCommunicationLinkResource(resource);
         return this;
     }
 
     /**
      * Adds a resource container to the
-     * {@link org.palladiosimulator.pcm.resourceenvironment.LinkingResource
-     * LinkingResource}.
+     * {@link org.palladiosimulator.pcm.resourceenvironment.LinkingResource LinkingResource}.
      *
      * @param container
      * @return this <code>LinkingResource</code>
@@ -73,31 +69,30 @@ public class LinkingResourceCreator extends ResourceEntity {
      */
     public LinkingResourceCreator addLinkedResourceContainer(final ResourceContainer container) {
         IllegalArgumentException.throwIfNull(container, "The given ResourceContainer must not be null");
-        linkedContainers.add(container);
+        this.linkedContainers.add(container);
         return this;
     }
 
     /**
      * Adds a resource container to the
-     * {@link org.palladiosimulator.pcm.resourceenvironment.LinkingResource
-     * LinkingResource}. The <code>ResourceEnvironment</code> is searched for a
-     * <code>ResourceContainer</code> with he given name.
+     * {@link org.palladiosimulator.pcm.resourceenvironment.LinkingResource LinkingResource}. The
+     * <code>ResourceEnvironment</code> is searched for a <code>ResourceContainer</code> with he
+     * given name.
      *
      * @param name
      * @return this <code>LinkingResource</code>
-     * @throws IllegalArgumentException Throw if no <code>ResourceContainer</code>
-     *                                  with the given name exists.
+     * @throws IllegalArgumentException
+     *             Throw if no <code>ResourceContainer</code> with the given name exists.
      */
     public LinkingResourceCreator addLinkedResourceContainer(final String name) throws IllegalArgumentException {
-        final ResourceContainer container = resourceCreator.getResourceContainerByName(name);
-        linkedContainers.add(container);
+        final ResourceContainer container = this.resourceCreator.getResourceContainerByName(name);
+        this.linkedContainers.add(container);
         return this;
     }
 
     /**
      * Defines the latency of the
-     * {@link org.palladiosimulator.pcm.resourceenvironment.LinkingResource
-     * LinkingResource}.
+     * {@link org.palladiosimulator.pcm.resourceenvironment.LinkingResource LinkingResource}.
      *
      * @param latency
      * @return this <code>LinkingResource</code>
@@ -105,15 +100,14 @@ public class LinkingResourceCreator extends ResourceEntity {
      */
     public LinkingResourceCreator withLatency(final String latency) {
         IllegalArgumentException.throwIfNull(latency, "the given latency must not be null");
-        latencyVariable = CoreFactory.eINSTANCE.createPCMRandomVariable();
-        latencyVariable.setSpecification(latency);
+        this.latencyVariable = CoreFactory.eINSTANCE.createPCMRandomVariable();
+        this.latencyVariable.setSpecification(latency);
         return this;
     }
 
     /**
      * Defines the throughput of the
-     * {@link org.palladiosimulator.pcm.resourceenvironment.LinkingResource
-     * LinkingResource}.
+     * {@link org.palladiosimulator.pcm.resourceenvironment.LinkingResource LinkingResource}.
      *
      * @param throughput
      * @return this <code>LinkingResource</code>
@@ -121,8 +115,8 @@ public class LinkingResourceCreator extends ResourceEntity {
      */
     public LinkingResourceCreator withThroughput(final String throughput) {
         IllegalArgumentException.throwIfNull(throughput, "The given throughput must not be null");
-        throughputVariable = CoreFactory.eINSTANCE.createPCMRandomVariable();
-        throughputVariable.setSpecification(throughput);
+        this.throughputVariable = CoreFactory.eINSTANCE.createPCMRandomVariable();
+        this.throughputVariable.setSpecification(throughput);
         return this;
     }
 
@@ -134,17 +128,19 @@ public class LinkingResourceCreator extends ResourceEntity {
     @Override
     public LinkingResource build() {
         final CommunicationLinkResourceSpecification resourceSpecification = ResourceenvironmentFactory.eINSTANCE
-                .createCommunicationLinkResourceSpecification();
-        resourceSpecification.setCommunicationLinkResourceType_CommunicationLinkResourceSpecification(resourceType);
-        resourceSpecification.setFailureProbability(failureProbability);
-        resourceSpecification.setLatency_CommunicationLinkResourceSpecification(latencyVariable);
-        resourceSpecification.setThroughput_CommunicationLinkResourceSpecification(throughputVariable);
+            .createCommunicationLinkResourceSpecification();
+        resourceSpecification
+            .setCommunicationLinkResourceType_CommunicationLinkResourceSpecification(this.resourceType);
+        resourceSpecification.setFailureProbability(this.failureProbability);
+        resourceSpecification.setLatency_CommunicationLinkResourceSpecification(this.latencyVariable);
+        resourceSpecification.setThroughput_CommunicationLinkResourceSpecification(this.throughputVariable);
         final LinkingResource resource = ResourceenvironmentFactory.eINSTANCE.createLinkingResource();
-        if (name != null) {
-            resource.setEntityName(name);
+        if (this.name != null) {
+            resource.setEntityName(this.name);
         }
         resource.setCommunicationLinkResourceSpecifications_LinkingResource(resourceSpecification);
-        resource.getConnectedResourceContainers_LinkingResource().addAll(linkedContainers);
+        resource.getConnectedResourceContainers_LinkingResource()
+            .addAll(this.linkedContainers);
         return resource;
     }
 

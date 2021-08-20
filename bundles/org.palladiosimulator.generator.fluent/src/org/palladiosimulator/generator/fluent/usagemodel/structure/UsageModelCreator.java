@@ -31,7 +31,7 @@ public class UsageModelCreator extends UsageModelEntity implements IUsageModel, 
     private final List<UsageScenario> usageScenarios;
     private final List<UserData> userDatas;
 
-    public UsageModelCreator(IModelValidator validator) {
+    public UsageModelCreator(final IModelValidator validator) {
         this.validator = validator;
 
         this.usageScenarios = new ArrayList<>();
@@ -40,14 +40,14 @@ public class UsageModelCreator extends UsageModelEntity implements IUsageModel, 
 
     @Override
     public UsageModel createUsageModelNow() {
-        UsageModel usgModel = build();
+        final UsageModel usgModel = build();
         this.validator.validate(usgModel, "UsageModel");
         return usgModel;
     }
 
     @Override
     protected UsageModel build() {
-        UsageModel usgModel = UsagemodelFactory.eINSTANCE.createUsageModel();
+        final UsageModel usgModel = UsagemodelFactory.eINSTANCE.createUsageModel();
 
         usgModel.getUserData_UsageModel()
             .addAll(this.userDatas);
@@ -83,7 +83,7 @@ public class UsageModelCreator extends UsageModelEntity implements IUsageModel, 
      * @see org.palladiosimulator.pcm.usagemodel.UserData
      */
     @Override
-    public IUsageModelAddition addToUsageModel(UserDataCreator userData) {
+    public IUsageModelAddition addToUsageModel(final UserDataCreator userData) {
         IllegalArgumentException.throwIfNull(userData, "The given UserData must not be null");
         this.userDatas.add(userData.build());
         return this;
@@ -112,7 +112,7 @@ public class UsageModelCreator extends UsageModelEntity implements IUsageModel, 
      * @see org.palladiosimulator.pcm.usagemodel.UsageScenario
      */
     @Override
-    public IUsageModelAddition addToUsageModel(UsageScenarioCreator usageScenario) {
+    public IUsageModelAddition addToUsageModel(final UsageScenarioCreator usageScenario) {
         IllegalArgumentException.throwIfNull(usageScenario, "The given UsageScenario must not be null");
         this.usageScenarios.add(usageScenario.build());
         return this;

@@ -11,12 +11,10 @@ import org.palladiosimulator.pcm.repository.Parameter;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
 
 /**
- * This class constructs an
- * {@link org.palladiosimulator.pcm.repository.InfrastructureInterface
- * InfrastructureInterface}. It is used to create the
- * '<em><b>InfrastructureInterface</b></em>' object step-by-step, i.e.
- * '<em><b>InfrastructureInterfaceCreator</b></em>' objects are of intermediate
- * state.
+ * This class constructs an {@link org.palladiosimulator.pcm.repository.InfrastructureInterface
+ * InfrastructureInterface}. It is used to create the '<em><b>InfrastructureInterface</b></em>'
+ * object step-by-step, i.e. '<em><b>InfrastructureInterfaceCreator</b></em>' objects are of
+ * intermediate state.
  *
  * @author Louisa Lambrecht
  * @see org.palladiosimulator.pcm.repository.InfrastructureInterface
@@ -26,8 +24,8 @@ public class InfrastructureInterfaceCreator extends Interface {
     private final List<InfrastructureSignature> signatures;
 
     public InfrastructureInterfaceCreator(final RepositoryCreator repo) {
-        repository = repo;
-        signatures = new ArrayList<>();
+        this.repository = repo;
+        this.signatures = new ArrayList<>();
     }
 
     @Override
@@ -64,8 +62,8 @@ public class InfrastructureInterfaceCreator extends Interface {
      */
     public InfrastructureInterfaceCreator withInfrastructureSignature(final InfrastructureSignatureCreator signature) {
         final InfrastructureSignature build = signature.build();
-        repository.addSignature(build);
-        signatures.add(build);
+        this.repository.addSignature(build);
+        this.signatures.add(build);
         return this;
     }
 
@@ -73,22 +71,25 @@ public class InfrastructureInterfaceCreator extends Interface {
     public InfrastructureInterface build() {
         final InfrastructureInterface interfce = RepositoryFactory.eINSTANCE.createInfrastructureInterface();
 
-        if (name != null) {
-            interfce.setEntityName(name);
+        if (this.name != null) {
+            interfce.setEntityName(this.name);
             // if (id != null)
             // interfce.setId(id);
         }
 
-        interfce.getInfrastructureSignatures__InfrastructureInterface().addAll(signatures);
+        interfce.getInfrastructureSignatures__InfrastructureInterface()
+            .addAll(this.signatures);
 
-        interfce.getParentInterfaces__Interface().addAll(parentInterfaces);
-        interfce.getRequiredCharacterisations().addAll(requiredCharacterisations);
+        interfce.getParentInterfaces__Interface()
+            .addAll(this.parentInterfaces);
+        interfce.getRequiredCharacterisations()
+            .addAll(this.requiredCharacterisations);
 
         return interfce;
     }
 
     protected void addInfrastructureSignatures(final InfrastructureSignature signature) {
-        signatures.add(signature);
+        this.signatures.add(signature);
     }
 
 }

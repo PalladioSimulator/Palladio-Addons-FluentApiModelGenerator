@@ -10,8 +10,7 @@ import org.palladiosimulator.pcm.core.composition.SinkDelegationConnector;
 import org.palladiosimulator.pcm.repository.SinkRole;
 
 /**
- * This class constructs a
- * {@link org.palladiosimulator.pcm.core.composition.SinkDelegationConnector
+ * This class constructs a {@link org.palladiosimulator.pcm.core.composition.SinkDelegationConnector
  * SinkDelegationConnector}.
  *
  * @author Florian Krone
@@ -23,13 +22,12 @@ public class SinkDelegationConnectorCreator extends AbstractConnectorCreator {
     private AssemblyContext assemblyContext;
 
     public SinkDelegationConnectorCreator(final SystemCreator systemCreator) {
-        system = systemCreator;
+        this.system = systemCreator;
     }
 
     /**
-     * Defines the {@link org.palladiosimulator.pcm.repository.SinkRole SinkRole} of
-     * the org.palladiosimulator.generator.fluent.system, delegated to an
-     * AssemblyContext.
+     * Defines the {@link org.palladiosimulator.pcm.repository.SinkRole SinkRole} of the
+     * org.palladiosimulator.generator.fluent.system, delegated to an AssemblyContext.
      *
      * @param role
      * @return this connector
@@ -37,24 +35,24 @@ public class SinkDelegationConnectorCreator extends AbstractConnectorCreator {
      */
     public SinkDelegationConnectorCreator withOuterSinkRole(final SinkRole role) {
         IllegalArgumentException.throwIfNull(role, "The given Role must not be null.");
-        outerRole = role;
+        this.outerRole = role;
         return this;
     }
 
     /**
-     * Defines the {@link org.palladiosimulator.pcm.repository.SinkRole SinkRole} of
-     * the org.palladiosimulator.generator.fluent.system, delegated to an
-     * AssemblyContext. The sink roles added to the
-     * org.palladiosimulator.generator.fluent.system are searched for one that
+     * Defines the {@link org.palladiosimulator.pcm.repository.SinkRole SinkRole} of the
+     * org.palladiosimulator.generator.fluent.system, delegated to an AssemblyContext. The sink
+     * roles added to the org.palladiosimulator.generator.fluent.system are searched for one that
      * matches the given name.
      *
      * @param role
      * @return this connector
-     * @throws NoSuchElementException Thrown if no element matches the given name.
+     * @throws NoSuchElementException
+     *             Thrown if no element matches the given name.
      * @see org.palladiosimulator.pcm.repository.SinkRole
      */
     public SinkDelegationConnectorCreator withOuterSinkRole(final String name) throws NoSuchElementException {
-        final SinkRole role = system.getSystemSinkRoleByName(name);
+        final SinkRole role = this.system.getSystemSinkRoleByName(name);
         return this.withOuterSinkRole(role);
     }
 
@@ -79,29 +77,30 @@ public class SinkDelegationConnectorCreator extends AbstractConnectorCreator {
     /**
      * Defines the {@link org.palladiosimulator.pcm.core.composition.AssemblyContext
      * AssemblyContext} with the sink role. The assembly contexts added to the
-     * org.palladiosimulator.generator.fluent.system are searched for one that
-     * matches the given name.
+     * org.palladiosimulator.generator.fluent.system are searched for one that matches the given
+     * name.
      *
      * @param name
      * @return this connector
-     * @throws NoSuchElementException Thrown if no element matches the given name.
+     * @throws NoSuchElementException
+     *             Thrown if no element matches the given name.
      * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
      * @see org.palladiosimulator.pcm.repository.SinkRole
      */
     public SinkRoleSelector<SinkDelegationConnectorCreator> withAssemblyContext(final String name) {
-        final AssemblyContext context = system.getAssemblyContextByName(name);
+        final AssemblyContext context = this.system.getAssemblyContextByName(name);
         return this.withAssemblyContext(context);
     }
 
     @Override
     public SinkDelegationConnector build() {
         final SinkDelegationConnector connector = CompositionFactory.eINSTANCE.createSinkDelegationConnector();
-        if (name != null) {
-            connector.setEntityName(name);
+        if (this.name != null) {
+            connector.setEntityName(this.name);
         }
-        connector.setAssemblyContext__SinkDelegationConnector(assemblyContext);
-        connector.setOuterSinkRole__SinkRole(outerRole);
-        connector.setInnerSinkRole__SinkRole(innerRole);
+        connector.setAssemblyContext__SinkDelegationConnector(this.assemblyContext);
+        connector.setOuterSinkRole__SinkRole(this.outerRole);
+        connector.setInnerSinkRole__SinkRole(this.innerRole);
         return connector;
     }
 

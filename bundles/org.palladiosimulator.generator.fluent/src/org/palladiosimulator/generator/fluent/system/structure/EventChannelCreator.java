@@ -7,8 +7,8 @@ import org.palladiosimulator.pcm.core.composition.EventChannel;
 import org.palladiosimulator.pcm.repository.EventGroup;
 
 /**
- * This class constructs an
- * {@link org.palladiosimulator.pcm.core.composition.EventChannel EventChannel}.
+ * This class constructs an {@link org.palladiosimulator.pcm.core.composition.EventChannel
+ * EventChannel}.
  *
  * @author Florian Krone
  * @see org.palladiosimulator.pcm.core.composition.EventChannel
@@ -17,12 +17,12 @@ public class EventChannelCreator extends SystemEntity {
     private EventGroup eventGroup;
 
     public EventChannelCreator(final SystemCreator systemCreator) {
-        system = systemCreator;
+        this.system = systemCreator;
     }
 
     /**
-     * Defines the {@link org.palladiosimulator.pcm.repository.EventGroup
-     * EventGroup} of this event channel.
+     * Defines the {@link org.palladiosimulator.pcm.repository.EventGroup EventGroup} of this event
+     * channel.
      *
      * @param component
      * @return this event group
@@ -35,20 +35,20 @@ public class EventChannelCreator extends SystemEntity {
     }
 
     /**
-     * Defines the {@link org.palladiosimulator.pcm.repository.EventGroup
-     * EventGroup} of this event channel. The repositories added to the
-     * org.palladiosimulator.generator.fluent.system are searched for an event group
-     * that matches the given name.
+     * Defines the {@link org.palladiosimulator.pcm.repository.EventGroup EventGroup} of this event
+     * channel. The repositories added to the org.palladiosimulator.generator.fluent.system are
+     * searched for an event group that matches the given name.
      *
      * @param component
      * @return this event group
-     * @throws NoSuchElementException Thrown if no element matches the given name
+     * @throws NoSuchElementException
+     *             Thrown if no element matches the given name
      * @see org.palladiosimulator.pcm.repository.EventGroup
      */
     public EventChannelCreator withEventGroup(final String name) throws NoSuchElementException {
         EventGroup group;
         try {
-            group = (EventGroup) system.getInterfaceByName(name);
+            group = (EventGroup) this.system.getInterfaceByName(name);
         } catch (final ClassCastException e) {
             throw new NoSuchElementException(String.format(
                     "An Interface with name '%s' was found, but it was not an EventGroup. Please make sure all names are unique.",
@@ -60,10 +60,10 @@ public class EventChannelCreator extends SystemEntity {
     @Override
     public EventChannel build() {
         final EventChannel channel = CompositionFactory.eINSTANCE.createEventChannel();
-        if (name != null) {
-            channel.setEntityName(name);
+        if (this.name != null) {
+            channel.setEntityName(this.name);
         }
-        channel.setEventGroup__EventChannel(eventGroup);
+        channel.setEventGroup__EventChannel(this.eventGroup);
         return channel;
     }
 

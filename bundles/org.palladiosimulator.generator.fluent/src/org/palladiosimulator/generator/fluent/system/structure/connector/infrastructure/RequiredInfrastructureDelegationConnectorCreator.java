@@ -22,12 +22,11 @@ public class RequiredInfrastructureDelegationConnectorCreator extends AbstractCo
     private AssemblyContext requringAssemblyContext;
 
     public RequiredInfrastructureDelegationConnectorCreator(final SystemCreator systemCreator) {
-        system = systemCreator;
+        this.system = systemCreator;
     }
 
     /**
-     * Defines the
-     * {@link org.palladiosimulator.pcm.repository.InfrastructureRequiredRole
+     * Defines the {@link org.palladiosimulator.pcm.repository.InfrastructureRequiredRole
      * InfrastructureRequiredRole} of the system, delegated to an AssemblyContext.
      *
      * @param role
@@ -36,25 +35,24 @@ public class RequiredInfrastructureDelegationConnectorCreator extends AbstractCo
      */
     public RequiredInfrastructureDelegationConnectorCreator withOuterRequiredRole(
             final InfrastructureRequiredRole role) {
-        outerRequiredRole = role;
+        this.outerRequiredRole = role;
         return this;
     }
 
     /**
-     * Defines the
-     * {@link org.palladiosimulator.pcm.repository.InfrastructureRequiredRole
-     * InfrastructureRequiredRole} of the system, delegated to an AssemblyContext.
-     * The required roles added to the system are searched for one that matches the
-     * given name.
+     * Defines the {@link org.palladiosimulator.pcm.repository.InfrastructureRequiredRole
+     * InfrastructureRequiredRole} of the system, delegated to an AssemblyContext. The required
+     * roles added to the system are searched for one that matches the given name.
      *
      * @param role
      * @return this connector
-     * @throws NoSuchElementException Thrown if no element matches the given name.
+     * @throws NoSuchElementException
+     *             Thrown if no element matches the given name.
      * @see org.palladiosimulator.pcm.repository.InfrastructureRequiredRole
      */
     public RequiredInfrastructureDelegationConnectorCreator withOuterRequiredRole(final String name)
             throws NoSuchElementException {
-        final InfrastructureRequiredRole role = system.getSystemInfrastructureRequiredRoleByName(name);
+        final InfrastructureRequiredRole role = this.system.getSystemInfrastructureRequiredRoleByName(name);
         return this.withOuterRequiredRole(role);
     }
 
@@ -78,31 +76,32 @@ public class RequiredInfrastructureDelegationConnectorCreator extends AbstractCo
 
     /**
      * Defines the {@link org.palladiosimulator.pcm.core.composition.AssemblyContext
-     * AssemblyContext} with the required role. The assembly contexts added to the
-     * system are searched for one that matches the given name.
+     * AssemblyContext} with the required role. The assembly contexts added to the system are
+     * searched for one that matches the given name.
      *
      * @param name
      * @return this connector
-     * @throws NoSuchElementException Thrown if no element matches the given name.
+     * @throws NoSuchElementException
+     *             Thrown if no element matches the given name.
      * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
      * @see org.palladiosimulator.pcm.repository.InfrastructureRequiredRole
      */
     public InfrastructureRequiredRoleSelector<RequiredInfrastructureDelegationConnectorCreator> withRequiringContext(
             final String name) {
-        final AssemblyContext context = system.getAssemblyContextByName(name);
+        final AssemblyContext context = this.system.getAssemblyContextByName(name);
         return this.withRequiringContext(context);
     }
 
     @Override
     public RequiredInfrastructureDelegationConnector build() {
         final RequiredInfrastructureDelegationConnector connector = CompositionFactory.eINSTANCE
-                .createRequiredInfrastructureDelegationConnector();
-        if (name != null) {
-            connector.setEntityName(name);
+            .createRequiredInfrastructureDelegationConnector();
+        if (this.name != null) {
+            connector.setEntityName(this.name);
         }
-        connector.setAssemblyContext__RequiredInfrastructureDelegationConnector(requringAssemblyContext);
-        connector.setOuterRequiredRole__RequiredInfrastructureDelegationConnector(outerRequiredRole);
-        connector.setInnerRequiredRole__RequiredInfrastructureDelegationConnector(innerRequiredRole);
+        connector.setAssemblyContext__RequiredInfrastructureDelegationConnector(this.requringAssemblyContext);
+        connector.setOuterRequiredRole__RequiredInfrastructureDelegationConnector(this.outerRequiredRole);
+        connector.setInnerRequiredRole__RequiredInfrastructureDelegationConnector(this.innerRequiredRole);
         return connector;
     }
 

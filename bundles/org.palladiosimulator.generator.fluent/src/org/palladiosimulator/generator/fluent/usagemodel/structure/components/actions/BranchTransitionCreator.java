@@ -20,14 +20,14 @@ public class BranchTransitionCreator extends UsageModelEntity {
     private double probability;
     private ScenarioBehaviour branchedBeh;
 
-    public BranchTransitionCreator(ScenarioBehaviourCreator branchedBehaviour) {
+    public BranchTransitionCreator(final ScenarioBehaviourCreator branchedBehaviour) {
         this.probability = 0.0; // default value
         addToBranchTransition(branchedBehaviour);
     }
 
     @Override
     protected BranchTransition build() {
-        BranchTransition branchT = UsagemodelFactory.eINSTANCE.createBranchTransition();
+        final BranchTransition branchT = UsagemodelFactory.eINSTANCE.createBranchTransition();
 
         branchT.setBranchProbability(this.probability);
 
@@ -37,7 +37,7 @@ public class BranchTransitionCreator extends UsageModelEntity {
         return branchT;
     }
 
-    private BranchTransitionCreator addToBranchTransition(ScenarioBehaviourCreator branchedBehaviour) {
+    private BranchTransitionCreator addToBranchTransition(final ScenarioBehaviourCreator branchedBehaviour) {
         IllegalArgumentException.throwIfNull(branchedBehaviour, "The branched Behavoiur must not be null");
         this.branchedBeh = branchedBehaviour.build();
         return this;
@@ -50,7 +50,7 @@ public class BranchTransitionCreator extends UsageModelEntity {
      *            of the branch
      * @return the current branch transition in the making
      */
-    public BranchTransitionCreator withProbability(double probability) {
+    public BranchTransitionCreator withProbability(final double probability) {
         this.probability = probability;
         return this;
     }

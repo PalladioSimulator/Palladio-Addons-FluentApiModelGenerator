@@ -15,12 +15,13 @@ public class ModelValidator implements IModelValidator {
     }
 
     /**
-     * Validates an EObject using a Diagnostician. If the validation is not ok, the
-     * result is printed to the console. A name can be specified to enhance the
-     * console output.
+     * Validates an EObject using a Diagnostician. If the validation is not ok, the result is
+     * printed to the console. A name can be specified to enhance the console output.
      *
-     * @param eObject the object to validate
-     * @param name    the name of the object
+     * @param eObject
+     *            the object to validate
+     * @param name
+     *            the name of the object
      * @return true if the validation was ok, false otherwise.
      * @see org.eclipse.emf.ecore.util.Diagnostician
      */
@@ -40,10 +41,10 @@ public class ModelValidator implements IModelValidator {
             logResult(diagnostic, name, Level.SEVERE);
             return false;
         case Diagnostic.CANCEL:
-            logger.severe("Validation was canceled");
+            this.logger.severe("Validation was canceled");
             return false;
         default:
-            logger.severe("Validation returned unexpected result");
+            this.logger.severe("Validation returned unexpected result");
             return false;
         }
     }
@@ -58,7 +59,9 @@ public class ModelValidator implements IModelValidator {
             builder.append(diagnostic.getMessage());
         }
         builder.append(":\n");
-        diagnostic.getChildren().forEach(x -> builder.append(x.toString() + "\n"));
-        logger.log(logLevel, builder.toString().trim());
+        diagnostic.getChildren()
+            .forEach(x -> builder.append(x.toString() + "\n"));
+        this.logger.log(logLevel, builder.toString()
+            .trim());
     }
 }

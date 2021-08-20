@@ -1,9 +1,8 @@
 package org.palladiosimulator.generator.fluent.repository.structure.internals;
 
 /**
- * Represents built-in resource signatures available in the resource repository,
- * i.e. '<em><b>process</b></em>', '<em><b>read</b></em>',
- * '<em><b>write</b></em>'.
+ * Represents built-in resource signatures available in the resource repository, i.e.
+ * '<em><b>process</b></em>', '<em><b>read</b></em>', '<em><b>write</b></em>'.
  *
  * @author Louisa Lambrecht
  */

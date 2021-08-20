@@ -18,10 +18,9 @@ import org.palladiosimulator.pcm.seff.seff_performance.ParametricResourceDemand;
 import org.palladiosimulator.pcm.seff.seff_performance.ResourceCall;
 
 /**
- * This class constructs a {@link org.palladiosimulator.pcm.seff.StopAction
- * StopAction}. It is used to create the '<em><b>StopAction</b></em>' object
- * step-by-step, i.e. '<em><b>StopActionCreator</b></em>' objects are of
- * intermediate state.
+ * This class constructs a {@link org.palladiosimulator.pcm.seff.StopAction StopAction}. It is used
+ * to create the '<em><b>StopAction</b></em>' object step-by-step, i.e.
+ * '<em><b>StopActionCreator</b></em>' objects are of intermediate state.
  *
  * @author Louisa Lambrecht
  * @see org.palladiosimulator.pcm.seff.StopAction
@@ -44,8 +43,8 @@ public class StopActionCreator extends GeneralAction implements StopSeff {
     @Override
     public SeffCreator createBehaviourNow() {
         final AbstractAction action = build();
-        seff.setNext(action);
-        return seff;
+        this.seff.setNext(action);
+        return this.seff;
     }
 
     @Override
@@ -73,9 +72,12 @@ public class StopActionCreator extends GeneralAction implements StopSeff {
     @Override
     protected StopAction build() {
         final StopAction action = SeffFactory.eINSTANCE.createStopAction();
-        action.getInfrastructureCall__Action().addAll(infrastructureCalls);
-        action.getResourceCall__Action().addAll(resourceCalls);
-        action.getResourceDemand_Action().addAll(demands);
+        action.getInfrastructureCall__Action()
+            .addAll(this.infrastructureCalls);
+        action.getResourceCall__Action()
+            .addAll(this.resourceCalls);
+        action.getResourceDemand_Action()
+            .addAll(this.demands);
         return action;
     }
 }

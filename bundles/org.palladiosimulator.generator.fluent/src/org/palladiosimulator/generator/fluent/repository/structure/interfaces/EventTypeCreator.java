@@ -18,10 +18,9 @@ import org.palladiosimulator.pcm.repository.PrimitiveDataType;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
 
 /**
- * This class constructs a {@link org.palladiosimulator.pcm.repository.EventType
- * EventType}. It is used to create the '<em><b>EventType</b></em>' object
- * step-by-step, i.e. '<em><b>EventTypeCreator</b></em>' objects are of
- * intermediate state.
+ * This class constructs a {@link org.palladiosimulator.pcm.repository.EventType EventType}. It is
+ * used to create the '<em><b>EventType</b></em>' object step-by-step, i.e.
+ * '<em><b>EventTypeCreator</b></em>' objects are of intermediate state.
  *
  * @author Louisa Lambrecht
  * @see org.palladiosimulator.pcm.repository.EventType
@@ -33,7 +32,7 @@ public class EventTypeCreator extends RepositoryEntity {
     private final List<ExceptionType> exceptionTypes = new ArrayList<>();
 
     public EventTypeCreator(final RepositoryCreator repo) {
-        repository = repo;
+        this.repository = repo;
     }
 
     @Override
@@ -42,27 +41,25 @@ public class EventTypeCreator extends RepositoryEntity {
     }
 
     /**
-     * Creates a {@link org.palladiosimulator.pcm.repository.Parameter Parameter}
-     * and adds it to the event type's ordered list of parameters.
+     * Creates a {@link org.palladiosimulator.pcm.repository.Parameter Parameter} and adds it to the
+     * event type's ordered list of parameters.
      * <p>
-     * Each parameter is a tuple of a <code>name</code> and a <code>dataType</code>
-     * (which is unique across the parameters). Optionally, the
-     * <code>modifier</code>s '<em><b>in</b></em>', '<em><b>out</b></em>', and
-     * '<em><b>inout</b></em>' (with its OMG IDL semantics) can be used for
-     * parameters, e.g. <code>ParameterModifier.IN</code>.
+     * Each parameter is a tuple of a <code>name</code> and a <code>dataType</code> (which is unique
+     * across the parameters). Optionally, the <code>modifier</code>s '<em><b>in</b></em>',
+     * '<em><b>out</b></em>', and '<em><b>inout</b></em>' (with its OMG IDL semantics) can be used
+     * for parameters, e.g. <code>ParameterModifier.IN</code>.
      * </p>
      * <p>
-     * A
-     * {@link org.palladiosimulator.generator.fluent.repository.structure.internals.Primitive
+     * A {@link org.palladiosimulator.generator.fluent.repository.structure.internals.Primitive
      * Primitive} data type can have the values '<em><b>boolean</b></em>',
-     * '<em><b>integer</b></em>', '<em><b>string</b></em>',
-     * '<em><b>double</b></em>', '<em><b>long</b></em>', '<em><b>char</b></em>',
-     * '<em><b>byte</b></em>'.
+     * '<em><b>integer</b></em>', '<em><b>string</b></em>', '<em><b>double</b></em>',
+     * '<em><b>long</b></em>', '<em><b>char</b></em>', '<em><b>byte</b></em>'.
      * </p>
      *
      * @param name
      * @param dataType
-     * @param modifier may be null
+     * @param modifier
+     *            may be null
      * @return this event type in the making
      * @see org.palladiosimulator.pcm.repository.ParameterModifier
      */
@@ -70,19 +67,18 @@ public class EventTypeCreator extends RepositoryEntity {
             final ParameterModifier modifier) {
         IllegalArgumentException.throwIfNull(name, "name must not be null");
         IllegalArgumentException.throwIfNull(dataType, "dataType must not be null");
-        final PrimitiveDataType dt = repository.getPrimitiveDataType(dataType);
+        final PrimitiveDataType dt = this.repository.getPrimitiveDataType(dataType);
         return this.withParameter(name, dt, modifier);
     }
 
     /**
-     * Creates a {@link org.palladiosimulator.pcm.repository.Parameter Parameter}
-     * and adds it to the event type's ordered list of parameters.
+     * Creates a {@link org.palladiosimulator.pcm.repository.Parameter Parameter} and adds it to the
+     * event type's ordered list of parameters.
      * <p>
-     * Each parameter is a tuple of a <code>name</code> and a <code>dataType</code>
-     * (which is unique across the parameters). Optionally, the
-     * <code>modifier</code>s '<em><b>in</b></em>', '<em><b>out</b></em>', and
-     * '<em><b>inout</b></em>' (with its OMG IDL semantics) can be used for
-     * parameters, e.g. <code>ParameterModifier.IN</code>.
+     * Each parameter is a tuple of a <code>name</code> and a <code>dataType</code> (which is unique
+     * across the parameters). Optionally, the <code>modifier</code>s '<em><b>in</b></em>',
+     * '<em><b>out</b></em>', and '<em><b>inout</b></em>' (with its OMG IDL semantics) can be used
+     * for parameters, e.g. <code>ParameterModifier.IN</code>.
      * </p>
      * <p>
      * An existing data type can be fetched from the repository using the
@@ -92,7 +88,8 @@ public class EventTypeCreator extends RepositoryEntity {
      *
      * @param name
      * @param dataType
-     * @param modifier may be null
+     * @param modifier
+     *            may be null
      * @return this event type in the making
      * @see org.palladiosimulator.generator.fluent.repository.factory.FluentRepositoryFactory#fetchOfDataType(String)
      * @see org.palladiosimulator.pcm.repository.ParameterModifier
@@ -110,14 +107,13 @@ public class EventTypeCreator extends RepositoryEntity {
             param.setModifier__Parameter(modifier);
         }
 
-        parameter = param;
-        repository.addParameter(param);
+        this.parameter = param;
+        this.repository.addParameter(param);
         return this;
     }
 
     /**
-     * Adds the <code>failureType</code> to the event type's list of possible
-     * failures.
+     * Adds the <code>failureType</code> to the event type's list of possible failures.
      * <p>
      * Failure types can be fetched from the repository using the
      * org.palladiosimulator.generator.fluent.component.factory, i.e.
@@ -130,16 +126,14 @@ public class EventTypeCreator extends RepositoryEntity {
      */
     public EventTypeCreator withFailureType(final FailureType failureType) {
         IllegalArgumentException.throwIfNull(failureType, "failureType must not be null");
-        failureTypes.add(failureType);
+        this.failureTypes.add(failureType);
         return this;
     }
 
     /**
-     * Adds the <code>failureType</code> to the event type's list of possible
-     * failures.
+     * Adds the <code>failureType</code> to the event type's list of possible failures.
      * <p>
-     * A
-     * {@link org.palladiosimulator.generator.fluent.repository.structure.internals.Failure
+     * A {@link org.palladiosimulator.generator.fluent.repository.structure.internals.Failure
      * Failure} type can have the values '<em><b>HARDWARE_CPU</b></em>',
      * '<em><b>HARDWARE_HDD</b></em>', '<em><b>HARDWARE_DELAY</b></em>',
      * '<em><b>NETWORK_LAN</b></em>', '<em><b>SOFTWARE</b></em>'.
@@ -150,7 +144,7 @@ public class EventTypeCreator extends RepositoryEntity {
      */
     public EventTypeCreator withFailureType(final Failure failureType) {
         IllegalArgumentException.throwIfNull(failureType, "failureType must not be null");
-        final FailureType failure = repository.getFailureType(failureType);
+        final FailureType failure = this.repository.getFailureType(failureType);
         return this.withFailureType(failure);
     }
 
@@ -169,21 +163,23 @@ public class EventTypeCreator extends RepositoryEntity {
      */
     public EventTypeCreator withExceptionType(final ExceptionType exceptionType) {
         IllegalArgumentException.throwIfNull(exceptionType, "exceptionType must not be null");
-        exceptionTypes.add(exceptionType);
+        this.exceptionTypes.add(exceptionType);
         return this;
     }
 
     @Override
     protected EventType build() {
         final EventType et = RepositoryFactory.eINSTANCE.createEventType();
-        if (name != null) {
-            et.setEntityName(name);
+        if (this.name != null) {
+            et.setEntityName(this.name);
         }
-        if (parameter != null) {
-            et.setParameter__EventType(parameter);
+        if (this.parameter != null) {
+            et.setParameter__EventType(this.parameter);
         }
-        et.getFailureType().addAll(failureTypes);
-        et.getExceptions__Signature().addAll(exceptionTypes);
+        et.getFailureType()
+            .addAll(this.failureTypes);
+        et.getExceptions__Signature()
+            .addAll(this.exceptionTypes);
 
         return et;
     }

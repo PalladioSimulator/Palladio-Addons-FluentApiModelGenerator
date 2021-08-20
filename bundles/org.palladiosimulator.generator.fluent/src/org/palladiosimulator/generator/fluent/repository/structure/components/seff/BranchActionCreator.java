@@ -22,10 +22,9 @@ import org.palladiosimulator.pcm.seff.ResourceDemandingSEFF;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 
 /**
- * This class constructs a {@link org.palladiosimulator.pcm.seff.BranchAction
- * BranchAction}. It is used to create the '<em><b>BranchAction</b></em>' object
- * step-by-step, i.e. '<em><b>BranchActionCreator</b></em>' objects are of
- * intermediate state.
+ * This class constructs a {@link org.palladiosimulator.pcm.seff.BranchAction BranchAction}. It is
+ * used to create the '<em><b>BranchAction</b></em>' object step-by-step, i.e.
+ * '<em><b>BranchActionCreator</b></em>' objects are of intermediate state.
  *
  * @author Louisa Lambrecht
  * @see org.palladiosimulator.pcm.seff.BranchAction
@@ -36,7 +35,7 @@ public class BranchActionCreator extends GeneralAction {
 
     protected BranchActionCreator(final SeffCreator seff) {
         this.seff = seff;
-        branches = new ArrayList<>();
+        this.branches = new ArrayList<>();
     }
 
     @Override
@@ -47,20 +46,20 @@ public class BranchActionCreator extends GeneralAction {
     /**
      * Adds a guarded branch transition to this action's list of branches.
      * <p>
-     * A {@link org.palladiosimulator.pcm.seff.GuardedBranchTransition Guarded
-     * Branch Transition} provides a link between a BranchAction and a nested
-     * ResourceDemandingBehaviour, which includes the actions executed inside the
-     * branch. It uses a guard, i.e. a boolean expression specified by a
-     * RandomVariable, to determine whether the transition is chosen. If the guard
-     * evaluates to true, the branch is chosen, otherwise if the guard evaluates to
-     * false another branch transition must be chosen.
+     * A {@link org.palladiosimulator.pcm.seff.GuardedBranchTransition Guarded Branch Transition}
+     * provides a link between a BranchAction and a nested ResourceDemandingBehaviour, which
+     * includes the actions executed inside the branch. It uses a guard, i.e. a boolean expression
+     * specified by a RandomVariable, to determine whether the transition is chosen. If the guard
+     * evaluates to true, the branch is chosen, otherwise if the guard evaluates to false another
+     * branch transition must be chosen.
      * </p>
      *
-     * @param branchConditionStochasticExpression boolean expression, condition of
-     *                                            the branch
-     * @param branchActions                       nested resource demanding
-     *                                            behaviour
-     * @param name                                of the branch
+     * @param branchConditionStochasticExpression
+     *            boolean expression, condition of the branch
+     * @param branchActions
+     *            nested resource demanding behaviour
+     * @param name
+     *            of the branch
      * @return this branch action in the making
      */
     public BranchActionCreator withGuardedBranchTransition(final String branchConditionStochasticExpression,
@@ -76,7 +75,8 @@ public class BranchActionCreator extends GeneralAction {
 
         final ResourceDemandingSEFF build = branchActions.buildRDSeff();
         if ((build.getDescribedService__SEFF() == null) && (build.getSeffTypeID() == null)
-                && build.getResourceDemandingInternalBehaviours().isEmpty()) {
+                && build.getResourceDemandingInternalBehaviours()
+                    .isEmpty()) {
             final ResourceDemandingBehaviour branchBody = branchActions.buildBehaviour();
             branch.setBranchBehaviour_BranchTransition(branchBody);
         } else {
@@ -88,26 +88,25 @@ public class BranchActionCreator extends GeneralAction {
         rand.setSpecification(branchConditionStochasticExpression);
         branch.setBranchCondition_GuardedBranchTransition(rand);
 
-        branches.add(branch);
+        this.branches.add(branch);
         return this;
     }
 
     /**
      * Adds a guarded branch transition to this action's list of branches.
      * <p>
-     * A {@link org.palladiosimulator.pcm.seff.GuardedBranchTransition Guarded
-     * Branch Transition} provides a link between a BranchAction and a nested
-     * ResourceDemandingBehaviour, which includes the actions executed inside the
-     * branch. It uses a guard, i.e. a boolean expression specified by a
-     * RandomVariable, to determine whether the transition is chosen. If the guard
-     * evaluates to true, the branch is chosen, otherwise if the guard evaluates to
-     * false another branch transition must be chosen.
+     * A {@link org.palladiosimulator.pcm.seff.GuardedBranchTransition Guarded Branch Transition}
+     * provides a link between a BranchAction and a nested ResourceDemandingBehaviour, which
+     * includes the actions executed inside the branch. It uses a guard, i.e. a boolean expression
+     * specified by a RandomVariable, to determine whether the transition is chosen. If the guard
+     * evaluates to true, the branch is chosen, otherwise if the guard evaluates to false another
+     * branch transition must be chosen.
      * </p>
      *
-     * @param branchConditionStochasticExpression boolean expression, condition of
-     *                                            the branch
-     * @param branchActions                       nested resource demanding
-     *                                            behaviour
+     * @param branchConditionStochasticExpression
+     *            boolean expression, condition of the branch
+     * @param branchActions
+     *            nested resource demanding behaviour
      * @return this branch action in the making
      */
     public BranchActionCreator withGuardedBranchTransition(final String branchConditionStochasticExpression,
@@ -118,15 +117,15 @@ public class BranchActionCreator extends GeneralAction {
     /**
      * Adds a probabilistic branch transition to this action's list of branches.
      * <p>
-     * A {@link org.palladiosimulator.pcm.seff.ProbabilisticBranchTransition
-     * Probabilistic Branch Transition} provides a link between a BranchAction and a
-     * nested ResourceDemandingBehaviour, which includes the actions executed inside
-     * the branch. But instead of using a guard, it specifies a branching
-     * probability without parameter dependencies.
+     * A {@link org.palladiosimulator.pcm.seff.ProbabilisticBranchTransition Probabilistic Branch
+     * Transition} provides a link between a BranchAction and a nested ResourceDemandingBehaviour,
+     * which includes the actions executed inside the branch. But instead of using a guard, it
+     * specifies a branching probability without parameter dependencies.
      * </p>
      *
      * @param branchProbability
-     * @param branchActions     nested resource demanding behaviour
+     * @param branchActions
+     *            nested resource demanding behaviour
      * @param name
      * @return this branch action in the making
      */
@@ -142,7 +141,8 @@ public class BranchActionCreator extends GeneralAction {
 
         final ResourceDemandingSEFF build = branchActions.buildRDSeff();
         if ((build.getDescribedService__SEFF() == null) && (build.getSeffTypeID() == null)
-                && build.getResourceDemandingInternalBehaviours().isEmpty()) {
+                && build.getResourceDemandingInternalBehaviours()
+                    .isEmpty()) {
             branch.setBranchBehaviour_BranchTransition(branchActions.buildBehaviour());
         } else {
             branch.setBranchBehaviour_BranchTransition(build);
@@ -150,22 +150,22 @@ public class BranchActionCreator extends GeneralAction {
 
         branch.setBranchProbability(branchProbability);
 
-        branches.add(branch);
+        this.branches.add(branch);
         return this;
     }
 
     /**
      * Adds a probabilistic branch transition to this action's list of branches.
      * <p>
-     * A {@link org.palladiosimulator.pcm.seff.ProbabilisticBranchTransition
-     * Probabilistic Branch Transition} provides a link between a BranchAction and a
-     * nested ResourceDemandingBehaviour, which includes the actions executed inside
-     * the branch. But instead of using a guard, it specifies a branching
-     * probability without parameter dependencies.
+     * A {@link org.palladiosimulator.pcm.seff.ProbabilisticBranchTransition Probabilistic Branch
+     * Transition} provides a link between a BranchAction and a nested ResourceDemandingBehaviour,
+     * which includes the actions executed inside the branch. But instead of using a guard, it
+     * specifies a branching probability without parameter dependencies.
      * </p>
      *
      * @param branchProbability
-     * @param branchActions     nested resource demanding behaviour
+     * @param branchActions
+     *            nested resource demanding behaviour
      * @return this branch action in the making
      */
     public BranchActionCreator withProbabilisticBranchTransition(final Double branchProbability,
@@ -198,11 +198,15 @@ public class BranchActionCreator extends GeneralAction {
     @Override
     protected BranchAction build() {
         final BranchAction action = SeffFactory.eINSTANCE.createBranchAction();
-        action.getBranches_Branch().addAll(branches);
+        action.getBranches_Branch()
+            .addAll(this.branches);
 
-        action.getInfrastructureCall__Action().addAll(infrastructureCalls);
-        action.getResourceCall__Action().addAll(resourceCalls);
-        action.getResourceDemand_Action().addAll(demands);
+        action.getInfrastructureCall__Action()
+            .addAll(this.infrastructureCalls);
+        action.getResourceCall__Action()
+            .addAll(this.resourceCalls);
+        action.getResourceDemand_Action()
+            .addAll(this.demands);
 
         return action;
     }

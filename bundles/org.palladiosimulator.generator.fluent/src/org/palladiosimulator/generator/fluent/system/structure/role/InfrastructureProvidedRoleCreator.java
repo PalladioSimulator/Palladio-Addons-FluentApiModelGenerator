@@ -9,8 +9,7 @@ import org.palladiosimulator.pcm.repository.InfrastructureProvidedRole;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
 
 /**
- * This class constructs an
- * {@link org.palladiosimulator.pcm.repository.InfrastructureProvidedRole
+ * This class constructs an {@link org.palladiosimulator.pcm.repository.InfrastructureProvidedRole
  * InfrastructureProvidedRole}.
  *
  * @author Florian Krone
@@ -21,12 +20,11 @@ public class InfrastructureProvidedRoleCreator extends SystemEntity {
     private InfrastructureInterface providedInterface;
 
     public InfrastructureProvidedRoleCreator(final SystemCreator systemCreator) {
-        system = systemCreator;
+        this.system = systemCreator;
     }
 
     /**
-     * Defines the
-     * {@link org.palladiosimulator.pcm.repository.InfrastructureInterface
+     * Defines the {@link org.palladiosimulator.pcm.repository.InfrastructureInterface
      * InfrastructureInterface} this role provides.
      *
      * @param infrastructureInterface
@@ -36,26 +34,25 @@ public class InfrastructureProvidedRoleCreator extends SystemEntity {
     public InfrastructureProvidedRoleCreator withProvidedInterface(
             final InfrastructureInterface infrastructureInterface) {
         IllegalArgumentException.throwIfNull(infrastructureInterface, "The given Interface must not be null.");
-        providedInterface = infrastructureInterface;
+        this.providedInterface = infrastructureInterface;
         return this;
     }
 
     /**
-     * Defines the
-     * {@link org.palladiosimulator.pcm.repository.InfrastructureInterface
-     * InfrastructureInterface} this role provides. Searches the repositories added
-     * to the org.palladiosimulator.generator.fluent.system for an interface that
-     * matches the given name.
+     * Defines the {@link org.palladiosimulator.pcm.repository.InfrastructureInterface
+     * InfrastructureInterface} this role provides. Searches the repositories added to the
+     * org.palladiosimulator.generator.fluent.system for an interface that matches the given name.
      *
      * @param name
      * @return this role creator
-     * @throws NoSuchElementException Thrown if no element matches the given name.
+     * @throws NoSuchElementException
+     *             Thrown if no element matches the given name.
      * @see org.palladiosimulator.pcm.repository.InfrastructureInterface
      */
     public InfrastructureProvidedRoleCreator withProvidedInterface(final String name) throws NoSuchElementException {
         InfrastructureInterface requiredInterface;
         try {
-            requiredInterface = (InfrastructureInterface) system.getInterfaceByName(name);
+            requiredInterface = (InfrastructureInterface) this.system.getInterfaceByName(name);
         } catch (final ClassCastException e) {
             throw new NoSuchElementException(
                     String.format("An Interface with name '%s' was found, but it was not an InfrastructureInterface. "
@@ -68,10 +65,10 @@ public class InfrastructureProvidedRoleCreator extends SystemEntity {
     @Override
     public InfrastructureProvidedRole build() {
         final InfrastructureProvidedRole role = RepositoryFactory.eINSTANCE.createInfrastructureProvidedRole();
-        if (name != null) {
-            role.setEntityName(name);
+        if (this.name != null) {
+            role.setEntityName(this.name);
         }
-        role.setProvidedInterface__InfrastructureProvidedRole(providedInterface);
+        role.setProvidedInterface__InfrastructureProvidedRole(this.providedInterface);
         return role;
     }
 

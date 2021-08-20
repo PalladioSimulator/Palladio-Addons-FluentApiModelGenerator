@@ -30,12 +30,9 @@ import org.palladiosimulator.pcm.repository.SinkRole;
 import org.palladiosimulator.pcm.repository.SourceRole;
 
 /**
- * This class constructs a
- * {@link org.palladiosimulator.pcm.repository.CompositeComponent
- * CompositeComponent}. It is used to create the
- * '<em><b>CompositeComponent</b></em>' object step-by-step, i.e.
- * '<em><b>CompositeComponentCreator</b></em>' objects are of intermediate
- * state.
+ * This class constructs a {@link org.palladiosimulator.pcm.repository.CompositeComponent
+ * CompositeComponent}. It is used to create the '<em><b>CompositeComponent</b></em>' object
+ * step-by-step, i.e. '<em><b>CompositeComponentCreator</b></em>' objects are of intermediate state.
  *
  * @author Louisa Lambrecht
  * @see org.palladiosimulator.pcm.repository.CompositeComponent
@@ -47,9 +44,9 @@ public class CompositeComponentCreator extends ComplexComponent {
     private final List<VariableUsage> componentParameterUsages;
 
     public CompositeComponentCreator(final RepositoryCreator repo) {
-        repository = repo;
-        conformsCompleteTypes = new ArrayList<>();
-        componentParameterUsages = new ArrayList<>();
+        this.repository = repo;
+        this.conformsCompleteTypes = new ArrayList<>();
+        this.componentParameterUsages = new ArrayList<>();
     }
 
     @Override
@@ -221,12 +218,12 @@ public class CompositeComponentCreator extends ComplexComponent {
 
     // ------------ other listing characteristics ------------
     /**
-     * Creates a conforming (parental) connection to the
-     * <code>completeComponentType</code> and adds it to the composite component.
+     * Creates a conforming (parental) connection to the <code>completeComponentType</code> and adds
+     * it to the composite component.
      * <p>
-     * Complete (Component) types abstract from the realization of components. They
-     * only contain provided and required roles omitting the components’ internal
-     * structure, i.e., the service effect specifications or assemblies.
+     * Complete (Component) types abstract from the realization of components. They only contain
+     * provided and required roles omitting the components’ internal structure, i.e., the service
+     * effect specifications or assemblies.
      * </p>
      * <p>
      * The <code>completeComponentType</code> can be created using the
@@ -243,21 +240,20 @@ public class CompositeComponentCreator extends ComplexComponent {
     public CompositeComponentCreator conforms(final CompleteComponentTypeCreator completeComponentType) {
         IllegalArgumentException.throwIfNull(completeComponentType, "completeComponentType must not be null");
         final CompleteComponentType cct = completeComponentType.build();
-        repository.addComponent(cct);
+        this.repository.addComponent(cct);
         return this.conforms(cct);
     }
 
     /**
-     * Creates a conforming (parental) connection to the
-     * <code>completeComponentType</code> and adds it to the composite component.
+     * Creates a conforming (parental) connection to the <code>completeComponentType</code> and adds
+     * it to the composite component.
      * <p>
-     * Complete (Component) types abstract from the realization of components. They
-     * only contain provided and required roles omitting the components’ internal
-     * structure, i.e., the service effect specifications or assemblies.
+     * Complete (Component) types abstract from the realization of components. They only contain
+     * provided and required roles omitting the components’ internal structure, i.e., the service
+     * effect specifications or assemblies.
      * </p>
      * <p>
-     * An existing <code>completeComponentType</code> can be fetched from the
-     * repository using the
+     * An existing <code>completeComponentType</code> can be fetched from the repository using the
      * org.palladiosimulator.generator.fluent.component.factory, i.e.
      * <code>create.fetchOfCompleteComponentType(name)</code>.
      * </p>
@@ -270,18 +266,18 @@ public class CompositeComponentCreator extends ComplexComponent {
      */
     public CompositeComponentCreator conforms(final CompleteComponentType completeComponentType) {
         IllegalArgumentException.throwIfNull(completeComponentType, "completeComponentType must not be null");
-        conformsCompleteTypes.add(completeComponentType);
+        this.conformsCompleteTypes.add(completeComponentType);
         return this;
     }
 
     /**
-     * Adds a {@link org.palladiosimulator.pcm.parameter.VariableUsage
-     * VariableUsage} to the composite component.
+     * Adds a {@link org.palladiosimulator.pcm.parameter.VariableUsage VariableUsage} to the
+     * composite component.
      * <p>
-     * Variable usages are used to characterize variables like input and output
-     * variables or component parameters. They contain the specification of the
-     * variable as VariableCharacterisation and also refer to the name of the
-     * characterized variable in its namedReference association.
+     * Variable usages are used to characterize variables like input and output variables or
+     * component parameters. They contain the specification of the variable as
+     * VariableCharacterisation and also refer to the name of the characterized variable in its
+     * namedReference association.
      * </p>
      * <p>
      * Create a new variable usage by using the
@@ -289,14 +285,15 @@ public class CompositeComponentCreator extends ComplexComponent {
      * <code>create.newVariableUsage()</code>.
      * </p>
      *
-     * @param variableUsage in the making
+     * @param variableUsage
+     *            in the making
      * @return the composite component in the making
      * @see org.palladiosimulator.generator.fluent.repository.factory.FluentRepositoryFactory#newVariableUsage()
      * @see org.palladiosimulator.pcm.parameter.VariableUsage
      */
     public CompositeComponentCreator withVariableUsage(final VariableUsageCreator variableUsage) {
         IllegalArgumentException.throwIfNull(variableUsage, "variableUsage must not be null");
-        componentParameterUsages.add(variableUsage.build());
+        this.componentParameterUsages.add(variableUsage.build());
         return this;
     }
 
@@ -424,27 +421,35 @@ public class CompositeComponentCreator extends ComplexComponent {
     @Override
     public RepositoryComponent build() {
         final CompositeComponent compositeComponent = RepositoryFactory.eINSTANCE.createCompositeComponent();
-        if (name != null) {
-            compositeComponent.setEntityName(name);
+        if (this.name != null) {
+            compositeComponent.setEntityName(this.name);
         }
         // if (id != null)
         // compositeComponent.setId(id);
-        if (type != null) {
-            compositeComponent.setComponentType(type);
+        if (this.type != null) {
+            compositeComponent.setComponentType(this.type);
         }
 
-        compositeComponent.getProvidedRoles_InterfaceProvidingEntity().addAll(providedRoles);
-        compositeComponent.getRequiredRoles_InterfaceRequiringEntity().addAll(requiredRoles);
-        compositeComponent.getResourceRequiredRoles__ResourceInterfaceRequiringEntity().addAll(resourceRequiredRoles);
+        compositeComponent.getProvidedRoles_InterfaceProvidingEntity()
+            .addAll(this.providedRoles);
+        compositeComponent.getRequiredRoles_InterfaceRequiringEntity()
+            .addAll(this.requiredRoles);
+        compositeComponent.getResourceRequiredRoles__ResourceInterfaceRequiringEntity()
+            .addAll(this.resourceRequiredRoles);
 
-        compositeComponent.getParentCompleteComponentTypes().addAll(conformsCompleteTypes);
-        compositeComponent.getComponentParameterUsage_ImplementationComponentType().addAll(componentParameterUsages);
+        compositeComponent.getParentCompleteComponentTypes()
+            .addAll(this.conformsCompleteTypes);
+        compositeComponent.getComponentParameterUsage_ImplementationComponentType()
+            .addAll(this.componentParameterUsages);
 
-        compositeComponent.getAssemblyContexts__ComposedStructure().addAll(assemblyContexts);
-        compositeComponent.getConnectors__ComposedStructure().addAll(connectors);
-        compositeComponent.getEventChannel__ComposedStructure().addAll(eventChannels);
+        compositeComponent.getAssemblyContexts__ComposedStructure()
+            .addAll(this.assemblyContexts);
+        compositeComponent.getConnectors__ComposedStructure()
+            .addAll(this.connectors);
+        compositeComponent.getEventChannel__ComposedStructure()
+            .addAll(this.eventChannels);
         compositeComponent.getResourceRequiredDelegationConnectors_ComposedStructure()
-                .addAll(resourceRequiredDelegationConnectors);
+            .addAll(this.resourceRequiredDelegationConnectors);
 
         return compositeComponent;
     }

@@ -1,9 +1,9 @@
 package org.palladiosimulator.generator.fluent.usagemodel.structure.components.workload;
 
-import org.palladiosimulator.pcm.usagemodel.UsagemodelFactory;
-import org.palladiosimulator.pcm.usagemodel.Workload;
 import org.palladiosimulator.generator.fluent.usagemodel.structure.UsageModelCreator;
 import org.palladiosimulator.pcm.usagemodel.ClosedWorkload;
+import org.palladiosimulator.pcm.usagemodel.UsagemodelFactory;
+import org.palladiosimulator.pcm.usagemodel.Workload;
 
 /**
  * This class constructs a {@link org.palladiosimulator.pcm.usagemodel.ClosedWorkload
@@ -18,7 +18,7 @@ public class ClosedWorkloadCreator extends WorkloadCreator {
 
     private int population;
 
-    public ClosedWorkloadCreator(UsageModelCreator usgModelCreator, String thinkTime) {
+    public ClosedWorkloadCreator(final UsageModelCreator usgModelCreator, final String thinkTime) {
         super(usgModelCreator, thinkTime);
         this.population = 0; // default value
     }
@@ -30,7 +30,7 @@ public class ClosedWorkloadCreator extends WorkloadCreator {
      * @return the current closed workload in the making
      * @see org.palladiosimulator.pcm.usagemodel.ClosedWorkload
      */
-    public ClosedWorkloadCreator withPopulation(int population) {
+    public ClosedWorkloadCreator withPopulation(final int population) {
         this.population = population;
         return this;
     }

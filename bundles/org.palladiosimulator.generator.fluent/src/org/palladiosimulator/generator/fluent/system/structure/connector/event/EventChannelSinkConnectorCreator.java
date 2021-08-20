@@ -24,12 +24,12 @@ public class EventChannelSinkConnectorCreator extends AbstractConnectorCreator {
     private SinkRole role;
 
     public EventChannelSinkConnectorCreator(final SystemCreator systemCreator) {
-        system = systemCreator;
+        this.system = systemCreator;
     }
 
     /**
-     * Defines the {@link org.palladiosimulator.pcm.core.composition.EventChannel
-     * EventChannel} the sink role is connected to.
+     * Defines the {@link org.palladiosimulator.pcm.core.composition.EventChannel EventChannel} the
+     * sink role is connected to.
      *
      * @param eventChannel
      * @return this connector
@@ -43,19 +43,20 @@ public class EventChannelSinkConnectorCreator extends AbstractConnectorCreator {
     }
 
     /**
-     * Defines the {@link org.palladiosimulator.pcm.core.composition.EventChannel
-     * EventChannel} the sink role is connected to. The event channels added to the
-     * org.palladiosimulator.generator.fluent.system are searched for one that
-     * matches the given name.
+     * Defines the {@link org.palladiosimulator.pcm.core.composition.EventChannel EventChannel} the
+     * sink role is connected to. The event channels added to the
+     * org.palladiosimulator.generator.fluent.system are searched for one that matches the given
+     * name.
      *
      * @param name
      * @return this connector
-     * @throws NoSuchElementException Thrown if no element matches the given name
+     * @throws NoSuchElementException
+     *             Thrown if no element matches the given name
      * @see org.palladiosimulator.pcm.core.composition.EventChannel
      * @see org.palladiosimulator.pcm.repository.SinkRole
      */
     public EventChannelSinkConnectorCreator withEventChannel(final String name) throws NoSuchElementException {
-        final EventChannel channel = system.getEventChannelByName(name);
+        final EventChannel channel = this.system.getEventChannelByName(name);
         return this.withEventChannel(channel);
     }
 
@@ -81,29 +82,30 @@ public class EventChannelSinkConnectorCreator extends AbstractConnectorCreator {
     /**
      * Defines the {@link org.palladiosimulator.pcm.core.composition.AssemblyContext
      * AssemblyContext} with the sink role. The assembly contexts added to the
-     * org.palladiosimulator.generator.fluent.system are searched for one that
-     * matches the given name.
+     * org.palladiosimulator.generator.fluent.system are searched for one that matches the given
+     * name.
      *
      * @param name
      * @return this connector
-     * @throws NoSuchElementException Thrown if no element matches the given name.
+     * @throws NoSuchElementException
+     *             Thrown if no element matches the given name.
      * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
      * @see org.palladiosimulator.pcm.repository.SinkRole
      */
     public SinkRoleSelector<EventChannelSinkConnectorCreator> withAssemblyContext(final String name) {
-        final AssemblyContext context = system.getAssemblyContextByName(name);
+        final AssemblyContext context = this.system.getAssemblyContextByName(name);
         return this.withAssemblyContext(context);
     }
 
     @Override
     public EventChannelSinkConnector build() {
         final EventChannelSinkConnector connector = CompositionFactory.eINSTANCE.createEventChannelSinkConnector();
-        if (name != null) {
-            connector.setEntityName(name);
+        if (this.name != null) {
+            connector.setEntityName(this.name);
         }
-        connector.setEventChannel__EventChannelSinkConnector(eventChannel);
-        connector.setAssemblyContext__EventChannelSinkConnector(assemblyContext);
-        connector.setSinkRole__EventChannelSinkConnector(role);
+        connector.setEventChannel__EventChannelSinkConnector(this.eventChannel);
+        connector.setAssemblyContext__EventChannelSinkConnector(this.assemblyContext);
+        connector.setSinkRole__EventChannelSinkConnector(this.role);
         return connector;
     }
 

@@ -22,18 +22,18 @@ public class LoopActionCreator extends ActionCreator {
     private PCMRandomVariable iteration;
     private ScenarioBehaviour bodyBehav;
 
-    public LoopActionCreator(String iteration, ScenarioBehaviourCreator bodyBehaviour) {
+    public LoopActionCreator(final String iteration, final ScenarioBehaviourCreator bodyBehaviour) {
         addToLoopAction(iteration);
         addToLoopAction(bodyBehaviour);
     }
 
-    private LoopActionCreator addToLoopAction(ScenarioBehaviourCreator bodyBehaviour) {
+    private LoopActionCreator addToLoopAction(final ScenarioBehaviourCreator bodyBehaviour) {
         IllegalArgumentException.throwIfNull(bodyBehaviour, "The given body Behavoiur must not be null");
         this.bodyBehav = bodyBehaviour.build();
         return this;
     }
 
-    private LoopActionCreator addToLoopAction(String iteration) {
+    private LoopActionCreator addToLoopAction(final String iteration) {
         IllegalArgumentException.throwIfNull(iteration, "The given Iteration must not be null");
         this.iteration = CoreFactory.eINSTANCE.createPCMRandomVariable();
         this.iteration.setSpecification(iteration);
@@ -42,7 +42,7 @@ public class LoopActionCreator extends ActionCreator {
 
     @Override
     public Loop build() {
-        Loop loop = UsagemodelFactory.eINSTANCE.createLoop();
+        final Loop loop = UsagemodelFactory.eINSTANCE.createLoop();
 
         if (this.bodyBehav != null) {
             loop.setBodyBehaviour_Loop(this.bodyBehav);
@@ -61,7 +61,7 @@ public class LoopActionCreator extends ActionCreator {
     }
 
     @Override
-    public LoopActionCreator withSuccessor(ActionCreator action) {
+    public LoopActionCreator withSuccessor(final ActionCreator action) {
         return (LoopActionCreator) super.withSuccessor(action);
     }
 

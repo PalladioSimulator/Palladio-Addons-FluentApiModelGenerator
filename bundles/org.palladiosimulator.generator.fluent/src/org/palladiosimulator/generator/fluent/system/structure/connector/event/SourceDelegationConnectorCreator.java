@@ -23,13 +23,12 @@ public class SourceDelegationConnectorCreator extends AbstractConnectorCreator {
     private AssemblyContext assemblyContext;
 
     public SourceDelegationConnectorCreator(final SystemCreator systemCreator) {
-        system = systemCreator;
+        this.system = systemCreator;
     }
 
     /**
-     * Defines the {@link org.palladiosimulator.pcm.repository.SourceRole
-     * SourceRole} of the org.palladiosimulator.generator.fluent.system, delegated
-     * to an AssemblyContext.
+     * Defines the {@link org.palladiosimulator.pcm.repository.SourceRole SourceRole} of the
+     * org.palladiosimulator.generator.fluent.system, delegated to an AssemblyContext.
      *
      * @param role
      * @return this connector
@@ -37,24 +36,24 @@ public class SourceDelegationConnectorCreator extends AbstractConnectorCreator {
      */
     public SourceDelegationConnectorCreator withOuterSourceRole(final SourceRole role) {
         IllegalArgumentException.throwIfNull(role, "The given Role must not be null.");
-        outerRole = role;
+        this.outerRole = role;
         return this;
     }
 
     /**
-     * Defines the {@link org.palladiosimulator.pcm.repository.SourceRole
-     * SourceRole} of the org.palladiosimulator.generator.fluent.system, delegated
-     * to an AssemblyContext. The source roles added to the
-     * org.palladiosimulator.generator.fluent.system are searched for one that
+     * Defines the {@link org.palladiosimulator.pcm.repository.SourceRole SourceRole} of the
+     * org.palladiosimulator.generator.fluent.system, delegated to an AssemblyContext. The source
+     * roles added to the org.palladiosimulator.generator.fluent.system are searched for one that
      * matches the given name.
      *
      * @param role
      * @return this connector
-     * @throws NoSuchElementException Thrown if no element matches the given name.
+     * @throws NoSuchElementException
+     *             Thrown if no element matches the given name.
      * @see org.palladiosimulator.pcm.repository.SourceRole
      */
     public SourceDelegationConnectorCreator withOuterSourceRole(final String name) throws NoSuchElementException {
-        final SourceRole role = system.getSystemSourceRoleByName(name);
+        final SourceRole role = this.system.getSystemSourceRoleByName(name);
         return this.withOuterSourceRole(role);
     }
 
@@ -79,29 +78,30 @@ public class SourceDelegationConnectorCreator extends AbstractConnectorCreator {
     /**
      * Defines the {@link org.palladiosimulator.pcm.core.composition.AssemblyContext
      * AssemblyContext} with the source role. The assembly contexts added to the
-     * org.palladiosimulator.generator.fluent.system are searched for one that
-     * matches the given name.
+     * org.palladiosimulator.generator.fluent.system are searched for one that matches the given
+     * name.
      *
      * @param name
      * @return this connector
-     * @throws NoSuchElementException Thrown if no element matches the given name.
+     * @throws NoSuchElementException
+     *             Thrown if no element matches the given name.
      * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
      * @see org.palladiosimulator.pcm.repository.SourceRole
      */
     public SourceRoleSelector<SourceDelegationConnectorCreator> withAssemblyContext(final String name) {
-        final AssemblyContext context = system.getAssemblyContextByName(name);
+        final AssemblyContext context = this.system.getAssemblyContextByName(name);
         return this.withAssemblyContext(context);
     }
 
     @Override
     public SourceDelegationConnector build() {
         final SourceDelegationConnector connector = CompositionFactory.eINSTANCE.createSourceDelegationConnector();
-        if (name != null) {
-            connector.setEntityName(name);
+        if (this.name != null) {
+            connector.setEntityName(this.name);
         }
-        connector.setAssemblyContext__SourceDelegationConnector(assemblyContext);
-        connector.setOuterSourceRole__SourceRole(outerRole);
-        connector.setInnerSourceRole__SourceRole(innerRole);
+        connector.setAssemblyContext__SourceDelegationConnector(this.assemblyContext);
+        connector.setOuterSourceRole__SourceRole(this.outerRole);
+        connector.setInnerSourceRole__SourceRole(this.innerRole);
         return connector;
     }
 

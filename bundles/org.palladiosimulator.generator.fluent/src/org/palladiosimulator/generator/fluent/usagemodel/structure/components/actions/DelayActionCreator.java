@@ -19,11 +19,11 @@ public class DelayActionCreator extends ActionCreator {
 
     private PCMRandomVariable time;
 
-    public DelayActionCreator(String timeSpecification) {
+    public DelayActionCreator(final String timeSpecification) {
         addToDelayAction(timeSpecification);
     }
 
-    private DelayActionCreator addToDelayAction(String timeSpecification) {
+    private DelayActionCreator addToDelayAction(final String timeSpecification) {
         IllegalArgumentException.throwIfNull(timeSpecification, "The given Time Sppecification must not be null");
         this.time = CoreFactory.eINSTANCE.createPCMRandomVariable();
         this.time.setSpecification(timeSpecification);
@@ -32,7 +32,7 @@ public class DelayActionCreator extends ActionCreator {
 
     @Override
     public Delay build() {
-        Delay d = UsagemodelFactory.eINSTANCE.createDelay();
+        final Delay d = UsagemodelFactory.eINSTANCE.createDelay();
         if (this.time != null) {
             d.setTimeSpecification_Delay(this.time);
         }
@@ -46,7 +46,7 @@ public class DelayActionCreator extends ActionCreator {
     }
 
     @Override
-    public DelayActionCreator withSuccessor(ActionCreator action) {
+    public DelayActionCreator withSuccessor(final ActionCreator action) {
         return (DelayActionCreator) super.withSuccessor(action);
     }
 

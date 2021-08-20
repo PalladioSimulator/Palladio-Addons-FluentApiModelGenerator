@@ -20,9 +20,9 @@ import org.palladiosimulator.pcm.seff.seff_performance.ResourceCall;
 import org.palladiosimulator.pcm.seff.seff_performance.SeffPerformanceFactory;
 
 /**
- * This class provides the implementation of the methods that add resource
- * demands, resource calls and infrastructure calls to a SEFF action. Most of
- * the actions in a SEFF offer these characteristics.
+ * This class provides the implementation of the methods that add resource demands, resource calls
+ * and infrastructure calls to a SEFF action. Most of the actions in a SEFF offer these
+ * characteristics.
  *
  * @author Louisa Lambrecht
  */
@@ -33,17 +33,14 @@ public abstract class GeneralAction extends SeffAction {
     protected List<ResourceCall> resourceCalls = new ArrayList<>();
 
     /**
-     * Adds a
-     * {@link org.palladiosimulator.pcm.seff.seff_performance.ParametricResourceDemand
+     * Adds a {@link org.palladiosimulator.pcm.seff.seff_performance.ParametricResourceDemand
      * ParametricResourceDemand} to this action.
      * <p>
-     * Parametric Resource Demand specifies the amount of processing requested from
-     * a certain type of resource in a parameterized way. It assigns the demand
-     * specified as a Random-Variable
-     * (<code>specification_stochasticExpression</code>) to an abstract
-     * ProcessingResourceType <code>processingResource</code>(e.g., CPU, hard disk)
-     * instead of a concrete ProcessingResourceSpecification (e.g., 5 GHz CPU, 20
-     * MByte/s hard disk).
+     * Parametric Resource Demand specifies the amount of processing requested from a certain type
+     * of resource in a parameterized way. It assigns the demand specified as a Random-Variable
+     * (<code>specification_stochasticExpression</code>) to an abstract ProcessingResourceType
+     * <code>processingResource</code>(e.g., CPU, hard disk) instead of a concrete
+     * ProcessingResourceSpecification (e.g., 5 GHz CPU, 20 MByte/s hard disk).
      * </p>
      *
      * @param specificationStochasticExpression
@@ -57,19 +54,19 @@ public abstract class GeneralAction extends SeffAction {
         IllegalArgumentException.throwIfNull(processingResource, "processingResource must not be null");
         final ParametricResourceDemand demand = SeffPerformanceFactory.eINSTANCE.createParametricResourceDemand();
 
-        final ProcessingResourceType processingResourceType = repository.getProcessingResourceType(processingResource);
+        final ProcessingResourceType processingResourceType = this.repository
+            .getProcessingResourceType(processingResource);
         demand.setRequiredResource_ParametricResourceDemand(processingResourceType);
 
         final PCMRandomVariable rand = CoreFactory.eINSTANCE.createPCMRandomVariable();
         rand.setSpecification(specificationStochasticExpression);
         demand.setSpecification_ParametericResourceDemand(rand);
-        demands.add(demand);
+        this.demands.add(demand);
         return this;
     }
 
     /**
-     * Adds an
-     * {@link org.palladiosimulator.pcm.seff.seff_performance.InfrastructureCall
+     * Adds an {@link org.palladiosimulator.pcm.seff.seff_performance.InfrastructureCall
      * InfrastructureCall} to this action.
      *
      * @param numberOfCallsStochasticExpression
@@ -100,17 +97,20 @@ public abstract class GeneralAction extends SeffAction {
         call.setRequiredRole__InfrastructureCall(requiredRole);
         call.setSignature__InfrastructureCall(signature);
         if (variableUsages.length > 0) {
-            Arrays.asList(variableUsages).stream().map(VariableUsageCreator::build)
-                    .forEach(v -> call.getInputVariableUsages__CallAction().add(v));
+            Arrays.asList(variableUsages)
+                .stream()
+                .map(VariableUsageCreator::build)
+                .forEach(v -> call.getInputVariableUsages__CallAction()
+                    .add(v));
         }
 
-        infrastructureCalls.add(call);
+        this.infrastructureCalls.add(call);
         return this;
     }
 
     /**
-     * Adds a {@link org.palladiosimulator.pcm.seff.seff_performance.ResourceCall
-     * ResourceCall} to this action.
+     * Adds a {@link org.palladiosimulator.pcm.seff.seff_performance.ResourceCall ResourceCall} to
+     * this action.
      *
      * @param numberOfCallsStochasticExpression
      * @param signature
@@ -138,17 +138,20 @@ public abstract class GeneralAction extends SeffAction {
         rand.setSpecification(numberOfCallsStochasticExpression);
         call.setNumberOfCalls__ResourceCall(rand);
 
-        final org.palladiosimulator.pcm.resourcetype.ResourceSignature resourceSignature = repository
-                .getResourceSignature(signature);
+        final org.palladiosimulator.pcm.resourcetype.ResourceSignature resourceSignature = this.repository
+            .getResourceSignature(signature);
         call.setSignature__ResourceCall(resourceSignature);
         call.setResourceRequiredRole__ResourceCall(requiredRole);
 
         if ((variableUsages != null) && (variableUsages.length != 0)) {
-            Arrays.asList(variableUsages).stream().map(VariableUsageCreator::build)
-                    .forEach(v -> call.getInputVariableUsages__CallAction().add(v));
+            Arrays.asList(variableUsages)
+                .stream()
+                .map(VariableUsageCreator::build)
+                .forEach(v -> call.getInputVariableUsages__CallAction()
+                    .add(v));
         }
 
-        resourceCalls.add(call);
+        this.resourceCalls.add(call);
         return this;
     }
 

@@ -10,8 +10,8 @@ public interface Seff {
     /**
      * Defines the signature of the service that this SEFF's behaviour is modeling.
      * <p>
-     * An existing <code>signature</code> can be fetched from the repository using
-     * the factory, i.e. <code>create.fetchOfSignature(name)</code>.
+     * An existing <code>signature</code> can be fetched from the repository using the factory, i.e.
+     * <code>create.fetchOfSignature(name)</code>.
      * </p>
      *
      * @param signature
@@ -32,9 +32,9 @@ public interface Seff {
     /**
      * Adds <code>internalBehaviour</code> to this SEFF's internal behaviours.
      * <p>
-     * It models the behaviour of a component service as a sequence of internal
-     * actions with resource demands, control flow constructs, and external calls.
-     * Therefore, the class contains a chain of AbstractActions.
+     * It models the behaviour of a component service as a sequence of internal actions with
+     * resource demands, control flow constructs, and external calls. Therefore, the class contains
+     * a chain of AbstractActions.
      * </p>
      *
      * @param internalBehaviour
@@ -47,8 +47,8 @@ public interface Seff {
      * Specifies the body behaviour of this SEFF. Every body behaviour starts with a
      * {@link org.palladiosimulator.generator.fluent.repository.api.seff.StartSeff#withStartAction()
      * start action} followed by an arbitrary amount of other
-     * {@link org.palladiosimulator.pcm.seff.AbstractAction actions}. The body
-     * behaviour always ends with a stop action and a finishing call on the method
+     * {@link org.palladiosimulator.pcm.seff.AbstractAction actions}. The body behaviour always ends
+     * with a stop action and a finishing call on the method
      * {@link org.palladiosimulator.generator.fluent.repository.api.seff.StopSeff#createBehaviourNow()
      * createBehaviourNow()}.
      *

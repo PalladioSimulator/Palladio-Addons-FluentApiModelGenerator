@@ -11,12 +11,9 @@ import org.palladiosimulator.pcm.repository.Parameter;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
 
 /**
- * This class constructs an
- * {@link org.palladiosimulator.pcm.repository.OperationInterface
- * OperationInterface}. It is used to create the
- * '<em><b>OperationInterface</b></em>' object step-by-step, i.e.
- * '<em><b>OperationInterfaceCreator</b></em>' objects are of intermediate
- * state.
+ * This class constructs an {@link org.palladiosimulator.pcm.repository.OperationInterface
+ * OperationInterface}. It is used to create the '<em><b>OperationInterface</b></em>' object
+ * step-by-step, i.e. '<em><b>OperationInterfaceCreator</b></em>' objects are of intermediate state.
  *
  * @author Louisa Lambrecht
  * @see org.palladiosimulator.pcm.repository.OperationInterface
@@ -26,8 +23,8 @@ public class OperationInterfaceCreator extends Interface {
     private final List<OperationSignature> signatures;
 
     public OperationInterfaceCreator(final RepositoryCreator repo) {
-        repository = repo;
-        signatures = new ArrayList<>();
+        this.repository = repo;
+        this.signatures = new ArrayList<>();
     }
 
     @Override
@@ -64,29 +61,32 @@ public class OperationInterfaceCreator extends Interface {
      */
     public OperationInterfaceCreator withOperationSignature(final OperationSignatureCreator signature) {
         final OperationSignature build = signature.build();
-        repository.addSignature(build);
-        signatures.add(build);
+        this.repository.addSignature(build);
+        this.signatures.add(build);
         return this;
     }
 
     @Override
     public OperationInterface build() {
         final OperationInterface interfce = RepositoryFactory.eINSTANCE.createOperationInterface();
-        if (name != null) {
-            interfce.setEntityName(name);
+        if (this.name != null) {
+            interfce.setEntityName(this.name);
             // if (id != null)
             // interfce.setId(id);
         }
 
-        interfce.getParentInterfaces__Interface().addAll(parentInterfaces);
-        interfce.getRequiredCharacterisations().addAll(requiredCharacterisations);
+        interfce.getParentInterfaces__Interface()
+            .addAll(this.parentInterfaces);
+        interfce.getRequiredCharacterisations()
+            .addAll(this.requiredCharacterisations);
 
-        interfce.getSignatures__OperationInterface().addAll(signatures);
+        interfce.getSignatures__OperationInterface()
+            .addAll(this.signatures);
 
         return interfce;
     }
 
     protected void addOperationSignatures(final OperationSignature signature) {
-        signatures.add(signature);
+        this.signatures.add(signature);
     }
 }

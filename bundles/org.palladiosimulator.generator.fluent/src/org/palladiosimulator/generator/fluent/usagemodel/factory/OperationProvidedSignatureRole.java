@@ -12,7 +12,7 @@ public class OperationProvidedSignatureRole {
     public OperationProvidedSignatureRole() {
     }
 
-    public OperationProvidedSignatureRole(OperationProvidedRole role, OperationSignature signature) {
+    public OperationProvidedSignatureRole(final OperationProvidedRole role, final OperationSignature signature) {
         setRole(role);
         setSignature(signature);
     }
@@ -21,11 +21,11 @@ public class OperationProvidedSignatureRole {
         return ((this.provRole != null) && (this.opSig != null));
     }
 
-    public void setRole(OperationProvidedRole role) {
+    public void setRole(final OperationProvidedRole role) {
         this.provRole = role;
     }
 
-    public void setSignature(OperationSignature signature) {
+    public void setSignature(final OperationSignature signature) {
         this.opSig = signature;
     }
 

@@ -12,10 +12,9 @@ import org.palladiosimulator.pcm.seff.AcquireAction;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 
 /**
- * This class constructs an {@link org.palladiosimulator.pcm.seff.AcquireAction
- * AcquireAction}. It is used to create the '<em><b>AcquireAction</b></em>'
- * object step-by-step, i.e. '<em><b>AcquireActionCreator</b></em>' objects are
- * of intermediate state.
+ * This class constructs an {@link org.palladiosimulator.pcm.seff.AcquireAction AcquireAction}. It
+ * is used to create the '<em><b>AcquireAction</b></em>' object step-by-step, i.e.
+ * '<em><b>AcquireActionCreator</b></em>' objects are of intermediate state.
  *
  * @author Louisa Lambrecht
  * @see org.palladiosimulator.pcm.seff.AcquireAction
@@ -38,8 +37,8 @@ public class AcquireActionCreator extends GeneralAction {
     /**
      * Specifies the passive resource of this acquire action.
      * <p>
-     * An existing <code>passiveResource</code> can be fetched from the repository
-     * using the factory, i.e. <code>create.fetchOfPassiveResource(name)</code>.
+     * An existing <code>passiveResource</code> can be fetched from the repository using the
+     * factory, i.e. <code>create.fetchOfPassiveResource(name)</code>.
      * </p>
      *
      * @param passiveResource
@@ -100,19 +99,22 @@ public class AcquireActionCreator extends GeneralAction {
     @Override
     protected AcquireAction build() {
         final AcquireAction action = SeffFactory.eINSTANCE.createAcquireAction();
-        if (passiveResource != null) {
-            action.setPassiveresource_AcquireAction(passiveResource);
+        if (this.passiveResource != null) {
+            action.setPassiveresource_AcquireAction(this.passiveResource);
         }
-        if (timeoutValue != null) {
-            action.setTimeoutValue(timeoutValue);
+        if (this.timeoutValue != null) {
+            action.setTimeoutValue(this.timeoutValue);
         }
-        if (isTimeout != null) {
-            action.setTimeout(isTimeout);
+        if (this.isTimeout != null) {
+            action.setTimeout(this.isTimeout);
         }
 
-        action.getInfrastructureCall__Action().addAll(infrastructureCalls);
-        action.getResourceCall__Action().addAll(resourceCalls);
-        action.getResourceDemand_Action().addAll(demands);
+        action.getInfrastructureCall__Action()
+            .addAll(this.infrastructureCalls);
+        action.getResourceCall__Action()
+            .addAll(this.resourceCalls);
+        action.getResourceDemand_Action()
+            .addAll(this.demands);
 
         return action;
     }

@@ -3,8 +3,8 @@ package org.palladiosimulator.generator.fluent.repository.api.seff;
 import org.palladiosimulator.generator.fluent.repository.structure.components.seff.StartActionCreator;
 
 /**
- * This interface is merely used for control flow purposes making sure that a
- * body behaviour always starts with a start action.
+ * This interface is merely used for control flow purposes making sure that a body behaviour always
+ * starts with a start action.
  *
  * @author Louisa Lambrecht
  */

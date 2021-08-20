@@ -16,13 +16,13 @@ import org.palladiosimulator.pcm.usagemodel.Workload;
  */
 public class OpenWorkloadCreator extends WorkloadCreator {
 
-    public OpenWorkloadCreator(UsageModelCreator usgModelCreator, String interArrivalTime) {
+    public OpenWorkloadCreator(final UsageModelCreator usgModelCreator, final String interArrivalTime) {
         super(usgModelCreator, interArrivalTime);
     }
 
     @Override
     public Workload build() {
-        OpenWorkload work = UsagemodelFactory.eINSTANCE.createOpenWorkload();
+        final OpenWorkload work = UsagemodelFactory.eINSTANCE.createOpenWorkload();
 
         if (this.time != null) {
             work.setInterArrivalTime_OpenWorkload(this.time);

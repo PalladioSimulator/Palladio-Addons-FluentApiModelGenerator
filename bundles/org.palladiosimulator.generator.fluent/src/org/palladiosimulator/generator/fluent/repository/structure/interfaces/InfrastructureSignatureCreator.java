@@ -18,12 +18,10 @@ import org.palladiosimulator.pcm.repository.PrimitiveDataType;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
 
 /**
- * This class constructs a
- * {@link org.palladiosimulator.pcm.repository.InfrastructureSignature
- * InfrastructureSignature}. It is used to create the
- * '<em><b>InfrastructureSignature</b></em>' object step-by-step, i.e.
- * '<em><b>InfrastructureSignatureCreator</b></em>' objects are of intermediate
- * state.
+ * This class constructs a {@link org.palladiosimulator.pcm.repository.InfrastructureSignature
+ * InfrastructureSignature}. It is used to create the '<em><b>InfrastructureSignature</b></em>'
+ * object step-by-step, i.e. '<em><b>InfrastructureSignatureCreator</b></em>' objects are of
+ * intermediate state.
  *
  * @author Louisa Lambrecht
  * @see org.palladiosimulator.pcm.repository.InfrastructureSignature
@@ -36,9 +34,9 @@ public class InfrastructureSignatureCreator extends RepositoryEntity {
 
     public InfrastructureSignatureCreator(final RepositoryCreator repository) {
         this.repository = repository;
-        parameters = new ArrayList<>();
-        exceptions = new ArrayList<>();
-        failures = new ArrayList<>();
+        this.parameters = new ArrayList<>();
+        this.exceptions = new ArrayList<>();
+        this.failures = new ArrayList<>();
     }
 
     @Override
@@ -47,27 +45,25 @@ public class InfrastructureSignatureCreator extends RepositoryEntity {
     }
 
     /**
-     * Creates a {@link org.palladiosimulator.pcm.repository.Parameter Parameter}
-     * and adds it to the signature's ordered list of parameters.
+     * Creates a {@link org.palladiosimulator.pcm.repository.Parameter Parameter} and adds it to the
+     * signature's ordered list of parameters.
      * <p>
-     * Each parameter is a tuple of a <code>name</code> and a <code>dataType</code>
-     * (which is unique across the parameters). Optionally, the
-     * <code>modifier</code>s '<em><b>in</b></em>', '<em><b>out</b></em>', and
-     * '<em><b>inout</b></em>' (with its OMG IDL semantics) can be used for
-     * parameters, e.g. <code>ParameterModifier.IN</code>.
+     * Each parameter is a tuple of a <code>name</code> and a <code>dataType</code> (which is unique
+     * across the parameters). Optionally, the <code>modifier</code>s '<em><b>in</b></em>',
+     * '<em><b>out</b></em>', and '<em><b>inout</b></em>' (with its OMG IDL semantics) can be used
+     * for parameters, e.g. <code>ParameterModifier.IN</code>.
      * </p>
      * <p>
-     * A
-     * {@link org.palladiosimulator.generator.fluent.repository.structure.internals.Primitive
+     * A {@link org.palladiosimulator.generator.fluent.repository.structure.internals.Primitive
      * Primitive} data type can have the values '<em><b>boolean</b></em>',
-     * '<em><b>integer</b></em>', '<em><b>string</b></em>',
-     * '<em><b>double</b></em>', '<em><b>long</b></em>', '<em><b>char</b></em>',
-     * '<em><b>byte</b></em>'.
+     * '<em><b>integer</b></em>', '<em><b>string</b></em>', '<em><b>double</b></em>',
+     * '<em><b>long</b></em>', '<em><b>char</b></em>', '<em><b>byte</b></em>'.
      * </p>
      *
      * @param name
      * @param dataType
-     * @param modifier may be null
+     * @param modifier
+     *            may be null
      * @return this infrastructure signature in the making
      * @see org.palladiosimulator.pcm.repository.ParameterModifier
      */
@@ -75,19 +71,18 @@ public class InfrastructureSignatureCreator extends RepositoryEntity {
             final ParameterModifier modifier) {
         IllegalArgumentException.throwIfNull(name, "name must not be null");
         IllegalArgumentException.throwIfNull(dataType, "dataType must not be null");
-        final PrimitiveDataType dt = repository.getPrimitiveDataType(dataType);
+        final PrimitiveDataType dt = this.repository.getPrimitiveDataType(dataType);
         return this.withParameter(name, dt, modifier);
     }
 
     /**
-     * Creates a {@link org.palladiosimulator.pcm.repository.Parameter Parameter}
-     * and adds it to the signature's ordered list of parameters.
+     * Creates a {@link org.palladiosimulator.pcm.repository.Parameter Parameter} and adds it to the
+     * signature's ordered list of parameters.
      * <p>
-     * Each parameter is a tuple of a <code>name</code> and a <code>dataType</code>
-     * (which is unique across the parameters). Optionally, the
-     * <code>modifier</code>s '<em><b>in</b></em>', '<em><b>out</b></em>', and
-     * '<em><b>inout</b></em>' (with its OMG IDL semantics) can be used for
-     * parameters, e.g. <code>ParameterModifier.IN</code>.
+     * Each parameter is a tuple of a <code>name</code> and a <code>dataType</code> (which is unique
+     * across the parameters). Optionally, the <code>modifier</code>s '<em><b>in</b></em>',
+     * '<em><b>out</b></em>', and '<em><b>inout</b></em>' (with its OMG IDL semantics) can be used
+     * for parameters, e.g. <code>ParameterModifier.IN</code>.
      * </p>
      * <p>
      * An existing data type can be fetched from the repository using the
@@ -97,7 +92,8 @@ public class InfrastructureSignatureCreator extends RepositoryEntity {
      *
      * @param name
      * @param dataType
-     * @param modifier may be null
+     * @param modifier
+     *            may be null
      * @return this infrastructure signature in the making
      * @see org.palladiosimulator.generator.fluent.repository.factory.FluentRepositoryFactory#fetchOfDataType(String)
      * @see org.palladiosimulator.pcm.repository.ParameterModifier
@@ -116,14 +112,13 @@ public class InfrastructureSignatureCreator extends RepositoryEntity {
             param.setModifier__Parameter(modifier);
         }
 
-        parameters.add(param);
-        repository.addParameter(param);
+        this.parameters.add(param);
+        this.repository.addParameter(param);
         return this;
     }
 
     /**
-     * Adds the <code>failureType</code> to the signature's list of possible
-     * failures.
+     * Adds the <code>failureType</code> to the signature's list of possible failures.
      * <p>
      * Failure types can be fetched from the repository using the
      * org.palladiosimulator.generator.fluent.component.factory, i.e.
@@ -136,16 +131,14 @@ public class InfrastructureSignatureCreator extends RepositoryEntity {
      */
     public InfrastructureSignatureCreator withFailureType(final FailureType failureType) {
         IllegalArgumentException.throwIfNull(failureType, "failureType must not be null");
-        failures.add(failureType);
+        this.failures.add(failureType);
         return this;
     }
 
     /**
-     * Adds the <code>failureType</code> to the signature's list of possible
-     * failures.
+     * Adds the <code>failureType</code> to the signature's list of possible failures.
      * <p>
-     * A
-     * {@link org.palladiosimulator.generator.fluent.repository.structure.internals.Failure
+     * A {@link org.palladiosimulator.generator.fluent.repository.structure.internals.Failure
      * Failure} type can have the values '<em><b>HARDWARE_CPU</b></em>',
      * '<em><b>HARDWARE_HDD</b></em>', '<em><b>HARDWARE_DELAY</b></em>',
      * '<em><b>NETWORK_LAN</b></em>', '<em><b>SOFTWARE</b></em>'.
@@ -156,7 +149,7 @@ public class InfrastructureSignatureCreator extends RepositoryEntity {
      */
     public InfrastructureSignatureCreator withFailureType(final Failure failureType) {
         IllegalArgumentException.throwIfNull(failureType, "failureType must not be null");
-        final FailureType failure = repository.getFailureType(failureType);
+        final FailureType failure = this.repository.getFailureType(failureType);
         return this.withFailureType(failure);
     }
 
@@ -175,19 +168,22 @@ public class InfrastructureSignatureCreator extends RepositoryEntity {
      */
     public InfrastructureSignatureCreator withExceptionType(final ExceptionType exceptionType) {
         IllegalArgumentException.throwIfNull(exceptionType, "exceptionType must not be null");
-        exceptions.add(exceptionType);
+        this.exceptions.add(exceptionType);
         return this;
     }
 
     @Override
     protected InfrastructureSignature build() {
         final InfrastructureSignature sig = RepositoryFactory.eINSTANCE.createInfrastructureSignature();
-        if (name != null) {
-            sig.setEntityName(name);
+        if (this.name != null) {
+            sig.setEntityName(this.name);
         }
-        sig.getParameters__InfrastructureSignature().addAll(parameters);
-        sig.getExceptions__Signature().addAll(exceptions);
-        sig.getFailureType().addAll(failures);
+        sig.getParameters__InfrastructureSignature()
+            .addAll(this.parameters);
+        sig.getExceptions__Signature()
+            .addAll(this.exceptions);
+        sig.getFailureType()
+            .addAll(this.failures);
 
         return sig;
     }

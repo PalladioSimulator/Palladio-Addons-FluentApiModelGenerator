@@ -10,7 +10,8 @@ import org.palladiosimulator.pcm.repository.OperationRequiredRole;
  * This class ensures, that a Role is only selected after an AssemblyContext.
  *
  * @author Florian Krone
- * @param <T> The ConnectorCreator, creating this selector.
+ * @param <T>
+ *            The ConnectorCreator, creating this selector.
  */
 public class OperationRequiredRoleSelector<T> {
     private final IContextRoleCombinator<OperationRequiredRole, T> combinator;
@@ -25,8 +26,7 @@ public class OperationRequiredRoleSelector<T> {
     /**
      * Defines the {@link org.palladiosimulator.pcm.repository.OperationRequiredRole
      * OperationRequiredRole} required by the
-     * {@link org.palladiosimulator.pcm.core.composition.AssemblyContext
-     * AssemblyContext}.
+     * {@link org.palladiosimulator.pcm.core.composition.AssemblyContext AssemblyContext}.
      *
      * @param role
      * @return the assembly connector
@@ -41,20 +41,25 @@ public class OperationRequiredRoleSelector<T> {
     /**
      * Defines the {@link org.palladiosimulator.pcm.repository.OperationRequiredRole
      * OperationRequiredRole} required by the
-     * {@link org.palladiosimulator.pcm.core.composition.AssemblyContext
-     * AssemblyContext}. The provided roles of the context are searched for a role
-     * matching the given name.
+     * {@link org.palladiosimulator.pcm.core.composition.AssemblyContext AssemblyContext}. The
+     * provided roles of the context are searched for a role matching the given name.
      *
      * @param name
      * @return the assembly connector
-     * @throws NoSuchElementException Thrown if no role matches the given name.
+     * @throws NoSuchElementException
+     *             Thrown if no role matches the given name.
      * @see org.palladiosimulator.pcm.repository.OperationRequiredRole
      * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
      */
     public T withOperationRequiredRole(final String name) {
         final OperationRequiredRole role = (OperationRequiredRole) this.context
-                .getEncapsulatedComponent__AssemblyContext().getRequiredRoles_InterfaceRequiringEntity().stream()
-                .filter(x -> x.getEntityName().equals(name)).findFirst().get();
+            .getEncapsulatedComponent__AssemblyContext()
+            .getRequiredRoles_InterfaceRequiringEntity()
+            .stream()
+            .filter(x -> x.getEntityName()
+                .equals(name))
+            .findFirst()
+            .get();
         return this.withOperationRequiredRole(role);
     }
 }

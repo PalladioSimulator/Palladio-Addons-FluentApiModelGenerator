@@ -75,17 +75,15 @@ public class ProcessingResourceSpecificationCreator {
     }
 
     /**
-     * Sets the
-     * {@link org.palladiosimulator.pcm.resourceenvironment.ProcessingResourceSpecification
+     * Sets the {@link org.palladiosimulator.pcm.resourceenvironment.ProcessingResourceSpecification
      * ProcessingResourceSpecification} to be required by the
-     * {@link org.palladiosimulator.pcm.resourceenvironment.ResourceContainer
-     * ResourceContainer}.
+     * {@link org.palladiosimulator.pcm.resourceenvironment.ResourceContainer ResourceContainer}.
      *
      * @return this <code>ProcessingResourceSpecification</code>
      * @see org.palladiosimulator.pcm.resourceenvironment.ProcessingResourceSpecification
      */
     public ProcessingResourceSpecificationCreator isRequiredByContainer() {
-        isRequiredByContainer = true;
+        this.isRequiredByContainer = true;
         return this;
     }
 
@@ -99,7 +97,7 @@ public class ProcessingResourceSpecificationCreator {
      * @see org.palladiosimulator.pcm.resourceenvironment.ProcessingResourceSpecification
      */
     public ProcessingResourceSpecificationCreator withSchedulingPolicy(final SchedulingPolicies policy) {
-        schedulingPolicy = resourceCreator.getSchedulingPolicy(policy);
+        this.schedulingPolicy = this.resourceCreator.getSchedulingPolicy(policy);
         return this;
     }
 
@@ -113,7 +111,7 @@ public class ProcessingResourceSpecificationCreator {
      * @see org.palladiosimulator.pcm.resourceenvironment.ProcessingResourceSpecification
      */
     public ProcessingResourceSpecificationCreator withProcessingResourceType(final ProcessingResource resource) {
-        processingResourceType = resourceCreator.getProcessingResource(resource);
+        this.processingResourceType = this.resourceCreator.getProcessingResource(resource);
         return this;
     }
 
@@ -130,7 +128,7 @@ public class ProcessingResourceSpecificationCreator {
         IllegalArgumentException.throwIfNull(processingRate, "The given processingRate must not be null");
         final PCMRandomVariable randomVariable = CoreFactory.eINSTANCE.createPCMRandomVariable();
         randomVariable.setSpecification(processingRate);
-        processingRateVariable = randomVariable;
+        this.processingRateVariable = randomVariable;
         return this;
     }
 
@@ -143,14 +141,14 @@ public class ProcessingResourceSpecificationCreator {
      */
     public ProcessingResourceSpecification build() {
         final ProcessingResourceSpecification prs = ResourceenvironmentFactory.eINSTANCE
-                .createProcessingResourceSpecification();
-        prs.setMTTR(mttr);
-        prs.setMTTF(mttf);
-        prs.setNumberOfReplicas(numberOfReplicas);
-        prs.setRequiredByContainer(isRequiredByContainer);
-        prs.setSchedulingPolicy(schedulingPolicy);
-        prs.setActiveResourceType_ActiveResourceSpecification(processingResourceType);
-        prs.setProcessingRate_ProcessingResourceSpecification(processingRateVariable);
+            .createProcessingResourceSpecification();
+        prs.setMTTR(this.mttr);
+        prs.setMTTF(this.mttf);
+        prs.setNumberOfReplicas(this.numberOfReplicas);
+        prs.setRequiredByContainer(this.isRequiredByContainer);
+        prs.setSchedulingPolicy(this.schedulingPolicy);
+        prs.setActiveResourceType_ActiveResourceSpecification(this.processingResourceType);
+        prs.setProcessingRate_ProcessingResourceSpecification(this.processingRateVariable);
 
         return prs;
     }

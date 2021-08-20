@@ -1,8 +1,8 @@
 package org.palladiosimulator.generator.fluent.shared.structure;
 
 /**
- * Represents the built in scheduling policies, i.e. '<em><b>Process
- * Sharing</b></em>, '<em><b>FCFS</b></em>, '<em><b>Delay</b></em>.
+ * Represents the built in scheduling policies, i.e. '<em><b>Process Sharing</b></em>,
+ * '<em><b>FCFS</b></em>, '<em><b>Delay</b></em>.
  *
  * @author Florian Krone
  */
@@ -32,6 +32,6 @@ public enum SchedulingPolicies {
      * @return the name
      */
     public String getPolicyName() {
-        return policyName;
+        return this.policyName;
     }
 }

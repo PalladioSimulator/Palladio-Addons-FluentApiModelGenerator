@@ -26,9 +26,8 @@ public interface ISystemAddition {
     System createSystemNow();
 
     /**
-     * Adds a repository to the org.palladiosimulator.generator.fluent.system.
-     * Components from added repositories can be added to the
-     * org.palladiosimulator.generator.fluent.system by name.
+     * Adds a repository to the org.palladiosimulator.generator.fluent.system. Components from added
+     * repositories can be added to the org.palladiosimulator.generator.fluent.system by name.
      *
      * @param repository
      * @return this org.palladiosimulator.generator.fluent.system
@@ -37,9 +36,9 @@ public interface ISystemAddition {
     ISystemAddition addRepository(Repository repository);
 
     /**
-     * Adds an {@link org.palladiosimulator.pcm.core.composition.AssemblyContext
-     * AssemblyContext} to the org.palladiosimulator.generator.fluent.system. The
-     * creator will be turned into the finished AssemblyContext.
+     * Adds an {@link org.palladiosimulator.pcm.core.composition.AssemblyContext AssemblyContext} to
+     * the org.palladiosimulator.generator.fluent.system. The creator will be turned into the
+     * finished AssemblyContext.
      *
      * @param context
      * @return this org.palladiosimulator.generator.fluent.system
@@ -48,9 +47,9 @@ public interface ISystemAddition {
     ISystemAddition addToSystem(AssemblyContextCreator context);
 
     /**
-     * Adds a {@link org.palladiosimulator.pcm.core.composition.Connector Connector}
-     * to the org.palladiosimulator.generator.fluent.system. The creator will be
-     * turned into the finished connector.
+     * Adds a {@link org.palladiosimulator.pcm.core.composition.Connector Connector} to the
+     * org.palladiosimulator.generator.fluent.system. The creator will be turned into the finished
+     * connector.
      *
      * @param connector
      * @return this org.palladiosimulator.generator.fluent.system
@@ -60,8 +59,8 @@ public interface ISystemAddition {
 
     /**
      * Adds an {@link org.palladiosimulator.pcm.repository.OperationRequiredRole
-     * OperationRequiredRole} to the org.palladiosimulator.generator.fluent.system.
-     * The creator will be turned into the finished connector.
+     * OperationRequiredRole} to the org.palladiosimulator.generator.fluent.system. The creator will
+     * be turned into the finished connector.
      *
      * @param role
      * @return this org.palladiosimulator.generator.fluent.system
@@ -71,8 +70,8 @@ public interface ISystemAddition {
 
     /**
      * Adds an {@link org.palladiosimulator.pcm.repository.OperationProvidedRole
-     * OperationProvidedRole} to the org.palladiosimulator.generator.fluent.system.
-     * The creator will be turned into the finished connector.
+     * OperationProvidedRole} to the org.palladiosimulator.generator.fluent.system. The creator will
+     * be turned into the finished connector.
      *
      * @param role
      * @return this org.palladiosimulator.generator.fluent.system
@@ -81,9 +80,9 @@ public interface ISystemAddition {
     ISystemAddition addToSystem(OperationProvidedRoleCreator role);
 
     /**
-     * Adds an {@link org.palladiosimulator.pcm.core.composition.EventChannel
-     * EventChannel} to the org.palladiosimulator.generator.fluent.system. The
-     * creator will be turned into the finished connector.
+     * Adds an {@link org.palladiosimulator.pcm.core.composition.EventChannel EventChannel} to the
+     * org.palladiosimulator.generator.fluent.system. The creator will be turned into the finished
+     * connector.
      *
      * @param eventChannel
      * @return this org.palladiosimulator.generator.fluent.system
@@ -93,8 +92,8 @@ public interface ISystemAddition {
 
     /**
      * Adds a {@link org.palladiosimulator.pcm.repository.SinkRole SinkRole} to the
-     * org.palladiosimulator.generator.fluent.system. The creator will be turned
-     * into the finished connector.
+     * org.palladiosimulator.generator.fluent.system. The creator will be turned into the finished
+     * connector.
      *
      * @param role
      * @return this org.palladiosimulator.generator.fluent.system
@@ -103,9 +102,9 @@ public interface ISystemAddition {
     ISystemAddition addToSystem(SinkRoleCreator role);
 
     /**
-     * Adds a {@link org.palladiosimulator.pcm.repository.SourceRole SourceRole} to
-     * the org.palladiosimulator.generator.fluent.system. The creator will be turned
-     * into the finished connector.
+     * Adds a {@link org.palladiosimulator.pcm.repository.SourceRole SourceRole} to the
+     * org.palladiosimulator.generator.fluent.system. The creator will be turned into the finished
+     * connector.
      *
      * @param role
      * @return this org.palladiosimulator.generator.fluent.system
@@ -114,11 +113,9 @@ public interface ISystemAddition {
     ISystemAddition addToSystem(SourceRoleCreator role);
 
     /**
-     * Adds an
-     * {@link org.palladiosimulator.pcm.repository.InfrastructureRequiredRole
-     * InfrastructureRequiredRole} to the
-     * org.palladiosimulator.generator.fluent.system. The creator will be turned
-     * into the finished connector.
+     * Adds an {@link org.palladiosimulator.pcm.repository.InfrastructureRequiredRole
+     * InfrastructureRequiredRole} to the org.palladiosimulator.generator.fluent.system. The creator
+     * will be turned into the finished connector.
      *
      * @param role
      * @return this org.palladiosimulator.generator.fluent.system
@@ -127,11 +124,9 @@ public interface ISystemAddition {
     ISystemAddition addToSystem(InfrastructureRequiredRoleCreator role);
 
     /**
-     * Adds an
-     * {@link org.palladiosimulator.pcm.repository.InfrastructureProvidedRole
-     * InfrastructureProvidedRole} to the
-     * org.palladiosimulator.generator.fluent.system. The creator will be turned
-     * into the finished connector.
+     * Adds an {@link org.palladiosimulator.pcm.repository.InfrastructureProvidedRole
+     * InfrastructureProvidedRole} to the org.palladiosimulator.generator.fluent.system. The creator
+     * will be turned into the finished connector.
      *
      * @param role
      * @return this org.palladiosimulator.generator.fluent.system
@@ -140,9 +135,9 @@ public interface ISystemAddition {
     ISystemAddition addToSystem(InfrastructureProvidedRoleCreator role);
 
     /**
-     * Adds {@link org.palladiosimulator.pcm.qosannotations.QoSAnnotations
-     * QoSAnnotations} to the org.palladiosimulator.generator.fluent.system. The
-     * creator will be turned into the finished connector.
+     * Adds {@link org.palladiosimulator.pcm.qosannotations.QoSAnnotations QoSAnnotations} to the
+     * org.palladiosimulator.generator.fluent.system. The creator will be turned into the finished
+     * connector.
      *
      * @param annotations
      * @return this org.palladiosimulator.generator.fluent.system
@@ -152,8 +147,8 @@ public interface ISystemAddition {
 
     /**
      * Adds a {@link org.palladiosimulator.pcm.core.entity.ResourceRequiredRole
-     * ResourceRequiredRole} to the org.palladiosimulator.generator.fluent.system.
-     * The creator will be turned into the finished connector.
+     * ResourceRequiredRole} to the org.palladiosimulator.generator.fluent.system. The creator will
+     * be turned into the finished connector.
      *
      * @param role
      * @return this org.palladiosimulator.generator.fluent.system
@@ -162,11 +157,9 @@ public interface ISystemAddition {
     ISystemAddition addToSystem(ResourceRequiredRoleCreator role);
 
     /**
-     * Adds a
-     * {@link org.palladiosimulator.pcm.core.composition.ResourceRequiredDelegationConnector
-     * ResourceRequiredDelegationConnector} to the
-     * org.palladiosimulator.generator.fluent.system. The creator will be turned
-     * into the finished connector.
+     * Adds a {@link org.palladiosimulator.pcm.core.composition.ResourceRequiredDelegationConnector
+     * ResourceRequiredDelegationConnector} to the org.palladiosimulator.generator.fluent.system.
+     * The creator will be turned into the finished connector.
      *
      * @param connector
      * @return this org.palladiosimulator.generator.fluent.system

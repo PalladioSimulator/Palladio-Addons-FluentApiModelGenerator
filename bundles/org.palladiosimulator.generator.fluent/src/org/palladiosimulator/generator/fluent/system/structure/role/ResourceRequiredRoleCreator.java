@@ -7,8 +7,7 @@ import org.palladiosimulator.pcm.core.entity.ResourceRequiredRole;
 import org.palladiosimulator.pcm.resourcetype.ResourceInterface;
 
 /**
- * This class constructs an
- * {@link org.palladiosimulator.pcm.core.entity.ResourceRequiredRole
+ * This class constructs an {@link org.palladiosimulator.pcm.core.entity.ResourceRequiredRole
  * ResourceRequiredRole}.
  *
  * @author Florian Krone
@@ -19,7 +18,7 @@ public class ResourceRequiredRoleCreator extends SystemEntity {
     private ResourceInterface requiredInterface;
 
     public ResourceRequiredRoleCreator(final SystemCreator systemCreator) {
-        system = systemCreator;
+        this.system = systemCreator;
     }
 
     /**
@@ -32,17 +31,17 @@ public class ResourceRequiredRoleCreator extends SystemEntity {
      */
     public ResourceRequiredRoleCreator withRequiredInterface(
             final org.palladiosimulator.generator.fluent.shared.structure.ResourceInterface resource) {
-        requiredInterface = system.getResourceInterface(resource);
+        this.requiredInterface = this.system.getResourceInterface(resource);
         return this;
     }
 
     @Override
     public ResourceRequiredRole build() {
         final ResourceRequiredRole role = EntityFactory.eINSTANCE.createResourceRequiredRole();
-        if (name != null) {
-            role.setEntityName(name);
+        if (this.name != null) {
+            role.setEntityName(this.name);
         }
-        role.setRequiredResourceInterface__ResourceRequiredRole(requiredInterface);
+        role.setRequiredResourceInterface__ResourceRequiredRole(this.requiredInterface);
         return role;
     }
 

@@ -7,8 +7,7 @@ import org.palladiosimulator.pcm.core.composition.CompositionFactory;
 import org.palladiosimulator.pcm.repository.RepositoryComponent;
 
 /**
- * This class constructs an
- * {@link org.palladiosimulator.pcm.core.composition.AssemblyContext
+ * This class constructs an {@link org.palladiosimulator.pcm.core.composition.AssemblyContext
  * AssemblyContext}.
  *
  * @author Florian Krone
@@ -19,7 +18,7 @@ public class AssemblyContextCreator extends SystemEntity {
     private RepositoryComponent encapuslatedComponent;
 
     public AssemblyContextCreator(final SystemCreator systemCreator) {
-        system = systemCreator;
+        this.system = systemCreator;
     }
 
     /**
@@ -32,34 +31,35 @@ public class AssemblyContextCreator extends SystemEntity {
      */
     public AssemblyContextCreator withEncapsulatedComponent(final RepositoryComponent component) {
         IllegalArgumentException.throwIfNull(component, "The given RepositoryComponent must not be null.");
-        encapuslatedComponent = component;
+        this.encapuslatedComponent = component;
         return this;
     }
 
     /**
      * Defines the {@link org.palladiosimulator.pcm.repository.RepositoryComponent
-     * RepositoryComponent} encapsulated by this assembly context. The repositories
-     * added to the org.palladiosimulator.generator.fluent.system are searched for a
-     * component that matches the given name.
+     * RepositoryComponent} encapsulated by this assembly context. The repositories added to the
+     * org.palladiosimulator.generator.fluent.system are searched for a component that matches the
+     * given name.
      *
      * @param component
      * @return this assembly context
-     * @throws NoSuchElementException Thrown if no element matches the given name
+     * @throws NoSuchElementException
+     *             Thrown if no element matches the given name
      * @see org.palladiosimulator.pcm.repository.RepositoryComponent
      */
     public AssemblyContextCreator withEncapsulatedComponent(final String name) throws NoSuchElementException {
-        final RepositoryComponent component = system.getRepositoryComponentByName(name);
+        final RepositoryComponent component = this.system.getRepositoryComponentByName(name);
         return this.withEncapsulatedComponent(component);
     }
 
     @Override
     public AssemblyContext build() {
         final AssemblyContext context = CompositionFactory.eINSTANCE.createAssemblyContext();
-        if (name != null) {
-            context.setEntityName(name);
+        if (this.name != null) {
+            context.setEntityName(this.name);
         }
-        if (encapuslatedComponent != null) {
-            context.setEncapsulatedComponent__AssemblyContext(encapuslatedComponent);
+        if (this.encapuslatedComponent != null) {
+            context.setEncapsulatedComponent__AssemblyContext(this.encapuslatedComponent);
         }
         return context;
     }

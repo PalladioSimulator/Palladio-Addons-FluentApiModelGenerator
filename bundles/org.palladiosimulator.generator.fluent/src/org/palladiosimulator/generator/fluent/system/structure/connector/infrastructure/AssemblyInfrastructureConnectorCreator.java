@@ -26,7 +26,7 @@ public class AssemblyInfrastructureConnectorCreator extends AbstractConnectorCre
     private InfrastructureProvidedRole providedRole;
 
     public AssemblyInfrastructureConnectorCreator(final SystemCreator systemCreator) {
-        system = systemCreator;
+        this.system = systemCreator;
     }
 
     /**
@@ -51,18 +51,19 @@ public class AssemblyInfrastructureConnectorCreator extends AbstractConnectorCre
     /**
      * Defines the {@link org.palladiosimulator.pcm.core.composition.AssemblyContext
      * AssemblyContext} with the required role. The assembly contexts added to the
-     * org.palladiosimulator.generator.fluent.system are searched for one that
-     * matches the given name.
+     * org.palladiosimulator.generator.fluent.system are searched for one that matches the given
+     * name.
      *
      * @param name
      * @return this connector
-     * @throws NoSuchElementException Thrown if no element matches the given name.
+     * @throws NoSuchElementException
+     *             Thrown if no element matches the given name.
      * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
      * @see org.palladiosimulator.pcm.repository.InfrastructureRequiredRole
      */
     public InfrastructureRequiredRoleSelector<AssemblyInfrastructureConnectorCreator> withRequiringAssemblyContext(
             final String name) {
-        final AssemblyContext context = system.getAssemblyContextByName(name);
+        final AssemblyContext context = this.system.getAssemblyContextByName(name);
         return this.withRequiringAssemblyContext(context);
     }
 
@@ -89,31 +90,32 @@ public class AssemblyInfrastructureConnectorCreator extends AbstractConnectorCre
     /**
      * Defines the {@link org.palladiosimulator.pcm.core.composition.AssemblyContext
      * AssemblyContext} with the provided role. The assembly contexts added to the
-     * org.palladiosimulator.generator.fluent.system are searched for one that
-     * matches the given name.
+     * org.palladiosimulator.generator.fluent.system are searched for one that matches the given
+     * name.
      *
      * @param name
      * @return this connector
-     * @throws NoSuchElementException Thrown if no element matches the given name.
+     * @throws NoSuchElementException
+     *             Thrown if no element matches the given name.
      * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
      * @see org.palladiosimulator.pcm.repository.InfrastructureProvidedRole
      */
     public InfrastructureProvidedRoleSelector<AssemblyInfrastructureConnectorCreator> withProvidingAssemblyContext(
             final String name) {
-        final AssemblyContext context = system.getAssemblyContextByName(name);
+        final AssemblyContext context = this.system.getAssemblyContextByName(name);
         return this.withProvidingAssemblyContext(context);
     }
 
     @Override
     public AssemblyInfrastructureConnector build() {
         final var connector = CompositionFactory.eINSTANCE.createAssemblyInfrastructureConnector();
-        if (name != null) {
-            connector.setEntityName(name);
+        if (this.name != null) {
+            connector.setEntityName(this.name);
         }
-        connector.setRequiringAssemblyContext__AssemblyInfrastructureConnector(requiringContext);
-        connector.setRequiredRole__AssemblyInfrastructureConnector(requiredRole);
-        connector.setProvidingAssemblyContext__AssemblyInfrastructureConnector(providingContext);
-        connector.setProvidedRole__AssemblyInfrastructureConnector(providedRole);
+        connector.setRequiringAssemblyContext__AssemblyInfrastructureConnector(this.requiringContext);
+        connector.setRequiredRole__AssemblyInfrastructureConnector(this.requiredRole);
+        connector.setProvidingAssemblyContext__AssemblyInfrastructureConnector(this.providingContext);
+        connector.setProvidedRole__AssemblyInfrastructureConnector(this.providedRole);
         return connector;
     }
 

@@ -12,11 +12,9 @@ import org.palladiosimulator.pcm.repository.ProvidesComponentType;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
 
 /**
- * This class constructs a
- * {@link org.palladiosimulator.pcm.repository.ProvidesComponentType
- * ProvidesComponentType}. It is used to create the
- * '<em><b>ProvidesComponentType</b></em>' object step-by-step, i.e.
- * '<em><b>ProvidesComponentTypeCreator</b></em>' objects are of intermediate
+ * This class constructs a {@link org.palladiosimulator.pcm.repository.ProvidesComponentType
+ * ProvidesComponentType}. It is used to create the '<em><b>ProvidesComponentType</b></em>' object
+ * step-by-step, i.e. '<em><b>ProvidesComponentTypeCreator</b></em>' objects are of intermediate
  * state.
  *
  * @author Louisa Lambrecht
@@ -25,7 +23,7 @@ import org.palladiosimulator.pcm.repository.RepositoryFactory;
 public class ProvidesComponentTypeCreator extends Component {
 
     public ProvidesComponentTypeCreator(final RepositoryCreator repo) {
-        repository = repo;
+        this.repository = repo;
     }
 
     @Override
@@ -184,15 +182,18 @@ public class ProvidesComponentTypeCreator extends Component {
     @Override
     public ProvidesComponentType build() {
         final ProvidesComponentType pct = RepositoryFactory.eINSTANCE.createProvidesComponentType();
-        if (name != null) {
-            pct.setEntityName(name);
+        if (this.name != null) {
+            pct.setEntityName(this.name);
             // if (id != null)
             // pct.setId(id);
         }
 
-        pct.getProvidedRoles_InterfaceProvidingEntity().addAll(providedRoles);
-        pct.getRequiredRoles_InterfaceRequiringEntity().addAll(requiredRoles);
-        pct.getResourceRequiredRoles__ResourceInterfaceRequiringEntity().addAll(resourceRequiredRoles);
+        pct.getProvidedRoles_InterfaceProvidingEntity()
+            .addAll(this.providedRoles);
+        pct.getRequiredRoles_InterfaceRequiringEntity()
+            .addAll(this.requiredRoles);
+        pct.getResourceRequiredRoles__ResourceInterfaceRequiringEntity()
+            .addAll(this.resourceRequiredRoles);
 
         return pct;
     }

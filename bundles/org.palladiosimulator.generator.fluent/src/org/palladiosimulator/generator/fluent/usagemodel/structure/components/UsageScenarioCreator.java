@@ -24,25 +24,25 @@ public class UsageScenarioCreator extends UsageModelEntity {
     private ScenarioBehaviour scenarioBehaviour;
     private Workload workload; // can be Open OR Closed
 
-    public UsageScenarioCreator(UsageModelCreator usgModelCreator, ScenarioBehaviourCreator scenBehave,
-            WorkloadCreator work) {
+    public UsageScenarioCreator(final UsageModelCreator usgModelCreator, final ScenarioBehaviourCreator scenBehave,
+            final WorkloadCreator work) {
         this.usageModelCreator = usgModelCreator;
         addToUsageScenario(scenBehave);
         addToUsageScenario(work);
     }
 
-    private void addToUsageScenario(WorkloadCreator workload) {
+    private void addToUsageScenario(final WorkloadCreator workload) {
         if (workload instanceof OpenWorkloadCreator) {
-            OpenWorkloadCreator o = (OpenWorkloadCreator) workload;
+            final OpenWorkloadCreator o = (OpenWorkloadCreator) workload;
             this.workload = o.build();
         } else {
             // then ClosedWorkloadCrator
-            ClosedWorkloadCreator c = (ClosedWorkloadCreator) workload;
+            final ClosedWorkloadCreator c = (ClosedWorkloadCreator) workload;
             this.workload = c.build();
         }
     }
 
-    private UsageScenarioCreator addToUsageScenario(ScenarioBehaviourCreator scenBehave) {
+    private UsageScenarioCreator addToUsageScenario(final ScenarioBehaviourCreator scenBehave) {
         IllegalArgumentException.throwIfNull(scenBehave, "The given ScenarioBehaviour must not be null");
         this.scenarioBehaviour = scenBehave.build();
         return this;
@@ -64,7 +64,7 @@ public class UsageScenarioCreator extends UsageModelEntity {
     }
 
     @Override
-    public UsageScenarioCreator withName(String name) {
+    public UsageScenarioCreator withName(final String name) {
         return (UsageScenarioCreator) super.withName(name);
     }
 

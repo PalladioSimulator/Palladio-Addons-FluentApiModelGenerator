@@ -83,15 +83,14 @@ public class HddProcessingResourceSpecificationCreator {
      * Sets the
      * {@link org.palladiosimulator.pcm.resourceenvironment.HDDProcessingResourceSpecification
      * HDDProcessingResourceSpecification} to be required by the
-     * {@link org.palladiosimulator.pcm.resourceenvironment.ResourceContainer
-     * ResourceContainer}.
+     * {@link org.palladiosimulator.pcm.resourceenvironment.ResourceContainer ResourceContainer}.
      *
      * @return this <code>HddProcessingResourceSpecification</code>
      * @see org.palladiosimulator.pcm.resourceenvironment.HDDProcessingResourceSpecification
      * @see org.palladiosimulator.pcm.resourceenvironment.ProcessingResourceSpecification
      */
     public HddProcessingResourceSpecificationCreator isRequiredByContainer() {
-        isRequiredByContainer = true;
+        this.isRequiredByContainer = true;
         return this;
     }
 
@@ -106,7 +105,7 @@ public class HddProcessingResourceSpecificationCreator {
      * @see org.palladiosimulator.pcm.resourceenvironment.ProcessingResourceSpecification
      */
     public HddProcessingResourceSpecificationCreator withSchedulingPolicy(final SchedulingPolicies policy) {
-        schedulingPolicy = resourceCreator.getSchedulingPolicy(policy);
+        this.schedulingPolicy = this.resourceCreator.getSchedulingPolicy(policy);
         return this;
     }
 
@@ -121,7 +120,7 @@ public class HddProcessingResourceSpecificationCreator {
      * @see org.palladiosimulator.pcm.resourceenvironment.ProcessingResourceSpecification
      */
     public HddProcessingResourceSpecificationCreator withProcessingResourceType(final ProcessingResource resource) {
-        processingResourceType = resourceCreator.getProcessingResource(resource);
+        this.processingResourceType = this.resourceCreator.getProcessingResource(resource);
         return this;
     }
 
@@ -139,7 +138,7 @@ public class HddProcessingResourceSpecificationCreator {
         IllegalArgumentException.throwIfNull(processingRate, "The given processingRate must not be null");
         final PCMRandomVariable randomVariable = CoreFactory.eINSTANCE.createPCMRandomVariable();
         randomVariable.setSpecification(processingRate);
-        processingRateVariable = randomVariable;
+        this.processingRateVariable = randomVariable;
         return this;
     }
 
@@ -186,16 +185,16 @@ public class HddProcessingResourceSpecificationCreator {
      */
     public HDDProcessingResourceSpecification build() {
         final HDDProcessingResourceSpecification prs = ResourceenvironmentFactory.eINSTANCE
-                .createHDDProcessingResourceSpecification();
-        prs.setMTTR(mttr);
-        prs.setMTTF(mttf);
-        prs.setNumberOfReplicas(numberOfReplicas);
-        prs.setRequiredByContainer(isRequiredByContainer);
-        prs.setSchedulingPolicy(schedulingPolicy);
-        prs.setActiveResourceType_ActiveResourceSpecification(processingResourceType);
-        prs.setProcessingRate_ProcessingResourceSpecification(processingRateVariable);
-        prs.setWriteProcessingRate(writeProcessingRate);
-        prs.setReadProcessingRate(readProcessingRate);
+            .createHDDProcessingResourceSpecification();
+        prs.setMTTR(this.mttr);
+        prs.setMTTF(this.mttf);
+        prs.setNumberOfReplicas(this.numberOfReplicas);
+        prs.setRequiredByContainer(this.isRequiredByContainer);
+        prs.setSchedulingPolicy(this.schedulingPolicy);
+        prs.setActiveResourceType_ActiveResourceSpecification(this.processingResourceType);
+        prs.setProcessingRate_ProcessingResourceSpecification(this.processingRateVariable);
+        prs.setWriteProcessingRate(this.writeProcessingRate);
+        prs.setReadProcessingRate(this.readProcessingRate);
 
         return prs;
     }

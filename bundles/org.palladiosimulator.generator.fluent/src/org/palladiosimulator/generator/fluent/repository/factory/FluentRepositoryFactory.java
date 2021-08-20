@@ -79,12 +79,10 @@ import org.palladiosimulator.pcm.seff.seff_reliability.RecoveryActionBehaviour;
 import org.palladiosimulator.pcm.subsystem.SubSystem;
 
 /**
- * This class provides all the methods to create a Repository and create
- * Entities that are added to this Repository. Characteristics of the entities
- * are specified by method chaining.<br>
- * Existing entities that have to be referenced later can be retrieved by using
- * this org.palladiosimulator.generator.fluent.component.factory's fetching
- * methods.
+ * This class provides all the methods to create a Repository and create Entities that are added to
+ * this Repository. Characteristics of the entities are specified by method chaining.<br>
+ * Existing entities that have to be referenced later can be retrieved by using this
+ * org.palladiosimulator.generator.fluent.component.factory's fetching methods.
  * <p>
  * Start creating a repository like this:
  * <code>FluentRepositoryFactory create = new FluentRepositoryFactory();</code><br>
@@ -92,8 +90,7 @@ import org.palladiosimulator.pcm.subsystem.SubSystem;
  * <p style=
 "margin-left: 130px">//create datatypes, components, interfaces etc. here</p>
  * <p style="margin-left: 130px">.createRepositoryNow();</p>
- *  </code> Refer to the project's Readme for an introduction and detailed
- * examples.
+ *  </code> Refer to the project's Readme for an introduction and detailed examples.
  *
  * @author Louisa Lambrecht
  */
@@ -109,18 +106,17 @@ public class FluentRepositoryFactory {
      */
     public FluentRepositoryFactory() {
         EcorePlugin.ExtensionProcessor.process(null);
-        primitives = ModelLoader.loadRepository(ModelLoader.PRIMITIVE_TYPES_PATH);
-        resourceTypes = ModelLoader.loadResourceTypeRepository(ModelLoader.RESOURCE_TYPE_PATH);
-        failures = ModelLoader.loadRepository(ModelLoader.FAILURE_TYPES_PATH);
+        this.primitives = ModelLoader.loadRepository(ModelLoader.PRIMITIVE_TYPES_PATH);
+        this.resourceTypes = ModelLoader.loadResourceTypeRepository(ModelLoader.RESOURCE_TYPE_PATH);
+        this.failures = ModelLoader.loadRepository(ModelLoader.FAILURE_TYPES_PATH);
     }
 
     // ---------------------- Repository ----------------------
     /**
      * Creates a representation of the model object '<em><b>Repository</b></em>'.
      * <p>
-     * The repository entity allows storing components, data types, and interfaces
-     * to be fetched and reused for construction of component instances as well as
-     * new component types.
+     * The repository entity allows storing components, data types, and interfaces to be fetched and
+     * reused for construction of component instances as well as new component types.
      * </p>
      *
      * @return the repository in the making
@@ -131,17 +127,16 @@ public class FluentRepositoryFactory {
 
         final IModelValidator validator = new ModelValidator(logger);
 
-        repo = new RepositoryCreator(primitives, resourceTypes, failures, logger, validator);
-        return repo;
+        this.repo = new RepositoryCreator(this.primitives, this.resourceTypes, this.failures, logger, validator);
+        return this.repo;
     }
 
     // ---------------------- Components ----------------------
     /**
      * Creates a new basic component.
      * <p>
-     * Basic components are atomic building blocks of a software architecture.
-     * Component developers specify basic components by associating interfaces to
-     * them in a providing or requiring role.
+     * Basic components are atomic building blocks of a software architecture. Component developers
+     * specify basic components by associating interfaces to them in a providing or requiring role.
      * </p>
      * <p>
      * Basic components offer the characteristics
@@ -178,19 +173,18 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.BasicComponent
      */
     public BasicComponentCreator newBasicComponent() {
-        final BasicComponentCreator basicComponent = new BasicComponentCreator(repo);
+        final BasicComponentCreator basicComponent = new BasicComponentCreator(this.repo);
         return basicComponent;
     }
 
     /**
      * Creates a new composite component.
      * <p>
-     * Composite components are special implementation component types, which are
-     * composed from inner components. Component developers compose inner components
-     * within composite components with assembly connectors. A composite component
-     * may contain other composite components, which are also themselves composed
-     * out of inner components. This enables building arbitrary hierarchies of
-     * nested components.
+     * Composite components are special implementation component types, which are composed from
+     * inner components. Component developers compose inner components within composite components
+     * with assembly connectors. A composite component may contain other composite components, which
+     * are also themselves composed out of inner components. This enables building arbitrary
+     * hierarchies of nested components.
      * </p>
      * <p>
      * Composite components offer the characteristics
@@ -217,8 +211,7 @@ public class FluentRepositoryFactory {
      * providing infrastructure interfaces},
      * {@link org.palladiosimulator.generator.fluent.repository.structure.components.CompositeComponentCreator#requiresInfrastructure(InfrastructureInterface, String)
      * requiring infrastructure interfaces}.<br>
-     * Composite component/subsystem specific connections with other
-     * components/interfaces are
+     * Composite component/subsystem specific connections with other components/interfaces are
      * {@link org.palladiosimulator.generator.fluent.repository.structure.components.CompositeComponentCreator#withAssemblyContext(RepositoryComponent, String, org.palladiosimulator.pcm.parameter.VariableUsage...)
      * assembly context},
      * {@link org.palladiosimulator.generator.fluent.repository.structure.components.CompositeComponentCreator#withEventChannel()
@@ -254,17 +247,16 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.CompositeComponent
      */
     public CompositeComponentCreator newCompositeComponent() {
-        final CompositeComponentCreator compositeComponent = new CompositeComponentCreator(repo);
+        final CompositeComponentCreator compositeComponent = new CompositeComponentCreator(this.repo);
         return compositeComponent;
     }
 
     /**
      * Creates a new subsystem.
      * <p>
-     * A SubSystem is structurally comparable to a CompositeComponent. The major
-     * difference is the white-box property it preserves for System Deployers,
-     * meaning that they can be allocated to different nodes of the resource
-     * environment.
+     * A SubSystem is structurally comparable to a CompositeComponent. The major difference is the
+     * white-box property it preserves for System Deployers, meaning that they can be allocated to
+     * different nodes of the resource environment.
      * </p>
      * <p>
      * Subsystems offer the characteristics
@@ -285,8 +277,7 @@ public class FluentRepositoryFactory {
      * providing infrastructure interfaces},
      * {@link org.palladiosimulator.generator.fluent.repository.structure.components.SubSystemCreator#requiresInfrastructure(InfrastructureInterface, String)
      * requiring infrastructure interfaces}.<br>
-     * Composite component/subsystem specific connections with other
-     * components/interfaces are
+     * Composite component/subsystem specific connections with other components/interfaces are
      * {@link org.palladiosimulator.generator.fluent.repository.structure.components.SubSystemCreator#withAssemblyContext(RepositoryComponent, String, org.palladiosimulator.pcm.parameter.VariableUsage...)
      * assembly context},
      * {@link org.palladiosimulator.generator.fluent.repository.structure.components.SubSystemCreator#withEventChannel()
@@ -322,16 +313,16 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.subsystem.SubSystem
      */
     public SubSystemCreator newSubSystem() {
-        final SubSystemCreator subSystem = new SubSystemCreator(repo);
+        final SubSystemCreator subSystem = new SubSystemCreator(this.repo);
         return subSystem;
     }
 
     /**
      * Creates a new complete component type.
      * <p>
-     * Complete (Component) types abstract from the realization of components. They
-     * only contain provided and required roles omitting the components’ internal
-     * structure, i.e., the service effect specifications or assemblies.
+     * Complete (Component) types abstract from the realization of components. They only contain
+     * provided and required roles omitting the components’ internal structure, i.e., the service
+     * effect specifications or assemblies.
      * </p>
      * <p>
      * Complete component types offer the characteristics
@@ -359,17 +350,16 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.CompleteComponentType
      */
     public CompleteComponentTypeCreator newCompleteComponentType() {
-        final CompleteComponentTypeCreator cct = new CompleteComponentTypeCreator(repo);
+        final CompleteComponentTypeCreator cct = new CompleteComponentTypeCreator(this.repo);
         return cct;
     }
 
     /**
      * Creates a new provided component type.
      * <p>
-     * Provided (Component) Types abstract a component to its provided interfaces,
-     * leaving its requirements and implementation details open. So, provided types
-     * subsume components which offer the same functionality, but with different
-     * implementations.
+     * Provided (Component) Types abstract a component to its provided interfaces, leaving its
+     * requirements and implementation details open. So, provided types subsume components which
+     * offer the same functionality, but with different implementations.
      * </p>
      * <p>
      * Provided component types offer the characteristics
@@ -395,7 +385,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.ProvidesComponentType
      */
     public ProvidesComponentTypeCreator newProvidesComponentType() {
-        final ProvidesComponentTypeCreator pct = new ProvidesComponentTypeCreator(repo);
+        final ProvidesComponentTypeCreator pct = new ProvidesComponentTypeCreator(this.repo);
         return pct;
     }
 
@@ -403,9 +393,9 @@ public class FluentRepositoryFactory {
     /**
      * Creates a new operation interface.
      * <p>
-     * The OperationInterface is a specific type of interface related to operation
-     * calls. For this, it also references a set of operation interfaces. Operations
-     * can represent methods, functions or any comparable concept.
+     * The OperationInterface is a specific type of interface related to operation calls. For this,
+     * it also references a set of operation interfaces. Operations can represent methods, functions
+     * or any comparable concept.
      * </p>
      * <p>
      * Operation interfaces are defined by their
@@ -423,7 +413,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.OperationInterface
      */
     public OperationInterfaceCreator newOperationInterface() {
-        final OperationInterfaceCreator operationInterface = new OperationInterfaceCreator(repo);
+        final OperationInterfaceCreator operationInterface = new OperationInterfaceCreator(this.repo);
         return operationInterface;
     }
 
@@ -445,16 +435,15 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.InfrastructureInterface
      */
     public InfrastructureInterfaceCreator newInfrastructureInterface() {
-        final InfrastructureInterfaceCreator infrastructureInterface = new InfrastructureInterfaceCreator(repo);
+        final InfrastructureInterfaceCreator infrastructureInterface = new InfrastructureInterfaceCreator(this.repo);
         return infrastructureInterface;
     }
 
     /**
      * Creates a new event group.
      * <p>
-     * An EventGroup combines a set of EventTypes that are supported by a Sink
-     * and/or a Source. This is comparable to an operation interface combining a set
-     * of operation signatures.
+     * An EventGroup combines a set of EventTypes that are supported by a Sink and/or a Source. This
+     * is comparable to an operation interface combining a set of operation signatures.
      * </p>
      * <p>
      * Event groups are defined by their
@@ -472,7 +461,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.EventGroup
      */
     public EventGroupCreator newEventGroup() {
-        final EventGroupCreator eventGroup = new EventGroupCreator(repo);
+        final EventGroupCreator eventGroup = new EventGroupCreator(this.repo);
         return eventGroup;
     }
 
@@ -485,22 +474,23 @@ public class FluentRepositoryFactory {
      * Creates a new collection data type with name <code>name</code> and of type
      * <code>primitive</code>.
      * <p>
-     * A collection data type represents a list, array, set of items of the
-     * particular type. For example,
-     * <code>create.newCollectionDataType("StringList",
-     * Primitive.String)</code> realizes a data type conforming
-     * <code>List&lt;String&gt;</code> in Java.
+     * A collection data type represents a list, array, set of items of the particular type. For
+     * example, <code>create.newCollectionDataType("StringList",
+     * Primitive.String)</code> realizes a data type conforming <code>List&lt;String&gt;</code> in
+     * Java.
      * </p>
      *
-     * @param name      the <i>unique</i> name of the new collection data type
-     * @param primitive the primitive data type that the elements have
+     * @param name
+     *            the <i>unique</i> name of the new collection data type
+     * @param primitive
+     *            the primitive data type that the elements have
      * @return the collection data type
      * @see org.palladiosimulator.pcm.repository.CollectionDataType
      * @see org.palladiosimulator.generator.fluent.repository.structure.internals.Primitive
      */
     public CollectionDataType newCollectionDataType(final String name, final Primitive primitive) {
         IllegalArgumentException.throwIfNull(name, "name must not be null");
-        final PrimitiveDataType p = repo.getPrimitiveDataType(primitive);
+        final PrimitiveDataType p = this.repo.getPrimitiveDataType(primitive);
 
         final CollectionDataType coll = RepositoryFactory.eINSTANCE.createCollectionDataType();
         coll.setEntityName(name);
@@ -513,19 +503,21 @@ public class FluentRepositoryFactory {
      * Creates a new collection data type with name <code>name</code> and of type
      * <code>dataType</code>.
      * <p>
-     * A collection data type represents a list, array, set of items of the
-     * particular type. All previously created data types and primitive data types
-     * can be referenced using fetching methods, e.g.
+     * A collection data type represents a list, array, set of items of the particular type. All
+     * previously created data types and primitive data types can be referenced using fetching
+     * methods, e.g.
      * {@link org.palladiosimulator.generator.fluent.repository.factory.FluentRepositoryFactory#fetchOfDataType(String)
      * fetchOfDataType(String)}. <br>
      * For example, <code>create.newCollectionDataType("PersonList",
      * create.fetchOfDataType("Person"))</code> realizes a data type conforming
-     * <code>List&lt;Person&gt;</code> in Java, assuming that a different data type
-     * called "Person" has been previously declared.
+     * <code>List&lt;Person&gt;</code> in Java, assuming that a different data type called "Person"
+     * has been previously declared.
      * </p>
      *
-     * @param name     the <i>unique</i> name of the new collection data type
-     * @param dataType the data type that the elements have
+     * @param name
+     *            the <i>unique</i> name of the new collection data type
+     * @param dataType
+     *            the data type that the elements have
      * @return the collection data type
      * @see org.palladiosimulator.generator.fluent.repository.factory.FluentRepositoryFactory#fetchOfDataType(String)
      * @see org.palladiosimulator.generator.fluent.repository.factory.FluentRepositoryFactory#fetchOfDataType(Primitive)
@@ -544,9 +536,8 @@ public class FluentRepositoryFactory {
     /**
      * Creates a new collection data type.
      * <p>
-     * A composite data type represents a complex data type containing other data
-     * types. This construct is common in higher programming languages as record,
-     * struct, or class.<br>
+     * A composite data type represents a complex data type containing other data types. This
+     * construct is common in higher programming languages as record, struct, or class.<br>
      * The contained data types can be added using method chaining with
      * {@link org.palladiosimulator.generator.fluent.repository.structure.types.CompositeDataTypeCreator#withInnerDeclaration(String, Primitive)
      * .withInnerDeclaration(String, Primitive)} and/or
@@ -554,8 +545,10 @@ public class FluentRepositoryFactory {
      * .withInnerDeclaration(String, DataType)}.
      * </p>
      *
-     * @param name    the <i>unique</i> name of the composite data type
-     * @param parents array of parent composite data types
+     * @param name
+     *            the <i>unique</i> name of the composite data type
+     * @param parents
+     *            array of parent composite data types
      * @return the composite data type in the making
      * @see org.palladiosimulator.generator.fluent.repository.structure.types.CompositeDataTypeCreator#withInnerDeclaration(String,
      *      Primitive)
@@ -564,12 +557,12 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.CompositeDataType
      */
     public CompositeDataTypeCreator newCompositeDataType() {
-        return new CompositeDataTypeCreator(repo);
+        return new CompositeDataTypeCreator(this.repo);
     }
 
     /**
-     * Creates a new hardware induced failure type with name <code>name</code> and
-     * processing resource <code>processingResource</code>.
+     * Creates a new hardware induced failure type with name <code>name</code> and processing
+     * resource <code>processingResource</code>.
      *
      * @param name
      * @param processingResource
@@ -581,13 +574,14 @@ public class FluentRepositoryFactory {
         IllegalArgumentException.throwIfNull(name, "name must not be null");
         final HardwareInducedFailureType h = ReliabilityFactory.eINSTANCE.createHardwareInducedFailureType();
         h.setEntityName(name);
-        h.setProcessingResourceType__HardwareInducedFailureType(repo.getProcessingResourceType(processingResource));
+        h.setProcessingResourceType__HardwareInducedFailureType(
+                this.repo.getProcessingResourceType(processingResource));
         return h;
     }
 
     /**
-     * Creates a new network induced failure type with name <code>name</code> and
-     * communication link resource <code>communicationLinkResource</code>.
+     * Creates a new network induced failure type with name <code>name</code> and communication link
+     * resource <code>communicationLinkResource</code>.
      *
      * @param name
      * @param communicationLinkResource
@@ -600,7 +594,7 @@ public class FluentRepositoryFactory {
         final NetworkInducedFailureType n = ReliabilityFactory.eINSTANCE.createNetworkInducedFailureType();
         n.setEntityName(name);
         n.setCommunicationLinkResourceType__NetworkInducedFailureType(
-                repo.getCommunicationLinkResource(communicationLinkResource));
+                this.repo.getCommunicationLinkResource(communicationLinkResource));
         return n;
     }
 
@@ -613,7 +607,7 @@ public class FluentRepositoryFactory {
      */
     public ResourceTimeoutFailureTypeCreator newResourceTimeoutFailureType(final String name) {
         IllegalArgumentException.throwIfNull(name, "name must not be null");
-        return new ResourceTimeoutFailureTypeCreator(name, repo);
+        return new ResourceTimeoutFailureTypeCreator(name, this.repo);
     }
 
     /**
@@ -631,7 +625,7 @@ public class FluentRepositoryFactory {
     }
 
     public ExceptionTypeCreator newExceptionType() {
-        return new ExceptionTypeCreator(repo);
+        return new ExceptionTypeCreator(this.repo);
     }
 
     // ---------------------- Component Related Stuff ----------------------
@@ -640,15 +634,13 @@ public class FluentRepositoryFactory {
      * Creates a new {@link org.palladiosimulator.pcm.seff.ResourceDemandingSEFF
      * ResourceDemandingSEFF}. A ResourceDemandingSEFF is a
      * '<em><b>ServiceEffectSpecification</b></em>' and a
-     * '<em><b>Resource-DemandingBehaviour</b></em>' at the same time inheriting
-     * from both classes.
+     * '<em><b>Resource-DemandingBehaviour</b></em>' at the same time inheriting from both classes.
      * <p>
-     * A resource demanding service effect specification (RDSEFF) is a special type
-     * of SEFF designed for performance and reliability predictions. Besides
-     * dependencies between provided and required services of a component, it
-     * additionally includes notions of resource usage, data flow, and parametric
-     * dependencies for more accurate predictions. Therefore, the class contains a
-     * chain of AbstractActions.
+     * A resource demanding service effect specification (RDSEFF) is a special type of SEFF designed
+     * for performance and reliability predictions. Besides dependencies between provided and
+     * required services of a component, it additionally includes notions of resource usage, data
+     * flow, and parametric dependencies for more accurate predictions. Therefore, the class
+     * contains a chain of AbstractActions.
      * </p>
      * <p>
      * Use the methods
@@ -667,18 +659,17 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.seff.ResourceDemandingInternalBehaviour
      */
     public Seff newSeff() {
-        return new SeffCreator(repo);
+        return new SeffCreator(this.repo);
     }
 
     /**
-     * Creates a new
-     * ResourceDemandingInternalBehaviour/ResourceDemandingBehaviour/ForkedBehaviour
-     * (depending on the context). If the context does not distinctly favor any
-     * behaviour, ResourceDemandingBehaviour acts as default.
+     * Creates a new ResourceDemandingInternalBehaviour/ResourceDemandingBehaviour/ForkedBehaviour
+     * (depending on the context). If the context does not distinctly favor any behaviour,
+     * ResourceDemandingBehaviour acts as default.
      * <p>
-     * It models the behaviour of a component service as a sequence of internal
-     * actions with resource demands, control flow constructs, and external calls.
-     * Therefore, the class contains a chain of AbstractActions.
+     * It models the behaviour of a component service as a sequence of internal actions with
+     * resource demands, control flow constructs, and external calls. Therefore, the class contains
+     * a chain of AbstractActions.
      * </p>
      * <p>
      * Use the method
@@ -691,48 +682,43 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.seff.ForkedBehaviour
      */
     public InternalSeff newInternalBehaviour() {
-        return new SeffCreator(repo);
+        return new SeffCreator(this.repo);
     }
 
     /**
-     * Creates a new
-     * {@link org.palladiosimulator.pcm.seff.seff_reliability.RecoveryActionBehaviour
+     * Creates a new {@link org.palladiosimulator.pcm.seff.seff_reliability.RecoveryActionBehaviour
      * RecoveryActionBehaviour}.
      * <p>
-     * A recovery action behaviour provides a behaviour (a chain of AbstractActions)
-     * and alternatives of recovery blocks. They are resource demanding behaviours,
-     * thus any behaviour can be defined as an alternative. The alternatives of a
-     * recovery block form a chain. They are failure handling entities, i.e. they
-     * can handle failures that occur in previous alternatives. If one alternative
-     * fails, the next alternative is executed that can handle the failure type.
+     * A recovery action behaviour provides a behaviour (a chain of AbstractActions) and
+     * alternatives of recovery blocks. They are resource demanding behaviours, thus any behaviour
+     * can be defined as an alternative. The alternatives of a recovery block form a chain. They are
+     * failure handling entities, i.e. they can handle failures that occur in previous alternatives.
+     * If one alternative fails, the next alternative is executed that can handle the failure type.
      * </p>
      * <p>
      * Use the methods
      * <ul>
      * <li>{@link org.palladiosimulator.generator.fluent.repository.api.seff.RecoverySeff#withFailureType(Failure)
-     * withFailureType(Failure)} to add possibly occurring failures to the
-     * behaviour,
+     * withFailureType(Failure)} to add possibly occurring failures to the behaviour,
      * <li>{@link org.palladiosimulator.generator.fluent.repository.api.seff.RecoverySeff#withAlternativeRecoveryBehaviour(org.palladiosimulator.pcm.seff.seff_reliability.RecoveryActionBehaviour)
-     * withAlternativeRecoveryBehaviour(RecoveryActionBehaviour)} to add previously
-     * defined recovery behaviours as alternatives and
+     * withAlternativeRecoveryBehaviour(RecoveryActionBehaviour)} to add previously defined recovery
+     * behaviours as alternatives and
      * <li>{@link org.palladiosimulator.generator.fluent.repository.api.seff.RecoverySeff#withSeffBehaviour()
-     * withSeffBehaviour()} to specify this RecoveryActionBehaviour's step-wise
-     * behaviour.
+     * withSeffBehaviour()} to specify this RecoveryActionBehaviour's step-wise behaviour.
      * </ul>
      * </p>
      * <p>
-     * The alternatives of a recovery block form a chain and alternatives are
-     * referenced by name and have to be previously defined. Thus the chain of
-     * alternatives has to be created inversely. The last alternative that has no
-     * alternatives itself is created first, so the second last can reference it as
-     * its alternative.
+     * The alternatives of a recovery block form a chain and alternatives are referenced by name and
+     * have to be previously defined. Thus the chain of alternatives has to be created inversely.
+     * The last alternative that has no alternatives itself is created first, so the second last can
+     * reference it as its alternative.
      * </p>
      *
      * @return the recovery action behaviour in the making
      * @see org.palladiosimulator.pcm.seff.seff_reliability.RecoveryActionBehaviour
      */
     public RecoverySeff newRecoveryBehaviour() {
-        return new SeffCreator(repo);
+        return new SeffCreator(this.repo);
     }
 
     /**
@@ -740,8 +726,8 @@ public class FluentRepositoryFactory {
      * OperationSignature}.
      * <p>
      * Every service of an interface has a unique signature, like <code>void
-     * doSomething(int a)</code>. A PCM signature is comparable to a method
-     * signature in programming languages like C#, Java or the OMG IDL.
+     * doSomething(int a)</code>. A PCM signature is comparable to a method signature in programming
+     * languages like C#, Java or the OMG IDL.
      * </p>
      * <p>
      * An operation signature contains
@@ -754,21 +740,21 @@ public class FluentRepositoryFactory {
      * identifier} naming the service,
      * <li>an ordered set of
      * {@link org.palladiosimulator.generator.fluent.repository.structure.interfaces.OperationSignatureCreator#withParameter(String, org.palladiosimulator.pcm.repository.DataType, org.palladiosimulator.pcm.repository.ParameterModifier)
-     * parameters} (0..*). Each parameter is a tuple of a <code>dataType</code> and
-     * an <code>identifier</code> (which is unique across the parameters).
-     * Optionally, the <code>modifiers</code> in, out, and inout (with its OMG IDL
-     * semantics) can be used for parameters.
+     * parameters} (0..*). Each parameter is a tuple of a <code>dataType</code> and an
+     * <code>identifier</code> (which is unique across the parameters). Optionally, the
+     * <code>modifiers</code> in, out, and inout (with its OMG IDL semantics) can be used for
+     * parameters.
      * <li>and an unordered set of
      * {@link org.palladiosimulator.generator.fluent.repository.structure.interfaces.OperationSignatureCreator#withExceptionType(org.palladiosimulator.pcm.repository.ExceptionType)
      * org.palladiosimulator.generator.fluent.exceptions}.
      * <li>Furthermore
      * {@link org.palladiosimulator.generator.fluent.repository.structure.interfaces.OperationSignatureCreator#withFailureType(org.palladiosimulator.pcm.reliability.FailureType)
-     * failures} that may occur inside external services must be specified at the
-     * service signatures.
+     * failures} that may occur inside external services must be specified at the service
+     * signatures.
      * </ul>
-     * A signature has to be unique for an interface through the tuple (identifier,
-     * order of parameters). Different interfaces can define equally named
-     * signatures, however, they are not identical.
+     * A signature has to be unique for an interface through the tuple (identifier, order of
+     * parameters). Different interfaces can define equally named signatures, however, they are not
+     * identical.
      * </p>
      *
      * @return the operation signature in the making
@@ -786,17 +772,16 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.generator.fluent.repository.structure.interfaces.OperationSignatureCreator#createSignature()
      */
     public OperationSignatureCreator newOperationSignature() {
-        return new OperationSignatureCreator(repo);
+        return new OperationSignatureCreator(this.repo);
     }
 
     /**
-     * Creates a new
-     * {@link org.palladiosimulator.pcm.repository.InfrastructureSignature
+     * Creates a new {@link org.palladiosimulator.pcm.repository.InfrastructureSignature
      * InfrastructureSignature}.
      * <p>
      * Every service of an interface has a unique signature, like <code>void
-     * doSomething(int a)</code>. A PCM signature is comparable to a method
-     * signature in programming languages like C#, Java or the OMG IDL.
+     * doSomething(int a)</code>. A PCM signature is comparable to a method signature in programming
+     * languages like C#, Java or the OMG IDL.
      * </p>
      * <p>
      * An infrastructure signature contains
@@ -810,21 +795,21 @@ public class FluentRepositoryFactory {
      * identifier} naming the service,
      * <li>an ordered set of
      * {@link org.palladiosimulator.generator.fluent.repository.structure.interfaces.InfrastructureSignatureCreator#withParameter(String, org.palladiosimulator.pcm.repository.DataType, org.palladiosimulator.pcm.repository.ParameterModifier)
-     * parameters} (0..*). Each parameter is a tuple of a <code>dataType</code> and
-     * an <code>identifier</code> (which is unique across the parameters).
-     * Optionally, the <code>modifiers</code> in, out, and inout (with its OMG IDL
-     * semantics) can be used for parameters.
+     * parameters} (0..*). Each parameter is a tuple of a <code>dataType</code> and an
+     * <code>identifier</code> (which is unique across the parameters). Optionally, the
+     * <code>modifiers</code> in, out, and inout (with its OMG IDL semantics) can be used for
+     * parameters.
      * <li>and an unordered set of
      * {@link org.palladiosimulator.generator.fluent.repository.structure.interfaces.InfrastructureSignatureCreator#withExceptionType(org.palladiosimulator.pcm.repository.ExceptionType)
      * org.palladiosimulator.generator.fluent.exceptions}.
      * <li>Furthermore
      * {@link org.palladiosimulator.generator.fluent.repository.structure.interfaces.InfrastructureSignatureCreator#withFailureType(org.palladiosimulator.pcm.reliability.FailureType)
-     * failures} that may occur inside external services must be specified at the
-     * service signatures.
+     * failures} that may occur inside external services must be specified at the service
+     * signatures.
      * </ul>
-     * A signature has to be unique for an interface through the tuple (identifier,
-     * order of parameters). Different interfaces can define equally named
-     * signatures, however, they are not identical.
+     * A signature has to be unique for an interface through the tuple (identifier, order of
+     * parameters). Different interfaces can define equally named signatures, however, they are not
+     * identical.
      * </p>
      *
      * @return the infrastructure signature in the making
@@ -842,17 +827,15 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.generator.fluent.repository.structure.interfaces.InfrastructureSignatureCreator#createSignature()
      */
     public InfrastructureSignatureCreator newInfrastructureSignature() {
-        return new InfrastructureSignatureCreator(repo);
+        return new InfrastructureSignatureCreator(this.repo);
     }
 
     /**
-     * Creates a new {@link org.palladiosimulator.pcm.repository.EventType
-     * EventType}.
+     * Creates a new {@link org.palladiosimulator.pcm.repository.EventType EventType}.
      * <p>
-     * Every service of an interface/event group has a unique signature/event type,
-     * like <code>void
-     * doSomething(int a)</code>. A PCM signature/event type is comparable to a
-     * method signature in programming languages like C#, Java or the OMG IDL.
+     * Every service of an interface/event group has a unique signature/event type, like <code>void
+     * doSomething(int a)</code>. A PCM signature/event type is comparable to a method signature in
+     * programming languages like C#, Java or the OMG IDL.
      * </p>
      * <p>
      * An event type contains
@@ -865,22 +848,21 @@ public class FluentRepositoryFactory {
      * identifier} naming the service,
      * <li>an ordered set of
      * {@link org.palladiosimulator.generator.fluent.repository.structure.interfaces.EventTypeCreator#withParameter(String, org.palladiosimulator.pcm.repository.DataType, org.palladiosimulator.pcm.repository.ParameterModifier)
-     * parameters} (0..*). Each parameter is a tuple of a <code>dataType</code> and
-     * an <code>identifier</code> (which is unique across the parameters).
-     * Optionally, the <code>modifiers</code> in, out, and inout (with its OMG IDL
-     * semantics) can be used for parameters.
+     * parameters} (0..*). Each parameter is a tuple of a <code>dataType</code> and an
+     * <code>identifier</code> (which is unique across the parameters). Optionally, the
+     * <code>modifiers</code> in, out, and inout (with its OMG IDL semantics) can be used for
+     * parameters.
      * <li>and an unordered set of
      * {@link org.palladiosimulator.generator.fluent.repository.structure.interfaces.EventTypeCreator#withExceptionType(org.palladiosimulator.pcm.repository.ExceptionType)
      * org.palladiosimulator.generator.fluent.exceptions}.
      * <li>Furthermore
      * {@link org.palladiosimulator.generator.fluent.repository.structure.interfaces.EventTypeCreator#withFailureType(org.palladiosimulator.pcm.reliability.FailureType)
-     * failures} that may occur inside external services must be specified at the
-     * service signatures/event types.
+     * failures} that may occur inside external services must be specified at the service
+     * signatures/event types.
      * </ul>
-     * A signature/event type has to be unique for an interface/event group through
-     * the tuple (identifier, order of parameters). Different interfaces/event
-     * groups can define equally named signatures/event types, however, they are not
-     * identical.
+     * A signature/event type has to be unique for an interface/event group through the tuple
+     * (identifier, order of parameters). Different interfaces/event groups can define equally named
+     * signatures/event types, however, they are not identical.
      * </p>
      *
      * @return the event type in the making
@@ -898,17 +880,16 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.generator.fluent.repository.structure.interfaces.EventTypeCreator#createEventType()
      */
     public EventTypeCreator newEventType() {
-        return new EventTypeCreator(repo);
+        return new EventTypeCreator(this.repo);
     }
 
     /**
-     * Creates a new {@link org.palladiosimulator.pcm.parameter.VariableUsage
-     * VariableUsage}.
+     * Creates a new {@link org.palladiosimulator.pcm.parameter.VariableUsage VariableUsage}.
      * <p>
-     * Variable usages are used to characterize variables like input and output
-     * variables or component parameters. They contain the specification of the
-     * variable as VariableCharacterisation and also refer to the name of the
-     * characterized variable in its namedReference association.
+     * Variable usages are used to characterize variables like input and output variables or
+     * component parameters. They contain the specification of the variable as
+     * VariableCharacterisation and also refer to the name of the characterized variable in its
+     * namedReference association.
      * </p>
      * <p>
      * Use the methods
@@ -928,7 +909,7 @@ public class FluentRepositoryFactory {
      *      String...)
      * @see org.palladiosimulator.pcm.parameter.VariableUsage
      */
-    //VariableUsageCreator moved to org.palladiosimulator.generator.fluent.shared.components
+    // VariableUsageCreator moved to org.palladiosimulator.generator.fluent.shared.components
     public VariableUsageCreator newVariableUsage() {
         return new VariableUsageCreator();
     }
@@ -936,15 +917,14 @@ public class FluentRepositoryFactory {
     // ---------------------- Fetching methods ----------------------
 
     /**
-     * Extracts the by <code>name</code> referenced composite data type from the
-     * repository. If the entity belongs to an imported repository, refer to it as
+     * Extracts the by <code>name</code> referenced composite data type from the repository. If the
+     * entity belongs to an imported repository, refer to it as
      * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
-     * This method throws a FluentApiException if no composite data type is present
-     * under the given <code>name</code>. If more than one composite data type with
-     * this <code>name</code> is present, a warning will be printed during runtime
-     * and the org.palladiosimulator.generator.fluent.system chooses the first
-     * composite data type it finds.
+     * This method throws a FluentApiException if no composite data type is present under the given
+     * <code>name</code>. If more than one composite data type with this <code>name</code> is
+     * present, a warning will be printed during runtime and the
+     * org.palladiosimulator.generator.fluent.system chooses the first composite data type it finds.
      * </p>
      *
      * @param name
@@ -954,7 +934,7 @@ public class FluentRepositoryFactory {
      */
     public CompositeDataType fetchOfCompositeDataType(final String name) {
         IllegalArgumentException.throwIfNull(name, "name must not be null");
-        final CompositeDataType dataType = repo.getCompositeDataType(name);
+        final CompositeDataType dataType = this.repo.getCompositeDataType(name);
         if (dataType == null) {
             throw new FluentApiException("Composite data type '" + name + "' could not be found");
         }
@@ -963,15 +943,15 @@ public class FluentRepositoryFactory {
     }
 
     /**
-     * Extracts the primitive data type corresponding to the enum
-     * <code>primitive</code> from the repository.
+     * Extracts the primitive data type corresponding to the enum <code>primitive</code> from the
+     * repository.
      *
      * @param primitive
      * @return the data type
      * @see org.palladiosimulator.pcm.repository.PrimitiveDataType
      */
     public DataType fetchOfDataType(final Primitive primitive) {
-        final PrimitiveDataType p = repo.getPrimitiveDataType(primitive);
+        final PrimitiveDataType p = this.repo.getPrimitiveDataType(primitive);
         if (p == null) {
             throw new FluentApiException("Primitive data Type '" + primitive + "' could not be found");
         }
@@ -979,15 +959,14 @@ public class FluentRepositoryFactory {
     }
 
     /**
-     * Extracts the by <code>name</code> referenced data type from the repository.
-     * If the entity belongs to an imported repository, refer to it as
+     * Extracts the by <code>name</code> referenced data type from the repository. If the entity
+     * belongs to an imported repository, refer to it as
      * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
-     * This method throws a FluentApiException if no data type is present under the
-     * given <code>name</code>. If more than one data type with this
-     * <code>name</code> is present, a warning will be printed during runtime and
-     * the org.palladiosimulator.generator.fluent.system chooses the first data type
-     * it finds.
+     * This method throws a FluentApiException if no data type is present under the given
+     * <code>name</code>. If more than one data type with this <code>name</code> is present, a
+     * warning will be printed during runtime and the org.palladiosimulator.generator.fluent.system
+     * chooses the first data type it finds.
      * </p>
      *
      * @param name
@@ -999,9 +978,9 @@ public class FluentRepositoryFactory {
      */
     public DataType fetchOfDataType(final String name) {
         IllegalArgumentException.throwIfNull(name, "name must not be null");
-        DataType dataType = repo.getDataType(name);
+        DataType dataType = this.repo.getDataType(name);
         if (dataType == null) {
-            dataType = repo.getPrimitiveDataType(name);
+            dataType = this.repo.getPrimitiveDataType(name);
         }
         if (dataType == null) {
             throw new FluentApiException("Datatype '" + name + "' could not be found");
@@ -1011,16 +990,15 @@ public class FluentRepositoryFactory {
     }
 
     /**
-     * Extracts the resource timeout failure type referenced by <code>name</code>
-     * from the repository. If the entity belongs to an imported repository, refer
-     * to it as <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
+     * Extracts the resource timeout failure type referenced by <code>name</code> from the
+     * repository. If the entity belongs to an imported repository, refer to it as
+     * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
-     * This method throws a FluentApiException if no resource timeout failure type
-     * is present under the given <code>name</code>. If more than one resource
-     * timeout failure type with this <code>name</code> is present, a warning will
-     * be printed during runtime and the
-     * org.palladiosimulator.generator.fluent.system chooses the first resource
-     * timeout failure type it finds.
+     * This method throws a FluentApiException if no resource timeout failure type is present under
+     * the given <code>name</code>. If more than one resource timeout failure type with this
+     * <code>name</code> is present, a warning will be printed during runtime and the
+     * org.palladiosimulator.generator.fluent.system chooses the first resource timeout failure type
+     * it finds.
      * </p>
      *
      * @param name
@@ -1028,7 +1006,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.reliability.ResourceTimeoutFailureType
      */
     public ResourceTimeoutFailureType fetchOfResourceTimeoutFailureType(final String name) {
-        final ResourceTimeoutFailureType failureType = repo.getResourceTimeoutFailureType(name);
+        final ResourceTimeoutFailureType failureType = this.repo.getResourceTimeoutFailureType(name);
         if (failureType == null) {
             throw new FluentApiException("Failure Type '" + name + "' could not be found");
         }
@@ -1036,15 +1014,14 @@ public class FluentRepositoryFactory {
     }
 
     /**
-     * Extracts the failure type referenced by <code>failure</code> from the
-     * repository. If the entity belongs to an imported repository, refer to it as
+     * Extracts the failure type referenced by <code>failure</code> from the repository. If the
+     * entity belongs to an imported repository, refer to it as
      * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
-     * This method throws a FluentApiException if no failure type is present under
-     * the given <code>name</code>. If more than one failure type with this
-     * <code>name</code> is present, a warning will be printed during runtime and
-     * the org.palladiosimulator.generator.fluent.system chooses the first failure
-     * type it finds.
+     * This method throws a FluentApiException if no failure type is present under the given
+     * <code>name</code>. If more than one failure type with this <code>name</code> is present, a
+     * warning will be printed during runtime and the org.palladiosimulator.generator.fluent.system
+     * chooses the first failure type it finds.
      * </p>
      *
      * @param failure
@@ -1052,7 +1029,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.reliability.FailureType
      */
     public FailureType fetchOfFailureType(final Failure failure) {
-        final FailureType f = repo.getFailureType(failure);
+        final FailureType f = this.repo.getFailureType(failure);
         if (f == null) {
             throw new FluentApiException("Failure Type '" + failure + "' could not be found");
         }
@@ -1060,15 +1037,14 @@ public class FluentRepositoryFactory {
     }
 
     /**
-     * Extracts the failure type referenced by <code>name</code> from the
-     * repository. If the entity belongs to an imported repository, refer to it as
+     * Extracts the failure type referenced by <code>name</code> from the repository. If the entity
+     * belongs to an imported repository, refer to it as
      * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
-     * This method throws a FluentApiException if no failure type is present under
-     * the given <code>name</code>. If more than one failure type with this
-     * <code>name</code> is present, a warning will be printed during runtime and
-     * the org.palladiosimulator.generator.fluent.system chooses the first failure
-     * type it finds.
+     * This method throws a FluentApiException if no failure type is present under the given
+     * <code>name</code>. If more than one failure type with this <code>name</code> is present, a
+     * warning will be printed during runtime and the org.palladiosimulator.generator.fluent.system
+     * chooses the first failure type it finds.
      * </p>
      *
      * @param name
@@ -1077,7 +1053,7 @@ public class FluentRepositoryFactory {
      */
     public FailureType fetchOfFailureType(final String name) {
         IllegalArgumentException.throwIfNull(name, "name must not be null");
-        final FailureType f = repo.getFailureType(name);
+        final FailureType f = this.repo.getFailureType(name);
         if (f == null) {
             throw new FluentApiException("Failure Type '" + name + "' could not be found");
         }
@@ -1085,14 +1061,12 @@ public class FluentRepositoryFactory {
     }
 
     /**
-     * Extracts the exception type referenced by <code>name</code> from the
-     * repository.
+     * Extracts the exception type referenced by <code>name</code> from the repository.
      * <p>
-     * This method throws a FluentApiException if no exception type is present under
-     * the given <code>name</code>. If more than one exception type with this
-     * <code>name</code> is present, a warning will be printed during runtime and
-     * the org.palladiosimulator.generator.fluent.system chooses the first exception
-     * type it finds.
+     * This method throws a FluentApiException if no exception type is present under the given
+     * <code>name</code>. If more than one exception type with this <code>name</code> is present, a
+     * warning will be printed during runtime and the org.palladiosimulator.generator.fluent.system
+     * chooses the first exception type it finds.
      * </p>
      *
      * @param name
@@ -1101,7 +1075,7 @@ public class FluentRepositoryFactory {
      */
     public ExceptionType fetchOfExceptionType(final String name) {
         IllegalArgumentException.throwIfNull(name, "name must not be null");
-        final ExceptionType e = repo.getExceptionType(name);
+        final ExceptionType e = this.repo.getExceptionType(name);
         if (e == null) {
             throw new FluentApiException("Failure Type '" + name + "' could not be found");
         }
@@ -1109,15 +1083,14 @@ public class FluentRepositoryFactory {
     }
 
     /**
-     * Extracts the <b>component</b> referenced by <code>name</code> from the
-     * repository. If the entity belongs to an imported repository, refer to it as
+     * Extracts the <b>component</b> referenced by <code>name</code> from the repository. If the
+     * entity belongs to an imported repository, refer to it as
      * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
-     * This method throws a FluentApiException if no <b>component</b> is present
-     * under the given <code>name</code>. If more than one <b>component</b> with
-     * this <code>name</code> is present, a warning will be printed during runtime
-     * and the org.palladiosimulator.generator.fluent.system chooses the first
-     * <b>component</b> it finds.
+     * This method throws a FluentApiException if no <b>component</b> is present under the given
+     * <code>name</code>. If more than one <b>component</b> with this <code>name</code> is present,
+     * a warning will be printed during runtime and the
+     * org.palladiosimulator.generator.fluent.system chooses the first <b>component</b> it finds.
      * </p>
      *
      * @param name
@@ -1127,7 +1100,7 @@ public class FluentRepositoryFactory {
      */
     public RepositoryComponent fetchOfComponent(final String name) {
         IllegalArgumentException.throwIfNull(name, "name must not be null");
-        final RepositoryComponent component = repo.getComponent(name);
+        final RepositoryComponent component = this.repo.getComponent(name);
         if (component == null) {
             throw new FluentApiException("Component '" + name + "' could not be found");
         }
@@ -1135,15 +1108,14 @@ public class FluentRepositoryFactory {
     }
 
     /**
-     * Extracts the basic component referenced by <code>name</code> from the
-     * repository. If the entity belongs to an imported repository, refer to it as
+     * Extracts the basic component referenced by <code>name</code> from the repository. If the
+     * entity belongs to an imported repository, refer to it as
      * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
-     * This method throws a FluentApiException if no basic component is present
-     * under the given <code>name</code>. If more than one basic component with this
-     * <code>name</code> is present, a warning will be printed during runtime and
-     * the org.palladiosimulator.generator.fluent.system chooses the first basic
-     * component it finds.
+     * This method throws a FluentApiException if no basic component is present under the given
+     * <code>name</code>. If more than one basic component with this <code>name</code> is present, a
+     * warning will be printed during runtime and the org.palladiosimulator.generator.fluent.system
+     * chooses the first basic component it finds.
      * </p>
      *
      * @param name
@@ -1153,7 +1125,7 @@ public class FluentRepositoryFactory {
      */
     public BasicComponent fetchOfBasicComponent(final String name) {
         IllegalArgumentException.throwIfNull(name, "name must not be null");
-        final BasicComponent component = repo.getBasicComponent(name);
+        final BasicComponent component = this.repo.getBasicComponent(name);
         if (component == null) {
             throw new FluentApiException("BasicComponent '" + name + "' could not be found");
         }
@@ -1161,15 +1133,14 @@ public class FluentRepositoryFactory {
     }
 
     /**
-     * Extracts the composite component referenced by <code>name</code> from the
-     * repository. If the entity belongs to an imported repository, refer to it as
+     * Extracts the composite component referenced by <code>name</code> from the repository. If the
+     * entity belongs to an imported repository, refer to it as
      * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
-     * This method throws a FluentApiException if no composite component is present
-     * under the given <code>name</code>. If more than one composite component with
-     * this <code>name</code> is present, a warning will be printed during runtime
-     * and the org.palladiosimulator.generator.fluent.system chooses the first
-     * composite component it finds.
+     * This method throws a FluentApiException if no composite component is present under the given
+     * <code>name</code>. If more than one composite component with this <code>name</code> is
+     * present, a warning will be printed during runtime and the
+     * org.palladiosimulator.generator.fluent.system chooses the first composite component it finds.
      * </p>
      *
      * @param name
@@ -1179,7 +1150,7 @@ public class FluentRepositoryFactory {
      */
     public CompositeComponent fetchOfCompositeComponent(final String name) {
         IllegalArgumentException.throwIfNull(name, "name must not be null");
-        final CompositeComponent component = repo.getCompositeComponent(name);
+        final CompositeComponent component = this.repo.getCompositeComponent(name);
         if (component == null) {
             throw new FluentApiException("CompositeComponent '" + name + "' could not be found");
         }
@@ -1187,15 +1158,14 @@ public class FluentRepositoryFactory {
     }
 
     /**
-     * Extracts the subsystem referenced by <code>name</code> from the repository.
-     * If the entity belongs to an imported repository, refer to it as
+     * Extracts the subsystem referenced by <code>name</code> from the repository. If the entity
+     * belongs to an imported repository, refer to it as
      * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
-     * This method throws a FluentApiException if no subsystem is present under the
-     * given <code>name</code>. If more than one subsystem with this
-     * <code>name</code> is present, a warning will be printed during runtime and
-     * the org.palladiosimulator.generator.fluent.system chooses the first subsystem
-     * it finds.
+     * This method throws a FluentApiException if no subsystem is present under the given
+     * <code>name</code>. If more than one subsystem with this <code>name</code> is present, a
+     * warning will be printed during runtime and the org.palladiosimulator.generator.fluent.system
+     * chooses the first subsystem it finds.
      * </p>
      *
      * @param name
@@ -1205,7 +1175,7 @@ public class FluentRepositoryFactory {
      */
     public SubSystem fetchOfSubSystem(final String name) {
         IllegalArgumentException.throwIfNull(name, "name must not be null");
-        final SubSystem component = repo.getSubsystem(name);
+        final SubSystem component = this.repo.getSubsystem(name);
         if (component == null) {
             throw new FluentApiException("Subsystem '" + name + "' could not be found");
         }
@@ -1213,15 +1183,15 @@ public class FluentRepositoryFactory {
     }
 
     /**
-     * Extracts the complete component type referenced by <code>name</code> from the
-     * repository. If the entity belongs to an imported repository, refer to it as
+     * Extracts the complete component type referenced by <code>name</code> from the repository. If
+     * the entity belongs to an imported repository, refer to it as
      * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
-     * This method throws a FluentApiException if no complete component type is
-     * present under the given <code>name</code>. If more than one complete
-     * component type with this <code>name</code> is present, a warning will be
-     * printed during runtime and the org.palladiosimulator.generator.fluent.system
-     * chooses the first complete component type it finds.
+     * This method throws a FluentApiException if no complete component type is present under the
+     * given <code>name</code>. If more than one complete component type with this <code>name</code>
+     * is present, a warning will be printed during runtime and the
+     * org.palladiosimulator.generator.fluent.system chooses the first complete component type it
+     * finds.
      * </p>
      *
      * @param name
@@ -1231,7 +1201,7 @@ public class FluentRepositoryFactory {
      */
     public CompleteComponentType fetchOfCompleteComponentType(final String name) {
         IllegalArgumentException.throwIfNull(name, "name must not be null");
-        final CompleteComponentType component = repo.getCompleteComponentType(name);
+        final CompleteComponentType component = this.repo.getCompleteComponentType(name);
         if (component == null) {
             throw new FluentApiException("CompleteComponentType '" + name + "' could not be found");
         }
@@ -1239,15 +1209,15 @@ public class FluentRepositoryFactory {
     }
 
     /**
-     * Extracts the provides component type referenced by <code>name</code> from the
-     * repository. If the entity belongs to an imported repository, refer to it as
+     * Extracts the provides component type referenced by <code>name</code> from the repository. If
+     * the entity belongs to an imported repository, refer to it as
      * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
-     * This method throws a FluentApiException if no provides component type is
-     * present under the given <code>name</code>. If more than one provides
-     * component type with this <code>name</code> is present, a warning will be
-     * printed during runtime and the org.palladiosimulator.generator.fluent.system
-     * chooses the first provides component type it finds.
+     * This method throws a FluentApiException if no provides component type is present under the
+     * given <code>name</code>. If more than one provides component type with this <code>name</code>
+     * is present, a warning will be printed during runtime and the
+     * org.palladiosimulator.generator.fluent.system chooses the first provides component type it
+     * finds.
      * </p>
      *
      * @param name
@@ -1257,7 +1227,7 @@ public class FluentRepositoryFactory {
      */
     public ProvidesComponentType fetchOfProvidesComponentType(final String name) {
         IllegalArgumentException.throwIfNull(name, "name must not be null");
-        final ProvidesComponentType component = repo.getProvidesComponentType(name);
+        final ProvidesComponentType component = this.repo.getProvidesComponentType(name);
         if (component == null) {
             throw new FluentApiException("ProvidesComponentType '" + name + "' could not be found");
         }
@@ -1265,15 +1235,14 @@ public class FluentRepositoryFactory {
     }
 
     /**
-     * Extracts the interface referenced by <code>name</code> from the repository.
-     * If the entity belongs to an imported repository, refer to it as
+     * Extracts the interface referenced by <code>name</code> from the repository. If the entity
+     * belongs to an imported repository, refer to it as
      * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
-     * This method throws a FluentApiException if no interface is present under the
-     * given <code>name</code>. If more than one interface with this
-     * <code>name</code> is present, a warning will be printed during runtime and
-     * the org.palladiosimulator.generator.fluent.system chooses the first interface
-     * it finds.
+     * This method throws a FluentApiException if no interface is present under the given
+     * <code>name</code>. If more than one interface with this <code>name</code> is present, a
+     * warning will be printed during runtime and the org.palladiosimulator.generator.fluent.system
+     * chooses the first interface it finds.
      * </p>
      *
      * @param name
@@ -1283,7 +1252,7 @@ public class FluentRepositoryFactory {
      */
     public Interface fetchOfInterface(final String name) {
         IllegalArgumentException.throwIfNull(name, "name must not be null");
-        final Interface interfce = repo.getInterface(name);
+        final Interface interfce = this.repo.getInterface(name);
         if (interfce == null) {
             throw new FluentApiException("Interface '" + name + "' could not be found");
         }
@@ -1291,15 +1260,14 @@ public class FluentRepositoryFactory {
     }
 
     /**
-     * Extracts the operation interface referenced by <code>name</code> from the
-     * repository. If the entity belongs to an imported repository, refer to it as
+     * Extracts the operation interface referenced by <code>name</code> from the repository. If the
+     * entity belongs to an imported repository, refer to it as
      * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
-     * This method throws a FluentApiException if no operation interface is present
-     * under the given <code>name</code>. If more than one operation interface with
-     * this <code>name</code> is present, a warning will be printed during runtime
-     * and the org.palladiosimulator.generator.fluent.system chooses the first
-     * operation interface it finds.
+     * This method throws a FluentApiException if no operation interface is present under the given
+     * <code>name</code>. If more than one operation interface with this <code>name</code> is
+     * present, a warning will be printed during runtime and the
+     * org.palladiosimulator.generator.fluent.system chooses the first operation interface it finds.
      * </p>
      *
      * @param name
@@ -1309,7 +1277,7 @@ public class FluentRepositoryFactory {
      */
     public OperationInterface fetchOfOperationInterface(final String name) {
         IllegalArgumentException.throwIfNull(name, "name must not be null");
-        final OperationInterface interfce = repo.getOperationInterface(name);
+        final OperationInterface interfce = this.repo.getOperationInterface(name);
         if (interfce == null) {
             throw new FluentApiException("OperationInterface '" + name + "' could not be found");
         }
@@ -1317,15 +1285,15 @@ public class FluentRepositoryFactory {
     }
 
     /**
-     * Extracts the infrastructure interface referenced by <code>name</code> from
-     * the repository. If the entity belongs to an imported repository, refer to it
-     * as <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
+     * Extracts the infrastructure interface referenced by <code>name</code> from the repository. If
+     * the entity belongs to an imported repository, refer to it as
+     * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
-     * This method throws a FluentApiException if no infrastructure interface is
-     * present under the given <code>name</code>. If more than one infrastructure
-     * interface with this <code>name</code> is present, a warning will be printed
-     * during runtime and the org.palladiosimulator.generator.fluent.system chooses
-     * the first infrastructure interface it finds.
+     * This method throws a FluentApiException if no infrastructure interface is present under the
+     * given <code>name</code>. If more than one infrastructure interface with this
+     * <code>name</code> is present, a warning will be printed during runtime and the
+     * org.palladiosimulator.generator.fluent.system chooses the first infrastructure interface it
+     * finds.
      * </p>
      *
      * @param name
@@ -1335,7 +1303,7 @@ public class FluentRepositoryFactory {
      */
     public InfrastructureInterface fetchOfInfrastructureInterface(final String name) {
         IllegalArgumentException.throwIfNull(name, "name must not be null");
-        final InfrastructureInterface interfce = repo.getInfrastructureInterface(name);
+        final InfrastructureInterface interfce = this.repo.getInfrastructureInterface(name);
         if (interfce == null) {
             throw new FluentApiException("InfrastructureInterface '" + name + "' could not be found");
         }
@@ -1343,15 +1311,14 @@ public class FluentRepositoryFactory {
     }
 
     /**
-     * Extracts the event group referenced by <code>name</code> from the repository.
-     * If the entity belongs to an imported repository, refer to it as
+     * Extracts the event group referenced by <code>name</code> from the repository. If the entity
+     * belongs to an imported repository, refer to it as
      * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
-     * This method throws a FluentApiException if no event group is present under
-     * the given <code>name</code>. If more than one event group with this
-     * <code>name</code> is present, a warning will be printed during runtime and
-     * the org.palladiosimulator.generator.fluent.system chooses the first event
-     * group it finds.
+     * This method throws a FluentApiException if no event group is present under the given
+     * <code>name</code>. If more than one event group with this <code>name</code> is present, a
+     * warning will be printed during runtime and the org.palladiosimulator.generator.fluent.system
+     * chooses the first event group it finds.
      * </p>
      *
      * @param name
@@ -1361,7 +1328,7 @@ public class FluentRepositoryFactory {
      */
     public EventGroup fetchOfEventGroup(final String name) {
         IllegalArgumentException.throwIfNull(name, "name must not be null");
-        final EventGroup interfce = repo.getEventGroup(name);
+        final EventGroup interfce = this.repo.getEventGroup(name);
         if (interfce == null) {
             throw new FluentApiException("EventGroup '" + name + "' could not be found");
         }
@@ -1369,15 +1336,14 @@ public class FluentRepositoryFactory {
     }
 
     /**
-     * Extracts the provided role referenced by <code>name</code> from the
-     * repository. If the entity belongs to an imported repository, refer to it as
+     * Extracts the provided role referenced by <code>name</code> from the repository. If the entity
+     * belongs to an imported repository, refer to it as
      * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
-     * This method throws a FluentApiException if no provided role is present under
-     * the given <code>name</code>. If more than one provided role with this
-     * <code>name</code> is present, a warning will be printed during runtime and
-     * the org.palladiosimulator.generator.fluent.system chooses the first provided
-     * role it finds.
+     * This method throws a FluentApiException if no provided role is present under the given
+     * <code>name</code>. If more than one provided role with this <code>name</code> is present, a
+     * warning will be printed during runtime and the org.palladiosimulator.generator.fluent.system
+     * chooses the first provided role it finds.
      * </p>
      *
      * @param name
@@ -1386,7 +1352,7 @@ public class FluentRepositoryFactory {
      */
     public ProvidedRole fetchOfProvidedRole(final String name) {
         IllegalArgumentException.throwIfNull(name, "name must not be null");
-        final ProvidedRole provRole = repo.getProvidedRole(name);
+        final ProvidedRole provRole = this.repo.getProvidedRole(name);
         if (provRole == null) {
             throw new FluentApiException("ProvidedRole '" + name + "' could not be found");
         }
@@ -1394,15 +1360,15 @@ public class FluentRepositoryFactory {
     }
 
     /**
-     * Extracts the operation provided role referenced by <code>name</code> from the
-     * repository. If the entity belongs to an imported repository, refer to it as
+     * Extracts the operation provided role referenced by <code>name</code> from the repository. If
+     * the entity belongs to an imported repository, refer to it as
      * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
-     * This method throws a FluentApiException if no operation provided role is
-     * present under the given <code>name</code>. If more than one operation
-     * provided role with this <code>name</code> is present, a warning will be
-     * printed during runtime and the org.palladiosimulator.generator.fluent.system
-     * chooses the first operation provided role it finds.
+     * This method throws a FluentApiException if no operation provided role is present under the
+     * given <code>name</code>. If more than one operation provided role with this <code>name</code>
+     * is present, a warning will be printed during runtime and the
+     * org.palladiosimulator.generator.fluent.system chooses the first operation provided role it
+     * finds.
      * </p>
      *
      * @param name
@@ -1411,7 +1377,7 @@ public class FluentRepositoryFactory {
      */
     public OperationProvidedRole fetchOfOperationProvidedRole(final String name) {
         IllegalArgumentException.throwIfNull(name, "name must not be null");
-        final OperationProvidedRole provRole = repo.getOperationProvidedRole(name);
+        final OperationProvidedRole provRole = this.repo.getOperationProvidedRole(name);
         if (provRole == null) {
             throw new FluentApiException("ProvidedRole '" + name + "' could not be found");
         }
@@ -1419,15 +1385,15 @@ public class FluentRepositoryFactory {
     }
 
     /**
-     * Extracts the infrastructure provided role referenced by <code>name</code>
-     * from the repository. If the entity belongs to an imported repository, refer
-     * to it as <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
+     * Extracts the infrastructure provided role referenced by <code>name</code> from the
+     * repository. If the entity belongs to an imported repository, refer to it as
+     * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
-     * This method throws a FluentApiException if no infrastructure provided role is
-     * present under the given <code>name</code>. If more than one infrastructure
-     * provided role with this <code>name</code> is present, a warning will be
-     * printed during runtime and the org.palladiosimulator.generator.fluent.system
-     * chooses the first infrastructure provided role it finds.
+     * This method throws a FluentApiException if no infrastructure provided role is present under
+     * the given <code>name</code>. If more than one infrastructure provided role with this
+     * <code>name</code> is present, a warning will be printed during runtime and the
+     * org.palladiosimulator.generator.fluent.system chooses the first infrastructure provided role
+     * it finds.
      * </p>
      *
      * @param name
@@ -1436,7 +1402,7 @@ public class FluentRepositoryFactory {
      */
     public InfrastructureProvidedRole fetchOfInfrastructureProvidedRole(final String name) {
         IllegalArgumentException.throwIfNull(name, "name must not be null");
-        final InfrastructureProvidedRole provRole = repo.getInfrastructureProvidedRole(name);
+        final InfrastructureProvidedRole provRole = this.repo.getInfrastructureProvidedRole(name);
         if (provRole == null) {
             throw new FluentApiException("ProvidedRole '" + name + "' could not be found");
         }
@@ -1444,15 +1410,14 @@ public class FluentRepositoryFactory {
     }
 
     /**
-     * Extracts the sink role referenced by <code>name</code> from the repository.
-     * If the entity belongs to an imported repository, refer to it as
+     * Extracts the sink role referenced by <code>name</code> from the repository. If the entity
+     * belongs to an imported repository, refer to it as
      * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
-     * This method throws a FluentApiException if no sink role is present under the
-     * given <code>name</code>. If more than one sink role with this
-     * <code>name</code> is present, a warning will be printed during runtime and
-     * the org.palladiosimulator.generator.fluent.system chooses the first sink role
-     * it finds.
+     * This method throws a FluentApiException if no sink role is present under the given
+     * <code>name</code>. If more than one sink role with this <code>name</code> is present, a
+     * warning will be printed during runtime and the org.palladiosimulator.generator.fluent.system
+     * chooses the first sink role it finds.
      * </p>
      *
      * @param name
@@ -1461,7 +1426,7 @@ public class FluentRepositoryFactory {
      */
     public SinkRole fetchOfSinkRole(final String name) {
         IllegalArgumentException.throwIfNull(name, "name must not be null");
-        final SinkRole provRole = repo.getSinkRole(name);
+        final SinkRole provRole = this.repo.getSinkRole(name);
         if (provRole == null) {
             throw new FluentApiException("SinkRole '" + name + "' could not be found");
         }
@@ -1469,15 +1434,14 @@ public class FluentRepositoryFactory {
     }
 
     /**
-     * Extracts the required role referenced by <code>name</code> from the
-     * repository. If the entity belongs to an imported repository, refer to it as
+     * Extracts the required role referenced by <code>name</code> from the repository. If the entity
+     * belongs to an imported repository, refer to it as
      * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
-     * This method throws a FluentApiException if no required role is present under
-     * the given <code>name</code>. If more than one required role with this
-     * <code>name</code> is present, a warning will be printed during runtime and
-     * the org.palladiosimulator.generator.fluent.system chooses the first required
-     * role it finds.
+     * This method throws a FluentApiException if no required role is present under the given
+     * <code>name</code>. If more than one required role with this <code>name</code> is present, a
+     * warning will be printed during runtime and the org.palladiosimulator.generator.fluent.system
+     * chooses the first required role it finds.
      * </p>
      *
      * @param name
@@ -1486,7 +1450,7 @@ public class FluentRepositoryFactory {
      */
     public RequiredRole fetchOfRequiredRole(final String name) {
         IllegalArgumentException.throwIfNull(name, "name must not be null");
-        final RequiredRole reqRole = repo.getRequiredRole(name);
+        final RequiredRole reqRole = this.repo.getRequiredRole(name);
         if (reqRole == null) {
             throw new FluentApiException("RequiredRole '" + name + "' could not be found");
         }
@@ -1494,15 +1458,15 @@ public class FluentRepositoryFactory {
     }
 
     /**
-     * Extracts the operation required role referenced by <code>name</code> from the
-     * repository. If the entity belongs to an imported repository, refer to it as
+     * Extracts the operation required role referenced by <code>name</code> from the repository. If
+     * the entity belongs to an imported repository, refer to it as
      * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
-     * This method throws a FluentApiException if no operation required role is
-     * present under the given <code>name</code>. If more than one operation
-     * required role with this <code>name</code> is present, a warning will be
-     * printed during runtime and the org.palladiosimulator.generator.fluent.system
-     * chooses the first operation required role it finds.
+     * This method throws a FluentApiException if no operation required role is present under the
+     * given <code>name</code>. If more than one operation required role with this <code>name</code>
+     * is present, a warning will be printed during runtime and the
+     * org.palladiosimulator.generator.fluent.system chooses the first operation required role it
+     * finds.
      * </p>
      *
      * @param name
@@ -1511,7 +1475,7 @@ public class FluentRepositoryFactory {
      */
     public OperationRequiredRole fetchOfOperationRequiredRole(final String name) {
         IllegalArgumentException.throwIfNull(name, "name must not be null");
-        final OperationRequiredRole reqRole = repo.getOperationRequiredRole(name);
+        final OperationRequiredRole reqRole = this.repo.getOperationRequiredRole(name);
         if (reqRole == null) {
             throw new FluentApiException("RequiredRole '" + name + "' could not be found");
         }
@@ -1519,15 +1483,15 @@ public class FluentRepositoryFactory {
     }
 
     /**
-     * Extracts the infrastructure required role referenced by <code>name</code>
-     * from the repository. If the entity belongs to an imported repository, refer
-     * to it as <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
+     * Extracts the infrastructure required role referenced by <code>name</code> from the
+     * repository. If the entity belongs to an imported repository, refer to it as
+     * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
-     * This method throws a FluentApiException if no infrastructure required role is
-     * present under the given <code>name</code>. If more than one infrastructure
-     * required role with this <code>name</code> is present, a warning will be
-     * printed during runtime and the org.palladiosimulator.generator.fluent.system
-     * chooses the first infrastructure required role it finds.
+     * This method throws a FluentApiException if no infrastructure required role is present under
+     * the given <code>name</code>. If more than one infrastructure required role with this
+     * <code>name</code> is present, a warning will be printed during runtime and the
+     * org.palladiosimulator.generator.fluent.system chooses the first infrastructure required role
+     * it finds.
      * </p>
      *
      * @param name
@@ -1536,7 +1500,7 @@ public class FluentRepositoryFactory {
      */
     public InfrastructureRequiredRole fetchOfInfrastructureRequiredRole(final String name) {
         IllegalArgumentException.throwIfNull(name, "name must not be null");
-        final InfrastructureRequiredRole reqRole = repo.getInfrastructureRequiredRole(name);
+        final InfrastructureRequiredRole reqRole = this.repo.getInfrastructureRequiredRole(name);
         if (reqRole == null) {
             throw new FluentApiException("RequiredRole '" + name + "' could not be found");
         }
@@ -1544,15 +1508,14 @@ public class FluentRepositoryFactory {
     }
 
     /**
-     * Extracts the source role referenced by <code>name</code> from the repository.
-     * If the entity belongs to an imported repository, refer to it as
+     * Extracts the source role referenced by <code>name</code> from the repository. If the entity
+     * belongs to an imported repository, refer to it as
      * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
-     * This method throws a FluentApiException if no source role is present under
-     * the given <code>name</code>. If more than one source role with this
-     * <code>name</code> is present, a warning will be printed during runtime and
-     * the org.palladiosimulator.generator.fluent.system chooses the first source
-     * role it finds.
+     * This method throws a FluentApiException if no source role is present under the given
+     * <code>name</code>. If more than one source role with this <code>name</code> is present, a
+     * warning will be printed during runtime and the org.palladiosimulator.generator.fluent.system
+     * chooses the first source role it finds.
      * </p>
      *
      * @param name
@@ -1561,7 +1524,7 @@ public class FluentRepositoryFactory {
      */
     public SourceRole fetchOfSourceRole(final String name) {
         IllegalArgumentException.throwIfNull(name, "name must not be null");
-        final SourceRole reqRole = repo.getSourceRole(name);
+        final SourceRole reqRole = this.repo.getSourceRole(name);
         if (reqRole == null) {
             throw new FluentApiException("SourceRole '" + name + "' could not be found");
         }
@@ -1569,15 +1532,15 @@ public class FluentRepositoryFactory {
     }
 
     /**
-     * Extracts the resource required role referenced by <code>name</code> from the
-     * repository. If the entity belongs to an imported repository, refer to it as
+     * Extracts the resource required role referenced by <code>name</code> from the repository. If
+     * the entity belongs to an imported repository, refer to it as
      * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
-     * This method throws a FluentApiException if no resource required role is
-     * present under the given <code>name</code>. If more than one resource required
-     * role with this <code>name</code> is present, a warning will be printed during
-     * runtime and the org.palladiosimulator.generator.fluent.system chooses the
-     * first resource required role it finds.
+     * This method throws a FluentApiException if no resource required role is present under the
+     * given <code>name</code>. If more than one resource required role with this <code>name</code>
+     * is present, a warning will be printed during runtime and the
+     * org.palladiosimulator.generator.fluent.system chooses the first resource required role it
+     * finds.
      * </p>
      *
      * @param name
@@ -1586,7 +1549,7 @@ public class FluentRepositoryFactory {
      */
     public ResourceRequiredRole fetchOfResourceRequiredRole(final String name) {
         IllegalArgumentException.throwIfNull(name, "name must not be null");
-        final ResourceRequiredRole reqRole = repo.getResourceRequiredRole(name);
+        final ResourceRequiredRole reqRole = this.repo.getResourceRequiredRole(name);
         if (reqRole == null) {
             throw new FluentApiException("ResourceRequiredRole '" + name + "' could not be found");
         }
@@ -1594,15 +1557,14 @@ public class FluentRepositoryFactory {
     }
 
     /**
-     * Extracts the signature referenced by <code>name</code> from the repository.
-     * If the entity belongs to an imported repository, refer to it as
+     * Extracts the signature referenced by <code>name</code> from the repository. If the entity
+     * belongs to an imported repository, refer to it as
      * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
-     * This method throws a FluentApiException if no signature is present under the
-     * given <code>name</code>. If more than one signature with this
-     * <code>name</code> is present, a warning will be printed during runtime and
-     * the org.palladiosimulator.generator.fluent.system chooses the first signature
-     * it finds.
+     * This method throws a FluentApiException if no signature is present under the given
+     * <code>name</code>. If more than one signature with this <code>name</code> is present, a
+     * warning will be printed during runtime and the org.palladiosimulator.generator.fluent.system
+     * chooses the first signature it finds.
      * </p>
      *
      * @param name
@@ -1611,7 +1573,7 @@ public class FluentRepositoryFactory {
      */
     public Signature fetchOfSignature(final String name) {
         IllegalArgumentException.throwIfNull(name, "name must not be null");
-        final Signature signature = repo.getSignature(name);
+        final Signature signature = this.repo.getSignature(name);
         if (signature == null) {
             throw new FluentApiException("Signature '" + name + "' could not be found");
         }
@@ -1619,15 +1581,14 @@ public class FluentRepositoryFactory {
     }
 
     /**
-     * Extracts the operation signature referenced by <code>name</code> from the
-     * repository. If the entity belongs to an imported repository, refer to it as
+     * Extracts the operation signature referenced by <code>name</code> from the repository. If the
+     * entity belongs to an imported repository, refer to it as
      * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
-     * This method throws a FluentApiException if no operation signature is present
-     * under the given <code>name</code>. If more than one operation signature with
-     * this <code>name</code> is present, a warning will be printed during runtime
-     * and the org.palladiosimulator.generator.fluent.system chooses the first
-     * operation signature it finds.
+     * This method throws a FluentApiException if no operation signature is present under the given
+     * <code>name</code>. If more than one operation signature with this <code>name</code> is
+     * present, a warning will be printed during runtime and the
+     * org.palladiosimulator.generator.fluent.system chooses the first operation signature it finds.
      * </p>
      *
      * @param name
@@ -1636,7 +1597,7 @@ public class FluentRepositoryFactory {
      */
     public OperationSignature fetchOfOperationSignature(final String name) {
         IllegalArgumentException.throwIfNull(name, "name must not be null");
-        final OperationSignature signature = repo.getOperationSignature(name);
+        final OperationSignature signature = this.repo.getOperationSignature(name);
         if (signature == null) {
             throw new FluentApiException("Operation signature '" + name + "' could not be found");
         }
@@ -1644,15 +1605,15 @@ public class FluentRepositoryFactory {
     }
 
     /**
-     * Extracts the infrastructure signature referenced by <code>name</code> from
-     * the repository. If the entity belongs to an imported repository, refer to it
-     * as <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
+     * Extracts the infrastructure signature referenced by <code>name</code> from the repository. If
+     * the entity belongs to an imported repository, refer to it as
+     * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
-     * This method throws a FluentApiException if no infrastructure signature is
-     * present under the given <code>name</code>. If more than one infrastructure
-     * signature with this <code>name</code> is present, a warning will be printed
-     * during runtime and the org.palladiosimulator.generator.fluent.system chooses
-     * the first infrastructure signature it finds.
+     * This method throws a FluentApiException if no infrastructure signature is present under the
+     * given <code>name</code>. If more than one infrastructure signature with this
+     * <code>name</code> is present, a warning will be printed during runtime and the
+     * org.palladiosimulator.generator.fluent.system chooses the first infrastructure signature it
+     * finds.
      * </p>
      *
      * @param name
@@ -1661,7 +1622,7 @@ public class FluentRepositoryFactory {
      */
     public InfrastructureSignature fetchOfInfrastructureSignature(final String name) {
         IllegalArgumentException.throwIfNull(name, "name must not be null");
-        final InfrastructureSignature signature = repo.getInfrastructureSignature(name);
+        final InfrastructureSignature signature = this.repo.getInfrastructureSignature(name);
         if (signature == null) {
             throw new FluentApiException("Operation signature '" + name + "' could not be found");
         }
@@ -1669,15 +1630,14 @@ public class FluentRepositoryFactory {
     }
 
     /**
-     * Extracts the event type referenced by <code>name</code> from the repository.
-     * If the entity belongs to an imported repository, refer to it as
+     * Extracts the event type referenced by <code>name</code> from the repository. If the entity
+     * belongs to an imported repository, refer to it as
      * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
-     * This method throws a FluentApiException if no event type is present under the
-     * given <code>name</code>. If more than one event type with this
-     * <code>name</code> is present, a warning will be printed during runtime and
-     * the org.palladiosimulator.generator.fluent.system chooses the first event
-     * type it finds.
+     * This method throws a FluentApiException if no event type is present under the given
+     * <code>name</code>. If more than one event type with this <code>name</code> is present, a
+     * warning will be printed during runtime and the org.palladiosimulator.generator.fluent.system
+     * chooses the first event type it finds.
      * </p>
      *
      * @param name
@@ -1686,7 +1646,7 @@ public class FluentRepositoryFactory {
      */
     public EventType fetchOfEventType(final String name) {
         IllegalArgumentException.throwIfNull(name, "name must not be null");
-        final EventType eventType = repo.getEventType(name);
+        final EventType eventType = this.repo.getEventType(name);
         if (eventType == null) {
             throw new FluentApiException("EventType '" + name + "' could not be found");
         }
@@ -1694,15 +1654,14 @@ public class FluentRepositoryFactory {
     }
 
     /**
-     * Extracts the assembly context referenced by <code>name</code> from the
-     * repository. If the entity belongs to an imported repository, refer to it as
+     * Extracts the assembly context referenced by <code>name</code> from the repository. If the
+     * entity belongs to an imported repository, refer to it as
      * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
-     * This method throws a FluentApiException if no assembly context is present
-     * under the given <code>name</code>. If more than one assembly context with
-     * this <code>name</code> is present, a warning will be printed during runtime
-     * and the org.palladiosimulator.generator.fluent.system chooses the first
-     * assembly context it finds.
+     * This method throws a FluentApiException if no assembly context is present under the given
+     * <code>name</code>. If more than one assembly context with this <code>name</code> is present,
+     * a warning will be printed during runtime and the
+     * org.palladiosimulator.generator.fluent.system chooses the first assembly context it finds.
      * </p>
      *
      * @param name
@@ -1711,7 +1670,7 @@ public class FluentRepositoryFactory {
      */
     public AssemblyContext fetchOfAssemblyContext(final String name) {
         IllegalArgumentException.throwIfNull(name, "name must not be null");
-        final AssemblyContext assContext = repo.getAssemblyContext(name);
+        final AssemblyContext assContext = this.repo.getAssemblyContext(name);
         if (assContext == null) {
             throw new FluentApiException("Assembly context '" + name + "' could not be found");
         }
@@ -1719,15 +1678,14 @@ public class FluentRepositoryFactory {
     }
 
     /**
-     * Extracts the event channel referenced by <code>name</code> from the
-     * repository. If the entity belongs to an imported repository, refer to it as
+     * Extracts the event channel referenced by <code>name</code> from the repository. If the entity
+     * belongs to an imported repository, refer to it as
      * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
-     * This method throws a FluentApiException if no event channel is present under
-     * the given <code>name</code>. If more than one event channel with this
-     * <code>name</code> is present, a warning will be printed during runtime and
-     * the org.palladiosimulator.generator.fluent.system chooses the first event
-     * channel it finds.
+     * This method throws a FluentApiException if no event channel is present under the given
+     * <code>name</code>. If more than one event channel with this <code>name</code> is present, a
+     * warning will be printed during runtime and the org.palladiosimulator.generator.fluent.system
+     * chooses the first event channel it finds.
      * </p>
      *
      * @param name
@@ -1736,7 +1694,7 @@ public class FluentRepositoryFactory {
      */
     public EventChannel fetchOfEventChannel(final String name) {
         IllegalArgumentException.throwIfNull(name, "name must not be null");
-        final EventChannel eventChannel = repo.getEventChannel(name);
+        final EventChannel eventChannel = this.repo.getEventChannel(name);
         if (eventChannel == null) {
             throw new FluentApiException("Event Channel '" + name + "' could not be found");
         }
@@ -1744,15 +1702,14 @@ public class FluentRepositoryFactory {
     }
 
     /**
-     * Extracts the parameter referenced by <code>name</code> from the repository.
-     * If the entity belongs to an imported repository, refer to it as
+     * Extracts the parameter referenced by <code>name</code> from the repository. If the entity
+     * belongs to an imported repository, refer to it as
      * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
-     * This method throws a FluentApiException if no parameter is present under the
-     * given <code>name</code>. If more than one parameter with this
-     * <code>name</code> is present, a warning will be printed during runtime and
-     * the org.palladiosimulator.generator.fluent.system chooses the first parameter
-     * it finds.
+     * This method throws a FluentApiException if no parameter is present under the given
+     * <code>name</code>. If more than one parameter with this <code>name</code> is present, a
+     * warning will be printed during runtime and the org.palladiosimulator.generator.fluent.system
+     * chooses the first parameter it finds.
      * </p>
      *
      * @param name
@@ -1761,7 +1718,7 @@ public class FluentRepositoryFactory {
      */
     public Parameter fetchOfParameter(final String name) {
         IllegalArgumentException.throwIfNull(name, "name must not be null");
-        final Parameter p = repo.getParameter(name);
+        final Parameter p = this.repo.getParameter(name);
         if (p == null) {
             throw new FluentApiException("Parameter '" + name + "' could not be found");
         }
@@ -1769,16 +1726,14 @@ public class FluentRepositoryFactory {
     }
 
     /**
-     * Extracts the parameter referenced by <code>name</code> occurring in the
-     * signature <code>context</code> from the repository. If the entity belongs to
-     * an imported repository, refer to it as
-     * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
+     * Extracts the parameter referenced by <code>name</code> occurring in the signature
+     * <code>context</code> from the repository. If the entity belongs to an imported repository,
+     * refer to it as <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
-     * This method throws a FluentApiException if no parameter is present under the
-     * given <code>name</code>. If more than one parameter with this
-     * <code>name</code> is present, a warning will be printed during runtime and
-     * the org.palladiosimulator.generator.fluent.system chooses the first parameter
-     * it finds.
+     * This method throws a FluentApiException if no parameter is present under the given
+     * <code>name</code>. If more than one parameter with this <code>name</code> is present, a
+     * warning will be printed during runtime and the org.palladiosimulator.generator.fluent.system
+     * chooses the first parameter it finds.
      * </p>
      *
      * @param name
@@ -1788,7 +1743,7 @@ public class FluentRepositoryFactory {
      */
     public Parameter fetchOfParameter(final String name, final Signature context) {
         IllegalArgumentException.throwIfNull(name, "name must not be null");
-        final Parameter p = repo.getParameter(name, context);
+        final Parameter p = this.repo.getParameter(name, context);
         if (p == null) {
             throw new FluentApiException("Parameter '" + name + "' could not be found");
         }
@@ -1796,15 +1751,14 @@ public class FluentRepositoryFactory {
     }
 
     /**
-     * Extracts the passive resource referenced by <code>name</code> from the
-     * repository. If the entity belongs to an imported repository, refer to it as
+     * Extracts the passive resource referenced by <code>name</code> from the repository. If the
+     * entity belongs to an imported repository, refer to it as
      * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
-     * This method throws a FluentApiException if no passive resource is present
-     * under the given <code>name</code>. If more than one passive resource with
-     * this <code>name</code> is present, a warning will be printed during runtime
-     * and the org.palladiosimulator.generator.fluent.system chooses the first
-     * passive resource it finds.
+     * This method throws a FluentApiException if no passive resource is present under the given
+     * <code>name</code>. If more than one passive resource with this <code>name</code> is present,
+     * a warning will be printed during runtime and the
+     * org.palladiosimulator.generator.fluent.system chooses the first passive resource it finds.
      * </p>
      *
      * @param name
@@ -1813,7 +1767,7 @@ public class FluentRepositoryFactory {
      */
     public PassiveResource fetchOfPassiveResource(final String name) {
         IllegalArgumentException.throwIfNull(name, "name must not be null");
-        final PassiveResource r = repo.getPassiveResource(name);
+        final PassiveResource r = this.repo.getPassiveResource(name);
         if (r == null) {
             throw new FluentApiException("Passive Resource '" + name + "' could not be found");
         }
@@ -1821,15 +1775,15 @@ public class FluentRepositoryFactory {
     }
 
     /**
-     * Extracts the recovery action behaviour referenced by <code>name</code> from
-     * the repository. If the entity belongs to an imported repository, refer to it
-     * as <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
+     * Extracts the recovery action behaviour referenced by <code>name</code> from the repository.
+     * If the entity belongs to an imported repository, refer to it as
+     * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
      * <p>
-     * This method throws a FluentApiException if no recovery action behaviour is
-     * present under the given <code>name</code>. If more than one recovery action
-     * behaviour with this <code>name</code> is present, a warning will be printed
-     * during runtime and the org.palladiosimulator.generator.fluent.system chooses
-     * the first recovery action behaviour it finds.
+     * This method throws a FluentApiException if no recovery action behaviour is present under the
+     * given <code>name</code>. If more than one recovery action behaviour with this
+     * <code>name</code> is present, a warning will be printed during runtime and the
+     * org.palladiosimulator.generator.fluent.system chooses the first recovery action behaviour it
+     * finds.
      * </p>
      *
      * @param name
@@ -1838,7 +1792,7 @@ public class FluentRepositoryFactory {
      */
     public RecoveryActionBehaviour fetchOfRecoveryActionBehaviour(final String name) {
         IllegalArgumentException.throwIfNull(name, "name must not be null");
-        final RecoveryActionBehaviour r = repo.getRecoveryActionBehaviour(name);
+        final RecoveryActionBehaviour r = this.repo.getRecoveryActionBehaviour(name);
         if (r == null) {
             throw new FluentApiException("Recovery action behaviour '" + name + "' could not be found");
         }

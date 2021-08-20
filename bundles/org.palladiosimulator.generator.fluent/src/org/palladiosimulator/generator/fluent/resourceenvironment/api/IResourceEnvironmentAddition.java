@@ -16,8 +16,8 @@ public interface IResourceEnvironmentAddition {
 
     /**
      * Adds a {@link org.palladiosimulator.pcm.resourceenvironment.ResourceContainer
-     * ResourceContainer} to the resource environment. The creator will be turned
-     * into the finished container.
+     * ResourceContainer} to the resource environment. The creator will be turned into the finished
+     * container.
      *
      * @param resourceContainer
      * @return this resource environment
@@ -27,9 +27,8 @@ public interface IResourceEnvironmentAddition {
     IResourceEnvironmentAddition addToResourceEnvironment(ResourceContainerCreator resourceContainer);
 
     /**
-     * Adds a {@link org.palladiosimulator.pcm.resourceenvironment.LinkingResource
-     * LinkingResource} to the resource environment. The creator will be turned into
-     * the finished resource.
+     * Adds a {@link org.palladiosimulator.pcm.resourceenvironment.LinkingResource LinkingResource}
+     * to the resource environment. The creator will be turned into the finished resource.
      *
      * @param linkingResource
      * @return this resource environment

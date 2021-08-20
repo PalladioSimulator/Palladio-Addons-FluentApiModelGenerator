@@ -18,12 +18,9 @@ import org.palladiosimulator.pcm.repository.PrimitiveDataType;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
 
 /**
- * This class constructs a
- * {@link org.palladiosimulator.pcm.repository.OperationSignature
- * OperationSignature}. It is used to create the
- * '<em><b>OperationSignature</b></em>' object step-by-step, i.e.
- * '<em><b>OperationSignatureCreator</b></em>' objects are of intermediate
- * state.
+ * This class constructs a {@link org.palladiosimulator.pcm.repository.OperationSignature
+ * OperationSignature}. It is used to create the '<em><b>OperationSignature</b></em>' object
+ * step-by-step, i.e. '<em><b>OperationSignatureCreator</b></em>' objects are of intermediate state.
  *
  * @author Louisa Lambrecht
  * @see org.palladiosimulator.pcm.repository.OperationSignature
@@ -36,10 +33,10 @@ public class OperationSignatureCreator extends RepositoryEntity {
     private final List<ExceptionType> exceptionTypes;
 
     public OperationSignatureCreator(final RepositoryCreator repo) {
-        repository = repo;
-        ownedParameters = new ArrayList<>();
-        failureTypes = new ArrayList<>();
-        exceptionTypes = new ArrayList<>();
+        this.repository = repo;
+        this.ownedParameters = new ArrayList<>();
+        this.failureTypes = new ArrayList<>();
+        this.exceptionTypes = new ArrayList<>();
     }
 
     @Override
@@ -68,12 +65,10 @@ public class OperationSignatureCreator extends RepositoryEntity {
     /**
      * Defines the <code>returnType</code> of the operation signature.
      * <p>
-     * A
-     * {@link org.palladiosimulator.generator.fluent.repository.structure.internals.Primitive
+     * A {@link org.palladiosimulator.generator.fluent.repository.structure.internals.Primitive
      * Primitive} data type can have the values '<em><b>boolean</b></em>',
-     * '<em><b>integer</b></em>', '<em><b>string</b></em>',
-     * '<em><b>double</b></em>', '<em><b>long</b></em>', '<em><b>char</b></em>',
-     * '<em><b>byte</b></em>'.
+     * '<em><b>integer</b></em>', '<em><b>string</b></em>', '<em><b>double</b></em>',
+     * '<em><b>long</b></em>', '<em><b>char</b></em>', '<em><b>byte</b></em>'.
      * </p>
      *
      * @param returnType
@@ -81,32 +76,30 @@ public class OperationSignatureCreator extends RepositoryEntity {
      */
     public OperationSignatureCreator withReturnType(final Primitive returnType) {
         IllegalArgumentException.throwIfNull(returnType, "returnType must not be null");
-        final PrimitiveDataType primitiveDataType = repository.getPrimitiveDataType(returnType);
+        final PrimitiveDataType primitiveDataType = this.repository.getPrimitiveDataType(returnType);
         return this.withReturnType(primitiveDataType);
     }
 
     /**
-     * Creates a {@link org.palladiosimulator.pcm.repository.Parameter Parameter}
-     * and adds it to the signature's ordered list of parameters.
+     * Creates a {@link org.palladiosimulator.pcm.repository.Parameter Parameter} and adds it to the
+     * signature's ordered list of parameters.
      * <p>
-     * Each parameter is a tuple of a <code>name</code> and a <code>dataType</code>
-     * (which is unique across the parameters). Optionally, the
-     * <code>modifier</code>s '<em><b>in</b></em>', '<em><b>out</b></em>', and
-     * '<em><b>inout</b></em>' (with its OMG IDL semantics) can be used for
-     * parameters, e.g. <code>ParameterModifier.IN</code>.
+     * Each parameter is a tuple of a <code>name</code> and a <code>dataType</code> (which is unique
+     * across the parameters). Optionally, the <code>modifier</code>s '<em><b>in</b></em>',
+     * '<em><b>out</b></em>', and '<em><b>inout</b></em>' (with its OMG IDL semantics) can be used
+     * for parameters, e.g. <code>ParameterModifier.IN</code>.
      * </p>
      * <p>
-     * A
-     * {@link org.palladiosimulator.generator.fluent.repository.structure.internals.Primitive
+     * A {@link org.palladiosimulator.generator.fluent.repository.structure.internals.Primitive
      * Primitive} data type can have the values '<em><b>boolean</b></em>',
-     * '<em><b>integer</b></em>', '<em><b>string</b></em>',
-     * '<em><b>double</b></em>', '<em><b>long</b></em>', '<em><b>char</b></em>',
-     * '<em><b>byte</b></em>'.
+     * '<em><b>integer</b></em>', '<em><b>string</b></em>', '<em><b>double</b></em>',
+     * '<em><b>long</b></em>', '<em><b>char</b></em>', '<em><b>byte</b></em>'.
      * </p>
      *
      * @param name
      * @param dataType
-     * @param modifier may be null
+     * @param modifier
+     *            may be null
      * @return this operation signature in the making
      * @see org.palladiosimulator.pcm.repository.ParameterModifier
      */
@@ -114,19 +107,18 @@ public class OperationSignatureCreator extends RepositoryEntity {
             final ParameterModifier modifier) {
         IllegalArgumentException.throwIfNull(name, "name must not be null");
         IllegalArgumentException.throwIfNull(dataType, "dataType must not be null");
-        final PrimitiveDataType dt = repository.getPrimitiveDataType(dataType);
+        final PrimitiveDataType dt = this.repository.getPrimitiveDataType(dataType);
         return this.withParameter(name, dt, modifier);
     }
 
     /**
-     * Creates a {@link org.palladiosimulator.pcm.repository.Parameter Parameter}
-     * and adds it to the signature's ordered list of parameters.
+     * Creates a {@link org.palladiosimulator.pcm.repository.Parameter Parameter} and adds it to the
+     * signature's ordered list of parameters.
      * <p>
-     * Each parameter is a tuple of a <code>name</code> and a <code>dataType</code>
-     * (which is unique across the parameters). Optionally, the
-     * <code>modifier</code>s '<em><b>in</b></em>', '<em><b>out</b></em>', and
-     * '<em><b>inout</b></em>' (with its OMG IDL semantics) can be used for
-     * parameters, e.g. <code>ParameterModifier.IN</code>.
+     * Each parameter is a tuple of a <code>name</code> and a <code>dataType</code> (which is unique
+     * across the parameters). Optionally, the <code>modifier</code>s '<em><b>in</b></em>',
+     * '<em><b>out</b></em>', and '<em><b>inout</b></em>' (with its OMG IDL semantics) can be used
+     * for parameters, e.g. <code>ParameterModifier.IN</code>.
      * </p>
      * <p>
      * An existing data type can be fetched from the repository using the
@@ -136,7 +128,8 @@ public class OperationSignatureCreator extends RepositoryEntity {
      *
      * @param name
      * @param dataType
-     * @param modifier may be null
+     * @param modifier
+     *            may be null
      * @return this operation signature in the making
      * @see org.palladiosimulator.generator.fluent.repository.factory.FluentRepositoryFactory#fetchOfDataType(String)
      * @see org.palladiosimulator.pcm.repository.ParameterModifier
@@ -154,14 +147,13 @@ public class OperationSignatureCreator extends RepositoryEntity {
             param.setModifier__Parameter(modifier);
         }
 
-        ownedParameters.add(param);
-        repository.addParameter(param);
+        this.ownedParameters.add(param);
+        this.repository.addParameter(param);
         return this;
     }
 
     /**
-     * Adds the <code>failureType</code> to the operation signature's list of
-     * possible failures.
+     * Adds the <code>failureType</code> to the operation signature's list of possible failures.
      * <p>
      * Failure types can be fetched from the repository using the
      * org.palladiosimulator.generator.fluent.component.factory, i.e.
@@ -174,16 +166,14 @@ public class OperationSignatureCreator extends RepositoryEntity {
      */
     public OperationSignatureCreator withFailureType(final FailureType failureType) {
         IllegalArgumentException.throwIfNull(failureType, "failureType must not be null");
-        failureTypes.add(failureType);
+        this.failureTypes.add(failureType);
         return this;
     }
 
     /**
-     * Adds the <code>failureType</code> to the operation signature's list of
-     * possible failures.
+     * Adds the <code>failureType</code> to the operation signature's list of possible failures.
      * <p>
-     * A
-     * {@link org.palladiosimulator.generator.fluent.repository.structure.internals.Failure
+     * A {@link org.palladiosimulator.generator.fluent.repository.structure.internals.Failure
      * Failure} type can have the values '<em><b>HARDWARE_CPU</b></em>',
      * '<em><b>HARDWARE_HDD</b></em>', '<em><b>HARDWARE_DELAY</b></em>',
      * '<em><b>NETWORK_LAN</b></em>', '<em><b>SOFTWARE</b></em>'.
@@ -194,13 +184,13 @@ public class OperationSignatureCreator extends RepositoryEntity {
      */
     public OperationSignatureCreator withFailureType(final Failure failureType) {
         IllegalArgumentException.throwIfNull(failureType, "failureType must not be null");
-        final FailureType failure = repository.getFailureType(failureType);
+        final FailureType failure = this.repository.getFailureType(failureType);
         return this.withFailureType(failure);
     }
 
     /**
-     * Adds the <code>exceptionType</code> to the operation signature's list of
-     * possible org.palladiosimulator.generator.fluent.exceptions.
+     * Adds the <code>exceptionType</code> to the operation signature's list of possible
+     * org.palladiosimulator.generator.fluent.exceptions.
      * <p>
      * An existing exception type can be fetched from the repository using the
      * org.palladiosimulator.generator.fluent.component.factory, i.e.
@@ -213,20 +203,23 @@ public class OperationSignatureCreator extends RepositoryEntity {
      */
     public OperationSignatureCreator withExceptionType(final ExceptionType exceptionType) {
         IllegalArgumentException.throwIfNull(exceptionType, "exceptionType must not be null");
-        exceptionTypes.add(exceptionType);
+        this.exceptionTypes.add(exceptionType);
         return this;
     }
 
     @Override
     protected OperationSignature build() {
         final OperationSignature ops = RepositoryFactory.eINSTANCE.createOperationSignature();
-        if (name != null) {
-            ops.setEntityName(name);
+        if (this.name != null) {
+            ops.setEntityName(this.name);
         }
-        ops.setReturnType__OperationSignature(returnType);
-        ops.getParameters__OperationSignature().addAll(ownedParameters);
-        ops.getFailureType().addAll(failureTypes);
-        ops.getExceptions__Signature().addAll(exceptionTypes);
+        ops.setReturnType__OperationSignature(this.returnType);
+        ops.getParameters__OperationSignature()
+            .addAll(this.ownedParameters);
+        ops.getFailureType()
+            .addAll(this.failureTypes);
+        ops.getExceptions__Signature()
+            .addAll(this.exceptionTypes);
 
         return ops;
     }

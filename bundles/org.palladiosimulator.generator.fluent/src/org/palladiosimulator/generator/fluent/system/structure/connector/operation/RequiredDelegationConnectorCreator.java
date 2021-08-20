@@ -23,13 +23,13 @@ public class RequiredDelegationConnectorCreator extends AbstractConnectorCreator
     private AssemblyContext requringAssemblyContext;
 
     public RequiredDelegationConnectorCreator(final SystemCreator systemCreator) {
-        system = systemCreator;
+        this.system = systemCreator;
     }
 
     /**
      * Defines the {@link org.palladiosimulator.pcm.repository.OperationRequiredRole
-     * OperationRequiredRole} of the org.palladiosimulator.generator.fluent.system,
-     * delegated to an AssemblyContext.
+     * OperationRequiredRole} of the org.palladiosimulator.generator.fluent.system, delegated to an
+     * AssemblyContext.
      *
      * @param role
      * @return this connector
@@ -37,24 +37,25 @@ public class RequiredDelegationConnectorCreator extends AbstractConnectorCreator
      */
     public RequiredDelegationConnectorCreator withOuterRequiredRole(final OperationRequiredRole role) {
         IllegalArgumentException.throwIfNull(role, "The given Role must not be null.");
-        outerRequiredRole = role;
+        this.outerRequiredRole = role;
         return this;
     }
 
     /**
      * Defines the {@link org.palladiosimulator.pcm.repository.OperationRequiredRole
-     * OperationRequiredRole} of the org.palladiosimulator.generator.fluent.system,
-     * delegated to an AssemblyContext. The required roles added to the
-     * org.palladiosimulator.generator.fluent.system are searched for one that
-     * matches the given name.
+     * OperationRequiredRole} of the org.palladiosimulator.generator.fluent.system, delegated to an
+     * AssemblyContext. The required roles added to the
+     * org.palladiosimulator.generator.fluent.system are searched for one that matches the given
+     * name.
      *
      * @param role
      * @return this connector
-     * @throws NoSuchElementException Thrown if no element matches the given name.
+     * @throws NoSuchElementException
+     *             Thrown if no element matches the given name.
      * @see org.palladiosimulator.pcm.repository.OperationRequiredRole
      */
     public RequiredDelegationConnectorCreator withOuterRequiredRole(final String name) throws NoSuchElementException {
-        final OperationRequiredRole role = system.getSystemOperationRequiredRoleByName(name);
+        final OperationRequiredRole role = this.system.getSystemOperationRequiredRoleByName(name);
         return this.withOuterRequiredRole(role);
     }
 
@@ -80,29 +81,30 @@ public class RequiredDelegationConnectorCreator extends AbstractConnectorCreator
     /**
      * Defines the {@link org.palladiosimulator.pcm.core.composition.AssemblyContext
      * AssemblyContext} with the required role. The assembly contexts added to the
-     * org.palladiosimulator.generator.fluent.system are searched for one that
-     * matches the given name.
+     * org.palladiosimulator.generator.fluent.system are searched for one that matches the given
+     * name.
      *
      * @param name
      * @return this connector
-     * @throws NoSuchElementException Thrown if no element matches the given name.
+     * @throws NoSuchElementException
+     *             Thrown if no element matches the given name.
      * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
      * @see org.palladiosimulator.pcm.repository.OperationRequiredRole
      */
     public OperationRequiredRoleSelector<RequiredDelegationConnectorCreator> withRequiringContext(final String name) {
-        final AssemblyContext context = system.getAssemblyContextByName(name);
+        final AssemblyContext context = this.system.getAssemblyContextByName(name);
         return this.withRequiringContext(context);
     }
 
     @Override
     public RequiredDelegationConnector build() {
         final RequiredDelegationConnector connector = CompositionFactory.eINSTANCE.createRequiredDelegationConnector();
-        if (name != null) {
-            connector.setEntityName(name);
+        if (this.name != null) {
+            connector.setEntityName(this.name);
         }
-        connector.setAssemblyContext_RequiredDelegationConnector(requringAssemblyContext);
-        connector.setOuterRequiredRole_RequiredDelegationConnector(outerRequiredRole);
-        connector.setInnerRequiredRole_RequiredDelegationConnector(innerRequiredRole);
+        connector.setAssemblyContext_RequiredDelegationConnector(this.requringAssemblyContext);
+        connector.setOuterRequiredRole_RequiredDelegationConnector(this.outerRequiredRole);
+        connector.setInnerRequiredRole_RequiredDelegationConnector(this.innerRequiredRole);
         return connector;
     }
 

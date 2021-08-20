@@ -17,11 +17,9 @@ import org.palladiosimulator.pcm.repository.ProvidesComponentType;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
 
 /**
- * This class constructs a
- * {@link org.palladiosimulator.pcm.repository.CompleteComponentType
- * CompleteComponentType}. It is used to create the
- * '<em><b>CompleteComponentType</b></em>' object step-by-step, i.e.
- * '<em><b>CompleteComponentTypeCreator</b></em>' objects are of intermediate
+ * This class constructs a {@link org.palladiosimulator.pcm.repository.CompleteComponentType
+ * CompleteComponentType}. It is used to create the '<em><b>CompleteComponentType</b></em>' object
+ * step-by-step, i.e. '<em><b>CompleteComponentTypeCreator</b></em>' objects are of intermediate
  * state.
  *
  * @author Louisa Lambrecht
@@ -32,8 +30,8 @@ public class CompleteComponentTypeCreator extends Component {
     private final List<ProvidesComponentType> conformsProvidedTypes;
 
     public CompleteComponentTypeCreator(final RepositoryCreator repo) {
-        repository = repo;
-        conformsProvidedTypes = new ArrayList<>();
+        this.repository = repo;
+        this.conformsProvidedTypes = new ArrayList<>();
     }
 
     @Override
@@ -191,14 +189,12 @@ public class CompleteComponentTypeCreator extends Component {
 
     // ------------ type roles ------------
     /**
-     * Creates a conforming (parental) connection to the
-     * <code>providesComponentType</code> and adds it to the complete component
-     * type.
+     * Creates a conforming (parental) connection to the <code>providesComponentType</code> and adds
+     * it to the complete component type.
      * <p>
-     * Provided (Component) Types abstract a component to its provided interfaces,
-     * leaving its requirements and implementation details open. So, provided types
-     * subsume components which offer the same functionality, but with different
-     * implementations.
+     * Provided (Component) Types abstract a component to its provided interfaces, leaving its
+     * requirements and implementation details open. So, provided types subsume components which
+     * offer the same functionality, but with different implementations.
      * </p>
      * <p>
      * The <code>providesComponentType</code> can be created using the
@@ -215,23 +211,20 @@ public class CompleteComponentTypeCreator extends Component {
     public CompleteComponentTypeCreator conforms(final ProvidesComponentTypeCreator providesComponentType) {
         IllegalArgumentException.throwIfNull(providesComponentType, "providesComponentType must not be null");
         final ProvidesComponentType pct = providesComponentType.build();
-        repository.addComponent(pct);
+        this.repository.addComponent(pct);
         return this.conforms(pct);
     }
 
     /**
-     * Creates a conforming (parental) connection to the
-     * <code>providesComponentType</code> and adds it to the complete component
-     * type.
+     * Creates a conforming (parental) connection to the <code>providesComponentType</code> and adds
+     * it to the complete component type.
      * <p>
-     * Provided (Component) Types abstract a component to its provided interfaces,
-     * leaving its requirements and implementation details open. So, provided types
-     * subsume components which offer the same functionality, but with different
-     * implementations.
+     * Provided (Component) Types abstract a component to its provided interfaces, leaving its
+     * requirements and implementation details open. So, provided types subsume components which
+     * offer the same functionality, but with different implementations.
      * </p>
      * <p>
-     * An existing <code>providesComponentType</code> can be fetched from the
-     * repository using the
+     * An existing <code>providesComponentType</code> can be fetched from the repository using the
      * org.palladiosimulator.generator.fluent.component.factory, i.e.
      * <code>create.fetchOfProvidesComponentType(name)</code>.
      * </p>
@@ -244,23 +237,27 @@ public class CompleteComponentTypeCreator extends Component {
      */
     public CompleteComponentTypeCreator conforms(final ProvidesComponentType providesComponentType) {
         IllegalArgumentException.throwIfNull(providesComponentType, "providesComponentType must not be null");
-        conformsProvidedTypes.add(providesComponentType);
+        this.conformsProvidedTypes.add(providesComponentType);
         return this;
     }
 
     @Override
     public CompleteComponentType build() {
         final CompleteComponentType cct = RepositoryFactory.eINSTANCE.createCompleteComponentType();
-        if (name != null) {
-            cct.setEntityName(name);
+        if (this.name != null) {
+            cct.setEntityName(this.name);
             // if (id != null)
             // cct.setId(id);
         }
 
-        cct.getProvidedRoles_InterfaceProvidingEntity().addAll(providedRoles);
-        cct.getRequiredRoles_InterfaceRequiringEntity().addAll(requiredRoles);
-        cct.getResourceRequiredRoles__ResourceInterfaceRequiringEntity().addAll(resourceRequiredRoles);
-        cct.getParentProvidesComponentTypes().addAll(conformsProvidedTypes);
+        cct.getProvidedRoles_InterfaceProvidingEntity()
+            .addAll(this.providedRoles);
+        cct.getRequiredRoles_InterfaceRequiringEntity()
+            .addAll(this.requiredRoles);
+        cct.getResourceRequiredRoles__ResourceInterfaceRequiringEntity()
+            .addAll(this.resourceRequiredRoles);
+        cct.getParentProvidesComponentTypes()
+            .addAll(this.conformsProvidedTypes);
 
         return cct;
     }

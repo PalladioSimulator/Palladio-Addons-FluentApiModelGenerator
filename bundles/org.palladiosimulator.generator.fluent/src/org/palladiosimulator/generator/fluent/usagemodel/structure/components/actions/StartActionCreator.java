@@ -17,7 +17,7 @@ public class StartActionCreator extends ActionCreator {
 
     @Override
     public AbstractUserAction build() {
-        Start start = UsagemodelFactory.eINSTANCE.createStart();
+        final Start start = UsagemodelFactory.eINSTANCE.createStart();
 
         if (this.name != null) {
             start.setEntityName(this.name);
@@ -29,7 +29,7 @@ public class StartActionCreator extends ActionCreator {
     }
 
     @Override
-    public StartActionCreator withSuccessor(ActionCreator action) {
+    public StartActionCreator withSuccessor(final ActionCreator action) {
         return (StartActionCreator) super.withSuccessor(action);
     }
 

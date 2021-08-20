@@ -17,10 +17,9 @@ import org.palladiosimulator.pcm.seff.InternalAction;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 
 /**
- * This class constructs a {@link org.palladiosimulator.pcm.seff.InternalAction
- * InternalAction}. It is used to create the '<em><b>InternalAction</b></em>'
- * object step-by-step, i.e. '<em><b>InternalActionCreator</b></em>' objects are
- * of intermediate state.
+ * This class constructs a {@link org.palladiosimulator.pcm.seff.InternalAction InternalAction}. It
+ * is used to create the '<em><b>InternalAction</b></em>' object step-by-step, i.e.
+ * '<em><b>InternalActionCreator</b></em>' objects are of intermediate state.
  *
  * @author Louisa Lambrecht
  * @see org.palladiosimulator.pcm.seff.InternalAction
@@ -31,10 +30,10 @@ public class InternalActionCreator extends GeneralAction {
 
     protected InternalActionCreator(final SeffCreator seff) {
         this.seff = seff;
-        demands = new ArrayList<>();
-        failures = new ArrayList<>();
-        infrastructureCalls = new ArrayList<>();
-        resourceCalls = new ArrayList<>();
+        this.demands = new ArrayList<>();
+        this.failures = new ArrayList<>();
+        this.infrastructureCalls = new ArrayList<>();
+        this.resourceCalls = new ArrayList<>();
     }
 
     @Override
@@ -43,10 +42,9 @@ public class InternalActionCreator extends GeneralAction {
     }
 
     /**
-     * Creates an internal failure occurrence description with the failure
-     * probability <code>failureProbability</code> of the software induced failure
-     * type <code>failureType</code> and adds it to this action's list of internal
-     * failure occurrence descriptions.
+     * Creates an internal failure occurrence description with the failure probability
+     * <code>failureProbability</code> of the software induced failure type <code>failureType</code>
+     * and adds it to this action's list of internal failure occurrence descriptions.
      *
      * @param failureProbability
      * @param failureType
@@ -57,10 +55,10 @@ public class InternalActionCreator extends GeneralAction {
             final SoftwareInducedFailureType failureType) {
         IllegalArgumentException.throwIfNull(failureType, "failureType must not be null");
         final InternalFailureOccurrenceDescription failure = ReliabilityFactory.eINSTANCE
-                .createInternalFailureOccurrenceDescription();
+            .createInternalFailureOccurrenceDescription();
         failure.setFailureProbability(failureProbability);
         failure.setSoftwareInducedFailureType__InternalFailureOccurrenceDescription(failureType);
-        failures.add(failure);
+        this.failures.add(failure);
         return this;
     }
 
@@ -89,11 +87,15 @@ public class InternalActionCreator extends GeneralAction {
     @Override
     protected InternalAction build() {
         final InternalAction action = SeffFactory.eINSTANCE.createInternalAction();
-        action.getInternalFailureOccurrenceDescriptions__InternalAction().addAll(failures);
+        action.getInternalFailureOccurrenceDescriptions__InternalAction()
+            .addAll(this.failures);
 
-        action.getResourceDemand_Action().addAll(demands);
-        action.getInfrastructureCall__Action().addAll(infrastructureCalls);
-        action.getResourceCall__Action().addAll(resourceCalls);
+        action.getResourceDemand_Action()
+            .addAll(this.demands);
+        action.getInfrastructureCall__Action()
+            .addAll(this.infrastructureCalls);
+        action.getResourceCall__Action()
+            .addAll(this.resourceCalls);
 
         return action;
     }

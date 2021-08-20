@@ -11,9 +11,8 @@ import org.palladiosimulator.pcm.repository.Parameter;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
 
 /**
- * This class constructs an
- * {@link org.palladiosimulator.pcm.repository.EventGroup EventGroup}. It is
- * used to create the '<em><b>EventGroup</b></em>' object step-by-step, i.e.
+ * This class constructs an {@link org.palladiosimulator.pcm.repository.EventGroup EventGroup}. It
+ * is used to create the '<em><b>EventGroup</b></em>' object step-by-step, i.e.
  * '<em><b>EventGroupCreator</b></em>' objects are of intermediate state.
  *
  * @author Louisa Lambrecht
@@ -24,8 +23,8 @@ public class EventGroupCreator extends Interface {
     private final List<EventType> eventTypes;
 
     public EventGroupCreator(final RepositoryCreator repo) {
-        repository = repo;
-        eventTypes = new ArrayList<>();
+        this.repository = repo;
+        this.eventTypes = new ArrayList<>();
     }
 
     @Override
@@ -51,8 +50,8 @@ public class EventGroupCreator extends Interface {
     }
 
     /**
-     * Adds the <code>eventType</code> to this event group's list of event types.
-     * The <code>eventType</code> can be created using the
+     * Adds the <code>eventType</code> to this event group's list of event types. The
+     * <code>eventType</code> can be created using the
      * org.palladiosimulator.generator.fluent.component.factory, i.e.
      * <code>create.newEventType()</code>.
      *
@@ -62,8 +61,8 @@ public class EventGroupCreator extends Interface {
      */
     public EventGroupCreator withEventType(final EventTypeCreator eventType) {
         final EventType build = eventType.build();
-        repository.addSignature(build);
-        eventTypes.add(build);
+        this.repository.addSignature(build);
+        this.eventTypes.add(build);
         return this;
     }
 
@@ -71,22 +70,25 @@ public class EventGroupCreator extends Interface {
     public EventGroup build() {
         final EventGroup eventGroup = RepositoryFactory.eINSTANCE.createEventGroup();
 
-        if (name != null) {
-            eventGroup.setEntityName(name);
+        if (this.name != null) {
+            eventGroup.setEntityName(this.name);
             // if (id != null)
             // eventGroup.setId(id);
         }
 
-        eventGroup.getParentInterfaces__Interface().addAll(parentInterfaces);
-        eventGroup.getRequiredCharacterisations().addAll(requiredCharacterisations);
+        eventGroup.getParentInterfaces__Interface()
+            .addAll(this.parentInterfaces);
+        eventGroup.getRequiredCharacterisations()
+            .addAll(this.requiredCharacterisations);
 
-        eventGroup.getEventTypes__EventGroup().addAll(eventTypes);
+        eventGroup.getEventTypes__EventGroup()
+            .addAll(this.eventTypes);
 
         return eventGroup;
     }
 
     protected void addEventType(final EventType eventType) {
-        eventTypes.add(eventType);
+        this.eventTypes.add(eventType);
     }
 
 }

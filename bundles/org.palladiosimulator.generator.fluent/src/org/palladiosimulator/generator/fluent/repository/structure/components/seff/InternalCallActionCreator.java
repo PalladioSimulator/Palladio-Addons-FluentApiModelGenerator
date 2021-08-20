@@ -17,11 +17,9 @@ import org.palladiosimulator.pcm.seff.ResourceDemandingInternalBehaviour;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 
 /**
- * This class constructs a
- * {@link org.palladiosimulator.pcm.seff.InternalCallAction InternalCallAction}.
- * It is used to create the '<em><b>InternalCallAction</b></em>' object
- * step-by-step, i.e. '<em><b>InternalCallActionCreator</b></em>' objects are of
- * intermediate state.
+ * This class constructs a {@link org.palladiosimulator.pcm.seff.InternalCallAction
+ * InternalCallAction}. It is used to create the '<em><b>InternalCallAction</b></em>' object
+ * step-by-step, i.e. '<em><b>InternalCallActionCreator</b></em>' objects are of intermediate state.
  *
  * @author Louisa Lambrecht
  * @see org.palladiosimulator.pcm.seff.InternalCallAction
@@ -33,10 +31,10 @@ public class InternalCallActionCreator extends GeneralAction {
 
     protected InternalCallActionCreator(final SeffCreator seff) {
         this.seff = seff;
-        demands = new ArrayList<>();
-        infrastructureCalls = new ArrayList<>();
-        resourceCalls = new ArrayList<>();
-        inputVariableUsages = new ArrayList<>();
+        this.demands = new ArrayList<>();
+        this.infrastructureCalls = new ArrayList<>();
+        this.resourceCalls = new ArrayList<>();
+        this.inputVariableUsages = new ArrayList<>();
     }
 
     @Override
@@ -45,8 +43,7 @@ public class InternalCallActionCreator extends GeneralAction {
     }
 
     /**
-     * Adds the <code>variableUsage</code> to this action's list of input variable
-     * usages.
+     * Adds the <code>variableUsage</code> to this action's list of input variable usages.
      *
      * @param variableUsage
      * @return this internal call action in the making
@@ -54,7 +51,7 @@ public class InternalCallActionCreator extends GeneralAction {
      */
     public InternalCallActionCreator withInputVaribleUsage(final VariableUsageCreator variableUsage) {
         IllegalArgumentException.throwIfNull(variableUsage, "variableUsage must not be null");
-        inputVariableUsages.add(variableUsage.build());
+        this.inputVariableUsages.add(variableUsage.build());
         return this;
     }
 
@@ -67,7 +64,7 @@ public class InternalCallActionCreator extends GeneralAction {
      */
     public InternalCallActionCreator withInternalBehaviour(final InternalSeff internalBehaviour) {
         IllegalArgumentException.throwIfNull(internalBehaviour, "internalBehaviour must not be null");
-        internalSeff = internalBehaviour;
+        this.internalSeff = internalBehaviour;
         return this;
     }
 
@@ -98,16 +95,20 @@ public class InternalCallActionCreator extends GeneralAction {
     protected InternalCallAction build() {
         final InternalCallAction action = SeffFactory.eINSTANCE.createInternalCallAction();
 
-        if (internalSeff != null) {
-            final ResourceDemandingInternalBehaviour internal = internalSeff.buildInternalBehaviour();
+        if (this.internalSeff != null) {
+            final ResourceDemandingInternalBehaviour internal = this.internalSeff.buildInternalBehaviour();
             action.setCalledResourceDemandingInternalBehaviour(internal);
         }
 
-        action.getInputVariableUsages__CallAction().addAll(inputVariableUsages);
+        action.getInputVariableUsages__CallAction()
+            .addAll(this.inputVariableUsages);
 
-        action.getResourceDemand_Action().addAll(demands);
-        action.getInfrastructureCall__Action().addAll(infrastructureCalls);
-        action.getResourceCall__Action().addAll(resourceCalls);
+        action.getResourceDemand_Action()
+            .addAll(this.demands);
+        action.getInfrastructureCall__Action()
+            .addAll(this.infrastructureCalls);
+        action.getResourceCall__Action()
+            .addAll(this.resourceCalls);
 
         return action;
     }

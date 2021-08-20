@@ -17,7 +17,7 @@ public class StopActionCreator extends ActionCreator {
 
     @Override
     public AbstractUserAction build() {
-        Stop stop = UsagemodelFactory.eINSTANCE.createStop();
+        final Stop stop = UsagemodelFactory.eINSTANCE.createStop();
 
         if (this.name != null) {
             stop.setEntityName(this.name);

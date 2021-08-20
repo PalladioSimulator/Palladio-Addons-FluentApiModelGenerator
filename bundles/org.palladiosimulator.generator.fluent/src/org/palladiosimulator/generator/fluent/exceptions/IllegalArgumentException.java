@@ -1,8 +1,7 @@
 package org.palladiosimulator.generator.fluent.exceptions;
 
 /**
- * Thrown by various accessor methods to indicate that the element being
- * requested does not exist.
+ * Thrown by various accessor methods to indicate that the element being requested does not exist.
  *
  * @author Yves Kirschner
  */
@@ -13,104 +12,112 @@ public class IllegalArgumentException extends FluentApiException {
     private static final String DEFAULT_MESSAGE = "IllegalArgumentException";
 
     /**
-     * Checks that the specified object reference is not {@code null}. This method
-     * is designed primarily for doing parameter validation in methods and
-     * constructors.
+     * Checks that the specified object reference is not {@code null}. This method is designed
+     * primarily for doing parameter validation in methods and constructors.
      *
-     * @param obj the object reference to check for nullity
-     * @param <T> the type of the reference
+     * @param obj
+     *            the object reference to check for nullity
+     * @param <T>
+     *            the type of the reference
      * @return {@code obj} if not {@code null}
-     * @throws IllegalArgumentException if {@code obj} is {@code null}
+     * @throws IllegalArgumentException
+     *             if {@code obj} is {@code null}
      */
-    public static <T> T throwIfNull(T obj) throws IllegalArgumentException {
-        return throwIfNull(obj, DEFAULT_MESSAGE);
+    public static <T> T throwIfNull(final T obj) throws IllegalArgumentException {
+        return IllegalArgumentException.throwIfNull(obj, IllegalArgumentException.DEFAULT_MESSAGE);
     }
 
     /**
-     * Checks that the specified object reference is not {@code null} and throws a
-     * customized {@code FluentApiException} if it is. This method is designed
-     * primarily for doing parameter validation in methods and constructors with
-     * multiple parameters.
+     * Checks that the specified object reference is not {@code null} and throws a customized
+     * {@code FluentApiException} if it is. This method is designed primarily for doing parameter
+     * validation in methods and constructors with multiple parameters.
      *
-     * @param obj     the object reference to check for nullity
-     * @param message detail message to be used in the event that a {@code
+     * @param obj
+     *            the object reference to check for nullity
+     * @param message
+     *            detail message to be used in the event that a {@code
      *                IllegalArgumentException} is thrown
-     * @param <T>     the type of the reference
+     * @param <T>
+     *            the type of the reference
      * @return {@code obj} if not {@code null}
-     * @throws IllegalArgumentException if {@code obj} is {@code null}
+     * @throws IllegalArgumentException
+     *             if {@code obj} is {@code null}
      */
-    public static <T> T throwIfNull(T obj, String message) throws IllegalArgumentException {
-        return requireNonNull(obj, () -> new IllegalArgumentException(message));
+    public static <T> T throwIfNull(final T obj, final String message) throws IllegalArgumentException {
+        return FluentApiException.requireNonNull(obj, () -> new IllegalArgumentException(message));
     }
 
     /**
-     * Constructs a new {@code IllegalArgumentException} with {@code null} as its
-     * detail message.
+     * Constructs a new {@code IllegalArgumentException} with {@code null} as its detail message.
      */
     public IllegalArgumentException() {
-        super(DEFAULT_MESSAGE);
+        super(IllegalArgumentException.DEFAULT_MESSAGE);
     }
 
     /**
-     * Constructs a new {@code IllegalArgumentException} with the specified detail
-     * message. The cause is not initialized, and may subsequently be initialized by
-     * a call to {@link #initCause}.
+     * Constructs a new {@code IllegalArgumentException} with the specified detail message. The
+     * cause is not initialized, and may subsequently be initialized by a call to
+     * {@link #initCause}.
      *
-     * @param message the detail message. The detail message is saved for later
-     *                retrieval by the {@link #getMessage()} method.
+     * @param message
+     *            the detail message. The detail message is saved for later retrieval by the
+     *            {@link #getMessage()} method.
      */
-    public IllegalArgumentException(String message) {
+    public IllegalArgumentException(final String message) {
         super(message);
     }
 
     /**
-     * Constructs a new {@code IllegalArgumentException} with the specified detail
-     * message and cause.
+     * Constructs a new {@code IllegalArgumentException} with the specified detail message and
+     * cause.
      * <p>
-     * Note that the detail message associated with {@code cause} is <i>not</i>
-     * automatically incorporated in this runtime exception's detail message.
+     * Note that the detail message associated with {@code cause} is <i>not</i> automatically
+     * incorporated in this runtime exception's detail message.
      *
-     * @param message the detail message (which is saved for later retrieval by the
-     *                {@link #getMessage()} method).
-     * @param cause   the cause (which is saved for later retrieval by the
-     *                {@link #getCause()} method). (A {@code null} value is
-     *                permitted, and indicates that the cause is nonexistent or
-     *                unknown.)
+     * @param message
+     *            the detail message (which is saved for later retrieval by the
+     *            {@link #getMessage()} method).
+     * @param cause
+     *            the cause (which is saved for later retrieval by the {@link #getCause()} method).
+     *            (A {@code null} value is permitted, and indicates that the cause is nonexistent or
+     *            unknown.)
      */
-    public IllegalArgumentException(String message, Throwable cause) {
+    public IllegalArgumentException(final String message, final Throwable cause) {
         super(message, cause);
     }
 
     /**
-     * Constructs a new {@code IllegalArgumentException} with the specified cause
-     * and a detail message of {@code (cause==null ? null : cause.toString())}
-     * (which typically contains the class and detail message of {@code cause}).
-     * This constructor is useful for runtime
-     * org.palladiosimulator.generator.fluent.exceptions that are little more than
-     * wrappers for other throwables.
+     * Constructs a new {@code IllegalArgumentException} with the specified cause and a detail
+     * message of {@code (cause==null ? null : cause.toString())} (which typically contains the
+     * class and detail message of {@code cause}). This constructor is useful for runtime
+     * org.palladiosimulator.generator.fluent.exceptions that are little more than wrappers for
+     * other throwables.
      *
-     * @param cause the cause (which is saved for later retrieval by the
-     *              {@link #getCause()} method). (A {@code null} value is permitted,
-     *              and indicates that the cause is nonexistent or unknown.)
+     * @param cause
+     *            the cause (which is saved for later retrieval by the {@link #getCause()} method).
+     *            (A {@code null} value is permitted, and indicates that the cause is nonexistent or
+     *            unknown.)
      */
-    public IllegalArgumentException(Throwable cause) {
+    public IllegalArgumentException(final Throwable cause) {
         super(cause);
     }
 
     /**
-     * Constructs a new {@code IllegalArgumentException} with the specified detail
-     * message, cause, suppression enabled or disabled, and writable stack trace
-     * enabled or disabled.
+     * Constructs a new {@code IllegalArgumentException} with the specified detail message, cause,
+     * suppression enabled or disabled, and writable stack trace enabled or disabled.
      *
-     * @param message            the detail message.
-     * @param cause              the cause. (A {@code null} value is permitted, and
-     *                           indicates that the cause is nonexistent or
-     *                           unknown.)
-     * @param enableSuppression  whether or not suppression is enabled or disabled
-     * @param writableStackTrace whether or not the stack trace should be writable
+     * @param message
+     *            the detail message.
+     * @param cause
+     *            the cause. (A {@code null} value is permitted, and indicates that the cause is
+     *            nonexistent or unknown.)
+     * @param enableSuppression
+     *            whether or not suppression is enabled or disabled
+     * @param writableStackTrace
+     *            whether or not the stack trace should be writable
      */
-    protected IllegalArgumentException(String message, Throwable cause, boolean enableSuppression,
-            boolean writableStackTrace) {
+    protected IllegalArgumentException(final String message, final Throwable cause, final boolean enableSuppression,
+            final boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
 

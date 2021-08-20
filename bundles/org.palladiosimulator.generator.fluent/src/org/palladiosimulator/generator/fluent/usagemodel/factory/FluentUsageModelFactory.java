@@ -49,7 +49,7 @@ import org.palladiosimulator.pcm.system.System;
  */
 public class FluentUsageModelFactory {
     private UsageModelCreator usgModelCreator;
-    private List<System> systems;
+    private final List<System> systems;
 
     /**
      * Creates an instance of the FluentUsageModelFactory.
@@ -67,7 +67,7 @@ public class FluentUsageModelFactory {
      *            {@link org.palladiosimulator.pcm.system.System System}
      * @see org.palladiosimulator.pcm.system.System
      */
-    public FluentUsageModelFactory addSystem(System system) {
+    public FluentUsageModelFactory addSystem(final System system) {
         this.systems.add(system);
         return this;
     }
@@ -114,9 +114,10 @@ public class FluentUsageModelFactory {
      *            WorkloadCreator}
      * @return the usage scenario in the making
      * @see org.palladiosimulator.pcm.usagemodel.UsageScenario
-     * 
+     *
      */
-    public UsageScenarioCreator newUsageScenario(ScenarioBehaviourCreator scenarioBehavior, WorkloadCreator workload) {
+    public UsageScenarioCreator newUsageScenario(final ScenarioBehaviourCreator scenarioBehavior,
+            final WorkloadCreator workload) {
         return new UsageScenarioCreator(this.usgModelCreator, scenarioBehavior, workload);
     }
 
@@ -149,7 +150,7 @@ public class FluentUsageModelFactory {
      * @see org.palladiosimulator.pcm.parameter.VariableUsage
      * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
      */
-    public UserDataCreator newUserData(AssemblyContext context) {
+    public UserDataCreator newUserData(final AssemblyContext context) {
         return new UserDataCreator(this.usgModelCreator, context);
     }
 
@@ -245,7 +246,7 @@ public class FluentUsageModelFactory {
      * @see org.palladiosimulator.pcm.usagemodel.BranchTransition
      * @see org.palladiosimulator.pcm.usagemodel.ScenarioBehaviour
      */
-    public BranchTransitionCreator newBranchTransition(ScenarioBehaviourCreator branchedBehaviour) {
+    public BranchTransitionCreator newBranchTransition(final ScenarioBehaviourCreator branchedBehaviour) {
         return new BranchTransitionCreator(branchedBehaviour);
     }
 
@@ -273,7 +274,7 @@ public class FluentUsageModelFactory {
      * @see org.palladiosimulator.pcm.usagemodel.AbstractUserAction
      * @see org.palladiosimulator.pcm.usagemodel.Delay
      */
-    public DelayActionCreator newDelayAction(String timeSpecification) {
+    public DelayActionCreator newDelayAction(final String timeSpecification) {
         return new DelayActionCreator(timeSpecification);
     }
 
@@ -323,7 +324,7 @@ public class FluentUsageModelFactory {
      * @see org.palladiosimulator.pcm.repository.OperationProvidedRole
      * @see org.palladiosimulator.pcm.repository.OperationSignature
      */
-    private EntryLevelSystemCallCreator newEntryLevelSystemCall(OperationProvidedRole operationProvidedRole,
+    private EntryLevelSystemCallCreator newEntryLevelSystemCall(final OperationProvidedRole operationProvidedRole,
             final OperationSignature operationSignature) {
         if (!operationProvidedRole.getProvidedInterface__OperationProvidedRole()
             .getSignatures__OperationInterface()
@@ -334,7 +335,7 @@ public class FluentUsageModelFactory {
         return new EntryLevelSystemCallCreator(operationSignature, operationProvidedRole);
     }
 
-    public EntryLevelSystemCallCreator newEntryLevelSystemCall(OperationProvidedSignatureRole operationProvided) {
+    public EntryLevelSystemCallCreator newEntryLevelSystemCall(final OperationProvidedSignatureRole operationProvided) {
         return newEntryLevelSystemCall(operationProvided.getRole(), operationProvided.getSignature());
     }
 
@@ -366,7 +367,7 @@ public class FluentUsageModelFactory {
      * @see org.palladiosimulator.pcm.usagemodel.Loop
      * @see org.palladiosimulator.pcm.usagemodel.ScenarioBehaviour
      */
-    public LoopActionCreator newLoopAction(String iteration, ScenarioBehaviourCreator bodyBehaviour) {
+    public LoopActionCreator newLoopAction(final String iteration, final ScenarioBehaviourCreator bodyBehaviour) {
         return new LoopActionCreator(iteration, bodyBehaviour);
     }
 
@@ -437,7 +438,7 @@ public class FluentUsageModelFactory {
      * @see org.palladiosimulator.pcm.usagemodel.Workload
      * @see org.palladiosimulator.pcm.usagemodel.ClosedWorkload
      */
-    public ClosedWorkloadCreator newClosedWorkload(String thinkTime) {
+    public ClosedWorkloadCreator newClosedWorkload(final String thinkTime) {
         return new ClosedWorkloadCreator(this.usgModelCreator, thinkTime);
     }
 
@@ -461,7 +462,7 @@ public class FluentUsageModelFactory {
      * @see org.palladiosimulator.pcm.usagemodel.Workload
      * @see org.palladiosimulator.pcm.usagemodel.OpenWorkload
      */
-    public OpenWorkloadCreator newOpenWorkload(String interArrivalTime) {
+    public OpenWorkloadCreator newOpenWorkload(final String interArrivalTime) {
         return new OpenWorkloadCreator(this.usgModelCreator, interArrivalTime);
     }
 
@@ -484,7 +485,7 @@ public class FluentUsageModelFactory {
      * name},
      * {@link org.palladiosimulator.generator.fluent.shared.components.VariableUsageCreator#withVariableCharacterisation(String,VariableCharacterisationType)
      * variable characterisation} and needs a mandatory namespace reference and inner references.
-     * 
+     *
      * </p>
      *
      * @param namespaceReference
@@ -496,7 +497,7 @@ public class FluentUsageModelFactory {
      * @see org.palladiosimulator.pcm.parameter.VariableCharacterisation
      * @see de.uka.ipd.sdq.stoex.NamespaceReference
      */
-    public VariableUsageCreator newVariableUsage(String namespaceReference, String... innerReferences) {
+    public VariableUsageCreator newVariableUsage(final String namespaceReference, final String... innerReferences) {
         return new VariableUsageCreator(namespaceReference, innerReferences);
     }
 
@@ -517,7 +518,7 @@ public class FluentUsageModelFactory {
      * name},
      * {@link org.palladiosimulator.generator.fluent.shared.components.VariableUsageCreator#withVariableCharacterisation(String,VariableCharacterisationType)
      * variable characterisation} and needs a mandatory variable reference.
-     * 
+     *
      * </p>
      *
      * @param variableReference
@@ -527,7 +528,7 @@ public class FluentUsageModelFactory {
      * @see org.palladiosimulator.pcm.parameter.VariableCharacterisation
      * @see de.uka.ipd.sdq.stoex.VariableReference
      */
-    public VariableUsageCreator newVariableUsage(String variableReference) {
+    public VariableUsageCreator newVariableUsage(final String variableReference) {
         return new VariableUsageCreator(variableReference);
     }
 
@@ -545,11 +546,11 @@ public class FluentUsageModelFactory {
      * @return the assembly context
      * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
      */
-    public AssemblyContext fetchOffAssemblyContextByName(String name) {
+    public AssemblyContext fetchOffAssemblyContextByName(final String name) {
         if (this.systems.isEmpty()) {
             throw new IllegalArgumentException("The referred System was not set correctly in FluentUsageModelFactory");
         }
-        System system = this.systems.get(0); // TODO
+        final System system = this.systems.get(0); // TODO
         return system.getAssemblyContexts__ComposedStructure()
             .stream()
             .filter(x -> x.getEntityName()
@@ -570,15 +571,15 @@ public class FluentUsageModelFactory {
      * @return the operation provided role
      * @see org.palladiosimulator.pcm.repository.OperationProvidedRole
      */
-    private OperationProvidedRole fetchOffOperationProvidedRoleByName(String name) {
+    private OperationProvidedRole fetchOffOperationProvidedRoleByName(final String name) {
         if (this.systems.isEmpty()) {
             throw new IllegalArgumentException("The referred System was not set correctly in FluentUsageModelFactory");
         }
-        System system = this.systems.get(0); // TODO
+        final System system = this.systems.get(0); // TODO
 
         OperationProvidedRole role = null;
 
-        ProvidedRole r = system.getProvidedRoles_InterfaceProvidingEntity()
+        final ProvidedRole r = system.getProvidedRoles_InterfaceProvidingEntity()
             .stream()
             .filter(x -> x.getEntityName()
                 .equals(name))
@@ -611,11 +612,11 @@ public class FluentUsageModelFactory {
      * @see org.palladiosimulator.pcm.repository.OperationProvidedRole
      * @see org.palladiosimulator.generator.fluent.usagemodel.factory.OperationProvidedSignatureRole
      */
-    public OperationProvidedSignatureRole fetchOffOperationRoleAndSignature(String operationProvidedRole,
-            String operationSignature) {
+    public OperationProvidedSignatureRole fetchOffOperationRoleAndSignature(final String operationProvidedRole,
+            final String operationSignature) {
 
-        OperationProvidedRole role = fetchOffOperationProvidedRoleByName(operationProvidedRole);
-        OperationSignature sig = role.getProvidedInterface__OperationProvidedRole()
+        final OperationProvidedRole role = fetchOffOperationProvidedRoleByName(operationProvidedRole);
+        final OperationSignature sig = role.getProvidedInterface__OperationProvidedRole()
             .getSignatures__OperationInterface()
             .stream()
             .filter(x -> x.getEntityName()

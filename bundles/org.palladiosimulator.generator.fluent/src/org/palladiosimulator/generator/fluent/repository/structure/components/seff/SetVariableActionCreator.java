@@ -15,11 +15,9 @@ import org.palladiosimulator.pcm.seff.SeffFactory;
 import org.palladiosimulator.pcm.seff.SetVariableAction;
 
 /**
- * This class constructs a
- * {@link org.palladiosimulator.pcm.seff.SetVariableAction SetVariableAction}.
- * It is used to create the '<em><b>SetVariableAction</b></em>' object
- * step-by-step, i.e. '<em><b>SetVariableActionCreator</b></em>' objects are of
- * intermediate state.
+ * This class constructs a {@link org.palladiosimulator.pcm.seff.SetVariableAction
+ * SetVariableAction}. It is used to create the '<em><b>SetVariableAction</b></em>' object
+ * step-by-step, i.e. '<em><b>SetVariableActionCreator</b></em>' objects are of intermediate state.
  *
  * @author Louisa Lambrecht
  * @see org.palladiosimulator.pcm.seff.SetVariableAction
@@ -30,7 +28,7 @@ public class SetVariableActionCreator extends GeneralAction {
 
     protected SetVariableActionCreator(final SeffCreator seff) {
         this.seff = seff;
-        localVariableUsages = new ArrayList<>();
+        this.localVariableUsages = new ArrayList<>();
     }
 
     @Override
@@ -39,8 +37,7 @@ public class SetVariableActionCreator extends GeneralAction {
     }
 
     /**
-     * Adds the <code>variableUsage</code> to this action's list of local variable
-     * usages.
+     * Adds the <code>variableUsage</code> to this action's list of local variable usages.
      *
      * @param variableUsage
      * @return this set variable action in the making
@@ -48,7 +45,7 @@ public class SetVariableActionCreator extends GeneralAction {
      */
     public SetVariableActionCreator withLocalVariableUsage(final VariableUsageCreator variableUsage) {
         IllegalArgumentException.throwIfNull(variableUsage, "variableUsage must not be null");
-        localVariableUsages.add(variableUsage.build());
+        this.localVariableUsages.add(variableUsage.build());
         return this;
     }
 
@@ -79,15 +76,19 @@ public class SetVariableActionCreator extends GeneralAction {
     protected SetVariableAction build() {
         final SetVariableAction action = SeffFactory.eINSTANCE.createSetVariableAction();
 
-        if (name != null) {
+        if (this.name != null) {
             action.getEntityName();
         }
 
-        action.getLocalVariableUsages_SetVariableAction().addAll(localVariableUsages);
+        action.getLocalVariableUsages_SetVariableAction()
+            .addAll(this.localVariableUsages);
 
-        action.getInfrastructureCall__Action().addAll(infrastructureCalls);
-        action.getResourceCall__Action().addAll(resourceCalls);
-        action.getResourceDemand_Action().addAll(demands);
+        action.getInfrastructureCall__Action()
+            .addAll(this.infrastructureCalls);
+        action.getResourceCall__Action()
+            .addAll(this.resourceCalls);
+        action.getResourceDemand_Action()
+            .addAll(this.demands);
         return action;
     }
 }

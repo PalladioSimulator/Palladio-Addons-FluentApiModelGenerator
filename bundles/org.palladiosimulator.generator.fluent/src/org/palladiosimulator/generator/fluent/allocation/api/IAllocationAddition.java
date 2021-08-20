@@ -15,10 +15,8 @@ public interface IAllocationAddition {
     Allocation createAllocationNow();
 
     /**
-     * Defines the
-     * {@link org.palladiosimulator.pcm.resourceenvironment.ResourceEnvironment
-     * ResourceEnvironmet} used for the
-     * org.palladiosimulator.generator.fluent.allocation.
+     * Defines the {@link org.palladiosimulator.pcm.resourceenvironment.ResourceEnvironment
+     * ResourceEnvironmet} used for the org.palladiosimulator.generator.fluent.allocation.
      *
      * @param environment
      * @return this org.palladiosimulator.generator.fluent.allocation
@@ -27,8 +25,8 @@ public interface IAllocationAddition {
     IAllocationAddition withResourceEnvironment(ResourceEnvironment environment);
 
     /**
-     * Defines the {@link org.palladiosimulator.pcm.system.System System} used for
-     * the org.palladiosimulator.generator.fluent.allocation.
+     * Defines the {@link org.palladiosimulator.pcm.system.System System} used for the
+     * org.palladiosimulator.generator.fluent.allocation.
      *
      * @param org.palladiosimulator.generator.fluent.system
      * @return this org.palladiosimulator.generator.fluent.allocation
@@ -37,9 +35,9 @@ public interface IAllocationAddition {
     IAllocationAddition withSystem(System system);
 
     /**
-     * Adds an {@link org.palladiosimulator.pcm.allocation.AllocationContext
-     * AllocationContext} to the org.palladiosimulator.generator.fluent.allocation.
-     * The creator will be turned into a finished context.
+     * Adds an {@link org.palladiosimulator.pcm.allocation.AllocationContext AllocationContext} to
+     * the org.palladiosimulator.generator.fluent.allocation. The creator will be turned into a
+     * finished context.
      *
      * @param allocationContext
      * @return this org.palladiosimulator.generator.fluent.allocation
