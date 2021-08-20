@@ -1,5 +1,7 @@
 package org.palladiosimulator.generator.fluent.usagemodel.factory;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -49,14 +51,14 @@ import org.palladiosimulator.pcm.system.System;
  */
 public class FluentUsageModelFactory {
     private UsageModelCreator usgModelCreator;
-    private System system;
+    private List<System> systeme;
 
     /**
      * Creates an instance of the FluentUsageModelFactory.
      */
     public FluentUsageModelFactory() {
         EcorePlugin.ExtensionProcessor.process(null);
-        system = null;
+        this.systeme = new ArrayList<System>();
     }
 
     /**
@@ -66,8 +68,8 @@ public class FluentUsageModelFactory {
      * @param system {@link org.palladiosimulator.pcm.system.System System}
      * @see org.palladiosimulator.pcm.system.System
      */
-    public FluentUsageModelFactory setSystem(System system) {
-        this.system = system;
+    public FluentUsageModelFactory addSystem(System system) {
+        this.systeme.add(system);
         return this;
     }
 
@@ -330,14 +332,19 @@ public class FluentUsageModelFactory {
      * @see org.palladiosimulator.pcm.repository.OperationProvidedRole
      * @see org.palladiosimulator.pcm.repository.OperationSignature
      */
+    @Deprecated
     public EntryLevelSystemCallCreator newEntryLevelSystemCall(OperationProvidedRole operationProvidedRole,
-            OperationSignature operationSignature) {
+            final OperationSignature operationSignature) {
         if (!operationProvidedRole.getProvidedInterface__OperationProvidedRole().getSignatures__OperationInterface()
                 .contains(operationSignature)) {
-            new IllegalArgumentException("No OperationSignature with name " + operationSignature.getEntityName()
+            throw new IllegalArgumentException("No OperationSignature with name " + operationSignature.getEntityName()
                     + " for OperationProvidedRole " + operationProvidedRole.getEntityName() + " exits.");
         }
         return new EntryLevelSystemCallCreator(operationSignature, operationProvidedRole);
+    }
+
+    public EntryLevelSystemCallCreator newEntryLevelSystemCall(OperationProvidedSignatureRole operationProvided) {
+        return newEntryLevelSystemCall(operationProvided.getRole(), operationProvided.getSignature());
     }
 
     /**
@@ -553,8 +560,10 @@ public class FluentUsageModelFactory {
      * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
      */
     public AssemblyContext fetchOffAssemblyContextByName(String name) {
-        IllegalArgumentException.throwIfNull(system,
-                "The referred System was not set correctly in FluentUsageModelFactory");
+        if (this.systeme.isEmpty()) {
+            throw new IllegalArgumentException("The referred System was not set correctly in FluentUsageModelFactory");
+        }
+        System system = systeme.get(0); //TODO
         return system.getAssemblyContexts__ComposedStructure().stream().filter(x -> x.getEntityName().equals(name))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("No AssemblyContext with name " + name + " found."));
@@ -575,9 +584,11 @@ public class FluentUsageModelFactory {
      * @return the operation provided role
      * @see org.palladiosimulator.pcm.repository.OperationProvidedRole
      */
-    public OperationProvidedRole fetchOffOperationProvidedRoleByName(String name) {
-        IllegalArgumentException.throwIfNull(system,
-                "The referred System was not set correctly in FluentUsageModelFactory");
+    private OperationProvidedRole fetchOffOperationProvidedRoleByName(String name) {
+        if (this.systeme.isEmpty()) {
+            throw new IllegalArgumentException("The referred System was not set correctly in FluentUsageModelFactory");
+        }
+        System system = systeme.get(0); //TODO
 
         OperationProvidedRole role = null;
 
@@ -613,7 +624,9 @@ public class FluentUsageModelFactory {
      * @return the operation signature
      * @see org.palladiosimulator.pcm.repository.OperationSignature
      */
-    public OperationSignature fetchOffOperationSignatureByName(String operationProvidedRole,
+    // TODO
+    @Deprecated
+    private OperationSignature fetchOffOperationSignatureByName(String operationProvidedRole,
             String operationSignature) {
         String name = operationSignature;
 
@@ -624,5 +637,18 @@ public class FluentUsageModelFactory {
                         + " for OperationProvidedRole " + operationProvidedRole + " found."));
 
         return sig;
+    }
+
+    // TODO: JavaDoc
+    public OperationProvidedSignatureRole fetchOffOperationRoleAndSignature(String operationProvidedRole,
+            String operationSignature) {
+
+        OperationProvidedRole role = fetchOffOperationProvidedRoleByName(operationProvidedRole);
+        OperationSignature sig = role.getProvidedInterface__OperationProvidedRole().getSignatures__OperationInterface()
+                .stream().filter(x -> x.getEntityName().equals(operationSignature)).findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("No OperationSignature with name " + operationSignature
+                        + " for OperationProvidedRole " + operationProvidedRole + " found."));
+
+        return new OperationProvidedSignatureRole(role, sig);
     }
 }

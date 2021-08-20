@@ -166,36 +166,36 @@ public class FluentUsageModelFactoryTest {
     public void mediaStore_Realistic() {
         //Building MediaStore3-Model: ms_base_usage_realistic.usagemodel and needed System and Repository for that
         setUp();
-        UsageModel usgModel = create.setSystem(mediaStoreMockUp()).newUsageModel().addToUsageModel(
+        UsageModel usgModel = create.addSystem(mediaStoreMockUp()).newUsageModel().addToUsageModel(
                 create.newUsageScenario(
                         create.newScenarioBehavior().withName("RealisticUsageScenarioBehaviour")
                         .addToScenarioBehaviour(
                                 create.newStartAction().withName("startUsage").withSuccessor(
                                 create.newBranchAction().withName("isRegistered")
                                     .addToBranchAction(create.newBranchTransition(create.newScenarioBehavior().addToScenarioBehaviour(
-                                            create.newEntryLevelSystemCall(create.fetchOffOperationProvidedRoleByName("Provided_IWebGui"),create.fetchOffOperationSignatureByName("Provided_IWebGui", "register")).withName("register"))
+                                            create.newEntryLevelSystemCall(create.fetchOffOperationRoleAndSignature("Provided_IWebGui", "register")).withName("register"))
                                             .withName("needsToRegister")).withProbability(0.6))
                                     .addToBranchAction(create.newBranchTransition(create.newScenarioBehavior().withName("isAlreadyRegistered")
                                             ).withProbability(0.4)).withSuccessor(                                
                                 create.newEntryLevelSystemCall(
-                                        create.fetchOffOperationProvidedRoleByName("Provided_IWebGui"),create.fetchOffOperationSignatureByName("Provided_IWebGui","login"))
+                                        create.fetchOffOperationRoleAndSignature("Provided_IWebGui","login"))
                                         .withName("login").withSuccessor(
                                 create.newDelayAction("GammaMoments(3000,0.3)").withName("userDelayAfterLogin").withSuccessor(
                                 create.newEntryLevelSystemCall(
-                                        create.fetchOffOperationProvidedRoleByName("Provided_IWebGui"),create.fetchOffOperationSignatureByName("Provided_IWebGui","getFileList"))
+                                        create.fetchOffOperationRoleAndSignature("Provided_IWebGui","getFileList"))
                                         .withName("getFileList").withSuccessor(
                                 create.newDelayAction("GammaMoments(6000,0.3)").withName("userDelayAfterGetFileList").withSuccessor(
                                 create.newBranchAction().withName("downloadOrUpload")
                                     .addToBranchAction(create.newBranchTransition(create.newScenarioBehavior().withName("downloadCase")
                                             .addToScenarioBehaviour(create.newEntryLevelSystemCall(
-                                                    create.fetchOffOperationProvidedRoleByName("Provided_IWebGui"),create.fetchOffOperationSignatureByName("Provided_IWebGui","download"))
+                                                    create.fetchOffOperationRoleAndSignature("Provided_IWebGui","download"))
                                                     .withName("download")
                                                     .addToEntryLevelSystemCallInput(create.newVariableUsage("audioRequest", "Size").withVariableCharacterisation("IntPMF[(38303999;0.16666667)(38304000;0.16666667)(40568000;0.16666667)(41544000;0.16666667)(48280000;0.16666666)(65000000;0.16666667)(88216000;0.16666666)]", org.palladiosimulator.pcm.parameter.VariableCharacterisationType.BYTESIZE))
                                                     .addToEntryLevelSystemCallInput(create.newVariableUsage("audioRequest", "Count").withVariableCharacterisation("2", VariableCharacterisationType.VALUE))
                                                     )).withProbability(0.8))
                                     .addToBranchAction(create.newBranchTransition(create.newScenarioBehavior().withName("uploadCase")
                                             .addToScenarioBehaviour(create.newEntryLevelSystemCall(
-                                                    create.fetchOffOperationProvidedRoleByName("Provided_IWebGui"),create.fetchOffOperationSignatureByName("Provided_IWebGui","upload"))
+                                                    create.fetchOffOperationRoleAndSignature("Provided_IWebGui","upload"))
                                                     .withName("upload").addToEntryLevelSystemCallInput(create.newVariableUsage("file").withVariableCharacterisation("IntPMF[(38303999;0.16666667)(38304000;0.16666667)(40568000;0.16666667)(41544000;0.16666667)(48280000;0.16666666)(65000000;0.16666667)(88216000;0.16666666)]", org.palladiosimulator.pcm.parameter.VariableCharacterisationType.BYTESIZE))
                                                     )).withProbability(0.2)).withSuccessor(
                                 create.newStopAction().withName("stopUsage"))))))))),
@@ -293,13 +293,13 @@ public class FluentUsageModelFactoryTest {
         String operSigName = "opSignatureGUIInterface";
         String provRoleName = "SystemProvidesGUIInterface";
                
-        UsageModel usgModel = create.setSystem(createSimplifiedMediaStoreSystem())
+        UsageModel usgModel = create.addSystem(createSimplifiedMediaStoreSystem())
                 .newUsageModel().addToUsageModel(create.newUsageScenario(
                         create.newScenarioBehavior()  
                         .addToScenarioBehaviour(create.newStartAction()
                                 .withSuccessor(create.newDelayAction("10")
                                 .withSuccessor(create.newBranchAction()
-                                .withSuccessor(create.newEntryLevelSystemCall(create.fetchOffOperationProvidedRoleByName(provRoleName), create.fetchOffOperationSignatureByName(provRoleName, operSigName))
+                                .withSuccessor(create.newEntryLevelSystemCall(create.fetchOffOperationRoleAndSignature(provRoleName, operSigName))
                                 .withSuccessor(create.newLoopAction("1", create.newScenarioBehavior())
                                 .withSuccessor(create.newStopAction())))
     ))),create.newOpenWorkload("0")))
@@ -430,11 +430,11 @@ public class FluentUsageModelFactoryTest {
         String provRoleName = "SystemProvidesGUIInterface";
         
         setUp();
-        UsageModel usgModel = create.setSystem(createSimplifiedMediaStoreSystem())
+        UsageModel usgModel = create.addSystem(createSimplifiedMediaStoreSystem())
                 .newUsageModel().addToUsageModel(
                 create.newUsageScenario(
                         create.newScenarioBehavior().addToScenarioBehaviour(
-                                create.newEntryLevelSystemCall(create.fetchOffOperationProvidedRoleByName(provRoleName), create.fetchOffOperationSignatureByName(provRoleName, operSigName))
+                                create.newEntryLevelSystemCall(create.fetchOffOperationRoleAndSignature(provRoleName, operSigName))
                                     .withName(name)
                                     .addToEntryLevelSystemCallInput(create.newVariableUsage("TestReferenz"))
                                     .addToEntryLevelSystemCallOutput(create.newVariableUsage("TestReferenz"))
@@ -470,7 +470,7 @@ public class FluentUsageModelFactoryTest {
     
         setUp();
         
-        UsageModel usgModel = create.setSystem(createSimplifiedMediaStoreSystem()).newUsageModel().addToUsageModel(
+        UsageModel usgModel = create.addSystem(createSimplifiedMediaStoreSystem()).newUsageModel().addToUsageModel(
                 create.newUserData(create.fetchOffAssemblyContextByName(assConName)))
                 .createUsageModelNow();
                 
@@ -486,7 +486,7 @@ public class FluentUsageModelFactoryTest {
         //Usage Model
         setUp(); 
         
-        UsageModel usgModel = create.setSystem(createSimplifiedMediaStoreSystem()).newUsageModel().addToUsageModel(
+        UsageModel usgModel = create.addSystem(createSimplifiedMediaStoreSystem()).newUsageModel().addToUsageModel(
                 create.newUserData(create.fetchOffAssemblyContextByName(assConName)).addToUserData(create.newVariableUsage("TestReferenz")))
                 .createUsageModelNow();
 
@@ -502,7 +502,7 @@ public class FluentUsageModelFactoryTest {
 
         setUp(); 
         
-        UsageModel usgModel = create.setSystem(createSimplifiedMediaStoreSystem()).newUsageModel().addToUsageModel(
+        UsageModel usgModel = create.addSystem(createSimplifiedMediaStoreSystem()).newUsageModel().addToUsageModel(
                 create.newUserData(create.fetchOffAssemblyContextByName(assConName)))
                 .createUsageModelNow();
         
