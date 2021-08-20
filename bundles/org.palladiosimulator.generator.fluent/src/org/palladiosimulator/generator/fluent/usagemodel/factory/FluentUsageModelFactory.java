@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import org.palladiosimulator.generator.fluent.exceptions.FluentApiException;
 import org.palladiosimulator.generator.fluent.exceptions.IllegalArgumentException;
 import org.palladiosimulator.generator.fluent.shared.components.VariableUsageCreator;
 import org.palladiosimulator.generator.fluent.shared.validate.IModelValidator;
@@ -31,6 +33,8 @@ import org.palladiosimulator.pcm.parameter.VariableCharacterisationType;
 import org.palladiosimulator.pcm.repository.OperationProvidedRole;
 import org.palladiosimulator.pcm.repository.OperationSignature;
 import org.palladiosimulator.pcm.repository.ProvidedRole;
+import org.palladiosimulator.pcm.repository.Repository;
+import org.palladiosimulator.pcm.repository.Signature;
 import org.palladiosimulator.pcm.system.System;
 
 /**
@@ -49,7 +53,7 @@ import org.palladiosimulator.pcm.system.System;
  */
 @SuppressWarnings("static-method")
 public class FluentUsageModelFactory {
-    
+
     private UsageModelCreator usgModelCreator;
     private final List<System> systems;
 
@@ -64,7 +68,8 @@ public class FluentUsageModelFactory {
     /**
      * Sets the System used in some objects of the usage model.
      *
-     * @param system            {@link org.palladiosimulator.pcm.system.System System}
+     * @param system
+     *            {@link org.palladiosimulator.pcm.system.System System}
      * @return FluentUsageModelFactory
      * @see org.palladiosimulator.pcm.system.System
      */
@@ -338,10 +343,10 @@ public class FluentUsageModelFactory {
     }
 
     /**
-     * TODO
-     * New entry level system call.
+     * TODO New entry level system call.
      *
-     * @param operationProvided the operation provided
+     * @param operationProvided
+     *            the operation provided
      * @return the entry level system call creator
      */
     public EntryLevelSystemCallCreator newEntryLevelSystemCall(final OperationProvidedSignatureRole operationProvided) {
@@ -369,7 +374,8 @@ public class FluentUsageModelFactory {
      *            behaviour
      *            {@link org.palladiosimulator.generator.fluent.usagemodel.structure.components.ScenarioBehaviourCreator
      *            ScenarioBehaviourCreator}
-     * @param iteration the iteration
+     * @param iteration
+     *            the iteration
      * @return the delay action in the making
      * @see org.palladiosimulator.pcm.usagemodel.AbstractUserAction
      * @see org.palladiosimulator.pcm.usagemodel.Loop
@@ -476,6 +482,20 @@ public class FluentUsageModelFactory {
 
     // ---------------------- Shared ----------------------
 
+    private System getSystemByName(final String name) {
+        final List<System> collect = this.systems.stream()
+            .filter(r -> (r.getEntityName() != null) && r.getEntityName()
+                .contentEquals(name))
+            .collect(Collectors.toList());
+        if (collect.isEmpty()) {
+            return null;
+        }
+        if (collect.size() > 1) {
+            // TODO this.logger.warning("More than repository with name '" + name + "' found.");
+        }
+        return collect.get(0);
+    }
+
     /**
      * Creates a new variable usage.
      * <p>
@@ -489,20 +509,25 @@ public class FluentUsageModelFactory {
      * </p>
      * <p>
      * Variable Usage offers the characteristics
-     * {@link org.palladiosimulator.generator.fluent.shared.components.VariableUsageCreator#withName(String)
+     * {@link org.palladiosimulator.generator.fluent.shared.components.VariableUsageCreator#withName( String)
      * name},
-     * {@link org.palladiosimulator.generator.fluent.shared.components.VariableUsageCreator#withVariableCharacterisation(String,VariableCharacterisationType)
+     * {@link org.palladiosimulator.generator.fluent.shared.components.VariableUsageCreator# withVariableCharacterisation(String,VariableCharacterisationType)
      * variable characterisation} and needs a mandatory namespace reference and inner references.
      *
      * </p>
      *
      * @param namespaceReference
      *            String
+     * 
      * @param innerReferences
      *            String...
+     * 
      * @return the variable usage in the making
+     * 
      * @see org.palladiosimulator.pcm.parameter.VariableUsage
+     * 
      * @see org.palladiosimulator.pcm.parameter.VariableCharacterisation
+     * 
      * @see de.uka.ipd.sdq.stoex.NamespaceReference
      */
     public VariableUsageCreator newVariableUsage(final String namespaceReference, final String... innerReferences) {
@@ -550,21 +575,29 @@ public class FluentUsageModelFactory {
      * org.palladiosimulator.generator.fluent.usagemodel chooses the first parameter it finds.
      * </p>
      *
-     * @param name the name
+     * @param name
+     *            the name
      * @return the assembly context
      * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
      */
     public AssemblyContext fetchOffAssemblyContextByName(final String name) {
-        if (this.systems.isEmpty()) {
-            throw new IllegalArgumentException("The referred System was not set correctly in FluentUsageModelFactory");
+        /*
+         * if (this.systems.isEmpty()) { throw new
+         * IllegalArgumentException("The referred System was not set correctly in FluentUsageModelFactory"
+         * ); }
+         */
+        final String[] split = name.split("\\."); // 0 - System; 1 - name
+        if (split.length != 2) {
+            throw new IllegalArgumentException(
+                    name + " is not correct syntax to get the assembly context out of system.");
         }
-        final System system = this.systems.get(0); // TODO
+        final System system = getSystemByName(split[0]);
         return system.getAssemblyContexts__ComposedStructure()
             .stream()
             .filter(x -> x.getEntityName()
-                .equals(name))
+                .equals(split[1]))
             .findFirst()
-            .orElseThrow(() -> new IllegalArgumentException("No AssemblyContext with name " + name + " found."));
+            .orElseThrow(() -> new IllegalArgumentException("No AssemblyContext with name " + split[1] + " found."));
     }
 
     /**
@@ -575,15 +608,12 @@ public class FluentUsageModelFactory {
      * org.palladiosimulator.generator.fluent.usagemodel chooses the first parameter it finds.
      * </p>
      *
-     * @param name the name
+     * @param name
+     *            the name
      * @return the operation provided role
      * @see org.palladiosimulator.pcm.repository.OperationProvidedRole
      */
-    private OperationProvidedRole fetchOffOperationProvidedRoleByName(final String name) {
-        if (this.systems.isEmpty()) {
-            throw new IllegalArgumentException("The referred System was not set correctly in FluentUsageModelFactory");
-        }
-        final System system = this.systems.get(0); // TODO
+    private OperationProvidedRole fetchOffOperationProvidedRoleByName(final System system, final String name) {
 
         OperationProvidedRole role = null;
 
@@ -613,17 +643,21 @@ public class FluentUsageModelFactory {
      * finds.
      * </p>
      *
-     * @param operationProvidedRole the operation provided role
-     * @param operationSignature the operation signature
+     * @param operationProvidedRole
+     *            the operation provided role
+     * @param operationSignature
+     *            the operation signature
      * @return Operation Provided Role & OperationSIgnature combined in one class
      * @see org.palladiosimulator.pcm.repository.OperationSignature
      * @see org.palladiosimulator.pcm.repository.OperationProvidedRole
      * @see org.palladiosimulator.generator.fluent.usagemodel.factory.OperationProvidedSignatureRole
      */
-    public OperationProvidedSignatureRole fetchOffOperationRoleAndSignature(final String operationProvidedRole,
-            final String operationSignature) {
+    public OperationProvidedSignatureRole fetchOffOperationRoleAndSignature(final String systemName,
+            final String operationProvidedRole, final String operationSignature) {
 
-        final OperationProvidedRole role = fetchOffOperationProvidedRoleByName(operationProvidedRole);
+        final System system = getSystemByName(systemName);
+        
+        final OperationProvidedRole role = fetchOffOperationProvidedRoleByName(system, operationProvidedRole);
         final OperationSignature sig = role.getProvidedInterface__OperationProvidedRole()
             .getSignatures__OperationInterface()
             .stream()

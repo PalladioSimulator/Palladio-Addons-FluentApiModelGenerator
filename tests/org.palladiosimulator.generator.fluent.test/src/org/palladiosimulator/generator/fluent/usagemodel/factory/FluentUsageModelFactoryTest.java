@@ -25,6 +25,7 @@ import org.palladiosimulator.pcm.usagemodel.UsageModel;
 import org.palladiosimulator.pcm.usagemodel.UsagemodelFactory;
 import org.palladiosimulator.pcm.usagemodel.Workload;
 
+@SuppressWarnings("static-method")
 public class FluentUsageModelFactoryTest {
     FluentUsageModelFactory create;
 
@@ -173,30 +174,30 @@ public class FluentUsageModelFactoryTest {
                                 this.create.newStartAction().withName("startUsage").withSuccessor(
                                 this.create.newBranchAction().withName("isRegistered")
                                     .addToBranchAction(this.create.newBranchTransition(this.create.newScenarioBehavior().addToScenarioBehaviour(
-                                            this.create.newEntryLevelSystemCall(this.create.fetchOffOperationRoleAndSignature("Provided_IWebGui", "register")).withName("register"))
+                                            this.create.newEntryLevelSystemCall(this.create.fetchOffOperationRoleAndSignature("defaultSystem","Provided_IWebGui", "register")).withName("register"))
                                             .withName("needsToRegister")).withProbability(0.6))
                                     .addToBranchAction(this.create.newBranchTransition(this.create.newScenarioBehavior().withName("isAlreadyRegistered")
                                             ).withProbability(0.4)).withSuccessor(                                
                                 this.create.newEntryLevelSystemCall(
-                                        this.create.fetchOffOperationRoleAndSignature("Provided_IWebGui","login"))
+                                        this.create.fetchOffOperationRoleAndSignature("defaultSystem","Provided_IWebGui","login"))
                                         .withName("login").withSuccessor(
                                 this.create.newDelayAction("GammaMoments(3000,0.3)").withName("userDelayAfterLogin").withSuccessor(
                                 this.create.newEntryLevelSystemCall(
-                                        this.create.fetchOffOperationRoleAndSignature("Provided_IWebGui","getFileList"))
+                                        this.create.fetchOffOperationRoleAndSignature("defaultSystem","Provided_IWebGui","getFileList"))
                                         .withName("getFileList").withSuccessor(
                                 this.create.newDelayAction("GammaMoments(6000,0.3)").withName("userDelayAfterGetFileList").withSuccessor(
                                 this.create.newBranchAction().withName("downloadOrUpload")
                                     .addToBranchAction(this.create.newBranchTransition(this.create.newScenarioBehavior().withName("downloadCase")
                                             .addToScenarioBehaviour(this.create.newEntryLevelSystemCall(
-                                                    this.create.fetchOffOperationRoleAndSignature("Provided_IWebGui","download"))
+                                                    this.create.fetchOffOperationRoleAndSignature("defaultSystem","Provided_IWebGui","download"))
                                                     .withName("download")
-                                                    .addToEntryLevelSystemCallInput(this.create.newVariableUsage("audioRequest", "Size").withVariableCharacterisation("IntPMF[(38303999;0.16666667)(38304000;0.16666667)(40568000;0.16666667)(41544000;0.16666667)(48280000;0.16666666)(65000000;0.16666667)(88216000;0.16666666)]", org.palladiosimulator.pcm.parameter.VariableCharacterisationType.BYTESIZE))
+                                                    .addToEntryLevelSystemCallInput(this.create.newVariableUsage("audioRequest", "Size").withVariableCharacterisation("IntPMF[(38303999;0.16666667)(38304000;0.16666667)(40568000;0.16666667)(41544000;0.16666667)(48280000;0.16666666)(65000000;0.16666667)(88216000;0.16666666)]", VariableCharacterisationType.BYTESIZE))
                                                     .addToEntryLevelSystemCallInput(this.create.newVariableUsage("audioRequest", "Count").withVariableCharacterisation("2", VariableCharacterisationType.VALUE))
                                                     )).withProbability(0.8))
                                     .addToBranchAction(this.create.newBranchTransition(this.create.newScenarioBehavior().withName("uploadCase")
                                             .addToScenarioBehaviour(this.create.newEntryLevelSystemCall(
-                                                    this.create.fetchOffOperationRoleAndSignature("Provided_IWebGui","upload"))
-                                                    .withName("upload").addToEntryLevelSystemCallInput(this.create.newVariableUsage("file").withVariableCharacterisation("IntPMF[(38303999;0.16666667)(38304000;0.16666667)(40568000;0.16666667)(41544000;0.16666667)(48280000;0.16666666)(65000000;0.16666667)(88216000;0.16666666)]", org.palladiosimulator.pcm.parameter.VariableCharacterisationType.BYTESIZE))
+                                                    this.create.fetchOffOperationRoleAndSignature("defaultSystem","Provided_IWebGui","upload"))
+                                                    .withName("upload").addToEntryLevelSystemCallInput(this.create.newVariableUsage("file").withVariableCharacterisation("IntPMF[(38303999;0.16666667)(38304000;0.16666667)(40568000;0.16666667)(41544000;0.16666667)(48280000;0.16666666)(65000000;0.16666667)(88216000;0.16666666)]", VariableCharacterisationType.BYTESIZE))
                                                     )).withProbability(0.2)).withSuccessor(
                                 this.create.newStopAction().withName("stopUsage"))))))))),
                         
@@ -299,7 +300,7 @@ public class FluentUsageModelFactoryTest {
                         .addToScenarioBehaviour(this.create.newStartAction()
                                 .withSuccessor(this.create.newDelayAction("10")
                                 .withSuccessor(this.create.newBranchAction()
-                                .withSuccessor(this.create.newEntryLevelSystemCall(this.create.fetchOffOperationRoleAndSignature(provRoleName, operSigName))
+                                .withSuccessor(this.create.newEntryLevelSystemCall(this.create.fetchOffOperationRoleAndSignature("SimplifiedMediaStore System",provRoleName, operSigName))
                                 .withSuccessor(this.create.newLoopAction("1", this.create.newScenarioBehavior())
                                 .withSuccessor(this.create.newStopAction())))
     ))),this.create.newOpenWorkload("0")))
@@ -434,7 +435,7 @@ public class FluentUsageModelFactoryTest {
                 .newUsageModel().addToUsageModel(
                 this.create.newUsageScenario(
                         this.create.newScenarioBehavior().addToScenarioBehaviour(
-                                this.create.newEntryLevelSystemCall(this.create.fetchOffOperationRoleAndSignature(provRoleName, operSigName))
+                                this.create.newEntryLevelSystemCall(this.create.fetchOffOperationRoleAndSignature("SimplifiedMediaStore System",provRoleName, operSigName))
                                     .withName(name)
                                     .addToEntryLevelSystemCallInput(this.create.newVariableUsage("TestReferenz"))
                                     .addToEntryLevelSystemCallOutput(this.create.newVariableUsage("TestReferenz"))
@@ -467,11 +468,12 @@ public class FluentUsageModelFactoryTest {
     @Test
     public void basicUserData() {        
         String assConName = "AudioDB Component"; //see createSimplifiedMediaStoreSystem() for an Assembly Context to test for
-    
+        String connectedName = "SimplifiedMediaStore System."+assConName;
+        
         setUp();
         
         UsageModel usgModel = this.create.addSystem(createSimplifiedMediaStoreSystem()).newUsageModel().addToUsageModel(
-                this.create.newUserData(this.create.fetchOffAssemblyContextByName(assConName)))
+                this.create.newUserData(this.create.fetchOffAssemblyContextByName(connectedName)))
                 .createUsageModelNow();
                 
          printXML(usgModel, "UsgModUserDataBasic");   
@@ -482,12 +484,12 @@ public class FluentUsageModelFactoryTest {
     @Test
     public void usrDataVariableUsage() {
         String assConName = "AudioDB Component"; //see createSimplifiedMediaStoreSystem() for an Assembly Context to test for
-        
+        String connectedName = "SimplifiedMediaStore System."+assConName;
         //Usage Model
         setUp(); 
         
         UsageModel usgModel = this.create.addSystem(createSimplifiedMediaStoreSystem()).newUsageModel().addToUsageModel(
-                this.create.newUserData(this.create.fetchOffAssemblyContextByName(assConName)).addToUserData(this.create.newVariableUsage("TestReferenz")))
+                this.create.newUserData(this.create.fetchOffAssemblyContextByName(connectedName)).addToUserData(this.create.newVariableUsage("TestReferenz")))
                 .createUsageModelNow();
 
         printXML(usgModel, "UsgModUserDataVarUsage"); 
@@ -499,11 +501,11 @@ public class FluentUsageModelFactoryTest {
     @Test
     public void usrDataAssemblyContext() {
         String assConName = "AudioDB Component"; //see createSimplifiedMediaStoreSystem() for an Assembly Context to test for
-
+        String connectedName = "SimplifiedMediaStore System."+assConName;
         setUp(); 
         
         UsageModel usgModel = this.create.addSystem(createSimplifiedMediaStoreSystem()).newUsageModel().addToUsageModel(
-                this.create.newUserData(this.create.fetchOffAssemblyContextByName(assConName)))
+                this.create.newUserData(this.create.fetchOffAssemblyContextByName(connectedName)))
                 .createUsageModelNow();
         
          printXML(usgModel, "UsgModUserDataAssembly"); 
