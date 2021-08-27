@@ -26,11 +26,28 @@ public class UserDataCreator extends UsageModelEntity {
     private final List<VariableUsage> variableUsage;
 
     /**
-     * TODO
      * Instantiates a new user data creator.
      *
-     * @param usgModelCreator the usg model creator
-     * @param context the context
+     * <p>
+     * UserData characterises data used in specific assembly contexts in the system. This data is
+     * the same for all UsageScenarios, i.e.,multiple users accessing the same components access the
+     * same data. This UserData refers to component parameters of the system publicized by the
+     * software architect (see pcm::parameters package). The domain expert characterises the values
+     * of component parameters related to business concepts (e.g., user specific data,data specific
+     * for a business domain), whereas the software architect characterises the values of component
+     * parameters related to technical concepts (e.g., size of caches, size of a thread pool,
+     * configuration data,etc.). One UserData instance includes all parameter characterisation for
+     * the annotated entity.
+     * </p>
+     *
+     * @param usgModelCreator
+     *            the usage model creator
+     * @param context
+     *            the assembly context
+     * 
+     * @see org.palladiosimulator.pcm.usagemodel.UserData
+     * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
+     * 
      */
     public UserDataCreator(final UsageModelCreator usgModelCreator, final AssemblyContext context) {
         this.usageModelCreator = usgModelCreator;

@@ -23,11 +23,22 @@ public class LoopActionCreator extends ActionCreator {
     private ScenarioBehaviour bodyBehav;
 
     /**
-     * TODO
      * Instantiates a new loop action creator.
      *
-     * @param iteration the iteration
-     * @param bodyBehaviour the body behaviour
+     * <p>
+     * A Loop models a repeated sequence of actions in the user flow. It contains a nested
+     * ScenarioBehaviour specifying the loop body, and a RandomVariable specifying the number of
+     * iterations.
+     * </p>
+     *
+     * @param iteration
+     *            the iteration
+     * @param bodyBehaviour
+     *            the body behaviour
+     * 
+     * @see org.palladiosimulator.pcm.usagemodel.Loop
+     * @see org.palladiosimulator.pcm.usagemodel.AbstractUserAction
+     * @see org.palladiosimulator.pcm.usagemodel.ScenarioBehaviour
      */
     public LoopActionCreator(final String iteration, final ScenarioBehaviourCreator bodyBehaviour) {
         addToLoopAction(iteration);

@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import java.util.List;
 
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.junit.Test;
 import org.palladiosimulator.generator.fluent.repository.factory.FluentRepositoryFactory;
 import org.palladiosimulator.generator.fluent.repository.structure.internals.Primitive;
@@ -24,6 +26,9 @@ import org.palladiosimulator.pcm.usagemodel.OpenWorkload;
 import org.palladiosimulator.pcm.usagemodel.UsageModel;
 import org.palladiosimulator.pcm.usagemodel.UsagemodelFactory;
 import org.palladiosimulator.pcm.usagemodel.Workload;
+
+
+
 
 @SuppressWarnings("static-method")
 public class FluentUsageModelFactoryTest {
@@ -116,6 +121,159 @@ public class FluentUsageModelFactoryTest {
         //ModelSaver.saveUsageModel(usgModel, name, true);
         ModelSaver.saveUsageModel(usgModel, name, false);
     }
+    
+    //TODO
+    private boolean compareEMF(UsageModel origin, UsageModel test) {
+        boolean result = false;
+        Resource orig = origin.eResource();
+        Resource tst = test.eResource();
+
+        EObject rootO = orig.getContents().get(0);
+        EObject rootT = tst.getContents().get(0);
+        
+      //  IComparisonScope scope = new DefaultComparisonScope(branchResourceSet, baseResourceSet, null);
+       // Comparison comparison = EMFCompare.builder().build().compare(scope);
+        
+        
+        return result;
+    }
+
+
+    /* Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("xmi", new XMIResourceFactoryImpl());
+        
+    
+        ResourceSet resourceSet1 = new ResourceSetImpl();
+        ResourceSet resourceSet2 = new ResourceSetImpl();
+
+        resourceSet1.getResource(origin, true);
+        resourceSet2.getResource(test, true);*/
+    /*      private void bob() {
+        ResourceSet resourceSet = new ResourceSetImpl();
+        Map extensionMap = (Map) resourceSet.getResourceFactoryRegistry()
+            .getExtensionToFactoryMap().put("xmi", new XMIResourceFactoryImpl());
+        try {
+
+      Region region01 = StatemachineFactoryImpl.eINSTANCE.createRegion();
+      addResourceToModel(resourceSet, region01, "st1.xmi");
+      State state01 = StatemachineFactoryImpl.eINSTANCE.createState();
+      state01.setName("aaaa");
+      region01.getState().add(state01);
+      if (state01.eResource() == null) {
+        System.out.println("state01 NOT contained in resource!");
+        return;
+      }
+
+      Region region02 = StatemachineFactoryImpl.eINSTANCE.createRegion();
+      addResourceToModel(resourceSet, region02, "st2.xmi");
+      State state02 = StatemachineFactoryImpl.eINSTANCE.createState();
+      state02.setName("bbbb");
+      region02.getState().add(state02);
+      if (state02.eResource() == null) {
+        System.out.println("state02 NOT contained in resource!");
+        return;
+      }
+
+      final MatchModel match = MatchService.doMatch(region01, region02,
+          Collections.<String, Object> emptyMap());
+      final DiffModel diff = DiffService.doDiff(match, false);
+      final List<DiffElement> differences = new ArrayList<DiffElement>(
+          diff.getOwnedElements());
+      MergeService.merge(differences, true);
+
+      // Prints the results
+      addResourceToModel(resourceSet, match, "match.xmi");
+      addResourceToModel(resourceSet, diff, "diff.xmi");
+
+      if (match.eResource() != null)
+        System.out.println(ModelUtils.serialize(match)); // Throws an
+                                                         // exception!
+      if (diff.eResource() != null)
+        System.out.println(ModelUtils.serialize(diff));
+
+    } catch (final InterruptedException e) {
+      e.printStackTrace();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+  }
+
+  private void addResourceToModel(ResourceSet resourceSet, EObject obj,
+      String path) {
+    Resource res = resourceSet.createResource(URI.createURI(path));
+    res.getContents().add(obj);
+  }
+      
+     State state02 = StatemachineFactoryImpl.eINSTANCE.createState();
+state02.setName("bbbb");
+region02.getState().add(state02);
+if (state02.eResource() == null) {
+    System.out.println("state02 NOT contained in resource!");
+    return;
+}
+     Model1 targetModel = EcoreUtil.copy(model1);
+addResourceToModel(targetModel) // assign the copied model to a resource
+MatchModel match = MatchService.doMatch(targetModel, model2,
+                    Collections.<String, Object> emptyMap());
+DiffModel diff = DiffService.doDiff(match, false);
+EList<DiffElement> differences = diff.getDifferences();
+for (DiffElement diffElement : differences) {
+    MergeService.merge(diffElement, true);
+}
+*/
+    /*public static EObject loadYourModel(String path) {
+    //Initialzie Models
+    YourPackage.eINSTANCE.eClass();
+
+    //register your xmi resources
+    final Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
+    final Map<String, Object> m = reg.getExtensionToFactoryMap();
+    //put all your different ecore file suffixes in the map; suffix = YourPackage.eNAME
+    m.put(YourPackage.eNAME, new XMIResourceFactoryImpl());
+    //you can put all different package names here
+
+    //Create a new Resource set to store the EObjects from the file
+    ResourceSet resSet = new ResourceSetImpl();
+
+    //get the resource of your ecore file
+    Resource resource = resSet.getResource(URI.createURI(path), true);
+    //Get the first element = root of your model hierachy
+    EObject root = resource.getContents().get(0);
+    return root;
+}*/
+    /*public void compare() {
+    URI uri1 = URI.createFileURI("E:/eclipse-dsl-workspace/edu.ustb.lesley.register/src/test/base.xmi");
+    URI uri2 = URI.createFileURI("E:/eclipse-dsl-workspace/edu.ustb.lesley.register/src/test/branch1.xmi");
+
+    Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("xmi", new XMIResourceFactoryImpl());
+
+    ResourceSet baseResourceSet = new ResourceSetImpl();
+    ResourceSet branchResourceSet = new ResourceSetImpl();
+    baseResourceSet.getPackageRegistry().put("https://edu/ustb/lesley/register", RegisterPackage.eINSTANCE);
+    baseResourceSet.getPackageRegistry().put("https://edu/ustb/lesley/register", RegisterPackage.eINSTANCE);
+
+    baseResourceSet.getResource(uri1, true);
+    branchResourceSet.getResource(uri2, true);
+
+    IComparisonScope scope = new DefaultComparisonScope(branchResourceSet, baseResourceSet, null);
+    Comparison comparison = EMFCompare.builder().build().compare(scope);
+    
+    List<Diff> differences = comparison.getDifferences();
+    for(Diff diff : differences) {
+        System.out.println(diff.toString());
+    }
+    
+    // Let's merge every single diff
+    IMerger.Registry mergerRegistry = IMerger.RegistryImpl.createStandaloneInstance();
+    IBatchMerger merger = new BatchMerger(mergerRegistry);
+    merger.copyAllLeftToRight(differences, new BasicMonitor());
+    
+    // check that models are equal after batch merging
+    Comparison assertionComparison = EMFCompare.builder().build().compare(scope);
+    EList<Diff> assertionDifferences = assertionComparison.getDifferences();
+    System.out.println("after batch merging: " + assertionDifferences.size());
+    assertEquals(0, assertionDifferences.size());
+}*/
 
     
   //------------------   TESTS ------------------ 
@@ -267,9 +425,12 @@ public class FluentUsageModelFactoryTest {
     }
       
   //------------------   Usage Scenario  - Scenario Behaviour & Actions ------------------ 
+    
     @Test
     public void usageScenarioBehaviour() {
         String name = "ScenBehaviour";
+        int countAddedActions = 2;  //as it adds start and stop automatically
+        
         setUp();
         
         UsageModel usgModel = this.create.newUsageModel().addToUsageModel(this.create.newUsageScenario(
@@ -284,7 +445,7 @@ public class FluentUsageModelFactoryTest {
         
         List<AbstractUserAction> list = usgModel.getUsageScenario_UsageModel().get(0).getScenarioBehaviour_UsageScenario().getActions_ScenarioBehaviour();
         assertFalse(list.isEmpty());
-        assertEquals(2, list.size()); //as it adds only additional stop        
+        assertEquals(countAddedActions, list.size());       
     }
    
   @Test
@@ -293,6 +454,7 @@ public class FluentUsageModelFactoryTest {
         
         String operSigName = "opSignatureGUIInterface";
         String provRoleName = "SystemProvidesGUIInterface";
+        int countAddedActions = 6;
                
         UsageModel usgModel = this.create.addSystem(createSimplifiedMediaStoreSystem())
                 .newUsageModel().addToUsageModel(this.create.newUsageScenario(
@@ -311,11 +473,14 @@ public class FluentUsageModelFactoryTest {
         
         List<AbstractUserAction> list = usgModel.getUsageScenario_UsageModel().get(0).getScenarioBehaviour_UsageScenario().getActions_ScenarioBehaviour();
         assertFalse(list.isEmpty());
-        assertEquals(6, list.size());       
+        assertEquals(countAddedActions, list.size());
+        //TODO: evtl Reihenfolge prüfen
     }
     
     @Test
     public void usageScenarioBehavActionList() {
+        int countAddedActions = 4; //needs to be 4 as Start/Stop get added automatically
+        
         setUp();
         
         UsageModel usgModel = this.create.newUsageModel().addToUsageModel(this.create.newUsageScenario(
@@ -327,7 +492,7 @@ public class FluentUsageModelFactoryTest {
         
         List<AbstractUserAction> list = usgModel.getUsageScenario_UsageModel().get(0).getScenarioBehaviour_UsageScenario().getActions_ScenarioBehaviour();
         assertFalse(list.isEmpty());
-        assertEquals(4, list.size());   //needs to be 4 as Start/Stop get added automatically
+        assertEquals(countAddedActions, list.size());  
     }    
 
     @Test

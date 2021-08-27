@@ -21,10 +21,19 @@ public class BranchTransitionCreator extends UsageModelEntity {
     private ScenarioBehaviour branchedBeh;
 
     /**
-     * TODO
      * Instantiates a new branch transition creator.
      *
-     * @param branchedBehaviour the branched behaviour
+     * <p>
+     * The BranchTransition is an association class that realises the containment of
+     * ScenarioBehaviours in in the branches of a Branch action. It is a separate meta class because
+     * it has the additional attribute branchProbability that specifies how probably it is that the
+     * references ScenarioBehaviour is executed in the Branch action.
+     * </p>
+     *
+     * @param branchedBehaviour
+     *            the branched behaviour
+     *  @see org.palladiosimulator.pcm.usagemodel.BranchTransition
+     *  @see org.palladiosimulator.pcm.usagemodel.ScenarioBehaviour
      */
     public BranchTransitionCreator(final ScenarioBehaviourCreator branchedBehaviour) {
         this.probability = 0.0; // default value

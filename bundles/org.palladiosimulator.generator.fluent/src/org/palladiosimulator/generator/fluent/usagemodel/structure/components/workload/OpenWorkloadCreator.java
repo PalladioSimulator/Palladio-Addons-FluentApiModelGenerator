@@ -17,11 +17,22 @@ import org.palladiosimulator.pcm.usagemodel.Workload;
 public class OpenWorkloadCreator extends WorkloadCreator {
 
     /**
-     * TODO
      * Instantiates a new open workload creator.
      *
-     * @param usgModelCreator the usg model creator
-     * @param interArrivalTime the inter arrival time
+     * <p>
+     * OpenWorkload specifies usage intensity with an inter-arrival time (i.e., the time between
+     * two user arrivals at the system) as a RandomVariable with an arbitrary probability
+     * distribution. It models that an infinite stream of users arrives at a system. The users
+     * execute their scenario, and then leave the system. The user population (i.e., the number of
+     * users concurrently present in a system) is not fixed in an OpenWorkload.
+     * </p>
+     * 
+     * @param usgModelCreator
+     *            the usage model creator
+     * @param interArrivalTime
+     *            the inter arrival time
+     * 
+     * @see org.palladiosimulator.pcm.usagemodel.OpenWorkload
      */
     public OpenWorkloadCreator(final UsageModelCreator usgModelCreator, final String interArrivalTime) {
         super(usgModelCreator, interArrivalTime);

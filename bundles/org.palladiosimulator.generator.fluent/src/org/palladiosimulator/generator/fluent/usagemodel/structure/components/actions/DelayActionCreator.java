@@ -20,10 +20,21 @@ public class DelayActionCreator extends ActionCreator {
     private PCMRandomVariable time;
 
     /**
-     * TODO
      * Instantiates a new delay action creator.
      *
-     * @param timeSpecification the time specification
+     * <p>
+     * A Delay represents a timing delay as a RandomVariable between two user actions. The Delay is
+     * included into the usage model to express that users do not call system services in direct
+     * successions,but usually need some time to determine their next action. User delays are for
+     * example useful,if a performance analyst wants to determine the execution time for a complete
+     * scenario behaviour (instead of a single service), which needs to include user delays.
+     * </p>
+     * 
+     * @param timeSpecification
+     *            the time specification
+     * 
+     * @see org.palladiosimulator.pcm.usagemodel.Delay
+     * @see org.palladiosimulator.pcm.usagemodel.AbstractUserAction
      */
     public DelayActionCreator(final String timeSpecification) {
         addToDelayAction(timeSpecification);

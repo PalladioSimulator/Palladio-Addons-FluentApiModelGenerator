@@ -4,8 +4,13 @@ import org.palladiosimulator.pcm.repository.OperationProvidedRole;
 import org.palladiosimulator.pcm.repository.OperationSignature;
 
 /**
- * TODO
- * The Class OperationProvidedSignatureRole.
+ * This class is a helping class to encapsulate an OperationProvidedRole with its connected
+ * operation Signature to make fetching and using this objects easier. So the only functionality is
+ * to have a structure.
+ * 
+ * @author Eva-Maria Neumann
+ * @see org.palladiosimulator.pcm.repository.OperationProvidedRole
+ * @see org.palladiosimulator.pcm.repository.OperationSignature
  */
 public class OperationProvidedSignatureRole {
 
@@ -13,18 +18,22 @@ public class OperationProvidedSignatureRole {
     private OperationSignature opSig;
 
     /**
-     * TODO
      * Instantiates a new operation provided signature role.
      */
     public OperationProvidedSignatureRole() {
     }
 
     /**
-     * TODO
-     * Instantiates a new operation provided signature role.
+     * Instantiates a new operation provided signature role with parameters A check that both
+     * objects are connected needs to be done beforehand.
      *
-     * @param role the role
-     * @param signature the signature
+     * @param role
+     *            the role
+     * @param signature
+     *            the signature
+     * 
+     * @see org.palladiosimulator.pcm.repository.OperationProvidedRole
+     * @see org.palladiosimulator.pcm.repository.OperationSignature
      */
     public OperationProvidedSignatureRole(final OperationProvidedRole role, final OperationSignature signature) {
         setRole(role);
@@ -32,50 +41,42 @@ public class OperationProvidedSignatureRole {
     }
 
     /**
-     * TODO
-     * Filled.
+     * Sets the operation provided role.
      *
-     * @return true, if successful
-     */
-    public boolean filled() {
-        return ((this.provRole != null) && (this.opSig != null));
-    }
-
-    /**
-     * TODO
-     * Sets the role.
-     *
-     * @param role the new role
+     * @param role
+     *            the new operation provided role
+     * @see org.palladiosimulator.pcm.repository.OperationProvidedRole
      */
     public void setRole(final OperationProvidedRole role) {
         this.provRole = role;
     }
 
     /**
-     * TODO
-     * Sets the signature.
+     * Sets the operation signature.
      *
-     * @param signature the new signature
+     * @param signature
+     *            the new operation signature
+     * @see org.palladiosimulator.pcm.repository.OperationSignature
      */
     public void setSignature(final OperationSignature signature) {
         this.opSig = signature;
     }
 
     /**
-     * TODO
-     * Gets the role.
+     * Gets the operation provided role.
      *
-     * @return the role
+     * @return the operation provided role
+     * @see org.palladiosimulator.pcm.repository.OperationProvidedRole
      */
     public OperationProvidedRole getRole() {
         return this.provRole;
     }
 
     /**
-     * TODO
-     * Gets the signature.
+     * Gets the operation signature
      *
-     * @return the signature
+     * @return the operation signature
+     * @see org.palladiosimulator.pcm.repository.OperationSignature
      */
     public OperationSignature getSignature() {
         return this.opSig;

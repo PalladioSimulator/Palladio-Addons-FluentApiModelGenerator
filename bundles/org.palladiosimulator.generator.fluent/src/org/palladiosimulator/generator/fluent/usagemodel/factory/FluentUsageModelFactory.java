@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-import org.palladiosimulator.generator.fluent.exceptions.FluentApiException;
 import org.palladiosimulator.generator.fluent.exceptions.IllegalArgumentException;
 import org.palladiosimulator.generator.fluent.shared.components.VariableUsageCreator;
 import org.palladiosimulator.generator.fluent.shared.validate.IModelValidator;
@@ -33,8 +32,6 @@ import org.palladiosimulator.pcm.parameter.VariableCharacterisationType;
 import org.palladiosimulator.pcm.repository.OperationProvidedRole;
 import org.palladiosimulator.pcm.repository.OperationSignature;
 import org.palladiosimulator.pcm.repository.ProvidedRole;
-import org.palladiosimulator.pcm.repository.Repository;
-import org.palladiosimulator.pcm.repository.Signature;
 import org.palladiosimulator.pcm.system.System;
 
 /**
@@ -56,6 +53,7 @@ public class FluentUsageModelFactory {
 
     private UsageModelCreator usgModelCreator;
     private final List<System> systems;
+    final Logger logger;
 
     /**
      * Creates an instance of the FluentUsageModelFactory.
@@ -63,6 +61,9 @@ public class FluentUsageModelFactory {
     public FluentUsageModelFactory() {
         EcorePlugin.ExtensionProcessor.process(null);
         this.systems = new ArrayList<System>();
+        
+        this.logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+        this.logger.setLevel(Level.ALL);
     }
 
     /**
@@ -343,11 +344,49 @@ public class FluentUsageModelFactory {
     }
 
     /**
-     * TODO New entry level system call.
+     * Creates a new entry level system call action. OperationProvidedSignatureRole is a class to
+     * function as structure for operation provided role and operation signature.
+     * <p>
+     * A representation of the model object 'Entry Level System Call'. An EntryLevelSystemCall
+     * models the call to a service provided by a system. Therefore, anEntryLevelSystemCall
+     * references a ProvidedRole of a PCM System, from which the called interface and the providing
+     * component within the system can be derived, and a Signature specifying the called service.
+     * Notice, that the usage model does not permit the domain expert to model calls directly to
+     * components, but only to system roles. This decouples the System structure(i.e., the
+     * component-based software architecture model and its allocation) from the UsageModeland the
+     * software architect can change the System (e.g., include new components, remove existing
+     * components, or change their wiring or allocation) independently from the domain expert, if
+     * the system provided roles are not affected. EntryLevelSystemCalls may include a set of input
+     * parameter characterisations and a set of output parameter characterisations (as described in
+     * the pcm::parameters package). However, the random variables characterising the input
+     * parameters like NUMBER_OF_ELEMENTS can not depend on other variables in the usage model. They
+     * have to be composed from literals only including literals describing random variables having
+     * a certain fixed distribution.
+     * </p>
+     * <p>
+     * Entry level system call offers the characteristics
+     * {@link org.palladiosimulator.generator.fluent.usagemodel.structure.components.actions.EntryLevelSystemCallCreator#withName(String)
+     * name},
+     * {@link org.palladiosimulator.generator.fluent.usagemodel.structure.components.actions.EntryLevelSystemCallCreator#withSuccessor(ActionCreator)
+     * successor},
+     * {@link org.palladiosimulator.generator.fluent.usagemodel.structure.components.actions.EntryLevelSystemCallCreator#addToEntryLevelSystemCallInput(VariableUsageCreator)
+     * input parameter usage},
+     * {@link org.palladiosimulator.generator.fluent.usagemodel.structure.components.actions.EntryLevelSystemCallCreator#addToEntryLevelSystemCallOutput(VariableUsageCreator)
+     * output parameter usage} and needs a mandatory
+     * {@link org.palladiosimulator.pcm.repository.OperationProvidedRole operation provided role}
+     * and related {@link org.palladiosimulator.pcm.repository.OperationSignature operation
+     * signature}.
+     * </p>
      *
-     * @param operationProvided
-     *            the operation provided
-     * @return the entry level system call creator
+     * @param OperationProvidedSignatureRole
+     *            class as structure for operation provided role and operation signature
+     * @return the entry level system call action in the making
+     * 
+     * @see org.palladiosimulator.pcm.usagemodel.AbstractUserAction
+     * @see org.palladiosimulator.pcm.usagemodel.EntryLevelSystemCall
+     * @see org.palladiosimulator.pcm.parameter.VariableUsage
+     * @see org.palladiosimulator.pcm.repository.OperationProvidedRole
+     * @see org.palladiosimulator.pcm.repository.OperationSignature
      */
     public EntryLevelSystemCallCreator newEntryLevelSystemCall(final OperationProvidedSignatureRole operationProvided) {
         return newEntryLevelSystemCall(operationProvided.getRole(), operationProvided.getSignature());
@@ -491,7 +530,7 @@ public class FluentUsageModelFactory {
             return null;
         }
         if (collect.size() > 1) {
-            // TODO this.logger.warning("More than repository with name '" + name + "' found.");
+            this.logger.warning("More than one system with name '" + name + "' found.");
         }
         return collect.get(0);
     }
@@ -656,7 +695,7 @@ public class FluentUsageModelFactory {
             final String operationProvidedRole, final String operationSignature) {
 
         final System system = getSystemByName(systemName);
-        
+
         final OperationProvidedRole role = fetchOffOperationProvidedRoleByName(system, operationProvidedRole);
         final OperationSignature sig = role.getProvidedInterface__OperationProvidedRole()
             .getSignatures__OperationInterface()

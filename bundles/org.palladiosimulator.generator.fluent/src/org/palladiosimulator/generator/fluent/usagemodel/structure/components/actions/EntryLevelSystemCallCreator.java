@@ -31,12 +31,34 @@ public class EntryLevelSystemCallCreator extends ActionCreator {
     private OperationProvidedRole opRole;
 
     /**
-     * TODO Instantiates a new entry level system call creator.
+     * Instantiates a new entry level system call creator.
+     *
+     * <p>
+     * An EntryLevelSystemCall models the call to a service provided by a system. Therefore,
+     * anEntryLevelSystemCall references a ProvidedRole of a PCM System, from which the called
+     * interface and the providing component within the system can be derived, and a Signature
+     * specifying the called service. Notice, that the usage model does not permit the domain expert
+     * to model calls directly to components, but only to system roles. This decouples the System
+     * structure(i.e., the component-based software architecture model and its allocation) from the
+     * UsageModeland the software architect can change the System (e.g., include new components,
+     * remove existing components, or change their wiring or allocation) independently from the
+     * domain expert, if the system provided roles are not affected. EntryLevelSystemCalls may
+     * include a set of input parameter characterisations and a set of output parameter
+     * characterisations (as described in the pcm::parameters package). However, the random
+     * variables characterising the input parameters like NUMBER_OF_ELEMENTS can not depend on other
+     * variables in the usage model. They have to be composed from literals only including literals
+     * describing random variables having a certain fixed distribution.
+     * </p>
      *
      * @param operationSignature
      *            the operation signature
      * @param operationProvidedRole
      *            the operation provided role
+     * 
+     * @see org.palladiosimulator.pcm.usagemodel.EntryLevelSystemCall
+     * @see org.palladiosimulator.pcm.usagemodel.AbstractUserAction
+     * @see org.palladiosimulator.pcm.repository.OperationProvidedRole
+     * @see org.palladiosimulator.pcm.repository.OperationSignature
      */
     public EntryLevelSystemCallCreator(final OperationSignature operationSignature,
             final OperationProvidedRole operationProvidedRole) {

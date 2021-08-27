@@ -27,12 +27,26 @@ public class ScenarioBehaviourCreator extends UsageModelEntity {
 
     private final List<AbstractUserAction> actions;
 
-
     /**
-     * TODO
      * Instantiates a new scenario behaviour creator.
      *
-     * @param usgModelCreator the usg model creator
+     * <p>
+     * A ScenarioBehaviour specifies possible sequences of executing services provided by the
+     * system.It contains a set of AbstractUserActions, each referencing a predecessor and successor
+     * (except the first and last action), thereby forming a sequence of actions.See the
+     * AbstractAction documentation for why it is advantageous to model control flow in this way, as
+     * the same principle is used in the RDSEFF language.Concrete user actions of the usage model
+     * are:- Branch- Loop- EntryLevelSystemCall- Delay- Start- Stop So far, ScenarioBehaviours do not
+     * include forks in the user flow (i.e., splitting the flow with an AND semantic), as it is
+     * assumed that users always act sequentially. As there are no random variables depending on
+     * other variables in the usage model, there are no equivalent actions to
+     * GuardedBranchTransitions or CollectionIteratorActions
+     * </p>
+     * 
+     * @param usgModelCreator
+     *            the usage model creator
+     * 
+     * @see org.palladiosimulator.pcm.usagemodel.ScenarioBehaviour
      */
     public ScenarioBehaviourCreator(final UsageModelCreator usgModelCreator) {
         this.actions = new ArrayList<>();
