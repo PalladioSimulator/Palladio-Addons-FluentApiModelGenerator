@@ -23,6 +23,8 @@ import org.palladiosimulator.pcm.usagemodel.Delay;
 import org.palladiosimulator.pcm.usagemodel.EntryLevelSystemCall;
 import org.palladiosimulator.pcm.usagemodel.Loop;
 import org.palladiosimulator.pcm.usagemodel.OpenWorkload;
+import org.palladiosimulator.pcm.usagemodel.Start;
+import org.palladiosimulator.pcm.usagemodel.Stop;
 import org.palladiosimulator.pcm.usagemodel.UsageModel;
 import org.palladiosimulator.pcm.usagemodel.UsagemodelFactory;
 import org.palladiosimulator.pcm.usagemodel.Workload;
@@ -480,11 +482,13 @@ for (DiffElement diffElement : differences) {
     @Test
     public void usageScenarioBehavActionList() {
         int countAddedActions = 4; //needs to be 4 as Start/Stop get added automatically
+        String fstDelay = "FirstDelayAction";
+        String sndDelay = "SecondDelayAction";
         
         setUp();
         
         UsageModel usgModel = this.create.newUsageModel().addToUsageModel(this.create.newUsageScenario(
-                this.create.newScenarioBehavior().addToScenarioBehaviour(this.create.newDelayAction("1").withSuccessor(this.create.newDelayAction("1")))
+                this.create.newScenarioBehavior().addToScenarioBehaviour(this.create.newDelayAction("1").withName(fstDelay).withSuccessor(this.create.newDelayAction("1").withName(sndDelay)))
                 ,this.create.newOpenWorkload("10")))
                 .createUsageModelNow();
                 
@@ -493,7 +497,23 @@ for (DiffElement diffElement : differences) {
         List<AbstractUserAction> list = usgModel.getUsageScenario_UsageModel().get(0).getScenarioBehaviour_UsageScenario().getActions_ScenarioBehaviour();
         assertFalse(list.isEmpty());
         assertEquals(countAddedActions, list.size());  
-    }    
+        
+        // Check order, Order is Start, DelayW/fstDelay, DelayW/sndDelay, Stop
+        for (int i = 0; i < list.size(); i++) {
+            AbstractUserAction act = list.get(i);
+            if (act.getEntityName().equals(fstDelay)) {
+                // Before Start, After sndDelay
+                assertTrue(act.getPredecessor() instanceof Start);
+                assertEquals(sndDelay,act.getSuccessor().getEntityName());
+            } else if (act.getEntityName().equals(sndDelay)) {
+                // Before fstDelay, After Stop
+                assertTrue(act.getSuccessor() instanceof Stop);  
+                assertEquals(fstDelay, act.getPredecessor().getEntityName());
+            }
+            //no need to check, if Action is Start or Stop as this is testen over the Delay Actions
+        } 
+        
+    }
 
     @Test
     public void usageScenarioBehavActionsDelay() {
