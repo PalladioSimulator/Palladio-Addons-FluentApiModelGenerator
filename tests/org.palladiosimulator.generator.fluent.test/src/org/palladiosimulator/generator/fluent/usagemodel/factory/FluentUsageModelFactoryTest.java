@@ -476,7 +476,6 @@ for (DiffElement diffElement : differences) {
         List<AbstractUserAction> list = usgModel.getUsageScenario_UsageModel().get(0).getScenarioBehaviour_UsageScenario().getActions_ScenarioBehaviour();
         assertFalse(list.isEmpty());
         assertEquals(countAddedActions, list.size());
-        //TODO: evtl Reihenfolge prüfen
     }
     
     @Test
@@ -653,12 +652,11 @@ for (DiffElement diffElement : differences) {
     @Test
     public void basicUserData() {        
         String assConName = "AudioDB Component"; //see createSimplifiedMediaStoreSystem() for an Assembly Context to test for
-        String connectedName = "SimplifiedMediaStore System."+assConName;
         
         setUp();
         
         UsageModel usgModel = this.create.addSystem(createSimplifiedMediaStoreSystem()).newUsageModel().addToUsageModel(
-                this.create.newUserData(this.create.fetchOffAssemblyContextByName(connectedName)))
+                this.create.newUserData(this.create.fetchOffAssemblyContextByName("SimplifiedMediaStore System", assConName)))
                 .createUsageModelNow();
                 
          printXML(usgModel, "UsgModUserDataBasic");   
@@ -669,12 +667,12 @@ for (DiffElement diffElement : differences) {
     @Test
     public void usrDataVariableUsage() {
         String assConName = "AudioDB Component"; //see createSimplifiedMediaStoreSystem() for an Assembly Context to test for
-        String connectedName = "SimplifiedMediaStore System."+assConName;
+
         //Usage Model
         setUp(); 
         
         UsageModel usgModel = this.create.addSystem(createSimplifiedMediaStoreSystem()).newUsageModel().addToUsageModel(
-                this.create.newUserData(this.create.fetchOffAssemblyContextByName(connectedName)).addToUserData(this.create.newVariableUsage("TestReferenz")))
+                this.create.newUserData(this.create.fetchOffAssemblyContextByName("SimplifiedMediaStore System", assConName)).addToUserData(this.create.newVariableUsage("TestReferenz")))
                 .createUsageModelNow();
 
         printXML(usgModel, "UsgModUserDataVarUsage"); 
@@ -686,11 +684,11 @@ for (DiffElement diffElement : differences) {
     @Test
     public void usrDataAssemblyContext() {
         String assConName = "AudioDB Component"; //see createSimplifiedMediaStoreSystem() for an Assembly Context to test for
-        String connectedName = "SimplifiedMediaStore System."+assConName;
+
         setUp(); 
         
         UsageModel usgModel = this.create.addSystem(createSimplifiedMediaStoreSystem()).newUsageModel().addToUsageModel(
-                this.create.newUserData(this.create.fetchOffAssemblyContextByName(connectedName)))
+                this.create.newUserData(this.create.fetchOffAssemblyContextByName("SimplifiedMediaStore System", assConName)))
                 .createUsageModelNow();
         
          printXML(usgModel, "UsgModUserDataAssembly"); 

@@ -61,7 +61,7 @@ public class FluentUsageModelFactory {
     public FluentUsageModelFactory() {
         EcorePlugin.ExtensionProcessor.process(null);
         this.systems = new ArrayList<System>();
-        
+
         this.logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
         this.logger.setLevel(Level.ALL);
     }
@@ -506,7 +506,7 @@ public class FluentUsageModelFactory {
      * in an OpenWorkload.
      * </p>
      * <p>
-     * Open Workload needs a mandatory inter arrival time.
+     * Open Workload needs a mandatory inter-arrival time.
      * </p>
      *
      * @param interArrivalTime
@@ -614,29 +614,24 @@ public class FluentUsageModelFactory {
      * org.palladiosimulator.generator.fluent.usagemodel chooses the first parameter it finds.
      * </p>
      *
-     * @param name
-     *            the name
+     * @param systemName
+     *            name of the referenced system
+     * @param assemblyName
+     *            the name of the assembly context
      * @return the assembly context
      * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
      */
-    public AssemblyContext fetchOffAssemblyContextByName(final String name) {
-        /*
-         * if (this.systems.isEmpty()) { throw new
-         * IllegalArgumentException("The referred System was not set correctly in FluentUsageModelFactory"
-         * ); }
-         */
-        final String[] split = name.split("\\."); // 0 - System; 1 - name
-        if (split.length != 2) {
-            throw new IllegalArgumentException(
-                    name + " is not correct syntax to get the assembly context out of system.");
-        }
-        final System system = getSystemByName(split[0]);
+    public AssemblyContext fetchOffAssemblyContextByName(final String systemName, final String assemblyName) {
+
+        final System system = getSystemByName(systemName);
+
         return system.getAssemblyContexts__ComposedStructure()
             .stream()
             .filter(x -> x.getEntityName()
-                .equals(split[1]))
+                .equals(assemblyName))
             .findFirst()
-            .orElseThrow(() -> new IllegalArgumentException("No AssemblyContext with name " + split[1] + " found."));
+            .orElseThrow(
+                    () -> new IllegalArgumentException("No AssemblyContext with name " + assemblyName + " found."));
     }
 
     /**
@@ -647,6 +642,8 @@ public class FluentUsageModelFactory {
      * org.palladiosimulator.generator.fluent.usagemodel chooses the first parameter it finds.
      * </p>
      *
+     * @param system
+     *            the referenced system
      * @param name
      *            the name
      * @return the operation provided role
@@ -682,11 +679,13 @@ public class FluentUsageModelFactory {
      * finds.
      * </p>
      *
+     * @param systemName
+     *            the name of the referenced system
      * @param operationProvidedRole
-     *            the operation provided role
+     *            the name of the operation provided role
      * @param operationSignature
-     *            the operation signature
-     * @return Operation Provided Role & OperationSIgnature combined in one class
+     *            the name if the operation signature
+     * @return Operation Provided Role & OperationSignature combined in one class
      * @see org.palladiosimulator.pcm.repository.OperationSignature
      * @see org.palladiosimulator.pcm.repository.OperationProvidedRole
      * @see org.palladiosimulator.generator.fluent.usagemodel.factory.OperationProvidedSignatureRole
