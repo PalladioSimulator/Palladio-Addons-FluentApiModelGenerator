@@ -18,7 +18,7 @@ UsageModel usageModel = create.newUsageModel()
     //add entities to the resource environment
     .createUsageModelNow();
 ```
-This creates an empty usage model. The next step would be to add an usage scenario and/or specifiy user data with the importatnt method ```addToUsageModel```.
+This creates an empty usage model. The next step would be to add an usage scenario and/or specifiy user data with the method ```addToUsageModel```.
 If one or more predefined systems are needed later, they get added first. 
 ```java
 FluentUsageModelFactory create = new FluentUsageModelFactory();
@@ -28,10 +28,61 @@ UsageModel usageModel = create.addSystem(org.palladiosimulator.pcm.system.System
 ```
 
 ## Usage Scenario 
-TODO
+Usage scenarios describes the services invoked by the users and a calling sequence. It can have a name, but it is required to define a scenario behaviour and workload. 
 
-## UserData 
-TODO
+```java
+create.newUsageScenario(ScenarioBehaviour, Workload)
+	.withName("Name")
+```
+
+### Workload
+There are two types of a workload. 
+The closed workload specifies directly the (not mandatory) user population and a think time.
+```java
+create.newClosedWorkload("ThinkTime")
+	.withPopulation(10)
+```
+The Open Workload specifies usage intensity with an inter-arrival time between two arrivals at the system.
+```java
+create.newOpenWorkload("ArrivalTime")
+```
+
+### Scenario Behaviour
+A scenario behvaiour defines the possible actions and their sequence. It can have a name and different actions. A chain of actions need to Start with a start action and end with an stop action. If not defined manually, they get added automatically during object creation.
+```java
+create.newScenarioBehavior()
+	.withName("Name")
+	.addToScenarioBehaviour(Action)
+```
+
+Possible actions are start, branch, delay, entry level system call, loop and stop.
+For each of the actions (beside stop) there needs to be a successor action defined, also each action can have a name.
+```java
+create.newStartAction()
+	.withName("Name")
+	.withSuccessor(Action)
+```
+Some actions have special paramaters. The branch action can have different branch transitions, each with their own probability. All the probabilities need to sum up to 1.
+The delay action has a time specification of the timing delay needed between two actions.
+For the loop a behaviour and the number of itearations need to be set.
+An entry level system call is more complex. For that a reference to objects out of the system is need. They be fetched with the method defined in line 2 below. For that the name of the system and the name of the provided role and the connected opeation signture are needed. Additonal for the entry level system call action there can be given a name, priority and some input and output variables.
+
+```java
+create.newEntryLevelSystemCall(
+	create.fetchOffOperationRoleAndSignature("System Name","ProvidedRoleName", "OperationSignatureName"))
+	.withName("Name")
+    .addToEntryLevelSystemCallInput(create.newVariableUsage("InputVariable"))
+    .addToEntryLevelSystemCallOutput(create.newVariableUsage("OutputVariable"))
+    .withPriority(1))
+```
+
+## User Data 
+The user data defines data used in an assembly context from the system.
+Variable Usages can be added if wanted.
+```java
+create.newUserData(create.fetchOffAssemblyContextByName("System Name", "Context Name"))
+	.addToUserData(VariableUsage)
+```		
 
 ## Example
 An example of the usage model of a realistic media store example can be created like this with a mock of the needed System called system.
