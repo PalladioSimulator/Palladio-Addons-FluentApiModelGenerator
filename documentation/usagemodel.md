@@ -22,9 +22,9 @@ This creates an empty usage model. The next step would be to add an usage scenar
 If one or more predefined systems are needed later, they get added first. 
 ```java
 FluentUsageModelFactory create = new FluentUsageModelFactory();
-UsageModel usageModel = create.addSystem(org.palladiosimulator.pcm.system.System System1)
-	.newUsageModel()    
-    .createUsageModelNow();
+UsageModel usageModel = create.addSystem(System)
+    .newUsageModel()   
+    .createUsageModelNow()
 ```
 
 ## Usage Scenario 
@@ -69,13 +69,13 @@ An entry level system call is more complex. For that a reference to objects out 
 
 ```java
 create.newEntryLevelSystemCall(
-	create.fetchOffOperationRoleAndSignature("System Name","ProvidedRoleName", "OperationSignatureName"))
-	.withName("Name")
+    create.fetchOffOperationRoleAndSignature("System Name","ProvidedRoleName", "OperationSignatureName"))
+    .withName("Name")
     .addToEntryLevelSystemCallInput(create.newVariableUsage("InputVariable"))
     .addToEntryLevelSystemCallOutput(create.newVariableUsage("OutputVariable"))
-    .withPriority(1))
+    .withPriority(1)
 ```
-
+  
 ## User Data 
 The user data defines data used in an assembly context from the system.
 Variable Usages can be added if wanted.
