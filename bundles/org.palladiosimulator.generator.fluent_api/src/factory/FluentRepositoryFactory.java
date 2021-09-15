@@ -1019,9 +1019,10 @@ public class FluentRepositoryFactory {
 	 * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
 	 * <p>
 	 * This method throws a RuntimeException if no data type is present under the
-	 * given <code>name</code>. If more than one data type with this
-	 * <code>name</code> is present, a warning will be printed during runtime and
-	 * the system chooses the first data type it finds.
+	 * given <code>name</code>. It is advised to check existence first by calling
+	 * {@link FluentRepositoryFactory#containsDataType(String)}. If more than one
+	 * data type with this <code>name</code> is present, a warning will be printed
+	 * during runtime and the system chooses the first data type it finds.
 	 * </p>
 	 * 
 	 * @param name
@@ -1029,6 +1030,7 @@ public class FluentRepositoryFactory {
 	 * @return the data type
 	 * @see apiControlFlowInterfaces.RepoAddition#addToRepository(CollectionDataType)
 	 * @see apiControlFlowInterfaces.RepoAddition#addToRepository(CompositeDataTypeCreator)
+	 * @see FluentRepositoryFactory#containsDataType(String)
 	 * @see org.palladiosimulator.pcm.repository.DataType
 	 */
 	public DataType fetchOfDataType(String name) {
@@ -1042,7 +1044,17 @@ public class FluentRepositoryFactory {
 		return dataType;
 	}
 	
-	// TODO doc
+	/**
+	 * Checks, whether the by <code>name</code> referenced data type is in the repository.
+	 * If the entity belongs to an imported repository, refer to it as
+	 * <code>&lt;repositoryName&gt;.&lt;name&gt;</code>.
+	 *
+	 * @param name
+	 * @return <code>true</code> iff the data type is contained
+	 * @see apiControlFlowInterfaces.RepoAddition#addToRepository(CollectionDataType)
+	 * @see apiControlFlowInterfaces.RepoAddition#addToRepository(CompositeDataTypeCreator)
+	 * @see org.palladiosimulator.pcm.repository.DataType
+	 */
 	public boolean containsDataType(String name) {
 	    return repo.getDataType(name) != null || repo.getPrimitiveDataType(name) != null;
 	}
