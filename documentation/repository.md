@@ -129,4 +129,4 @@ Repository repository = create.newRepository()
 			.requires(create.fetchOfOperationInterface("IDatabase")))
 	.createRepositoryNow();
 ```
-The package [```component.examples```](../bundles/org.palladiosimulator.generator.fluent_api/src/component/examples) provides more examples of repositories that were created using the fluent API.
+The package [```component.examples```](bundles/org.palladiosimulator.generator.fluent/src/org/palladiosimulator/generator/fluent/repository/examples/) provides more examples of repositories that were created using the fluent API.

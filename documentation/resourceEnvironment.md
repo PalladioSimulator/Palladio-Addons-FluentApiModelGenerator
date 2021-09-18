@@ -101,4 +101,4 @@ ResourceEnvironment resourceEnvironment = create.newResourceEnvironment()
 
 The graphical representation of the model looks like this: ![PCM Resource Environment: Simplified Media Store](pcm_resources_media_store.png "PCM  Resource Environment: Simplified Media Store")
 
-The package [```resourceenvironment.example```](../bundles/org.palladiosimulator.generator.fluent_api/src/resourceenvironment/example) provides more examples of resourceenvironments that were created using the fluent API.
+The package [```resourceenvironment.example```](bundles/org.palladiosimulator.generator.fluent/src/org/palladiosimulator/generator/fluent/resourceenvironment/example/) provides more examples of resourceenvironments that were created using the fluent API.

@@ -93,7 +93,7 @@ The different models each have their own factory. See the links below to get an 
 - [System](documentation/system.md)
 - [Resource Environment](documentation/resourceEnvironment.md)
 - [Allocation](documentation/allocation.md)
-- [Usage Model] (documentation/usagemodel.md)
+- [Usage Model](documentation/usagemodel.md)
 
 ## Validation
 Upon creation, all models are validated. If they are not valid, all errors are logged to the console. The validation is the same as with the graphical and tree editors.
@@ -103,7 +103,7 @@ The creation of the usage model is designed to prevent validation errors during 
 The fluent API provides the utility classes ```ModelSaver``` and ```ModelLoader```. These can be used to save or load all of the supported models.
 
 ## Testing
-For the usage model JUnit testing is available. The tests and a bigger example can be found in [```FluentUsageModelFactoryTest```](tests/org.palladiosimulator.generator.fluent.test/src/org/palladiosimulator/generator/fluent/usagemodel/factory).
+For the usage model JUnit testing is available. The tests and a bigger example for can be found in [```FluentUsageModelFactoryTest```](tests/org.palladiosimulator.generator.fluent.test/src/org/palladiosimulator/generator/fluent/usagemodel/factory/FluentUsageModelFactoryTest.java). In future versions the examples of the other models can be written into unit tests and saved under [```Tests```](tests/org.palladiosimulator.generator.fluent.test/src/org/palladiosimulator/generator/fluent).
 
 ## Miscellaneous
 See the Palladio-Jira for further improvements to this API:
