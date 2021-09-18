@@ -139,4 +139,7 @@ UsageModel usgModel = this.create.addSystem(system).newUsageModel().addToUsageMo
     .createUsageModelNow();
 ```
 
-More examples and testing can be found in the JUnit Test [```FluentUsageModelFactoryTest```](../test/org.palladiosimulator.generator.fluent.test/src/org/palladiosimulator/generator/fluent/usagemodel/factory)
+The created usage model looks like this: ![PCM Usage Model: Realistic Media Store](pcm_usagemodel_media_store.jpg "PCM Usage Model: Realistic Media Store")
+
+
+More examples and testing can be found in the JUnit Test [```FluentUsageModelFactoryTest```](/tests/org.palladiosimulator.generator.fluent.test/src/org/palladiosimulator/generator/fluent/usagemodel/factory)
