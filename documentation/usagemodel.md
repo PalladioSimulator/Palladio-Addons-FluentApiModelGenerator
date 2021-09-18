@@ -96,12 +96,13 @@ UsageModel usgModel = this.create.addSystem(system).newUsageModel().addToUsageMo
                 this.create.newStartAction().withName("startUsage").withSuccessor(
                 this.create.newBranchAction().withName("isRegistered")
                     .addToBranchAction(this.create.newBranchTransition(this.create.newScenarioBehavior().addToScenarioBehaviour(
-                            this.create.newEntryLevelSystemCall(
-								this.create.fetchOffOperationRoleAndSignature("defaultSystem","Provided_IWebGui", "register"))
-								.withName("register"))
-                            .withName("needsToRegister")).withProbability(0.6))
-                    .addToBranchAction(this.create.newBranchTransition(this.create.newScenarioBehavior().withName("isAlreadyRegistered")
-                            ).withProbability(0.4)).withSuccessor(                                
+						this.create.newEntryLevelSystemCall(
+							this.create.fetchOffOperationRoleAndSignature("defaultSystem","Provided_IWebGui", "register"))
+							.withName("register"))
+                        .withName("needsToRegister")).withProbability(0.6))
+                    .addToBranchAction(this.create.newBranchTransition(
+						this.create.newScenarioBehavior().withName("isAlreadyRegistered"))
+						.withProbability(0.4)).withSuccessor(                                
                 this.create.newEntryLevelSystemCall(
                         this.create.fetchOffOperationRoleAndSignature("defaultSystem","Provided_IWebGui","login"))
                         .withName("login").withSuccessor(
@@ -111,14 +112,16 @@ UsageModel usgModel = this.create.addSystem(system).newUsageModel().addToUsageMo
                         .withName("getFileList").withSuccessor(
                 this.create.newDelayAction("GammaMoments(6000,0.3)").withName("userDelayAfterGetFileList").withSuccessor(
                 this.create.newBranchAction().withName("downloadOrUpload")
-                    .addToBranchAction(this.create.newBranchTransition(this.create.newScenarioBehavior().withName("downloadCase")
+                    .addToBranchAction(this.create.newBranchTransition(
+							this.create.newScenarioBehavior().withName("downloadCase")
                             .addToScenarioBehaviour(this.create.newEntryLevelSystemCall(
                                     this.create.fetchOffOperationRoleAndSignature("defaultSystem","Provided_IWebGui","download"))
                                     .withName("download")
                                     .addToEntryLevelSystemCallInput(
 										this.create.newVariableUsage("audioRequest", "Size")
-										.withVariableCharacterisation("IntPMF[(38303999;0.16666667)(38304000;0.16666667)(40568000;0.16666667)
-										(41544000;0.16666667)(48280000;0.16666666)(65000000;0.16666667)(88216000;0.16666666)]",
+										.withVariableCharacterisation("IntPMF[(38303999;0.16666667)(38304000;0.16666667)
+										(40568000;0.16666667)(41544000;0.16666667)(48280000;0.16666666)
+										(65000000;0.16666667)(88216000;0.16666666)]",
 										VariableCharacterisationType.BYTESIZE))
                                     .addToEntryLevelSystemCallInput(
 										this.create.newVariableUsage("audioRequest", "Count")
@@ -130,8 +133,9 @@ UsageModel usgModel = this.create.addSystem(system).newUsageModel().addToUsageMo
 						.withName("upload")
 						.addToEntryLevelSystemCallInput(
 							this.create.newVariableUsage("file")
-							.withVariableCharacterisation("IntPMF[(38303999;0.16666667)(38304000;0.16666667)(40568000;0.16666667)
-							(41544000;0.16666667)(48280000;0.16666666)(65000000;0.16666667)(88216000;0.16666666)]",
+							.withVariableCharacterisation("IntPMF[(38303999;0.16666667)(38304000;0.16666667)
+							(40568000;0.16666667)(41544000;0.16666667)(48280000;0.16666666)
+							(65000000;0.16666667)(88216000;0.16666666)]",
 							VariableCharacterisationType.BYTESIZE))
                         )).withProbability(0.2)).withSuccessor(
                 this.create.newStopAction().withName("stopUsage"))))))))),        
