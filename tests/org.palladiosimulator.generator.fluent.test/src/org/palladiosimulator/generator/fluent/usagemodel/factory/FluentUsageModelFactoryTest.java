@@ -124,7 +124,7 @@ public class FluentUsageModelFactoryTest {
         ModelSaver.saveUsageModel(usgModel, name, false);
     }
     
-    //TODO
+    //TODO: compare of created model with original one
     private boolean compareEMF(UsageModel origin, UsageModel test) {
         boolean result = false;
         Resource orig = origin.eResource();
@@ -133,23 +133,18 @@ public class FluentUsageModelFactoryTest {
         EObject rootO = orig.getContents().get(0);
         EObject rootT = tst.getContents().get(0);
         
-      //  IComparisonScope scope = new DefaultComparisonScope(branchResourceSet, baseResourceSet, null);
+       //IComparisonScope scope = new DefaultComparisonScope(branchResourceSet, baseResourceSet, null);
        // Comparison comparison = EMFCompare.builder().build().compare(scope);
         
+        /* Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("xmi", new XMIResourceFactoryImpl());
         
-        return result;
-    }
-
-
-    /* Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("xmi", new XMIResourceFactoryImpl());
         
-    
         ResourceSet resourceSet1 = new ResourceSetImpl();
         ResourceSet resourceSet2 = new ResourceSetImpl();
 
         resourceSet1.getResource(origin, true);
-        resourceSet2.getResource(test, true);*/
-    /*      private void bob() {
+        resourceSet2.getResource(test, true);
+          private void bob() {
         ResourceSet resourceSet = new ResourceSetImpl();
         Map extensionMap = (Map) resourceSet.getResourceFactoryRegistry()
             .getExtensionToFactoryMap().put("xmi", new XMIResourceFactoryImpl());
@@ -222,8 +217,8 @@ EList<DiffElement> differences = diff.getDifferences();
 for (DiffElement diffElement : differences) {
     MergeService.merge(diffElement, true);
 }
-*/
-    /*public static EObject loadYourModel(String path) {
+
+   public static EObject loadYourModel(String path) {
     //Initialzie Models
     YourPackage.eINSTANCE.eClass();
 
@@ -242,8 +237,8 @@ for (DiffElement diffElement : differences) {
     //Get the first element = root of your model hierachy
     EObject root = resource.getContents().get(0);
     return root;
-}*/
-    /*public void compare() {
+}
+    public void compare() {
     URI uri1 = URI.createFileURI("E:/eclipse-dsl-workspace/edu.ustb.lesley.register/src/test/base.xmi");
     URI uri2 = URI.createFileURI("E:/eclipse-dsl-workspace/edu.ustb.lesley.register/src/test/branch1.xmi");
 
@@ -277,7 +272,13 @@ for (DiffElement diffElement : differences) {
     assertEquals(0, assertionDifferences.size());
 }*/
 
-    
+
+        
+        return result;
+    }
+
+
+       
   //------------------   TESTS ------------------ 
     
     @Test
@@ -324,7 +325,7 @@ for (DiffElement diffElement : differences) {
     }
     
     @Test
-    public void mediaStore_Realistic() {
+    public void mediaStoreRealistic() {
         //Building MediaStore3-Model: ms_base_usage_realistic.usagemodel and needed System and Repository for that
         setUp();
         UsageModel usgModel = this.create.addSystem(mediaStoreMockUp()).newUsageModel().addToUsageModel(
@@ -365,6 +366,8 @@ for (DiffElement diffElement : differences) {
                 
                 .createUsageModelNow();
         printXML(usgModel, "realisticMediaStore");
+        
+        //TODO: use "boolean compareEMF(UsageModel origin, UsageModel test)" to verify created model
     }
     
 
