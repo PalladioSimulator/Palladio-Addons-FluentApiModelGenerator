@@ -65,7 +65,7 @@ create.newStartAction()
 Some actions have special paramaters. The branch action can have different branch transitions, each with their own probability. All the probabilities need to sum up to 1.
 The delay action has a time specification of the timing delay needed between two actions.
 For the loop a behaviour and the number of itearations need to be set.
-An entry level system call is more complex. For that a reference to objects out of the system is need. They be fetched with the method defined in line 2 below. For that the name of the system and the name of the provided role and the connected opeation signture are needed. Additonal for the entry level system call action there can be given a name, priority and some input and output variables.
+An entry level system call is more complex. For that a reference to objects out of the system is need. They be fetched with the method defined in line 2 below. For that the name of the system and the name of the provided role and the connected opeation signature are needed. Additonal for the entry level system call action there can be given a name, priority and some input and output variables.
 
 ```java
 create.newEntryLevelSystemCall(
@@ -96,7 +96,9 @@ UsageModel usgModel = this.create.addSystem(system).newUsageModel().addToUsageMo
                 this.create.newStartAction().withName("startUsage").withSuccessor(
                 this.create.newBranchAction().withName("isRegistered")
                     .addToBranchAction(this.create.newBranchTransition(this.create.newScenarioBehavior().addToScenarioBehaviour(
-                            this.create.newEntryLevelSystemCall(this.create.fetchOffOperationRoleAndSignature("defaultSystem","Provided_IWebGui", "register")).withName("register"))
+                            this.create.newEntryLevelSystemCall(
+								this.create.fetchOffOperationRoleAndSignature("defaultSystem","Provided_IWebGui", "register"))
+								.withName("register"))
                             .withName("needsToRegister")).withProbability(0.6))
                     .addToBranchAction(this.create.newBranchTransition(this.create.newScenarioBehavior().withName("isAlreadyRegistered")
                             ).withProbability(0.4)).withSuccessor(                                
@@ -113,16 +115,26 @@ UsageModel usgModel = this.create.addSystem(system).newUsageModel().addToUsageMo
                             .addToScenarioBehaviour(this.create.newEntryLevelSystemCall(
                                     this.create.fetchOffOperationRoleAndSignature("defaultSystem","Provided_IWebGui","download"))
                                     .withName("download")
-                                    .addToEntryLevelSystemCallInput(this.create.newVariableUsage("audioRequest", "Size").withVariableCharacterisation("IntPMF[(38303999;0.16666667)(38304000;0.16666667)(40568000;0.16666667)(41544000;0.16666667)(48280000;0.16666666)(65000000;0.16666667)(88216000;0.16666666)]", VariableCharacterisationType.BYTESIZE))
-                                    .addToEntryLevelSystemCallInput(this.create.newVariableUsage("audioRequest", "Count").withVariableCharacterisation("2", VariableCharacterisationType.VALUE))
+                                    .addToEntryLevelSystemCallInput(
+										this.create.newVariableUsage("audioRequest", "Size")
+										.withVariableCharacterisation("IntPMF[(38303999;0.16666667)(38304000;0.16666667)(40568000;0.16666667)
+										(41544000;0.16666667)(48280000;0.16666666)(65000000;0.16666667)(88216000;0.16666666)]",
+										VariableCharacterisationType.BYTESIZE))
+                                    .addToEntryLevelSystemCallInput(
+										this.create.newVariableUsage("audioRequest", "Count")
+										.withVariableCharacterisation("2", VariableCharacterisationType.VALUE))
                                     )).withProbability(0.8))
                     .addToBranchAction(this.create.newBranchTransition(this.create.newScenarioBehavior().withName("uploadCase")
                             .addToScenarioBehaviour(this.create.newEntryLevelSystemCall(
                                     this.create.fetchOffOperationRoleAndSignature("defaultSystem","Provided_IWebGui","upload"))
-                                    .withName("upload").addToEntryLevelSystemCallInput(this.create.newVariableUsage("file").withVariableCharacterisation("IntPMF[(38303999;0.16666667)(38304000;0.16666667)(40568000;0.16666667)(41544000;0.16666667)(48280000;0.16666666)(65000000;0.16666667)(88216000;0.16666666)]", VariableCharacterisationType.BYTESIZE))
-                                    )).withProbability(0.2)).withSuccessor(
-                this.create.newStopAction().withName("stopUsage"))))))))),
-        
+						.withName("upload")
+						.addToEntryLevelSystemCallInput(
+							this.create.newVariableUsage("file")
+							.withVariableCharacterisation("IntPMF[(38303999;0.16666667)(38304000;0.16666667)(40568000;0.16666667)
+							(41544000;0.16666667)(48280000;0.16666666)(65000000;0.16666667)(88216000;0.16666666)]",
+							VariableCharacterisationType.BYTESIZE))
+                        )).withProbability(0.2)).withSuccessor(
+                this.create.newStopAction().withName("stopUsage"))))))))),        
         this.create.newOpenWorkload("Exp(0.00004)")).withName("RealisticUsageScenario"))               
     .createUsageModelNow();
 ```
