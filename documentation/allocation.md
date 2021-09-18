@@ -66,4 +66,4 @@ Allocation allocation = create.newAllocation()
     .createAllocationNow();
 ```
 
-The package [```allocation.examples```](bundles/org.palladiosimulator.generator.fluent/src/org/palladiosimulator/generator/fluent/allocation/examples/) provides more examples of allocations that were created using the fluent API.
+The package [```allocation.examples```](../bundles/org.palladiosimulator.generator.fluent/src/org/palladiosimulator/generator/fluent/allocation/examples/) provides more examples of allocations that were created using the fluent API.
