@@ -278,7 +278,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             } else if (f instanceof NetworkInducedFailureType) {
                 this.internalFailureTypes.putIfAbsent(Failure.NETWORK_LAN, f);
             } else if (f instanceof HardwareInducedFailureType) {
-                switch (f.getEntityName().toLowerCase()) {
+                switch (f.getEntityName().toLowerCase(Locale.US)) {
                     case "hardwareinducedfailure (cpu)":
                         this.internalFailureTypes.putIfAbsent(Failure.HARDWARE_CPU, f);
                         break;
@@ -313,7 +313,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
     public Repo withImportedResource(final URI uri) {
         IllegalArgumentException.throwIfNull(uri, "URI must not be null.");
 
-        if (!"repository".equalsIgnoreCase(uri.fileExtension())) {
+        if (!"repository".equalsIgnoreCase(uri.fileExtension(), Locale.US)) {
             throw new IllegalArgumentException("The specified URI must lead to a .repository file");
         }
 
@@ -326,7 +326,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
     public Repo withImportedResource(final String path) {
         IllegalArgumentException.throwIfNull(path, "path must not be null.");
 
-        if (!path.toLowerCase()
+        if (!path.toLowerCase(Locale.US)
             .endsWith("." + "repository")) {
             throw new IllegalArgumentException("The specified path must lead to a .repository file");
         }
