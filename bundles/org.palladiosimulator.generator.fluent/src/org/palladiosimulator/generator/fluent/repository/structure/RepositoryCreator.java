@@ -439,8 +439,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
 
     private Repository getRepositoryByName(final String name) {
         final List<Repository> collect = this.imports.stream()
-            .filter(r -> (r.getEntityName() != null) && r.getEntityName()
-                .contentEquals(name))
+            .filter(r -> (r.getEntityName() != null) && r.getEntityName().equals(name))
             .collect(Collectors.toList());
         if (collect.isEmpty()) {
             return null;
@@ -514,8 +513,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
 
     private CompositeDataType getCompositeDataTypeFromList(final String name, final List<CompositeDataType> dataTypes) {
         final List<CompositeDataType> collect = dataTypes.stream()
-            .filter(c -> (c.getEntityName() != null) && c.getEntityName()
-                .contentEquals(name))
+            .filter(c -> (c.getEntityName() != null) && c.getEntityName().equals(name))
             .collect(Collectors.toList());
         if (collect.isEmpty()) {
             return null;
@@ -548,14 +546,12 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         final List<CollectionDataType> collectColl = dataTypes.stream()
             .filter(d -> d instanceof CollectionDataType)
             .map(d -> (CollectionDataType) d)
-            .filter(d -> (d.getEntityName() != null) && d.getEntityName()
-                .contentEquals(name))
+            .filter(d -> (d.getEntityName() != null) && d.getEntityName().equals(name))
             .collect(Collectors.toList());
         final List<CompositeDataType> collectComp = dataTypes.stream()
             .filter(d -> d instanceof CompositeDataType)
             .map(d -> (CompositeDataType) d)
-            .filter(d -> (d.getEntityName() != null) && d.getEntityName()
-                .contentEquals(name))
+            .filter(d -> (d.getEntityName() != null) && d.getEntityName().equals(name))
             .collect(Collectors.toList());
         collect.addAll(collectColl);
         collect.addAll(collectComp);
@@ -592,13 +588,11 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
 
     private FailureType getFailureTypeFromList(final String name, final List<FailureType> failureTypes) {
         final List<FailureType> collect = failureTypes.stream()
-            .filter(c -> (c.getEntityName() != null) && c.getEntityName()
-                .contentEquals(name))
+            .filter(c -> (c.getEntityName() != null) && c.getEntityName().equals(name))
             .collect(Collectors.toList());
         final List<FailureType> collect2 = this.internalFailureTypes.values()
             .stream()
-            .filter(c -> (c.getEntityName() != null) && c.getEntityName()
-                .contentEquals(name))
+            .filter(c -> (c.getEntityName() != null) && c.getEntityName().equals(name))
             .collect(Collectors.toList());
         collect.addAll(collect2);
         if (collect.isEmpty()) {
@@ -639,8 +633,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
     private ResourceTimeoutFailureType getResourceTimeoutFailureTypeFromList(final String name,
             final List<ResourceTimeoutFailureType> failureTypes) {
         final List<ResourceTimeoutFailureType> collect = failureTypes.stream()
-            .filter(b -> (b.getEntityName() != null) && b.getEntityName()
-                .contentEquals(name))
+            .filter(b -> (b.getEntityName() != null) && b.getEntityName().equals(name))
             .collect(Collectors.toList());
         if (collect.isEmpty()) {
             return null;
@@ -653,8 +646,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
 
     public ExceptionType getExceptionType(final String name) {
         final List<ExceptionType> collect = this.exceptionTypes.stream()
-            .filter(c -> (c.getExceptionName() != null) && c.getExceptionName()
-                .contentEquals(name))
+            .filter(c -> (c.getExceptionName() != null) && c.getExceptionName().equals(name))
             .collect(Collectors.toList());
         if (collect.isEmpty()) {
             return null;
@@ -705,8 +697,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
 
     private RepositoryComponent getComponentFromList(final String name, final List<RepositoryComponent> components) {
         final List<RepositoryComponent> collect = components.stream()
-            .filter(c -> (c.getEntityName() != null) && c.getEntityName()
-                .contentEquals(name))
+            .filter(c -> (c.getEntityName() != null) && c.getEntityName().equals(name))
             .collect(Collectors.toList());
         if (collect.isEmpty()) {
             return null;
@@ -745,8 +736,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
 
     private BasicComponent getBasicComponentFromList(final String name, final List<BasicComponent> components) {
         final List<BasicComponent> collect = components.stream()
-            .filter(c -> (c.getEntityName() != null) && c.getEntityName()
-                .contentEquals(name))
+            .filter(c -> (c.getEntityName() != null) && c.getEntityName().equals(name))
             .collect(Collectors.toList());
         if (collect.isEmpty()) {
             return null;
@@ -786,8 +776,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
     private CompositeComponent getCompositeComponentFromList(final String name,
             final List<CompositeComponent> components) {
         final List<CompositeComponent> collect = components.stream()
-            .filter(c -> (c.getEntityName() != null) && c.getEntityName()
-                .contentEquals(name))
+            .filter(c -> (c.getEntityName() != null) && c.getEntityName().equals(name))
             .collect(Collectors.toList());
         if (collect.isEmpty()) {
             return null;
@@ -826,8 +815,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
 
     private SubSystem getSubsystemFromList(final String name, final List<SubSystem> components) {
         final List<SubSystem> collect = components.stream()
-            .filter(c -> (c.getEntityName() != null) && c.getEntityName()
-                .contentEquals(name))
+            .filter(c -> (c.getEntityName() != null) && c.getEntityName().equals(name))
             .collect(Collectors.toList());
         if (collect.isEmpty()) {
             return null;
@@ -867,8 +855,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
     private CompleteComponentType getCompleteComponentTypeFromList(final String name,
             final List<CompleteComponentType> components) {
         final List<CompleteComponentType> collect = components.stream()
-            .filter(c -> (c.getEntityName() != null) && c.getEntityName()
-                .contentEquals(name))
+            .filter(c -> (c.getEntityName() != null) && c.getEntityName().equals(name))
             .collect(Collectors.toList());
         if (collect.isEmpty()) {
             return null;
@@ -908,8 +895,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
     private ProvidesComponentType getProvidesComponentTypeFromList(final String name,
             final List<ProvidesComponentType> components) {
         final List<ProvidesComponentType> collect = components.stream()
-            .filter(c -> (c.getEntityName() != null) && c.getEntityName()
-                .contentEquals(name))
+            .filter(c -> (c.getEntityName() != null) && c.getEntityName().equals(name))
             .collect(Collectors.toList());
         if (collect.isEmpty()) {
             return null;
@@ -941,8 +927,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
 
     private Interface getInterfaceFromList(final String name, final List<Interface> interfaces) {
         final List<Interface> collect = interfaces.stream()
-            .filter(i -> (i.getEntityName() != null) && i.getEntityName()
-                .contentEquals(name))
+            .filter(i -> (i.getEntityName() != null) && i.getEntityName().equals(name))
             .collect(Collectors.toList());
         if (collect.isEmpty()) {
             return null;
@@ -982,8 +967,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
     private OperationInterface getOperationInterfaceFromList(final String name,
             final List<OperationInterface> interfaces) {
         final List<OperationInterface> collect = interfaces.stream()
-            .filter(i -> (i.getEntityName() != null) && i.getEntityName()
-                .contentEquals(name))
+            .filter(i -> (i.getEntityName() != null) && i.getEntityName().equals(name))
             .collect(Collectors.toList());
         if (collect.isEmpty()) {
             return null;
@@ -1023,8 +1007,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
     private InfrastructureInterface getInfrastructureInterfaceFromList(final String name,
             final List<InfrastructureInterface> interfaces) {
         final List<InfrastructureInterface> collect = interfaces.stream()
-            .filter(i -> (i.getEntityName() != null) && i.getEntityName()
-                .contentEquals(name))
+            .filter(i -> (i.getEntityName() != null) && i.getEntityName().equals(name))
             .collect(Collectors.toList());
         if (collect.isEmpty()) {
             return null;
@@ -1063,8 +1046,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
 
     private EventGroup getEventGroupFromList(final String name, final List<EventGroup> interfaces) {
         final List<EventGroup> collect = interfaces.stream()
-            .filter(i -> (i.getEntityName() != null) && i.getEntityName()
-                .contentEquals(name))
+            .filter(i -> (i.getEntityName() != null) && i.getEntityName().equals(name))
             .collect(Collectors.toList());
         if (collect.isEmpty()) {
             return null;
@@ -1098,8 +1080,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
 
     private ProvidedRole getProvidedRoleFromList(final String name, final List<ProvidedRole> providedRoles) {
         final List<ProvidedRole> collect = providedRoles.stream()
-            .filter(r -> (r.getEntityName() != null) && r.getEntityName()
-                .contentEquals(name))
+            .filter(r -> (r.getEntityName() != null) && r.getEntityName().equals(name))
             .collect(Collectors.toList());
         if (collect.isEmpty()) {
             return null;
@@ -1141,8 +1122,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
     private OperationProvidedRole getOperationProvidedRoleFromList(final String name,
             final List<OperationProvidedRole> providedRoles) {
         final List<OperationProvidedRole> collect = providedRoles.stream()
-            .filter(r -> (r.getEntityName() != null) && r.getEntityName()
-                .contentEquals(name))
+            .filter(r -> (r.getEntityName() != null) && r.getEntityName().equals(name))
             .collect(Collectors.toList());
         if (collect.isEmpty()) {
             return null;
@@ -1184,8 +1164,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
     private InfrastructureProvidedRole getInfrastructureProvidedRoleFromList(final String name,
             final List<InfrastructureProvidedRole> providedRoles) {
         final List<InfrastructureProvidedRole> collect = providedRoles.stream()
-            .filter(r -> (r.getEntityName() != null) && r.getEntityName()
-                .contentEquals(name))
+            .filter(r -> (r.getEntityName() != null) && r.getEntityName().equals(name))
             .collect(Collectors.toList());
         if (collect.isEmpty()) {
             return null;
@@ -1226,8 +1205,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
 
     private SinkRole getSinkRoleFromList(final String name, final List<SinkRole> providedRoles) {
         final List<SinkRole> collect = providedRoles.stream()
-            .filter(r -> (r.getEntityName() != null) && r.getEntityName()
-                .contentEquals(name))
+            .filter(r -> (r.getEntityName() != null) && r.getEntityName().equals(name))
             .collect(Collectors.toList());
         if (collect.isEmpty()) {
             return null;
@@ -1261,8 +1239,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
 
     private RequiredRole getRequiredRoleFromList(final String name, final List<RequiredRole> requiredRoles) {
         final List<RequiredRole> collect = requiredRoles.stream()
-            .filter(r -> (r.getEntityName() != null) && r.getEntityName()
-                .contentEquals(name))
+            .filter(r -> (r.getEntityName() != null) && r.getEntityName().equals(name))
             .collect(Collectors.toList());
         if (collect.isEmpty()) {
             return null;
@@ -1304,8 +1281,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
     private OperationRequiredRole getOperationRequiredRoleFromList(final String name,
             final List<OperationRequiredRole> requiredRoles) {
         final List<OperationRequiredRole> collect = requiredRoles.stream()
-            .filter(r -> (r.getEntityName() != null) && r.getEntityName()
-                .contentEquals(name))
+            .filter(r -> (r.getEntityName() != null) && r.getEntityName().equals(name))
             .collect(Collectors.toList());
         if (collect.isEmpty()) {
             return null;
@@ -1347,8 +1323,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
     private InfrastructureRequiredRole getInfrastructureRequiredRoleFromList(final String name,
             final List<InfrastructureRequiredRole> requiredRoles) {
         final List<InfrastructureRequiredRole> collect = requiredRoles.stream()
-            .filter(r -> (r.getEntityName() != null) && r.getEntityName()
-                .contentEquals(name))
+            .filter(r -> (r.getEntityName() != null) && r.getEntityName().equals(name))
             .collect(Collectors.toList());
         if (collect.isEmpty()) {
             return null;
@@ -1389,8 +1364,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
 
     private SourceRole getSourceRoleFromList(final String name, final List<SourceRole> requiredRoles) {
         final List<SourceRole> collect = requiredRoles.stream()
-            .filter(r -> (r.getEntityName() != null) && r.getEntityName()
-                .contentEquals(name))
+            .filter(r -> (r.getEntityName() != null) && r.getEntityName().equals(name))
             .collect(Collectors.toList());
         if (collect.isEmpty()) {
             return null;
@@ -1425,8 +1399,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
     private ResourceRequiredRole getResourceRequiredRoleFromList(final String name,
             final List<ResourceRequiredRole> resourceRequiredRoles) {
         final List<ResourceRequiredRole> collect = resourceRequiredRoles.stream()
-            .filter(r -> (r.getEntityName() != null) && r.getEntityName()
-                .contentEquals(name))
+            .filter(r -> (r.getEntityName() != null) && r.getEntityName().equals(name))
             .collect(Collectors.toList());
         if (collect.isEmpty()) {
             return null;
@@ -1470,8 +1443,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
 
     private Signature getSignatureFromList(final String name, final List<Signature> signatures) {
         final List<Signature> collect = signatures.stream()
-            .filter(c -> (c.getEntityName() != null) && c.getEntityName()
-                .contentEquals(name))
+            .filter(c -> (c.getEntityName() != null) && c.getEntityName().equals(name))
             .collect(Collectors.toList());
         if (collect.isEmpty()) {
             return null;
@@ -1513,8 +1485,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
     private OperationSignature getOperationSignatureFromList(final String name,
             final List<OperationSignature> signatures) {
         final List<OperationSignature> collect = signatures.stream()
-            .filter(c -> (c.getEntityName() != null) && c.getEntityName()
-                .contentEquals(name))
+            .filter(c -> (c.getEntityName() != null) && c.getEntityName().equals(name))
             .collect(Collectors.toList());
         if (collect.isEmpty()) {
             return null;
@@ -1556,8 +1527,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
     private InfrastructureSignature getInfrastructureSignatureFromList(final String name,
             final List<InfrastructureSignature> signatures) {
         final List<InfrastructureSignature> collect = signatures.stream()
-            .filter(c -> (c.getEntityName() != null) && c.getEntityName()
-                .contentEquals(name))
+            .filter(c -> (c.getEntityName() != null) && c.getEntityName().equals(name))
             .collect(Collectors.toList());
         if (collect.isEmpty()) {
             return null;
@@ -1598,8 +1568,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
 
     private EventType getEventTypeFromList(final String name, final List<EventType> signatures) {
         final List<EventType> collect = signatures.stream()
-            .filter(c -> (c.getEntityName() != null) && c.getEntityName()
-                .contentEquals(name))
+            .filter(c -> (c.getEntityName() != null) && c.getEntityName().equals(name))
             .collect(Collectors.toList());
         if (collect.isEmpty()) {
             return null;
@@ -1638,8 +1607,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
     private AssemblyContext getAssemblyContextFromList(final String name,
             final List<AssemblyContext> assemblyContexts) {
         final List<AssemblyContext> collect = assemblyContexts.stream()
-            .filter(a -> (a.getEntityName() != null) && a.getEntityName()
-                .contentEquals(name))
+            .filter(a -> (a.getEntityName() != null) && a.getEntityName().equals(name))
             .collect(Collectors.toList());
         if (collect.isEmpty()) {
             return null;
@@ -1677,8 +1645,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
 
     private EventChannel getEventChannelFromList(final String name, final List<EventChannel> eventChannels) {
         final List<EventChannel> collect = eventChannels.stream()
-            .filter(a -> (a.getEntityName() != null) && a.getEntityName()
-                .contentEquals(name))
+            .filter(a -> (a.getEntityName() != null) && a.getEntityName().equals(name))
             .collect(Collectors.toList());
         if (collect.isEmpty()) {
             return null;
@@ -1727,8 +1694,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
 
     private Parameter getParameterFromList(final String name, final List<Parameter> parameters) {
         final List<Parameter> collect = parameters.stream()
-            .filter(p -> (p.getParameterName() != null) && p.getParameterName()
-                .contentEquals(name))
+            .filter(p -> (p.getParameterName() != null) && p.getParameterName().equals(name))
             .collect(Collectors.toList());
         if (collect.isEmpty()) {
             return null;
@@ -1794,8 +1760,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
     private PassiveResource getPassiveResourceFromList(final String name,
             final List<PassiveResource> passiveResources) {
         final List<PassiveResource> collect = passiveResources.stream()
-            .filter(b -> (b.getEntityName() != null) && b.getEntityName()
-                .contentEquals(name))
+            .filter(b -> (b.getEntityName() != null) && b.getEntityName().equals(name))
             .collect(Collectors.toList());
         if (collect.isEmpty()) {
             return null;
@@ -1849,8 +1814,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
     private RecoveryActionBehaviour getRecoveryActionBehaviourFromList(final String name,
             final List<RecoveryActionBehaviour> behaviours) {
         final List<RecoveryActionBehaviour> collect = behaviours.stream()
-            .filter(b -> (b.getEntityName() != null) && b.getEntityName()
-                .contentEquals(name))
+            .filter(b -> (b.getEntityName() != null) && b.getEntityName().equals(name))
             .collect(Collectors.toList());
         if (collect.isEmpty()) {
             return null;

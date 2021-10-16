@@ -523,8 +523,7 @@ public class FluentUsageModelFactory {
 
     private System getSystemByName(final String name) {
         final List<System> collect = this.systems.stream()
-            .filter(r -> (r.getEntityName() != null) && r.getEntityName()
-                .contentEquals(name))
+            .filter(r -> (r.getEntityName() != null) && r.getEntityName().equals(name))
             .collect(Collectors.toList());
         if (collect.isEmpty()) {
             return null;
