@@ -75,8 +75,7 @@ public class SeffCreator extends RepositoryEntity implements Seff, ActionSeff, S
 
     @Override
     public InternalActionCreator internalAction() {
-        final InternalActionCreator icc = new InternalActionCreator(this);
-        return icc;
+        return new InternalActionCreator(this);
     }
 
     @Override
@@ -86,14 +85,12 @@ public class SeffCreator extends RepositoryEntity implements Seff, ActionSeff, S
 
     @Override
     public ExternalCallActionCreator externalCallAction() {
-        final ExternalCallActionCreator ecc = new ExternalCallActionCreator(this);
-        return ecc;
+        return new ExternalCallActionCreator(this);
     }
 
     @Override
     public EmitEventActionCreator emitEventAction() {
-        final EmitEventActionCreator eeac = new EmitEventActionCreator(this);
-        return eeac;
+        return new EmitEventActionCreator(this);
     }
 
     @Override

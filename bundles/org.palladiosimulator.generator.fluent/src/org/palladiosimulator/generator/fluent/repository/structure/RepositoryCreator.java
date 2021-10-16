@@ -168,9 +168,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repository, R
         final ResourceSet resSet = new ResourceSetImpl();
         final Resource resource = resSet.getResource(uri, true);
         // Get the first model element and cast it to the right type
-        final Repository repository = (Repository) resource.getContents()
-            .get(0);
-        return repository;
+        return (Repository) resource.getContents().get(0);
     }
 
     private void initPredefinedDataTypesAndResources(final Repository primitiveDataTypes,

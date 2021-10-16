@@ -174,8 +174,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.BasicComponent
      */
     public BasicComponentCreator newBasicComponent() {
-        final BasicComponentCreator basicComponent = new BasicComponentCreator(this.repo);
-        return basicComponent;
+        return new BasicComponentCreator(this.repo);
     }
 
     /**
@@ -248,8 +247,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.CompositeComponent
      */
     public CompositeComponentCreator newCompositeComponent() {
-        final CompositeComponentCreator compositeComponent = new CompositeComponentCreator(this.repo);
-        return compositeComponent;
+        return new CompositeComponentCreator(this.repo);
     }
 
     /**
@@ -314,8 +312,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.subsystem.SubSystem
      */
     public SubSystemCreator newSubSystem() {
-        final SubSystemCreator subSystem = new SubSystemCreator(this.repo);
-        return subSystem;
+        return new SubSystemCreator(this.repo);
     }
 
     /**
@@ -351,8 +348,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.CompleteComponentType
      */
     public CompleteComponentTypeCreator newCompleteComponentType() {
-        final CompleteComponentTypeCreator cct = new CompleteComponentTypeCreator(this.repo);
-        return cct;
+        return new CompleteComponentTypeCreator(this.repo);
     }
 
     /**
@@ -386,8 +382,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.ProvidesComponentType
      */
     public ProvidesComponentTypeCreator newProvidesComponentType() {
-        final ProvidesComponentTypeCreator pct = new ProvidesComponentTypeCreator(this.repo);
-        return pct;
+        return new ProvidesComponentTypeCreator(this.repo);
     }
 
     // ---------------------- Interfaces ----------------------
@@ -414,8 +409,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.OperationInterface
      */
     public OperationInterfaceCreator newOperationInterface() {
-        final OperationInterfaceCreator operationInterface = new OperationInterfaceCreator(this.repo);
-        return operationInterface;
+        return new OperationInterfaceCreator(this.repo);
     }
 
     /**
@@ -436,8 +430,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.InfrastructureInterface
      */
     public InfrastructureInterfaceCreator newInfrastructureInterface() {
-        final InfrastructureInterfaceCreator infrastructureInterface = new InfrastructureInterfaceCreator(this.repo);
-        return infrastructureInterface;
+        return new InfrastructureInterfaceCreator(this.repo);
     }
 
     /**
@@ -462,8 +455,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.EventGroup
      */
     public EventGroupCreator newEventGroup() {
-        final EventGroupCreator eventGroup = new EventGroupCreator(this.repo);
-        return eventGroup;
+        return new EventGroupCreator(this.repo);
     }
 
     // ---------------------- Failure Types ----------------------
