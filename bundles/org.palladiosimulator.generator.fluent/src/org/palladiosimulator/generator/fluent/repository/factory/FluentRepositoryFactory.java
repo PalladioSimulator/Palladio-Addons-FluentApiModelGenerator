@@ -6,7 +6,8 @@ import java.util.logging.Logger;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.palladiosimulator.generator.fluent.exceptions.FluentApiException;
 import org.palladiosimulator.generator.fluent.exceptions.IllegalArgumentException;
-import org.palladiosimulator.generator.fluent.repository.api.Repo;
+import org.palladiosimulator.generator.fluent.repository.api.Repository;
+import org.palladiosimulator.generator.fluent.repository.api.RepositoryAddition;
 import org.palladiosimulator.generator.fluent.repository.api.seff.InternalSeff;
 import org.palladiosimulator.generator.fluent.repository.api.seff.RecoverySeff;
 import org.palladiosimulator.generator.fluent.repository.api.seff.Seff;
@@ -121,7 +122,7 @@ public class FluentRepositoryFactory {
      *
      * @return the repository in the making
      */
-    public Repo newRepository() {
+    public Repository newRepository() {
         final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
         logger.setLevel(Level.ALL);
 
@@ -929,7 +930,7 @@ public class FluentRepositoryFactory {
      *
      * @param name
      * @return the composite data type
-     * @see org.palladiosimulator.generator.fluent.repository.api.RepoAddition#addToRepository(CompositeDataTypeCreator)
+     * @see RepositoryAddition#addToRepository(CompositeDataTypeCreator)
      * @see org.palladiosimulator.pcm.repository.CompositeDataType
      */
     public CompositeDataType fetchOfCompositeDataType(final String name) {
@@ -972,8 +973,8 @@ public class FluentRepositoryFactory {
      * @param name
      * @param imported
      * @return the data type
-     * @see org.palladiosimulator.generator.fluent.repository.api.RepoAddition#addToRepository(CollectionDataType)
-     * @see org.palladiosimulator.generator.fluent.repository.api.RepoAddition#addToRepository(CompositeDataTypeCreator)
+     * @see RepositoryAddition#addToRepository(CollectionDataType)
+     * @see RepositoryAddition#addToRepository(CompositeDataTypeCreator)
      * @see org.palladiosimulator.pcm.repository.DataType
      */
     public DataType fetchOfDataType(final String name) {
@@ -1095,7 +1096,7 @@ public class FluentRepositoryFactory {
      *
      * @param name
      * @return the <b>component</b>
-     * @see org.palladiosimulator.generator.fluent.repository.api.RepoAddition#addToRepository(org.palladiosimulator.generator.fluent.component.repositoryStructure.components.Component)
+     * @see RepositoryAddition#addToRepository(org.palladiosimulator.generator.fluent.component.repositoryStructure.components.Component)
      * @see org.palladiosimulator.pcm.repository.RepositoryComponent
      */
     public RepositoryComponent fetchOfComponent(final String name) {
@@ -1120,7 +1121,7 @@ public class FluentRepositoryFactory {
      *
      * @param name
      * @return the basic component
-     * @see org.palladiosimulator.generator.fluent.repository.api.RepoAddition#addToRepository(org.palladiosimulator.generator.fluent.component.repositoryStructure.components.Component)
+     * @see RepositoryAddition#addToRepository(org.palladiosimulator.generator.fluent.component.repositoryStructure.components.Component)
      * @see org.palladiosimulator.pcm.repository.BasicComponent
      */
     public BasicComponent fetchOfBasicComponent(final String name) {
@@ -1145,7 +1146,7 @@ public class FluentRepositoryFactory {
      *
      * @param name
      * @return the composite component
-     * @see org.palladiosimulator.generator.fluent.repository.api.RepoAddition#addToRepository(org.palladiosimulator.generator.fluent.component.repositoryStructure.components.Component)
+     * @see RepositoryAddition#addToRepository(org.palladiosimulator.generator.fluent.component.repositoryStructure.components.Component)
      * @see org.palladiosimulator.pcm.repository.CompositeComponent
      */
     public CompositeComponent fetchOfCompositeComponent(final String name) {
@@ -1170,7 +1171,7 @@ public class FluentRepositoryFactory {
      *
      * @param name
      * @return the subsystem
-     * @see org.palladiosimulator.generator.fluent.repository.api.RepoAddition#addToRepository(org.palladiosimulator.generator.fluent.component.repositoryStructure.components.Component)
+     * @see RepositoryAddition#addToRepository(org.palladiosimulator.generator.fluent.component.repositoryStructure.components.Component)
      * @see org.palladiosimulator.pcm.subsystem.SubSystem
      */
     public SubSystem fetchOfSubSystem(final String name) {
@@ -1196,7 +1197,7 @@ public class FluentRepositoryFactory {
      *
      * @param name
      * @return the complete component type
-     * @see org.palladiosimulator.generator.fluent.repository.api.RepoAddition#addToRepository(org.palladiosimulator.generator.fluent.component.repositoryStructure.components.Component)
+     * @see RepositoryAddition#addToRepository(org.palladiosimulator.generator.fluent.component.repositoryStructure.components.Component)
      * @see org.palladiosimulator.pcm.repository.CompleteComponentType
      */
     public CompleteComponentType fetchOfCompleteComponentType(final String name) {
@@ -1222,7 +1223,7 @@ public class FluentRepositoryFactory {
      *
      * @param name
      * @return the provides component type
-     * @see org.palladiosimulator.generator.fluent.repository.api.RepoAddition#addToRepository(org.palladiosimulator.generator.fluent.component.repositoryStructure.components.Component)
+     * @see RepositoryAddition#addToRepository(org.palladiosimulator.generator.fluent.component.repositoryStructure.components.Component)
      * @see org.palladiosimulator.pcm.repository.ProvidesComponentType
      */
     public ProvidesComponentType fetchOfProvidesComponentType(final String name) {
@@ -1247,7 +1248,7 @@ public class FluentRepositoryFactory {
      *
      * @param name
      * @return the interface
-     * @see org.palladiosimulator.generator.fluent.repository.api.RepoAddition#addToRepository(org.palladiosimulator.generator.fluent.repository.structure.interfaces.Interface)
+     * @see RepositoryAddition#addToRepository(org.palladiosimulator.generator.fluent.repository.structure.interfaces.Interface)
      * @see org.palladiosimulator.pcm.repository.Interface
      */
     public Interface fetchOfInterface(final String name) {
@@ -1272,7 +1273,7 @@ public class FluentRepositoryFactory {
      *
      * @param name
      * @return the operation interface
-     * @see org.palladiosimulator.generator.fluent.repository.api.RepoAddition#addToRepository(org.palladiosimulator.generator.fluent.repository.structure.interfaces.Interface)
+     * @see RepositoryAddition#addToRepository(org.palladiosimulator.generator.fluent.repository.structure.interfaces.Interface)
      * @see org.palladiosimulator.pcm.repository.OperationInterface
      */
     public OperationInterface fetchOfOperationInterface(final String name) {
@@ -1298,7 +1299,7 @@ public class FluentRepositoryFactory {
      *
      * @param name
      * @return the infrastructure interface
-     * @see org.palladiosimulator.generator.fluent.repository.api.RepoAddition#addToRepository(org.palladiosimulator.generator.fluent.repository.structure.interfaces.Interface)
+     * @see RepositoryAddition#addToRepository(org.palladiosimulator.generator.fluent.repository.structure.interfaces.Interface)
      * @see org.palladiosimulator.pcm.repository.InfrastructureInterface
      */
     public InfrastructureInterface fetchOfInfrastructureInterface(final String name) {
@@ -1323,7 +1324,7 @@ public class FluentRepositoryFactory {
      *
      * @param name
      * @return the event group
-     * @see org.palladiosimulator.generator.fluent.repository.api.RepoAddition#addToRepository(org.palladiosimulator.generator.fluent.repository.structure.interfaces.Interface)
+     * @see RepositoryAddition#addToRepository(org.palladiosimulator.generator.fluent.repository.structure.interfaces.Interface)
      * @see org.palladiosimulator.pcm.repository.EventGroup
      */
     public EventGroup fetchOfEventGroup(final String name) {
