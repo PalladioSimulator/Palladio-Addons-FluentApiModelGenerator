@@ -1,11 +1,6 @@
 package org.palladiosimulator.generator.fluent.repository.structure;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
@@ -307,11 +302,6 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         return (RepositoryCreator) super.withName(name);
     }
 
-    // @Override
-    // public RepositoryCreator withId(String id) {
-    // return (RepositoryCreator) super.withId(id);
-    // }
-
     @Override
     public RepositoryCreator withDescription(final String description) {
         IllegalArgumentException.throwIfNull(description, "description must not be null");
@@ -323,7 +313,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
     public Repo withImportedResource(final URI uri) {
         IllegalArgumentException.throwIfNull(uri, "URI must not be null.");
 
-        if ("repository".equalsIgnoreCase(uri.fileExtension()) == false) {
+        if (!"repository".equalsIgnoreCase(uri.fileExtension())) {
             throw new IllegalArgumentException("The specified URI must lead to a .repository file");
         }
 
@@ -459,6 +449,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
     // parameters. However, it is implemented. Maybe later this can be restricted if
     // it is confusing for the user,
     public PrimitiveDataType getPrimitiveDataType(final Primitive primitive) {
+        IllegalArgumentException.throwIfNull(primitive, "primitive must not be null");
         return this.internalPrimitives.get(primitive);
     }
 
@@ -470,26 +461,31 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
      * @throws NoSuchElementException
      *             Thrown if no role matches the given name.
      */
-    public PrimitiveDataType getPrimitiveDataType(String name) throws NoSuchElementException {
-        try {
-            if ("int".equalsIgnoreCase(name)) {
-                name = "integer";
-            }
-            if ("bool".equalsIgnoreCase(name)) {
-                name = "boolean";
-            }
-            final Primitive valueOf = Primitive.valueOf(name.toUpperCase());
-            return this.internalPrimitives.get(valueOf);
-        } catch (final IllegalArgumentException e) {
-            throw new NoSuchElementException(String.format("A primitive data type name '%s' was nou found.", name), e);
+    public PrimitiveDataType getPrimitiveDataType(final String name) throws NoSuchElementException {
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
+        String adjustedName = name.toUpperCase(Locale.US);
+        switch (adjustedName) {
+            case "INT":
+                return this.internalPrimitives.get(Primitive.INTEGER);
+            case "BOOL":
+                return this.internalPrimitives.get(Primitive.BOOLEAN);
+            default:
+                try {
+                    final Primitive valueOf = Primitive.valueOf(adjustedName);
+                    return this.internalPrimitives.get(valueOf);
+                } catch (final IllegalArgumentException e) {
+                    throw new NoSuchElementException(String.format("A primitive data type name '%s' was nou found.", name), e);
+                }
         }
     }
 
-    public CompositeDataType getCompositeDataType(String name) {
+    public CompositeDataType getCompositeDataType(final String name) {
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
+        String actualName = name;
         List<CompositeDataType> collect;
         final String[] split = name.split("\\.");
         if (split.length == 2) {
-            name = split[1];
+            actualName = split[1];
             final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
                 throw new NoSuchElementException("Repository '" + split[0] + "' could not be found");
@@ -508,7 +504,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
         }
-        return getCompositeDataTypeFromList(name, collect);
+        return getCompositeDataTypeFromList(actualName, collect);
     }
 
     private CompositeDataType getCompositeDataTypeFromList(final String name, final List<CompositeDataType> dataTypes) {
@@ -525,6 +521,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
     }
 
     public DataType getDataType(final String name) {
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
         final String[] split = name.split("\\.");
         if (split.length == 2) {
             final String entityName = split[1];
@@ -566,10 +563,12 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
     }
 
     public FailureType getFailureType(final Failure failure) {
+        IllegalArgumentException.throwIfNull(failure, "failure must not be null");
         return this.internalFailureTypes.get(failure);
     }
 
     public FailureType getFailureType(final String name) {
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
         final String[] split = name.split("\\.");
         if (split.length == 2) {
             final String entityName = split[1];
@@ -604,11 +603,13 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         return collect.get(0);
     }
 
-    public ResourceTimeoutFailureType getResourceTimeoutFailureType(String name) {
+    public ResourceTimeoutFailureType getResourceTimeoutFailureType(final String name) {
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
+        String actualName = name;
         List<ResourceTimeoutFailureType> collect;
         final String[] split = name.split("\\.");
         if (split.length == 2) {
-            name = split[1];
+            actualName = split[1];
             final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
                 throw new FluentApiException("Repository '" + split[0] + "' could not be found");
@@ -627,7 +628,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
         }
-        return getResourceTimeoutFailureTypeFromList(name, collect);
+        return getResourceTimeoutFailureTypeFromList(actualName, collect);
     }
 
     private ResourceTimeoutFailureType getResourceTimeoutFailureTypeFromList(final String name,
@@ -645,6 +646,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
     }
 
     public ExceptionType getExceptionType(final String name) {
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
         final List<ExceptionType> collect = this.exceptionTypes.stream()
             .filter(c -> (c.getExceptionName() != null) && c.getExceptionName().equals(name))
             .collect(Collectors.toList());
@@ -658,29 +660,35 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
     }
 
     public ProcessingResourceType getProcessingResourceType(final ProcessingResource processingResource) {
+        IllegalArgumentException.throwIfNull(processingResource, "processingResource must not be null");
         return this.internalProcessingResources.get(processingResource);
     }
 
     public CommunicationLinkResourceType getCommunicationLinkResource(
             final CommunicationLinkResource communicationLinkResource) {
+        IllegalArgumentException.throwIfNull(communicationLinkResource, "communicationLinkResource must not be null");
         return this.internalCommunicationLinkResources.get(communicationLinkResource);
     }
 
     public ResourceInterface getResourceInterface(
             final org.palladiosimulator.generator.fluent.shared.structure.ResourceInterface resourceInterface) {
+        IllegalArgumentException.throwIfNull(resourceInterface, "resourceInterface must not be null");
         return this.internalResourceInterfaces.get(resourceInterface);
     }
 
     public ResourceSignature getResourceSignature(
             final org.palladiosimulator.generator.fluent.repository.structure.internals.ResourceSignature resourceSignature) {
+        IllegalArgumentException.throwIfNull(resourceSignature, "resourceSignature must not be null");
         return this.internalResourceSignatures.get(resourceSignature);
     }
 
-    public RepositoryComponent getComponent(String name) {
+    public RepositoryComponent getComponent(final String name) {
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
+        String actualName = name;
         List<RepositoryComponent> collect;
         final String[] split = name.split("\\.");
         if (split.length == 2) {
-            name = split[1];
+            actualName = split[1];
             final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
                 throw new FluentApiException("Repository '" + split[0] + "' could not be found");
@@ -692,7 +700,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
         }
-        return getComponentFromList(name, collect);
+        return getComponentFromList(actualName, collect);
     }
 
     private RepositoryComponent getComponentFromList(final String name, final List<RepositoryComponent> components) {
@@ -708,11 +716,13 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         return collect.get(0);
     }
 
-    public BasicComponent getBasicComponent(String name) {
+    public BasicComponent getBasicComponent(final String name) {
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
+        String actualName = name;
         List<BasicComponent> collect;
         final String[] split = name.split("\\.");
         if (split.length == 2) {
-            name = split[1];
+            actualName = split[1];
             final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
                 throw new FluentApiException("Repository '" + split[0] + "' could not be found");
@@ -731,7 +741,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
         }
-        return getBasicComponentFromList(name, collect);
+        return getBasicComponentFromList(actualName, collect);
     }
 
     private BasicComponent getBasicComponentFromList(final String name, final List<BasicComponent> components) {
@@ -747,11 +757,13 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         return collect.get(0);
     }
 
-    public CompositeComponent getCompositeComponent(String name) {
+    public CompositeComponent getCompositeComponent(final String name) {
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
+        String actualName = name;
         List<CompositeComponent> collect;
         final String[] split = name.split("\\.");
         if (split.length == 2) {
-            name = split[1];
+            actualName = split[1];
             final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
                 throw new FluentApiException("Repository '" + split[0] + "' could not be found");
@@ -770,7 +782,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
         }
-        return getCompositeComponentFromList(name, collect);
+        return getCompositeComponentFromList(actualName, collect);
     }
 
     private CompositeComponent getCompositeComponentFromList(final String name,
@@ -787,11 +799,13 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         return collect.get(0);
     }
 
-    public SubSystem getSubsystem(String name) {
+    public SubSystem getSubsystem(final String name) {
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
+        String actualName = name;
         List<SubSystem> collect;
         final String[] split = name.split("\\.");
         if (split.length == 2) {
-            name = split[1];
+            actualName = split[1];
             final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
                 throw new FluentApiException("Repository '" + split[0] + "' could not be found");
@@ -810,7 +824,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
         }
-        return getSubsystemFromList(name, collect);
+        return getSubsystemFromList(actualName, collect);
     }
 
     private SubSystem getSubsystemFromList(final String name, final List<SubSystem> components) {
@@ -826,11 +840,13 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         return collect.get(0);
     }
 
-    public CompleteComponentType getCompleteComponentType(String name) {
+    public CompleteComponentType getCompleteComponentType(final String name) {
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
+        String actualName = name;
         List<CompleteComponentType> collect;
         final String[] split = name.split("\\.");
         if (split.length == 2) {
-            name = split[1];
+            actualName = split[1];
             final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
                 throw new FluentApiException("Repository '" + split[0] + "' could not be found");
@@ -849,7 +865,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
         }
-        return getCompleteComponentTypeFromList(name, collect);
+        return getCompleteComponentTypeFromList(actualName, collect);
     }
 
     private CompleteComponentType getCompleteComponentTypeFromList(final String name,
@@ -866,11 +882,13 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         return collect.get(0);
     }
 
-    public ProvidesComponentType getProvidesComponentType(String name) {
+    public ProvidesComponentType getProvidesComponentType(final String name) {
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
+        String actualName = name;
         List<ProvidesComponentType> collect;
         final String[] split = name.split("\\.");
         if (split.length == 2) {
-            name = split[1];
+            actualName = split[1];
             final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
                 throw new FluentApiException("Repository '" + split[0] + "' could not be found");
@@ -889,7 +907,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
         }
-        return getProvidesComponentTypeFromList(name, collect);
+        return getProvidesComponentTypeFromList(actualName, collect);
     }
 
     private ProvidesComponentType getProvidesComponentTypeFromList(final String name,
@@ -906,11 +924,13 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         return collect.get(0);
     }
 
-    public Interface getInterface(String name) {
+    public Interface getInterface(final String name) {
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
+        String actualName = name;
         List<Interface> collect;
         final String[] split = name.split("\\.");
         if (split.length == 2) {
-            name = split[1];
+            actualName = split[1];
             final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
                 throw new FluentApiException("Repository '" + split[0] + "' could not be found");
@@ -922,7 +942,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
         }
-        return getInterfaceFromList(name, collect);
+        return getInterfaceFromList(actualName, collect);
     }
 
     private Interface getInterfaceFromList(final String name, final List<Interface> interfaces) {
@@ -938,11 +958,13 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         return collect.get(0);
     }
 
-    public OperationInterface getOperationInterface(String name) {
+    public OperationInterface getOperationInterface(final String name) {
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
+        String actualName = name;
         List<OperationInterface> collect;
         final String[] split = name.split("\\.");
         if (split.length == 2) {
-            name = split[1];
+            actualName = split[1];
             final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
                 throw new FluentApiException("Repository '" + split[0] + "' could not be found");
@@ -961,7 +983,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
         }
-        return getOperationInterfaceFromList(name, collect);
+        return getOperationInterfaceFromList(actualName, collect);
     }
 
     private OperationInterface getOperationInterfaceFromList(final String name,
@@ -978,11 +1000,13 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         return collect.get(0);
     }
 
-    public InfrastructureInterface getInfrastructureInterface(String name) {
+    public InfrastructureInterface getInfrastructureInterface(final String name) {
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
+        String actualName = name;
         List<InfrastructureInterface> collect;
         final String[] split = name.split("\\.");
         if (split.length == 2) {
-            name = split[1];
+            actualName = split[1];
             final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
                 throw new FluentApiException("Repository '" + split[0] + "' could not be found");
@@ -1001,7 +1025,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
         }
-        return getInfrastructureInterfaceFromList(name, collect);
+        return getInfrastructureInterfaceFromList(actualName, collect);
     }
 
     private InfrastructureInterface getInfrastructureInterfaceFromList(final String name,
@@ -1018,11 +1042,13 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         return collect.get(0);
     }
 
-    public EventGroup getEventGroup(String name) {
+    public EventGroup getEventGroup(final String name) {
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
+        String actualName = name;
         List<EventGroup> collect;
         final String[] split = name.split("\\.");
         if (split.length == 2) {
-            name = split[1];
+            actualName = split[1];
             final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
                 throw new FluentApiException("Repository '" + split[0] + "' could not be found");
@@ -1041,7 +1067,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
         }
-        return getEventGroupFromList(name, collect);
+        return getEventGroupFromList(actualName, collect);
     }
 
     private EventGroup getEventGroupFromList(final String name, final List<EventGroup> interfaces) {
@@ -1057,11 +1083,13 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         return collect.get(0);
     }
 
-    public ProvidedRole getProvidedRole(String name) {
+    public ProvidedRole getProvidedRole(final String name) {
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
+        String actualName = name;
         List<ProvidedRole> collect = new ArrayList<>();
         final String[] split = name.split("\\.");
         if (split.length == 2) {
-            name = split[1];
+            actualName = split[1];
             final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
                 throw new FluentApiException("Repository '" + split[0] + "' could not be found");
@@ -1075,7 +1103,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
         }
-        return getProvidedRoleFromList(name, collect);
+        return getProvidedRoleFromList(actualName, collect);
     }
 
     private ProvidedRole getProvidedRoleFromList(final String name, final List<ProvidedRole> providedRoles) {
@@ -1091,11 +1119,13 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         return collect.get(0);
     }
 
-    public OperationProvidedRole getOperationProvidedRole(String name) {
+    public OperationProvidedRole getOperationProvidedRole(final String name) {
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
+        String actualName = name;
         List<OperationProvidedRole> collect = new ArrayList<>();
         final String[] split = name.split("\\.");
         if (split.length == 2) {
-            name = split[1];
+            actualName = split[1];
             final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
                 throw new FluentApiException("Repository '" + split[0] + "' could not be found");
@@ -1116,7 +1146,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
         }
-        return getOperationProvidedRoleFromList(name, collect);
+        return getOperationProvidedRoleFromList(actualName, collect);
     }
 
     private OperationProvidedRole getOperationProvidedRoleFromList(final String name,
@@ -1133,11 +1163,13 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         return collect.get(0);
     }
 
-    public InfrastructureProvidedRole getInfrastructureProvidedRole(String name) {
+    public InfrastructureProvidedRole getInfrastructureProvidedRole(final String name) {
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
+        String actualName = name;
         List<InfrastructureProvidedRole> collect = new ArrayList<>();
         final String[] split = name.split("\\.");
         if (split.length == 2) {
-            name = split[1];
+            actualName = split[1];
             final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
                 throw new FluentApiException("Repository '" + split[0] + "' could not be found");
@@ -1158,7 +1190,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
         }
-        return getInfrastructureProvidedRoleFromList(name, collect);
+        return getInfrastructureProvidedRoleFromList(actualName, collect);
     }
 
     private InfrastructureProvidedRole getInfrastructureProvidedRoleFromList(final String name,
@@ -1175,11 +1207,13 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         return collect.get(0);
     }
 
-    public SinkRole getSinkRole(String name) {
+    public SinkRole getSinkRole(final String name) {
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
+        String actualName = name;
         List<SinkRole> collect = new ArrayList<>();
         final String[] split = name.split("\\.");
         if (split.length == 2) {
-            name = split[1];
+            actualName = split[1];
             final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
                 throw new FluentApiException("Repository '" + split[0] + "' could not be found");
@@ -1200,7 +1234,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
         }
-        return getSinkRoleFromList(name, collect);
+        return getSinkRoleFromList(actualName, collect);
     }
 
     private SinkRole getSinkRoleFromList(final String name, final List<SinkRole> providedRoles) {
@@ -1216,11 +1250,13 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         return collect.get(0);
     }
 
-    public RequiredRole getRequiredRole(String name) {
+    public RequiredRole getRequiredRole(final String name) {
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
+        String actualName = name;
         List<RequiredRole> collect = new ArrayList<>();
         final String[] split = name.split("\\.");
         if (split.length == 2) {
-            name = split[1];
+            actualName = split[1];
             final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
                 throw new FluentApiException("Repository '" + split[0] + "' could not be found");
@@ -1234,7 +1270,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
         }
-        return getRequiredRoleFromList(name, collect);
+        return getRequiredRoleFromList(actualName, collect);
     }
 
     private RequiredRole getRequiredRoleFromList(final String name, final List<RequiredRole> requiredRoles) {
@@ -1250,11 +1286,13 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         return collect.get(0);
     }
 
-    public OperationRequiredRole getOperationRequiredRole(String name) {
+    public OperationRequiredRole getOperationRequiredRole(final String name) {
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
+        String actualName = name;
         List<OperationRequiredRole> collect = new ArrayList<>();
         final String[] split = name.split("\\.");
         if (split.length == 2) {
-            name = split[1];
+            actualName = split[1];
             final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
                 throw new FluentApiException("Repository '" + split[0] + "' could not be found");
@@ -1275,7 +1313,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
         }
-        return getOperationRequiredRoleFromList(name, collect);
+        return getOperationRequiredRoleFromList(actualName, collect);
     }
 
     private OperationRequiredRole getOperationRequiredRoleFromList(final String name,
@@ -1292,11 +1330,13 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         return collect.get(0);
     }
 
-    public InfrastructureRequiredRole getInfrastructureRequiredRole(String name) {
+    public InfrastructureRequiredRole getInfrastructureRequiredRole(final String name) {
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
+        String actualName = name;
         List<InfrastructureRequiredRole> collect = new ArrayList<>();
         final String[] split = name.split("\\.");
         if (split.length == 2) {
-            name = split[1];
+            actualName = split[1];
             final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
                 throw new FluentApiException("Repository '" + split[0] + "' could not be found");
@@ -1317,7 +1357,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
         }
-        return getInfrastructureRequiredRoleFromList(name, collect);
+        return getInfrastructureRequiredRoleFromList(actualName, collect);
     }
 
     private InfrastructureRequiredRole getInfrastructureRequiredRoleFromList(final String name,
@@ -1334,11 +1374,13 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         return collect.get(0);
     }
 
-    public SourceRole getSourceRole(String name) {
+    public SourceRole getSourceRole(final String name) {
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
+        String actualName = name;
         List<SourceRole> collect = new ArrayList<>();
         final String[] split = name.split("\\.");
         if (split.length == 2) {
-            name = split[1];
+            actualName = split[1];
             final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
                 throw new FluentApiException("Repository '" + split[0] + "' could not be found");
@@ -1359,7 +1401,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
         }
-        return getSourceRoleFromList(name, collect);
+        return getSourceRoleFromList(actualName, collect);
     }
 
     private SourceRole getSourceRoleFromList(final String name, final List<SourceRole> requiredRoles) {
@@ -1375,11 +1417,13 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         return collect.get(0);
     }
 
-    public ResourceRequiredRole getResourceRequiredRole(String name) {
+    public ResourceRequiredRole getResourceRequiredRole(final String name) {
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
+        String actualName = name;
         List<ResourceRequiredRole> collect = new ArrayList<>();
         final String[] split = name.split("\\.");
         if (split.length == 2) {
-            name = split[1];
+            actualName = split[1];
             final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
                 throw new FluentApiException("Repository '" + split[0] + "' could not be found");
@@ -1393,7 +1437,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
         }
-        return getResourceRequiredRoleFromList(name, collect);
+        return getResourceRequiredRoleFromList(actualName, collect);
     }
 
     private ResourceRequiredRole getResourceRequiredRoleFromList(final String name,
@@ -1410,11 +1454,13 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         return collect.get(0);
     }
 
-    public Signature getSignature(String name) {
+    public Signature getSignature(final String name) {
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
+        String actualName = name;
         List<Signature> collect = new ArrayList<>();
         final String[] split = name.split("\\.");
         if (split.length == 2) {
-            name = split[1];
+            actualName = split[1];
             final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
                 throw new FluentApiException("Repository '" + split[0] + "' could not be found");
@@ -1438,7 +1484,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
         }
-        return getSignatureFromList(name, collect);
+        return getSignatureFromList(actualName, collect);
     }
 
     private Signature getSignatureFromList(final String name, final List<Signature> signatures) {
@@ -1454,11 +1500,13 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         return collect.get(0);
     }
 
-    public OperationSignature getOperationSignature(String name) {
+    public OperationSignature getOperationSignature(final String name) {
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
+        String actualName = name;
         List<OperationSignature> collect = new ArrayList<>();
         final String[] split = name.split("\\.");
         if (split.length == 2) {
-            name = split[1];
+            actualName = split[1];
             final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
                 throw new FluentApiException("Repository '" + split[0] + "' could not be found");
@@ -1479,7 +1527,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
         }
-        return getOperationSignatureFromList(name, collect);
+        return getOperationSignatureFromList(actualName, collect);
     }
 
     private OperationSignature getOperationSignatureFromList(final String name,
@@ -1496,11 +1544,13 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         return collect.get(0);
     }
 
-    public InfrastructureSignature getInfrastructureSignature(String name) {
+    public InfrastructureSignature getInfrastructureSignature(final String name) {
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
+        String actualName = name;
         List<InfrastructureSignature> collect = new ArrayList<>();
         final String[] split = name.split("\\.");
         if (split.length == 2) {
-            name = split[1];
+            actualName = split[1];
             final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
                 throw new FluentApiException("Repository '" + split[0] + "' could not be found");
@@ -1521,7 +1571,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
         }
-        return getInfrastructureSignatureFromList(name, collect);
+        return getInfrastructureSignatureFromList(actualName, collect);
     }
 
     private InfrastructureSignature getInfrastructureSignatureFromList(final String name,
@@ -1538,11 +1588,13 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         return collect.get(0);
     }
 
-    public EventType getEventType(String name) {
+    public EventType getEventType(final String name) {
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
+        String actualName = name;
         List<EventType> collect = new ArrayList<>();
         final String[] split = name.split("\\.");
         if (split.length == 2) {
-            name = split[1];
+            actualName = split[1];
             final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
                 throw new FluentApiException("Repository '" + split[0] + "' could not be found");
@@ -1563,7 +1615,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
         }
-        return getEventTypeFromList(name, collect);
+        return getEventTypeFromList(actualName, collect);
     }
 
     private EventType getEventTypeFromList(final String name, final List<EventType> signatures) {
@@ -1579,11 +1631,13 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         return collect.get(0);
     }
 
-    public AssemblyContext getAssemblyContext(String name) {
+    public AssemblyContext getAssemblyContext(final String name) {
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
+        String actualName = name;
         List<AssemblyContext> collect = new ArrayList<>();
         final String[] split = name.split("\\.");
         if (split.length == 2) {
-            name = split[1];
+            actualName = split[1];
             final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
                 throw new FluentApiException("Repository '" + split[0] + "' could not be found");
@@ -1601,7 +1655,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
         }
-        return getAssemblyContextFromList(name, collect);
+        return getAssemblyContextFromList(actualName, collect);
     }
 
     private AssemblyContext getAssemblyContextFromList(final String name,
@@ -1618,11 +1672,13 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         return collect.get(0);
     }
 
-    public EventChannel getEventChannel(String name) {
+    public EventChannel getEventChannel(final String name) {
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
+        String actualName = name;
         List<EventChannel> collect = new ArrayList<>();
         final String[] split = name.split("\\.");
         if (split.length == 2) {
-            name = split[1];
+            actualName = split[1];
             final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
                 throw new FluentApiException("Repository '" + split[0] + "' could not be found");
@@ -1640,7 +1696,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
         }
-        return getEventChannelFromList(name, collect);
+        return getEventChannelFromList(actualName, collect);
     }
 
     private EventChannel getEventChannelFromList(final String name, final List<EventChannel> eventChannels) {
@@ -1657,10 +1713,12 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
     }
 
     public Parameter getParameter(String name) {
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
+        String actualName = name;
         List<Parameter> collect = new ArrayList<>();
         final String[] split = name.split("\\.");
         if (split.length == 2) {
-            name = split[1];
+            actualName = split[1];
             final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
                 throw new FluentApiException("Repository '" + split[0] + "' could not be found");
@@ -1689,7 +1747,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
         }
-        return getParameterFromList(name, collect);
+        return getParameterFromList(actualName, collect);
     }
 
     private Parameter getParameterFromList(final String name, final List<Parameter> parameters) {
@@ -1705,11 +1763,14 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         return collect.get(0);
     }
 
-    public Parameter getParameter(String name, final Signature context) {
+    public Parameter getParameter(final String name, final Signature context) {
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
+        IllegalArgumentException.throwIfNull(context, "context must not be null");
+        String actualName = name;
         final List<Parameter> collect = new ArrayList<>();
         final String[] split = name.split("\\.");
         if (split.length == 2) {
-            name = split[1];
+            actualName = split[1];
             // it is assumed that split[0] = name of the repository refers to the same
             // repository that the signature <context> comes from
             final Repository r = getRepositoryByName(split[0]);
@@ -1729,14 +1790,16 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             collect.add(((EventType) context).getParameter__EventType());
         }
 
-        return getParameterFromList(name, collect);
+        return getParameterFromList(actualName, collect);
     }
 
-    public PassiveResource getPassiveResource(String name) {
+    public PassiveResource getPassiveResource(final String name) {
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
+        String actualName = name;
         List<PassiveResource> collect = new ArrayList<>();
         final String[] split = name.split("\\.");
         if (split.length == 2) {
-            name = split[1];
+            actualName = split[1];
             final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
                 throw new FluentApiException("Repository '" + split[0] + "' could not be found");
@@ -1754,7 +1817,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
         }
-        return getPassiveResourceFromList(name, collect);
+        return getPassiveResourceFromList(actualName, collect);
     }
 
     private PassiveResource getPassiveResourceFromList(final String name,
@@ -1771,11 +1834,13 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         return collect.get(0);
     }
 
-    public RecoveryActionBehaviour getRecoveryActionBehaviour(String name) {
+    public RecoveryActionBehaviour getRecoveryActionBehaviour(final String name) {
+        IllegalArgumentException.throwIfNull(name, "name must not be null");
+        String actualName = name;
         List<RecoveryActionBehaviour> collect = new ArrayList<>();
         final String[] split = name.split("\\.");
         if (split.length == 2) {
-            name = split[1];
+            actualName = split[1];
             final Repository r = getRepositoryByName(split[0]);
             if (r == null) {
                 throw new FluentApiException("Repository '" + split[0] + "' could not be found");
@@ -1808,7 +1873,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             throw new IllegalArgumentException(
                     "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
         }
-        return getRecoveryActionBehaviourFromList(name, collect);
+        return getRecoveryActionBehaviourFromList(actualName, collect);
     }
 
     private RecoveryActionBehaviour getRecoveryActionBehaviourFromList(final String name,
