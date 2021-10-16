@@ -1,5 +1,6 @@
 package org.palladiosimulator.generator.fluent.system.factory;
 
+import java.nio.channels.IllegalSelectorException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -75,9 +76,12 @@ public class FluentSystemFactory {
      * AssemblyContext}.
      *
      * @return the <code>AssemblyContext</code> in the making
+     * @throws IllegalStateException if newSystem has not been called before
      * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
      */
-    public AssemblyContextCreator newAssemblyContext() {
+    public AssemblyContextCreator newAssemblyContext() throws IllegalStateException {
+        if (systemCreator == null)
+            throw new IllegalStateException("newSystem must have been called before");
         return new AssemblyContextCreator(this.systemCreator);
     }
 
@@ -86,9 +90,12 @@ public class FluentSystemFactory {
      * AssemblyConnector}.
      *
      * @return the <code>AssemblyConnector</code> in the making
+     * @throws IllegalStateException if newSystem has not been called before
      * @see org.palladiosimulator.pcm.core.composition.AssemblyConnector
      */
-    public AssemblyConnectorCreator newAssemblyConnector() {
+    public AssemblyConnectorCreator newAssemblyConnector() throws IllegalStateException {
+        if (systemCreator == null)
+            throw new IllegalStateException("newSystem must have been called before");
         return new AssemblyConnectorCreator(this.systemCreator);
     }
 
@@ -97,9 +104,12 @@ public class FluentSystemFactory {
      * OperationRequiredRole}.
      *
      * @return the <code>OperationRequiredRole</code> in the making
+     * @throws IllegalStateException if newSystem has not been called before
      * @see org.palladiosimulator.pcm.repository.OperationRequiredRole
      */
-    public OperationRequiredRoleCreator newOperationRequiredRole() {
+    public OperationRequiredRoleCreator newOperationRequiredRole() throws IllegalStateException {
+        if (systemCreator == null)
+            throw new IllegalStateException("newSystem must have been called before");
         return new OperationRequiredRoleCreator(this.systemCreator);
     }
 
@@ -109,9 +119,12 @@ public class FluentSystemFactory {
      * RequiredDelegationConnector}.
      *
      * @return the <code>RequiredDelegationConnector</code> in the making
+     * @throws IllegalStateException if newSystem has not been called before
      * @see org.palladiosimulator.pcm.core.composition.RequiredDelegationConnector
      */
-    public RequiredDelegationConnectorCreator newRequiredDelegationConnectorCreator() {
+    public RequiredDelegationConnectorCreator newRequiredDelegationConnectorCreator() throws IllegalStateException {
+        if (systemCreator == null)
+            throw new IllegalStateException("newSystem must have been called before");
         return new RequiredDelegationConnectorCreator(this.systemCreator);
     }
 
@@ -120,9 +133,12 @@ public class FluentSystemFactory {
      * OperationProvidedRole}.
      *
      * @return the <code>OperationProvidedRole</code> in the making
+     * @throws IllegalStateException if newSystem has not been called before
      * @see org.palladiosimulator.pcm.repository.OperationProvidedRole
      */
-    public OperationProvidedRoleCreator newOperationProvidedRole() {
+    public OperationProvidedRoleCreator newOperationProvidedRole() throws IllegalStateException {
+        if (systemCreator == null)
+            throw new IllegalStateException("newSystem must have been called before");
         return new OperationProvidedRoleCreator(this.systemCreator);
     }
 
@@ -132,9 +148,12 @@ public class FluentSystemFactory {
      * ProvidedDelegationConnector}.
      *
      * @return the <code>ProvidedDelegationConnector</code> in the making
+     * @throws IllegalStateException if newSystem has not been called before
      * @see org.palladiosimulator.pcm.core.composition.ProvidedDelegationConnector
      */
-    public ProvidedDelegationConnectorCreator newProvidedDelegationConnectorCreator() {
+    public ProvidedDelegationConnectorCreator newProvidedDelegationConnectorCreator() throws IllegalStateException {
+        if (systemCreator == null)
+            throw new IllegalStateException("newSystem must have been called before");
         return new ProvidedDelegationConnectorCreator(this.systemCreator);
     }
 
@@ -143,9 +162,12 @@ public class FluentSystemFactory {
      * EventChannel}.
      *
      * @return the <code>EventChannel</code> in the making
+     * @throws IllegalStateException if newSystem has not been called before
      * @see org.palladiosimulator.pcm.core.composition.EventChannel
      */
-    public EventChannelCreator newEventChannelCreator() {
+    public EventChannelCreator newEventChannelCreator() throws IllegalStateException {
+        if (systemCreator == null)
+            throw new IllegalStateException("newSystem must have been called before");
         return new EventChannelCreator(this.systemCreator);
     }
 
@@ -155,9 +177,12 @@ public class FluentSystemFactory {
      * EventChannelSinkConnector}.
      *
      * @return the <code>EventChannelSinkConnector</code> in the making
+     * @throws IllegalStateException if newSystem has not been called before
      * @see org.palladiosimulator.pcm.core.composition.EventChannelSinkConnector
      */
-    public EventChannelSinkConnectorCreator newEventChannelSinkConnector() {
+    public EventChannelSinkConnectorCreator newEventChannelSinkConnector() throws IllegalStateException {
+        if (systemCreator == null)
+            throw new IllegalStateException("newSystem must have been called before");
         return new EventChannelSinkConnectorCreator(this.systemCreator);
     }
 
@@ -167,9 +192,12 @@ public class FluentSystemFactory {
      * EventChannelSourceConnector}.
      *
      * @return the <code>EventChannelSourceConnector</code> in the making
+     * @throws IllegalStateException if newSystem has not been called before
      * @see org.palladiosimulator.pcm.core.composition.EventChannelSourceConnector
      */
-    public EventChannelSourceConnectorCreator newEventChannelSourceConnector() {
+    public EventChannelSourceConnectorCreator newEventChannelSourceConnector() throws IllegalSelectorException {
+        if (systemCreator == null)
+            throw new IllegalStateException("newSystem must have been called before");
         return new EventChannelSourceConnectorCreator(this.systemCreator);
     }
 
@@ -177,9 +205,12 @@ public class FluentSystemFactory {
      * Start the creation of a {@link org.palladiosimulator.pcm.repository.SinkRole SinkRole}.
      *
      * @return the <code>SinkRole</code> in the making
+     * @throws IllegalStateException if newSystem has not been called before
      * @see org.palladiosimulator.pcm.repository.SinkRole
      */
-    public SinkRoleCreator newSinkRole() {
+    public SinkRoleCreator newSinkRole() throws IllegalStateException {
+        if (systemCreator == null)
+            throw new IllegalStateException("newSystem must have been called before");
         return new SinkRoleCreator(this.systemCreator);
     }
 
@@ -189,9 +220,12 @@ public class FluentSystemFactory {
      * SinkDelegationConnector}.
      *
      * @return the <code>SinkDelegationConnector</code> in the making
+     * @throws IllegalStateException if newSystem has not been called before
      * @see org.palladiosimulator.pcm.core.composition.SinkDelegationConnector
      */
-    public SinkDelegationConnectorCreator newSinkDelegationConnector() {
+    public SinkDelegationConnectorCreator newSinkDelegationConnector() throws IllegalStateException {
+        if (systemCreator == null)
+            throw new IllegalStateException("newSystem must have been called before");
         return new SinkDelegationConnectorCreator(this.systemCreator);
     }
 
@@ -199,9 +233,12 @@ public class FluentSystemFactory {
      * Start the creation of a {@link org.palladiosimulator.pcm.repository.SourceRole SourceRole}.
      *
      * @return the <code>SourceRole</code> in the making
+     * @throws IllegalStateException if newSystem has not been called before
      * @see org.palladiosimulator.pcm.repository.SourceRole
      */
-    public SourceRoleCreator newSourceRole() {
+    public SourceRoleCreator newSourceRole() throws IllegalStateException {
+        if (systemCreator == null)
+            throw new IllegalStateException("newSystem must have been called before");
         return new SourceRoleCreator(this.systemCreator);
     }
 
@@ -211,9 +248,12 @@ public class FluentSystemFactory {
      * SourceDelegationConnector}.
      *
      * @return the <code>SourceDelegationConnector</code> in the making
+     * @throws IllegalStateException if newSystem has not been called before
      * @see org.palladiosimulator.pcm.core.composition.SourceDelegationConnector
      */
-    public SourceDelegationConnectorCreator newSourceDelegationConnector() {
+    public SourceDelegationConnectorCreator newSourceDelegationConnector() throws IllegalStateException {
+        if (systemCreator == null)
+            throw new IllegalStateException("newSystem must have been called before");
         return new SourceDelegationConnectorCreator(this.systemCreator);
     }
 
@@ -223,9 +263,12 @@ public class FluentSystemFactory {
      * AssemblyEventConnector}.
      *
      * @return the <code>AssemblyEventConnector</code> in the making
+     * @throws IllegalStateException if newSystem has not been called before
      * @see org.palladiosimulator.pcm.core.composition.AssemblyEventConnector
      */
-    public AssemblyEventConnectorCreator newAssemblyEventConnector() {
+    public AssemblyEventConnectorCreator newAssemblyEventConnector() throws IllegalStateException {
+        if (systemCreator == null)
+            throw new IllegalStateException("newSystem must have been called before");
         return new AssemblyEventConnectorCreator(this.systemCreator);
     }
 
@@ -235,9 +278,12 @@ public class FluentSystemFactory {
      * AssemblyInfrastructureConnector}.
      *
      * @return the <code>AssemblyInfrastructureConnector</code> in the making
+     * @throws IllegalStateException if newSystem has not been called before
      * @see org.palladiosimulator.pcm.core.composition.AssemblyInfrastructureConnector
      */
-    public AssemblyInfrastructureConnectorCreator newAssemblyInfrastructureConnector() {
+    public AssemblyInfrastructureConnectorCreator newAssemblyInfrastructureConnector() throws IllegalStateException {
+        if (systemCreator == null)
+            throw new IllegalStateException("newSystem must have been called before");
         return new AssemblyInfrastructureConnectorCreator(this.systemCreator);
     }
 
@@ -247,9 +293,12 @@ public class FluentSystemFactory {
      * InfrastructureRequiredRole}.
      *
      * @return the <code>InfrastructureRequiredRole</code> in the making
+     * @throws IllegalStateException if newSystem has not been called before
      * @see org.palladiosimulator.pcm.repository.InfrastructureRequiredRole
      */
-    public InfrastructureRequiredRoleCreator newInfrastructureRequiredRole() {
+    public InfrastructureRequiredRoleCreator newInfrastructureRequiredRole() throws IllegalStateException {
+        if (systemCreator == null)
+            throw new IllegalStateException("newSystem must have been called before");
         return new InfrastructureRequiredRoleCreator(this.systemCreator);
     }
 
@@ -259,9 +308,13 @@ public class FluentSystemFactory {
      * RequiredInfrastructureDelegationConnector}.
      *
      * @return the <code>RequiredInfrastructureDelegationConnector</code> in the making
+     * @throws IllegalStateException if newSystem has not been called before
      * @see org.palladiosimulator.pcm.core.composition.RequiredInfrastructureDelegationConnector
      */
-    public RequiredInfrastructureDelegationConnectorCreator newRequiredInfrastructureDelegationConnector() {
+    public RequiredInfrastructureDelegationConnectorCreator newRequiredInfrastructureDelegationConnector()
+            throws IllegalStateException {
+        if (systemCreator == null)
+            throw new IllegalStateException("newSystem must have been called before");
         return new RequiredInfrastructureDelegationConnectorCreator(this.systemCreator);
     }
 
@@ -271,9 +324,12 @@ public class FluentSystemFactory {
      * InfrastructureProvidedRole}.
      *
      * @return the <code>InfrastructureProvidedRole</code> in the making
+     * @throws IllegalStateException if newSystem has not been called before
      * @see org.palladiosimulator.pcm.repository.InfrastructureProvidedRole
      */
-    public InfrastructureProvidedRoleCreator newInfrastructureProvidedRole() {
+    public InfrastructureProvidedRoleCreator newInfrastructureProvidedRole() throws IllegalStateException {
+        if (systemCreator == null)
+            throw new IllegalStateException("newSystem must have been called before");
         return new InfrastructureProvidedRoleCreator(this.systemCreator);
     }
 
@@ -283,9 +339,13 @@ public class FluentSystemFactory {
      * ProvidedInfrastructureDelegationConnector}.
      *
      * @return the <code>ProvidedInfrastructureDelegationConnector</code> in the making
+     * @throws IllegalStateException if newSystem has not been called before
      * @see org.palladiosimulator.pcm.core.composition.ProvidedInfrastructureDelegationConnector
      */
-    public ProvidedInfrastructureDelegationConnectorCreator newProvidedInfrastructureDelegationConnector() {
+    public ProvidedInfrastructureDelegationConnectorCreator newProvidedInfrastructureDelegationConnector()
+            throws IllegalStateException {
+        if (systemCreator == null)
+            throw new IllegalStateException("newSystem must have been called before");
         return new ProvidedInfrastructureDelegationConnectorCreator(this.systemCreator);
     }
 
@@ -294,9 +354,12 @@ public class FluentSystemFactory {
      * QoSAnnotations}.
      *
      * @return the <code>QoSAnnotations</code> in the making
+     * @throws IllegalStateException if newSystem has not been called before
      * @see org.palladiosimulator.pcm.qosannotations.QoSAnnotations
      */
-    public QoSAnnotationsCreator newQoSAnnotations() {
+    public QoSAnnotationsCreator newQoSAnnotations() throws IllegalStateException {
+        if (systemCreator == null)
+            throw new IllegalStateException("newSystem must have been called before");
         return new QoSAnnotationsCreator(this.systemCreator);
     }
 
@@ -305,9 +368,12 @@ public class FluentSystemFactory {
      * ResourceRequiredRole}.
      *
      * @return the <code>ResourceRequiredRole</code> in the making
+     * @throws IllegalStateException if newSystem has not been called before
      * @see org.palladiosimulator.pcm.core.entity.ResourceRequiredRole
      */
-    public ResourceRequiredRoleCreator newResourceRequiredRole() {
+    public ResourceRequiredRoleCreator newResourceRequiredRole() throws IllegalStateException {
+        if (systemCreator == null)
+            throw new IllegalStateException("newSystem must have been called before");
         return new ResourceRequiredRoleCreator(this.systemCreator);
     }
 
@@ -317,9 +383,13 @@ public class FluentSystemFactory {
      * ResourceRequiredDelegationConnector}.
      *
      * @return the <code>ResourceRequiredDelegationConnector</code> in the making
+     * @throws IllegalStateException if newSystem has not been called before
      * @see org.palladiosimulator.pcm.core.composition.ResourceRequiredDelegationConnector
      */
-    public ResourceRequiredDelegationConnectorCreator newResourceRequiredDelegationConnector() {
+    public ResourceRequiredDelegationConnectorCreator newResourceRequiredDelegationConnector()
+            throws IllegalStateException {
+        if (systemCreator == null)
+            throw new IllegalStateException("newSystem must have been called before");
         return new ResourceRequiredDelegationConnectorCreator(this.systemCreator);
     }
 
@@ -329,9 +399,13 @@ public class FluentSystemFactory {
      * RequiredResourceDelegationConnector}.
      *
      * @return the <code>RequiredResourceDelegationConnector</code> in the making
+     * @throws IllegalStateException if newSystem has not been called before
      * @see org.palladiosimulator.pcm.core.composition.RequiredResourceDelegationConnector
      */
-    public RequiredResourceDelegationConnectorCreator newRequiredResourceDelegationConnector() {
+    public RequiredResourceDelegationConnectorCreator newRequiredResourceDelegationConnector()
+            throws IllegalSelectorException {
+        if (systemCreator == null)
+            throw new IllegalStateException("newSystem must have been called before");
         return new RequiredResourceDelegationConnectorCreator(this.systemCreator);
     }
 }

@@ -49,6 +49,8 @@ public abstract class ComplexComponent extends Component {
     protected List<EventChannel> eventChannels = new ArrayList<>();
     protected List<ResourceRequiredDelegationConnector> resourceRequiredDelegationConnectors = new ArrayList<>();
 
+
+
     /**
      * Creates an {@link org.palladiosimulator.pcm.core.composition.AssemblyContext AssemblyContext}
      * with the name <code>name</code> and optionally many <code>configParameterUsages</code> and
