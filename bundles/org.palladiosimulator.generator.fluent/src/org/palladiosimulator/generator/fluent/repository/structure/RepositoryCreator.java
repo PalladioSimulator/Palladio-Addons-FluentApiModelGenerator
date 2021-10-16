@@ -1712,7 +1712,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         return collect.get(0);
     }
 
-    public Parameter getParameter(String name) {
+    public Parameter getParameter(final String name) {
         IllegalArgumentException.throwIfNull(name, "name must not be null");
         String actualName = name;
         List<Parameter> collect = new ArrayList<>();
