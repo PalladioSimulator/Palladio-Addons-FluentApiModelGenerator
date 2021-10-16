@@ -215,17 +215,18 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         for (final ResourceType resourceType : resourceTypes.getAvailableResourceTypes_ResourceRepository()) {
             if (resourceType instanceof ProcessingResourceType) {
                 final ProcessingResourceType p = (ProcessingResourceType) resourceType;
-                if (p.getEntityName()
-                    .contentEquals("CPU")) {
-                    this.internalProcessingResources.put(ProcessingResource.CPU, p);
-                } else if (p.getEntityName()
-                    .contentEquals("HDD")) {
-                    this.internalProcessingResources.put(ProcessingResource.HDD, p);
-                } else if (p.getEntityName()
-                    .contentEquals("DELAY")) {
-                    this.internalProcessingResources.put(ProcessingResource.DELAY, p);
-                } else {
-                    System.err.println("Unexpected Processing Resource Type.");
+                switch (p.getEntityName()) {
+                    case "CPU":
+                        this.internalProcessingResources.put(ProcessingResource.CPU, p);
+                        break;
+                    case "HDD":
+                        this.internalProcessingResources.put(ProcessingResource.HDD, p);
+                        break;
+                    case "DELAY":
+                        this.internalProcessingResources.put(ProcessingResource.DELAY, p);
+                        break;
+                    default:
+                        logger.warning("Unexpected Processing Resource Type.");
                 }
 
             } else if (resourceType instanceof CommunicationLinkResourceType) {
@@ -236,38 +237,40 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
 
         // Resource interfaces and signatures
         for (final ResourceInterface resourceInterface : resourceTypes.getResourceInterfaces__ResourceRepository()) {
-            if (resourceInterface.getEntityName()
-                .contentEquals("CpuInterface")) {
-                this.internalResourceInterfaces.put(
+            switch (resourceInterface.getEntityName()) {
+                case "CpuInterface":
+                    this.internalResourceInterfaces.put(
                         org.palladiosimulator.generator.fluent.shared.structure.ResourceInterface.CPU,
                         resourceInterface);
-            } else if (resourceInterface.getEntityName()
-                .contentEquals("HddInterface")) {
-                this.internalResourceInterfaces.put(
+                    break;
+                case "HddInterface":
+                    this.internalResourceInterfaces.put(
                         org.palladiosimulator.generator.fluent.shared.structure.ResourceInterface.HDD,
                         resourceInterface);
-            } else {
-                System.err.println("Unexpected Resource Interface.");
+                    break;
+                default:
+                    logger.warning("Unexpected Resource Interface.");
             }
 
             for (final ResourceSignature s : resourceInterface.getResourceSignatures__ResourceInterface()) {
-                if (s.getEntityName()
-                    .contentEquals("process")) {
-                    this.internalResourceSignatures.put(
+                switch (s.getEntityName()) {
+                    case "process":
+                        this.internalResourceSignatures.put(
                             org.palladiosimulator.generator.fluent.repository.structure.internals.ResourceSignature.PROCESS,
                             s);
-                } else if (s.getEntityName()
-                    .contentEquals("read")) {
-                    this.internalResourceSignatures.put(
+                        break;
+                    case "read":
+                        this.internalResourceSignatures.put(
                             org.palladiosimulator.generator.fluent.repository.structure.internals.ResourceSignature.READ,
                             s);
-                } else if (s.getEntityName()
-                    .contentEquals("write")) {
-                    this.internalResourceSignatures.put(
+                        break;
+                    case "write":
+                        this.internalResourceSignatures.put(
                             org.palladiosimulator.generator.fluent.repository.structure.internals.ResourceSignature.WRITE,
                             s);
-                } else {
-                    System.err.println("Unexpected Resource Signature.");
+                        break;
+                    default:
+                        logger.warning("Unexpected Resource Signature.");
                 }
             }
         }
@@ -275,32 +278,26 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         // FailureTypes
         final EList<FailureType> failures = failureTypes.getFailureTypes__Repository();
         for (final FailureType f : failures) {
-            if ((f instanceof SoftwareInducedFailureType) && !this.internalFailureTypes.containsKey(Failure.SOFTWARE)) {
-                this.internalFailureTypes.put(Failure.SOFTWARE, f);
-            } else if ((f instanceof NetworkInducedFailureType)
-                    && !this.internalFailureTypes.containsKey(Failure.NETWORK_LAN)) {
-                this.internalFailureTypes.put(Failure.NETWORK_LAN, f);
+            if (f instanceof SoftwareInducedFailureType) {
+                this.internalFailureTypes.putIfAbsent(Failure.SOFTWARE, f);
+            } else if (f instanceof NetworkInducedFailureType) {
+                this.internalFailureTypes.putIfAbsent(Failure.NETWORK_LAN, f);
             } else if (f instanceof HardwareInducedFailureType) {
-                if (f.getEntityName()
-                    .toLowerCase()
-                    .contentEquals("hardwareinducedfailure (cpu)")
-                        && !this.internalFailureTypes.containsKey(Failure.HARDWARE_CPU)) {
-                    this.internalFailureTypes.put(Failure.HARDWARE_CPU, f);
-                } else if (f.getEntityName()
-                    .toLowerCase()
-                    .contentEquals("hardwareinducedfailure (hdd)")
-                        && !this.internalFailureTypes.containsKey(Failure.HARDWARE_HDD)) {
-                    this.internalFailureTypes.put(Failure.HARDWARE_HDD, f);
-                } else if (f.getEntityName()
-                    .toLowerCase()
-                    .contentEquals("hardwareinducedfailure (delay)")
-                        && !this.internalFailureTypes.containsKey(Failure.HARDWARE_DELAY)) {
-                    this.internalFailureTypes.put(Failure.HARDWARE_DELAY, f);
-                } else {
-                    System.err.println("Unexpected failure type while reading internal failure types.");
+                switch (f.getEntityName().toLowerCase()) {
+                    case "hardwareinducedfailure (cpu)":
+                        this.internalFailureTypes.putIfAbsent(Failure.HARDWARE_CPU, f);
+                        break;
+                    case "hardwareinducedfailure (hdd)":
+                        this.internalFailureTypes.putIfAbsent(Failure.HARDWARE_HDD, f);
+                        break;
+                    case "hardwareinducedfailure (delay)":
+                        this.internalFailureTypes.putIfAbsent(Failure.HARDWARE_DELAY, f);
+                        break;
+                    default:
+                        logger.warning("Unexpected failure type while reading internal failure types.");
                 }
             } else {
-                System.err.println("Unexpected failure type while reading internal failure types.");
+                logger.warning("Unexpected failure type while reading internal failure types.");
             }
         }
     }
