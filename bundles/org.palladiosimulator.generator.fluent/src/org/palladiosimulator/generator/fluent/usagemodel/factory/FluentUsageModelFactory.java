@@ -53,7 +53,7 @@ public class FluentUsageModelFactory {
 
     private UsageModelCreator usgModelCreator;
     private final List<System> systems;
-    final Logger logger;
+    private final Logger logger;
 
     /**
      * Creates an instance of the FluentUsageModelFactory.
@@ -90,8 +90,6 @@ public class FluentUsageModelFactory {
      * @see org.palladiosimulator.pcm.usagemodel.UsageModel
      */
     public IUsageModel newUsageModel() {
-        final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-        logger.setLevel(Level.ALL);
         final IModelValidator validator = new ModelValidator(logger);
         this.usgModelCreator = new UsageModelCreator(validator);
         return this.usgModelCreator;
