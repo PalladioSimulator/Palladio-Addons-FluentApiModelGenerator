@@ -68,9 +68,9 @@ public class ProvidedInfrastructureDelegationConnectorCreator extends AbstractCo
     public InfrastructureProvidedRoleSelector<ProvidedInfrastructureDelegationConnectorCreator> withProvidingContext(
             final AssemblyContext context) {
         return new InfrastructureProvidedRoleSelector<>((context1, role) -> {
-            ProvidedInfrastructureDelegationConnectorCreator.this.providingAssemblyContext = context1;
-            ProvidedInfrastructureDelegationConnectorCreator.this.innerProvidedRole = role;
-            return ProvidedInfrastructureDelegationConnectorCreator.this;
+            this.providingAssemblyContext = context1;
+            this.innerProvidedRole = role;
+            return this;
         }, context);
     }
 

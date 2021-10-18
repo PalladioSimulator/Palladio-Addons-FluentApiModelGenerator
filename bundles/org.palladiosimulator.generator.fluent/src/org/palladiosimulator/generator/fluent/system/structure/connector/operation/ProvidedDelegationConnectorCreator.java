@@ -72,9 +72,9 @@ public class ProvidedDelegationConnectorCreator extends AbstractConnectorCreator
             final AssemblyContext context) {
         IllegalArgumentException.throwIfNull(context, "The given AssemblyContext must not be null.");
         return new OperationProvidedRoleSelector<>((context1, role) -> {
-            ProvidedDelegationConnectorCreator.this.providingAssemblyContext = context1;
-            ProvidedDelegationConnectorCreator.this.innerProvidedRole = role;
-            return ProvidedDelegationConnectorCreator.this;
+            this.providingAssemblyContext = context1;
+            this.innerProvidedRole = role;
+            return this;
         }, context);
     }
 

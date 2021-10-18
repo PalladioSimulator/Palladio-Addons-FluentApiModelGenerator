@@ -69,9 +69,9 @@ public class SourceDelegationConnectorCreator extends AbstractConnectorCreator {
     public SourceRoleSelector<SourceDelegationConnectorCreator> withAssemblyContext(final AssemblyContext context) {
         IllegalArgumentException.throwIfNull(context, "The given AssemblyContext must not be null.");
         return new SourceRoleSelector<>((context1, role) -> {
-            SourceDelegationConnectorCreator.this.assemblyContext = context1;
-            SourceDelegationConnectorCreator.this.innerRole = role;
-            return SourceDelegationConnectorCreator.this;
+            this.assemblyContext = context1;
+            this.innerRole = role;
+            return this;
         }, context);
     }
 

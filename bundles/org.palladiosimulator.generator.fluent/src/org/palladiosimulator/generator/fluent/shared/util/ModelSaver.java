@@ -107,7 +107,7 @@ public class ModelSaver {
     private static void save(final EObject model, final String path, final String extension,
             final boolean printToConsole) {
         final String outputFile = path + "." + extension;
-        final String[] fileExtensions = new String[] { extension, "xml" };
+        final String[] fileExtensions = { extension, "xml" };
 
         // Create File
         final ResourceSet rs = new ResourceSetImpl();

@@ -68,9 +68,9 @@ public class SinkDelegationConnectorCreator extends AbstractConnectorCreator {
     public SinkRoleSelector<SinkDelegationConnectorCreator> withAssemblyContext(final AssemblyContext context) {
         IllegalArgumentException.throwIfNull(context, "The given AssemblyContext must not be null.");
         return new SinkRoleSelector<>((context1, role) -> {
-            SinkDelegationConnectorCreator.this.assemblyContext = context1;
-            SinkDelegationConnectorCreator.this.innerRole = role;
-            return SinkDelegationConnectorCreator.this;
+            this.assemblyContext = context1;
+            this.innerRole = role;
+            return this;
         }, context);
     }
 

@@ -72,9 +72,9 @@ public class RequiredResourceDelegationConnectorCreator extends AbstractConnecto
     public ResourceRequiredRoleSelector withRequiringContext(final AssemblyContext context) {
         IllegalArgumentException.throwIfNull(context, "The given AssemblyContext must not be null.");
         return new ResourceRequiredRoleSelector((context1, role) -> {
-            RequiredResourceDelegationConnectorCreator.this.requringAssemblyContext = context1;
-            RequiredResourceDelegationConnectorCreator.this.innerRequiredRole = role;
-            return RequiredResourceDelegationConnectorCreator.this;
+            this.requringAssemblyContext = context1;
+            this.innerRequiredRole = role;
+            return this;
         }, context);
     }
 

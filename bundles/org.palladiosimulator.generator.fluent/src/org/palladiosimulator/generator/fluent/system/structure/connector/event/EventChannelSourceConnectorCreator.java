@@ -73,9 +73,9 @@ public class EventChannelSourceConnectorCreator extends AbstractConnectorCreator
             final AssemblyContext assemblyContext) {
         IllegalArgumentException.throwIfNull(assemblyContext, "The given AssemblyContext must not be null.");
         return new SourceRoleSelector<>((context, role) -> {
-            EventChannelSourceConnectorCreator.this.assemblyContext = context;
-            EventChannelSourceConnectorCreator.this.role = role;
-            return EventChannelSourceConnectorCreator.this;
+            this.assemblyContext = context;
+            this.role = role;
+            return this;
         }, assemblyContext);
     }
 

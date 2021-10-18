@@ -19,7 +19,7 @@ import org.palladiosimulator.pcm.usagemodel.UsagemodelFactory;
  */
 public class BranchActionCreator extends ActionCreator {
 
-    private final List<BranchTransition> transitions = new ArrayList<BranchTransition>();
+    private final List<BranchTransition> transitions = new ArrayList<>();
 
     /**
      * Adds an {@link org.palladiosimulator.pcm.usagemodel.BranchTransition Branch Transition} to

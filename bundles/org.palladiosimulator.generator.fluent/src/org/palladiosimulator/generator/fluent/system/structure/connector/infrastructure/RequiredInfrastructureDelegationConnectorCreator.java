@@ -68,9 +68,9 @@ public class RequiredInfrastructureDelegationConnectorCreator extends AbstractCo
     public InfrastructureRequiredRoleSelector<RequiredInfrastructureDelegationConnectorCreator> withRequiringContext(
             final AssemblyContext context) {
         return new InfrastructureRequiredRoleSelector<>((context1, role) -> {
-            RequiredInfrastructureDelegationConnectorCreator.this.requringAssemblyContext = context1;
-            RequiredInfrastructureDelegationConnectorCreator.this.innerRequiredRole = role;
-            return RequiredInfrastructureDelegationConnectorCreator.this;
+            this.requringAssemblyContext = context1;
+            this.innerRequiredRole = role;
+            return this;
         }, context);
     }
 

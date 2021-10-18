@@ -40,9 +40,9 @@ public class AssemblyConnectorCreator extends AbstractConnectorCreator {
             final AssemblyContext context) {
         IllegalArgumentException.throwIfNull(context, "The given AssemblyContext must not be null.");
         return new OperationRequiredRoleSelector<>((reqContext, role) -> {
-            AssemblyConnectorCreator.this.requiringContext = reqContext;
-            AssemblyConnectorCreator.this.requiredRole = role;
-            return AssemblyConnectorCreator.this;
+            this.requiringContext = reqContext;
+            this.requiredRole = role;
+            return this;
         }, context);
     }
 
@@ -76,9 +76,9 @@ public class AssemblyConnectorCreator extends AbstractConnectorCreator {
             final AssemblyContext context) {
         IllegalArgumentException.throwIfNull(context, "The given AssemblyContext must not be null.");
         return new OperationProvidedRoleSelector<>((provContext, role) -> {
-            AssemblyConnectorCreator.this.providingContext = provContext;
-            AssemblyConnectorCreator.this.providedRole = role;
-            return AssemblyConnectorCreator.this;
+            this.providingContext = provContext;
+            this.providedRole = role;
+            return this;
         }, context);
     }
 

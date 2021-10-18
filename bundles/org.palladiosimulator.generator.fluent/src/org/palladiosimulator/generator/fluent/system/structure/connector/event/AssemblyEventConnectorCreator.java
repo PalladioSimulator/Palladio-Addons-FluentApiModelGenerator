@@ -40,9 +40,9 @@ public class AssemblyEventConnectorCreator extends AbstractConnectorCreator {
     public SourceRoleSelector<AssemblyEventConnectorCreator> withSourceAssemblyContext(final AssemblyContext context) {
         IllegalArgumentException.throwIfNull(context, "The given AssemblyContext must not be null.");
         return new SourceRoleSelector<>((context1, role) -> {
-            AssemblyEventConnectorCreator.this.sourceContext = context1;
-            AssemblyEventConnectorCreator.this.sourceRole = role;
-            return AssemblyEventConnectorCreator.this;
+            this.sourceContext = context1;
+            this.sourceRole = role;
+            return this;
         }, context);
     }
 
@@ -77,9 +77,9 @@ public class AssemblyEventConnectorCreator extends AbstractConnectorCreator {
     public SinkRoleSelector<AssemblyEventConnectorCreator> withSinkAssemblyContext(final AssemblyContext context) {
         IllegalArgumentException.throwIfNull(context, "The given AssemblyContext must not be null.");
         return new SinkRoleSelector<>((context1, role) -> {
-            AssemblyEventConnectorCreator.this.sinkContext = context1;
-            AssemblyEventConnectorCreator.this.sinkRole = role;
-            return AssemblyEventConnectorCreator.this;
+            this.sinkContext = context1;
+            this.sinkRole = role;
+            return this;
         }, context);
     }
 

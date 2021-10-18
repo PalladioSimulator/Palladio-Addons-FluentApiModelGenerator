@@ -60,7 +60,7 @@ public class FluentUsageModelFactory {
      */
     public FluentUsageModelFactory() {
         EcorePlugin.ExtensionProcessor.process(null);
-        this.systems = new ArrayList<System>();
+        this.systems = new ArrayList<>();
 
         this.logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
         this.logger.setLevel(Level.ALL);

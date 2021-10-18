@@ -73,9 +73,9 @@ public class EventChannelSinkConnectorCreator extends AbstractConnectorCreator {
             final AssemblyContext assemblyContext) {
         IllegalArgumentException.throwIfNull(assemblyContext, "The given AssemblyContext must not be null.");
         return new SinkRoleSelector<>((context, role) -> {
-            EventChannelSinkConnectorCreator.this.assemblyContext = context;
-            EventChannelSinkConnectorCreator.this.role = role;
-            return EventChannelSinkConnectorCreator.this;
+            this.assemblyContext = context;
+            this.role = role;
+            return this;
         }, assemblyContext);
     }
 

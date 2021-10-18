@@ -62,8 +62,8 @@ public class EntryLevelSystemCallCreator extends ActionCreator {
      */
     public EntryLevelSystemCallCreator(final OperationSignature operationSignature,
             final OperationProvidedRole operationProvidedRole) {
-        this.outputParameterUsage = new ArrayList<VariableUsage>();
-        this.inputParameterUsage = new ArrayList<VariableUsage>();
+        this.outputParameterUsage = new ArrayList<>();
+        this.inputParameterUsage = new ArrayList<>();
         this.priority = 0;
         withOperationSignatureEntryLevelSystemCall(operationSignature);
         withProvidedRoleEntryLevelSystemCall(operationProvidedRole);

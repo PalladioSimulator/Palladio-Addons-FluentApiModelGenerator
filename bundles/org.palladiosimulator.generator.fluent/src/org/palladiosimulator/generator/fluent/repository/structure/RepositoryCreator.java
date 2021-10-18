@@ -461,7 +461,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repository, R
      */
     public PrimitiveDataType getPrimitiveDataType(final String name) throws NoSuchElementException {
         IllegalArgumentException.throwIfNull(name, "name must not be null");
-        String adjustedName = name.toUpperCase(Locale.US);
+        final String adjustedName = name.toUpperCase(Locale.US);
         switch (adjustedName) {
             case "INT":
                 return this.internalPrimitives.get(Primitive.INTEGER);

@@ -517,8 +517,7 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.CollectionDataType
      * @see org.palladiosimulator.pcm.repository.DataType
      */
-    public static CollectionDataType newCollectionDataType(final String name,
-            final org.palladiosimulator.pcm.repository.DataType dataType) {
+    public static CollectionDataType newCollectionDataType(final String name, final DataType dataType) {
         IllegalArgumentException.throwIfNull(name, "name must not be null");
         final CollectionDataType coll = RepositoryFactory.eINSTANCE.createCollectionDataType();
         coll.setEntityName(name);

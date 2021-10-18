@@ -51,12 +51,12 @@ public class ModelValidator implements IModelValidator {
 
     private void logResult(final Diagnostic diagnostic, final String name, final Level logLevel) {
         final StringBuilder builder = new StringBuilder();
-        if (name != null) {
+        if (name == null) {
+            builder.append(diagnostic.getMessage());
+        } else {
             builder.append("Validation for model \"");
             builder.append(name);
             builder.append("\"");
-        } else {
-            builder.append(diagnostic.getMessage());
         }
         builder.append(":\n");
         diagnostic.getChildren()
