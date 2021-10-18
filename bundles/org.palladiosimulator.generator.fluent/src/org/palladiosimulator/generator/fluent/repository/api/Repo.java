@@ -3,7 +3,7 @@ package org.palladiosimulator.generator.fluent.repository.api;
 import org.eclipse.emf.common.util.URI;
 import org.palladiosimulator.pcm.repository.Repository;
 
-public interface Repository extends RepositoryAddition {
+public interface Repo extends RepoAddition {
 
     /**
      * Defines the name of the repository.
@@ -11,7 +11,7 @@ public interface Repository extends RepositoryAddition {
      * @param name
      * @return this repository
      */
-    Repository withName(String name);
+    Repo withName(String name);
 
     /**
      * Defines the description of the repository.
@@ -19,7 +19,7 @@ public interface Repository extends RepositoryAddition {
      * @param description
      * @return this repository
      */
-    Repository withDescription(String description);
+    Repo withDescription(String description);
 
     /**
      * Loads the repository located in <code>path</code> as a Resource and provides its entities in
@@ -29,7 +29,7 @@ public interface Repository extends RepositoryAddition {
      *            to the import repository
      * @return this repository
      */
-    Repository withImportedResource(String path);
+    Repo withImportedResource(String path);
 
     /**
      * Loads the repository located in <code>uri</code> as a Resource and provides its entities in
@@ -39,7 +39,7 @@ public interface Repository extends RepositoryAddition {
      *            to the import repository
      * @return this repository
      */
-    Repository withImportedResource(URI uri);
+    Repo withImportedResource(URI uri);
 
     /**
      * Provides the entities in the fetching methods of a already loaded repository by calling on
@@ -49,5 +49,5 @@ public interface Repository extends RepositoryAddition {
      *            loaded repository to be copied
      * @return this repository
      */
-    Repository withImportedResource(Repository repository);
+    Repo withImportedResource(Repository repository);
 }

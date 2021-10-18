@@ -13,8 +13,8 @@ import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.palladiosimulator.generator.fluent.exceptions.FluentApiException;
 import org.palladiosimulator.generator.fluent.exceptions.IllegalArgumentException;
 import org.palladiosimulator.generator.fluent.exceptions.NoSuchElementException;
-import org.palladiosimulator.generator.fluent.repository.api.Repository;
-import org.palladiosimulator.generator.fluent.repository.api.RepositoryAddition;
+import org.palladiosimulator.generator.fluent.repository.api.Repo;
+import org.palladiosimulator.generator.fluent.repository.api.RepoAddition;
 import org.palladiosimulator.generator.fluent.repository.structure.components.Component;
 import org.palladiosimulator.generator.fluent.repository.structure.internals.Failure;
 import org.palladiosimulator.generator.fluent.repository.structure.internals.Primitive;
@@ -86,7 +86,7 @@ import org.palladiosimulator.pcm.subsystem.SubSystem;
  * @author Louisa Lambrecht
  * @see org.palladiosimulator.pcm.repository.Repository
  */
-public class RepositoryCreator extends RepositoryEntity implements Repository, RepositoryAddition {
+public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAddition {
 
     private final Logger logger;
     private String description;
@@ -308,7 +308,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repository, R
     }
 
     @Override
-    public Repository withImportedResource(final URI uri) {
+    public Repo withImportedResource(final URI uri) {
         IllegalArgumentException.throwIfNull(uri, "URI must not be null.");
 
         if (!"repository".equalsIgnoreCase(uri.fileExtension(), Locale.US)) {
@@ -321,7 +321,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repository, R
     }
 
     @Override
-    public Repository withImportedResource(final String path) {
+    public Repo withImportedResource(final String path) {
         IllegalArgumentException.throwIfNull(path, "path must not be null.");
 
         if (!path.toLowerCase(Locale.US)
@@ -335,7 +335,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repository, R
     }
 
     @Override
-    public Repository withImportedResource(final Repository repository) {
+    public Repo withImportedResource(final Repository repository) {
         this.imports.add(IllegalArgumentException.throwIfNull(repository, "repository must not be null"));
         this.importedDataTypes.addAll(repository.getDataTypes__Repository());
         this.importedFailureTypes.addAll(repository.getFailureTypes__Repository());
@@ -346,14 +346,14 @@ public class RepositoryCreator extends RepositoryEntity implements Repository, R
     }
 
     @Override
-    public RepositoryAddition addToRepository(final CollectionDataType collectionDataType) {
+    public RepoAddition addToRepository(final CollectionDataType collectionDataType) {
         this.dataTypes
             .add(IllegalArgumentException.throwIfNull(collectionDataType, "collectionDataType must not be null"));
         return this;
     }
 
     @Override
-    public RepositoryAddition addToRepository(final CompositeDataTypeCreator compositeDataType) {
+    public RepoAddition addToRepository(final CompositeDataTypeCreator compositeDataType) {
         IllegalArgumentException.throwIfNull(compositeDataType, "compositeDataType must not be null");
         final CompositeDataType dataType = compositeDataType.build();
         this.dataTypes.add(dataType);
@@ -361,27 +361,27 @@ public class RepositoryCreator extends RepositoryEntity implements Repository, R
     }
 
     @Override
-    public RepositoryAddition addToRepository(final FailureType failureType) {
+    public RepoAddition addToRepository(final FailureType failureType) {
         this.failureTypes.add(IllegalArgumentException.throwIfNull(failureType, "failureType must not be null"));
         return this;
     }
 
     @Override
-    public RepositoryAddition addToRepository(final ResourceTimeoutFailureTypeCreator failureType) {
+    public RepoAddition addToRepository(final ResourceTimeoutFailureTypeCreator failureType) {
         this.failureTypes.add(IllegalArgumentException.throwIfNull(failureType, "failureType must not be null")
             .build());
         return this;
     }
 
     @Override
-    public RepositoryAddition addToRepository(final ExceptionTypeCreator exceptionType) {
+    public RepoAddition addToRepository(final ExceptionTypeCreator exceptionType) {
         this.exceptionTypes.add(IllegalArgumentException.throwIfNull(exceptionType, "exceptionType must not be null")
             .build());
         return this;
     }
 
     @Override
-    public RepositoryAddition addToRepository(
+    public RepoAddition addToRepository(
             final org.palladiosimulator.generator.fluent.repository.structure.interfaces.Interface interfce) {
         this.interfaces.add(IllegalArgumentException.throwIfNull(interfce, "interfce must not be null")
             .build());
@@ -389,7 +389,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repository, R
     }
 
     @Override
-    public RepositoryAddition addToRepository(final Component component) {
+    public RepoAddition addToRepository(final Component component) {
         this.components.add(IllegalArgumentException.throwIfNull(component, "component must not be null")
             .build());
         return this;

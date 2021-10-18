@@ -9,7 +9,7 @@ import org.palladiosimulator.pcm.reliability.FailureType;
 import org.palladiosimulator.pcm.repository.CollectionDataType;
 import org.palladiosimulator.pcm.repository.Repository;
 
-public interface RepositoryAddition {
+public interface RepoAddition {
 
     /**
      * Adds the <code>collectionDataType</code> to the list of data types provided by this
@@ -30,7 +30,7 @@ public interface RepositoryAddition {
      *      org.palladiosimulator.pcm.repository.DataType)
      * @see org.palladiosimulator.pcm.repository.CollectionDataType
      */
-    RepositoryAddition addToRepository(CollectionDataType collectionDataType);
+    RepoAddition addToRepository(CollectionDataType collectionDataType);
 
     /**
      * Adds the <code>compositeDataType</code> to the list of data types provided by this
@@ -50,7 +50,7 @@ public interface RepositoryAddition {
      *      org.palladiosimulator.pcm.repository.CompositeDataType...)
      * @see org.palladiosimulator.pcm.repository.CompositeDataType
      */
-    RepositoryAddition addToRepository(CompositeDataTypeCreator compositeDataType);
+    RepoAddition addToRepository(CompositeDataTypeCreator compositeDataType);
 
     /**
      * Adds the <code>failureType</code> to the list of failure types provided by this repository.
@@ -65,7 +65,7 @@ public interface RepositoryAddition {
      * @see org.palladiosimulator.generator.fluent.repository.factory.FluentRepositoryFactory#newResourceTimeoutFailureType(String)
      * @see org.palladiosimulator.pcm.reliability.FailureType
      */
-    RepositoryAddition addToRepository(FailureType failureType);
+    RepoAddition addToRepository(FailureType failureType);
 
     /**
      * Adds the <code>failureType</code> to the list of failure types provided by this repository.
@@ -80,7 +80,7 @@ public interface RepositoryAddition {
      * @see org.palladiosimulator.generator.fluent.repository.factory.FluentRepositoryFactory#newResourceTimeoutFailureType(String)
      * @see org.palladiosimulator.pcm.reliability.FailureType
      */
-    RepositoryAddition addToRepository(ResourceTimeoutFailureTypeCreator failureType);
+    RepoAddition addToRepository(ResourceTimeoutFailureTypeCreator failureType);
 
     /**
      * Adds the <code>exceptionType</code> to the list of exception types provided by this
@@ -91,7 +91,7 @@ public interface RepositoryAddition {
      * @see org.palladiosimulator.generator.fluent.repository.factory.FluentRepositoryFactory#newExceptionType()
      * @see org.palladiosimulator.pcm.repository.ExceptionType
      */
-    RepositoryAddition addToRepository(ExceptionTypeCreator exceptionType);
+    RepoAddition addToRepository(ExceptionTypeCreator exceptionType);
 
     /**
      * Adds the <code>component</code> to the list of components stored in the repository.
@@ -114,7 +114,7 @@ public interface RepositoryAddition {
      * @see org.palladiosimulator.generator.fluent.repository.factory.FluentRepositoryFactory#newProvidesComponentType()
      * @see org.palladiosimulator.pcm.repository.RepositoryComponent
      */
-    RepositoryAddition addToRepository(Component component);
+    RepoAddition addToRepository(Component component);
 
     /**
      * Adds the <code>interfce</code> to the list of interfaces stored in the repository.
@@ -134,7 +134,7 @@ public interface RepositoryAddition {
      * @see org.palladiosimulator.generator.fluent.repository.factory.FluentRepositoryFactory#newInfrastructureInterface()
      * @see org.palladiosimulator.pcm.repository.Interface
      */
-    RepositoryAddition addToRepository(Interface interfce);
+    RepoAddition addToRepository(Interface interfce);
 
     /**
      * Turns this repository-in-the-making into a Palladio-'<em><b>Repository</b></em>' object.
