@@ -33,6 +33,15 @@ import org.palladiosimulator.pcm.usagemodel.UsageModel;
 public class ModelSaver {
 
     /**
+     * Utility class constructor
+     *
+     * @throws IllegalAccessException on call
+     */
+    private ModelSaver() throws IllegalAccessException {
+        throw new IllegalAccessException();
+    }
+
+    /**
      * Saves a Repository to the specified location.
      *
      * @param repository

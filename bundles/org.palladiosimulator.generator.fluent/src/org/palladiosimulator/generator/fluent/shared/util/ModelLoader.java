@@ -33,6 +33,15 @@ public class ModelLoader {
     public static final String FAILURE_TYPES_PATH = "pathmap://PCM_MODELS/FailureTypes.repository";
 
     /**
+     * Utility class constructor
+     *
+     * @throws IllegalAccessException on call
+     */
+    private ModelLoader() throws IllegalAccessException {
+        throw new IllegalAccessException();
+    }
+
+    /**
      * Loads a repository from the specified path.
      *
      * @param uri
