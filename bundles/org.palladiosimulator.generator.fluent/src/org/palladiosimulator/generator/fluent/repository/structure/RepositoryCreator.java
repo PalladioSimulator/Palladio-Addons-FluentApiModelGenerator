@@ -311,7 +311,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
     public Repo withImportedResource(final URI uri) {
         IllegalArgumentException.throwIfNull(uri, "URI must not be null.");
 
-        if (!"repository".equalsIgnoreCase(uri.fileExtension(), Locale.US)) {
+        if (!"repository".equals(uri.fileExtension().toLowerCase(Locale.US))) {
             throw new IllegalArgumentException("The specified URI must lead to a .repository file");
         }
 
