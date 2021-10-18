@@ -6,6 +6,9 @@ import org.palladiosimulator.generator.fluent.shared.structure.SchedulingPolicie
 import org.palladiosimulator.generator.fluent.shared.util.ModelSaver;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceEnvironment;
 
+/**
+ * TODO
+ */
 public class SimplifiedMediaStore {
 
     public static void main(String[] args) {

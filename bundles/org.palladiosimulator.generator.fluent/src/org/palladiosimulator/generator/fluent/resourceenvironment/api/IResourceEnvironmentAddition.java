@@ -4,6 +4,9 @@ import org.palladiosimulator.generator.fluent.resourceenvironment.structure.Link
 import org.palladiosimulator.generator.fluent.resourceenvironment.structure.ResourceContainerCreator;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceEnvironment;
 
+/**
+ * TODO
+ */
 public interface IResourceEnvironmentAddition {
 
     /**

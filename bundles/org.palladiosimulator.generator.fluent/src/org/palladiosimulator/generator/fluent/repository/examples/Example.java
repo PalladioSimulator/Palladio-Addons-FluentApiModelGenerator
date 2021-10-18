@@ -19,6 +19,9 @@ import org.palladiosimulator.pcm.repository.RepositoryFactory;
 import org.palladiosimulator.pcm.seff.ResourceDemandingSEFF;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 
+/**
+ * TODO
+ */
 class Example {
 
     public static void main(final String[] args) {

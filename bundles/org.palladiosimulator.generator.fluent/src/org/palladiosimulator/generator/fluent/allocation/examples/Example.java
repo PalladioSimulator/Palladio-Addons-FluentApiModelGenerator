@@ -5,6 +5,9 @@ import org.palladiosimulator.generator.fluent.shared.util.ModelLoader;
 import org.palladiosimulator.generator.fluent.shared.util.ModelSaver;
 import org.palladiosimulator.pcm.allocation.Allocation;
 
+/**
+ * TODO
+ */
 public class Example {
 
     public static void main(final String[] args) {

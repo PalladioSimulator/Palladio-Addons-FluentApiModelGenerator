@@ -15,6 +15,9 @@ import org.palladiosimulator.generator.fluent.system.structure.role.SourceRoleCr
 import org.palladiosimulator.pcm.repository.Repository;
 import org.palladiosimulator.pcm.system.System;
 
+/**
+ * TODO
+ */
 public interface ISystemAddition {
 
     /**

@@ -5,6 +5,9 @@ import org.palladiosimulator.generator.fluent.shared.util.ModelSaver;
 import org.palladiosimulator.generator.fluent.system.factory.FluentSystemFactory;
 import org.palladiosimulator.pcm.system.System;
 
+/**
+ * TODO
+ */
 public class SimplifiedMediaStore {
 
     public static void main(String[] args) {

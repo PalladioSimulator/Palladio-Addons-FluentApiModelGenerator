@@ -13,6 +13,9 @@ import org.palladiosimulator.generator.fluent.repository.structure.components.se
 import org.palladiosimulator.generator.fluent.repository.structure.components.seff.ReleaseActionCreator;
 import org.palladiosimulator.generator.fluent.repository.structure.components.seff.SetVariableActionCreator;
 
+/**
+ * TODO
+ */
 public interface ActionSeff {
     /**
      * Creates a {@link org.palladiosimulator.pcm.seff.AcquireAction AcquireAction}.

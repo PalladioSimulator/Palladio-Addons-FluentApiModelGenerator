@@ -5,6 +5,9 @@ import org.palladiosimulator.pcm.seff.ForkedBehaviour;
 import org.palladiosimulator.pcm.seff.ResourceDemandingBehaviour;
 import org.palladiosimulator.pcm.seff.ResourceDemandingInternalBehaviour;
 
+/**
+ * TODO
+ */
 public interface InternalSeff {
 
     /**

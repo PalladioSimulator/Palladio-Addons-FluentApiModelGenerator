@@ -4,6 +4,9 @@ import org.palladiosimulator.generator.fluent.repository.structure.internals.Fai
 import org.palladiosimulator.pcm.reliability.FailureType;
 import org.palladiosimulator.pcm.seff.seff_reliability.RecoveryActionBehaviour;
 
+/**
+ * TODO
+ */
 public interface RecoverySeff {
 
     /**

@@ -1,5 +1,8 @@
 package org.palladiosimulator.generator.fluent.allocation.api;
 
+/**
+ * TODO
+ */
 public interface IAllocation extends IAllocationAddition {
     /**
      * Defines the name of the org.palladiosimulator.generator.fluent.allocation

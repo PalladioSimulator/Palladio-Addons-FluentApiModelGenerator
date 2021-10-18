@@ -2,6 +2,9 @@ package org.palladiosimulator.generator.fluent.shared.validate;
 
 import org.eclipse.emf.ecore.EObject;
 
+/**
+ * TODO
+ */
 public interface IModelValidator {
     /**
      * Validates an EObject. A name can be specified to improve a potential diagnostic in a specific

@@ -5,6 +5,9 @@ import org.palladiosimulator.pcm.seff.ResourceDemandingBehaviour;
 import org.palladiosimulator.pcm.seff.ResourceDemandingSEFF;
 import org.palladiosimulator.pcm.seff.ServiceEffectSpecification;
 
+/**
+ * TODO
+ */
 public interface Seff {
 
     /**

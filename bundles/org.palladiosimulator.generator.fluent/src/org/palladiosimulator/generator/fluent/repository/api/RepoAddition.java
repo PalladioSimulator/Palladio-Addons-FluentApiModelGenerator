@@ -9,6 +9,9 @@ import org.palladiosimulator.pcm.reliability.FailureType;
 import org.palladiosimulator.pcm.repository.CollectionDataType;
 import org.palladiosimulator.pcm.repository.Repository;
 
+/**
+ * TODO
+ */
 public interface RepoAddition {
 
     /**

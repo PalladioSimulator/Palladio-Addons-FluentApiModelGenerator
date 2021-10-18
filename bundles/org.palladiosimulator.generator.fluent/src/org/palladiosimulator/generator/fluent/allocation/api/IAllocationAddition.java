@@ -5,6 +5,9 @@ import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceEnvironment;
 import org.palladiosimulator.pcm.system.System;
 
+/**
+ * TODO
+ */
 public interface IAllocationAddition {
     /**
      * Completes the org.palladiosimulator.generator.fluent.allocation creation.

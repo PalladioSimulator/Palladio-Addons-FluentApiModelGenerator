@@ -5,6 +5,9 @@ import org.palladiosimulator.generator.fluent.shared.util.ModelLoader;
 import org.palladiosimulator.generator.fluent.shared.util.ModelSaver;
 import org.palladiosimulator.pcm.allocation.Allocation;
 
+/**
+ * TODO
+ */
 public class SimplifiedMediaStore {
 
     public static void main(String[] args) {

@@ -9,6 +9,9 @@ import org.palladiosimulator.pcm.core.entity.ResourceRequiredRole;
 import org.palladiosimulator.pcm.repository.InfrastructureRequiredRole;
 import org.palladiosimulator.pcm.repository.InfrastructureSignature;
 
+/**
+ * TODO
+ */
 public interface StopSeff {
 
     /**

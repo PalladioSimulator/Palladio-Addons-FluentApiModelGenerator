@@ -1,5 +1,8 @@
 package org.palladiosimulator.generator.fluent.resourceenvironment.api;
 
+/**
+ * TODO
+ */
 public interface IResourceEnvironment extends IResourceEnvironmentAddition {
 
     /**

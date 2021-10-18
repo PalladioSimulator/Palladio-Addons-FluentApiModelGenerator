@@ -4,6 +4,9 @@ import org.palladiosimulator.generator.fluent.usagemodel.structure.components.Us
 import org.palladiosimulator.generator.fluent.usagemodel.structure.components.UserDataCreator;
 import org.palladiosimulator.pcm.usagemodel.UsageModel;
 
+/**
+ * TODO
+ */
 public interface IUsageModelAddition {
 
     /**
