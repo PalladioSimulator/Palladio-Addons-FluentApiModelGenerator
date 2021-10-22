@@ -1,9 +1,11 @@
 # Palladio
 *.repository
+*.system
+*.resourceenvironment
+*.allocation
+*.usagemodel
 
 # Eclipse
-.project
-.classpath
 .loadpath
 .metadata
 .recommenders
@@ -49,3 +51,4 @@ target/
 heapdump.*
 Snap.*
 *.log
+*.checkstyle
