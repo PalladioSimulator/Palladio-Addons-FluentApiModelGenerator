@@ -190,7 +190,7 @@ public class SeffCreator extends RepositoryEntity implements Seff, ActionSeff, S
     @Override
     public ServiceEffectSpecification build() {
         // -> ResourceDemandingSEFF (rdsf) = seff
-        return buildRDSeff();
+        return this.buildRDSeff();
     }
 
     @Override

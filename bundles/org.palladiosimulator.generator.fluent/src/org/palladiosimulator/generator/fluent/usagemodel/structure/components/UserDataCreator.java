@@ -44,15 +44,15 @@ public class UserDataCreator extends UsageModelEntity {
      *            the usage model creator
      * @param context
      *            the assembly context
-     * 
+     *
      * @see org.palladiosimulator.pcm.usagemodel.UserData
      * @see org.palladiosimulator.pcm.core.composition.AssemblyContext
-     * 
+     *
      */
     public UserDataCreator(final UsageModelCreator usgModelCreator, final AssemblyContext context) {
         this.usageModelCreator = usgModelCreator;
         this.variableUsage = new ArrayList<>();
-        withAssemblyContext(context);
+        this.withAssemblyContext(context);
     }
 
     /**

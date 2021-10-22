@@ -35,7 +35,8 @@ public class ModelLoader {
     /**
      * Utility class constructor
      *
-     * @throws IllegalAccessException on call
+     * @throws IllegalAccessException
+     *             on call
      */
     private ModelLoader() throws IllegalAccessException {
         throw new IllegalAccessException();

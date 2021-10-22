@@ -90,7 +90,7 @@ public class FluentUsageModelFactory {
      * @see org.palladiosimulator.pcm.usagemodel.UsageModel
      */
     public IUsageModel newUsageModel() {
-        final IModelValidator validator = new ModelValidator(logger);
+        final IModelValidator validator = new ModelValidator(this.logger);
         this.usgModelCreator = new UsageModelCreator(validator);
         return this.usgModelCreator;
     }
@@ -379,7 +379,7 @@ public class FluentUsageModelFactory {
      * @param OperationProvidedSignatureRole
      *            class as structure for operation provided role and operation signature
      * @return the entry level system call action in the making
-     * 
+     *
      * @see org.palladiosimulator.pcm.usagemodel.AbstractUserAction
      * @see org.palladiosimulator.pcm.usagemodel.EntryLevelSystemCall
      * @see org.palladiosimulator.pcm.parameter.VariableUsage
@@ -387,7 +387,7 @@ public class FluentUsageModelFactory {
      * @see org.palladiosimulator.pcm.repository.OperationSignature
      */
     public EntryLevelSystemCallCreator newEntryLevelSystemCall(final OperationProvidedSignatureRole operationProvided) {
-        return newEntryLevelSystemCall(operationProvided.getRole(), operationProvided.getSignature());
+        return this.newEntryLevelSystemCall(operationProvided.getRole(), operationProvided.getSignature());
     }
 
     /**
@@ -521,7 +521,8 @@ public class FluentUsageModelFactory {
 
     private System getSystemByName(final String name) {
         final List<System> collect = this.systems.stream()
-            .filter(r -> (r.getEntityName() != null) && r.getEntityName().equals(name))
+            .filter(r -> (r.getEntityName() != null) && r.getEntityName()
+                .equals(name))
             .collect(Collectors.toList());
         if (collect.isEmpty()) {
             return null;
@@ -546,24 +547,24 @@ public class FluentUsageModelFactory {
      * <p>
      * Variable Usage offers the characteristics
      * {@link org.palladiosimulator.generator.fluent.shared.components.VariableUsageCreator#withName( String)
-     * name},
-     * {@link org.palladiosimulator.generator.fluent.shared.components.VariableUsageCreator# withVariableCharacterisation(String,VariableCharacterisationType)
-     * variable characterisation} and needs a mandatory namespace reference and inner references.
+     * name}, {@link org.palladiosimulator.generator.fluent.shared.components.VariableUsageCreator#
+     * withVariableCharacterisation(String,VariableCharacterisationType) variable characterisation}
+     * and needs a mandatory namespace reference and inner references.
      *
      * </p>
      *
      * @param namespaceReference
      *            String
-     * 
+     *
      * @param innerReferences
      *            String...
-     * 
+     *
      * @return the variable usage in the making
-     * 
+     *
      * @see org.palladiosimulator.pcm.parameter.VariableUsage
-     * 
+     *
      * @see org.palladiosimulator.pcm.parameter.VariableCharacterisation
-     * 
+     *
      * @see de.uka.ipd.sdq.stoex.NamespaceReference
      */
     public VariableUsageCreator newVariableUsage(final String namespaceReference, final String... innerReferences) {
@@ -620,7 +621,7 @@ public class FluentUsageModelFactory {
      */
     public AssemblyContext fetchOffAssemblyContextByName(final String systemName, final String assemblyName) {
 
-        final System system = getSystemByName(systemName);
+        final System system = this.getSystemByName(systemName);
 
         return system.getAssemblyContexts__ComposedStructure()
             .stream()
@@ -690,9 +691,9 @@ public class FluentUsageModelFactory {
     public OperationProvidedSignatureRole fetchOffOperationRoleAndSignature(final String systemName,
             final String operationProvidedRole, final String operationSignature) {
 
-        final System system = getSystemByName(systemName);
+        final System system = this.getSystemByName(systemName);
 
-        final OperationProvidedRole role = fetchOffOperationProvidedRoleByName(system, operationProvidedRole);
+        final OperationProvidedRole role = this.fetchOffOperationProvidedRoleByName(system, operationProvidedRole);
         final OperationSignature sig = role.getProvidedInterface__OperationProvidedRole()
             .getSignatures__OperationInterface()
             .stream()

@@ -46,7 +46,7 @@ public class ResourceEnvironmentCreator extends ResourceEntity implements IResou
 
     @Override
     public ResourceEnvironment createResourceEnvironmentNow() {
-        final ResourceEnvironment environment = build();
+        final ResourceEnvironment environment = this.build();
         this.validator.validate(environment, this.name);
         return environment;
     }

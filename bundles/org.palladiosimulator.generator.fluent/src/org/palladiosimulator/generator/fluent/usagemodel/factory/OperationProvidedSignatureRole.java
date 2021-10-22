@@ -7,7 +7,7 @@ import org.palladiosimulator.pcm.repository.OperationSignature;
  * This class is a helping class to encapsulate an OperationProvidedRole with its connected
  * operation Signature to make fetching and using this objects easier. So the only functionality is
  * to have a structure.
- * 
+ *
  * @author Eva-Maria Neumann
  * @see org.palladiosimulator.pcm.repository.OperationProvidedRole
  * @see org.palladiosimulator.pcm.repository.OperationSignature
@@ -31,13 +31,13 @@ public class OperationProvidedSignatureRole {
      *            the role
      * @param signature
      *            the signature
-     * 
+     *
      * @see org.palladiosimulator.pcm.repository.OperationProvidedRole
      * @see org.palladiosimulator.pcm.repository.OperationSignature
      */
     public OperationProvidedSignatureRole(final OperationProvidedRole role, final OperationSignature signature) {
-        setRole(role);
-        setSignature(signature);
+        this.setRole(role);
+        this.setSignature(signature);
     }
 
     /**

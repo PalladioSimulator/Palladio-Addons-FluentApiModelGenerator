@@ -17,22 +17,22 @@ public abstract class WorkloadCreator extends UsageModelEntity {
     protected PCMRandomVariable time;
 
     /**
-     * Instantiates a new workload creator. This is an abstract class. Inherited classes are OpenWorkload or
-     * ClosedWorkload.
+     * Instantiates a new workload creator. This is an abstract class. Inherited classes are
+     * OpenWorkload or ClosedWorkload.
      *
      * @param usgModelCreator
      *            the usage model creator
      * @param time
      *            the time
-     * 
+     *
      * @see org.palladiosimulator.pcm.usagemodel.Workload
      * @see org.palladiosimulator.pcm.usagemodel.ClosedWorkload
      * @see org.palladiosimulator.pcm.usagemodel.OpenWorkload
-     * 
+     *
      */
     public WorkloadCreator(final UsageModelCreator usgModelCreator, final String time) {
         this.usageModelCreator = usgModelCreator;
-        addToWorkload(time);
+        this.addToWorkload(time);
     }
 
     private WorkloadCreator addToWorkload(final String time) {

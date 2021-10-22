@@ -22,18 +22,18 @@ public class ClosedWorkloadCreator extends WorkloadCreator {
      * Instantiates a new closed workload creator.
      *
      * <p>
-     * ClosedWorkload specifies directly the (constant) user population and a think time. It
-     * modelst hat a fixed number of users execute their scenario, then wait (or think) for the
-     * specified amount of think time as a RandomVariable, and then reenter the system executing
-     * their scenario again.Performance analysts use closed workloads to model scenarios, where the
-     * number of users is known(e.g., a fixed number of users in a company).
+     * ClosedWorkload specifies directly the (constant) user population and a think time. It modelst
+     * hat a fixed number of users execute their scenario, then wait (or think) for the specified
+     * amount of think time as a RandomVariable, and then reenter the system executing their
+     * scenario again.Performance analysts use closed workloads to model scenarios, where the number
+     * of users is known(e.g., a fixed number of users in a company).
      * </p>
-     * 
+     *
      * @param usgModelCreator
      *            the usage model creator
      * @param thinkTime
      *            the think time
-     *            
+     *
      * @see org.palladiosimulator.pcm.usagemodel.ClosedWorkload
      */
     public ClosedWorkloadCreator(final UsageModelCreator usgModelCreator, final String thinkTime) {

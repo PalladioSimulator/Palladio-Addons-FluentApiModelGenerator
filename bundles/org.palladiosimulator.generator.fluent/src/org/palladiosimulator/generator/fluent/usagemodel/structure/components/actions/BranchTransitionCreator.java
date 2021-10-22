@@ -32,12 +32,12 @@ public class BranchTransitionCreator extends UsageModelEntity {
      *
      * @param branchedBehaviour
      *            the branched behaviour
-     *  @see org.palladiosimulator.pcm.usagemodel.BranchTransition
-     *  @see org.palladiosimulator.pcm.usagemodel.ScenarioBehaviour
+     * @see org.palladiosimulator.pcm.usagemodel.BranchTransition
+     * @see org.palladiosimulator.pcm.usagemodel.ScenarioBehaviour
      */
     public BranchTransitionCreator(final ScenarioBehaviourCreator branchedBehaviour) {
         this.probability = 0.0; // default value
-        addToBranchTransition(branchedBehaviour);
+        this.addToBranchTransition(branchedBehaviour);
     }
 
     @Override

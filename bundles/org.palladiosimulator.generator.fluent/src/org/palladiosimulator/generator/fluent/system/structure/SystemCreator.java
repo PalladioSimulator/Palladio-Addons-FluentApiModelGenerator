@@ -106,7 +106,7 @@ public class SystemCreator extends SystemEntity implements ISystem {
 
     @Override
     public System createSystemNow() {
-        final System system = build();
+        final System system = this.build();
         this.validator.validate(system, this.name);
         return system;
     }

@@ -29,8 +29,8 @@ public class UsageScenarioCreator extends UsageModelEntity {
      *
      * <p>
      * UsageScenarios are concurrently executed behaviours of users within one UsageModel. It
-     * describes which services are directly invoked by users in one specific use case and models the
-     * possible sequences of calling them. Each UsageScenario includes a workload and a scenario
+     * describes which services are directly invoked by users in one specific use case and models
+     * the possible sequences of calling them. Each UsageScenario includes a workload and a scenario
      * behaviour.
      * </p>
      *
@@ -40,7 +40,7 @@ public class UsageScenarioCreator extends UsageModelEntity {
      *            the scenario behaviour
      * @param work
      *            the workload creator
-     * 
+     *
      * @see org.palladiosimulator.pcm.usagemodel.UsageScenario
      * @see org.palladiosimulator.pcm.usagemodel.ScenarioBehaviour
      * @see org.palladiosimulator.pcm.usagemodel.Workload;
@@ -48,8 +48,8 @@ public class UsageScenarioCreator extends UsageModelEntity {
     public UsageScenarioCreator(final UsageModelCreator usgModelCreator, final ScenarioBehaviourCreator scenBehave,
             final WorkloadCreator work) {
         this.usageModelCreator = usgModelCreator;
-        addToUsageScenario(scenBehave);
-        addToUsageScenario(work);
+        this.addToUsageScenario(scenBehave);
+        this.addToUsageScenario(work);
     }
 
     private void addToUsageScenario(final WorkloadCreator workload) {

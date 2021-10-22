@@ -37,27 +37,33 @@ class Example {
     public static void fetchExample() {
         // create
         FluentRepositoryFactory create = new FluentRepositoryFactory();
-        final Repository repository = create.newRepository().withName("example")
-                .addToRepository(create.newCollectionDataType("String List", Primitive.STRING))
-                .addToRepository(create.newCompositeDataType().withName("Person")
-                        .withInnerDeclaration("names", create.fetchOfDataType("String List"))
-                        .withInnerDeclaration("age", Primitive.INTEGER))
-                .createRepositoryNow();
+        final Repository repository = create.newRepository()
+            .withName("example")
+            .addToRepository(create.newCollectionDataType("String List", Primitive.STRING))
+            .addToRepository(create.newCompositeDataType()
+                .withName("Person")
+                .withInnerDeclaration("names", create.fetchOfDataType("String List"))
+                .withInnerDeclaration("age", Primitive.INTEGER))
+            .createRepositoryNow();
 
         // fetch
         create = new FluentRepositoryFactory();
-        create.newRepository().withImportedResource(repository);
+        create.newRepository()
+            .withImportedResource(repository);
         final CompositeDataType person = create.fetchOfCompositeDataType("example.Person");
 
         // test
-        System.out.println(repository.getDataTypes__Repository().get(1) == person);
+        System.out.println(repository.getDataTypes__Repository()
+            .get(1) == person);
     }
 
     public static void invalidExample() {
         final FluentRepositoryFactory create = new FluentRepositoryFactory();
 
-        final Repository repository = create.newRepository().withName("invalid")
-                .addToRepository(create.newCompleteComponentType()).createRepositoryNow();
+        final Repository repository = create.newRepository()
+            .withName("invalid")
+            .addToRepository(create.newCompleteComponentType())
+            .createRepositoryNow();
         ModelSaver.saveRepository(repository, "./invalid", true);
     }
 
@@ -66,40 +72,52 @@ class Example {
         final FluentRepositoryFactory create = new FluentRepositoryFactory();
 
         final Repository repository = create.newRepository()
-                .addToRepository(create.newCollectionDataType("String List", Primitive.STRING))
-                .addToRepository(create.newCompositeDataType().withName("Person")
-                        .withInnerDeclaration("names", create.fetchOfDataType("String List"))
-                        .withInnerDeclaration("age", Primitive.INTEGER))
-                .addToRepository(create.newHardwareInducedFailureType("CPU Hardware Error", ProcessingResource.CPU))
-                .addToRepository(create.newOperationInterface().withName("parent interface"))
-                .addToRepository(create.newOperationInterface().withName("interface")
-                        .withOperationSignature(create.newOperationSignature().withName("signature")
-                                .withParameter("parameter", create.fetchOfDataType("Person"), ParameterModifier.IN))
-                        .withRequiredCharacterisation(create.fetchOfParameter("parameter"),
-                                VariableCharacterisationType.STRUCTURE)
-                        .conforms(create.fetchOfInterface("parent interface")))
-                .addToRepository(create.newEventGroup().withName("event group"))
-                .addToRepository(create.newInfrastructureInterface().withName("infrastructure interface"))
-                .addToRepository(create.newBasicComponent().withName("basic component")
-                        .provides(create.fetchOfOperationInterface("interface"), "basic component provides interface")
-                        .requires(create.fetchOfOperationInterface("interface"), "basic component requires interface")
-                        .emits(create.fetchOfEventGroup("event group"), "emits event")
-                        .handles(create.fetchOfEventGroup("event group"), "handles event")
-                        .providesInfrastructure(create.fetchOfInfrastructureInterface("infrastructure interface"),
-                                "provides infrastructure")
-                        .requiresInfrastructure(create.fetchOfInfrastructureInterface("infrastructure interface"),
-                                "requres infrastructure")
-                        .requiresResource(ResourceInterface.CPU, "cpu interface").withServiceEffectSpecification(
-                                create.newSeff().onSignature(create.fetchOfSignature("signature")).withSeffBehaviour()
-                                        .withStartAction().followedBy().stopAction().createBehaviourNow()))
-                .addToRepository(create.newCompositeComponent()
-                        .withAssemblyContext(create.fetchOfComponent("basic component"), "basic component context")
-                        .withEventChannel(create.fetchOfEventGroup("event group")).withAssemblyConnection(
-                                create.fetchOfOperationProvidedRole("basic component provides interface"),
-                                create.fetchOfAssemblyContext("basic component context"),
-                                create.fetchOfOperationRequiredRole("basic component requires interface"),
-                                create.fetchOfAssemblyContext("basic component context")))
-                .createRepositoryNow();
+            .addToRepository(create.newCollectionDataType("String List", Primitive.STRING))
+            .addToRepository(create.newCompositeDataType()
+                .withName("Person")
+                .withInnerDeclaration("names", create.fetchOfDataType("String List"))
+                .withInnerDeclaration("age", Primitive.INTEGER))
+            .addToRepository(create.newHardwareInducedFailureType("CPU Hardware Error", ProcessingResource.CPU))
+            .addToRepository(create.newOperationInterface()
+                .withName("parent interface"))
+            .addToRepository(create.newOperationInterface()
+                .withName("interface")
+                .withOperationSignature(create.newOperationSignature()
+                    .withName("signature")
+                    .withParameter("parameter", create.fetchOfDataType("Person"), ParameterModifier.IN))
+                .withRequiredCharacterisation(create.fetchOfParameter("parameter"),
+                        VariableCharacterisationType.STRUCTURE)
+                .conforms(create.fetchOfInterface("parent interface")))
+            .addToRepository(create.newEventGroup()
+                .withName("event group"))
+            .addToRepository(create.newInfrastructureInterface()
+                .withName("infrastructure interface"))
+            .addToRepository(create.newBasicComponent()
+                .withName("basic component")
+                .provides(create.fetchOfOperationInterface("interface"), "basic component provides interface")
+                .requires(create.fetchOfOperationInterface("interface"), "basic component requires interface")
+                .emits(create.fetchOfEventGroup("event group"), "emits event")
+                .handles(create.fetchOfEventGroup("event group"), "handles event")
+                .providesInfrastructure(create.fetchOfInfrastructureInterface("infrastructure interface"),
+                        "provides infrastructure")
+                .requiresInfrastructure(create.fetchOfInfrastructureInterface("infrastructure interface"),
+                        "requres infrastructure")
+                .requiresResource(ResourceInterface.CPU, "cpu interface")
+                .withServiceEffectSpecification(create.newSeff()
+                    .onSignature(create.fetchOfSignature("signature"))
+                    .withSeffBehaviour()
+                    .withStartAction()
+                    .followedBy()
+                    .stopAction()
+                    .createBehaviourNow()))
+            .addToRepository(create.newCompositeComponent()
+                .withAssemblyContext(create.fetchOfComponent("basic component"), "basic component context")
+                .withEventChannel(create.fetchOfEventGroup("event group"))
+                .withAssemblyConnection(create.fetchOfOperationProvidedRole("basic component provides interface"),
+                        create.fetchOfAssemblyContext("basic component context"),
+                        create.fetchOfOperationRequiredRole("basic component requires interface"),
+                        create.fetchOfAssemblyContext("basic component context")))
+            .createRepositoryNow();
         ModelSaver.saveRepository(repository, "./miniExample", true);
     }
 
@@ -137,11 +155,14 @@ class Example {
         // Seff for Database component on service store
         final ResourceDemandingSEFF storeSeff = SeffFactory.eINSTANCE.createResourceDemandingSEFF();
         storeSeff.setDescribedService__SEFF(store);
-        databaseComponent.getServiceEffectSpecifications__BasicComponent().add(storeSeff);
+        databaseComponent.getServiceEffectSpecifications__BasicComponent()
+            .add(storeSeff);
 
         // Adding component + interfaces to the repository
-        repository.getComponents__Repository().add(databaseComponent);
-        repository.getInterfaces__Repository().add(databaseInterface);
+        repository.getComponents__Repository()
+            .add(databaseComponent);
+        repository.getInterfaces__Repository()
+            .add(databaseInterface);
 
         // Web component
         final BasicComponent webComponent = repoFact.createBasicComponent();
@@ -166,15 +187,18 @@ class Example {
 
         final ResourceDemandingSEFF submitSeff = SeffFactory.eINSTANCE.createResourceDemandingSEFF();
         submitSeff.setDescribedService__SEFF(submit);
-        webComponent.getServiceEffectSpecifications__BasicComponent().add(submitSeff);
+        webComponent.getServiceEffectSpecifications__BasicComponent()
+            .add(submitSeff);
 
         final OperationRequiredRole webRequIDb = repoFact.createOperationRequiredRole();
         webRequIDb.setRequiredInterface__OperationRequiredRole(databaseInterface);
         webRequIDb.setRequiringEntity_RequiredRole(webComponent);
 
         // Adding component + interfaces to the repository
-        repository.getComponents__Repository().add(webComponent);
-        repository.getInterfaces__Repository().add(webInterface);
+        repository.getComponents__Repository()
+            .add(webComponent);
+        repository.getInterfaces__Repository()
+            .add(webInterface);
 
         ModelSaver.saveRepository(repository, "./backendExample", false);
     }
@@ -184,24 +208,32 @@ class Example {
         final FluentRepositoryFactory create = new FluentRepositoryFactory();
 
         final Repository repository = create.newRepository()
-                // Database
-                .addToRepository(create.newOperationInterface().withName("IDatabase")
-                        .withOperationSignature(create.newOperationSignature().withName("store")
-                                .withParameter("forename", Primitive.STRING, ParameterModifier.NONE)
-                                .withParameter("name", Primitive.STRING, ParameterModifier.NONE)))
-                .addToRepository(create.newBasicComponent().withName("Database")
-                        .withServiceEffectSpecification(create.newSeff().onSignature(create.fetchOfSignature("store")))
-                        .provides(create.fetchOfOperationInterface("IDatabase")))
-                // Web
-                .addToRepository(create.newOperationInterface().withName("IWeb")
-                        .withOperationSignature(create.newOperationSignature().withName("submit")
-                                .withParameter("forename", Primitive.STRING, ParameterModifier.NONE)
-                                .withParameter("name", Primitive.STRING, ParameterModifier.NONE)))
-                .addToRepository(create.newBasicComponent().withName("Web")
-                        .withServiceEffectSpecification(create.newSeff().onSignature(create.fetchOfSignature("submit")))
-                        .provides(create.fetchOfOperationInterface("IWeb"))
-                        .requires(create.fetchOfOperationInterface("IDatabase")))
-                .createRepositoryNow();
+            // Database
+            .addToRepository(create.newOperationInterface()
+                .withName("IDatabase")
+                .withOperationSignature(create.newOperationSignature()
+                    .withName("store")
+                    .withParameter("forename", Primitive.STRING, ParameterModifier.NONE)
+                    .withParameter("name", Primitive.STRING, ParameterModifier.NONE)))
+            .addToRepository(create.newBasicComponent()
+                .withName("Database")
+                .withServiceEffectSpecification(create.newSeff()
+                    .onSignature(create.fetchOfSignature("store")))
+                .provides(create.fetchOfOperationInterface("IDatabase")))
+            // Web
+            .addToRepository(create.newOperationInterface()
+                .withName("IWeb")
+                .withOperationSignature(create.newOperationSignature()
+                    .withName("submit")
+                    .withParameter("forename", Primitive.STRING, ParameterModifier.NONE)
+                    .withParameter("name", Primitive.STRING, ParameterModifier.NONE)))
+            .addToRepository(create.newBasicComponent()
+                .withName("Web")
+                .withServiceEffectSpecification(create.newSeff()
+                    .onSignature(create.fetchOfSignature("submit")))
+                .provides(create.fetchOfOperationInterface("IWeb"))
+                .requires(create.fetchOfOperationInterface("IDatabase")))
+            .createRepositoryNow();
 
         ModelSaver.saveRepository(repository, "./fluentAPIExample", false);
     }
@@ -211,7 +243,9 @@ class Example {
         final FluentRepositoryFactory create = new FluentRepositoryFactory();
 
         final Repository repository = create.newRepository()
-                .addToRepository(create.newBasicComponent().withName("Database")).createRepositoryNow();
+            .addToRepository(create.newBasicComponent()
+                .withName("Database"))
+            .createRepositoryNow();
 
         ModelSaver.saveRepository(repository, "./fluentAPIExample", false);
     }
@@ -221,70 +255,93 @@ class Example {
 
         // TODO: mediastore Beispiel vervollständigen: seffs + failureType + Namen der
         // Provided Roles
-        final Repository mediaStore = create.newRepository().withName("MediaStoreRepository")
-                .addToRepository(create.newCompositeDataType().withName("FileContent"))
-                .addToRepository(create.newCompositeDataType().withName("AudioCollectionRequest")
-                        .withInnerDeclaration("Count", Primitive.INTEGER)
-                        .withInnerDeclaration("Size", Primitive.INTEGER))
-                .addToRepository(create.newOperationInterface().withName("IFileStorage")
-                        .withOperationSignature(create.newOperationSignature().withName("getFiles")
-                                .withParameter("audioRequest", create.fetchOfDataType("AudioCollectionRequest"),
-                                        ParameterModifier.NONE)
-                                .withReturnType(create.fetchOfDataType("FileContent")))
-                        .withOperationSignature(create.newOperationSignature().withName("storeFile")
-                                .withParameter("file", create.fetchOfDataType("FileContent"), null)))
-                .addToRepository(create.newOperationInterface().withName("IDownload")
-                        .withOperationSignature(create.newOperationSignature().withName("download")
-                                .withParameter("audioRequest", create.fetchOfDataType("AudioCollectionRequest"),
-                                        ParameterModifier.NONE)
-                                .withReturnType(create.fetchOfDataType("AudioCollectionRequest"))))
-                .addToRepository(create.newOperationInterface().withName("IMediaAccess")
-                        .withOperationSignature(create.newOperationSignature().withName("upload").withParameter("file",
-                                create.fetchOfDataType("FileContent"), null))
-                        .withOperationSignature(create.newOperationSignature().withName("getFileList")))
-                .addToRepository(create.newOperationInterface().withName("IPackaging")
-                        .withOperationSignature(create.newOperationSignature().withName("zip")
-                                .withParameter("audios", create.fetchOfDataType("AudioCollectionRequest"), null)
-                                .withReturnType(create.fetchOfDataType("FileContent"))))
-                .addToRepository(create.newOperationInterface().withName("IMediaManagement")
-                        .withOperationSignature(create.newOperationSignature().withName("upload").withParameter("file",
-                                create.fetchOfDataType("FileContent"), null))
-                        .withOperationSignature(create.newOperationSignature().withName("download")
-                                .withParameter("audioRequest", create.fetchOfDataType("AudioCollectionRequest"),
-                                        ParameterModifier.NONE)
-                                .withReturnType(create.fetchOfDataType("FileContent")))
-                        .withOperationSignature(create.newOperationSignature().withName("getFileList")))
-                .addToRepository(create.newBasicComponent().withName("EnqueueDownloadCache")
-                        .provides(create.fetchOfOperationInterface("IDownload"))
-                        .requires(create.fetchOfOperationInterface("IDownload"))
-                        .withServiceEffectSpecification(create.newSeff()))
-                .addToRepository(create.newBasicComponent().withName("InstantDownloadCache")
-                        .provides(create.fetchOfOperationInterface("IDownload"))
-                        .requires(create.fetchOfOperationInterface("IDownload"))
-                        .withServiceEffectSpecification(create.newSeff()))
-                .addToRepository(create.newBasicComponent().withName("FileStorage")
-                        .provides(create.fetchOfOperationInterface("IFileStorage"), "IDataStorage")
-                        .withServiceEffectSpecification(create.newSeff())
-                        .withServiceEffectSpecification(create.newSeff()))
-                .addToRepository(create.newBasicComponent().withName("MediaManagement")
-                        .provides(create.fetchOfOperationInterface("IMediaManagement"))
-                        .requires(create.fetchOfOperationInterface("IDownload"))
-                        .requires(create.fetchOfOperationInterface("IPackaging"))
-                        .requires(create.fetchOfOperationInterface("IMediaAccess"))
-                        .withServiceEffectSpecification(create.newSeff())
-                        .withServiceEffectSpecification(create.newSeff())
-                        .withServiceEffectSpecification(create.newSeff()))
-                .addToRepository(create.newBasicComponent().withName("Packaging")
-                        .provides(create.fetchOfOperationInterface("IPackaging"))
-                        .withServiceEffectSpecification(create.newSeff()))
-                .addToRepository(create.newBasicComponent().withName("MediaAccess")
-                        .provides(create.fetchOfOperationInterface("IMediaAccess"))
-                        .provides(create.fetchOfOperationInterface("IDownload"))
-                        .requires(create.fetchOfOperationInterface("IFileStorage"), "IDataStorage")
-                        .withServiceEffectSpecification(create.newSeff())
-                        .withServiceEffectSpecification(create.newSeff())
-                        .withServiceEffectSpecification(create.newSeff()))
-                .createRepositoryNow();
+        final Repository mediaStore = create.newRepository()
+            .withName("MediaStoreRepository")
+            .addToRepository(create.newCompositeDataType()
+                .withName("FileContent"))
+            .addToRepository(create.newCompositeDataType()
+                .withName("AudioCollectionRequest")
+                .withInnerDeclaration("Count", Primitive.INTEGER)
+                .withInnerDeclaration("Size", Primitive.INTEGER))
+            .addToRepository(create.newOperationInterface()
+                .withName("IFileStorage")
+                .withOperationSignature(create.newOperationSignature()
+                    .withName("getFiles")
+                    .withParameter("audioRequest", create.fetchOfDataType("AudioCollectionRequest"),
+                            ParameterModifier.NONE)
+                    .withReturnType(create.fetchOfDataType("FileContent")))
+                .withOperationSignature(create.newOperationSignature()
+                    .withName("storeFile")
+                    .withParameter("file", create.fetchOfDataType("FileContent"), null)))
+            .addToRepository(create.newOperationInterface()
+                .withName("IDownload")
+                .withOperationSignature(create.newOperationSignature()
+                    .withName("download")
+                    .withParameter("audioRequest", create.fetchOfDataType("AudioCollectionRequest"),
+                            ParameterModifier.NONE)
+                    .withReturnType(create.fetchOfDataType("AudioCollectionRequest"))))
+            .addToRepository(create.newOperationInterface()
+                .withName("IMediaAccess")
+                .withOperationSignature(create.newOperationSignature()
+                    .withName("upload")
+                    .withParameter("file", create.fetchOfDataType("FileContent"), null))
+                .withOperationSignature(create.newOperationSignature()
+                    .withName("getFileList")))
+            .addToRepository(create.newOperationInterface()
+                .withName("IPackaging")
+                .withOperationSignature(create.newOperationSignature()
+                    .withName("zip")
+                    .withParameter("audios", create.fetchOfDataType("AudioCollectionRequest"), null)
+                    .withReturnType(create.fetchOfDataType("FileContent"))))
+            .addToRepository(create.newOperationInterface()
+                .withName("IMediaManagement")
+                .withOperationSignature(create.newOperationSignature()
+                    .withName("upload")
+                    .withParameter("file", create.fetchOfDataType("FileContent"), null))
+                .withOperationSignature(create.newOperationSignature()
+                    .withName("download")
+                    .withParameter("audioRequest", create.fetchOfDataType("AudioCollectionRequest"),
+                            ParameterModifier.NONE)
+                    .withReturnType(create.fetchOfDataType("FileContent")))
+                .withOperationSignature(create.newOperationSignature()
+                    .withName("getFileList")))
+            .addToRepository(create.newBasicComponent()
+                .withName("EnqueueDownloadCache")
+                .provides(create.fetchOfOperationInterface("IDownload"))
+                .requires(create.fetchOfOperationInterface("IDownload"))
+                .withServiceEffectSpecification(create.newSeff()))
+            .addToRepository(create.newBasicComponent()
+                .withName("InstantDownloadCache")
+                .provides(create.fetchOfOperationInterface("IDownload"))
+                .requires(create.fetchOfOperationInterface("IDownload"))
+                .withServiceEffectSpecification(create.newSeff()))
+            .addToRepository(create.newBasicComponent()
+                .withName("FileStorage")
+                .provides(create.fetchOfOperationInterface("IFileStorage"), "IDataStorage")
+                .withServiceEffectSpecification(create.newSeff())
+                .withServiceEffectSpecification(create.newSeff()))
+            .addToRepository(create.newBasicComponent()
+                .withName("MediaManagement")
+                .provides(create.fetchOfOperationInterface("IMediaManagement"))
+                .requires(create.fetchOfOperationInterface("IDownload"))
+                .requires(create.fetchOfOperationInterface("IPackaging"))
+                .requires(create.fetchOfOperationInterface("IMediaAccess"))
+                .withServiceEffectSpecification(create.newSeff())
+                .withServiceEffectSpecification(create.newSeff())
+                .withServiceEffectSpecification(create.newSeff()))
+            .addToRepository(create.newBasicComponent()
+                .withName("Packaging")
+                .provides(create.fetchOfOperationInterface("IPackaging"))
+                .withServiceEffectSpecification(create.newSeff()))
+            .addToRepository(create.newBasicComponent()
+                .withName("MediaAccess")
+                .provides(create.fetchOfOperationInterface("IMediaAccess"))
+                .provides(create.fetchOfOperationInterface("IDownload"))
+                .requires(create.fetchOfOperationInterface("IFileStorage"), "IDataStorage")
+                .withServiceEffectSpecification(create.newSeff())
+                .withServiceEffectSpecification(create.newSeff())
+                .withServiceEffectSpecification(create.newSeff()))
+            .createRepositoryNow();
 
         ModelSaver.saveRepository(mediaStore, "./myMediaStore", false);
     }
@@ -293,57 +350,76 @@ class Example {
         final FluentRepositoryFactory create = new FluentRepositoryFactory();
 
         // TODO: Ausführliches Beispiel zum Testen der API
-        final Repository repository = create.newRepository().withName("defaultRepository")
-                .withDescription("This is my PCM model.")
+        final Repository repository = create.newRepository()
+            .withName("defaultRepository")
+            .withDescription("This is my PCM model.")
 
-                // DATATYPES
-                .addToRepository(create.newCollectionDataType("StringList", Primitive.STRING))
-                .addToRepository(create.newResourceTimeoutFailureType("blub"))
+            // DATATYPES
+            .addToRepository(create.newCollectionDataType("StringList", Primitive.STRING))
+            .addToRepository(create.newResourceTimeoutFailureType("blub"))
 
-                .addToRepository(create.newCompositeDataType().withName("Person")
-                        .withInnerDeclaration("first names", create.fetchOfDataType("StringList"))
-                        .withInnerDeclaration("age", Primitive.INTEGER))
-                .addToRepository(create.newExceptionType().withName("myException").withExceptionMessage("FEHLER!"))
+            .addToRepository(create.newCompositeDataType()
+                .withName("Person")
+                .withInnerDeclaration("first names", create.fetchOfDataType("StringList"))
+                .withInnerDeclaration("age", Primitive.INTEGER))
+            .addToRepository(create.newExceptionType()
+                .withName("myException")
+                .withExceptionMessage("FEHLER!"))
 
-                // INTERFACES
-                .addToRepository(create.newOperationInterface().withName("IDatabase")
-                        .withOperationSignature(create.newOperationSignature().withName("saveDatabaseEntry")
-                                .withParameter("first names", create.fetchOfDataType("StringList"), null)
-                                .withParameter("age", Primitive.INTEGER, ParameterModifier.INOUT)
-                                .withReturnType(create.fetchOfDataType("Person")))
-                        .withRequiredCharacterisation(create.fetchOfParameter("age"),
-                                VariableCharacterisationType.VALUE))
-                .addToRepository(create.newEventGroup().withName("haha"))
+            // INTERFACES
+            .addToRepository(create.newOperationInterface()
+                .withName("IDatabase")
+                .withOperationSignature(create.newOperationSignature()
+                    .withName("saveDatabaseEntry")
+                    .withParameter("first names", create.fetchOfDataType("StringList"), null)
+                    .withParameter("age", Primitive.INTEGER, ParameterModifier.INOUT)
+                    .withReturnType(create.fetchOfDataType("Person")))
+                .withRequiredCharacterisation(create.fetchOfParameter("age"), VariableCharacterisationType.VALUE))
+            .addToRepository(create.newEventGroup()
+                .withName("haha"))
 
-                // BASIC COMPONENTS
-                .addToRepository(create.newBasicComponent().withName("Database")
-                        .handles(create.newEventGroup().withName("hallo")
-                                .withEventType(create.newEventType().withName("type").withParameter("foo",
-                                        Primitive.BOOLEAN, null))
-                                .withRequiredCharacterisation(create.fetchOfParameter("foo"),
-                                        VariableCharacterisationType.STRUCTURE))
-                        .withServiceEffectSpecification(create.newSeff().withSeffBehaviour().withStartAction()
-                                .followedBy().externalCallAction().followedBy().stopAction().createBehaviourNow())
-                        .withPassiveResource("3", create.fetchOfResourceTimeoutFailureType("blub"), "passivo")
-                        .provides(create.fetchOfOperationInterface("IDatabase"), "provDB")
-                        .requires(create.newOperationInterface().withName("someInterface"), "reqSomeI")
-                        .withPassiveResource("2*3", create.fetchOfResourceTimeoutFailureType("blub"), "passResource")
-                        .withVariableUsage(create.newVariableUsage()))
+            // BASIC COMPONENTS
+            .addToRepository(create.newBasicComponent()
+                .withName("Database")
+                .handles(create.newEventGroup()
+                    .withName("hallo")
+                    .withEventType(create.newEventType()
+                        .withName("type")
+                        .withParameter("foo", Primitive.BOOLEAN, null))
+                    .withRequiredCharacterisation(create.fetchOfParameter("foo"),
+                            VariableCharacterisationType.STRUCTURE))
+                .withServiceEffectSpecification(create.newSeff()
+                    .withSeffBehaviour()
+                    .withStartAction()
+                    .followedBy()
+                    .externalCallAction()
+                    .followedBy()
+                    .stopAction()
+                    .createBehaviourNow())
+                .withPassiveResource("3", create.fetchOfResourceTimeoutFailureType("blub"), "passivo")
+                .provides(create.fetchOfOperationInterface("IDatabase"), "provDB")
+                .requires(create.newOperationInterface()
+                    .withName("someInterface"), "reqSomeI")
+                .withPassiveResource("2*3", create.fetchOfResourceTimeoutFailureType("blub"), "passResource")
+                .withVariableUsage(create.newVariableUsage()))
 
-                .addToRepository(create.newBasicComponent().withName("Web2")
-                        .provides(create.newOperationInterface().withName("IDatabase2")))
+            .addToRepository(create.newBasicComponent()
+                .withName("Web2")
+                .provides(create.newOperationInterface()
+                    .withName("IDatabase2")))
 
-                // COMPOSITE COMPONENTS
-                .addToRepository(
-                        create.newCompositeComponent().withName("Web").withVariableUsage(create.newVariableUsage())
-                                .requires(create.newOperationInterface().withName("HelloWorld"))
-                                .withAssemblyContext(create.fetchOfComponent("Database"), "DBContext")
-                                .withAssemblyConnection(create.fetchOfOperationProvidedRole("provDB"),
-                                        create.fetchOfAssemblyContext("DBContext"),
-                                        create.fetchOfOperationRequiredRole("reqSomeI"),
-                                        create.fetchOfAssemblyContext("DBContext"))
-                                .withEventChannel(create.fetchOfEventGroup("haha")))
-                .createRepositoryNow();
+            // COMPOSITE COMPONENTS
+            .addToRepository(create.newCompositeComponent()
+                .withName("Web")
+                .withVariableUsage(create.newVariableUsage())
+                .requires(create.newOperationInterface()
+                    .withName("HelloWorld"))
+                .withAssemblyContext(create.fetchOfComponent("Database"), "DBContext")
+                .withAssemblyConnection(create.fetchOfOperationProvidedRole("provDB"),
+                        create.fetchOfAssemblyContext("DBContext"), create.fetchOfOperationRequiredRole("reqSomeI"),
+                        create.fetchOfAssemblyContext("DBContext"))
+                .withEventChannel(create.fetchOfEventGroup("haha")))
+            .createRepositoryNow();
 
         ModelSaver.saveRepository(repository, "./meaninglessExample", false);
     }

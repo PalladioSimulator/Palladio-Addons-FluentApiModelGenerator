@@ -40,12 +40,14 @@ public abstract class ActionCreator extends UsageModelEntity {
      * current action.
      *
      * @return the successor of the current action in the making
-     * @throws IllegalStateException if withSuccessor() has not been called before
+     * @throws IllegalStateException
+     *             if withSuccessor() has not been called before
      * @see org.palladiosimulator.pcm.usagemodel.AbstractUserAction
      */
     public AbstractUserAction getSuccessor() throws IllegalStateException {
-        if (this.successor == null)
+        if (this.successor == null) {
             throw new IllegalStateException("withSuccessor() must have been called before");
+        }
         return this.successor;
     }
 

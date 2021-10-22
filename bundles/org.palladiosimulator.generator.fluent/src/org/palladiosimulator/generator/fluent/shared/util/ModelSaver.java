@@ -35,7 +35,8 @@ public class ModelSaver {
     /**
      * Utility class constructor
      *
-     * @throws IllegalAccessException on call
+     * @throws IllegalAccessException
+     *             on call
      */
     private ModelSaver() throws IllegalAccessException {
         throw new IllegalAccessException();

@@ -35,14 +35,14 @@ public class LoopActionCreator extends ActionCreator {
      *            the iteration
      * @param bodyBehaviour
      *            the body behaviour
-     * 
+     *
      * @see org.palladiosimulator.pcm.usagemodel.Loop
      * @see org.palladiosimulator.pcm.usagemodel.AbstractUserAction
      * @see org.palladiosimulator.pcm.usagemodel.ScenarioBehaviour
      */
     public LoopActionCreator(final String iteration, final ScenarioBehaviourCreator bodyBehaviour) {
-        addToLoopAction(iteration);
-        addToLoopAction(bodyBehaviour);
+        this.addToLoopAction(iteration);
+        this.addToLoopAction(bodyBehaviour);
     }
 
     private LoopActionCreator addToLoopAction(final ScenarioBehaviourCreator bodyBehaviour) {

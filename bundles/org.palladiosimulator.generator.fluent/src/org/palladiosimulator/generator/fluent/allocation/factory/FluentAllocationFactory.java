@@ -50,12 +50,14 @@ public class FluentAllocationFactory {
      * AllocationContext}.
      *
      * @return the <code>AllocationContext</code> in the making
-     * @throws IllegalStateException if newAllocationContext() has not been called before
+     * @throws IllegalStateException
+     *             if newAllocationContext() has not been called before
      * @see org.palladiosimulator.pcm.allocation.AllocationContext
      */
     public AllocationContextCreator newAllocationContext() throws IllegalStateException {
-        if (allocationCreator == null)
+        if (this.allocationCreator == null) {
             throw new IllegalStateException("newAllocation() must have been called before");
+        }
         return new AllocationContextCreator(this.allocationCreator);
     }
 }

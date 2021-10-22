@@ -42,7 +42,7 @@ public class StopActionCreator extends GeneralAction implements StopSeff {
 
     @Override
     public SeffCreator createBehaviourNow() {
-        final AbstractAction action = build();
+        final AbstractAction action = this.build();
         this.seff.setNext(action);
         return this.seff;
     }

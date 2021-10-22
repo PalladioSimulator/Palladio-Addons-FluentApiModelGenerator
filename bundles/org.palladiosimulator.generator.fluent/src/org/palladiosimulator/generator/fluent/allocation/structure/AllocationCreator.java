@@ -55,7 +55,7 @@ public class AllocationCreator extends AllocationEntity implements IAllocation {
 
     @Override
     public Allocation createAllocationNow() {
-        final Allocation allocation = build();
+        final Allocation allocation = this.build();
         this.validator.validate(allocation, this.name);
         return allocation;
     }

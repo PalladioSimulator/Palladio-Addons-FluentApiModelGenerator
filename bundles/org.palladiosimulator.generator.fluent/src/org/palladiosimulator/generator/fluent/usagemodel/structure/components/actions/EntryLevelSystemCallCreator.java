@@ -54,7 +54,7 @@ public class EntryLevelSystemCallCreator extends ActionCreator {
      *            the operation signature
      * @param operationProvidedRole
      *            the operation provided role
-     * 
+     *
      * @see org.palladiosimulator.pcm.usagemodel.EntryLevelSystemCall
      * @see org.palladiosimulator.pcm.usagemodel.AbstractUserAction
      * @see org.palladiosimulator.pcm.repository.OperationProvidedRole
@@ -65,8 +65,8 @@ public class EntryLevelSystemCallCreator extends ActionCreator {
         this.outputParameterUsage = new ArrayList<>();
         this.inputParameterUsage = new ArrayList<>();
         this.priority = 0;
-        withOperationSignatureEntryLevelSystemCall(operationSignature);
-        withProvidedRoleEntryLevelSystemCall(operationProvidedRole);
+        this.withOperationSignatureEntryLevelSystemCall(operationSignature);
+        this.withProvidedRoleEntryLevelSystemCall(operationProvidedRole);
     }
 
     private EntryLevelSystemCallCreator withOperationSignatureEntryLevelSystemCall(

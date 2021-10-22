@@ -23,13 +23,15 @@ public abstract class SeffAction extends RepositoryEntity {
      * are linked in the correct order.
      *
      * @return the SEFF's body behaviour
-     * @throws IllegalStateException if internal SEFF creator is not set. This is the responsibility of
-     *                               the implementing class.
+     * @throws IllegalStateException
+     *             if internal SEFF creator is not set. This is the responsibility of the
+     *             implementing class.
      */
     public ActionSeff followedBy() throws IllegalStateException {
-        if (seff == null)
+        if (this.seff == null) {
             throw new IllegalStateException("internal SEFF creator is not set");
-        final AbstractAction action = build();
+        }
+        final AbstractAction action = this.build();
 
         this.seff.setNext(action);
         return this.seff;

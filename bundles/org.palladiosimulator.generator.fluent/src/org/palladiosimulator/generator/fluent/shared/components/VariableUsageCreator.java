@@ -38,12 +38,12 @@ public class VariableUsageCreator extends Entity {
 
     public VariableUsageCreator(final String reference, final String... innerReferences) {
         this.variableCharacterisations = new ArrayList<>();
-        withNamespaceReference(reference, innerReferences);
+        this.withNamespaceReference(reference, innerReferences);
     }
 
     public VariableUsageCreator(final String reference) {
         this.variableCharacterisations = new ArrayList<>();
-        withVariableReference(reference);
+        this.withVariableReference(reference);
     }
 
     @Override
@@ -155,7 +155,7 @@ public class VariableUsageCreator extends Entity {
             final List<String> asList = new LinkedList<>(Arrays.asList(innerReferences));
             asList.remove(asList.size() - 1);
             asList.add(0, reference);
-            this.reference = rec(variableReference, asList);
+            this.reference = this.rec(variableReference, asList);
         } else {
             final NamespaceReference namespaceReference = StoexFactory.eINSTANCE.createNamespaceReference();
             namespaceReference.setReferenceName(reference);
@@ -174,7 +174,7 @@ public class VariableUsageCreator extends Entity {
         namespaceReference.setReferenceName(string);
         namespaceReference.setInnerReference_NamespaceReference(ref);
         refs.remove(refs.size() - 1);
-        return rec(namespaceReference, refs);
+        return this.rec(namespaceReference, refs);
 
     }
 

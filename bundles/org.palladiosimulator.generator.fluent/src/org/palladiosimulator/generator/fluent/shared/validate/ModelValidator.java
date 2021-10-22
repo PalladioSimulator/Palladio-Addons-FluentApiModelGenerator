@@ -32,13 +32,13 @@ public class ModelValidator implements IModelValidator {
         case Diagnostic.OK:
             return true;
         case Diagnostic.INFO:
-            logResult(diagnostic, name, Level.INFO);
+            this.logResult(diagnostic, name, Level.INFO);
             return true;
         case Diagnostic.WARNING:
-            logResult(diagnostic, name, Level.WARNING);
+            this.logResult(diagnostic, name, Level.WARNING);
             return false;
         case Diagnostic.ERROR:
-            logResult(diagnostic, name, Level.SEVERE);
+            this.logResult(diagnostic, name, Level.SEVERE);
             return false;
         case Diagnostic.CANCEL:
             this.logger.severe("Validation was canceled");

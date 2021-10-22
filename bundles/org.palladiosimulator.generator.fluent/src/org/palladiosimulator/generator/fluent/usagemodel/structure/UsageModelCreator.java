@@ -40,7 +40,7 @@ public class UsageModelCreator extends UsageModelEntity implements IUsageModel, 
 
     @Override
     public UsageModel createUsageModelNow() {
-        final UsageModel usgModel = build();
+        final UsageModel usgModel = this.build();
         this.validator.validate(usgModel, "UsageModel");
         return usgModel;
     }

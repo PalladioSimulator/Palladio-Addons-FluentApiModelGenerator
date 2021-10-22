@@ -29,15 +29,15 @@ public class DelayActionCreator extends ActionCreator {
      * example useful,if a performance analyst wants to determine the execution time for a complete
      * scenario behaviour (instead of a single service), which needs to include user delays.
      * </p>
-     * 
+     *
      * @param timeSpecification
      *            the time specification
-     * 
+     *
      * @see org.palladiosimulator.pcm.usagemodel.Delay
      * @see org.palladiosimulator.pcm.usagemodel.AbstractUserAction
      */
     public DelayActionCreator(final String timeSpecification) {
-        addToDelayAction(timeSpecification);
+        this.addToDelayAction(timeSpecification);
     }
 
     private DelayActionCreator addToDelayAction(final String timeSpecification) {

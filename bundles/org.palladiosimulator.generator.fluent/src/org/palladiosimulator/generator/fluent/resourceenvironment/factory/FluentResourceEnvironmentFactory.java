@@ -59,12 +59,14 @@ public class FluentResourceEnvironmentFactory {
      * {@link org.palladiosimulator.pcm.resourceenvironment.ResourceContainer ResourceContainer}.
      *
      * @return the <code>ResourceContainer</code> in the making
-     * @throws IllegalStateException if newResourceEnvironment() has not been called before
+     * @throws IllegalStateException
+     *             if newResourceEnvironment() has not been called before
      * @see org.palladiosimulator.pcm.resourceenvironment.ResourceContainer
      */
     public ResourceContainerCreator newResourceContainer() throws IllegalStateException {
-        if (resourceEnvironmentCreator == null)
+        if (this.resourceEnvironmentCreator == null) {
             throw new IllegalStateException("newResourceEnvironment must have been called before");
+        }
         return new ResourceContainerCreator(this.resourceEnvironmentCreator);
     }
 
@@ -74,12 +76,14 @@ public class FluentResourceEnvironmentFactory {
      * ProcessingResourceSpecification}.
      *
      * @return the <code>ProcessingResourceSpecification</code> in the making
-     * @throws IllegalStateException if newResourceEnvironment() has not been called before
+     * @throws IllegalStateException
+     *             if newResourceEnvironment() has not been called before
      * @see org.palladiosimulator.pcm.resourceenvironment.ProcessingResourceSpecification
      */
     public ProcessingResourceSpecificationCreator newProcessingResourceSpecification() throws IllegalStateException {
-        if (resourceEnvironmentCreator == null)
+        if (this.resourceEnvironmentCreator == null) {
             throw new IllegalStateException("newResourceEnvironment must have been called before");
+        }
         return new ProcessingResourceSpecificationCreator(this.resourceEnvironmentCreator);
     }
 
@@ -89,13 +93,15 @@ public class FluentResourceEnvironmentFactory {
      * HDDProcessingResourceSpecification}.
      *
      * @return the <code>HDDProcessingResourceSpecification</code> in the making
-     * @throws IllegalStateException if newResourceEnvironment() has not been called before
+     * @throws IllegalStateException
+     *             if newResourceEnvironment() has not been called before
      * @see org.palladiosimulator.pcm.resourceenvironment.HDDProcessingResourceSpecification
      */
     public HddProcessingResourceSpecificationCreator newHddProcessingResourceSpecification()
             throws IllegalStateException {
-        if (resourceEnvironmentCreator == null)
+        if (this.resourceEnvironmentCreator == null) {
             throw new IllegalStateException("newResourceEnvironment must have been called before");
+        }
         return new HddProcessingResourceSpecificationCreator(this.resourceEnvironmentCreator);
     }
 
@@ -104,12 +110,14 @@ public class FluentResourceEnvironmentFactory {
      * LinkingResource}.
      *
      * @return the <code>LinkingResource</code> in the making
-     * @throws IllegalStateException if newResourceEnvironment() has not been called before
+     * @throws IllegalStateException
+     *             if newResourceEnvironment() has not been called before
      * @see org.palladiosimulator.pcm.resourceenvironment.LinkingResource
      */
     public LinkingResourceCreator newLinkingResource() throws IllegalStateException {
-        if (resourceEnvironmentCreator == null)
+        if (this.resourceEnvironmentCreator == null) {
             throw new IllegalStateException("newResourceEnvironment must have been called before");
+        }
         return new LinkingResourceCreator(this.resourceEnvironmentCreator);
     }
 }

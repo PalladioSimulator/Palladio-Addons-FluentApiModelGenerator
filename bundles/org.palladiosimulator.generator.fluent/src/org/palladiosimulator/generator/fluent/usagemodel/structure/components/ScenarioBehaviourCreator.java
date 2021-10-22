@@ -36,16 +36,16 @@ public class ScenarioBehaviourCreator extends UsageModelEntity {
      * (except the first and last action), thereby forming a sequence of actions.See the
      * AbstractAction documentation for why it is advantageous to model control flow in this way, as
      * the same principle is used in the RDSEFF language.Concrete user actions of the usage model
-     * are:- Branch- Loop- EntryLevelSystemCall- Delay- Start- Stop So far, ScenarioBehaviours do not
-     * include forks in the user flow (i.e., splitting the flow with an AND semantic), as it is
+     * are:- Branch- Loop- EntryLevelSystemCall- Delay- Start- Stop So far, ScenarioBehaviours do
+     * not include forks in the user flow (i.e., splitting the flow with an AND semantic), as it is
      * assumed that users always act sequentially. As there are no random variables depending on
      * other variables in the usage model, there are no equivalent actions to
      * GuardedBranchTransitions or CollectionIteratorActions
      * </p>
-     * 
+     *
      * @param usgModelCreator
      *            the usage model creator
-     * 
+     *
      * @see org.palladiosimulator.pcm.usagemodel.ScenarioBehaviour
      */
     public ScenarioBehaviourCreator(final UsageModelCreator usgModelCreator) {
@@ -85,7 +85,7 @@ public class ScenarioBehaviourCreator extends UsageModelEntity {
         IllegalArgumentException.throwIfNull(action, "The given Action must not be null");
         final AbstractUserAction usrAction = action.build();
 
-        createActionFlow(usrAction);
+        this.createActionFlow(usrAction);
         return this;
     }
 
@@ -121,14 +121,14 @@ public class ScenarioBehaviourCreator extends UsageModelEntity {
 
         AbstractUserAction current = start;
 
-        addStart(current);
+        this.addStart(current);
 
         while (current != null) {
             flow.add(current);
             before = current;
             current = current.getSuccessor();
         }
-        addStop(before);
+        this.addStop(before);
         this.actions.addAll(flow);
     }
 
@@ -150,7 +150,7 @@ public class ScenarioBehaviourCreator extends UsageModelEntity {
         }
         if (this.actions.isEmpty()) {
             // add Start and Stop Actions as this is required
-            addStartStop();
+            this.addStartStop();
         }
         scenBeh.getActions_ScenarioBehaviour()
             .addAll(this.actions);
