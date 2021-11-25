@@ -8,6 +8,7 @@ import org.palladiosimulator.generator.fluent.repository.structure.types.Resourc
 import org.palladiosimulator.pcm.reliability.FailureType;
 import org.palladiosimulator.pcm.repository.CollectionDataType;
 import org.palladiosimulator.pcm.repository.Repository;
+import org.palladiosimulator.pcm.repository.RepositoryComponent;
 
 /**
  * TODO
@@ -118,6 +119,29 @@ public interface RepoAddition {
      * @see org.palladiosimulator.pcm.repository.RepositoryComponent
      */
     RepoAddition addToRepository(Component component);
+
+    /**
+     * Adds the already built <code>component</code> to the list of components stored in the repository.
+     * <p>
+     * Components are atomic building blocks of a software architecture. There are 5 different types
+     * of components: '<em><b>BasicComponent</b></em>', '<em><b>CompositeComponent</b></em>',
+     * '<em><b>SubSystem</b></em>', '<em><b>CompleteComponentType</b></em>',
+     * '<em><b>ProvidesComponentType</b></em>'.<br>
+     * The <code>component</code> can be created and built using the
+     * org.palladiosimulator.generator.fluent.component.factory, e.g.
+     * <code>create.newBasicComponent().build()</code> etc.
+     * </p>
+     *
+     * @param component
+     * @return this repository, now containing the <code>component</code>
+     * @see org.palladiosimulator.generator.fluent.repository.factory.FluentRepositoryFactory#newBasicComponent()
+     * @see org.palladiosimulator.generator.fluent.repository.factory.FluentRepositoryFactory#newCompositeComponent()
+     * @see org.palladiosimulator.generator.fluent.repository.factory.FluentRepositoryFactory#newSubSystem()
+     * @see org.palladiosimulator.generator.fluent.repository.factory.FluentRepositoryFactory#newCompleteComponentType()
+     * @see org.palladiosimulator.generator.fluent.repository.factory.FluentRepositoryFactory#newProvidesComponentType()
+     * @see org.palladiosimulator.pcm.repository.RepositoryComponent
+     */
+    RepoAddition addToRepository(RepositoryComponent component);
 
     /**
      * Adds the <code>interfce</code> to the list of interfaces stored in the repository.
