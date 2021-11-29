@@ -405,6 +405,12 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
     }
 
     @Override
+    public RepoAddition addToRepository(final RepositoryComponent component) {
+        this.components.add(IllegalArgumentException.throwIfNull(component, "component must not be null"));
+        return this;
+    }
+
+    @Override
     protected Repository build() {
         final Repository repo = RepositoryFactory.eINSTANCE.createRepository();
         if (this.name != null) {
