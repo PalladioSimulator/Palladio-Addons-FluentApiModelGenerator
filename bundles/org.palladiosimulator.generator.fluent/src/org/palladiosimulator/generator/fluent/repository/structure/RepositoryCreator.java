@@ -487,7 +487,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             try {
                 final Primitive valueOf = Primitive.valueOf(adjustedName);
                 return this.internalPrimitives.get(valueOf);
-            } catch (final IllegalArgumentException e) {
+            } catch (final java.lang.IllegalArgumentException e) {
                 throw new NoSuchElementException(String.format("A primitive data type named '%s' was not found.", name),
                         e);
             }
