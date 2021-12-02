@@ -488,7 +488,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
                 final Primitive valueOf = Primitive.valueOf(adjustedName);
                 return this.internalPrimitives.get(valueOf);
             } catch (final IllegalArgumentException e) {
-                throw new NoSuchElementException(String.format("A primitive data type name '%s' was nou found.", name),
+                throw new NoSuchElementException(String.format("A primitive data type named '%s' was not found.", name),
                         e);
             }
         }
@@ -536,7 +536,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
         return collect.get(0);
     }
 
-    public DataType getDataType(final String name) {
+    public DataType getDataType(final String name) throws NoSuchElementException {
         IllegalArgumentException.throwIfNull(name, "name must not be null");
         final String[] split = name.split("\\.");
         if (split.length == 2) {
@@ -554,7 +554,8 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
                 "To access entities from imported repositories use the format <importedRepositoryName>.<entityName>");
     }
 
-    private DataType getDataTypeFromList(final String name, final List<DataType> dataTypes) {
+    private DataType getDataTypeFromList(final String name, final List<DataType> dataTypes)
+            throws NoSuchElementException {
         final List<DataType> collect = new ArrayList<>();
         final List<CollectionDataType> collectColl = dataTypes.stream()
             .filter(d -> d instanceof CollectionDataType)
