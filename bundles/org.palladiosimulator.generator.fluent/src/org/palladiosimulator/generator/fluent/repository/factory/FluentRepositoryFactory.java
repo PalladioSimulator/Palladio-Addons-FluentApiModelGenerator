@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.palladiosimulator.generator.fluent.exceptions.FluentApiException;
 import org.palladiosimulator.generator.fluent.exceptions.IllegalArgumentException;
+import org.palladiosimulator.generator.fluent.exceptions.NoSuchElementException;
 import org.palladiosimulator.generator.fluent.repository.api.Repo;
 import org.palladiosimulator.generator.fluent.repository.api.seff.InternalSeff;
 import org.palladiosimulator.generator.fluent.repository.api.seff.RecoverySeff;
@@ -997,7 +998,11 @@ public class FluentRepositoryFactory {
      * @see org.palladiosimulator.pcm.repository.DataType
      */
     public boolean containsDataType(final String name) {
-        return (this.repo.getDataType(name) != null) || (this.repo.getPrimitiveDataType(name) != null);
+        try {
+            return this.repo.getDataType(name) != null;
+        } catch (NoSuchElementException e) {
+            return false;
+        }
     }
 
     /**
