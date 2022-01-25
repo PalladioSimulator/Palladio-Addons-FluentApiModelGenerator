@@ -10,9 +10,8 @@
             type="InstallableUnit"
             filter="release"
             refresh="true">
-            <unit id="de.uka.ipd.sdq.identifier.feature.feature.group"
-                version="2.1.0.201611171324" />
-	        <unit id="org.palladiosimulator.commons.stoex.api" version="4.3.0.202011260029"/>
+            <unit id="de.uka.ipd.sdq.identifier.feature.feature.group" version="0.0.0" />
+	        <unit id="org.palladiosimulator.commons.stoex.api" version="0.0.0"/>
             <repository location="https://updatesite.palladio-simulator.com/palladio-core-commons/releases/latest/" />
         </location>
         <location includeAllPlatforms="false"
@@ -22,7 +21,7 @@
             type="InstallableUnit"
             filter="nightly"
             refresh="true">
-	        <unit id="org.palladiosimulator.commons.stoex.api" version="4.3.0.202011260029"/>
+	        <unit id="org.palladiosimulator.commons.stoex.api" version="0.0.0"/>
             <repository location="https://updatesite.palladio-simulator.com/palladio-core-commons/releases/latest/" />
         </location>
         <location includeAllPlatforms="false"
@@ -32,8 +31,7 @@
             type="InstallableUnit"
             filter="nightly"
             refresh="true">
-            <unit id="de.uka.ipd.sdq.identifier.feature.feature.group"
-                version="2.1.0.201611171324" />
+            <unit id="de.uka.ipd.sdq.identifier.feature.feature.group" version="0.0.0" />
             <repository location="https://updatesite.palladio-simulator.com/palladio-core-commons/nightly/" />
         </location>
         <location includeAllPlatforms="false"
@@ -43,8 +41,7 @@
             type="InstallableUnit"
             filter="release"
             refresh="true">
-            <unit id="org.palladiosimulator.pcm.feature.feature.group"
-                version="4.1.0.201709282114" />
+            <unit id="org.palladiosimulator.pcm.feature.feature.group" version="0.0.0" />
             <repository location="https://updatesite.palladio-simulator.com/palladio-core-pcm/releases/latest/" />
         </location>
         <location includeAllPlatforms="false"
@@ -54,8 +51,7 @@
             type="InstallableUnit"
             filter="nightly"
             refresh="true">
-            <unit id="org.palladiosimulator.pcm.feature.feature.group"
-                version="4.1.0.201709282114" />
+            <unit id="org.palladiosimulator.pcm.feature.feature.group" version="0.0.0" />
             <repository location="https://updatesite.palladio-simulator.com/palladio-core-pcm/nightly/" />
         </location>
     </locations>
