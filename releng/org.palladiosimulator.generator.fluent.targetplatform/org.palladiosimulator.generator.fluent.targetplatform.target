@@ -11,7 +11,7 @@
             filter="release"
             refresh="true">
             <unit id="de.uka.ipd.sdq.identifier.feature.feature.group" version="0.0.0" />
-	        <unit id="org.palladiosimulator.commons.stoex.api" version="0.0.0"/>
+	        <unit id="org.palladiosimulator.commons.stoex.serialising.feature.feature.group" version="0.0.0"/>
             <repository location="https://updatesite.palladio-simulator.com/palladio-core-commons/releases/latest/" />
         </location>
         <location includeAllPlatforms="false"
@@ -21,7 +21,8 @@
             type="InstallableUnit"
             filter="nightly"
             refresh="true">
-	        <unit id="org.palladiosimulator.commons.stoex.api" version="0.0.0"/>
+			<unit id="de.uka.ipd.sdq.identifier.feature.feature.group" version="0.0.0" />
+	        <unit id="org.palladiosimulator.commons.stoex.serialising.feature.feature.group" version="0.0.0"/>
             <repository location="https://updatesite.palladio-simulator.com/palladio-core-commons/releases/latest/" />
         </location>
         <location includeAllPlatforms="false"
