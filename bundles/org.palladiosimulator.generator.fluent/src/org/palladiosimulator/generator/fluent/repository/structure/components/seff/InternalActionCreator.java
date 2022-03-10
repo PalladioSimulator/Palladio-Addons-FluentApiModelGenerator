@@ -87,9 +87,13 @@ public class InternalActionCreator extends GeneralAction {
     @Override
     protected InternalAction build() {
         final InternalAction action = SeffFactory.eINSTANCE.createInternalAction();
+        
+        if (name != null) {
+            action.setEntityName(name);
+        }
+        
         action.getInternalFailureOccurrenceDescriptions__InternalAction()
             .addAll(this.failures);
-
         action.getResourceDemand_Action()
             .addAll(this.demands);
         action.getInfrastructureCall__Action()
