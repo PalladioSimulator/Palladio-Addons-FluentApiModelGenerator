@@ -87,6 +87,9 @@ public class EmitEventActionCreator extends SeffAction {
     @Override
     protected EmitEventAction build() {
         final EmitEventAction action = SeffFactory.eINSTANCE.createEmitEventAction();
+        if (name != null) {
+            action.setEntityName(name);
+        }
         if (this.eventType != null) {
             action.setEventType__EmitEventAction(this.eventType);
         }
