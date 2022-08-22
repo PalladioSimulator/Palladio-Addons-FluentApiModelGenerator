@@ -33,6 +33,7 @@ pom.xml.tag
 pom.xml.versionsBackup
 release.properties
 target/
+.project
 
 # Package Files
 *.ear
