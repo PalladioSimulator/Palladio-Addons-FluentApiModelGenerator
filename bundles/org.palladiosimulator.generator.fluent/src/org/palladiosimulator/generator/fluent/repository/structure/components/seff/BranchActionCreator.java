@@ -74,8 +74,7 @@ public class BranchActionCreator extends GeneralAction {
         }
 
         final ResourceDemandingSEFF build = branchActions.buildRDSeff();
-        if ((build.getDescribedService__SEFF() == null) && (build.getSeffTypeID() == null)
-                && build.getResourceDemandingInternalBehaviours()
+        if ((build.getDescribedService__SEFF() == null) && build.getResourceDemandingInternalBehaviours()
                     .isEmpty()) {
             final ResourceDemandingBehaviour branchBody = branchActions.buildBehaviour();
             branch.setBranchBehaviour_BranchTransition(branchBody);
