@@ -104,6 +104,10 @@ public class LoopActionCreator extends GeneralAction {
     @Override
     protected LoopAction build() {
         final LoopAction action = SeffFactory.eINSTANCE.createLoopAction();
+
+        if (name != null) {
+            action.setEntityName(name);
+        }
         action.setIterationCount_LoopAction(this.iterationCount);
 
         if (this.loopBody != null) {

@@ -197,6 +197,9 @@ public class BranchActionCreator extends GeneralAction {
     @Override
     protected BranchAction build() {
         final BranchAction action = SeffFactory.eINSTANCE.createBranchAction();
+        if (name != null) {
+            action.setEntityName(name);
+        }
         action.getBranches_Branch()
             .addAll(this.branches);
 
