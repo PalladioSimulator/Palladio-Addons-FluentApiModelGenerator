@@ -88,8 +88,8 @@ public class InternalActionCreator extends GeneralAction {
     protected InternalAction build() {
         final InternalAction action = SeffFactory.eINSTANCE.createInternalAction();
         
-        if (name != null) {
-            action.setEntityName(name);
+        if (this.name != null) {
+            action.setEntityName(this.name);
         }
         
         action.getInternalFailureOccurrenceDescriptions__InternalAction()

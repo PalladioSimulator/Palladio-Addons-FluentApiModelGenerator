@@ -75,8 +75,8 @@ public class ReleaseActionCreator extends GeneralAction {
     @Override
     protected ReleaseAction build() {
         final ReleaseAction action = SeffFactory.eINSTANCE.createReleaseAction();
-        if (name != null) {
-            action.setEntityName(name);
+        if (this.name != null) {
+            action.setEntityName(this.name);
         }
         if (this.passiveResource != null) {
             action.setPassiveResource_ReleaseAction(this.passiveResource);

@@ -31,7 +31,6 @@ import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.parameter.VariableCharacterisationType;
 import org.palladiosimulator.pcm.repository.OperationProvidedRole;
 import org.palladiosimulator.pcm.repository.OperationSignature;
-import org.palladiosimulator.pcm.repository.ProvidedRole;
 import org.palladiosimulator.pcm.system.System;
 
 /**
@@ -648,22 +647,13 @@ public class FluentUsageModelFactory {
      * @see org.palladiosimulator.pcm.repository.OperationProvidedRole
      */
     private OperationProvidedRole fetchOffOperationProvidedRoleByName(final System system, final String name) {
-
-        OperationProvidedRole role = null;
-
-        final ProvidedRole r = system.getProvidedRoles_InterfaceProvidingEntity()
+        return system.getProvidedRoles_InterfaceProvidingEntity()
             .stream()
-            .filter(x -> x.getEntityName()
-                .equals(name))
+            .filter(OperationProvidedRole.class::isInstance)
+            .map(OperationProvidedRole.class::cast)
+            .filter(x -> x.getEntityName().equals(name))
             .findFirst()
-            .orElseThrow(() -> new IllegalArgumentException("No ProvidedRole with name " + name + " found."));
-
-        if (r instanceof OperationProvidedRole) {
-            role = (OperationProvidedRole) r;
-        }
-
-        IllegalArgumentException.throwIfNull(role, "No OperationProvidedRole with name " + name + " found.");
-        return role;
+            .orElseThrow(() -> new IllegalArgumentException("No OperationProvidedRole with name " + name + " found."));
     }
 
     /**
