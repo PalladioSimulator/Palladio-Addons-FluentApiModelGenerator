@@ -1,5 +1,7 @@
 # Palladio-Addons-FluentApiModelGenerator
-A fluid interface for easy and programmatic creation of PCM model instances.
+> A fluid interface for easy and programmatic creation of PCM model instances.
+
+[![Build Pipeline](https://github.com/PalladioSimulator/Palladio-Addons-FluentApiModelGenerator/actions/workflows/build.yml/badge.svg)](https://github.com/PalladioSimulator/Palladio-Addons-FluentApiModelGenerator/actions/workflows/build.yml) [![Quality Assurance](https://github.com/PalladioSimulator/Palladio-Addons-FluentApiModelGenerator/actions/workflows/quality.yml/badge.svg)](https://github.com/PalladioSimulator/Palladio-Addons-FluentApiModelGenerator/actions/workflows/quality.yml)
 
 If you are familiar with the background of PCM and fluent interfaces, jump directly to [Motivation](#motivation) or [How to use the Fluent API Model Generator](#how-to-use-the-fluent-api-model-generator).
 
