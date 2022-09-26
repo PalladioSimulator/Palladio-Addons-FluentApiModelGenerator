@@ -77,7 +77,7 @@ public class SetVariableActionCreator extends GeneralAction {
         final SetVariableAction action = SeffFactory.eINSTANCE.createSetVariableAction();
 
         if (this.name != null) {
-            action.getEntityName();
+            action.setEntityName(this.name);
         }
 
         action.getLocalVariableUsages_SetVariableAction()
