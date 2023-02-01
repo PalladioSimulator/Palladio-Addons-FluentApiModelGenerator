@@ -4,7 +4,7 @@ Bundle-Name: FluentApiModelGeneratorTests
 Bundle-SymbolicName: org.palladiosimulator.generator.fluent.test;singleton:=true
 Bundle-Version: 5.1.0.qualifier
 Automatic-Module-Name: com.palladiosimulator.generator.fluent.test
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Require-Bundle: org.palladiosimulator.pcm,
  org.palladiosimulator.pcm.resources,
  org.palladiosimulator.commons.stoex,
