@@ -372,7 +372,7 @@ public class BasicComponentCreator extends Component {
      */
     public BasicComponentCreator withServiceEffectSpecification(final ServiceEffectSpecification seff) {
         IllegalArgumentException.throwIfNull(seff, "seff must not be null");
-        this.seffs.add(sEfF);
+        this.seffs.add(seff);
         return this;
     }
     
