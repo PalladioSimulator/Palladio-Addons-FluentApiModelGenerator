@@ -353,11 +353,29 @@ public class BasicComponentCreator extends Component {
      */
     public BasicComponentCreator withServiceEffectSpecification(final Seff seff) {
         IllegalArgumentException.throwIfNull(seff, "seff must not be null");
-        final ServiceEffectSpecification sEfF = seff.build();
-        this.seffs.add(sEfF);
-        return this;
+        return withServiceEffectSpecification(seff.build());
     }
 
+    /**
+     * Adds a service effect specification (SEFF) to the basic component.
+     * <p>
+     * Service Effect Specification Models the effect of invoking a specific service of a basic
+     * component. Therefore, it references a signature from an Interface, for which the component
+     * takes a ProvidedRole, to identify the described service.
+     * </p>
+     *
+     * @param seff
+     * @return the basic component in the making
+     * @see org.palladiosimulator.generator.fluent.repository.factory.FluentRepositoryFactory#newSeff()
+     * @see org.palladiosimulator.pcm.seff.ServiceEffectSpecification
+     * @see org.palladiosimulator.pcm.seff.ResourceDemandingSEFF
+     */
+    public BasicComponentCreator withServiceEffectSpecification(final ServiceEffectSpecification seff) {
+        IllegalArgumentException.throwIfNull(seff, "seff must not be null");
+        this.seffs.add(seff);
+        return this;
+    }
+    
     /**
      * Adds a {@link org.palladiosimulator.pcm.parameter.VariableUsage VariableUsage} to the basic
      * component.
