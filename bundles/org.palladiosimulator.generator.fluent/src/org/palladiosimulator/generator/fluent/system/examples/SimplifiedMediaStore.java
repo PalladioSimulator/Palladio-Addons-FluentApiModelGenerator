@@ -68,6 +68,6 @@ public class SimplifiedMediaStore {
                 .withOperationProvidedRole("ProvidesGUIInterface"))
             .createSystemNow();
 
-        ModelSaver.saveSystem(system, "./simplifiedMediaStore", true);
+        ModelSaver.saveSystem(system, "./","simplifiedMediaStore");
     }
 }

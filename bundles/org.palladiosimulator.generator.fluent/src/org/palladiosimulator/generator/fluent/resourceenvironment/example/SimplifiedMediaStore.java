@@ -39,6 +39,6 @@ public class SimplifiedMediaStore {
                     .withMttr(20)
                     .withNumberOfReplicas(1)))
             .createResourceEnvironmentNow();
-        ModelSaver.saveResourceEnvironment(resourceEnvironment, "./simplifiedMediaStore", true);
+        ModelSaver.saveResourceEnvironment(resourceEnvironment, "./","simplifiedMediaStore");
     }
 }
