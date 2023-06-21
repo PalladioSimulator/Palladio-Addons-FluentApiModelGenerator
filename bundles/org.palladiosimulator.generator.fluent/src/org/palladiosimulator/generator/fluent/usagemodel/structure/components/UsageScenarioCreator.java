@@ -53,8 +53,7 @@ public class UsageScenarioCreator extends UsageModelEntity {
     }
 
     private void addToUsageScenario(final WorkloadCreator workload) {
-        if (workload instanceof OpenWorkloadCreator) {
-            final OpenWorkloadCreator o = (OpenWorkloadCreator) workload;
+        if (workload instanceof final OpenWorkloadCreator o) {
             this.workload = o.build();
         } else {
             // then ClosedWorkloadCrator

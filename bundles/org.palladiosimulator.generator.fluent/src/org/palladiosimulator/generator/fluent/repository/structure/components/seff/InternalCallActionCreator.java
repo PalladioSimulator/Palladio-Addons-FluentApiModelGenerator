@@ -95,8 +95,8 @@ public class InternalCallActionCreator extends GeneralAction {
     protected InternalCallAction build() {
         final InternalCallAction action = SeffFactory.eINSTANCE.createInternalCallAction();
 
-        if (name != null) {
-            action.setEntityName(name);
+        if (this.name != null) {
+            action.setEntityName(this.name);
         }
 
         if (this.internalSeff != null) {

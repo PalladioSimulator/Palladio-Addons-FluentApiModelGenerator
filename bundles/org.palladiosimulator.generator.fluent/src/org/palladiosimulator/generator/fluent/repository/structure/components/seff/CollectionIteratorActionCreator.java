@@ -90,8 +90,8 @@ public class CollectionIteratorActionCreator extends GeneralAction {
     protected CollectionIteratorAction build() {
         final CollectionIteratorAction action = SeffFactory.eINSTANCE.createCollectionIteratorAction();
 
-        if (name != null) {
-            action.setEntityName(name);
+        if (this.name != null) {
+            action.setEntityName(this.name);
         }
 
         if (this.parameter != null) {

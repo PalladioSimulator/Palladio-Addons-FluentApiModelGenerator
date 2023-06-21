@@ -8,6 +8,7 @@
 # Eclipse
 .loadpath
 .metadata
+.polyglot.META-INF
 .recommenders
 .settings/
 .worksheet

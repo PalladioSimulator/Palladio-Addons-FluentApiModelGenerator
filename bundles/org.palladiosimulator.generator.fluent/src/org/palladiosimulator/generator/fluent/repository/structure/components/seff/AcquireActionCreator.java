@@ -100,8 +100,8 @@ public class AcquireActionCreator extends GeneralAction {
     protected AcquireAction build() {
         final AcquireAction action = SeffFactory.eINSTANCE.createAcquireAction();
 
-        if (name != null) {
-            action.setEntityName(name);
+        if (this.name != null) {
+            action.setEntityName(this.name);
         }
         if (this.passiveResource != null) {
             action.setPassiveresource_AcquireAction(this.passiveResource);

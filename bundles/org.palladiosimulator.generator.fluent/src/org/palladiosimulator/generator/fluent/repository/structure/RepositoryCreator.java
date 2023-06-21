@@ -213,8 +213,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
 
         // ResourceTypes
         for (final ResourceType resourceType : resourceTypes.getAvailableResourceTypes_ResourceRepository()) {
-            if (resourceType instanceof ProcessingResourceType) {
-                final ProcessingResourceType p = (ProcessingResourceType) resourceType;
+            if (resourceType instanceof final ProcessingResourceType p) {
                 switch (p.getEntityName()) {
                 case "CPU":
                     this.internalProcessingResources.put(ProcessingResource.CPU, p);
@@ -1509,14 +1508,11 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             }
 
             for (final Interface i : r.getInterfaces__Repository()) {
-                if (i instanceof OperationInterface) {
-                    final OperationInterface e = (OperationInterface) i;
+                if (i instanceof final OperationInterface e) {
                     collect.addAll(e.getSignatures__OperationInterface());
-                } else if (i instanceof InfrastructureInterface) {
-                    final InfrastructureInterface e = (InfrastructureInterface) i;
+                } else if (i instanceof final InfrastructureInterface e) {
                     collect.addAll(e.getInfrastructureSignatures__InfrastructureInterface());
-                } else if (i instanceof EventGroup) {
-                    final EventGroup e = (EventGroup) i;
+                } else if (i instanceof final EventGroup e) {
                     collect.addAll(e.getEventTypes__EventGroup());
                 }
             }
@@ -1556,8 +1552,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             }
 
             for (final Interface i : r.getInterfaces__Repository()) {
-                if (i instanceof OperationInterface) {
-                    final OperationInterface e = (OperationInterface) i;
+                if (i instanceof final OperationInterface e) {
                     collect.addAll(e.getSignatures__OperationInterface());
                 }
             }
@@ -1601,8 +1596,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             }
 
             for (final Interface i : r.getInterfaces__Repository()) {
-                if (i instanceof InfrastructureInterface) {
-                    final InfrastructureInterface e = (InfrastructureInterface) i;
+                if (i instanceof final InfrastructureInterface e) {
                     collect.addAll(e.getInfrastructureSignatures__InfrastructureInterface());
                 }
             }
@@ -1646,8 +1640,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             }
 
             for (final Interface i : r.getInterfaces__Repository()) {
-                if (i instanceof EventGroup) {
-                    final EventGroup e = (EventGroup) i;
+                if (i instanceof final EventGroup e) {
                     collect.addAll(e.getEventTypes__EventGroup());
                 }
             }
@@ -1690,8 +1683,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             }
 
             for (final RepositoryComponent c : r.getComponents__Repository()) {
-                if (c instanceof ComposedProvidingRequiringEntity) {
-                    final ComposedProvidingRequiringEntity cc = (ComposedProvidingRequiringEntity) c;
+                if (c instanceof final ComposedProvidingRequiringEntity cc) {
                     collect.addAll(cc.getAssemblyContexts__ComposedStructure());
                 }
             }
@@ -1732,8 +1724,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             }
 
             for (final RepositoryComponent c : r.getComponents__Repository()) {
-                if (c instanceof ComposedProvidingRequiringEntity) {
-                    final ComposedProvidingRequiringEntity cc = (ComposedProvidingRequiringEntity) c;
+                if (c instanceof final ComposedProvidingRequiringEntity cc) {
                     collect.addAll(cc.getEventChannel__ComposedStructure());
                 }
             }
@@ -1772,18 +1763,15 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
                 throw new FluentApiException("Repository '" + split[0] + "' could not be found");
             }
             for (final Interface i : r.getInterfaces__Repository()) {
-                if (i instanceof OperationInterface) {
-                    final OperationInterface e = (OperationInterface) i;
+                if (i instanceof final OperationInterface e) {
                     for (final OperationSignature s : e.getSignatures__OperationInterface()) {
                         collect.addAll(s.getParameters__OperationSignature());
                     }
-                } else if (i instanceof InfrastructureInterface) {
-                    final InfrastructureInterface e = (InfrastructureInterface) i;
+                } else if (i instanceof final InfrastructureInterface e) {
                     for (final InfrastructureSignature s : e.getInfrastructureSignatures__InfrastructureInterface()) {
                         collect.addAll(s.getParameters__InfrastructureSignature());
                     }
-                } else if (i instanceof EventGroup) {
-                    final EventGroup e = (EventGroup) i;
+                } else if (i instanceof final EventGroup e) {
                     for (final EventType s : e.getEventTypes__EventGroup()) {
                         collect.add(s.getParameter__EventType());
                     }
@@ -1855,8 +1843,7 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
             }
 
             for (final RepositoryComponent c : r.getComponents__Repository()) {
-                if (c instanceof BasicComponent) {
-                    final BasicComponent cc = (BasicComponent) c;
+                if (c instanceof final BasicComponent cc) {
                     collect.addAll(cc.getPassiveResource_BasicComponent());
                 }
             }
@@ -1898,12 +1885,10 @@ public class RepositoryCreator extends RepositoryEntity implements Repo, RepoAdd
 
             final Set<RecoveryActionBehaviour> set = new HashSet<>();
             for (final RepositoryComponent c : r.getComponents__Repository()) {
-                if (c instanceof BasicComponent) {
-                    final BasicComponent cc = (BasicComponent) c;
+                if (c instanceof final BasicComponent cc) {
                     final EList<ServiceEffectSpecification> seffs = cc.getServiceEffectSpecifications__BasicComponent();
                     for (final ServiceEffectSpecification s : seffs) {
-                        if (s instanceof ResourceDemandingSEFF) {
-                            final ResourceDemandingSEFF rseff = (ResourceDemandingSEFF) s;
+                        if (s instanceof final ResourceDemandingSEFF rseff) {
                             final List<RecoveryAction> recoveryActions = rseff.getSteps_Behaviour()
                                 .stream()
                                 .filter(step -> step instanceof RecoveryAction)

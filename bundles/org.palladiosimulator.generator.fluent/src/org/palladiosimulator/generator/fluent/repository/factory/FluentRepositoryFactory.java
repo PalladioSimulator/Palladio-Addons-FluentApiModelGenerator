@@ -1000,7 +1000,7 @@ public class FluentRepositoryFactory {
     public boolean containsDataType(final String name) {
         try {
             return this.repo.getDataType(name) != null;
-        } catch (NoSuchElementException e) {
+        } catch (final NoSuchElementException e) {
             return false;
         }
     }
