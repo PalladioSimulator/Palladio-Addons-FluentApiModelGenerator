@@ -82,8 +82,7 @@ public class ModelSaver {
      */
     public static void saveResourceEnvironment(final ResourceEnvironment resourceEnvironment, final String path,
             final boolean printToConsole) {
-        ModelSaver.save(resourceEnvironment, path, "org.palladiosimulator.generator.fluent.resourceenvironment",
-                printToConsole);
+        ModelSaver.save(resourceEnvironment, path, "resourceenvironment", printToConsole);
     }
 
     /**
@@ -97,7 +96,7 @@ public class ModelSaver {
      * @see org.palladiosimulator.pcm.allocation.Allocation
      */
     public static void saveAllocation(final Allocation allocation, final String path, final boolean printToConsole) {
-        ModelSaver.save(allocation, path, "org.palladiosimulator.generator.fluent.allocation", printToConsole);
+        ModelSaver.save(allocation, path, "allocation", printToConsole);
     }
 
     /**
