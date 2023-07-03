@@ -48,7 +48,7 @@ public class SimplifiedMediaStore {
                 .provides(create.fetchOfOperationInterface("GUIInterface"), "ProvidesGUIInterface"))
             .createRepositoryNow();
 
-        ModelSaver.saveRepository(repo, "./simplifiedMediaStore", true);
+        ModelSaver.saveRepository(repo, "./","simplifiedMediaStore");
     }
 
 }

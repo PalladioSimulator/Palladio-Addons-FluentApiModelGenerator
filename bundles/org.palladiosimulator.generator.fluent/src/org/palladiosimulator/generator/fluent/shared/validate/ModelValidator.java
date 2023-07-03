@@ -28,25 +28,29 @@ public class ModelValidator implements IModelValidator {
     @Override
     public boolean validate(final EObject eObject, final String name) {
         final Diagnostic diagnostic = Diagnostician.INSTANCE.validate(eObject);
-        switch (diagnostic.getSeverity()) {
-        case Diagnostic.OK:
-            return true;
-        case Diagnostic.INFO:
-            this.logResult(diagnostic, name, Level.INFO);
-            return true;
-        case Diagnostic.WARNING:
-            this.logResult(diagnostic, name, Level.WARNING);
-            return false;
-        case Diagnostic.ERROR:
-            this.logResult(diagnostic, name, Level.SEVERE);
-            return false;
-        case Diagnostic.CANCEL:
-            this.logger.severe("Validation was canceled");
-            return false;
-        default:
-            this.logger.severe("Validation returned unexpected result");
-            return false;
-        }
+        return switch (diagnostic.getSeverity()) {
+            case Diagnostic.OK -> true;
+            case Diagnostic.INFO -> {
+                this.logResult(diagnostic, name, Level.INFO);
+                yield true;
+            }
+            case Diagnostic.WARNING -> {
+                this.logResult(diagnostic, name, Level.WARNING);
+                yield false;
+            }
+            case Diagnostic.ERROR -> {
+                this.logResult(diagnostic, name, Level.SEVERE);
+                yield false;
+            }
+            case Diagnostic.CANCEL -> {
+                this.logger.severe("Validation was canceled");
+                yield false;
+            }
+            default -> {
+                this.logger.severe("Validation returned unexpected result");
+                yield false;
+            }
+        };
     }
 
     private void logResult(final Diagnostic diagnostic, final String name, final Level logLevel) {

@@ -112,8 +112,8 @@ public class ForkActionCreator extends GeneralAction {
     @Override
     protected ForkAction build() {
         final ForkAction action = SeffFactory.eINSTANCE.createForkAction();
-        if (name != null) {
-            action.setEntityName(name);
+        if (this.name != null) {
+            action.setEntityName(this.name);
         }
         action.getAsynchronousForkedBehaviours_ForkAction()
             .addAll(this.asynchronousForkedBehaviours);

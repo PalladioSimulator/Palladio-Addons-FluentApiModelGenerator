@@ -1,1 +1,0 @@
-package org.palladiosimulator.generator.fluent.repository.structure.components.seff;

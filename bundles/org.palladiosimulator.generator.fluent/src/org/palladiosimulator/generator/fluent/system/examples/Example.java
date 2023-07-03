@@ -32,7 +32,7 @@ public class Example {
                 .withProvidingContext("basic component context 1")
                 .withOperationProvidedRole("basic component provides interface"))
             .createSystemNow();
-        ModelSaver.saveSystem(system, "./invalid", true);
+        ModelSaver.saveSystem(system, "./","invalid");
     }
 
     private static void basicExample() {
@@ -139,6 +139,6 @@ public class Example {
                 .withSourceAssemblyContext("basic component context 2")
                 .withSourceRole("emits event"))
             .createSystemNow();
-        ModelSaver.saveSystem(system, "./basicExample", true);
+        ModelSaver.saveSystem(system, "./","basicExample");
     }
 }

@@ -11,5 +11,5 @@ Require-Bundle: org.palladiosimulator.pcm,
  de.uka.ipd.sdq.stoex.analyser,
  org.palladiosimulator.generator.fluent,
  org.junit,
- org.junit.jupiter.api
+ junit-jupiter-api
 Bundle-Vendor: palladiosimulator.org

@@ -72,8 +72,8 @@ public class StopActionCreator extends GeneralAction implements StopSeff {
     @Override
     protected StopAction build() {
         final StopAction action = SeffFactory.eINSTANCE.createStopAction();
-        if (name != null) {
-            action.setEntityName(name);
+        if (this.name != null) {
+            action.setEntityName(this.name);
         }
         action.getInfrastructureCall__Action()
             .addAll(this.infrastructureCalls);

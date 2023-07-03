@@ -1,12 +1,13 @@
 package org.palladiosimulator.generator.fluent.repository.factory;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.palladiosimulator.pcm.repository.Repository;
 import org.palladiosimulator.generator.fluent.repository.structure.internals.Primitive;
 import org.palladiosimulator.pcm.repository.CompositeDataType;
+import org.palladiosimulator.pcm.repository.Repository;
 
 /**
  * TODO
@@ -19,13 +20,13 @@ class FluentRepositoryFactoryTest {
 
     @BeforeEach
     public void init() {
-        factory = new FluentRepositoryFactory();
+        this.factory = new FluentRepositoryFactory();
     }
 
     @Test
     public void testCreateRepositoryWithName() {
         final String name = "test";
-        assertEquals(name, factory.newRepository().withName(name).createRepositoryNow().getEntityName());
+        assertEquals(name, this.factory.newRepository().withName(name).createRepositoryNow().getEntityName());
     }
 
     @Test
@@ -34,8 +35,8 @@ class FluentRepositoryFactoryTest {
         final String dataTypeName = "Person";
 
         // create
-        final Repository repositoryUnderTest = factory.newRepository().withName(repositoryName)
-                .addToRepository(factory.newCompositeDataType().withName(dataTypeName)
+        final Repository repositoryUnderTest = this.factory.newRepository().withName(repositoryName)
+                .addToRepository(this.factory.newCompositeDataType().withName(dataTypeName)
                         .withInnerDeclaration("name", Primitive.STRING).withInnerDeclaration("age", Primitive.INTEGER))
                 .createRepositoryNow();
 

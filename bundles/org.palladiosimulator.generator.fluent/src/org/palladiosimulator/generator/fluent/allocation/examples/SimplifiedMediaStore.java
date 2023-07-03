@@ -41,6 +41,6 @@ public class SimplifiedMediaStore {
                 .withAssemblyContext("AudioDB Component")
                 .withResourceContainer("resource container"))
             .createAllocationNow();
-        ModelSaver.saveAllocation(allocation, "./simplifiedMediaStore", true);
+        ModelSaver.saveAllocation(allocation, "./","simplifiedMediaStore");
     }
 }
