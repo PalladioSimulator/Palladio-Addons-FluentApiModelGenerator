@@ -137,8 +137,8 @@ public class ExternalCallActionCreator extends SeffAction {
     @Override
     protected ExternalCallAction build() {
         final ExternalCallAction action = SeffFactory.eINSTANCE.createExternalCallAction();
-        if (name != null) {
-            action.setEntityName(name);
+        if (this.name != null) {
+            action.setEntityName(this.name);
         }
         if (this.retryCount != null) {
             action.setRetryCount(this.retryCount);

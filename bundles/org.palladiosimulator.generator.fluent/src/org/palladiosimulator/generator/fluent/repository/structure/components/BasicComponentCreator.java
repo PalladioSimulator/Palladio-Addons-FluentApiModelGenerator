@@ -353,7 +353,7 @@ public class BasicComponentCreator extends Component {
      */
     public BasicComponentCreator withServiceEffectSpecification(final Seff seff) {
         IllegalArgumentException.throwIfNull(seff, "seff must not be null");
-        return withServiceEffectSpecification(seff.build());
+        return this.withServiceEffectSpecification(seff.build());
     }
 
     /**
@@ -375,7 +375,7 @@ public class BasicComponentCreator extends Component {
         this.seffs.add(seff);
         return this;
     }
-    
+
     /**
      * Adds a {@link org.palladiosimulator.pcm.parameter.VariableUsage VariableUsage} to the basic
      * component.
