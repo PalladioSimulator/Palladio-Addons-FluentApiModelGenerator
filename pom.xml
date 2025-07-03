@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.palladiosimulator</groupId>
         <artifactId>eclipse-parent-updatesite</artifactId>
-        <version>0.8.9</version>
+        <version>0.9.0</version>
     </parent>
     <groupId>org.palladiosimulator.generator.fluent</groupId>
     <artifactId>parent</artifactId>
@@ -23,7 +23,7 @@
         <module>features</module>
         <module>releng</module>
         <module>tests</module>
-        <!--<module>products</module>-->
+        
     </modules>
 
 </project>
