@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: FluentApiModelGenerator
 Bundle-SymbolicName: org.palladiosimulator.generator.fluent;singleton:=true
-Bundle-Version: 5.2.2
+Bundle-Version: 6.0.0.qualifier
 Automatic-Module-Name: org.palladiosimulator.generator.fluent
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Require-Bundle: org.palladiosimulator.pcm;visibility:=reexport,
