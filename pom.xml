@@ -8,6 +8,7 @@
         <groupId>org.palladiosimulator</groupId>
         <artifactId>eclipse-parent-updatesite</artifactId>
         <version>0.10.1</version>
+        <relativePath/>
     </parent>
     <groupId>org.palladiosimulator.generator.fluent</groupId>
     <artifactId>parent</artifactId>
