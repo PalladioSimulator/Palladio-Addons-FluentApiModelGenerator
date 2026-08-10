@@ -4,7 +4,7 @@ Bundle-Name: FluentApiModelGenerator
 Bundle-SymbolicName: org.palladiosimulator.generator.fluent;singleton:=true
 Bundle-Version: 6.0.0.qualifier
 Automatic-Module-Name: org.palladiosimulator.generator.fluent
-Bundle-RequiredExecutionEnvironment: JavaSE-17
+Bundle-RequiredExecutionEnvironment: JavaSE-21
 Require-Bundle: org.palladiosimulator.pcm;visibility:=reexport,
  org.palladiosimulator.pcm.resources;visibility:=reexport,
  org.palladiosimulator.commons.stoex;visibility:=reexport,
